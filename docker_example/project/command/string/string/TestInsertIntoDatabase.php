@@ -5,7 +5,7 @@ namespace command\String\string;
 use command\CommandFather;
 use ToolClass\File\File as FileTool;
 use ToolClass\Json\Json;
-use ToolClass\Strings\string\ChineseString;
+use ToolClass\Strings\string\ChineseStringTool;
 
 class TestInsertIntoDatabase extends CommandFather
 {
@@ -31,7 +31,7 @@ class TestInsertIntoDatabase extends CommandFather
             $a['word'] = $v;
 //            var_dump($a);die();
 
-            if ( !ChineseString::insert( $a ) ) {
+            if ( !ChineseStringTool::insert( $a ) ) {
                 var_dump( $v );
                 $this->outInfo( 'insert data error' );
                 die();

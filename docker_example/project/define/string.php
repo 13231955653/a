@@ -5,6 +5,12 @@ define( 'CHINESE_MAX_GET_NUMBER', 20000 );
 define(
     'SERVER_ERROR_INFO',
     [
+        'ioc error' => 'ioc error',
+        'sql safe error 2' => 'sql safe error 2',
+        'sql safe error 1' => 'sql safe error 1',
+        'depend container error' => 'depend container error',
+//        'depend container error 1' => 'depend container error 1',
+        'depend container error 2' => 'depend container error 2',
         'del simple chinese error' => 'del simple chinese error',
         'hset error' => 'hset error',
         'set traditional chinese font cache error 4' => 'set traditional chinese font cache error 4',

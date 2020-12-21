@@ -3,6 +3,7 @@ namespace ToolClass\Strings\string;
 
 use model\publics\string\JianFanFont as JianFanFontModel;
 use ToolClass\Database\Mysql as MysqlTool;
+use ToolClass\Depend\DependContainer;
 use ToolClass\Log\Exception;
 use ToolClass\Model\Mysql;
 use ToolClass\Server\Server;
@@ -14,7 +15,7 @@ require_once __ROOT_DIR__
              . DIRECTORY_SEPARATOR
              . 'string.php';
 
-class ChineseStringModelAction
+class ChineseStringModelTool
 {
     public static function update ($aWhere = [], $aUpdateData = [])
     {
@@ -82,35 +83,41 @@ class ChineseStringModelAction
             return FALSE;
         }
 
-        $oMysql = Mysql::table( JianFanFontModel::table() );
+        $oDatabaseDepend = new DependContainer('database');
+        $oDatabaseDepend = $oDatabaseDepend->selectClassDepend();
+
+        $oDatabaseDepend->table(JianFanFontModel::table() );
 
         if (isset($aWhere[MysqlTool::daYu()])) {
-            $oMysql->whereDaYu($aWhere[MysqlTool::daYu()]);
+            $oDatabaseDepend->whereDaYu($aWhere[MysqlTool::daYu()]);
             unset($aWhere[MysqlTool::daYu()]);
         }
-        $oMysql->where( $aWhere );
+        $oDatabaseDepend->where( $aWhere );
         $aWhere = NULL;
         unset( $aWhere );
 
-        $oMysql->select($aSelect);
+        $oDatabaseDepend->select($aSelect);
 
         if ($aOrder) {
             foreach ($aOrder as $k => $v) {
-                $oMysql->orderBy($k, $v);
+                $oDatabaseDepend->orderBy($k, $v);
             }
         }
 
         if (is_numeric($iGetNum)) {
-            $res = $iGetNum > 1 ? $oMysql->getNum($iGetNum) : $oMysql->first();
+            $res = $iGetNum > 1 ? $oDatabaseDepend->getNum($iGetNum) : $oDatabaseDepend->first();
         } else {
             switch ($iGetNum) {
                 case 'all' :
-                    $res = $oMysql->all();
+                    $res = $oDatabaseDepend->all();
                     break;
                 case 'count' :
-                    $res = $oMysql->count();
+                    $res = $oDatabaseDepend->count();
                     break;
                 default:
+                    $sSearchWhat = $iGetNum = $oDatabaseDepend = NULL;
+                    unset($sSearchWhat, $iGetNum, $oDatabaseDepend);
+
                     Exception::throwException(
                         Server::response(
                             Server::errorStatus(),
@@ -122,8 +129,8 @@ class ChineseStringModelAction
             }
         }
 
-        $sSearchWhat = $iGetNum = $oMysql = NULL;
-        unset($sSearchWhat, $iGetNum, $oMysql);
+        $sSearchWhat = $iGetNum = $oDatabaseDepend = NULL;
+        unset($sSearchWhat, $iGetNum, $oDatabaseDepend);
 
         return $res ? $res : FALSE;
     }

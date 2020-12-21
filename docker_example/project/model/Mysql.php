@@ -8,7 +8,7 @@ use model\MyPdo;
 use ToolClass\Database\Mysql as Mysqltool;
 
 use ToolClass\Log\ErrorInformAdminThrow;
-use ToolClass\Safe\Sql;
+use ToolClass\Safe\SqlSafe;
 
 require_once __ROOT_DIR__
              . DIRECTORY_SEPARATOR
@@ -212,7 +212,7 @@ class Mysql
                 continue;
             }
 
-            $aData[ Sql::filterSqlArg( $k ) ] = Sql::filterSqlArg( $v );
+            $aData[ SqlSafe::filterSqlArg( $k ) ] = SqlSafe::filterSqlArg( $v );
         }
         $sSql .= mb_substr( $sString1, 0, mb_strlen( $sString1 ) - 1 )
                  . ')'

@@ -6,7 +6,7 @@ use ToolClass\Cache\Cache;
 use ToolClass\Json\Json;
 use ToolClass\Log\Exception;
 use ToolClass\Server\Server;
-use ToolClass\Strings\string\ChineseStringModelAction;
+use ToolClass\Strings\string\ChineseStringModelTool;
 use model\publics\string\JianFanFont as JianFanFontModel;
 
 class ChineseStringCache
@@ -83,7 +83,7 @@ class ChineseStringCache
     {
         Server::setNeverTimeout();
 
-        $aChinese = ChineseStringModelAction::allNormalChinese();
+        $aChinese = ChineseStringModelTool::allNormalChinese();
         if ( !$aChinese ) {
             $aChinese = null;
             unset($aChinese);

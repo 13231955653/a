@@ -1,53 +1,57 @@
 <?php
 
-namespace ToolClass\Model;
+namespace ToolClass\Depend\Database;
 
-//use model\Mysql as MysqlModel;
+//use model\home\Menu;
+//use ToolClass\Database\Mysql as MysqlTool;
+//use ToolClass\Safe\Sql;
+//
+//use ToolClass\Log\Exception;
+//use ToolClass\Server\Server;
+//
+//use ToolClass\Regular\RegularVerify;
 
-use model\home\Menu;
-//use model\publics\Lang;
-use ToolClass\Database\Mysql as MysqlTool;
-use ToolClass\Safe\Sql;
+use ToolClass\Depend\DependContainer;
 
-use ToolClass\Log\Exception;
-use ToolClass\Server\Server;
-
-use ToolClass\Regular\RegularVerify;
-
-//use model\admin\Admin;
-
-class Mysql
+class DatabaseDepend
 {
-    public $sNowTable        = '';
-    public $sTable           = '';
-    public $sWhere           = '';
-    public $aWhereConditions = [];
-    public $sSelect          = '';
-    public $sQuery           = '';
-    public $bWriteSql        = FALSE;
-    public $bQueue           = FALSE;
-    public $sFindInSet       = '';
-    public $sUpdate          = '';
-    public $aUpdateData      = [];
-    public $sGroupBy         = '';
-    public $sCount           = '';
-    public $aOrder           = [];
+    private $sNowTable        = '';
+    private $sTable           = '';
+    private $sWhere           = '';
+    private $aWhereConditions = [];
+    private $sSelect          = '';
+    private $sQuery           = '';
+    private $bWriteSql        = FALSE;
+    private $bQueue           = FALSE;
+    private $sFindInSet       = '';
+    private $sUpdate          = '';
+    private $aUpdateData      = [];
+    private $sGroupBy         = '';
+    private $sCount           = '';
+    private $aOrder           = [];
+    private $oSqlSafe = false;
 
 //    public $sDisposeIncrbyDecrbySql           = '';
 
+    /**
+     * DatabaseDepend constructor.
+     *
+     * 设置 $sNowTable $sTable
+     * 初始化所有变量
+     */
     public
-    function __construct ($sTable = '')
+    function __construct ()
     {
-        if (!$sTable) {
-            return false;
-        }
-
         $this->init();
-
-        $this->sNowTable = Sql::filterSqlArg($sTable);
-        $this->sTable = '`' . $this->sNowTable . '`';
     }
 
+    /**
+     * User: white
+     * Date: 2020/12/21
+     * Time: 11:40
+     *
+     * 初始化变量
+     */
     private
     function init ()
     {
@@ -64,17 +68,47 @@ class Mysql
         $this->bQueue           = FALSE;
         $this->sCount           = '';
         $this->aOrder           = [];
-//        $this->sDisposeIncrbyDecrbySql = '';
+        $this->oSqlSafe           = FALSE;
     }
 
-    public static
-    function table ($sTable = '')
+    /**
+     * User: white
+     * Date: 2020/12/21
+     * Time: 11:55
+     *
+     * sql safe object
+     */
+    private function sqlSafeObj ()
+    {
+        if (!$this->oSqlSafe) {
+            $this->oSqlSafe = new DependContainer('sqlSafe');
+            $this->oSqlSafe = $this->oSqlSafe->selectClassDepend();
+        }
+    }
+
+    /**
+     * User: white
+     * Date: 2020/12/21
+     * Time: 11:38
+     *
+     * 设置table
+     *
+     * params string $sTable
+     *
+     *
+     * 初始化 table 变量
+     */
+    public
+    function table (string $sTable = '')
     {
         if (!$sTable) {
             return false;
         }
 
-        return new self($sTable);
+        $this->sqlSafeObj();
+
+        $this->sNowTable = $this->oSqlSafe->sqlSafe($sTable);
+        $this->sTable = '`' . $this->sNowTable . '`';
     }
 
     public function group ($aGroupBy = [])
@@ -159,12 +193,14 @@ class Mysql
             return;
         }
 
+        $this->sqlSafeObj();
+
         $this->sWhere = $this->sWhere ? $this->sWhere . 'AND' : '';
         $sAnd         = ' AND ';
         $this->sWhere .= '(';
         $bWhere = false;
         foreach ( $aWhere as $k => $v ) {
-            $this->aWhereConditions[ $k ] = Sql::filterSqlArg( $v );
+            $this->aWhereConditions[ $k ] = $this->oSqlSafe->sqlSafe( $v );
 
             $this->sWhere .= '`' . $k . '`' . '=:' . $k . $sAnd;
             $bWhere = TRUE;
@@ -242,9 +278,11 @@ class Mysql
         $aData = []
     ) {
         if ($aData) {
+            $this->sqlSafeObj();
+
             if (is_array($aData)) {
                 foreach ($aData as $k => $v) {
-                    $aData[$k] = Sql::filterSqlArg( $v );
+                    $aData[$k] = $this->oSqlSafe->sqlSafe( $v );
                 }
 
                 $aData = '`' . implode(
@@ -252,7 +290,7 @@ class Mysql
                         $aData
                     ) . '`';
             } else {
-                $aData = '`' . Sql::filterSqlArg( $aData ) . '`';
+                $aData = '`' . $this->oSqlSafe->sqlSafe( $aData ) . '`';
             }
         }
 

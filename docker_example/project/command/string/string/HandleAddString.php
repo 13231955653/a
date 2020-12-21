@@ -3,7 +3,7 @@
 namespace command\String\string;
 
 use command\CommandFather;
-use ToolClass\Strings\string\ChineseString;
+use ToolClass\Strings\string\ChineseStringTool;
 use model\publics\string\JianFanFont as JianFanFontModel;
 
 class HandleAddString extends CommandFather
@@ -24,7 +24,7 @@ class HandleAddString extends CommandFather
 
         $aString = [];
         $aString[JianFanFontModel::word()] = $aArg[0];
-        if ( !ChineseString::insert( $aString ) ) {
+        if ( !ChineseStringTool::insert( $aString ) ) {
             var_dump( $aString );
             $this->outInfo( 'insert data error' );
             die();

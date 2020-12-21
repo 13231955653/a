@@ -10,7 +10,7 @@ use command\CommandFather;
 use ToolClass\File\File as FileTool;
 use ToolClass\Json\Json;
 use ToolClass\Server\Server;
-use ToolClass\Strings\string\ChineseString;
+use ToolClass\Strings\string\ChineseStringTool;
 
 class JianFanZiIntoDatabase extends CommandFather
 {
@@ -43,7 +43,7 @@ class JianFanZiIntoDatabase extends CommandFather
                 continue;
             }
 
-            if ( !ChineseString::insert( $v ) ) {
+            if ( !ChineseStringTool::insert( $v ) ) {
                 var_dump( $v );
                 $this->outInfo( 'insert data error' );
                 die();

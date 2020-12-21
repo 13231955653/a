@@ -4,8 +4,18 @@ namespace ToolClass\Json;
 
 class Json
 {
+    /**
+     * User: white
+     * Date: 2020/12/21
+     * Time: 12:03
+     *
+     * params string $sString
+     * params bool $bArray is array or no
+     *
+     * return bool is or no json
+     */
     public static
-    function analyJson ($sJsonData, $bArray = true)
+    function analyJson (string $sJsonData, $bArray = true)
     {
         if (is_array($sJsonData)) {
             return FALSE;

@@ -15,7 +15,7 @@ use ToolClass\Strings\Strings;
 //use ToolClass\Cache\Cache;
 //use ToolClass\Strings\string\ChineseStringModelAction;
 
-class ChineseString
+class ChineseStringTool
 {
     public static function insert ($aChineseString = [])
     {
@@ -47,7 +47,7 @@ class ChineseString
         $aFontData[ $sWordFeild ] = trim($aChineseString[$sWordFeild]);
         $aFontData[ $sWordUrlencodeFeild ] = JianFanFontModel::urlencode($aFontData[ $sWordFeild ]);
         $aFontData[ $sWordUrlencodeMd5Feild ] = JianFanFontModel::wordUrlencodeMd5Encode($aFontData[ $sWordFeild ]);
-        if ( ChineseStringModelAction::checkExistSmaeMd5( $aFontData[ $sWordUrlencodeMd5Feild ] ) ) {
+        if ( ChineseStringModelTool::checkExistSmaeMd5( $aFontData[ $sWordUrlencodeMd5Feild ] ) ) {
 //            var_dump('word exist !!!!');
             $aData = null;
             unset($aData);
@@ -127,7 +127,7 @@ class ChineseString
         $aFontData[JianFanFontModel::whoAdd()] = Server::getNowUser();
         $aFontData[JianFanFontModel::addTime()] = Time::nowRunTime();
 
-        $res = ChineseStringModelAction::insert($aFontData);
+        $res = ChineseStringModelTool::insert( $aFontData);
         $aFontData = null;
         unset($aFontData);
         if (!$res) {
@@ -193,24 +193,14 @@ class ChineseString
         return $sString;
     }
 
-    public static function updateChineseInfo ($aData = [])
+    public static function updateChineseInfo (array $aData = [])
     {
-        $sWord = JianFanFontModel::word();
-        if (!$aData || !isset($aData[$sWord]) || !$aData[$sWord]) {
+        if (!is_array($aData) || !$aData) {
             return FALSE;
         }
 
-        $aWhere = [];
-        $aWhere[JianFanFontModel::wordUrlencodeMd5()] = JianFanFontModel::wordUrlencodeMd5Encode($aData[$sWord]);
-
-        $sPrikey = JianFanFontModel::primary();
-        $aSelect = [];
-        $aSelect = [$sPrikey];
-
-        $res = ChineseStringModelAction::getJianFanZiFromDatabase($aWhere, 1, $aSelect);
-        $aWhere = $aSelect = null;
-        unset($aWhere, $aSelect);
-        if (!$res) {
+        $sWord = JianFanFontModel::word();
+        if (!isset($aData[$sWord]) || !$aData[$sWord]) {
             return FALSE;
         }
 
@@ -235,7 +225,6 @@ class ChineseString
 
         $sPinYinWithVoice = JianFanFontModel::pinyinWithVoice();
         $sPinYin = JianFanFontModel::pinyin();
-        //        var_dump($aData);
         if (isset($aData[$sPinYinWithVoice]) && $aData[$sPinYinWithVoice]) {
             $aUpdateData[$sPinYinWithVoice] = $aData[$sPinYinWithVoice];
             $aUpdateData[$sPinYin] = PinYinShengDiao::deleteShengDiao($aUpdateData[$sPinYinWithVoice]);
@@ -266,35 +255,23 @@ class ChineseString
 
             $bExecHook = TRUE;
         }
-        $aData = null;
-        unset($aData);
 
         if (!$bExecHook) {
+            $aData = $aUpdateData = null;
+            unset($aData, $aUpdateData);
             return FALSE;
         }
 
         $aUpdateData[JianFanFontModel::whoUpdate()] = Server::getNowUser();
         $aUpdateData[JianFanFontModel::updateTime()] = Time::nowRunTime();
-        //        var_dump($aUpdateData);die();
 
         $aWhere = [];
-        $aWhere[$sPrikey] = $res->{$sPrikey};
-        $res = ChineseStringModelAction::update($aWhere, $aUpdateData);
-        $aWhere = $aUpdateData = null;
-        unset($aWhere, $aUpdateData);
-        if (!$res) {
-            return FALSE;
-        }
+        $aWhere[JianFanFontModel::wordUrlencodeMd5()] = JianFanFontModel::wordUrlencodeMd5Encode($aData[$sWord]);
+        $res = ChineseStringModelTool::update( $aWhere, $aUpdateData);
+        $aWhere = $aUpdateData = $aData = null;
+        unset($aWhere, $aUpdateData, $aData);
 
-        Hook::addHook('string\ChineseFont\ChineseFont', 'afterUpdateChineseFont');
-        //            更新文字拼音 cache hook
-        Hook::listen(
-            Hook::chineseFont(),
-            Hook::afterUpdateChineseFont(),
-            $res
-        );
-
-        return TRUE;
+        return $res ? TRUE : FALSE;
     }
 
     public static function searchString ($sSearchWhat = '', $iGetNum = 1)
@@ -356,7 +333,7 @@ class ChineseString
             return FALSE;
         }
 
-        return ChineseStringModelAction::getJianFanZiFromDatabase($aWhere, $iGetNum);
+        return ChineseStringModelTool::getJianFanZiFromDatabase( $aWhere, $iGetNum);
     }
 
 //    private static function getJianFanZiFromDatabase ($aWhere = [], $iGetNum = 1, $aSelect = '*')
