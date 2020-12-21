@@ -1,0 +1,15 @@
+html{
+    width:100vw;
+    height: 100%;
+}
+body{
+    width:100vw;
+    height: 100%;
+    /*overflow: scroll;*/
+    overflow: hidden;
+    background: var(--body_background_color_1);
+}
+:root{
+    --notice_padding: 1rem;
+    --notice_radius: 0.5rem;
+}

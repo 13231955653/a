@@ -1,0 +1,5 @@
+{
+    "require": {
+        "yurunsoft/chinese-util": "^2.0"
+    }
+}

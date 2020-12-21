@@ -1,0 +1,5 @@
+安装sqlite
+
+apt-get install sqlite3
+
+ apt install php7.4-sqlite3

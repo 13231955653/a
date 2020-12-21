@@ -1,0 +1,13 @@
+服务器
+
+firewall-cmd --zone=public --remove-port=9999/tcp --permanent
+firewall-cmd --permanent --zone=public --add-port=9999/tcp
+firewall-cmd --remove-port=19000/tcp --permanent
+firewall-cmd --add-port=19000/tcp --permanent
+firewall-cmd --remove-port=19001/tcp --permanent
+firewall-cmd --add-port=19001/tcp --permanent
+firewall-cmd --remove-port=19002/tcp --permanent
+firewall-cmd --add-port=19002/tcp --permanent
+firewall-cmd --remove-port=19003/tcp --permanent
+firewall-cmd --add-port=19003/tcp --permanent
+firewall-cmd --reload

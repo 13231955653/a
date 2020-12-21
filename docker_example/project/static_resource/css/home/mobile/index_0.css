@@ -1,0 +1,524 @@
+#notice_father
+{
+    width         : calc(100% - 2px);
+    background    : red;
+    position      : absolute;
+    top           : calc(110vh);
+    left          : 0px;
+    opacity       : 0;
+    border-radius : var(--notice_radius);
+    overflow      : hidden;
+    border        : 1px solid var(--border_color_1);
+}
+
+#notice_info
+{
+    width       : calc(100% - var(--notice_padding) * 2);
+    line-height : 2rem;
+    padding     : var(--notice_padding);
+    background  : pink;
+    text-align  : center;
+    color       : var(--font_color_2);
+}
+
+#notice_button
+{
+    width       : 100%;
+    height      : 3rem;
+    line-height : 3rem;
+    background  : green;
+    text-align  : center;
+    color       : var(--font_color_1);
+}
+
+#shade
+{
+    width      : 100%;
+    height     : 100%;
+    background : blue;
+    position   : absolute;
+    top        : 0px;
+    left       : 0px;
+    opacity    : 0;
+    display    : none;
+}
+
+#data_body
+{
+    width      : 400%;
+    height     : 100%;
+    position   : relative;
+    top        : 0px;
+    left       : 0px;
+    overflow   : hidden;
+    background : green;
+}
+
+.data_body
+{
+    width    : 100vw;
+    height   : 100%;
+    position : absolute;
+    top      : 0px;
+    left     : 0px;
+}
+
+#index_header
+{
+    width       : 100%;
+    height      : var(--index_header_height);
+    line-height : var(--index_header_height);
+    background  : var(--index_header_background_color_1);
+    position    : absolute;
+    top         : 0px;
+    left        : 0px;
+    overflow    : hidden;
+}
+
+#index_header ul
+{
+    height   : 100%;
+    position : absolute;
+    top      : 0px;
+    left     : 0px;
+}
+
+#index_header ul > li
+{
+    height        : 100%;
+    float         : left;
+    padding-left  : 1rem;
+    padding-right : 1rem;
+}
+
+.now_index_header_actions
+{
+    background : var(--now_index_header_actions);
+}
+
+#index_body
+{
+    width      : 100%;
+    height     : var(--index_body_height);
+    background : var(--index_body_background_color_1);
+    position   : absolute;
+    top        : var(--index_header_height);
+    left       : 0px;
+    overflow   : hidden;
+}
+
+#index_body ul
+{
+    width    : 100%;
+    height   : 100%;
+    position : absolute;
+    top      : 0px;
+    left     : 0px;
+}
+
+#index_body ul > li
+{
+    width  : 100vw;
+    height : 100%;
+    float  : left;
+}
+
+#index_body ul > li > div
+{
+    width  : 100%;
+    height : 100%;
+}
+
+#index_footer
+{
+    width       : 100%;
+    height      : var(--index_footer_height);
+    line-height : var(--index_footer_height);
+    background  : var(--index_footer_background_color_1);
+    position    : absolute;
+    top         : calc(var(--index_body_height) + var(--index_header_height));
+    left        : 0px;
+}
+
+#index_footer ul
+{
+    width    : 100%;
+    height   : 100%;
+    position : absolute;
+    top      : 0px;
+    left     : 0px;
+}
+
+#index_footer ul > li
+{
+    width      : calc((100% - 3px) / 4);
+    height     : 100%;
+    float      : left;
+    text-align : center;
+}
+
+#index_footer ul > li > img
+{
+    height : 100%;
+    margin : 0 auto;
+}
+
+.index_footer_split_tag, .chat_footer_split_tag, .more_footer_split_tag, .set_footer_split_tag
+{
+    width      : 1px;
+    height     : 50%;
+    margin-top : calc(var(--index_footer_height) / 2 / 2);
+    float      : left;
+    background : var(--index_footer_split_tag_background_color_1);
+}
+
+.now_index_footer_click
+{
+    background : var(--now_index_footer_click_background_color_1);
+}
+
+#index_data_body
+{
+    left       : 0px;
+    background : var(--index_data_body_background_color_1);
+}
+
+#chat_data_body
+{
+    left       : 100vw;
+    background : var(--chat_data_body_background_color_1);
+}
+
+#more_data_body
+{
+    left       : 200vw;
+    background : var(--chat_data_body_background_color_1);
+}
+
+#set_data_body
+{
+    left       : 300vw;
+    background : var(--chat_data_body_background_color_1);
+}
+
+/*.now_chat_header_actions{*/
+/*    background: var(--now_chat_header_actions);*/
+/*}*/
+#chat_body
+{
+    width      : 100%;
+    height     : var(--chat_body_height);
+    background : var(--chat_body_background_color_1);
+    position   : absolute;
+    top        : 0px;
+    left       : 0px;
+    overflow   : hidden;
+}
+
+#chat_body ul
+{
+    width    : 300%;
+    height   : 100%;
+    position : absolute;
+    top      : 0px;
+    left     : 0px;
+}
+
+#chat_body ul > li
+{
+    width  : 100vw;
+    height : 100%;
+    float  : left;
+}
+
+#chat_body ul > li > div
+{
+    width  : 100%;
+    height : 100%;
+}
+
+.chat_header
+{
+    width       : 100%;
+    height      : var(--chat_header_height);
+    line-height : var(--chat_header_height);
+    background  : var(--chat_header_background_color_1);
+    /*position: absolute;*/
+    /*top: 0px;*/
+    /*left: 0px;*/
+    overflow    : hidden;
+}
+
+.chat_body_data
+{
+    width       : 100%;
+    height      : var(--chat_body_data_height);
+    line-height : var(--chat_body_data_height);
+    background  : var(--chat_body_data_background_color_1);
+    /*position: absolute;*/
+    /*top: 0px;*/
+    /*left: 0px;*/
+    overflow    : hidden;
+}
+
+/*#chat_header ul{*/
+/*    width: 100%;*/
+/*    height: 100%;*/
+/*    position: absolute;*/
+/*    top: 0px;*/
+/*    left: 0px;*/
+/*}*/
+/*#chat_header ul>li{*/
+/*    width: 100%;*/
+/*    height: 100%;*/
+/*    float: left;*/
+/*    text-align: center;*/
+/*}*/
+#chat_footer
+{
+    width       : 100%;
+    height      : var(--chat_footer_height);
+    line-height : var(--chat_footer_height);
+    background  : var(--chat_footer_background_color_1);
+    position    : absolute;
+    top         : var(--chat_body_height);
+    left        : 0px;
+}
+
+#chat_footer ul
+{
+    width    : 100%;
+    height   : 100%;
+    position : absolute;
+    top      : 0px;
+    left     : 0px;
+}
+
+#chat_footer ul > li
+{
+    width      : calc((100% - 3px) / 4);
+    height     : 100%;
+    float      : left;
+    text-align : center;
+}
+
+#chat_footer ul > li > img
+{
+    height : 100%;
+    margin : 0 auto;
+}
+
+#more_body
+{
+    width      : 100%;
+    height     : var(--more_body_height);
+    background : var(--more_body_background_color_1);
+    position   : absolute;
+    top        : 0px;
+    left       : 0px;
+    overflow   : hidden;
+}
+
+#more_body ul
+{
+    width    : 300%;
+    height   : 100%;
+    position : absolute;
+    top      : 0px;
+    left     : 0px;
+}
+
+#more_body ul > li
+{
+    width  : 100vw;
+    height : 100%;
+    float  : left;
+}
+
+#more_body ul > li > div
+{
+    width  : 100%;
+    height : 100%;
+}
+
+.more_header
+{
+    width       : 100%;
+    height      : var(--more_header_height);
+    line-height : var(--more_header_height);
+    background  : var(--more_header_background_color_1);
+    /*position: absolute;*/
+    /*top: 0px;*/
+    /*left: 0px;*/
+    overflow    : hidden;
+}
+
+.more_body_data
+{
+    width       : 100%;
+    height      : var(--more_body_data_height);
+    line-height : var(--more_body_data_height);
+    background  : var(--more_body_data_background_color_1);
+    /*position: absolute;*/
+    /*top: 0px;*/
+    /*left: 0px;*/
+    overflow    : hidden;
+}
+
+#more_footer
+{
+    width       : 100%;
+    height      : var(--more_footer_height);
+    line-height : var(--more_footer_height);
+    background  : var(--more_footer_background_color_1);
+    position    : absolute;
+    top         : var(--more_body_height);
+    left        : 0px;
+}
+
+#more_footer ul
+{
+    width    : 100%;
+    height   : 100%;
+    position : absolute;
+    top      : 0px;
+    left     : 0px;
+}
+
+#more_footer ul > li
+{
+    width      : calc((100% - 3px) / 4);
+    height     : 100%;
+    float      : left;
+    text-align : center;
+}
+
+#more_footer ul > li > img
+{
+    height : 100%;
+    margin : 0 auto;
+}
+
+#set_body_more_set
+{
+    width      : 100%;
+    height     : 100%;
+    background : var(--set_body_more_set_color_1);
+    position   : absolute;
+    top        : 0px;
+    left       : 120vw;
+    overflow   : hidden;
+}
+
+#set_change_langvage
+{
+    width      : 100%;
+    height     : 100%;
+    background : var(--set_change_langvage_color_1);
+}
+
+#set_body
+{
+    width      : 100%;
+    height     : var(--set_body_height);
+    background : var(--set_body_background_color_1);
+    /*position: absolute;*/
+    /*top: 0px;*/
+    /*left: 0px;*/
+    overflow   : hidden;
+}
+
+#set_body ul
+{
+    width      : 100%;
+    height     : 100%;
+    /*position: absolute;*/
+    /*top: 0px;*/
+    /*left: 0px;*/
+    overflow-x : hidden;
+    overflow-y : scroll;
+}
+
+/*#set_body ul>li{*/
+/*    width: 100vw;*/
+/*    height: 100%;*/
+/*    float: left;*/
+/*}*/
+/*#set_body ul>li>div{*/
+/*    width: 100%;*/
+/*    height: 100%;*/
+/*}*/
+/*.set_body_data{*/
+/*    width: calc(100% - 1rem);*/
+/*    margin: 0 auto;*/
+/*    height: var(--set_body_data_height);*/
+/*    line-height: var(--set_body_data_height);*/
+/*    background: var(--set_body_data_background_color_1);*/
+/*    !*position: absolute;*!*/
+/*    !*top: 0px;*!*/
+/*    !*left: 0px;*!*/
+/*    overflow: hidden;*/
+/*}*/
+.set_body_data_li
+{
+    width         : calc(100% - 1rem);
+    height        : var(--set_body_data_li_height);
+    line-height   : var(--set_header_height);
+    background    : var(--set_body_data_li_color_1);
+    margin        : 0 auto;
+    margin-bottom : 0.5rem;
+    text-indent   : 0.5rem;
+    font-size     : 0.8rem;
+}
+
+.set_header
+{
+    width       : 100%;
+    background  : var(--set_header_background_color_1);
+    overflow    : hidden;
+    text-align  : center;
+    position    : absolute;
+    text-indent : 0;
+    font-size   : 1.2rem;
+    top         : 0px;
+    left        : 0px;
+}
+
+.set_header span
+{
+    color : var(--set_header_span_color_1);
+}
+
+#set_footer
+{
+    width       : 100%;
+    height      : var(--set_footer_height);
+    line-height : var(--set_footer_height);
+    background  : var(--set_footer_background_color_1);
+    position    : absolute;
+    top         : var(--set_body_height);
+    left        : 0px;
+}
+
+#set_footer ul
+{
+    width    : 100%;
+    height   : 100%;
+    position : absolute;
+    top      : 0px;
+    left     : 0px;
+}
+
+#set_footer ul > li
+{
+    width      : calc((100% - 3px) / 4);
+    height     : 100%;
+    float      : left;
+    text-align : center;
+}
+
+#set_footer ul > li > img
+{
+    height : 100%;
+    margin : 0 auto;
+}

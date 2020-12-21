@@ -1,0 +1,16 @@
+在宿主机中安装Keepalived
+yum install keepalived
+
+
+keepalived.conf_zhuji
+
+
+
+vi /etc/sysctl.conf
+#文件中添加net.ipv4.ip_forward=1这个配置
+systemctl restart network
+
+
+service keepalived start
+service keepalived status
+service keepalived stop

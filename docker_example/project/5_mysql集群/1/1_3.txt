@@ -1,0 +1,12 @@
+安装Keepalived
+docker exec -it h1 bash
+apt-get update
+apt-get install keepalived
+
+
+Keepalived的配置文件是/etc/keepalived/keepalived.conf
+
+
+service keepalived start
+
+

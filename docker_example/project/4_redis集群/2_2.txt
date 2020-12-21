@@ -1,0 +1,55 @@
+创建一个文件redis_cluster.tmpl
+
+mkdir redis_group
+
+cd redis_group
+
+
+for PORT in `seq 6380 6385`; do \
+rm -rf ${PORT}; \
+done
+
+
+for PORT in `seq 6380 6385`; do \
+docker rm -f redis_${PORT}; \
+done
+
+
+for PORT in `seq 6380 6385`; do \
+  mkdir -p ./${PORT}/conf \
+  && PORT=${PORT} envsubst < ./redis-cluster.tmpl > ./${PORT}/conf/redis.conf \
+  && mkdir -p ./${PORT}/data; \
+done
+
+for port in `seq 6380 6385`; do \
+  docker run -d -ti \
+  --privileged=true -v /usr/local/nginx/redis_group/${port}/conf/redis.conf:/usr/local/etc/redis/redis.conf \
+  --privileged=true -v /usr/local/nginx/redis_group/${port}/data:/data \
+  --restart always --name redis_${port} --net host \
+  --sysctl net.core.somaxconn=1024 redis:5.0.4  redis-server /usr/local/etc/redis/redis.conf; \
+done
+
+
+
+
+
+docker exec -it redis_6380 bash
+redis-cli --cluster create 192.168.125.128:6380 192.168.125.128:6381 192.168.125.128:6382 192.168.125.128:6383 192.168.125.128:6384 192.168.125.128:6385 --cluster-replicas 1
+
+redis-cli -c -p PORT
+
+info replication
+
+
+宿主主机对外开放ip
+##################
+for PORT in `seq 1 8`; do \
+firewall-cmd --zone=public --add-PORT=${PORT}/tcp --permanent
+done
+#重新载入
+firewall-cmd --reload
+
+redis集群失效
+redis-cli --cluster check 192.168.125.26:8107
+redis-cli --cluster fix 192.168.125.26:8107
+

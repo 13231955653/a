@@ -1,0 +1,6 @@
+docker pull nginx:latest
+
+
+docker run -it  -p 3315:3315  --name=mysql-balancing-1 --network=mysql-group-net --ip 172.25.0.10 nginx  bash
+docker run -it  -p 3316:3316  --name=mysql-balancing-2 --network=mysql-group-net --ip 172.25.0.11 nginx  bash
+

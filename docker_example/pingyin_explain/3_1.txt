@@ -1,0 +1,18 @@
+apt install redis
+
+vim /etc/supervisor/conf.d/redis.conf
+[program:redis]
+command=service redis-server start
+autostart=true
+autorestart=true
+user=root
+
+
+
+
+ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" < /dev/null 2> /dev/null
+
+
+
+pecl install redis
+

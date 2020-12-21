@@ -1,0 +1,50 @@
+command.php command_list command list
+
+定时任务,不需要经常执行，但要执行,一天一次也可
+command.php file_statistics_ingo  统计文件信息 写入 redis
+
+command.php spider_zhong_guan_cun_xiao_hua_classify_spider   中关村文字笑话链接抓取
+
+command.php cheng_yu_database_to_json 成语写入文件
+command.php word_database_insert_json_file 词语写入文件
+command.php jian_fan_zi_database_into_json_file 简繁字写入文件
+
+
+不需要处理
+command.php  cheng_yu_jie_long 自动跑成语接龙
+command.php  word_jie_long 自动跑词语接龙
+
+command.php cheng_yu_insert_database 成语写入数据库
+command.php word_insert_database 词语写入数据库
+command.php jian_fan_zi_json_into_database 简繁字写入数据库
+
+command.php handmade_cheng_yu 手动添加成语 参数 成语数组或字符串
+command.php handmade_word 手动添加词语 参数 词语数组或字符串
+command.php handle_add_string 手动添加字符串 参数 需要添加的字符串 仅添加中文字
+
+command.php replenish_cheng_yu 需要添加的成语列表
+command.php replenlish_word_show 需要添加的词语列表
+
+command.php dispose_string 查找缺失内容的中文 noOld/不存在繁体字 noStrokes/不存在笔画
+noPinYin/不存在拼音noRadicals/不存在偏旁 noExplain/不存在说明 noMore/不存在更多说明
+command.php replenish_chinese 补全中文字信息 参数1中文字 参数2繁体 参数3笔画 参数4拼音带声调 参数5偏旁 参数6说明 参数7更多说明
+
+定时处理
+command.php spider_zhong_guan_cun_zai_xian_xiao_hua_ku   中关村笑话抓取
+
+command.php spider_statistics_insert_curl_data_total 统计各个蜘蛛抓取数据总数
+
+command.php string_make_unique_string  生成唯一字符串
+
+守护进程
+command.php queue_spider  spider 配置队列
+command.php queue_zhong_guan_cun_xiao_hua_spider  中关村笑话 curl 信息队列
+command.php queue_spider_curl_data 插入curl数据队列
+
+command.php queue_image_lists  更新图片引用使用量队列
+
+command.php cheng_yu_queue 更新成语队列
+command.php word_queue 更新词语队列
+
+command.php replenish_cheng_yu_queue 更新缺失的成语队列
+command.php replenlish_word_queue 更新缺失的词语队列

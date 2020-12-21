@@ -1,0 +1,33 @@
+html{
+    width:100%;
+    height: 100%;
+}
+body{
+    width:100%;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+    touch-action: none;
+}
+:root {
+    --margin_default: 0.5rem;
+    --pubuliu_1_line_num: 3;
+    --notice_padding: 1rem;
+    --notice_radius: 0.5rem;
+    --index_header_height:3rem;
+    --index_footer_height:3rem;
+    --index_body_height:calc(100% - var(--index_header_height) - var(--index_footer_height));
+    --chat_header_height:3rem;
+    --chat_footer_height:3rem;
+    --chat_body_height:calc(100% - var(--chat_footer_height));
+    --chat_body_data_height:calc(100% - var(--chat_header_height));
+    --more_header_height:3rem;
+    --more_footer_height:3rem;
+    --more_body_height:calc(100% - var(--more_footer_height));
+    --more_body_data_height:calc(100% - var(--more_header_height));
+    --set_header_height:3rem;
+    --set_footer_height:3rem;
+    --set_body_height:calc(100% - var(--set_footer_height));
+    --set_body_data_height:calc(100% - var(--set_header_height));
+    --set_body_data_li_height:3rem;
+}

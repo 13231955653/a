@@ -1,0 +1,10 @@
+mkdir /usr/local/nginx/pingyin  /usr/local/nginx/pingyin/html
+
+
+mkdir /usr/local/nginx/pingyin/conf.d
+
+
+docker network create --subnet=172.30.0.0/16 pingyin
+
+
+docker run -d -p 10021:10021 --name pingyin -v /usr/local/nginx/pingyin/html:/usr/share/nginx/html  -v /usr/local/nginx/pingyin/nginx.conf:/etc/nginx/nginx.conf  --restart always  --net pingyin nginx

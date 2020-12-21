@@ -1,0 +1,43 @@
+vrrp_instance VI_1 {
+    state MASTER
+    #这里是宿主机的网卡，可以通过ip a查看当前自己电脑上用的网卡名是哪个
+    interface ens33
+    virtual_router_id 100
+    priority 100
+    advert_int 1
+    authentication {
+        auth_type PASS
+        auth_pass Ou891007
+    }
+    virtual_ipaddress {
+        #这里是指定的一个宿主机上的虚拟ip，一定要和宿主机网卡在同一个网段，
+        #我的宿主机网卡ip是192.168.63.144，所以指定虚拟ip是160
+        192.168.112.160
+    }
+}
+
+#接受监听数据来源的端口，网页入口使用
+virtual_server 192.168.112.160 8888 {
+    delay_loop 3
+    lb_algo rr
+    lb_kind NAT
+    persistence_timeout 50
+    protocol TCP
+    #把接受到的数据转发给docker服务的网段及端口，由于是发给docker服务，所以和docker服务数据要一致
+    real_server 172.25.0.201 8888 {
+        weight 1
+    }
+}
+
+#接受数据库数据端口，宿主机数据库端口是3306，所以这里也要和宿主机数据接受端口一致
+virtual_server 192.168.112.160 3306 {
+    delay_loop 3
+    lb_algo rr
+    lb_kind NAT
+    persistence_timeout 50
+    protocol TCP
+    #同理转发数据库给服务的端口和ip要求和docker服务中的数据一致
+    real_server 172.25.0.201 3306 {
+        weight 1
+    }
+}

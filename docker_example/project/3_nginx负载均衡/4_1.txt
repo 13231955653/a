@@ -1,0 +1,20 @@
+配置php
+开机启动
+apt-get install supervisor
+vim /etc/supervisor/conf.d/php-fpm.conf
+[program:php-fpm]
+command=service php7.4-fpm start
+autostart=true
+autorestart=true
+user=root
+
+
+
+supervisorctl status
+unix:///var/run/supervisor.sock no such file
+unix:///var/run/supervisor.sock refused connection
+
+supervisord -c /etc/supervisor/supervisord.conf
+
+
+docker exec -it project-slove-10013 /usr/bin/supervisord -c /etc/supervisor/supervisord.conf

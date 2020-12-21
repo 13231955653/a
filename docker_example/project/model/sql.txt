@@ -1,0 +1,3 @@
+
+
+SELECT`word`,`id`,`derivation`,`example`,`explanation`,`pinyin`FROM`cheng_yus`WHERE(`first_word_md5`="A15FAD2DFBF19B8AE0E84128F43C89EB" AND `status`=1)ORDER BY last_used_time ASC LIMIT 1

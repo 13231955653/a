@@ -1,0 +1,60 @@
+
+docker 容器时间不一致
+docker cp /etc/localtime :project-slove-10013/etc/localtime
+
+
+
+定时任务检查redis集群
+
+定时任务检查mysql集群
+
+
+
+
+redis
+redis集群失效
+redis-cli --cluster check 192.168.125.128:8011
+redis-cli --cluster fix 192.168.125.128:8011
+
+
+
+
+从服务器加载php服务
+for port in `seq 10011 10013`; do \
+docker restart project-slove-${port}
+done
+
+for port in `seq 10011 10013`; do \
+docker exec -it project-slove-${port} /usr/bin/supervisord -c /etc/supervisor/supervisord.conf
+done
+
+
+
+
+mysql集群崩溃
+
+然后我试着启动其他节点，都是闪退
+vim /var/lib/docker/volumes/mysql_group_2/_data/grastate.dat
+无奈只好去找grastate.dat文件，grastate.data文件在对应的卷_data文件夹下，找到后查看grastate.dat文件发现五个节点safe_bootstrap值全为0，将节点1的grastate.dat中的safe_to_bootstrap修改为1后保存，重启节点1
+docker restart mysql_group_2
+docker restart mysql_group_3
+docker restart mysql_group_4
+
+
+
+php 命令行
+cd /usr/share/nginx/html/artsian
+php -f index.php
+
+
+docker log
+docker logs --since="2020-10-16" --tail=10 project-slove-10013
+
+
+服务器重启
+可能supervisor 未启动
+supervisorctl restart all
+
+
+
+

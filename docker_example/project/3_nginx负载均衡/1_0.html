@@ -1,0 +1,47 @@
+<html>
+<script typet="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+    const aIpPort = [
+        'http://192.168.125.135:19000',
+        'http://192.168.125.135:19001',
+        'http://192.168.125.135:19002',
+        'http://192.168.125.135:19003',
+    ];
+    const iIpPortLength = 4;
+
+    let iLocalStorageQueryIpPortTag = 'iNowQueryIpPortTag';
+
+    let iNowQueryIpPortTag = 0;
+    let iMaxQueryTag = 999999999;
+
+    function setQueryUrl () {
+        let iTagNow = localStorage.getItem(iLocalStorageQueryIpPortTag);
+        iTagNow = iTagNow ? (iTagNow < iMaxQueryTag ? parseInt(iTagNow) + parseInt(1) : 0) : 0;
+        localStorage.setItem(iLocalStorageQueryIpPortTag, iTagNow);
+
+        return aIpPort[iTagNow % iIpPortLength];
+    }
+
+    setInterval(function (){
+        $.ajax({
+            url: setQueryUrl(), //请求地址
+            type: "GET",    //jsonp只支持get请求，不写时默认为get方式，可省略
+            dataType: "jsonp", //指定返回的数据类型为 jsonp
+            //jsonp：传递给服务器的参数，服务器需要根据此值封装数据返回，不写时JQuery默认为 callback，可省略
+            //这个参数值会自动追加到 Url 地址中 ?callback=xxxx
+            jsonp: "callback",
+            success: function (data) {
+                //返回的jsonp数据必须是 json 格式
+                // console.log("success：" + JSON.stringify(data));
+                $('body').html(JSON.stringify(data));
+            },
+            error: function (data) {
+                // console.log("error：" + JSON.stringify(data));
+                $('body').html(JSON.stringify(data));
+            }
+        })
+    }, 5000);
+</script>
+</html>
+
+

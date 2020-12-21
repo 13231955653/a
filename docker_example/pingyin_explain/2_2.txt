@@ -1,0 +1,50 @@
+配置 nginx 支持 php
+
+
+
+
+
+mkdir /run/php/
+chmod -R 777 /run/php/
+touch /run/php/php7.4-fpm.sock
+/run/php/php7.4-fpm.sock 目录不存在，权限问题  php 启动不了
+
+
+
+
+php
+开机启动
+apt-get install supervisor
+vim /etc/supervisor/conf.d/php-fpm.conf
+[program:php-fpm]
+command=service php7.4-fpm start
+autostart=true
+autorestart=true
+user=root
+
+supervisorctl status
+unix:///var/run/supervisor.sock no such file
+unix:///var/run/supervisor.sock refused connection
+
+supervisord -c /etc/supervisor/supervisord.conf
+
+
+docker exec -it pingyin /usr/bin/supervisord -c /etc/supervisor/supervisord.conf
+
+
+server {
+    #监听不同的端口
+    listen        10021;
+    root   "/usr/share/nginx/html";
+    location / {
+        index index.html index.php;
+        autoindex  off;
+    }
+
+    location ~ \.php$ {
+        fastcgi_pass   unix:/run/php/php7.4-fpm.sock;
+        fastcgi_index  index.php;
+        fastcgi_param SCRIPT_FILENAME /usr/share/nginx/html/$fastcgi_script_name;
+        include        fastcgi_params;
+    }
+}

@@ -1,0 +1,60 @@
+mkdir /usr/local/nginx
+
+mkdir /usr/local/nginx/redis-link
+
+firewall-cmd --zone=public --add-port=6999/tcp --permanent
+firewall-cmd --reload
+
+docker run -d -p 6999:6999 --name redis-link -v /usr/local/nginx/redis-link/html:/usr/share/nginx/html -v /usr/local/nginx/redis-link/nginx.conf:/etc/nginx/nginx.conf --restart always --net redis-net --ip 172.18.0.2 nginx
+
+docker exec -it redis-link bash
+
+
+
+
+apt update
+
+apt install redis
+
+
+install php7.4
+
+apt install -y curl wget gnupg2 ca-certificates lsb-release apt-transport-https
+wget https://packages.sury.org/php/apt.gpg
+apt-key add apt.gpg
+sh -c 'echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list'
+apt update
+apt install php7.4-fpm php7.4-dev php7.4-curl php7.4-mbstring  php7.4-redis  php-pear  -y
+
+
+
+
+php
+开机启动
+apt-get install supervisor
+
+vim /etc/supervisor/conf.d/php-fpm.conf
+[program:php-fpm]
+command=service php7.4-fpm start
+autostart=true
+autorestart=true
+user=root
+
+
+vim /etc/supervisor/conf.d/redis-server.conf
+[program:redis-server]
+command=service redis-server start
+autostart=true
+autorestart=true
+user=root
+
+
+supervisorctl status
+unix:///var/run/supervisor.sock no such file
+unix:///var/run/supervisor.sock refused connection
+
+supervisord -c /etc/supervisor/supervisord.conf
+
+docker restart redis-link
+
+docker exec -it redis-link /usr/bin/supervisord -c /etc/supervisor/supervisord.conf

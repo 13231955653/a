@@ -1,0 +1,11 @@
+docker pull nginx
+
+
+mkdir /usr/local/nginx
+
+
+systemctl start firewalld
+
+
+docker network create --subnet=172.21.0.0/16 project
+

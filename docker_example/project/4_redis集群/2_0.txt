@@ -1,0 +1,7 @@
+yum install iptables-services
+
+systemctl enable iptables
+
+systemctl start iptables
+
+service iptables status

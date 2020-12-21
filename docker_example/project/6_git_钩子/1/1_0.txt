@@ -1,0 +1,13 @@
+Error处理：/bin/bash^M: 坏的解释器: 没有该文件或目录(bad interpreter: No such file or directory)
+
+解决方法：
+
+    使用在终端输入sed -i 's/\r$//' git.sh即可
+
+    其中git.sh为文件名，这里改成自己需要的即可
+
+原因：
+
+    这个文件在Windows 下编辑过，在Windows下每一行结尾是\n\r，而Linux下则是\n
+
+    sed -i 's/\r$//' git.sh 会把git.sh中的行尾的\r替换为空白

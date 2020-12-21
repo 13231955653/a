@@ -1,0 +1,268 @@
+:root{
+    --admin_header_height:3rem;
+    --admin_footer_height:10rem;
+    --body_margin:0.5rem;
+    --body_margin_1:1rem;
+}
+#admin_login{
+    width: 20rem;
+    /*height: 20rem;*/
+    margin: 0 auto;
+    margin-top: calc((100vh - 10rem) / 2);
+    border-radius: 0.5rem;
+    overflow: hidden;
+    padding: 1rem;
+    background: var(--admin_login_background_color_1);
+}
+#admin_login input, #admin_login button{
+    display: block;
+    width: 100%;
+    height: 2rem;
+    line-height: 2rem;
+    border-radius: 0.2rem;
+}
+#admin_login input{
+    text-indent: 0.5rem;
+    font-size: 0.8rem;
+    margin-bottom: 1rem;
+    border: 1px solid var(--admin_login_input_border_color_1);
+}
+#admin_login button{
+    border: 1px solid var(--admin_login_button_border_color_1);
+}
+
+#data_body{
+    width: 100vw;
+    height: 100%;
+    opacity:0;
+    position: relative;
+    /*overflow-x: scroll;*/
+    /*overflow: scroll;*/
+}
+.admin_footer{
+    width : 100%;
+    height :var(--admin_footer_height);
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    background: var(--admin_footer_color_1);
+}
+.admin_header{
+    width : 100%;
+    position: absolute;
+    top : 0px;
+    right: 0px;
+    z-index : 1;
+    background: var(--admin_header_color_1);
+}
+.admin_header a{
+    display : block;
+}
+.admin_header a, .admin_header span{
+    color: var(--admin_header_span_color_1);
+}
+.admin_header li{
+    width: auto;
+    height :var(--admin_header_height);
+    line-height:var(--admin_header_height);
+    margin: 0px 1rem 0px 1rem;
+}
+.admin_header_right{
+    float: right;
+}
+.admin_header_left{
+    float: left;
+}
+.admin_menus{
+    min-width: 10rem;
+    height: 100vh;
+    /*height: calc(100% - var(--admin_header_height) - var(--admin_footer_height));*/
+    position: absolute;
+    /*top :var(--admin_header_height);*/
+    top :0px;
+    left : 0px;
+    text-align: center;
+    overflow-y: scroll;
+    /*隐藏滚动条*/
+    -ms-overflow-style: none;
+    verflow: -moz-scrollbars-none;
+    scrollbar-width:none;
+}
+/*隐藏滚动条*/
+.admin_menus::-webkit-scrollbar { width: 0 !important }
+::-webkit-scrollbar{
+    display: none;
+}
+#admin_menus_0_sons{
+    background: var(--admin_menu_background_color_0_1);
+}
+#admin_menus_1_sons{
+    background: var(--admin_menu_background_color_1_1);
+}
+#admin_menus_2_sons{
+    background: var(--admin_menu_background_color_2_1);
+}
+#admin_menus_3_sons{
+    background: var(--admin_menu_background_color_3_1);
+}
+#admin_menus_4_sons{
+    background: var(--admin_menu_background_color_4_1);
+}
+#admin_menus_5_sons{
+    background: var(--admin_menu_background_color_5_1);
+}
+#admin_menus_6_sons{
+    background: var(--admin_menu_background_color_6_1);
+}
+#admin_menus_7_sons{
+    background: var(--admin_menu_background_color_7_1);
+}
+#admin_menus_8_sons{
+    background: var(--admin_menu_background_color_8_1);
+}
+#admin_menus_9_sons{
+    background: var(--admin_menu_background_color_9_1);
+}
+#admin_menus_10_sons{
+    background: var(--admin_menu_background_color_10_1);
+}
+#admin_menus_11_sons{
+    background: var(--admin_menu_background_color_11_1);
+}
+#admin_menus_12_sons{
+    background: var(--admin_menu_background_color_12_1);
+}
+#admin_menus_13_sons{
+    background: var(--admin_menu_background_color_13_1);
+}
+#admin_menus_14_sons{
+    background: var(--admin_menu_background_color_14_1);
+}
+#admin_menus_15_sons{
+    background: var(--admin_menu_background_color_15_1);
+}
+#admin_menus_16_sons{
+    background: var(--admin_menu_background_color_16_1);
+}
+#admin_menus_17_sons{
+    background: var(--admin_menu_background_color_17_1);
+}
+#admin_menus_18_sons{
+    background: var(--admin_menu_background_color_18_1);
+}
+#admin_menus_19_sons{
+    background: var(--admin_menu_background_color_19_1);
+}
+#admin_menus_20_sons{
+    background: var(--admin_menu_background_color_20_1);
+}
+.admin_menus li{
+    padding: 1rem;
+}
+#table_header{
+    position : absolute;
+    /*top: calc(var(--admin_header_height) + 1rem);*/
+    /*left: 0px;*/
+    /*width: calc(100vw - 1rem);*/
+    background: var(--admin_table_header_background_color_1);
+    /*left: 0.5rem;*/
+    overflow: hidden;
+}
+#admin_admin_menu_show_list{
+    position: absolute;
+    top: calc(var(--admin_header_height) + var(--body_margin));
+    left: 0px;
+    width: calc(100vw - var(--body_margin_1));
+    height:calc(100vh - var(--admin_header_height) - var(--body_margin_1));
+    background: var(--admin_admin_menu_show_list_background_color_1);
+    overflow: scroll;
+    left: var(--body_margin);
+    border-radius: 0.5rem;
+}
+#admin_admin_menu_show_list table, #admin_admin_menu_show_list thead, #admin_admin_menu_show_list tbody{
+    width: 100%;
+}
+#admin_admin_menu_show_list tr:hover{
+    background: var(--admin_admin_menu_show_list_tr_hover_color_1);
+}
+#admin_admin_menu_show_list th, #admin_admin_menu_show_list td{
+    text-align: center;
+    padding: 0.5rem;
+    max-width: 15rem;
+    height : auto;
+    /*overflow-x : hidden;*/
+}
+.admin_admin_menu_show_list_td_a{
+    padding: 0px 0px 0.5rem 0px !important;
+    /*float: left;*/
+    /*clear: both;*/
+}
+.admin_admin_menu_show_list_td_a a{
+    display: block;
+    float: left;
+    margin: 0.5rem 0px 0px 0.5rem;
+    padding: 0.5rem;
+    border-radius: 0.2rem;
+    background: var(--admin_admin_menu_show_list_td_a_color_1);
+}
+.admin_admin_menu_show_list_td_a a:hover{
+    color: var(--admin_admin_menu_show_list_td_a_hover_color_1);
+    background: var(--admin_admin_menu_show_list_td_a_hover_background_color_1);
+}
+.admin_admin_menu_show_list_tr_exist_son{
+    background: var(--admin_admin_menu_show_list_tr_exist_son_color_1);
+}
+.admin_admin_menu_show_list_tr_1{
+    background: var(--admin_admin_menu_show_list_tr_1_color_1);
+}
+.admin_admin_menu_show_list_tr_2{
+    background: var(--admin_admin_menu_show_list_tr_2_color_1);
+}
+.admin_admin_menu_show_list_td_column_now{
+    background: var(--admin_admin_menu_show_list_td_column_now_color_1);
+}
+.admin_admin_menu_show_list_td_column_now_hover{
+    /*border-radius: 0.5rem;*/
+    background: var(--admin_admin_menu_show_list_td_column_now_hover_color_1);
+}
+.admin_admin_menu_show_list_td_column_now_hover_i{
+    color: var(--admin_admin_menu_show_list_td_column_now_hover_i_color_1);
+}
+#one_admin_menu_detail{
+    position: absolute;
+    top: calc(var(--admin_header_height) + var(--body_margin));
+    left: 0px;
+    width: calc(100vw - var(--body_margin_1));
+    height:calc(100vh - var(--admin_header_height) - var(--body_margin_1));
+    background: var(--admin_admin_menu_show_list_background_color_1);
+    overflow: scroll;
+    left: var(--body_margin);
+    border-radius: 0.5rem;
+}
+#one_admin_menu_detail table, #one_admin_menu_detail thead, #one_admin_menu_detail tbody{
+    width: 100%;
+}
+#one_admin_menu_detail th, #one_admin_menu_detail td{
+    text-align: center;
+    padding: 0.5rem;
+    height : auto;
+}
+.one_admin_menu_detail_tr_1 {
+    background: var(--one_admin_menu_detail_tr_1_background_color_1);
+}
+.one_admin_menu_detail_tr_2 {
+    background: var(--one_admin_menu_detail_tr_2_background_color_1);
+}
+#one_admin_menu_detail tr:hover{
+    background: var(--one_admin_menu_detail_tr_hover_color_1);
+}
+.one_admin_menu_detail_td_column_now{
+    background: var(--one_admin_menu_detail_td_column_now_color_1);
+}
+.one_admin_menu_detail_td_column_now_hover{
+    /*border-radius: 0.5rem;*/
+    background: var(--one_admin_menu_detail_td_column_now_hover_color_1);
+}
+.one_admin_menu_detail_td_column_now_hover_i{
+    color: var(--one_admin_menu_detail_td_column_now_hover_i_color_1);
+}

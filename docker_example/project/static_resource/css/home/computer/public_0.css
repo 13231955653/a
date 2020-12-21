@@ -1,0 +1,27 @@
+#notice_father{
+    width: calc(100% - 2px);
+    background: red;
+    position: absolute;
+    top: calc(110vh);
+    left: 0px;
+    opacity:0;
+    border-radius: var(--notice_radius);
+    overflow: hidden;
+    border: 1px solid var(--border_color_1);
+}
+#notice_info{
+    width: calc(100% - var(--notice_padding) * 2);
+    line-height: 2rem;
+    padding: var(--notice_padding);
+    background: pink;
+    text-align: center;
+    color: var(--font_color_2);
+}
+#notice_button{
+    width: 100%;
+    height: 3rem;
+    line-height: 3rem;
+    background: green;
+    text-align: center;
+    color: var(--font_color_1);
+}

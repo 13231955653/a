@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="https://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
+</head>
+<style>
+    /**
+        鼠标滑动检测方向需要
+     */
+    * {
+        touch-action: pan-y;
+    }
+    /**
+        鼠标滑动检测方向需要
+     */
+
+    body{
+        width:1000px;
+        height: 1000px;
+        background: red;
+    }
+    #mobile-father{
+        width:100%;
+        height: 100%;
+        background: green;
+    }
+</style>
+<body>
+<div id="mobile-father">
+
+</div>
+</body>
+<script type="text/javascript">
+//获取时间戳
+function getNowTime () {
+    return new Date().getTime();
+}
+const iLongTouchTime = 3000; // 确认屏幕长按时间
+//检查滑动方向
+function examineOrientation () {
+    $('#mobile-father').on('touchstart', function(e) {
+        iTouchStartTime = getNowTime();
+
+        e.preventDefault();
+
+        fStartX = e.originalEvent.changedTouches[0].pageX;
+        fStartY = e.originalEvent.changedTouches[0].pageY;
+    });
+    $('#mobile-father').on('touchend', function(e) {
+        iTouchEndTime = getNowTime();
+
+        e.preventDefault();
+
+        fEndX = e.originalEvent.changedTouches[0].pageX;
+        fEndY = e.originalEvent.changedTouches[0].pageY;
+
+        let X = fEndX - fStartX;
+        let Y = fEndY - fStartY;
+
+        //上下滑动
+        if (Math.abs(Y) > Math.abs(X)) {
+            if (Y >= 0) {
+                downFunction();
+                return false;
+            }
+
+            topFunction();
+            return false;
+        }
+        if (Math.abs(X) > Math.abs(Y)) {
+            //左右划
+            if (X >= 0) {
+                rightFunction();
+                return false;
+            }
+
+            leftFunction();
+            return false;
+        }
+
+        if (iTouchEndTime - iTouchStartTime >= iLongTouchTime) {
+            longTouchFunction();
+            return false;
+        }
+        // else {
+        //     console.log('short');
+        //     return false;
+        // }
+    });
+}
+//下滑操作
+function downFunction () {
+    console.log('bottom');
+}
+//上滑操作
+function topFunction () {
+    console.log('top');
+}
+//右滑操作
+function rightFunction () {
+    console.log('right');
+}
+//左滑操作
+function leftFunction () {
+    console.log('left');
+}
+//长按操作
+function longTouchFunction () {
+    console.log('long');
+}
+window.onload = function () {
+    console.log(examineOrientation());
+};
+</script>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>分词测试</title>
+    <script typet="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+</head>
+<body>
+<table width='90%' align='center'>
+    <textarea id="source"></textarea>
+    <br/>
+    <div onclick="sendString();">
+        <span>提交进行分词</span>
+    </div>
+    <div><span>分词后数据</span></div>
+    <span id="split"></span>
+    <br/>
+    <div onclick="pinYin();">
+        <span>添加拼音</span>
+    </div>
+    <div><span>拼音</span></div>
+    <span id="pinyin"></span>
+    <br/>
+</table>
+</body>
+<script>
+    function sendString () {
+        $.post("http://192.168.125.135:19004/index.php",{source:document.getElementById('source').value, md5:'2F333363FF03B435811A1FF1FD9567BC'},function(result){
+            let sString = eval('('+result+')');
+            if (sString) {
+                sString =  sString.split_str.split(sString.split_tag);
+                let o = document.getElementById('split');
+                let s = '';
+                for (let i in sString) {
+                    s += '<div class="split">' + sString[i] + '</div>';
+                }
+                o.innerHTML = s;
+            }
+        });
+    }
+
+    function pinYin () {
+        $.post("http://192.168.125.135:19005/demo/pinyin.php",{source:document.getElementById('source').value, md5:'2F222222FF03B435811A1FF1FD9567BC', num:1},function(result){
+            let sString = eval('('+result+')');
+            if (sString) {
+                let o = document.getElementById('pinyin');
+                let s = '';
+                s += document.getElementById('source').value + '<br/>';
+                for (let i in sString['pin_yin_sound']) {
+                    s += '<div class="pinyin">' + sString['pin_yin_sound'][i] + '</div>';
+                }
+                o.innerHTML = s;
+            }
+        });
+    }
+</script>
+</html>

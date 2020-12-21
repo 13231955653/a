@@ -1,0 +1,41 @@
+docker pull percona/percona-xtradb-cluster:5.6
+
+
+docker network create --subnet=172.25.0.0/16 mysql-group-net
+docker inspect mysql-group-net
+
+
+docker volume create --name mysql-group-volume-1
+docker volume create --name mysql-group-volume-2
+docker volume create --name mysql-group-volume-3
+docker volume create --name mysql-group-volume-4
+docker volume create --name mysql-group-volume-5
+docker volume create --name mysql-group-volume-6
+docker volume create --name mysql-group-volume-7
+docker volume create --name mysql-group-volume-8
+docker inspect mysql-group-volume-1
+
+
+
+
+
+# 创建PXC容器构成集群
+# 第一个节点
+docker run -d -p 3307:3306 -e MYSQL_ROOT_PASSWORD=Ou891007 -e CLUSTER_NAME=PXC -e XTRABACKUP_PASSWORD=Ou891007 -v mysql-group-volume-1:/var/lib/mysql --name=mysql-group-1 --network=mysql-group-net --ip 172.25.0.2 percona/percona-xtradb-cluster:5.6
+# 在第一个节点启动后要等待一段时间，等候mysql启动完成。
+# 第二个节点
+docker run -d -p 3308:3306 -e MYSQL_ROOT_PASSWORD=Ou891007 -e CLUSTER_NAME=PXC -e XTRABACKUP_PASSWORD=Ou891007 -e CLUSTER_JOIN=mysql-group-1 -v mysql-group-volume-2:/var/lib/mysql --name=mysql-group-2 --net=mysql-group-net --ip 172.25.0.3 percona/percona-xtradb-cluster:5.6
+# 第三个节点
+docker run -d -p 3309:3306 -e MYSQL_ROOT_PASSWORD=Ou891007 -e CLUSTER_NAME=PXC -e XTRABACKUP_PASSWORD=Ou891007 -e CLUSTER_JOIN=mysql-group-1 -v mysql-group-volume-3:/var/lib/mysql --name=mysql-group-3 --net=mysql-group-net --ip 172.25.0.4 percona/percona-xtradb-cluster:5.6
+# 第四个节点
+docker run -d -p 3310:3306 -e MYSQL_ROOT_PASSWORD=Ou891007 -e CLUSTER_NAME=PXC -e XTRABACKUP_PASSWORD=Ou891007 -e CLUSTER_JOIN=mysql-group-1 -v mysql-group-volume-4:/var/lib/mysql --name=mysql-group-4 --net=mysql-group-net --ip 172.25.0.5 percona/percona-xtradb-cluster:5.6
+# 第五个节点
+docker run -d -p 3311:3306 -e MYSQL_ROOT_PASSWORD=Ou891007 -e CLUSTER_NAME=PXC -e XTRABACKUP_PASSWORD=Ou891007 -e CLUSTER_JOIN=mysql-group-1 -v mysql-group-volume-5:/var/lib/mysql --name=mysql-group-5 --net=mysql-group-net --ip 172.25.0.6 percona/percona-xtradb-cluster:5.6
+# 第六个节点
+docker run -d -p 3312:3306 -e MYSQL_ROOT_PASSWORD=Ou891007 -e CLUSTER_NAME=PXC -e XTRABACKUP_PASSWORD=Ou891007 -e CLUSTER_JOIN=mysql-group-1 -v mysql-group-volume-6:/var/lib/mysql --name=mysql-group-6 --net=mysql-group-net --ip 172.25.0.7 percona/percona-xtradb-cluster:5.6
+# 第七个节点
+docker run -d -p 3313:3306 -e MYSQL_ROOT_PASSWORD=Ou891007 -e CLUSTER_NAME=PXC -e XTRABACKUP_PASSWORD=Ou891007 -e CLUSTER_JOIN=mysql-group-1 -v mysql-group-volume-7:/var/lib/mysql --name=mysql-group-7 --net=mysql-group-net --ip 172.25.0.8 percona/percona-xtradb-cluster:5.6
+# 第八个节点
+docker run -d -p 3314:3306 -e MYSQL_ROOT_PASSWORD=Ou891007 -e CLUSTER_NAME=PXC -e XTRABACKUP_PASSWORD=Ou891007 -e CLUSTER_JOIN=mysql-group-1 -v mysql-group-volume-8:/var/lib/mysql --name=mysql-group-8 --net=mysql-group-net --ip 172.25.0.9 percona/percona-xtradb-cluster:5.6
+
+mysql -u root -P 3308 -h 127.0.0.1 -p

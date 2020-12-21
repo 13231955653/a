@@ -1,0 +1,48 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "7b5c9c9ca4322546cba86e88889c119b",
+    "packages": [
+        {
+            "name": "yurunsoft/chinese-util",
+            "version": "v2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Yurunsoft/ChineseUtil.git",
+                "reference": "d75eb0f1f658761804a9fefde7b154c546850d48"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Yurunsoft/ChineseUtil/zipball/d75eb0f1f658761804a9fefde7b154c546850d48",
+                "reference": "d75eb0f1f658761804a9fefde7b154c546850d48",
+                "shasum": ""
+            },
+            "require-dev": {
+                "phpunit/phpunit": ">=4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Yurun\\Util\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "PHP 中文工具类，支持汉字转拼音、拼音分词、简繁互转。PHP Chinese Tool class, support Chinese pinyin, pinyin participle, simplified and traditional conversion",
+            "time": "2020-08-17T08:43:17+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
+}

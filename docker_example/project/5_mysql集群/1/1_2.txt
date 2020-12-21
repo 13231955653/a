@@ -1,0 +1,23 @@
+负载均衡
+docker pull haproxy
+
+
+touch /home/soft/haproxy/haproxy.cfg
+
+
+create user 'haproxy'@'%' identified by '';
+
+
+docker run -it -d -p 4001:8888 -p 4002:3306 -v /home/soft/haproxy:/usr/local/etc/haproxy --name haproxy --net=mysql-group-net --ip 172.25.0.10 --privileged haproxy
+
+
+docker exec -it haproxy bash
+
+
+haproxy -f /usr/local/etc/haproxy/haproxy.cfg
+
+
+接下来便可以在浏览器中打开Haproxy监控界面，端口4001，在配置文件中定义有用户名admin，密码abc123456。
+我这边访问的是http://192.168.63.144:4001/dbs，并且要使用用户名密码进行登录（小插曲，使用的是Basic登录，我的Chrome不知为何被屏蔽了，我最后用的火狐）
+
+

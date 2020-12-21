@@ -1,0 +1,52 @@
+
+
+for port in `seq 10011 10013`; do \
+mkdir /usr/local/nginx/project-slove-${port}  /usr/local/nginx/project-slove-${port}/html
+done
+
+for port in `seq 10011 10013`; do \
+mkdir /usr/local/nginx/project-slove-${port}/conf.d
+done
+
+firewall-cmd --remove-port=10011/tcp --permanent
+firewall-cmd --add-port=10011/tcp --permanent
+firewall-cmd --remove-port=10011/tcp --permanent
+firewall-cmd --add-port=10011/tcp --permanent
+firewall-cmd --remove-port=10012/tcp --permanent
+firewall-cmd --add-port=10012/tcp --permanent
+firewall-cmd --remove-port=10013/tcp --permanent
+firewall-cmd --add-port=10013/tcp --permanent
+firewall-cmd --reload
+
+chmod -R 777 /usr/local/nginx
+
+
+for port in `seq 10011 10013`; do \
+docker run -d -p ${port}:${port} --name project-slove-${port} -v /usr/local/nginx/project-slove/html:/usr/share/nginx/html  -v /usr/local/nginx/project-slove-${port}/nginx.conf:/etc/nginx/nginx.conf --net project nginx
+done
+
+
+for port in `seq 10011 10013`; do \
+rm -rf /usr/local/nginx/project-slove-10012
+done
+
+for port in `seq 10011 10013`; do \
+rm -f /usr/local/nginx/project-slove-10012/nginx.conf
+done
+
+for port in `seq 10011 10013`; do \
+docker rm -f project-slove-${port}
+done
+
+for port in `seq 10011 10013`; do \
+docker restart project-slove-${port}
+done
+
+for port in `seq 10011 10013`; do \
+docker start project-slove-${port}
+done
+
+for port in `seq 10011 10013`; do \
+docker exec -it project-slove-${port} /usr/bin/supervisord -c /etc/supervisor/supervisord.conf
+done
+

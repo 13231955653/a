@@ -1,0 +1,10 @@
+mkdir /usr/local/nginx/unicode_split  /usr/local/nginx/unicode_split/html
+
+
+mkdir /usr/local/nginx/unicode_split/conf.d
+
+
+docker network create --subnet=172.22.0.0/16 unicode_split
+
+
+docker run -d -p 10020:10020 --name unicode_split -v /usr/local/nginx/unicode_split/html:/usr/share/nginx/html  -v /usr/local/nginx/unicode_split/nginx.conf:/etc/nginx/nginx.conf  --restart always  --net unicode_split nginx

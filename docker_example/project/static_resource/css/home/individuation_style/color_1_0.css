@@ -1,0 +1,33 @@
+:root{
+    --font_color_1:red;
+    --font_color_2:orange;
+    --border_color_1:red;
+    --index_header_background_color_1:orange;
+    --index_body_background_color_1:blue;
+    --index_footer_background_color_1:green;
+    --now_index_header_actions:red;
+    --now_chat_header_actions:red;
+    --index_footer_split_tag_background_color_1:black;
+    --now_index_footer_click_background_color_1:pink;
+    --loadimg-dom_background_color_1:grey;
+    --index_data_body_background_color_1:red;
+    --chat_data_body_background_color_1:pink;
+    --chat_body_background_color_1:grey;
+    --chat_footer_background_color_1:green;
+    --chat_header_background_color_1:blue;
+    --chat_body_data_background_color_1:pink;
+    --more_data_body_background_color_1:green;
+    --more_body_background_color_1:blue;
+    --more_footer_background_color_1:grey;
+    --more_header_background_color_1:red;
+    --more_body_data_background_color_1:orange;
+    --set_data_body_background_color_1:pink;
+    --set_body_background_color_1:red;
+    --set_body_more_set_color_1:green;
+    --set_change_langvage_color_1:blue;
+    --set_footer_background_color_1:green;
+    --set_header_background_color_1:orange;
+    --set_body_data_background_color_1:blue;
+    --set_header_span_color_1:red;
+    --set_body_data_li_color_1:pink;
+}
