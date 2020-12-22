@@ -1,6 +1,6 @@
 <?php
 
-namespace ToolClass\Strings;
+namespace ToolClass\Strings\string;
 
 use ToolClass\Date\Time;
 use ToolClass\Json\Json;

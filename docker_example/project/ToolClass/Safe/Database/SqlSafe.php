@@ -3,27 +3,11 @@ namespace ToolClass\Safe\Database;
 
 //use ToolClass\Json\Json;
 
-use ToolClass\Depend\DependContainer;
+use Service\Ioc\Ioc;
+use Service\Depend\DependContainer;
 
 class SqlSafe
 {
-    private static $oJson = false;
-
-    /**
-     * User: white
-     * Date: 2020/12/21
-     * Time: 11:55
-     *
-     * json object
-     */
-    private static function jsonObj ()
-    {
-        if (!self::$oJson) {
-            self::$oJson = new DependContainer('json');
-            self::$oJson = self::$oJson->selectClassDepend();
-        }
-    }
-
     /**
      * User: white
      * Date: 2020/12/21
@@ -56,8 +40,9 @@ class SqlSafe
 
         }
 
-        self::jsonObj();
-        if (self::$oJson->analyJson($sString)) {
+        $sDepeng = DependContainer::json();
+        $oDatabaseDepend = Ioc::resolve($sDepeng);
+        if ($oDatabaseDepend->analyJson($sString)) {
 
         }
 

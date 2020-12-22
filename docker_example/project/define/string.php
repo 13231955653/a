@@ -5,6 +5,9 @@ define( 'CHINESE_MAX_GET_NUMBER', 20000 );
 define(
     'SERVER_ERROR_INFO',
     [
+        'ioc error 3' => 'ioc error 3',
+        'ioc error 2' => 'ioc error 2',
+        'ioc error 1' => 'ioc error 1',
         'ioc error' => 'ioc error',
         'sql safe error 2' => 'sql safe error 2',
         'sql safe error 1' => 'sql safe error 1',

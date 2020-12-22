@@ -193,86 +193,86 @@ class ChineseStringTool
         return $sString;
     }
 
-    public static function updateChineseInfo (array $aData = [])
-    {
-        if (!is_array($aData) || !$aData) {
-            return FALSE;
-        }
-
-        $sWord = JianFanFontModel::word();
-        if (!isset($aData[$sWord]) || !$aData[$sWord]) {
-            return FALSE;
-        }
-
-        $bExecHook = false;
-
-        $sOldWord = JianFanFontModel::oldWord();
-        $aUpdateData = [];
-        if (isset($aData[$sOldWord]) && $aData[$sOldWord]) {
-            $aUpdateData[$sOldWord] = $aData[$sOldWord];
-            $aUpdateData[JianFanFontModel::oldWordUrlencode()] = JianFanFontModel::urlencode($aUpdateData[$sOldWord]);
-            $aUpdateData[JianFanFontModel::oldWordUrlencodeMd5()] = JianFanFontModel::wordUrlencodeMd5Encode($aUpdateData[$sOldWord]);
-
-            $bExecHook = TRUE;
-        }
-
-        $sStrokes = JianFanFontModel::strokes();
-        if (isset($aData[$sStrokes]) && $aData[$sStrokes] && is_numeric($aData[$sStrokes])) {
-            $aUpdateData[$sStrokes] = (int)$aData[$sStrokes];
-
-            $bExecHook = TRUE;
-        }
-
-        $sPinYinWithVoice = JianFanFontModel::pinyinWithVoice();
-        $sPinYin = JianFanFontModel::pinyin();
-        if (isset($aData[$sPinYinWithVoice]) && $aData[$sPinYinWithVoice]) {
-            $aUpdateData[$sPinYinWithVoice] = $aData[$sPinYinWithVoice];
-            $aUpdateData[$sPinYin] = PinYinShengDiao::deleteShengDiao($aUpdateData[$sPinYinWithVoice]);
-            $aUpdateData[JianFanFontModel::firstPinyin()] = PinYinShengDiao::first($aUpdateData[$sPinYin]);
-
-            $bExecHook = TRUE;
-        }
-
-        $sRadicals = JianFanFontModel::radicals();
-        if (isset($aData[$sRadicals]) && $aData[$sRadicals]) {
-            $aUpdateData[$sRadicals] = $aData[$sRadicals];
-
-            $bExecHook = TRUE;
-        }
-
-        $sExplain = JianFanFontModel::explanation();
-        if (isset($aData[$sExplain]) && $aData[$sExplain]) {
-            $aUpdateData[$sExplain] = self::replaceString($aData[$sExplain]);
-            $aUpdateData[JianFanFontModel::existExplanation()] = JianFanFontModel::existExplainTag();
-
-            $bExecHook = TRUE;
-        }
-
-        $sMore = JianFanFontModel::more();
-        if (isset($aData[$sMore]) && $aData[$sMore]) {
-            $aUpdateData[$sMore] = self::replaceString($aData[$sMore]);
-            $aUpdateData[JianFanFontModel::existMore()] = JianFanFontModel::existMoreTag();
-
-            $bExecHook = TRUE;
-        }
-
-        if (!$bExecHook) {
-            $aData = $aUpdateData = null;
-            unset($aData, $aUpdateData);
-            return FALSE;
-        }
-
-        $aUpdateData[JianFanFontModel::whoUpdate()] = Server::getNowUser();
-        $aUpdateData[JianFanFontModel::updateTime()] = Time::nowRunTime();
-
-        $aWhere = [];
-        $aWhere[JianFanFontModel::wordUrlencodeMd5()] = JianFanFontModel::wordUrlencodeMd5Encode($aData[$sWord]);
-        $res = ChineseStringModelTool::update( $aWhere, $aUpdateData);
-        $aWhere = $aUpdateData = $aData = null;
-        unset($aWhere, $aUpdateData, $aData);
-
-        return $res ? TRUE : FALSE;
-    }
+//    public static function updateChineseInfo (array $aData = [])
+//    {
+//        if (!is_array($aData) || !$aData) {
+//            return FALSE;
+//        }
+//
+//        $sWord = JianFanFontModel::word();
+//        if (!isset($aData[$sWord]) || !$aData[$sWord]) {
+//            return FALSE;
+//        }
+//
+//        $bExecHook = false;
+//
+//        $sOldWord = JianFanFontModel::oldWord();
+//        $aUpdateData = [];
+//        if (isset($aData[$sOldWord]) && $aData[$sOldWord]) {
+//            $aUpdateData[$sOldWord] = $aData[$sOldWord];
+//            $aUpdateData[JianFanFontModel::oldWordUrlencode()] = JianFanFontModel::urlencode($aUpdateData[$sOldWord]);
+//            $aUpdateData[JianFanFontModel::oldWordUrlencodeMd5()] = JianFanFontModel::wordUrlencodeMd5Encode($aUpdateData[$sOldWord]);
+//
+//            $bExecHook = TRUE;
+//        }
+//
+//        $sStrokes = JianFanFontModel::strokes();
+//        if (isset($aData[$sStrokes]) && $aData[$sStrokes] && is_numeric($aData[$sStrokes])) {
+//            $aUpdateData[$sStrokes] = (int)$aData[$sStrokes];
+//
+//            $bExecHook = TRUE;
+//        }
+//
+//        $sPinYinWithVoice = JianFanFontModel::pinyinWithVoice();
+//        $sPinYin = JianFanFontModel::pinyin();
+//        if (isset($aData[$sPinYinWithVoice]) && $aData[$sPinYinWithVoice]) {
+//            $aUpdateData[$sPinYinWithVoice] = $aData[$sPinYinWithVoice];
+//            $aUpdateData[$sPinYin] = PinYinShengDiao::deleteShengDiao($aUpdateData[$sPinYinWithVoice]);
+//            $aUpdateData[JianFanFontModel::firstPinyin()] = PinYinShengDiao::first($aUpdateData[$sPinYin]);
+//
+//            $bExecHook = TRUE;
+//        }
+//
+//        $sRadicals = JianFanFontModel::radicals();
+//        if (isset($aData[$sRadicals]) && $aData[$sRadicals]) {
+//            $aUpdateData[$sRadicals] = $aData[$sRadicals];
+//
+//            $bExecHook = TRUE;
+//        }
+//
+//        $sExplain = JianFanFontModel::explanation();
+//        if (isset($aData[$sExplain]) && $aData[$sExplain]) {
+//            $aUpdateData[$sExplain] = self::replaceString($aData[$sExplain]);
+//            $aUpdateData[JianFanFontModel::existExplanation()] = JianFanFontModel::existExplainTag();
+//
+//            $bExecHook = TRUE;
+//        }
+//
+//        $sMore = JianFanFontModel::more();
+//        if (isset($aData[$sMore]) && $aData[$sMore]) {
+//            $aUpdateData[$sMore] = self::replaceString($aData[$sMore]);
+//            $aUpdateData[JianFanFontModel::existMore()] = JianFanFontModel::existMoreTag();
+//
+//            $bExecHook = TRUE;
+//        }
+//
+//        if (!$bExecHook) {
+//            $aData = $aUpdateData = null;
+//            unset($aData, $aUpdateData);
+//            return FALSE;
+//        }
+//
+//        $aUpdateData[JianFanFontModel::whoUpdate()] = Server::getNowUser();
+//        $aUpdateData[JianFanFontModel::updateTime()] = Time::nowRunTime();
+//
+//        $aWhere = [];
+//        $aWhere[JianFanFontModel::wordUrlencodeMd5()] = JianFanFontModel::wordUrlencodeMd5Encode($aData[$sWord]);
+//        $res = ChineseStringModelTool::update( $aWhere, $aUpdateData);
+//        $aWhere = $aUpdateData = $aData = null;
+//        unset($aWhere, $aUpdateData, $aData);
+//
+//        return $res ? TRUE : FALSE;
+//    }
 
     public static function searchString ($sSearchWhat = '', $iGetNum = 1)
     {
@@ -335,78 +335,4 @@ class ChineseStringTool
 
         return ChineseStringModelTool::getJianFanZiFromDatabase( $aWhere, $iGetNum);
     }
-
-//    private static function getJianFanZiFromDatabase ($aWhere = [], $iGetNum = 1, $aSelect = '*')
-//    {
-//        if (!$aWhere) {
-//            return FALSE;
-//        }
-//
-//        $oMysql = Mysql::table( JianFanFontModel::table() );
-//
-//        $oMysql->where( $aWhere );
-//        $aWhere = NULL;
-//        unset( $aWhere );
-//
-//        $oMysql->select($aSelect);
-//
-//        $res = $iGetNum > 1 ? $oMysql->getNum($iGetNum) : $oMysql->first();
-//
-//        $sSearchWhat = $iGetNum = $oMysql = NULL;
-//        unset($sSearchWhat, $iGetNum, $oMysql);
-//
-//        return $res ? $res : FALSE;
-//    }
-
-//    private static function update ($aWhere = [], $aUpdateData = [])
-//    {
-//        if (!$aWhere || !$aUpdateData) {
-//            return FALSE;
-//        }
-//
-//        $oMysql = Mysql::table( JianFanFontModel::table() );
-//
-//        $oMysql->where( $aWhere );
-//        $aWhere = NULL;
-//        unset( $aWhere );
-//
-//        $res = $oMysql->update($aUpdateData);
-//
-//        $sSearchWhat = $iGetNum = $oMysql = NULL;
-//        unset($sSearchWhat, $iGetNum, $oMysql);
-//
-//        return $res ? $res : FALSE;
-//    }
-
-//    private static
-//    function checkExistSmaeMd5 (
-//        $sWordMd5 = ''
-//    ) {
-//        if ( !$sWordMd5 ) {
-//            return TRUE;
-//        }
-//
-//        $aWhere                            = [];
-//        $aWhere[ JianFanFontModel::wordUrlencodeMd5() ] = strtoupper( $sWordMd5 );
-//
-//        $oMysql = Mysql::table( JianFanFontModel::table() );
-//
-//        $oMysql->where( $aWhere );
-//        $aWhere = NULL;
-//        unset( $aWhere );
-//
-//        $oMysql->select(JianFanFontModel::primary());
-//
-//        return $oMysql->first();
-//    }
-
-//    public static function deleteOldChineseFontCache ()
-//    {
-//        return Cache::del(self::chineseFontCacheName());
-//    }
-//
-//    public static function setNewChineseFontCache ()
-//    {
-//
-//    }
 }

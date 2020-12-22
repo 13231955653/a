@@ -17,8 +17,8 @@ class Mysql
 
     private static $iMaxDatabaseTag = 99999999;
 
-    private static $sWhereFeild1 = 'where_1';
-    private static $sWhereFeild2 = 'where_2';
+//    private static $sWhereFeild1 = 'where_1';
+//    private static $sWhereFeild2 = 'where_2';
     private static $sDaYu = 'daYu';
     private static $sIn = 'whereIn';
 

@@ -6,3 +6,5 @@ namespace define;
 define('CHARSET', 'utf-8');
 
 header('Content-Type: text/html; charset=' . CHARSET);
+
+define('DEBUG', TRUE);

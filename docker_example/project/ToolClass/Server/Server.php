@@ -2,15 +2,15 @@
 
 namespace ToolClass\Server;
 
-//require_once __ROOT_DIR__ . DIRECTORY_SEPARATOR . 'define' . DIRECTORY_SEPARATOR . 'tag.php';
 
+use Service\Depend\DependContainer;
+use Service\Ioc\Ioc;
 use ToolClass\Cache\RedisKey;
 use ToolClass\Cache\Cache;
 use ToolClass\Encode\Rsa;
 use ToolClass\Json\Json;
 use ToolClass\Log\Exception;
 
-//use ToolClass\Server\System;
 require_once __ROOT_DIR__
              . DIRECTORY_SEPARATOR
              . 'define'
@@ -122,119 +122,6 @@ NijFTFBZCLlRyIiv/gq1TSECAwEAAQ==
     public static $sDelLocalstorageAction = 'del_localstorage';
     public static $sEncodeKeyExplain      = 'encode_key_explain';
 
-//    private static $aReturnData
-//        = [
-//            'set simple chinese, chinese id empty' => 'set simple chinese, chinese id empty',
-//            'no get chinese font' => 'no get chinese font',
-//            'set simple font cache error' => 'set simple font cache error',
-//            'sort array is empty' => 'sort array is empty',
-//            'no get chinese number' => 'no get chinese number',
-//            'no pinyin' => 'no pinyin',
-//            'no get search condition' => 'no get search condition',
-//            'cheng yu jie long condition empty' => 'cheng yu jie long condition empty',
-//            'cheng yu jie long begin string is empty' => 'cheng yu jie long begin string is empty',
-//            'insert image list faild' => 'insert image list faild',
-//            'insert retry queue error' => 'insert retry queue error',
-//            'no redis key or sJsonData' => 'no redis key or sJsonData',
-//            'no redis key or data' => 'no redis key or data',
-//            'no redis key or ttl' => 'no redis key or ttl',
-//            'no redis key or value' => 'no redis key or value',
-//            'set queue name error' => 'set queue name error',
-//            'set del data queue name error' => 'set del data queue name error',
-//            'insert image list error' => 'insert image list error',
-//            'write image eeror' => 'write image eeror',
-//            'write file error' => 'write file error',
-//            'make write image dir error' => 'make write image dir error',
-//            'make dir name is empty' => 'make dir name is empty',
-//            'make dir list error' => 'make dir list error',
-//            'make dir error' => 'make dir error',
-//            'save image make dir error' => 'save image make dir error',
-//            'image formatting error'                             => 'image formatting error',
-//            'curl data too long'                                 => 'curl data too long',
-//            'admin login error'                                  => 'admin login error',
-//            'admin login success'                                => 'admin login success',
-//            'del admin cache error'                              => 'del admin cache error',
-//            'admin out success'                                  => 'admin out success',
-//            'no allow method'                                    => 'no allow method',
-//            'no admin cache key'                                 => 'no admin cache key',
-//            'hash admin name must'                               => 'hash admin name must',
-//            'no exist check session id 1'                        => 'no exist check session id 1',
-//            'no exist check session id 2'                        => 'no exist check session id 2',
-//            'response no status'                                 => 'response no status',
-//            'set admin login cache error'                        => 'set admin login cache error',
-//            'error model 1'                                      => 'error model 1',
-//            'error model 2'                                      => 'error model 2',
-//            'table must no empty'                                => 'table must no empty',
-//            'find in set value must no empty, and must is array' => 'find in set value must no empty, and must is array',
-//            'localstorages data and storage time number no same' => 'localstorages data and storage time number no same',
-//            'session check error 1'                              => 'session check error 1',
-//            'session check error 2'                              => 'session check error 2',
-//            'where must no empty and must is key value array'    => 'where must no empty and must is key value array',
-//            'error action'                                       => 'error action',
-//            'no sql'                                             => 'no sql',
-//            'insert data error'                                  => 'insert data error',
-//            'error model s'                                      => 'error model s',
-//            'rsa encode public error'                            => 'rsa encode public error',
-//            'rsa decode public error'                            => 'rsa decode public error',
-//            'rsa key error'                                      => 'rsa key error',
-//            'rsa encode private error'                           => 'rsa encode private error',
-//            'rsa decode private error'                           => 'rsa decode private error',
-//            'no admin menus 1'                                   => 'no admin menus 1',
-//            'no admin menus 2'                                   => 'no admin menus 2',
-//            'no admin menus 3'                                   => 'no admin menus 3',
-//            'in string array string must be string'              => 'in string array string must be string',
-//            'array must array 1'                                 => 'array must array 1',
-//            'field must string 1'                                => 'field must string 1',
-//            'array must array 2'                                 => 'array must array 2',
-//            'no admin name args'                                 => 'no admin name args',
-//            'no admin password args'                             => 'no admin password args',
-//            'no admin jurisdiction'                              => 'no admin jurisdiction',
-//            'no exists response encode key'                      => 'no exists response encode key',
-//            'no exist check id 1'                                => 'no exist check id 1',
-//            'no exist check id 2'                                => 'no exist check id 2',
-//            'no allow server'                                    => 'no allow server',
-//            'check check id error'                               => 'check check id error',
-//            'no check id'                                        => 'no check id',
-//            'no check string'                                    => 'no check string',
-//            'check string error'                                 => 'check string error',
-//            'check id error 1'                                   => 'check id error 1',
-//            'no post data'                                       => 'no post data',
-//            'update admin redis cache error'                     => 'update admin redis cache error',
-//            'no admin login eroor'                               => 'no admin login eroor',
-//            'admin menu middle no select function'               => 'admin menu middle no select function',
-//            'admin menu data is null'                            => 'admin menu data is null',
-//            'hmset admin menu error'                             => 'hmset admin menu error',
-//            'hmset admin menu error 1'                           => 'hmset admin menu error 1',
-//            'hmset admin menu error 2'                           => 'hmset admin menu error 2',
-//            'no jurisdiction to see'                             => 'no jurisdiction to see',
-//            'middle no customization'                            => 'middle no customization',
-//            'middleware file error'                              => 'middleware file error',
-//            'no middle class'                                    => 'no middle class',
-//            'no middle'                                          => 'no middle',
-//            'lang middle no select function'                     => 'lang middle no select function',
-//            'lang middle no insert feild'                        => 'lang middle no insert feild',
-//            'insert no exist lang error'                         => 'insert no exist lang error',
-//            'method no allow'                                    => 'method no allow',
-//            'route error'                                        => 'route error',
-//            'route format error'                                 => 'route format error',
-//            '_a'                                                 => '_a',
-//            '_b'                                                 => '_b',
-//            '_c'                                                 => '_c',
-//            '_d'                                                 => '_d',
-//            '_e'                                                 => '_e',
-//            '_f'                                                 => '_f',
-//            '_g'                                                 => '_g',
-//            'menu id format error'                               => 'menu id format error',
-//            'year format error'                                  => 'year format error',
-//            'year month format error'                            => 'year month format error',
-//            'year month day format error'                        => 'year month day format error',
-//            'year month day hour format error'                   => 'year month day hour format error',
-//            'year month day hour minute format error'            => 'year month day hour minute format error',
-//            'curl data must be no empty'                         => 'curl data must be no empty',
-//            'curl data exits'                                    => 'curl data exits',
-//            'spider data value id null'                          => 'spider data value id null',
-//        ];
-
     private static $sWindowOS = 'win';
     private static $sLinuxOS  = 'linux';
 
@@ -264,11 +151,37 @@ NijFTFBZCLlRyIiv/gq1TSECAwEAAQ==
     public static function returnError ($sKey = '')
     {
         if (!$sKey) {
-            return 'server error key is null';
+//            return 'server error key is null';
+            $sExceptionDepengName = DependContainer::exception();
+            $oExceptionDepend = Ioc::resolve($sExceptionDepengName);
+
+//            $sServerDepengName = DependContainer::server();
+//            $oServerDepend = Ioc::resolve($sServerDepengName);
+
+            $oExceptionDepend->throwException(
+                self::response(
+                    self::errorStatus(),
+                    self::returnError('server error key is null')
+                )
+            );
+            return FALSE;
         }
 
         if (!isset(SERVER_ERROR_INFO[$sKey])) {
-            return 'server error key is no exist';
+//            return 'server error key is no exist';
+            $sExceptionDepengName = DependContainer::exception();
+            $oExceptionDepend = Ioc::resolve($sExceptionDepengName);
+
+//            $sServerDepengName = DependContainer::server();
+//            $oServerDepend = Ioc::resolve($sServerDepengName);
+
+            $oExceptionDepend->throwException(
+                self::response(
+                    self::errorStatus(),
+                    self::returnError('server error key is no exist')
+                )
+            );
+            return FALSE;
         }
 
         return SERVER_ERROR_INFO[$sKey];
@@ -276,17 +189,19 @@ NijFTFBZCLlRyIiv/gq1TSECAwEAAQ==
 
     public static
     function response (
-        $iStatus = 0,
-        $sResponseNotice = '',
-        $aLocalstorageData = [],
-        $aLocalstorageTime = [],
-        $aResponseData = [],
-        $aEncodeData = [],
-        $aResponseWebAction = [],
-        $sEncodeKey = '',
-        $sEncodeKeyExplain = ''
+//        $iStatus = 0,
+//        $sResponseNotice = '',
+//        $aLocalstorageData = [],
+//        $aLocalstorageTime = [],
+//        $aResponseData = [],
+//        $aEncodeData = [],
+//        $aResponseWebAction = [],
+//        $sEncodeKey = '',
+//        $sEncodeKeyExplain = ''
+        array $aArguments = []
     ) {
-        //                var_dump($iStatus, $sResponseNotice, $aLocalstorageData,$aLocalstorageTime, $aResponseData, $aEncodeData);
+        $iStatus = $aArguments[0];
+        $sResponseNotice = $aArguments[1];
         $aResponse = [];
         switch ( $iStatus ) {
             case 0 :
@@ -300,65 +215,51 @@ NijFTFBZCLlRyIiv/gq1TSECAwEAAQ==
                                                        = (string)$sResponseNotice;
                 break;
             default :
-                //                Exception::throwException(SERVER_ERROR_INFO['response no status']);
-                Exception::throwException(
-                //                    self::response(
-                //                        self::$iErrorStatus,
-                    SERVER_ERROR_INFO[ 'response no status' ]
-                //                    )
-                );
-                return;
+                new \Exception(SERVER_ERROR_INFO[ 'response no status' ]);
+                return FALSE;
                 break;
         }
 
-        if ( $aLocalstorageData ) {
-            if ( count( $aLocalstorageData ) !== count( $aLocalstorageTime ) ) {
-                //                Exception::throwException(SERVER_ERROR_INFO['response no status']);
-                Exception::throwException(
-                //                    self::response(
-                //                        self::$iErrorStatus,
-                    SERVER_ERROR_INFO[ 'localstorages data and storage time number no same' ]
-                //                    )
-                );
-                return;
-            }
+//        if ( $aLocalstorageData ) {
+//            if ( count( $aLocalstorageData ) !== count( $aLocalstorageTime ) ) {
+//                Exception::throwException(
+//                    SERVER_ERROR_INFO[ 'localstorages data and storage time number no same' ]
+//                );
+//                return;
+//            }
+//
+//            $aResponse[ self::localstorageFieldValue() ] = $aLocalstorageData;
+//            $aResponse[ self::localstorageOutTimeFieldValue() ]
+//                                                         = $aLocalstorageTime;
+//        }
+//
+//        if ( $aResponseData ) {
+//            $aResponse[ self::resquertResponseDataFieldValue() ]
+//                = $aResponseData;
+//        }
+//
+//        if ( $aEncodeData ) {
+//            if ( !$sEncodeKey || !$sEncodeKeyExplain ) {
+//                Exception::throwException(
+//                    SERVER_ERROR_INFO[ 'no exists response encode key' ]
+//                );
+//            }
+//
+//            $aResponse[ self::encodeFieldValue() ] = $aEncodeData;
+//            $aResponse[ self::responseEncodeKeyExplainFeild() ]
+//                                                   = $sEncodeKeyExplain;
+//            foreach ( $aEncodeData as $v ) {
+//                $aResponse[ $v ] = self::encodeData(
+//                    $aResponse[ $v ],
+//                    $sEncodeKey
+//                );
+//            }
+//        }
+//
+//        if ( $aResponseWebAction ) {
+//            $aResponse[ self::responseWebActionFeild() ] = $aResponseWebAction;
+//        }
 
-            $aResponse[ self::localstorageFieldValue() ] = $aLocalstorageData;
-            $aResponse[ self::localstorageOutTimeFieldValue() ]
-                                                         = $aLocalstorageTime;
-        }
-
-        if ( $aResponseData ) {
-            $aResponse[ self::resquertResponseDataFieldValue() ]
-                = $aResponseData;
-        }
-
-        if ( $aEncodeData ) {
-            if ( !$sEncodeKey || !$sEncodeKeyExplain ) {
-                Exception::throwException(
-                //                    self::response(
-                //                        self::$iErrorStatus,
-                    SERVER_ERROR_INFO[ 'no exists response encode key' ]
-                //                    )
-                );
-            }
-
-            $aResponse[ self::encodeFieldValue() ] = $aEncodeData;
-            $aResponse[ self::responseEncodeKeyExplainFeild() ]
-                                                   = $sEncodeKeyExplain;
-            foreach ( $aEncodeData as $v ) {
-                $aResponse[ $v ] = self::encodeData(
-                    $aResponse[ $v ],
-                    $sEncodeKey
-                );
-            }
-        }
-
-        if ( $aResponseWebAction ) {
-            $aResponse[ self::responseWebActionFeild() ] = $aResponseWebAction;
-        }
-
-        //                var_dump($aResponse);
         return $aResponse;
     }
 
@@ -563,11 +464,24 @@ NijFTFBZCLlRyIiv/gq1TSECAwEAAQ==
         //        var_dump($sSessionId);
         //        var_dump($sCheckSessionString);
         if ( !$sSessionId || !$sCheckSessionString ) {
-            //            Exception::throwException('session check error 1');
-            Exception::throwException(
+//            //            Exception::throwException('session check error 1');
+//            Exception::throwException(
+//                self::response(
+//                    self::$iErrorStatus,
+//                    SERVER_ERROR_INFO[ 'session check error 1' ]
+//                )
+//            );
+//            return FALSE;
+            $sExceptionDepengName = DependContainer::exception();
+            $oExceptionDepend = Ioc::resolve($sExceptionDepengName);
+
+            //            $sServerDepengName = DependContainer::server();
+            //            $oServerDepend = Ioc::resolve($sServerDepengName);
+
+            $oExceptionDepend->throwException(
                 self::response(
-                    self::$iErrorStatus,
-                    SERVER_ERROR_INFO[ 'session check error 1' ]
+                    self::errorStatus(),
+                    self::returnError('session check error 1')
                 )
             );
             return FALSE;
@@ -576,11 +490,24 @@ NijFTFBZCLlRyIiv/gq1TSECAwEAAQ==
         if ( $sSessionId !== self::md5CheckSessionString(
                 $sCheckSessionString
             ) ) {
-            //            Exception::throwException('session check error 2');
-            Exception::throwException(
+//            //            Exception::throwException('session check error 2');
+//            Exception::throwException(
+//                self::response(
+//                    self::$iErrorStatus,
+//                    SERVER_ERROR_INFO[ 'session check error 2' ]
+//                )
+//            );
+//            return FALSE;
+            $sExceptionDepengName = DependContainer::exception();
+            $oExceptionDepend = Ioc::resolve($sExceptionDepengName);
+
+            //            $sServerDepengName = DependContainer::server();
+            //            $oServerDepend = Ioc::resolve($sServerDepengName);
+
+            $oExceptionDepend->throwException(
                 self::response(
-                    self::$iErrorStatus,
-                    SERVER_ERROR_INFO[ 'session check error 2' ]
+                    self::errorStatus(),
+                    self::returnError('session check error 2')
                 )
             );
             return FALSE;

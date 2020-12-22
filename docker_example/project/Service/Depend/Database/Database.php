@@ -1,19 +1,20 @@
 <?php
 
-namespace ToolClass\Depend\Database;
+namespace Service\Depend\Database;
 
 //use model\home\Menu;
 //use ToolClass\Database\Mysql as MysqlTool;
 //use ToolClass\Safe\Sql;
 //
+use Service\Ioc\Ioc;
 //use ToolClass\Log\Exception;
 //use ToolClass\Server\Server;
 //
 //use ToolClass\Regular\RegularVerify;
 
-use ToolClass\Depend\DependContainer;
+use Service\Depend\DependContainer;
 
-class DatabaseDepend
+class Database
 {
     private $sNowTable        = '';
     private $sTable           = '';
@@ -29,16 +30,10 @@ class DatabaseDepend
     private $sGroupBy         = '';
     private $sCount           = '';
     private $aOrder           = [];
-    private $oSqlSafe = false;
+//    private $bRegisterSqlSafe = false;
 
 //    public $sDisposeIncrbyDecrbySql           = '';
 
-    /**
-     * DatabaseDepend constructor.
-     *
-     * 设置 $sNowTable $sTable
-     * 初始化所有变量
-     */
     public
     function __construct ()
     {
@@ -68,7 +63,7 @@ class DatabaseDepend
         $this->bQueue           = FALSE;
         $this->sCount           = '';
         $this->aOrder           = [];
-        $this->oSqlSafe           = FALSE;
+//        $this->bRegisterSqlSafe           = FALSE;
     }
 
     /**
@@ -78,13 +73,13 @@ class DatabaseDepend
      *
      * sql safe object
      */
-    private function sqlSafeObj ()
-    {
-        if (!$this->oSqlSafe) {
-            $this->oSqlSafe = new DependContainer('sqlSafe');
-            $this->oSqlSafe = $this->oSqlSafe->selectClassDepend();
-        }
-    }
+//    private function sqlSafeObj ()
+//    {
+//        if (!$this->bRegisterSqlSafe) {
+//            $sDepeng = DependContainer::sqlSafe();
+//            Ioc::register($sDepeng, DependContainer::depend( $sDepeng));
+//        }
+//    }
 
     /**
      * User: white
@@ -105,9 +100,12 @@ class DatabaseDepend
             return false;
         }
 
-        $this->sqlSafeObj();
+//        $this->sqlSafeObj();
 
-        $this->sNowTable = $this->oSqlSafe->sqlSafe($sTable);
+        $sDepeng = DependContainer::sqlSafe();
+        $oDatabaseDepend = Ioc::resolve($sDepeng);
+
+        $this->sNowTable = $oDatabaseDepend->sqlSafe($sTable);
         $this->sTable = '`' . $this->sNowTable . '`';
     }
 
@@ -122,10 +120,23 @@ class DatabaseDepend
         $aWhereConditions = []
     ) {
         if ( !$aWhereConditions || !is_array( $aWhereConditions ) ) {
-            Exception::throwException(
-                Server::response(
-                    Server::errorStatus(),
-                    Server::returnError('find in set value must no empty, and must is array')
+//            Exception::throwException(
+//                Server::response(
+//                    Server::errorStatus(),
+//                    Server::returnError('find in set value must no empty, and must is array')
+//                )
+//            );
+//            return FALSE;
+            $sExceptionDepengName = DependContainer::exception();
+            $oExceptionDepend = Ioc::resolve($sExceptionDepengName);
+
+            $sServerDepengName = DependContainer::server();
+            $oServerDepend = Ioc::resolve($sServerDepengName);
+
+            $oExceptionDepend->throwException(
+                $oServerDepend->response(
+                    $oServerDepend->errorStatus(),
+                    $oServerDepend->returnError('find in set value must no empty, and must is array')
                 )
             );
             return FALSE;
@@ -154,10 +165,23 @@ class DatabaseDepend
         $aWhereConditions = []
     ) {
         if ( !$aWhereConditions || !is_array( $aWhereConditions ) ) {
-            Exception::throwException(
-                Server::response(
-                    Server::errorStatus(),
-                    Server::returnError('find in set value must no empty, and must is array')
+//            Exception::throwException(
+//                Server::response(
+//                    Server::errorStatus(),
+//                    Server::returnError('find in set value must no empty, and must is array')
+//                )
+//            );
+//            return FALSE;
+            $sExceptionDepengName = DependContainer::exception();
+            $oExceptionDepend = Ioc::resolve($sExceptionDepengName);
+
+            $sServerDepengName = DependContainer::server();
+            $oServerDepend = Ioc::resolve($sServerDepengName);
+
+            $oExceptionDepend->throwException(
+                $oServerDepend->response(
+                    $oServerDepend->errorStatus(),
+                    $oServerDepend->returnError('find in set value must no empty, and must is array')
                 )
             );
             return FALSE;
@@ -193,14 +217,17 @@ class DatabaseDepend
             return;
         }
 
-        $this->sqlSafeObj();
+//        $this->sqlSafeObj();
+
+        $sDepeng = DependContainer::sqlSafe();
+        $oDatabaseDepend = Ioc::resolve($sDepeng);
 
         $this->sWhere = $this->sWhere ? $this->sWhere . 'AND' : '';
         $sAnd         = ' AND ';
         $this->sWhere .= '(';
         $bWhere = false;
         foreach ( $aWhere as $k => $v ) {
-            $this->aWhereConditions[ $k ] = $this->oSqlSafe->sqlSafe( $v );
+            $this->aWhereConditions[ $k ] = $oDatabaseDepend->sqlSafe( $v );
 
             $this->sWhere .= '`' . $k . '`' . '=:' . $k . $sAnd;
             $bWhere = TRUE;
@@ -278,11 +305,15 @@ class DatabaseDepend
         $aData = []
     ) {
         if ($aData) {
-            $this->sqlSafeObj();
+//            $this->sqlSafeObj();
+//
+//
+            $sDepeng = DependContainer::sqlSafe();
+            $oDatabaseDepend = Ioc::resolve($sDepeng);
 
             if (is_array($aData)) {
                 foreach ($aData as $k => $v) {
-                    $aData[$k] = $this->oSqlSafe->sqlSafe( $v );
+                    $aData[$k] = $oDatabaseDepend->sqlSafe( $v );
                 }
 
                 $aData = '`' . implode(
@@ -290,7 +321,7 @@ class DatabaseDepend
                         $aData
                     ) . '`';
             } else {
-                $aData = '`' . $this->oSqlSafe->sqlSafe( $aData ) . '`';
+                $aData = '`' . $oDatabaseDepend->sqlSafe( $aData ) . '`';
             }
         }
 
@@ -371,11 +402,26 @@ class DatabaseDepend
                 $oModel = 'model\publics\word\ReplenishWord';
                 break;
             default:
-                var_dump($this->sNowTable);
-                Exception::throwException(
-                    Server::response(
-                        Server::errorStatus(),
-                        Server::returnError('error model 1')
+                if (DEBUG) {
+                    var_dump($this->sNowTable);
+                }
+//                Exception::throwException(
+//                    Server::response(
+//                        Server::errorStatus(),
+//                        Server::returnError('error model 1')
+//                    )
+//                );
+//                return FALSE;
+                $sExceptionDepengName = DependContainer::exception();
+                $oExceptionDepend = Ioc::resolve($sExceptionDepengName);
+
+                $sServerDepengName = DependContainer::server();
+                $oServerDepend = Ioc::resolve($sServerDepengName);
+
+                $oExceptionDepend->throwException(
+                    $oServerDepend->response(
+                        $oServerDepend->errorStatus(),
+                        $oServerDepend->returnError('error model 1')
                     )
                 );
                 return FALSE;
@@ -425,28 +471,20 @@ class DatabaseDepend
             $this->bQueue
         );
     }
-//    private function disposeIncrbyDecrbySql ($aData, $iUpdateNum = 1 )
-//    {
-//        if (isset($aData[MysqlTool::$sIncrbyFeild])) {
-//            if ($iUpdateNum == 1) {
-//                $this->first();
-//            } else {
-//                $this->all();
-//            }
-//            $this->sDisposeIncrbyDecrbySql = $this->disposeSql( 'incrbyDecrbyOne' );
-//        }
-//    }
+
     private function updateFeild ($aData)
     {
         if (!$aData) {
             return;
         }
 
+        $sDepeng = DependContainer::sqlSafe();
+        $oDatabaseDepend = Ioc::resolve($sDepeng);
         $sDou = ',';
         foreach ( $aData as $k1 => $v1 ) {
 //            foreach ($v1 as $k => $v) {
                 $this->sUpdate .= '`' . $k1 . '`' . '=:' . $k1 . $sDou;
-                $this->aUpdateData[ $k1 ] = Sql::filterSqlArg( $v1 );
+                $this->aUpdateData[ $k1 ] = $oDatabaseDepend->sqlSafe( $v1 );
 //            }
         }
         $this->sUpdate = mb_substr(
@@ -564,12 +602,27 @@ class DatabaseDepend
                 $sSql .= $this->sWhere ? 'WHERE' . $this->sWhere : '';
                 break;
             default:
-                var_dump($sAction);
+                if (DEBUG) {
+                    var_dump($sAction);
+                }
                 //                Exception::throwException('error action');
-                Exception::throwException(
-                    Server::response(
-                        Server::errorStatus(),
-                        Server::returnError('error action')
+//                Exception::throwException(
+//                    Server::response(
+//                        Server::errorStatus(),
+//                        Server::returnError('error action')
+//                    )
+//                );
+//                return FALSE;
+                $sExceptionDepengName = DependContainer::exception();
+                $oExceptionDepend = Ioc::resolve($sExceptionDepengName);
+
+                $sServerDepengName = DependContainer::server();
+                $oServerDepend = Ioc::resolve($sServerDepengName);
+
+                $oExceptionDepend->throwException(
+                    $oServerDepend->response(
+                        $oServerDepend->errorStatus(),
+                        $oServerDepend->returnError('error action')
                     )
                 );
                 return FALSE;
@@ -578,10 +631,23 @@ class DatabaseDepend
 
         if ( !$sSql ) {
             //            Exception::throwException('no sql');
-            Exception::throwException(
-                Server::response(
-                    Server::errorStatus(),
-                    Server::returnError('no sql')
+//            Exception::throwException(
+//                Server::response(
+//                    Server::errorStatus(),
+//                    Server::returnError('no sql')
+//                )
+//            );
+//            return FALSE;
+            $sExceptionDepengName = DependContainer::exception();
+            $oExceptionDepend = Ioc::resolve($sExceptionDepengName);
+
+            $sServerDepengName = DependContainer::server();
+            $oServerDepend = Ioc::resolve($sServerDepengName);
+
+            $oExceptionDepend->throwException(
+                $oServerDepend->response(
+                    $oServerDepend->errorStatus(),
+                    $oServerDepend->returnError('no sql')
                 )
             );
             return FALSE;

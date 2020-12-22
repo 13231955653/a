@@ -1,7 +1,7 @@
 路由  自动加载  命名空间
 php js html css css3 supervisord redis集群 curl frp nginx集群 mysql集群 Percona XtraDB
  Cluster(PXC) 5.7 pdo预处理 rsa sql日志 仿laravel artsian/command命令 model command 生成
- 前置/后置中间件 钩子 laravel  查询构造器/Query Builder  
+ 前置/后置中间件 钩子 laravel  查询构造器/Query Builder  控制反转 依赖注入
 
    路由
 多语言

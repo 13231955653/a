@@ -4,6 +4,9 @@ namespace model\publics\string;
 
 use model\Mysql;
 
+use Service\Depend\DependContainer;
+use Service\Ioc\Ioc;
+
 class JianFanFont extends Mysql
 {
     private static $sTable = 'jian_fan_fonts';
@@ -340,5 +343,96 @@ class JianFanFont extends Mysql
             $bWriteSql,
             false
         );
+    }
+
+//    public static function checkExistChineseSimpleString ( string $sSimpleChineseString = '')
+//    {
+//        if (!$sSimpleChineseString || is_numeric($sSimpleChineseString)) {
+//            return FALSE;
+//        }
+//
+//        $aWhere = [];
+//        $aWhere[self::wordUrlencodeMd5()] = self::wordUrlencodeMd5Encode($sSimpleChineseString);
+//
+//        $sPrikey = self::primary();
+//        $aSelect = [];
+//        $aSelect = [$sPrikey];
+//
+//        $res = self::getStringFromDatabase( $aWhere, 1, $aSelect);
+//        $aWhere = $aSelect = null;
+//        unset($aWhere, $aSelect);
+//
+//        return $res ? TRUE : FALSE;
+//    }
+
+    public static function getStringFromDatabase ( $aWhere = [], $iGetNum = 1, $aSelect = '*', $aOrder = [])
+    {
+        if (!$aWhere) {
+            return FALSE;
+        }
+        self::registerDatabaseCorrelation();
+
+        $sDatabaseDepengName = DependContainer::database();
+        $oDatabaseDepend = Ioc::resolve($sDatabaseDepengName);
+
+        $sDatabaseToolDepengName = DependContainer::databaseTool();
+        $oDatabaseToolDepend = Ioc::resolve($sDatabaseToolDepengName);
+
+        $oDatabaseDepend->table(self::table());
+
+        $sDaYu = $oDatabaseToolDepend->daYu();
+        if (isset($aWhere[$sDaYu])) {
+            $oDatabaseDepend->whereDaYu($aWhere[$sDaYu]);
+            unset($aWhere[$sDaYu]);
+        }
+
+        $oDatabaseDepend->where( $aWhere );
+        $aWhere = NULL;
+        unset( $aWhere );
+
+        $oDatabaseDepend->select($aSelect);
+
+        if ($aOrder) {
+            foreach ($aOrder as $k => $v) {
+                $oDatabaseDepend->orderBy($k, $v);
+            }
+        }
+
+        if (is_numeric($iGetNum)) {
+            $res = $iGetNum > 1 ? $oDatabaseDepend->getNum($iGetNum) : $oDatabaseDepend->first();
+        } else {
+            switch ($iGetNum) {
+                case 'all' :
+                    $res = $oDatabaseDepend->all();
+                    break;
+                case 'count' :
+                    $res = $oDatabaseDepend->count();
+                    break;
+                default:
+                    $sSearchWhat = $iGetNum = $oDatabaseDepend = $sDatabaseDepengName = $sDatabaseToolDepengName = $oDatabaseToolDepend = $sDaYu = NULL;
+                    unset($sSearchWhat, $iGetNum, $oDatabaseDepend, $sDatabaseDepengName, $sDatabaseToolDepengName, $oDatabaseToolDepend, $sDaYu);
+
+                    $sExceptionDepengName = DependContainer::exception();
+                    $oExceptionDepend = Ioc::resolve($sExceptionDepengName);
+
+                    $sServerDepengName = DependContainer::server();
+                    $oServerDepend = Ioc::resolve($sServerDepengName);
+
+                    $oExceptionDepend->throwException(
+                        $oServerDepend->response(
+                            $oServerDepend->errorStatus(),
+                            $oServerDepend->returnError('no get chinese number')
+                        )
+                    );
+
+                    return FALSE;
+                    break;
+            }
+        }
+
+        $sSearchWhat = $iGetNum = $oDatabaseDepend = $sDatabaseDepengName = $sDatabaseToolDepengName = $oDatabaseToolDepend = $sDaYu = NULL;
+        unset($sSearchWhat, $iGetNum, $oDatabaseDepend, $sDatabaseDepengName, $sDatabaseToolDepengName, $oDatabaseToolDepend, $sDaYu);
+
+        return $res ? $res : FALSE;
     }
 }

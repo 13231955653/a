@@ -5,6 +5,8 @@ namespace model;
 
 use model\MyPdo;
 
+use Service\Depend\DependContainer;
+use Service\Ioc\Ioc;
 use ToolClass\Database\Mysql as Mysqltool;
 
 use ToolClass\Log\ErrorInformAdminThrow;
@@ -24,11 +26,28 @@ class Mysql
 
     private static $sMysqlObj = FALSE;
 
+    private static $bRegisterDatabaseTool = FALSE;
+
     private
     function __construct ()
     {
     }
 
+    protected static function registerDatabaseCorrelation ()
+    {
+        if (self::$bRegisterDatabaseTool) {
+            return TRUE;
+        }
+
+        $sDepeng = DependContainer::database();
+        Ioc::register($sDepeng, DependContainer::depend( $sDepeng));
+
+        $sDepeng = DependContainer::databaseTool();
+        Ioc::register($sDepeng, DependContainer::depend( $sDepeng));
+
+        $sDepeng = DependContainer::sqlSafe();
+        Ioc::register($sDepeng, DependContainer::depend( $sDepeng));
+    }
 
     protected static //    function first ($sSql, $aBindValue = [], $sPlatform, $sTable)
     function first (
