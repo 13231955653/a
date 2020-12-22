@@ -424,7 +424,6 @@ class JianFanFont extends Mysql
                             $oServerDepend->returnError('no get chinese number')
                         )
                     );
-
                     return FALSE;
                     break;
             }

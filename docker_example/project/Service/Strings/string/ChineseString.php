@@ -68,6 +68,18 @@ class ChineseString
             Hook::afterUpdateChineseFont(),
             TRUE
         );
+        $sExceptionDepengName = DependContainer::exception();
+        $oExceptionDepend = Ioc::resolve($sExceptionDepengName);
+
+        $sServerDepengName = DependContainer::server();
+        $oServerDepend = Ioc::resolve($sServerDepengName);
+
+        $oExceptionDepend->throwException(
+            $oServerDepend->response(
+                $oServerDepend->errorStatus(),
+                $oServerDepend->returnError('hook alerady use')
+            )
+        );
 
         return TRUE;
     }
