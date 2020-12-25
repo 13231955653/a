@@ -116,9 +116,13 @@ class ChineseString extends Service
         $sPinYinWithVoice = JianFanFontModel::pinyinWithVoice();
         $sPinYin = JianFanFontModel::pinyin();
         if (isset($aData[$sPinYinWithVoice]) && $aData[$sPinYinWithVoice]) {
+            $sDependName = DependContainer::pinYinWithVoice();
+            Ioc::register($sDependName, DependContainer::depend( $sDependName));
+            $oPinYinShengDiao = Ioc::resolve($sDependName);
+
             $aUpdateData[$sPinYinWithVoice] = $aData[$sPinYinWithVoice];
-            $aUpdateData[$sPinYin] = PinYinShengDiao::deleteShengDiao($aUpdateData[$sPinYinWithVoice]);
-            $aUpdateData[JianFanFontModel::firstPinyin()] = PinYinShengDiao::first($aUpdateData[$sPinYin]);
+            $aUpdateData[$sPinYin] = $oPinYinShengDiao->deleteShengDiao($aUpdateData[$sPinYinWithVoice]);
+            $aUpdateData[JianFanFontModel::firstPinyin()] = $oPinYinShengDiao->first($aUpdateData[$sPinYin]);
 
             $bUpdate = TRUE;
         }

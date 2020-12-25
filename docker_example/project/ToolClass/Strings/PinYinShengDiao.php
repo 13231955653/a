@@ -84,13 +84,14 @@ class PinYinShengDiao extends ToolFather
     public static function first ($sPinYin = '')
     {
         if ( !$sPinYin ) {
-            Exception::throwException(
-                Server::response(
-                    Server::errorStatus(),
-                    Server::returnError( 'no pinyin' )
-                )
-            );
-            return FALSE;
+//            Exception::throwException(
+//                Server::response(
+//                    Server::errorStatus(),
+//                    Server::returnError( 'no pinyin' )
+//                )
+//            );
+//            return FALSE;
+            return self::throwError('no pinyin');
         }
 
         $sFirstPinYin = mb_substr($sPinYin, 0, 1);
@@ -103,13 +104,14 @@ class PinYinShengDiao extends ToolFather
         $sPinYin = ''
     ) {
         if ( !$sPinYin ) {
-            Exception::throwException(
-                Server::response(
-                    Server::errorStatus(),
-                    Server::returnError( 'no pinyin' )
-                )
-            );
-            return FALSE;
+//            Exception::throwException(
+//                Server::response(
+//                    Server::errorStatus(),
+//                    Server::returnError( 'no pinyin' )
+//                )
+//            );
+//            return FALSE;
+            return self::throwError('no pinyin');
         }
 
         return str_replace(

@@ -124,8 +124,10 @@ class Mysql
         }
 
         if ( !self::$aGroupObj ) {
+            $sPdoName = DependContainer::pdo();
+            $oPdo = Ioc::resolve($sPdoName);
             foreach ( DATDABASE_CONFIG[ 'MYSQL_GROUP' ] as $k => $v ) {
-                self::$aGroupObj[] = MyPdo::getInstance(
+                self::$aGroupObj[] = $oPdo->getInstance(
                     'mysql_group',
                     $v[ 'MYSQL_IP' ],
                     $v[ 'MYSQL_PORT' ],

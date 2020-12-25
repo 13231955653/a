@@ -21,6 +21,19 @@ class DependContainer
     private static $sCache = 'cache';
     private static $sChineseStringModelService = 'chineseStringModelService';
     private static $sArrayService = 'arrayService';
+    private static $sPdoService = 'pdoService';
+    private static $sPinYinWithVoice = 'pinYinWithVoice';
+
+    public static function pinYinWithVoice ()
+    {
+        return self::$sPinYinWithVoice;
+    }
+
+
+    public static function pdo ()
+    {
+        return self::$sPdoService;
+    }
 
     public static function array ()
     {
@@ -111,6 +124,9 @@ class DependContainer
 
         $sClass = '';
         switch ($sDepend) {
+            case 'pinYinWithVoice' :
+                $sClass = '\Service\Depend\Strings\String\PinYinWithVoice';
+                break;
             case 'database' :
                 $sClass = '\Service\Depend\Database\Database';
                 break;
@@ -122,6 +138,9 @@ class DependContainer
                 break;
             case 'databaseTool' :
                 $sClass = '\Service\Depend\Database\DatabaseTool';
+                break;
+            case 'pdoService' :
+                $sClass = '\Service\Depend\Database\Pdo';
                 break;
             case 'exception' :
                 $sClass = '\Service\Depend\Exception\Exception';
