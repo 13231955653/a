@@ -2,16 +2,15 @@
 
 namespace ToolClass\Curl;
 
-use model\publics\SpiderCurlData;
-//use model\publics\ZhongGuanCunXiaoHuaSpider;
-use ToolClass\Log\Exception;
-//use ToolClass\Model\Mysql as MysqlTool;
-use ToolClass\Model\Mysql;
-use ToolClass\Queue\Queue;
-use ToolClass\Server\Server;
-use ToolClass\Date\Time;
+//use model\publics\SpiderCurlData;
+//use ToolClass\Log\Exception;
+//use ToolClass\Model\Mysql;
+//use ToolClass\Queue\Queue;
+//use ToolClass\Server\Server;
+//use ToolClass\Date\Time;
 
-class CurlData
+use ToolClass\ToolFather;
+class CurlData extends ToolFather
 {
     public static
     function insertValue (

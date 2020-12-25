@@ -370,7 +370,7 @@ class JianFanFont extends Mysql
         if (!$aWhere) {
             return FALSE;
         }
-        self::registerDatabaseCorrelation();
+//        self::registerDatabaseCorrelation();
 
         $sDatabaseDepengName = DependContainer::database();
         $oDatabaseDepend = Ioc::resolve($sDatabaseDepengName);
@@ -412,19 +412,20 @@ class JianFanFont extends Mysql
                     $sSearchWhat = $iGetNum = $oDatabaseDepend = $sDatabaseDepengName = $sDatabaseToolDepengName = $oDatabaseToolDepend = $sDaYu = NULL;
                     unset($sSearchWhat, $iGetNum, $oDatabaseDepend, $sDatabaseDepengName, $sDatabaseToolDepengName, $oDatabaseToolDepend, $sDaYu);
 
-                    $sExceptionDepengName = DependContainer::exception();
-                    $oExceptionDepend = Ioc::resolve($sExceptionDepengName);
-
-                    $sServerDepengName = DependContainer::server();
-                    $oServerDepend = Ioc::resolve($sServerDepengName);
-
-                    $oExceptionDepend->throwException(
-                        $oServerDepend->response(
-                            $oServerDepend->errorStatus(),
-                            $oServerDepend->returnError('no get chinese number')
-                        )
-                    );
-                    return FALSE;
+//                    $sExceptionDepengName = DependContainer::exception();
+//                    $oExceptionDepend = Ioc::resolve($sExceptionDepengName);
+//
+//                    $sServerDepengName = DependContainer::server();
+//                    $oServerDepend = Ioc::resolve($sServerDepengName);
+//
+//                    $oExceptionDepend->throwException(
+//                        $oServerDepend->response(
+//                            $oServerDepend->errorStatus(),
+//                            $oServerDepend->returnError('no get chinese number')
+//                        )
+//                    );
+//                    return FALSE;
+                    return self::throwError('no get chinese number');
                     break;
             }
         }

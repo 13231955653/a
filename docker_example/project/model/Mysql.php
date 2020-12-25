@@ -3,14 +3,14 @@
 namespace model;
 
 
-use model\MyPdo;
+//use model\MyPdo;
 
 use Service\Depend\DependContainer;
 use Service\Ioc\Ioc;
-use ToolClass\Database\Mysql as Mysqltool;
+//use ToolClass\Database\Mysql as Mysqltool;
 
-use ToolClass\Log\ErrorInformAdminThrow;
-use ToolClass\Safe\SqlSafe;
+//use ToolClass\Log\ErrorInformAdminThrow;
+//use ToolClass\Safe\SqlSafe;
 
 require_once __ROOT_DIR__
              . DIRECTORY_SEPARATOR
@@ -33,21 +33,21 @@ class Mysql
     {
     }
 
-    protected static function registerDatabaseCorrelation ()
-    {
-        if (self::$bRegisterDatabaseTool) {
-            return TRUE;
-        }
-
-        $sDepeng = DependContainer::database();
-        Ioc::register($sDepeng, DependContainer::depend( $sDepeng));
-
-        $sDepeng = DependContainer::databaseTool();
-        Ioc::register($sDepeng, DependContainer::depend( $sDepeng));
-
-        $sDepeng = DependContainer::sqlSafe();
-        Ioc::register($sDepeng, DependContainer::depend( $sDepeng));
-    }
+//    protected static function registerDatabaseCorrelation ()
+//    {
+//        if (self::$bRegisterDatabaseTool) {
+//            return TRUE;
+//        }
+//
+//        $sDepeng = DependContainer::database();
+//        Ioc::register($sDepeng, DependContainer::depend( $sDepeng));
+//
+//        $sDepeng = DependContainer::databaseTool();
+//        Ioc::register($sDepeng, DependContainer::depend( $sDepeng));
+//
+//        $sDepeng = DependContainer::sqlSafe();
+//        Ioc::register($sDepeng, DependContainer::depend( $sDepeng));
+//    }
 
     protected static //    function first ($sSql, $aBindValue = [], $sPlatform, $sTable)
     function first (
@@ -138,20 +138,24 @@ class Mysql
             }
         }
 
-        $iDatabaseTag = Mysqltool::queryNowDatabaseTag();
+        $sDependName = DependContainer::databaseTool();
+        $oDepend = Ioc::resolve($sDependName);
+
+        $iDatabaseTag = $oDepend->queryNowDatabaseTag();
         $iDatabaseTag = $iDatabaseTag ? $iDatabaseTag
-            : Mysqltool::mtRandNowDatabaseTag();
+            : $oDepend->mtRandNowDatabaseTag();
 
         self::$sMysqlObj = self::$aGroupObj[ $iDatabaseTag % count(
             DATDABASE_CONFIG[ 'MYSQL_GROUP' ]
         ) ];
-        if ( !self::$sMysqlObj ) {
-            ErrorInformAdminThrow::recordErrorAndInformAdmin(
-                11,
-                self::$aGroupObj
-            );
-            return FALSE;
-        }
+//        die();
+//        if ( !self::$sMysqlObj ) {
+//            ErrorInformAdminThrow::recordErrorAndInformAdmin(
+//                11,
+//                self::$aGroupObj
+//            );
+//            return FALSE;
+//        }
 
         return self::$sMysqlObj;
     }
@@ -280,5 +284,26 @@ class Mysql
             $bWriteSql,
             $bQueue
         );
+    }
+
+    protected static function throwError ($sErrorInfo = '')
+    {
+        $sErrorInfo = $sErrorInfo ? $sErrorInfo : 'unknown error';
+
+        $sExceptionDepengName = DependContainer::exception();
+        $oExceptionDepend = Ioc::resolve($sExceptionDepengName);
+
+        $sServerDepengName = DependContainer::server();
+        $oServerDepend = Ioc::resolve($sServerDepengName);
+
+        $oExceptionDepend->throwException(
+            $oServerDepend->response(
+                [
+                    $oServerDepend->errorStatus(),
+                    $oServerDepend->returnError($sErrorInfo)
+                ]
+            )
+        );
+        return FALSE;
     }
 }

@@ -2,13 +2,17 @@
 namespace Service\Strings\string;
 
 use model\publics\string\JianFanFont as JianFanFontModel;
-use ToolClass\Database\Mysql as MysqlTool;
+use Service\Depend\DependContainer;
+use Service\Ioc\Ioc;
+
+//use ToolClass\Database\Mysql as MysqlTool;
+//use ToolClass\Model\Mysql;
+//use ToolClass\Arrays\Arrays;
+
+//use Service\Ioc\Ioc;
 //use Service\Depend\DependContainer;
 //use ToolClass\Log\Exception;
-use ToolClass\Model\Mysql;
 //use ToolClass\Server\Server;
-use ToolClass\Arrays\Arrays;
-//use Service\Ioc\Ioc;
 
 require_once __ROOT_DIR__
              . DIRECTORY_SEPARATOR
@@ -18,31 +22,11 @@ require_once __ROOT_DIR__
 
 class ChineseStringModel
 {
-//    public static function update ($aWhere = [], $aUpdateData = [])
-//    {
-//        if (!$aWhere || !$aUpdateData) {
-//            return FALSE;
-//        }
-//
-//        $oMysql = Mysql::table( JianFanFontModel::table() );
-//
-//        $oMysql->where( $aWhere );
-//        $aWhere = NULL;
-//        unset( $aWhere );
-//
-//        $res = $oMysql->update($aUpdateData);
-//
-//        $sSearchWhat = $iGetNum = $oMysql = NULL;
-//        unset($sSearchWhat, $iGetNum, $oMysql);
-//
-//        return $res ? $res : FALSE;
-//    }
-
     public static function allNormalChinese ()
     {
         $aWhere = [];
         $aWhere[JianFanFontModel::status()] = JianFanFontModel::normalStatus();
-        return self::allChinese($aWhere);
+        return self::matchConditionChineseString($aWhere);
     }
 
     ///////////////////////////////////////////////////
@@ -51,8 +35,16 @@ class ChineseStringModel
         return CHINESE_MAX_GET_NUMBER;
     }
 
-    public static function allChinese ($aWhere = [])
+    public static function matchConditionChineseString ($aWhere = [])
     {
+        $sDependName = DependContainer::databaseTool();
+        Ioc::register($sDependName, DependContainer::depend( $sDependName));
+        $oDatabaseService = Ioc::resolve($sDependName);
+
+        $sDependName = DependContainer::array();
+        Ioc::register($sDependName, DependContainer::depend( $sDependName));
+        $oArrayService = Ioc::resolve($sDependName);
+
         $res = true;
         $aData = [];
         $sSortByKey = 'id';
@@ -61,16 +53,16 @@ class ChineseStringModel
         $aMaxMinId = [];
         $iLimitNumber = self::maxGetNumber();
         while ($res) {
-            $aWhere[MysqlTool::daYu()][JianFanFontModel::primary()] = $iBeginId;
-            $res = self::getStringFromDatabase( $aWhere, $iLimitNumber, '*', [ $sSortByKey => $sSort]);
+            $aWhere[$oDatabaseService->daYu()][JianFanFontModel::primary()] = $iBeginId;
+            $res = JianFanFontModel::getStringFromDatabase( $aWhere, $iLimitNumber, '*', [ $sSortByKey => $sSort]);
             if (!$res) {
                 break;
             }
 
             $aData = array_merge($aData, $res);
 
-            $aMaxMinId = Arrays::arrayMaxMin($res, $sSortByKey);
-            $iBeginId = $sSort === 'ASC' ? $aMaxMinId[Arrays::arrayMaxKey()][Arrays::value()] : $aMaxMinId[Arrays::arrayMinKey()][Arrays::value()];
+            $aMaxMinId = $oArrayService->arrayMaxMin($res, $sSortByKey);
+            $iBeginId = $sSort === 'ASC' ? $aMaxMinId[$oArrayService->arrayMaxKey()][$oArrayService->value()] : $aMaxMinId[$oArrayService->arrayMinKey()][$oArrayService->value()];
         }
         $aWhere = $aMaxMinId = $res = $sSortByKey = $sSort = $iBeginId = $aMaxMinId = $iLimitNumber = null;
         unset($aWhere, $aMaxMinId, $res, $sSortByKey, $sSort, $iBeginId, $aMaxMinId, $iLimitNumber);

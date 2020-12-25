@@ -2,15 +2,13 @@
 
 namespace ToolClass\Log;
 
-use ToolClass\Log\Exception;
-
-use ToolClass\Json\Json;
-
-use model\publics\Logs;
-
-use model\publics\ErrorLog;
-
-//use ToolClass\Server\Server;
+//use ToolClass\Log\Exception;
+//
+//use ToolClass\Json\Json;
+//
+//use model\publics\Logs;
+//
+//use model\publics\ErrorLog;
 
 /**
  *
@@ -18,7 +16,9 @@ use model\publics\ErrorLog;
  * date:2020/9/22 20:21
  *
  */
-class ErrorInformAdminThrow
+use ToolClass\ToolFather;
+
+class ErrorInformAdminThrow extends ToolFather
 {
     public static $sLogType = 'send_error_number';
 

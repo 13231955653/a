@@ -2,19 +2,19 @@
 
 namespace ToolClass\Queue;
 
-use model\Mysql;
-
-use ToolClass\Cache\RedisKey;
-use ToolClass\Cache\Cache;
-use ToolClass\Json\Json;
-use ToolClass\File\File;
-use ToolClass\Log\Exception;
-use ToolClass\Server\Server;
-use ToolClass\Log\ErrorInformAdminThrow;
-
+//use model\Mysql;
+//
+//use ToolClass\Cache\RedisKey;
+//use ToolClass\Cache\Cache;
+//use ToolClass\Json\Json;
+//use ToolClass\File\File;
+//use ToolClass\Log\Exception;
+//use ToolClass\Server\Server;
 //use ToolClass\Log\ErrorInformAdminThrow;
 
-class Queue
+use ToolClass\ToolFather;
+
+class Queue extends ToolFather
 {
     private static $queue = FALSE;
 

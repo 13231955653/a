@@ -3,13 +3,13 @@
 namespace ToolClass\Strings\chengyu;
 
 use model\publics\ChengYu as ChengYuModel;
-use ToolClass\Model\Mysql;
-use ToolClass\Strings\PinYin;
-use ToolClass\Strings\PinYinShengDiao;
-//use ToolClass\Command\Command;
-//use command\String\cheng_yu\ChengYu as ChengYuCommand;
+//use ToolClass\Model\Mysql;
+//use ToolClass\Strings\PinYin;
+//use ToolClass\Strings\PinYinShengDiao;
 
-class ChengYu
+use ToolClass\ToolFather;
+
+class ChengYu extends ToolFather
 {
     public static
     function insertChengYu (

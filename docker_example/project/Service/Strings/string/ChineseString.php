@@ -2,33 +2,13 @@
 
 namespace Service\Strings\string;
 
-use Hook\Hook;
 use model\publics\string\JianFanFont as JianFanFontModel;
 use Service\Depend\DependContainer;
 use Service\Ioc\Ioc;
-use ToolClass\Date\Time;
-use ToolClass\Server\Server;
-use ToolClass\Strings\PinYinShengDiao;
 
-class ChineseString
+use Service\Service;
+class ChineseString extends Service
 {
-//    private static $bRegiterDatabaseDepend = false;
-
-//    private static function registerDatabaseDepend ()
-//    {
-////        if (self::$bRegiterDatabaseDepend) {
-////            return TRUE;
-////        }
-////
-////        self::$bRegiterDatabaseDepend = TRUE;
-//
-//        $sDepeng = DependContainer::database();
-//        Ioc::register($sDepeng, DependContainer::depend( $sDepeng));
-//
-//        $sDepeng = DependContainer::sqlSafe();
-//        Ioc::register($sDepeng, DependContainer::depend( $sDepeng));
-//    }
-
     public static function replenishChinese (array $aArg = [])
     {
         $aData = self::disposeReplenishChineseArgs($aArg);
@@ -37,8 +17,6 @@ class ChineseString
         if (!$aData) {
             return false;
         }
-
-//        self::registerDatabaseDepend();
 
         if (!self::checkExistSimpleChineseString($aData[JianFanFontModel::word()])) {
             return FALSE;
@@ -61,24 +39,17 @@ class ChineseString
         $res = null;
         unset($res);
 
-        Hook::addHook('string\ChineseFont\ChineseFont', 'afterUpdateChineseFont');
+        $sDepengName = DependContainer::hook();
+        Ioc::register($sDepengName, DependContainer::depend( $sDepengName));
+
+        $sDepeng = Ioc::resolve($sDepengName);
+
+        $sDepeng->addHook('string\ChineseFont\ChineseFont', 'afterUpdateChineseFont');
         //            更新文字拼音 cache hook
-        Hook::listen(
-            Hook::chineseFont(),
-            Hook::afterUpdateChineseFont(),
+        $sDepeng->listen(
+            $sDepeng->chineseFont(),
+            $sDepeng->afterUpdateChineseFont(),
             TRUE
-        );
-        $sExceptionDepengName = DependContainer::exception();
-        $oExceptionDepend = Ioc::resolve($sExceptionDepengName);
-
-        $sServerDepengName = DependContainer::server();
-        $oServerDepend = Ioc::resolve($sServerDepengName);
-
-        $oExceptionDepend->throwException(
-            $oServerDepend->response(
-                $oServerDepend->errorStatus(),
-                $oServerDepend->returnError('hook alerady use')
-            )
         );
 
         return TRUE;
@@ -181,8 +152,14 @@ class ChineseString
             return FALSE;
         }
 
-        $aUpdateData[JianFanFontModel::whoUpdate()] = Server::getNowUser();
-        $aUpdateData[JianFanFontModel::updateTime()] = Time::nowRunTime();
+        $sServerDepengName = DependContainer::server();
+        $oServerDepend = Ioc::resolve($sServerDepengName);
+
+        $sTimeDepengName = DependContainer::time();
+        $oTimeDepend = Ioc::resolve($sTimeDepengName);
+
+        $aUpdateData[JianFanFontModel::whoUpdate()] = $oServerDepend->getNowUser();
+        $aUpdateData[JianFanFontModel::updateTime()] = $oTimeDepend->nowRunTime();
 
         return $aUpdateData;
     }

@@ -2,8 +2,8 @@
 
 namespace ToolClass\Strings;
 
-use ToolClass\Log\Exception;
-use ToolClass\Server\Server;
+//use ToolClass\Log\Exception;
+//use ToolClass\Server\Server;
 
 require_once __ROOT_DIR__
              . DIRECTORY_SEPARATOR
@@ -11,7 +11,9 @@ require_once __ROOT_DIR__
              . DIRECTORY_SEPARATOR
              . 'pin_yin_sheng_diao.php';
 
-class PinYinShengDiao
+use ToolClass\ToolFather;
+
+class PinYinShengDiao extends ToolFather
 {
     //编码
     private static $charset = 'utf-8';

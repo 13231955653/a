@@ -3,15 +3,16 @@
 namespace ToolClass\Admin;
 
 use model\admin\Admin as AdminModel;
-use ToolClass\Cache\AdminCache;
-use ToolClass\Cache\RedisKey;
-use ToolClass\Cache\Cache;
-use ToolClass\Log\Exception;
+//use ToolClass\Cache\AdminCache;
+//use ToolClass\Cache\RedisKey;
+//use ToolClass\Cache\Cache;
+//use ToolClass\Log\Exception;
+//
+//use ToolClass\Model\Mysql;
+//use ToolClass\Server\Server;
 
-use ToolClass\Model\Mysql;
-use ToolClass\Server\Server;
-
-class Admin
+use ToolClass\ToolFather;
+class Admin extends ToolFather
 {
     /**
      * private key

@@ -28,7 +28,9 @@ namespace ToolClass\Curl\Snoopy;
  * The latest version of Snoopy can be obtained from:
  * http://snoopy.sourceforge.net/
  *************************************************/
-class Snoopy
+
+use ToolClass\ToolFather;
+class Snoopy extends ToolFather
 {
     /**** Public variables ****/
 

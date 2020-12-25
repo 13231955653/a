@@ -1,9 +1,11 @@
 <?php
 
 namespace ToolClass\Regular;
-use ToolClass\Server\Server;
+//use ToolClass\Server\Server;
 
-class Regular
+use ToolClass\ToolFather;
+
+class Regular extends ToolFather
 {
     public static function numberRegular ()
     {

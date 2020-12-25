@@ -2,10 +2,10 @@
 
 namespace ToolClass\Encode;
 
-use ToolClass\Json\Json;
-use ToolClass\Log\ErrorInformAdminThrow;
-use ToolClass\Log\Exception;
-use ToolClass\Server\Server;
+//use ToolClass\Json\Json;
+//use ToolClass\Log\ErrorInformAdminThrow;
+//use ToolClass\Log\Exception;
+//use ToolClass\Server\Server;
 
 /**
  *
@@ -13,7 +13,8 @@ use ToolClass\Server\Server;
  * date:2020/9/22 20:21
  *
  */
-class Rsa
+use ToolClass\ToolFather;
+class Rsa extends ToolFather
 {
     /**
      * private key

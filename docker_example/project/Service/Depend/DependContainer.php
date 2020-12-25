@@ -4,8 +4,7 @@
  */
 namespace Service\Depend;
 
-use ToolClass\Log\Exception;
-use ToolClass\Server\Server;
+use ToolClass\ToolFather;
 
 class DependContainer
 {
@@ -15,6 +14,48 @@ class DependContainer
     private static $sDatabaseTool = 'databaseTool';
     private static $sException = 'exception';
     private static $sServer = 'server';
+    private static $sTime = 'time';
+    private static $sHook = 'hook';
+    private static $sFile = 'file';
+    private static $sChineseStringCache = 'chineseStringCache';
+    private static $sCache = 'cache';
+    private static $sChineseStringModelService = 'chineseStringModelService';
+    private static $sArrayService = 'arrayService';
+
+    public static function array ()
+    {
+        return self::$sArrayService;
+    }
+
+    public static function chineseStringModelService ()
+    {
+        return self::$sChineseStringModelService;
+    }
+
+    public static function cache ()
+    {
+        return self::$sCache;
+    }
+
+    public static function chineseStringCache ()
+    {
+        return self::$sChineseStringCache;
+    }
+
+    public static function file ()
+    {
+        return self::$sFile;
+    }
+
+    public static function hook ()
+    {
+        return self::$sHook;
+    }
+
+    public static function time ()
+    {
+        return self::$sTime;
+    }
 
     public static function server ()
     {
@@ -46,72 +87,141 @@ class DependContainer
         return self::$sDatabaseDepend;
     }
 
-//    private static $sDepend = '';
-
-//    public static function __construct (string $sDepend = '')
-//    {
-//        if (is_numeric($sDepend) || !$sDepend) {
-//            Exception::throwException(
-//                Server::response(
-//                    Server::errorStatus(),
-//                    Server::returnError(
-//                        'depend container what error'
-//                    )
-//                )
-//            );
-//            return FALSE;
-//        }
-//
-//        $this->sDepend = $sDepend;
-//    }
-//
     public static function depend ( string $sDepend = '')
     {
         if (is_numeric($sDepend) || !$sDepend) {
-            Exception::throwException(
-                Server::response(
-                    Server::errorStatus(),
-                    Server::returnError(
-                        'depend container error 1'
-                    )
-                )
-            );
-            return FALSE;
+//            $sServerDepengName = DependContainer::server();
+//            $oServerDepend = Ioc::resolve($sServerDepengName);
+//
+//            $sExceptionDepengName = DependContainer::exception();
+//            $oExceptionDepend = Ioc::resolve($sExceptionDepengName);
+//            $oExceptionDepend->throwException(
+//                $oServerDepend->response(
+//                    [
+//                        $oServerDepend->errorStatus(),
+//                        $oServerDepend->returnError(
+//                            'depend container error 1'
+//                        )
+//                    ]
+//                )
+//            );
+//            return FALSE;
+            return ToolFather::throwError('depend container error 1');
         }
 
+        $sClass = '';
         switch ($sDepend) {
             case 'database' :
-                return '\Service\Depend\Database\Database';
+                $sClass = '\Service\Depend\Database\Database';
                 break;
             case 'sqlSafe' :
-                return '\Service\Depend\Database\SqlSafe';
+                $sClass = '\Service\Depend\Database\SqlSafe';
                 break;
             case 'json' :
-                return '\Service\Depend\Json\Json';
+                $sClass = '\Service\Depend\Json\Json';
                 break;
             case 'databaseTool' :
-                return '\Service\Depend\Database\DatabaseTool';
+                $sClass = '\Service\Depend\Database\DatabaseTool';
                 break;
             case 'exception' :
-                return '\Service\Exception\Exception';
+                $sClass = '\Service\Depend\Exception\Exception';
                 break;
             case 'server' :
-                return '\Service\Server\Server';
+                $sClass = '\Service\Depend\Server\Server';
+                break;
+            case 'time' :
+                $sClass = '\Service\Depend\Date\Time';
+                break;
+            case 'hook' :
+                $sClass = '\Service\Depend\Hook\Hook';
+                break;
+            case 'file' :
+                $sClass = '\Service\Depend\File\File';
+                break;
+            case 'chineseStringCache' :
+                $sClass = '\Service\Depend\Strings\String\ChineseStringCache';
+                break;
+            case 'cache' :
+                $sClass = '\Service\Depend\Cache\Cache';
+                break;
+            case 'chineseStringModelService' :
+                $sClass = '\Service\Depend\Strings\String\ChineseStringModel';
+                break;
+            case 'arrayService' :
+                $sClass = '\Service\Depend\Arrays\Arrays';
                 break;
             default :
                 if (DEBUG) {
                     var_dump($sDepend);
                 }
-                Exception::throwException(
-                    Server::response(
-                        Server::errorStatus(),
-                        Server::returnError(
-                            'depend container error 2'
-                        )
-                    )
-                );
-                return FALSE;
+//                $sServerDepengName = DependContainer::server();
+//                $oServerDepend = Ioc::resolve($sServerDepengName);
+//
+//                $sExceptionDepengName = DependContainer::exception();
+//                $oExceptionDepend = Ioc::resolve($sExceptionDepengName);
+//                $oExceptionDepend->throwException(
+//                    $oServerDepend->response(
+//                        [
+//                            $oServerDepend->errorStatus(),
+//                            $oServerDepend->returnError(
+//                                'depend container error 2'
+//                            )
+//                        ]
+//                    )
+//                );
+//                return FALSE;
+                return ToolFather::throwError('depend container error 2');
                 break;
         }
+
+        if (!$sClass) {
+            if (DEBUG) {
+                var_dump($sDepend);
+            }
+//            $sServerDepengName = DependContainer::server();
+//            $oServerDepend = Ioc::resolve($sServerDepengName);
+//
+//            $sExceptionDepengName = DependContainer::exception();
+//            $oExceptionDepend = Ioc::resolve($sExceptionDepengName);
+//            $oExceptionDepend->throwException(
+//                $oServerDepend->response(
+//                    [
+//                        $oServerDepend->errorStatus(),
+//                        $oServerDepend->returnError(
+//                            'depend container error 3'
+//                        )
+//                    ]
+//                )
+//            );
+//            return FALSE;
+            return ToolFather::throwError('depend container error 3');
+        }
+
+        $sFile = __ROOT_DIR__ . str_replace('\\', DIRECTORY_SEPARATOR, $sClass) . '.php';
+        if (!is_file($sFile)) {
+            if (DEBUG) {
+                var_dump($sFile);
+            }
+
+//            $sServerDepengName = DependContainer::server();
+//            $oServerDepend = Ioc::resolve($sServerDepengName);
+//
+//            $sExceptionDepengName = DependContainer::exception();
+//            $oExceptionDepend = Ioc::resolve($sExceptionDepengName);
+//            $oExceptionDepend->throwException(
+//                $oServerDepend->response(
+//                    [
+//                        $oServerDepend->errorStatus(),
+//                        $oServerDepend->returnError(
+//                            'depend container error 4'
+//                        )
+//                    ]
+//                )
+//            );
+//            return FALSE;
+            return ToolFather::throwError('depend container error 4');
+        }
+
+        return $sClass;
     }
 }

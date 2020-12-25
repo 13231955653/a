@@ -38,33 +38,27 @@ class Hook
     function addHook ($sHookClassName, $sHookFuncName)
     {
         if (isset(self::$aHook[ $sHookClassName ]) && in_array($sHookFuncName, self::$aHook[ $sHookClassName ])) {
-//            Exception::throwException('hook alerady use');
-//            return FALSE;
+//            $sExceptionDepengName = DependContainer::exception();
+//            $oExceptionDepend = Ioc::resolve($sExceptionDepengName);
 //
-            $sExceptionDepengName = DependContainer::exception();
-            $oExceptionDepend = Ioc::resolve($sExceptionDepengName);
-
-            $sServerDepengName = DependContainer::server();
-            $oServerDepend = Ioc::resolve($sServerDepengName);
-
-            $oExceptionDepend->throwException(
-                $oServerDepend->response(
-                    $oServerDepend->errorStatus(),
-                    $oServerDepend->returnError('hook alerady use')
-                )
-            );
-            return FALSE;
+//            $sServerDepengName = DependContainer::server();
+//            $oServerDepend = Ioc::resolve($sServerDepengName);
+//
+//            $oExceptionDepend->throwException(
+//                $oServerDepend->response(
+//                    $oServerDepend->errorStatus(),
+//                    $oServerDepend->returnError('hook alerady use')
+//                )
+//            );
+            return TRUE;
         }
 
         $sHookFile = __ROOT_DIR__ . DIRECTORY_SEPARATOR . 'Hook' . DIRECTORY_SEPARATOR . ucfirst($sHookClassName) . '.php';
         if (!is_file($sHookFile)) {
-//            Exception::throwException('no hook file ' .  ucfirst($sHookClassName));
-//            return FALSE;
             $sExceptionDepengName = DependContainer::exception();
-            $oExceptionDepend = Ioc::resolve($sExceptionDepengName);
+            Ioc::register($sExceptionDepengName, DependContainer::depend( $sExceptionDepengName));
 
-//            $sServerDepengName = DependContainer::server();
-//            $oServerDepend = Ioc::resolve($sServerDepengName);
+            $oExceptionDepend = Ioc::resolve($sExceptionDepengName);
 
             $oExceptionDepend->throwException(
                 'no hook file ' .  ucfirst($sHookClassName)
@@ -75,13 +69,10 @@ class Hook
         $sHookClassName = 'Hook\\' . $sHookClassName;
 
         if (!class_exists($sHookClassName)) {
-//            Exception::throwException('no hook class ' . $sHookClassName);
-//            return FALSE;
             $sExceptionDepengName = DependContainer::exception();
-            $oExceptionDepend = Ioc::resolve($sExceptionDepengName);
+            Ioc::register($sExceptionDepengName, DependContainer::depend( $sExceptionDepengName));
 
-//            $sServerDepengName = DependContainer::server();
-//            $oServerDepend = Ioc::resolve($sServerDepengName);
+            $oExceptionDepend = Ioc::resolve($sExceptionDepengName);
 
             $oExceptionDepend->throwException(
                 'no hook class ' . $sHookClassName
@@ -90,13 +81,10 @@ class Hook
         }
 
         if (!method_exists($sHookClassName, $sHookFuncName)) {
-//            Exception::throwException('no hook func ' . $sHookClassName . '  ' . $sHookFuncName);
-//            return FALSE;
             $sExceptionDepengName = DependContainer::exception();
-            $oExceptionDepend = Ioc::resolve($sExceptionDepengName);
+            Ioc::register($sExceptionDepengName, DependContainer::depend( $sExceptionDepengName));
 
-//            $sServerDepengName = DependContainer::server();
-//            $oServerDepend = Ioc::resolve($sServerDepengName);
+            $oExceptionDepend = Ioc::resolve($sExceptionDepengName);
 
             $oExceptionDepend->throwException(
                 'no hook func ' . $sHookClassName . '  ' . $sHookFuncName
@@ -111,13 +99,11 @@ class Hook
     {
         $sHookClassName = 'Hook\\' . $sHookClassName;
         if (!isset(self::$aHook[ $sHookClassName ])) {
-//            Exception::throwException('no hook class1 ' . $sHookClassName);
-//            return FALSE;
             $sExceptionDepengName = DependContainer::exception();
+            Ioc::register($sExceptionDepengName, DependContainer::depend( $sExceptionDepengName));
+
             $oExceptionDepend = Ioc::resolve($sExceptionDepengName);
 
-            //            $sServerDepengName = DependContainer::server();
-            //            $oServerDepend = Ioc::resolve($sServerDepengName);
 
             $oExceptionDepend->throwException(
                 'no hook class1 ' . $sHookClassName
@@ -126,13 +112,10 @@ class Hook
         }
 
         if (!in_array($sHookFuncName, self::$aHook[ $sHookClassName ])) {
-//            Exception::throwException('no hook func1 ' . $sHookClassName . '  ' . $sHookFuncName);
-//            return FALSE;
             $sExceptionDepengName = DependContainer::exception();
-            $oExceptionDepend = Ioc::resolve($sExceptionDepengName);
+            Ioc::register($sExceptionDepengName, DependContainer::depend( $sExceptionDepengName));
 
-            //            $sServerDepengName = DependContainer::server();
-            //            $oServerDepend = Ioc::resolve($sServerDepengName);
+            $oExceptionDepend = Ioc::resolve($sExceptionDepengName);
 
             $oExceptionDepend->throwException(
                 'no hook func1 ' . $sHookClassName . '  ' . $sHookFuncName

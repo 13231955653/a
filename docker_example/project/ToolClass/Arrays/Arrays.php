@@ -2,10 +2,11 @@
 
 namespace ToolClass\Arrays;
 
-use ToolClass\Log\Exception;
-use ToolClass\Server\Server;
+//use ToolClass\Log\Exception;
+//use ToolClass\Server\Server;
 
-class Arrays
+use ToolClass\ToolFather;
+class Arrays extends ToolFather
 {
     private static $sArrayMaxKey = 'max';
     private static $sArrayMinKey = 'min';

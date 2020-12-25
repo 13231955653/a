@@ -2,11 +2,13 @@
 
 namespace ToolClass\Log;
 
-use ToolClass\File\File;
+//use ToolClass\File\File;
+//
+//use ToolClass\Date\Time;
 
-use ToolClass\Date\Time;
+use ToolClass\ToolFather;
 
-class Log
+class Log extends ToolFather
 {
     private function __construct()
     {

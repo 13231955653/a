@@ -2,20 +2,22 @@
 
 namespace ToolClass\Strings\chengyu;
 
-use model\publics\ReplenishChengYu;
+//use model\publics\ReplenishChengYu;
 use model\publics\ReplenishChengYu as ReplenishChengYuModel;
-use ToolClass\Database\Mysql as MysqlTool;
-use ToolClass\Date\Time;
-use ToolClass\Log\Exception;
-use ToolClass\Model\Mysql;
-use ToolClass\Server\Server;
+//use ToolClass\Database\Mysql as MysqlTool;
+//use ToolClass\Date\Time;
+//use ToolClass\Log\Exception;
+//use ToolClass\Model\Mysql;
+//use ToolClass\Server\Server;
 use model\publics\ChengYu as ChengYuModel;
-use ToolClass\Strings\PinYin;
-use command\Queue\string\chengyu\ChengYu;
-use ToolClass\Queue\Queue;
-use command\Queue\string\chengyu\ReplenishChengYu as ReplenishChengYuQueue;
+//use ToolClass\Strings\PinYin;
+//use command\Queue\string\chengyu\ChengYu;
+//use ToolClass\Queue\Queue;
+//use command\Queue\string\chengyu\ReplenishChengYu as ReplenishChengYuQueue;
 
-class ChengYuJieLong
+use ToolClass\ToolFather;
+
+class ChengYuJieLong extends ToolFather
 {
     //            匹配首个中文字符
     private static $iType0 = 0;

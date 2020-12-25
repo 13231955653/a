@@ -2,12 +2,13 @@
 
 namespace ToolClass\Date;
 
-use ToolClass\Log\Exception;
-use ToolClass\Server\Server;
-use ToolClass\Cache\Cache;
-use ToolClass\Regular\RegularVerify;
+//use ToolClass\Log\Exception;
+//use ToolClass\Server\Server;
+//use ToolClass\Cache\Cache;
+//use ToolClass\Regular\RegularVerify;
 
-class Time
+use ToolClass\ToolFather;
+class Time extends ToolFather
 {
     private static $sOperationTimeRedisKeySlat = '（……&*%……FGHVJ**……￥%￥fsdf7457';
     private static $sOperationTimeRedisKeyOutTime = 100;

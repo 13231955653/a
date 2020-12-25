@@ -2,13 +2,14 @@
 
 namespace ToolClass\Cache;
 
-use ToolClass\Admin\Admin;
-use ToolClass\Log\Exception;
-use ToolClass\Server\Server;
+//use ToolClass\Admin\Admin;
+//use ToolClass\Log\Exception;
+//use ToolClass\Server\Server;
+//
+//use ToolClass\Regular\RegularVerify;
 
-use ToolClass\Regular\RegularVerify;
-
-class RedisKey
+use ToolClass\ToolFather;
+class RedisKey extends ToolFather
 {
     private static $sAdminMenuRedisJsonKey = 'admin_menus';
     private static $sHomeMenuRedisJsonKey = 'home_menus';

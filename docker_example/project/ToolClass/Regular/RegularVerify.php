@@ -2,10 +2,11 @@
 
 namespace ToolClass\Regular;
 
-use ToolClass\Log\Exception;
-use ToolClass\Regular\Regular;
+//use ToolClass\Log\Exception;
 
-class RegularVerify
+use ToolClass\ToolFather;
+
+class RegularVerify extends ToolFather
 {
     public static $sImageFeild = 'image';
     public static $sSrcFeild = 'src';

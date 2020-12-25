@@ -6,7 +6,9 @@ namespace ToolClass\Strings;
  * 取汉字拼音
  * edit by www.jbxue.com
  */
-class PinYin
+use ToolClass\ToolFather;
+
+class PinYin extends ToolFather
 {
     private static $pinyin
         = [

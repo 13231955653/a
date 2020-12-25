@@ -1,8 +1,9 @@
 <?php
 
 namespace ToolClass\Web;
+use ToolClass\ToolFather;
 
-class Web
+class Web extends ToolFather
 {
     public static
     function checkUrlExist (

@@ -2,9 +2,9 @@
 
 namespace ToolClass\Cache;
 
-use ToolClass\Log\ErrorInformAdminThrow;
-use ToolClass\Log\Exception;
-use ToolClass\Server\Server;
+//use ToolClass\Log\ErrorInformAdminThrow;
+//use ToolClass\Log\Exception;
+//use ToolClass\Server\Server;
 
 require_once __ROOT_DIR__
              . DIRECTORY_SEPARATOR
@@ -12,7 +12,8 @@ require_once __ROOT_DIR__
              . DIRECTORY_SEPARATOR
              . 'redis.php';
 
-class Cache
+use ToolClass\ToolFather;
+class Cache extends ToolFather
 {
     public static $sLogType = 'redis_error';
 
@@ -41,13 +42,14 @@ class Cache
         $sKey
     ) {
         if ( !$sKey ) {
-            Exception::throwException(
-                Server::response(
-                    Server::errorStatus(),
-                    Server::returnError( 'no redis key' )
-                )
-            );
-            return FALSE;
+//            Exception::throwException(
+//                Server::response(
+//                    Server::errorStatus(),
+//                    Server::returnError( 'no redis key' )
+//                )
+//            );
+//            return FALSE;
+            return self::throwError('no redis key');
         }
 
         return self::keyStyle(RedisKey::setKeyPerfix() . str_replace(
@@ -60,13 +62,14 @@ class Cache
     public static function keyStyle ($sKey = '')
     {
         if (!$sKey) {
-            Exception::throwException(
-                Server::response(
-                    Server::errorStatus(),
-                    Server::returnError( 'no redis key' )
-                )
-            );
-            return FALSE;
+//            Exception::throwException(
+//                Server::response(
+//                    Server::errorStatus(),
+//                    Server::returnError( 'no redis key' )
+//                )
+//            );
+//            return FALSE;
+            return self::throwError('no redis key');
         }
 
         return strtoupper($sKey);
@@ -106,13 +109,14 @@ class Cache
         $sLockSuffix = 0
     ) {
         if ( !$sLockPrefix || !$sLockSuffix ) {
-            Exception::throwException(
-                Server::response(
-                    Server::errorStatus(),
-                    Server::returnError( 'no redis key' )
-                )
-            );
-            return FALSE;
+//            Exception::throwException(
+//                Server::response(
+//                    Server::errorStatus(),
+//                    Server::returnError( 'no redis key' )
+//                )
+//            );
+//            return FALSE;
+            return self::throwError('no redis key');
         }
 
         $sKey = self::setKey( $sLockPrefix . '-' . $sLockSuffix . '-lock' );
@@ -134,13 +138,14 @@ class Cache
         $sLockSuffix = 0
     ) {
         if ( !$sLockPrefix || !$sLockSuffix ) {
-            Exception::throwException(
-                Server::response(
-                    Server::errorStatus(),
-                    Server::returnError( 'no redis key' )
-                )
-            );
-            return FALSE;
+//            Exception::throwException(
+//                Server::response(
+//                    Server::errorStatus(),
+//                    Server::returnError( 'no redis key' )
+//                )
+//            );
+//            return FALSE;
+            return self::throwError('no redis key');
         }
 
         $sKey = self::setKey( $sLockPrefix . '-' . $sLockSuffix . '-lock' );
@@ -163,13 +168,14 @@ class Cache
         $sKey
     ) {
         if ( !$sKey ) {
-            Exception::throwException(
-                Server::response(
-                    Server::errorStatus(),
-                    Server::returnError( 'no redis key' )
-                )
-            );
-            return;
+//            Exception::throwException(
+//                Server::response(
+//                    Server::errorStatus(),
+//                    Server::returnError( 'no redis key' )
+//                )
+//            );
+//            return;
+            return self::throwError('no redis key');
         }
 
         return self::redisClusterObject()->incr( self::setKey( $sKey ) );
@@ -180,13 +186,14 @@ class Cache
         $sKey
     ) {
         if ( !$sKey ) {
-            Exception::throwException(
-                Server::response(
-                    Server::errorStatus(),
-                    Server::returnError( 'no redis key' )
-                )
-            );
-            return;
+//            Exception::throwException(
+//                Server::response(
+//                    Server::errorStatus(),
+//                    Server::returnError( 'no redis key' )
+//                )
+//            );
+//            return;
+            return self::throwError('no redis key');
         }
 
         return self::redisClusterObject()->exists( self::setKey( $sKey ) );
@@ -199,13 +206,14 @@ class Cache
         $iTimeout = NULL
     ) {
         if ( !$sKey || !$sValue ) {
-            Exception::throwException(
-                Server::response(
-                    Server::errorStatus(),
-                    Server::returnError( 'no redis key or value' )
-                )
-            );
-            return;
+//            Exception::throwException(
+//                Server::response(
+//                    Server::errorStatus(),
+//                    Server::returnError( 'no redis key or value' )
+//                )
+//            );
+//            return;
+            return self::throwError('no redis key or value');
         }
 
         return self::redisClusterObject()->set(
@@ -220,13 +228,14 @@ class Cache
         $sKey
     ) {
         if ( !$sKey ) {
-            Exception::throwException(
-                Server::response(
-                    Server::errorStatus(),
-                    Server::returnError( 'no redis key' )
-                )
-            );
-            return;
+//            Exception::throwException(
+//                Server::response(
+//                    Server::errorStatus(),
+//                    Server::returnError( 'no redis key' )
+//                )
+//            );
+//            return;
+            return self::throwError('no redis key');
         }
 
         return self::redisClusterObject()->get( self::setKey( $sKey ) );
@@ -239,13 +248,14 @@ class Cache
         $ttl
     ) {
         if ( !$sKey || !$ttl ) {
-            Exception::throwException(
-                Server::response(
-                    Server::errorStatus(),
-                    Server::returnError( 'no redis key or ttl' )
-                )
-            );
-            return;
+//            Exception::throwException(
+//                Server::response(
+//                    Server::errorStatus(),
+//                    Server::returnError( 'no redis key or ttl' )
+//                )
+//            );
+//            return;
+            return self::throwError('no redis key or ttl');
         }
 
         return self::redisClusterObject()->expire(
@@ -262,13 +272,14 @@ class Cache
         $sValue = ''
     ) {
         if ( !$sKey || !$sHashKey || !$sValue ) {
-            Exception::throwException(
-                Server::response(
-                    Server::errorStatus(),
-                    Server::returnError( 'hset error' )
-                )
-            );
-            return FALSE;
+//            Exception::throwException(
+//                Server::response(
+//                    Server::errorStatus(),
+//                    Server::returnError( 'hset error' )
+//                )
+//            );
+//            return FALSE;
+            return self::throwError('hset error');
         }
 
         return self::redisClusterObject()->hSet(
@@ -284,13 +295,14 @@ class Cache
         $aData = []
     ) {
         if ( !$sKey || !$aData ) {
-            Exception::throwException(
-                Server::response(
-                    Server::errorStatus(),
-                    Server::returnError( 'no redis key or data' )
-                )
-            );
-            return FALSE;
+//            Exception::throwException(
+//                Server::response(
+//                    Server::errorStatus(),
+//                    Server::returnError( 'no redis key or data' )
+//                )
+//            );
+//            return FALSE;
+            return self::throwError('no redis key or data');
         }
 
         //        var_dump($sKey);
@@ -305,13 +317,14 @@ class Cache
         $sKey
     ) {
         if ( !$sKey ) {
-            Exception::throwException(
-                Server::response(
-                    Server::errorStatus(),
-                    Server::returnError( 'no redis key' )
-                )
-            );
-            return FALSE;
+//            Exception::throwException(
+//                Server::response(
+//                    Server::errorStatus(),
+//                    Server::returnError( 'no redis key' )
+//                )
+//            );
+//            return FALSE;
+            return self::throwError('no redis key');
         }
 
 //        var_dump($sKey);
@@ -325,13 +338,14 @@ class Cache
         $sField
     ) {
         if ( !$sKey ) {
-            Exception::throwException(
-                Server::response(
-                    Server::errorStatus(),
-                    Server::returnError( 'no redis key' )
-                )
-            );
-            return;
+//            Exception::throwException(
+//                Server::response(
+//                    Server::errorStatus(),
+//                    Server::returnError( 'no redis key' )
+//                )
+//            );
+//            return;
+            return self::throwError('no redis key');
         }
 
         return self::redisClusterObject()->hGet(
@@ -345,13 +359,14 @@ class Cache
         $sKey
     ) {
         if ( !$sKey ) {
-            Exception::throwException(
-                Server::response(
-                    Server::errorStatus(),
-                    Server::returnError( 'no redis key' )
-                )
-            );
-            return;
+//            Exception::throwException(
+//                Server::response(
+//                    Server::errorStatus(),
+//                    Server::returnError( 'no redis key' )
+//                )
+//            );
+//            return;
+            return self::throwError('no redis key');
         }
 
         //        var_dump(self::setKey($sKey));
@@ -363,13 +378,14 @@ class Cache
         $sKey
     ) {
         if ( !$sKey ) {
-            Exception::throwException(
-                Server::response(
-                    Server::errorStatus(),
-                    Server::returnError( 'no redis key' )
-                )
-            );
-            return FALSE;
+//            Exception::throwException(
+//                Server::response(
+//                    Server::errorStatus(),
+//                    Server::returnError( 'no redis key' )
+//                )
+//            );
+//            return FALSE;
+            return self::throwError('no redis key');
         }
 
 //        var_dump(self::setKey( $sKey ));
@@ -382,14 +398,17 @@ class Cache
         $sJsonData = ''
     ) {
         if ( !$sKey || !$sJsonData ) {
-            var_dump( $sKey, $sJsonData );
-            Exception::throwException(
-                Server::response(
-                    Server::errorStatus(),
-                    Server::returnError( 'no redis key or sJsonData' )
-                )
-            );
-            return;
+            if (DEBUG) {
+                var_dump( $sKey, $sJsonData );
+            }
+//            Exception::throwException(
+//                Server::response(
+//                    Server::errorStatus(),
+//                    Server::returnError( 'no redis key or sJsonData' )
+//                )
+//            );
+//            return;
+            return self::throwError('no redis key or sJsonData');
         }
 
         //        $sJsonData = Json::analyJson($sJsonData, TRUE) ? $sJsonData : Json::toJson($sJsonData);
@@ -405,13 +424,14 @@ class Cache
         $sKey = ''
     ) {
         if ( !$sKey ) {
-            Exception::throwException(
-                Server::response(
-                    Server::errorStatus(),
-                    Server::returnError( 'no redis key' )
-                )
-            );
-            return;
+//            Exception::throwException(
+//                Server::response(
+//                    Server::errorStatus(),
+//                    Server::returnError( 'no redis key' )
+//                )
+//            );
+//            return;
+            return self::throwError('no redis key');
         }
 
         //        $sJsonData = self::redisClusterObject()->rPop(self::setKey($sKey));
@@ -424,13 +444,14 @@ class Cache
         $sKey = ''
     ) {
         if ( !$sKey ) {
-            Exception::throwException(
-                Server::response(
-                    Server::errorStatus(),
-                    Server::returnError( 'no redis key' )
-                )
-            );
-            return;
+//            Exception::throwException(
+//                Server::response(
+//                    Server::errorStatus(),
+//                    Server::returnError( 'no redis key' )
+//                )
+//            );
+//            return;
+            return self::throwError('no redis key');
         }
 
         return self::redisClusterObject()->lLen( self::setKey( $sKey ) );

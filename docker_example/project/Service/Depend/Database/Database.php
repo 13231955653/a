@@ -14,7 +14,8 @@ use Service\Ioc\Ioc;
 
 use Service\Depend\DependContainer;
 
-class Database
+use Service\Depend\Depend;
+class Database extends Depend
 {
     private $sNowTable        = '';
     private $sTable           = '';
@@ -247,12 +248,15 @@ class Database
             return;
         }
 
+        $sDepeng = DependContainer::sqlSafe();
+        $oDatabaseDepend = Ioc::resolve($sDepeng);
+
 //        var_dump($aWhere);
         $this->sWhere = $this->sWhere ? $this->sWhere . 'AND' : '';
         $sAnd         = ' AND ';
         $this->sWhere .= '(';
         foreach ( $aWhere as $k => $v ) {
-            $this->aWhereConditions[ $k ] = Sql::filterSqlArg( $v );
+            $this->aWhereConditions[ $k ] = $oDatabaseDepend->sqlSafe( $v );
 
             $this->sWhere .= '`' . $k . '`' . '>:' . $k . $sAnd;
         }

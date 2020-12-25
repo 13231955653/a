@@ -5,11 +5,10 @@ namespace ToolClass\Server;
 
 use Service\Depend\DependContainer;
 use Service\Ioc\Ioc;
-use ToolClass\Cache\RedisKey;
-use ToolClass\Cache\Cache;
-use ToolClass\Encode\Rsa;
-use ToolClass\Json\Json;
-use ToolClass\Log\Exception;
+//use ToolClass\Cache\RedisKey;
+//use ToolClass\Cache\Cache;
+//use ToolClass\Encode\Rsa;
+//use ToolClass\Json\Json;
 
 require_once __ROOT_DIR__
              . DIRECTORY_SEPARATOR
@@ -17,7 +16,9 @@ require_once __ROOT_DIR__
              . DIRECTORY_SEPARATOR
              . 'string.php';
 
-class Server
+use ToolClass\ToolFather;
+
+class Server extends ToolFather
 {
     /**
      * private key
@@ -151,34 +152,34 @@ NijFTFBZCLlRyIiv/gq1TSECAwEAAQ==
     public static function returnError ($sKey = '')
     {
         if (!$sKey) {
-//            return 'server error key is null';
             $sExceptionDepengName = DependContainer::exception();
             $oExceptionDepend = Ioc::resolve($sExceptionDepengName);
 
-//            $sServerDepengName = DependContainer::server();
-//            $oServerDepend = Ioc::resolve($sServerDepengName);
-
             $oExceptionDepend->throwException(
                 self::response(
-                    self::errorStatus(),
-                    self::returnError('server error key is null')
+                    [
+                        self::errorStatus(),
+                        self::returnError('server error key is null')
+                    ]
                 )
             );
             return FALSE;
         }
 
         if (!isset(SERVER_ERROR_INFO[$sKey])) {
-//            return 'server error key is no exist';
+            if (DEBUG) {
+                var_dump('no get error key ' . $sKey);
+            }
+
             $sExceptionDepengName = DependContainer::exception();
             $oExceptionDepend = Ioc::resolve($sExceptionDepengName);
 
-//            $sServerDepengName = DependContainer::server();
-//            $oServerDepend = Ioc::resolve($sServerDepengName);
-
             $oExceptionDepend->throwException(
                 self::response(
-                    self::errorStatus(),
-                    self::returnError('server error key is no exist')
+                    [
+                        self::errorStatus(),
+                        self::returnError('server error key is no exist')
+                    ]
                 )
             );
             return FALSE;

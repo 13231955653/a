@@ -2,10 +2,12 @@
 
 namespace ToolClass\Strings\string;
 
-use ToolClass\Date\Time;
-use ToolClass\Json\Json;
+//use ToolClass\Date\Time;
+//use ToolClass\Json\Json;
 
-class Strings
+use ToolClass\ToolFather;
+
+class Strings extends ToolFather
 {
     private static $sEncoedSalt = '(^&%^^%$#$545asf&*&\fasfaw24KJJHK(*&*%^';
 

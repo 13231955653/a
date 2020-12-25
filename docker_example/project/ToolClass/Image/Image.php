@@ -2,22 +2,21 @@
 
 namespace ToolClass\Image;
 
-//use model\publics\ZhongGuanCunXiaoHuaSpider;
-//use model\publics\ZhongGuanCunXiaoHuaSpider;
-use ToolClass\Date\Time;
-use ToolClass\Json\Json;
-use ToolClass\Log\Exception;
-use ToolClass\Model\Mysql;
-//use ToolClass\Regular\Regular;
-use ToolClass\Queue\Queue;
-use ToolClass\Server\Server;
-use ToolClass\Strings\Strings;
-use ToolClass\File\File;
-use model\publics\ImageList;
-use ToolClass\Regular\RegularVerify;
-use ToolClass\Database\Mysql as MysqlTool;
+//use ToolClass\Date\Time;
+//use ToolClass\Json\Json;
+//use ToolClass\Log\Exception;
+//use ToolClass\Model\Mysql;
+//use ToolClass\Queue\Queue;
+//use ToolClass\Server\Server;
+//use ToolClass\Strings\Strings;
+//use ToolClass\File\File;
+//use model\publics\ImageList;
+//use ToolClass\Regular\RegularVerify;
+//use ToolClass\Database\Mysql as MysqlTool;
 
-class Image
+use ToolClass\ToolFather;
+
+class Image extends ToolFather
 {
     private static $sSaveImageNameSalt    = '234867BJHBkdawir(*^$%^#}{:fafdg54wq';
     private static $sSaveImageNameMd5Salt = '1354fsdhjBJK098786%^&%^&$^&()*@$$>:"';

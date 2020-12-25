@@ -8,7 +8,8 @@ namespace ToolClass\Curl;
  * date:2020/9/22 20:21
  *
  */
-class CurlTool
+use ToolClass\ToolFather;
+class CurlTool extends ToolFather
 {
 
     private $ch;//curl资源对象

@@ -1,12 +1,12 @@
 <?php
 namespace ToolClass\Cache;
 
-use ToolClass\Cache\Cache;
-use ToolClass\Log\Exception;
-use ToolClass\Server\Server;
-use ToolClass\Admin\Admin;
+//use ToolClass\Log\Exception;
+//use ToolClass\Server\Server;
+//use ToolClass\Admin\Admin;
 
-class AdminCache
+use ToolClass\ToolFather;
+class AdminCache extends ToolFather
 {
     public static function getLoginAdminInfo ($sGetFiled = false)
     {

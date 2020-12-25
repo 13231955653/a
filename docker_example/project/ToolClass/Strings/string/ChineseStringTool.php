@@ -2,20 +2,19 @@
 
 namespace ToolClass\Strings\string;
 
-use Hook\Hook;
+//use Hook\Hook;
 use model\publics\string\JianFanFont as JianFanFontModel;
 
-use ToolClass\Date\Time;
-use ToolClass\Log\Exception;
-use ToolClass\Server\Server;
-use ToolClass\Strings\PinYinShengDiao;
-use ToolClass\Regular\RegularVerify;
-use ToolClass\Strings\Strings;
-//use ToolClass\Model\Mysql;
-//use ToolClass\Cache\Cache;
-//use ToolClass\Strings\string\ChineseStringModelAction;
+//use ToolClass\Date\Time;
+//use ToolClass\Log\Exception;
+//use ToolClass\Server\Server;
+//use ToolClass\Strings\PinYinShengDiao;
+//use ToolClass\Regular\RegularVerify;
+//use ToolClass\Strings\Strings;
 
-class ChineseStringTool
+use ToolClass\ToolFather;
+
+class ChineseStringTool extends ToolFather
 {
     public static function insert ($aChineseString = [])
     {

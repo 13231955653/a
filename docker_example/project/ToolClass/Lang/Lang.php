@@ -2,10 +2,12 @@
 
 namespace ToolClass\Lang;
 
-use ToolClass\Model\Mysql;
+//use ToolClass\Model\Mysql;
 use model\publics\Lang as LangModel;
 
-class Lang
+use ToolClass\ToolFather;
+
+class Lang extends ToolFather
 {
     public static function checkWhetherExistValue ($sValue = '')
     {

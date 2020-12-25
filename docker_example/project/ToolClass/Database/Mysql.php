@@ -1,9 +1,7 @@
 <?php
 namespace ToolClass\Database;
 
-//use ToolClass\Cache\RedisTool;
-
-use ToolClass\File\File;
+//use ToolClass\File\File;
 
 require_once __ROOT_DIR__
              . DIRECTORY_SEPARATOR
@@ -11,7 +9,12 @@ require_once __ROOT_DIR__
              . DIRECTORY_SEPARATOR
              . 'mysql.php';
 
-class Mysql
+use Service\Depend\DependContainer;
+use Service\Ioc\Ioc;
+
+use ToolClass\ToolFather;
+
+class Mysql extends ToolFather
 {
     private static $sNowDatabaseTagFileName = 'mysql_database_tag.txt';
 
@@ -62,8 +65,12 @@ class Mysql
         $sNowDatabaseTagFileName = self::mysqlLinkTagFile();
 
         $iTag = 0;
-        if (is_file($sNowDatabaseTagFileName)) {
-            $iTag = (int)file_get_contents($sNowDatabaseTagFileName);
+        $sDependName = DependContainer::file();
+        Ioc::register($sDependName, DependContainer::depend( $sDependName));
+
+        $oDepend = Ioc::resolve($sDependName);
+        if ($oDepend->isFile($sNowDatabaseTagFileName)) {
+            $iTag = (int)$oDepend->getFile($sNowDatabaseTagFileName);
         }
         $iTag = $iTag ? $iTag : self::mtRandNowDatabaseTag();
 
@@ -85,6 +92,10 @@ class Mysql
     {
         $iTag = $iTag ? $iTag : self::mtRandNowDatabaseTag();
 
-        return File::writeToFile(self::mysqlLinkTagFile(), $iTag);
+        $sDependName = DependContainer::file();
+        Ioc::register($sDependName, DependContainer::depend( $sDependName));
+
+        $oDepend = Ioc::resolve($sDependName);
+        return $oDepend->writeToFile(self::mysqlLinkTagFile(), $iTag);
     }
 }

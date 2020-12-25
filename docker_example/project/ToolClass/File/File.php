@@ -2,19 +2,21 @@
 
 namespace ToolClass\File;
 
-use ToolClass\Date\Time;
-use ToolClass\Log\ErrorInformAdminThrow;
-
-use ToolClass\Json\Json;
-use ToolClass\Log\Exception;
-use ToolClass\Server\Server;
-use command\String\cheng_yu\ChengYu as ChengYuInToJson;
+//use ToolClass\Date\Time;
+//use ToolClass\Log\ErrorInformAdminThrow;
+//
+//use ToolClass\Json\Json;
+//use ToolClass\Log\Exception;
+//use ToolClass\Server\Server;
+//use command\String\cheng_yu\ChengYu as ChengYuInToJson;
 use model\publics\file\File as FileModel;
-use ToolClass\Model\Mysql;
-use command\String\word\WordDatabaseInsertJsonFile;
-use command\String\string\JianFanZiDatabaseIntoJsonFile;
+//use ToolClass\Model\Mysql;
+//use command\String\word\WordDatabaseInsertJsonFile;
+//use command\String\string\JianFanZiDatabaseIntoJsonFile;
 
-class File
+use ToolClass\ToolFather;
+
+class File extends ToolFather
 {
     public static $sLogType = 'file_error';
 
@@ -144,7 +146,7 @@ class File
         $sDirName = ''
     )
     {
-        if ( !$sDirName || !is_dir( $sDirName ) ) {
+        if ( !$sDirName || !self::isDir( $sDirName ) ) {
             return FALSE;
         }
 
@@ -153,7 +155,7 @@ class File
             if ( $sFilename != '.' && $sFilename != '..' ) {
                 $sFilename = $sDirName . DIRECTORY_SEPARATOR . $sFilename;
 
-                if ( is_dir( $sFilename ) ) {
+                if ( self::isDir( $sFilename ) ) {
                     self::pathFileList(
                         $sFilename
                     );
@@ -174,7 +176,7 @@ class File
         $sDirName = '',
         $bInit = TRUE
     ) {
-        if ( !$sDirName || !is_dir( $sDirName ) ) {
+        if ( !$sDirName || !self::isDir( $sDirName ) ) {
             return FALSE;
         }
 
@@ -188,7 +190,7 @@ class File
                 $sFilename = $sDirName . DIRECTORY_SEPARATOR . $sFilename;
 
 
-                if ( is_dir( $sFilename ) ) {
+                if ( self::isDir( $sFilename ) ) {
                     self::$iDirNum[$sDirName]++;
                     self::StatisticsFileDirNumber(
                         $sFilename,
@@ -242,7 +244,7 @@ class File
     function makeDir (
         $sDir
     ) {
-        if ( is_dir( $sDir ) || @mkdir( $sDir, 0777 ) ) {
+        if ( self::isDir( $sDir ) || @mkdir( $sDir, 0777 ) ) {
             //查看目录是否已经存在或尝试创建，加一个@抑制符号是因为第一次创建失败，会报一个“父目录不存在”的警告。
             //        echo $sDir . "创建成功<br>";   //输出创建成功的目录
         } else {
@@ -262,7 +264,8 @@ class File
     public static
     function writeFile (
         $sPath = '',
-        $sInfo = ''
+        $sInfo = '',
+        $sFlag = ''
     ) {
         if ( !$sPath || !$sInfo ) {
             Exception::throwException(
@@ -324,7 +327,7 @@ class File
     function makeMonolayerDir (
         $sDir
     ) {
-        if ( is_dir( $sDir ) || @mkdir( $sDir, 0777 ) ) {
+        if ( self::isDir( $sDir ) || @mkdir( $sDir, 0777 ) ) {
             return TRUE;
         } else {
             if ( self::makeMonolayerDir( $sDir ) ) {
@@ -355,14 +358,14 @@ class File
             return FALSE;
         }
 
-        return is_dir( $sPath );
+        return self::isDir( $sPath );
     }
 
     public static
     function getFile (
         $sFileName
     ) {
-        if ( !self::checkFileExist( $sFileName ) ) {
+        if ( !self::isFile( $sFileName ) ) {
             return FALSE;
         }
 
@@ -370,9 +373,13 @@ class File
     }
 
     public static
-    function checkFileExist (
-        $sFileName
+    function isFile (
+        $sFileName = ''
     ) {
+        if (!$sFileName) {
+            return FALSE;
+        }
+
         return is_file( $sFileName );
     }
 
@@ -380,11 +387,20 @@ class File
     function touchFile (
         $sFileName
     ) {
-        if ( self::checkFileExist( $sFileName ) ) {
+        if ( self::isFile( $sFileName ) ) {
             return TRUE;
         }
 
         file_put_contents( $sFileName, '' );
+    }
+
+    public static function isDir ($sDirPath = '')
+    {
+        if (!$sDirPath) {
+            return FALSE;
+        }
+
+        return is_dir($sDirPath);
     }
 
     public static
@@ -400,7 +416,7 @@ class File
         $aDirPath = explode( DIRECTORY_SEPARATOR, $sFileName );
         unset( $aDirPath[ count( $aDirPath ) - 1 ] );
         $sDirPath = implode( DIRECTORY_SEPARATOR, $aDirPath );
-        if ( !is_dir( $sDirPath ) ) {
+        if ( !self::isDir( $sDirPath ) ) {
             self::makeDir( $sDirPath );
         }
         $aDirPath = $sDirPath = NULL;
@@ -413,9 +429,9 @@ class File
         self::touchFile( $sFileName );
 
         if ( $flags ) {
-            return file_put_contents( $sFileName, $sInfo, $flags );
+            return self::writeFile( $sFileName, $sInfo, $flags );
         }
 
-        return file_put_contents( $sFileName, $sInfo );
+        return self::writeFile( $sFileName, $sInfo );
     }
 }

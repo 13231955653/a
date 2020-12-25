@@ -2,8 +2,8 @@
 
 namespace Service\Ioc;
 
-use ToolClass\Log\Exception;
-use ToolClass\Server\Server;
+//use ToolClass\Log\Exception;
+//use ToolClass\Server\Server;
 use Service\Depend\DependContainer;
 /**
  * 控制反转类
@@ -85,18 +85,18 @@ class Ioc
 //                )
 //            );
 //            return FALSE;
-            $sExceptionDepengName = DependContainer::exception();
-            $oExceptionDepend = Ioc::resolve($sExceptionDepengName);
-
-            $sServerDepengName = DependContainer::server();
-            $oServerDepend = Ioc::resolve($sServerDepengName);
-
-            $oExceptionDepend->throwException(
-                $oServerDepend->response(
-                    $oServerDepend->errorStatus(),
-                    $oServerDepend->returnError('ioc error 2')
-                )
-            );
+//            $sExceptionDepengName = DependContainer::exception();
+//            $oExceptionDepend = Ioc::resolve($sExceptionDepengName);
+//
+//            $sServerDepengName = DependContainer::server();
+//            $oServerDepend = Ioc::resolve($sServerDepengName);
+//
+//            $oExceptionDepend->throwException(
+//                $oServerDepend->response(
+//                    $oServerDepend->errorStatus(),
+//                    $oServerDepend->returnError('ioc error 2')
+//                )
+//            );
             return FALSE;
         }
 
@@ -132,18 +132,18 @@ class Ioc
 //                )
 //            );
 //            return FALSE;
-            $sExceptionDepengName = DependContainer::exception();
-            $oExceptionDepend = Ioc::resolve($sExceptionDepengName);
-
-            $sServerDepengName = DependContainer::server();
-            $oServerDepend = Ioc::resolve($sServerDepengName);
-
-            $oExceptionDepend->throwException(
-                $oServerDepend->response(
-                    $oServerDepend->errorStatus(),
-                    $oServerDepend->returnError('ioc error 3')
-                )
-            );
+//            $sExceptionDepengName = DependContainer::exception();
+//            $oExceptionDepend = Ioc::resolve($sExceptionDepengName);
+//
+//            $sServerDepengName = DependContainer::server();
+//            $oServerDepend = Ioc::resolve($sServerDepengName);
+//
+//            $oExceptionDepend->throwException(
+//                $oServerDepend->response(
+//                    $oServerDepend->errorStatus(),
+//                    $oServerDepend->returnError('ioc error 3')
+//                )
+//            );
             return FALSE;
         }
 

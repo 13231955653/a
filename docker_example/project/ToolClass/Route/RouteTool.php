@@ -2,21 +2,19 @@
 
 namespace ToolClass\Route;
 
-use ToolClass\Log\Exception;
+//use ToolClass\Log\Exception;
+//
+//use Hook\HookList;
+//
+//use middleware\BeforeMiddleware;
+//
+//use middleware\AfterMiddleware;
+//
+//use ToolClass\Server\Server;
 
-use Hook\HookList;
+use ToolClass\ToolFather;
 
-use middleware\BeforeMiddleware;
-
-//use ToolClass\Server\ApiReturn;
-
-use middleware\AfterMiddleware;
-
-use ToolClass\Server\Server;
-
-//use middleware\BeforeMiddlewareIndex;
-
-class RouteTool
+class RouteTool extends ToolFather
 {
     private static $aClassMap = [];
 

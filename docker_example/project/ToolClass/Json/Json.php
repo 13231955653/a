@@ -2,7 +2,9 @@
 
 namespace ToolClass\Json;
 
-class Json
+use ToolClass\ToolFather;
+
+class Json extends ToolFather
 {
     /**
      * User: white

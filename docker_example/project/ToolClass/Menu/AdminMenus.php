@@ -3,18 +3,20 @@
 namespace ToolClass\Menu;
 
 use model\admin\AdminMenu as AdminMenuModel;
-use ToolClass\Arrays\Arrays;
-use ToolClass\Cache\AdminCache;
-use ToolClass\Cache\RedisKey;
-use ToolClass\Cache\Cache;
-use ToolClass\Json\Json;
-use ToolClass\Log\Exception;
-use ToolClass\Model\Mysql;
-use ToolClass\Server\Server;
-use ToolClass\Log\ErrorInformAdminThrow;
-use ToolClass\Strings\Strings;
+//use ToolClass\Arrays\Arrays;
+//use ToolClass\Cache\AdminCache;
+//use ToolClass\Cache\RedisKey;
+//use ToolClass\Cache\Cache;
+//use ToolClass\Json\Json;
+//use ToolClass\Log\Exception;
+//use ToolClass\Model\Mysql;
+//use ToolClass\Server\Server;
+//use ToolClass\Log\ErrorInformAdminThrow;
+//use ToolClass\Strings\Strings;
 
-class AdminMenus
+use ToolClass\ToolFather;
+
+class AdminMenus extends ToolFather
 {
     //    private static $sSortColumn = 'id';
     //    private static $sPid = 'father_id';

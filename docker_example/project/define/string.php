@@ -5,6 +5,12 @@ define( 'CHINESE_MAX_GET_NUMBER', 20000 );
 define(
     'SERVER_ERROR_INFO',
     [
+        'no redis key' => 'no redis key',
+        'unknown error' => 'unknown error',
+        'depend container error 4' => 'depend container error 4',
+        'depend container error 3' => 'depend container error 3',
+        'server error key is null' => 'server error key is null',
+        'server error key is no exist' => 'server error key is no exist',
         'ioc error 3' => 'ioc error 3',
         'ioc error 2' => 'ioc error 2',
         'ioc error 1' => 'ioc error 1',

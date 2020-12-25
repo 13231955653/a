@@ -2,12 +2,14 @@
 
 namespace ToolClass\Post;
 
-use model\publics\SpiderCurlData;
-use ToolClass\Curl\CurlData;
-use ToolClass\Image\Image;
-use ToolClass\Regular\RegularVerify;
+//use model\publics\SpiderCurlData;
+//use ToolClass\Curl\CurlData;
+//use ToolClass\Image\Image;
+//use ToolClass\Regular\RegularVerify;
 
-class Post
+use ToolClass\ToolFather;
+
+class Post extends ToolFather
 {
     //中关村笑话
     public static function insertZGCXXHKPostQueue ($sSpiderName = '', $sOriginUrl = '', $sPostInfo = '')

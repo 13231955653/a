@@ -2,14 +2,14 @@
 
 namespace ToolClass\Strings\string;
 
-use ToolClass\Cache\Cache;
-use ToolClass\Json\Json;
-use ToolClass\Log\Exception;
-use ToolClass\Server\Server;
-use ToolClass\Strings\string\ChineseStringModelTool;
 use model\publics\string\JianFanFont as JianFanFontModel;
 
-class ChineseStringCache
+use Service\Depend\DependContainer;
+use Service\Ioc\Ioc;
+
+use ToolClass\ToolFather;
+
+class ChineseStringCache extends ToolFather
 {
     private static $sSimpleFontPrefix             = 'simple_font_';
     private static $sTraditionalChineseFontPrefix = 'traditional_chinese_font_';
@@ -39,31 +39,35 @@ class ChineseStringCache
     private static
     function delSimpleChinese ()
     {
-        Server::setServerBidMemory(PROCEDURE_MAX_CAN_USE_MEMORY);
+        $sDependName = DependContainer::server();
+        Ioc::register($sDependName, DependContainer::depend( $sDependName));
 
-        $sSimpleFontPrefix = Cache::keyStyle(self::simpleFontPrefix());
-        $res = Cache::keys($sSimpleFontPrefix . '*');
+        $oServer = Ioc::resolve($sDependName);
+        $oServer->setServerBidMemory(PROCEDURE_MAX_CAN_USE_MEMORY);
+
+        $sDependName = DependContainer::cache();
+        Ioc::register($sDependName, DependContainer::depend( $sDependName));
+
+        $oCache = Ioc::resolve($sDependName);
+        $sSimpleFontPrefix = $oCache->keyStyle(self::simpleFontPrefix());
+        $res = $oCache->keys($sSimpleFontPrefix . '*');
         if (!$res) {
             return TRUE;
         }
 
-//        $aOtherKeys = [];
-//        foreach ($res as $v) {
-//            $aOtherKeys[] = $v;
-//        }
-
-        if ( !Cache::del(
+        if ( !$oCache->del(
             (array)$res
         ) ) {
-            Exception::throwException(
-                Server::response(
-                    Server::errorStatus(),
-                    Server::returnError(
-                        'del simple chinese error'
-                    )
-                )
-            );
-            return FALSE;
+//            Exception::throwException(
+//                Server::response(
+//                    Server::errorStatus(),
+//                    Server::returnError(
+//                        'del simple chinese error'
+//                    )
+//                )
+//            );
+//            return FALSE;
+            return self::throwError('del simple chinese error');
         }
 
         $sSimpleFontPrefix = $res = $aOtherKeys = null;
@@ -75,27 +79,31 @@ class ChineseStringCache
     private static
     function delTraditionalChinese ()
     {
-        return Cache::del( self::traditionalChineseFontPrefix() );
+
+        $sDependName = DependContainer::cache();
+        Ioc::register($sDependName, DependContainer::depend( $sDependName));
+
+        $oDepend = Ioc::resolve($sDependName);
+
+
+        return $oDepend->del( self::traditionalChineseFontPrefix() );
     }
 
     public static
     function setNewChineseFontCache ()
     {
-        Server::setNeverTimeout();
+        $sDependName = DependContainer::server();
+        Ioc::register($sDependName, DependContainer::depend( $sDependName));
+        $oServer = Ioc::resolve($sDependName);
+        $oServer->setNeverTimeout();
 
-        $aChinese = ChineseStringModelTool::allNormalChinese();
+        $sDependName = DependContainer::chineseStringModelService();
+        Ioc::register($sDependName, DependContainer::depend( $sDependName));
+        $oChineseStringModelService = Ioc::resolve($sDependName);
+        $aChinese = $oChineseStringModelService->allNormalChinese();
+        die();
         if ( !$aChinese ) {
-            $aChinese = null;
-            unset($aChinese);
-            Exception::throwException(
-                Server::response(
-                    Server::errorStatus(),
-                    Server::returnError(
-                        'no get chinese font'
-                    )
-                )
-            );
-            return FALSE;
+            return TRUE;
         }
 
         if (!self::setSimpleFontCache($aChinese)) {

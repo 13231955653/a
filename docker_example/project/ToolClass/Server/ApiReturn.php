@@ -2,11 +2,13 @@
 
 namespace ToolClass\Server;
 
-use ToolClass\Json\Json;
+//use ToolClass\Json\Json;
+//
+//use ToolClass\Log\Exception;
 
-use ToolClass\Log\Exception;
+use ToolClass\ToolFather;
 
-class ApiReturn
+class ApiReturn extends ToolFather
 {
     public static
     function response ($aRetrun = [])

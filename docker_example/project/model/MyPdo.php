@@ -4,12 +4,12 @@ namespace model;
 
 use model\publics\ImageList;
 //use ToolClass\Database\Mysql as MysqlTool;
-use ToolClass\Log\ErrorInformAdminThrow;
+//use ToolClass\Log\ErrorInformAdminThrow;
 
-use ToolClass\Database\SqlHsitory;
-use ToolClass\Database\Mysql;
+//use ToolClass\Database\SqlHsitory;
+//use ToolClass\Database\Mysql;
 //use ToolClass\Safe\Sql;
-use ToolClass\Model\Mysql as ModelModel;
+//use ToolClass\Model\Mysql as ModelModel;
 
 //use ToolClass\Log\Exception;
 
@@ -156,7 +156,9 @@ class MyPdo
             $sExplain = '参数绑定';
         }
 
-        $this->showSql( $sSql, $aWhere );
+        if (DEBUG) {
+            $this->showSql( $sSql, $aWhere );
+        }
 
         if ( WRITE_SQL_HISTORY && $bWriteSql ) {
             $this->writeSqlHistory(
@@ -172,7 +174,9 @@ class MyPdo
         }
 
         if ( !$stmt->execute() ) {
-            var_dump($stmt->errorInfo());
+            if (DEBUG) {
+                var_dump($stmt->errorInfo());
+            }
             return FALSE;
         }
 
@@ -200,7 +204,9 @@ class MyPdo
             $sExplain = '参数绑定';
         }
 
-        $this->showSql( $sSql, $aBindValue );
+        if (DEBUG) {
+            $this->showSql( $sSql, $aBindValue );
+        }
 
         if ( WRITE_SQL_HISTORY && $bWriteSql ) {
             $this->writeSqlHistory(
@@ -216,7 +222,9 @@ class MyPdo
         }
 
         if ( !$stmt->execute() ) {
-            var_dump($stmt->errorInfo());
+            if (DEBUG) {
+                var_dump($stmt->errorInfo());
+            }
             return FALSE;
         }
 
@@ -241,7 +249,9 @@ class MyPdo
             $sExplain = '参数绑定';
         }
 
-        $this->showSql( $sSql, $aBindValue );
+        if (DEBUG) {
+            $this->showSql( $sSql, $aBindValue );
+        }
 
         if ( WRITE_SQL_HISTORY && $bWriteSql ) {
             $this->writeSqlHistory(
@@ -256,7 +266,9 @@ class MyPdo
         }
 
         if (!$stmt->execute()) {
-            var_dump($stmt->errorInfo());
+            if (DEBUG) {
+                var_dump($stmt->errorInfo());
+            }
             return FALSE;
         }
 
@@ -285,7 +297,9 @@ class MyPdo
         }
 
         //        if (VAR_DUMP_SQL) {
-        $this->showSql( $sSql, $aBindValue );
+        if (DEBUG) {
+            $this->showSql( $sSql, $aBindValue );
+        }
         //        }
         //        return;
 
@@ -305,6 +319,9 @@ class MyPdo
         }
 
         if ( !$stmt->execute() ) {
+            if (DEBUG) {
+                var_dump($stmt->errorInfo());
+            }
             return FALSE;
         }
 
@@ -336,8 +353,10 @@ class MyPdo
             $stmt->bindValue( ':' . $k, $v );
         }
 
-        $aData = array_merge($aWhereConditions, $aUpdateData);
-        $this->showSql( $sSql,  $aData);
+        if (DEBUG) {
+            $aData = array_merge($aWhereConditions, $aUpdateData);
+            $this->showSql( $sSql,  $aData);
+        }
 
         if ( WRITE_SQL_HISTORY && $bWriteSql ) {
             $this->writeSqlHistory(
@@ -352,7 +371,14 @@ class MyPdo
             );
         }
 
-        return $stmt->execute();
+        if ( !$stmt->execute() ) {
+            if (DEBUG) {
+                var_dump($stmt->errorInfo());
+            }
+            return FALSE;
+        }
+
+        return TRUE;
     }
 
     public
@@ -374,7 +400,9 @@ class MyPdo
             $sExplain = '参数绑定';
         }
 
-        $this->showSql( $sSql, $aBindValue );
+        if (DEBUG) {
+            $this->showSql( $sSql, $aBindValue );
+        }
 
         if ( WRITE_SQL_HISTORY && $bWriteSql ) {
             $this->writeSqlHistory(
@@ -390,7 +418,9 @@ class MyPdo
         }
 
         if (!$stmt->execute()) {
-            var_dump($stmt->errorInfo());
+            if (DEBUG) {
+                var_dump($stmt->errorInfo());
+            }
             return FALSE;
         }
 
@@ -402,6 +432,10 @@ class MyPdo
         $sSql,
         $aBindValue
     ) {
+        if (!DEBUG) {
+            return FALSE;
+        }
+
 //        var_dump($aBindValue, $sSql);
         foreach ( $aBindValue as $k => $v ) {
             ////////////////////////////////////////////

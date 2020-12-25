@@ -2,7 +2,7 @@
 
 namespace ToolClass\Command;
 
-use ToolClass\Server\Server;
+//use ToolClass\Server\Server;
 
 require_once __ROOT_DIR__
              . DIRECTORY_SEPARATOR
@@ -10,7 +10,8 @@ require_once __ROOT_DIR__
              . DIRECTORY_SEPARATOR
              . 'system.php';
 
-class Command
+use ToolClass\ToolFather;
+class Command extends ToolFather
 {
     public static function do ($sCommand = '')
     {

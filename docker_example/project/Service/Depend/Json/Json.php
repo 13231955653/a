@@ -4,10 +4,29 @@ namespace Service\Depend\Json;
 
 use ToolClass\Json\Json as JsonTool;
 
-class Json
+use Service\Depend\Depend;
+class Json extends Depend
 {
-    public function __call ($name, $arguments)
+    public function __call ( $name, $arguments )
     {
-        return JsonTool::{$name}($arguments[0]);
+        var_dump(__NAMESPACE__);
+        var_dump(__CLASS__);
+        var_dump($name);
+        var_dump($arguments);
+        die();
+    }
+
+    public function analyJson ($arguments = '')
+    {
+        if (!$arguments || is_numeric($arguments)) {
+            return FALSE;
+        }
+
+        return JsonTool::analyJson($arguments);
+    }
+
+    public function toJson ($aData)
+    {
+        return JsonTool::toJson($aData);
     }
 }

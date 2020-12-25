@@ -1,8 +1,9 @@
 <?php
 namespace Hook\string\ChineseFont;
 
-//use ToolClass\Strings\string\ChineseString;
-use ToolClass\Strings\string\ChineseStringCache;
+use Service\Depend\DependContainer;
+use Service\Ioc\Ioc;
+
 class ChineseFont
 {
     public static function afterUpdateChineseFont ($bRes = FALSE)
@@ -22,11 +23,21 @@ class ChineseFont
 
     private static function deleteOldChineseFontCache ()
     {
-        return ChineseStringCache::deleteOldChineseFontCache();
+        $sDependName = DependContainer::chineseStringCache();
+        Ioc::register($sDependName, DependContainer::depend( $sDependName));
+
+        $oDepend = Ioc::resolve($sDependName);
+
+        return $oDepend->deleteOldChineseFontCache();
     }
 
     private static function setNewChineseFontCache ()
     {
-        return ChineseStringCache::setNewChineseFontCache();
+        $sDependName = DependContainer::chineseStringCache();
+        Ioc::register($sDependName, DependContainer::depend( $sDependName));
+
+        $oDepend = Ioc::resolve($sDependName);
+
+        return $oDepend->setNewChineseFontCache();
     }
 }

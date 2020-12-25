@@ -3,9 +3,11 @@
 namespace ToolClass\Strings\chengyu;
 
 use model\publics\ReplenishChengYu as ReplenishChengYuModel;
-use ToolClass\Model\Mysql;
+//use ToolClass\Model\Mysql;
 
-class ReplenishChengYu
+use ToolClass\ToolFather;
+
+class ReplenishChengYu extends ToolFather
 {
     public static function query ()
     {

@@ -1,21 +1,31 @@
 <?php
 namespace Service\Depend\Database;
 
-use Service\Ioc\Ioc;
+//use Service\Ioc\Ioc;
 use ToolClass\Safe\Database\SqlSafe as SqlSafeTool;
 
-use Service\Depend\DependContainer;
+//use Service\Depend\DependContainer;
 
-class SqlSafe
+use Service\Depend\Depend;
+class SqlSafe extends Depend
 {
-    private static $oJson = false;
+//    private static $oJson = false;
+//
+//    private static function jsonObject ()
+//    {
+//        if (!self::$oJson) {
+//            $sDepeng = DependContainer::json();
+//            Ioc::register($sDepeng, DependContainer::depend( $sDepeng));
+//        }
+//    }
 
-    private static function jsonObject ()
+    public function __call ( $name, $arguments )
     {
-        if (!self::$oJson) {
-            $sDepeng = DependContainer::json();
-            Ioc::register($sDepeng, DependContainer::depend( $sDepeng));
-        }
+        var_dump(__NAMESPACE__);
+        var_dump(__CLASS__);
+        var_dump($name);
+        var_dump($arguments);
+        die();
     }
 
     /**
@@ -29,11 +39,11 @@ class SqlSafe
      */
     public function sqlSafe (string $sString = '')
     {
-        if (!$sString) {
+        if (!$sString || is_numeric($sString)) {
             return $sString;
         }
 
-        self::jsonObject();
+//        self::jsonObject();
 
         return SqlSafeTool::filterSqlArg( $sString);
     }

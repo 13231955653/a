@@ -1,7 +1,9 @@
 <?php
 namespace ToolClass\Safe;
 
-class FilterArgs
+use ToolClass\ToolFather;
+
+class FilterArgs extends ToolFather
 {
 
 }

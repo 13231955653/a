@@ -1,7 +1,9 @@
 <?php
 namespace ToolClass\Server;
 
-class System
+use ToolClass\ToolFather;
+
+class System extends ToolFather
 {
     private static $sUserName = 'system';
 
