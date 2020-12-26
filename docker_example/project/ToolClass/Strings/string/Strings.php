@@ -27,8 +27,8 @@ class Strings extends ToolFather
 
     public static function replaceEnglishSymbolToChineseSymbol ($sString = '')
     {
-        if (!$sString) {
-            return '';
+        if (!$sString || !is_string($sString)) {
+            return self::throwError('disposeLineFeed info must be string 1');
         }
 
         $sString = str_replace('?', '？', $sString);

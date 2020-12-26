@@ -1,10 +1,12 @@
 <?php
-define( 'CHINESE_MAX_GET_NUMBER', 20000 );
+define( 'CHINESE_MAX_GET_NUMBER', 1000 );
 
 
 define(
     'SERVER_ERROR_INFO',
     [
+        'disposeLineFeed info must be string 1' => 'disposeLineFeed info must be string 1',
+        'disposeLineFeed info must be string' => 'disposeLineFeed info must be string',
         'no redis key' => 'no redis key',
         'unknown error' => 'unknown error',
         'depend container error 4' => 'depend container error 4',

@@ -58,15 +58,6 @@ class ChineseStringCache extends ToolFather
         if ( !$oCache->del(
             (array)$res
         ) ) {
-//            Exception::throwException(
-//                Server::response(
-//                    Server::errorStatus(),
-//                    Server::returnError(
-//                        'del simple chinese error'
-//                    )
-//                )
-//            );
-//            return FALSE;
             return self::throwError('del simple chinese error');
         }
 
@@ -101,7 +92,6 @@ class ChineseStringCache extends ToolFather
         Ioc::register($sDependName, DependContainer::depend( $sDependName));
         $oChineseStringModelService = Ioc::resolve($sDependName);
         $aChinese = $oChineseStringModelService->allNormalChinese();
-        die();
         if ( !$aChinese ) {
             return TRUE;
         }
@@ -109,27 +99,12 @@ class ChineseStringCache extends ToolFather
         if (!self::setSimpleFontCache($aChinese)) {
             $aChinese = null;
             unset($aChinese);
-            Exception::throwException(
-                Server::response(
-                    Server::errorStatus(),
-                    Server::returnError(
-                        'set simple font cache error'
-                    )
-                )
-            );
-            return FALSE;
+
+            return self::throwError('set simple font cache error');
         }
 
         if ( !self::wordSimpleTraditionalChineseCorresponding( $aChinese ) ) {
-            Exception::throwException(
-                Server::response(
-                    Server::errorStatus(),
-                    Server::returnError(
-                        'set traditional chinese font cache error'
-                    )
-                )
-            );
-            return FALSE;
+            return self::throwError('set traditional chinese font cache error');
         }
 
         return TRUE;
@@ -139,30 +114,17 @@ class ChineseStringCache extends ToolFather
     function wordSimpleTraditionalChineseCorresponding (
         & $aChinese = []
     ) {
-        Server::setNeverTimeout();
+        $sDependName = DependContainer::server();
+        Ioc::register($sDependName, DependContainer::depend( $sDependName));
+        $oServer = Ioc::resolve($sDependName);
+        $oServer->setNeverTimeout();
 
         if ( !$aChinese ) {
-            Exception::throwException(
-                Server::response(
-                    Server::errorStatus(),
-                    Server::returnError(
-                        'set traditional chinese font cache error 1'
-                    )
-                )
-            );
-            return FALSE;
+            return self::throwError('set traditional chinese font cache error 1');
         }
 
         if ( !self::delTraditionalChinese() ) {
-            Exception::throwException(
-                Server::response(
-                    Server::errorStatus(),
-                    Server::returnError(
-                        'set traditional chinese font cache error 3'
-                    )
-                )
-            );
-            return FALSE;
+            return self::throwError('set traditional chinese font cache error 3');
         }
 
         $aData = [];
@@ -186,23 +148,23 @@ class ChineseStringCache extends ToolFather
         unset($aChinese);
 
         $sPrefix = self::traditionalChineseFontPrefix();
-        foreach ( $aData as $k => $v ) {
-            $v = count($v) > 1 ? Json::toJson($v) : $v[0];
 
-            if ( !Cache::hSet(
+        $sDependName = DependContainer::cache();
+        Ioc::register($sDependName, DependContainer::depend( $sDependName));
+        $oCache = Ioc::resolve($sDependName);
+
+        $sDependName = DependContainer::json();
+        Ioc::register($sDependName, DependContainer::depend( $sDependName));
+        $oJson = Ioc::resolve($sDependName);
+        foreach ( $aData as $k => $v ) {
+            $v = count($v) > 1 ? $oJson->toJson($v) : $v[0];
+
+            if ( !$oCache->hSet(
                 $sPrefix,
                 $k,
                 $v
             ) ) {
-                Exception::throwException(
-                    Server::response(
-                        Server::errorStatus(),
-                        Server::returnError(
-                            'set traditional chinese font cache error 2'
-                        )
-                    )
-                );
-                return FALSE;
+                return self::throwError('set traditional chinese font cache error 2');
             }
         }
         $aData = $sPrefix = null;
@@ -215,30 +177,17 @@ class ChineseStringCache extends ToolFather
     function setSimpleFontCache (
         & $aChinese = []
     ) {
-        Server::setNeverTimeout();
+        $sDependName = DependContainer::server();
+        Ioc::register($sDependName, DependContainer::depend( $sDependName));
+        $oServer = Ioc::resolve($sDependName);
+        $oServer->setNeverTimeout();
 
         if ( !$aChinese ) {
-            Exception::throwException(
-                Server::response(
-                    Server::errorStatus(),
-                    Server::returnError(
-                        'set simple chinese, chinese is empty'
-                    )
-                )
-            );
-            return FALSE;
+            return self::throwError('set simple chinese, chinese is empty');
         }
 
         if ( !self::delSimpleChinese() ) {
-            Exception::throwException(
-                Server::response(
-                    Server::errorStatus(),
-                    Server::returnError(
-                        'set traditional chinese font cache error 4'
-                    )
-                )
-            );
-            return FALSE;
+            return self::throwError('set traditional chinese font cache error 4');
         }
 
         $sSimpleFontPrefix = self::simpleFontPrefix();
@@ -262,6 +211,10 @@ class ChineseStringCache extends ToolFather
         $sNoPinYin         = JianFanFontModel::noPinYin();
         $sPrikey           = JianFanFontModel::primary();
         $sWord             = JianFanFontModel::word();
+
+        $sDependName = DependContainer::cache();
+        Ioc::register($sDependName, DependContainer::depend( $sDependName));
+        $oCache = Ioc::resolve($sDependName);
         foreach ( $aChinese as $k => $v ) {
             $v = (array)$v;
             foreach ( $v as $key => $val ) {
@@ -308,19 +261,15 @@ class ChineseStringCache extends ToolFather
                 unset( $v[ $sOldUrlencodeMd5 ] );
             }
 
-            if ( !Cache::hMset(
+            if (!is_array($v)) {
+                continue;
+            }
+
+            if ( !$oCache->hMset(
                 $sSimpleFontPrefix . $v[ $sWordUrlencodeMd5 ],
                 $v
             ) ) {
-                Exception::throwException(
-                    Server::response(
-                        Server::errorStatus(),
-                        Server::returnError(
-                            'set simple font cache error, one error'
-                        )
-                    )
-                );
-                return FALSE;
+                return self::throwError('set simple font cache error, one error');
             }
         }
 

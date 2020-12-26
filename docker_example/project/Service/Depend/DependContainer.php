@@ -23,12 +23,41 @@ class DependContainer
     private static $sArrayService = 'arrayService';
     private static $sPdoService = 'pdoService';
     private static $sPinYinWithVoice = 'pinYinWithVoice';
+    private static $sChineseTool = 'chineseStringTool';
+    private static $sRegularVerify = 'regularVerify';
+    private static $sString = 'string';
+    private static $sErrorInformAdminThrow = 'errorInformAdminThrow';
+    private static $sSqlHistory = 'sqlHistory';
+
+    public static function sqlHistory ()
+    {
+        return self::$sSqlHistory;
+    }
+
+    public static function errorInformAdminThrow ()
+    {
+        return self::$sErrorInformAdminThrow;
+    }
+
+    public static function string ()
+    {
+        return self::$sString;
+    }
+
+    public static function regularVerify ()
+    {
+        return self::$sRegularVerify;
+    }
+
+    public static function chineseStringTool ()
+    {
+        return self::$sChineseTool;
+    }
 
     public static function pinYinWithVoice ()
     {
         return self::$sPinYinWithVoice;
     }
-
 
     public static function pdo ()
     {
@@ -124,8 +153,23 @@ class DependContainer
 
         $sClass = '';
         switch ($sDepend) {
+            case 'sqlHistory' :
+                $sClass = '\Service\Depend\Log\SqlHistory';
+                break;
+            case 'errorInformAdminThrow' :
+                $sClass = '\Service\Depend\Exception\ErrorInformAdminThrow';
+                break;
+            case 'regularVerify' :
+                $sClass = '\Service\Depend\Regular\RegularVerify\RegularVerify';
+                break;
+            case 'chineseStringTool' :
+                $sClass = '\Service\Depend\Strings\String\ChineseStringTool';
+                break;
             case 'pinYinWithVoice' :
                 $sClass = '\Service\Depend\Strings\String\PinYinWithVoice';
+                break;
+            case 'string' :
+                $sClass = '\Service\Depend\Strings\String\Strings';
                 break;
             case 'database' :
                 $sClass = '\Service\Depend\Database\Database';

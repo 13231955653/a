@@ -39,16 +39,9 @@ class Cache extends ToolFather
 
     private static
     function setKey (
-        $sKey
+        string $sKey = ''
     ) {
         if ( !$sKey ) {
-//            Exception::throwException(
-//                Server::response(
-//                    Server::errorStatus(),
-//                    Server::returnError( 'no redis key' )
-//                )
-//            );
-//            return FALSE;
             return self::throwError('no redis key');
         }
 
@@ -59,16 +52,9 @@ class Cache extends ToolFather
                           ));
     }
 
-    public static function keyStyle ($sKey = '')
+    public static function keyStyle (string $sKey = '')
     {
         if (!$sKey) {
-//            Exception::throwException(
-//                Server::response(
-//                    Server::errorStatus(),
-//                    Server::returnError( 'no redis key' )
-//                )
-//            );
-//            return FALSE;
             return self::throwError('no redis key');
         }
 
@@ -105,17 +91,10 @@ class Cache extends ToolFather
 
     public static
     function lockForDatabase (
-        $sLockPrefix = '',
-        $sLockSuffix = 0
+        string $sLockPrefix = '',
+        string $sLockSuffix = ''
     ) {
         if ( !$sLockPrefix || !$sLockSuffix ) {
-//            Exception::throwException(
-//                Server::response(
-//                    Server::errorStatus(),
-//                    Server::returnError( 'no redis key' )
-//                )
-//            );
-//            return FALSE;
             return self::throwError('no redis key');
         }
 
@@ -134,17 +113,10 @@ class Cache extends ToolFather
 
     public static
     function unlockForDatabase (
-        $sLockPrefix = '',
-        $sLockSuffix = 0
+        string $sLockPrefix = '',
+        string $sLockSuffix = ''
     ) {
         if ( !$sLockPrefix || !$sLockSuffix ) {
-//            Exception::throwException(
-//                Server::response(
-//                    Server::errorStatus(),
-//                    Server::returnError( 'no redis key' )
-//                )
-//            );
-//            return FALSE;
             return self::throwError('no redis key');
         }
 
@@ -165,16 +137,9 @@ class Cache extends ToolFather
 
     public static
     function incr (
-        $sKey
+        string $sKey = ''
     ) {
         if ( !$sKey ) {
-//            Exception::throwException(
-//                Server::response(
-//                    Server::errorStatus(),
-//                    Server::returnError( 'no redis key' )
-//                )
-//            );
-//            return;
             return self::throwError('no redis key');
         }
 
@@ -183,16 +148,9 @@ class Cache extends ToolFather
 
     public static
     function exists (
-        $sKey
+        string $sKey = ''
     ) {
         if ( !$sKey ) {
-//            Exception::throwException(
-//                Server::response(
-//                    Server::errorStatus(),
-//                    Server::returnError( 'no redis key' )
-//                )
-//            );
-//            return;
             return self::throwError('no redis key');
         }
 
@@ -201,18 +159,11 @@ class Cache extends ToolFather
 
     public static
     function set (
-        $sKey,
-        $sValue,
-        $iTimeout = NULL
+        string $sKey = '',
+        string $sValue = '',
+        string $iTimeout = ''
     ) {
         if ( !$sKey || !$sValue ) {
-//            Exception::throwException(
-//                Server::response(
-//                    Server::errorStatus(),
-//                    Server::returnError( 'no redis key or value' )
-//                )
-//            );
-//            return;
             return self::throwError('no redis key or value');
         }
 
@@ -225,16 +176,9 @@ class Cache extends ToolFather
 
     public static
     function get (
-        $sKey
+        string $sKey = ''
     ) {
         if ( !$sKey ) {
-//            Exception::throwException(
-//                Server::response(
-//                    Server::errorStatus(),
-//                    Server::returnError( 'no redis key' )
-//                )
-//            );
-//            return;
             return self::throwError('no redis key');
         }
 
@@ -244,17 +188,10 @@ class Cache extends ToolFather
 
     public static
     function expire (
-        $sKey,
-        $ttl
+        string $sKey = '',
+        string $ttl = ''
     ) {
         if ( !$sKey || !$ttl ) {
-//            Exception::throwException(
-//                Server::response(
-//                    Server::errorStatus(),
-//                    Server::returnError( 'no redis key or ttl' )
-//                )
-//            );
-//            return;
             return self::throwError('no redis key or ttl');
         }
 
@@ -267,18 +204,11 @@ class Cache extends ToolFather
 
     public static
     function hSet (
-        $sKey = FALSE,
-        $sHashKey = '',
-        $sValue = ''
+        string $sKey = '',
+        string $sHashKey = '',
+        string $sValue = ''
     ) {
         if ( !$sKey || !$sHashKey || !$sValue ) {
-//            Exception::throwException(
-//                Server::response(
-//                    Server::errorStatus(),
-//                    Server::returnError( 'hset error' )
-//                )
-//            );
-//            return FALSE;
             return self::throwError('hset error');
         }
 
@@ -291,21 +221,13 @@ class Cache extends ToolFather
 
     public static
     function hMset (
-        $sKey = FALSE,
-        $aData = []
+        string $sKey = '',
+        array $aData = []
     ) {
         if ( !$sKey || !$aData ) {
-//            Exception::throwException(
-//                Server::response(
-//                    Server::errorStatus(),
-//                    Server::returnError( 'no redis key or data' )
-//                )
-//            );
-//            return FALSE;
             return self::throwError('no redis key or data');
         }
 
-        //        var_dump($sKey);
         return self::redisClusterObject()->hMset(
             self::setKey( $sKey ),
             $aData
@@ -314,37 +236,21 @@ class Cache extends ToolFather
 
     public static
     function hKeys (
-        $sKey
+        string $sKey = ''
     ) {
         if ( !$sKey ) {
-//            Exception::throwException(
-//                Server::response(
-//                    Server::errorStatus(),
-//                    Server::returnError( 'no redis key' )
-//                )
-//            );
-//            return FALSE;
             return self::throwError('no redis key');
         }
 
-//        var_dump($sKey);
-        //        var_dump(self::setKey($sKey));
         return self::redisClusterObject()->hKeys( self::setKey( $sKey ) );
     }
 
     public static
     function hGet (
-        $sKey,
-        $sField
+        string $sKey = '',
+        string $sField = ''
     ) {
         if ( !$sKey ) {
-//            Exception::throwException(
-//                Server::response(
-//                    Server::errorStatus(),
-//                    Server::returnError( 'no redis key' )
-//                )
-//            );
-//            return;
             return self::throwError('no redis key');
         }
 
@@ -356,62 +262,38 @@ class Cache extends ToolFather
 
     public static
     function hGetAll (
-        $sKey
+        string $sKey = ''
     ) {
         if ( !$sKey ) {
-//            Exception::throwException(
-//                Server::response(
-//                    Server::errorStatus(),
-//                    Server::returnError( 'no redis key' )
-//                )
-//            );
-//            return;
             return self::throwError('no redis key');
         }
 
-        //        var_dump(self::setKey($sKey));
         return self::redisClusterObject()->hGetAll( self::setKey( $sKey ) );
     }
 
     public static
     function keys (
-        $sKey
+        string $sKey = ''
     ) {
         if ( !$sKey ) {
-//            Exception::throwException(
-//                Server::response(
-//                    Server::errorStatus(),
-//                    Server::returnError( 'no redis key' )
-//                )
-//            );
-//            return FALSE;
             return self::throwError('no redis key');
         }
 
-//        var_dump(self::setKey( $sKey ));
         return self::redisClusterObject()->keys( self::setKey( $sKey ) );
     }
 
     public static
     function lPsuh (
-        $sKey,
-        $sJsonData = ''
+        string $sKey = '',
+        string $sJsonData = ''
     ) {
         if ( !$sKey || !$sJsonData ) {
             if (DEBUG) {
                 var_dump( $sKey, $sJsonData );
             }
-//            Exception::throwException(
-//                Server::response(
-//                    Server::errorStatus(),
-//                    Server::returnError( 'no redis key or sJsonData' )
-//                )
-//            );
-//            return;
+
             return self::throwError('no redis key or sJsonData');
         }
-
-        //        $sJsonData = Json::analyJson($sJsonData, TRUE) ? $sJsonData : Json::toJson($sJsonData);
 
         return self::redisClusterObject()->lPush(
             self::setKey( $sKey ),
@@ -421,36 +303,20 @@ class Cache extends ToolFather
 
     public static
     function rPop (
-        $sKey = ''
+        string $sKey = ''
     ) {
         if ( !$sKey ) {
-//            Exception::throwException(
-//                Server::response(
-//                    Server::errorStatus(),
-//                    Server::returnError( 'no redis key' )
-//                )
-//            );
-//            return;
             return self::throwError('no redis key');
         }
 
-        //        $sJsonData = self::redisClusterObject()->rPop(self::setKey($sKey));
-        //        return $sJsonData ? Json::toArray($sJsonData) : false;
         return self::redisClusterObject()->rPop( self::setKey( $sKey ) );
     }
 
     public static
     function lLen (
-        $sKey = ''
+        string $sKey = ''
     ) {
         if ( !$sKey ) {
-//            Exception::throwException(
-//                Server::response(
-//                    Server::errorStatus(),
-//                    Server::returnError( 'no redis key' )
-//                )
-//            );
-//            return;
             return self::throwError('no redis key');
         }
 

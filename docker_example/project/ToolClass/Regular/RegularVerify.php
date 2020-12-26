@@ -89,8 +89,8 @@ class RegularVerify extends ToolFather
 
     public static function disposeLineFeed ($sInfo = '')
     {
-        if (!$sInfo) {
-            return '';
+        if (!$sInfo || !is_string($sInfo)) {
+            return self::throwError('disposeLineFeed info must be string');
         }
 
         $aReplace = ["\r\n", "\n", "\r", "\t", "/r/n", "/n", "/r", "/t", "</br>"];

@@ -44,9 +44,9 @@ class Server extends Depend
         return ServerTool::response($arguments);
     }
 
-    public function setServerBidMemory ()
+    public function setServerBidMemory ($sMemory = '')
     {
-        return ServerTool::setServerBidMemory();
+        return ServerTool::setServerBidMemory($sMemory);
     }
 
     public function setNeverTimeout ()

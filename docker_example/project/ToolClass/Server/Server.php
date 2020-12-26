@@ -126,6 +126,8 @@ NijFTFBZCLlRyIiv/gq1TSECAwEAAQ==
     private static $sWindowOS = 'win';
     private static $sLinuxOS  = 'linux';
 
+    private static $bSetNeverTimeOut = FALSE;
+
     public static function windowOs ()
     {
         return self::$sWindowOS;
@@ -361,6 +363,12 @@ NijFTFBZCLlRyIiv/gq1TSECAwEAAQ==
     public static
     function setNeverTimeout ()
     {
+        if (self::$bSetNeverTimeOut) {
+            return TRUE;
+        }
+
+        self::$bSetNeverTimeOut = TRUE;
+
         ini_set( 'max_execution_time', 0 );
     }
 

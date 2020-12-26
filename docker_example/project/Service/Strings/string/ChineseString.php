@@ -62,8 +62,12 @@ class ChineseString extends Service
         }
 
         $sWordFeild = JianFanFontModel::word();
+        if (!isset($aUpdateData[$sWordFeild])) {
+            return FALSE;
+        }
+
         $aWhere = [];
-        $aWhere[JianFanFontModel::wordUrlencodeMd5()] = JianFanFontModel::wordUrlencodeMd5Encode($sWordFeild);
+        $aWhere[JianFanFontModel::wordUrlencodeMd5()] = JianFanFontModel::wordUrlencodeMd5Encode($aUpdateData[$sWordFeild]);
         unset($aUpdateData[$sWordFeild]);
 
         $sDatabaseDepengName = DependContainer::database();
@@ -136,7 +140,11 @@ class ChineseString extends Service
 
         $sExplain = JianFanFontModel::explanation();
         if (isset($aData[$sExplain]) && $aData[$sExplain]) {
-            $aUpdateData[$sExplain] = self::replaceString($aData[$sExplain]);
+            $sDependName = DependContainer::chineseStringTool();
+            Ioc::register($sDependName, DependContainer::depend( $sDependName));
+            $oChineseStringTool = Ioc::resolve($sDependName);
+
+            $aUpdateData[$sExplain] = $oChineseStringTool->replaceChineseString($aData[$sExplain], $aData[$sWord]);
             $aUpdateData[JianFanFontModel::existExplanation()] = JianFanFontModel::existExplainTag();
 
             $bUpdate = TRUE;
@@ -144,17 +152,25 @@ class ChineseString extends Service
 
         $sMore = JianFanFontModel::more();
         if (isset($aData[$sMore]) && $aData[$sMore]) {
-            $aUpdateData[$sMore] = self::replaceString($aData[$sMore]);
+            $sDependName = DependContainer::chineseStringTool();
+            Ioc::register($sDependName, DependContainer::depend( $sDependName));
+            $oChineseStringTool = Ioc::resolve($sDependName);
+
+            $aUpdateData[$sMore] = $oChineseStringTool->replaceChineseString($aData[$sMore], $aData[$sWord]);
             $aUpdateData[JianFanFontModel::existMore()] = JianFanFontModel::existMoreTag();
 
             $bUpdate = TRUE;
         }
 
-        $aData = null;
-        unset($aData);
         if (!$bUpdate) {
+            $aData = null;
+            unset($aData);
             return FALSE;
         }
+
+        $aUpdateData[$sWord] = $aData[$sWord];
+        $aData = null;
+        unset($aData);
 
         $sServerDepengName = DependContainer::server();
         $oServerDepend = Ioc::resolve($sServerDepengName);

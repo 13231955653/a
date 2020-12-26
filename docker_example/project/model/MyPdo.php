@@ -2,16 +2,8 @@
 
 namespace model;
 
-use model\publics\ImageList;
-//use ToolClass\Database\Mysql as MysqlTool;
-//use ToolClass\Log\ErrorInformAdminThrow;
-
-//use ToolClass\Database\SqlHsitory;
-//use ToolClass\Database\Mysql;
-//use ToolClass\Safe\Sql;
-//use ToolClass\Model\Mysql as ModelModel;
-
-//use ToolClass\Log\Exception;
+use Service\Depend\DependContainer;
+use Service\Ioc\Ioc;
 
 class MyPdo
 {
@@ -79,11 +71,12 @@ class MyPdo
                     break;
             }
         } catch ( \PDOException $e ) {
-            ErrorInformAdminThrow::recordErrorAndInformAdmin(
+            $sDepengName = DependContainer::errorInformAdminThrow();
+            Ioc::register($sDepengName, DependContainer::depend( $sDepengName));
+            $oErrorInforAdminThrow = Ioc::resolve($sDepengName);
+            $oErrorInforAdminThrow->recordErrorAndInformAdmin(
                 12,
-                $e->getMessage()
-            );
-            //            Exception::throwException('mypdo error');
+                $e->getMessage());
         }
     }
 
@@ -183,7 +176,6 @@ class MyPdo
         return $stmt->fetchObject();
     }
 
-    //return $db->queryOne($sSql, $aBindValue, static::$sPlatform, static::$sTable);
     public
     function queryOne (
         $sSql,
@@ -198,7 +190,6 @@ class MyPdo
         $sExplain = '';
         if ( $aBindValue ) {
             foreach ( $aBindValue as $k => $v ) {
-                //                var_dump($v);
                 $stmt->bindValue( ':' . $k, $v );
             }
             $sExplain = '参数绑定';
@@ -283,29 +274,20 @@ class MyPdo
         $aBindValue = [],
         $bWriteSql = TRUE
     ) {
-//        ini_set("memory_limit","1512M");
         $stmt = $this->link->prepare( $sSql );
 
-//        var_dump($sSql);
         $sExplain = '';
         if ( $aBindValue ) {
-//            var_dump($aBindValue);
             foreach ( $aBindValue as $k => $v ) {
                 $stmt->bindValue( ':' . $k, $v );
             }
             $sExplain = '参数绑定';
         }
 
-        //        if (VAR_DUMP_SQL) {
         if (DEBUG) {
             $this->showSql( $sSql, $aBindValue );
         }
-        //        }
-        //        return;
 
-        //        var_dump(WRITE_SQL_HISTORY);
-        //                var_dump($bWriteSql);
-        //        return;
         if ( WRITE_SQL_HISTORY && $bWriteSql ) {
             $this->writeSqlHistory(
                 [
@@ -378,7 +360,14 @@ class MyPdo
             return FALSE;
         }
 
-        return TRUE;
+        if ( $stmt->rowCount() > 0) {
+            return TRUE;
+        }
+
+        if (DEBUG) {
+            var_dump($stmt->errorInfo());
+        }
+        return FALSE;
     }
 
     public
@@ -417,14 +406,23 @@ class MyPdo
             );
         }
 
-        if (!$stmt->execute()) {
+        if ( !$stmt->execute() ) {
             if (DEBUG) {
                 var_dump($stmt->errorInfo());
             }
             return FALSE;
         }
 
-        return TRUE;
+        $iLastInsertId = $stmt->lastInsertId();
+        if ($iLastInsertId) {
+            return $iLastInsertId;
+        }
+
+        if (DEBUG) {
+            var_dump($stmt->errorInfo());
+        }
+
+        return FALSE;
     }
 
     private
@@ -436,9 +434,7 @@ class MyPdo
             return FALSE;
         }
 
-//        var_dump($aBindValue, $sSql);
         foreach ( $aBindValue as $k => $v ) {
-            ////////////////////////////////////////////
             $sSql = str_replace(
                 ':' . $k,
                 is_numeric( $v ) ? $v : '"' . $v . '"',
@@ -448,7 +444,6 @@ class MyPdo
 
         var_dump( $sSql );
         var_dump( $aBindValue ? '参数绑定' : '未绑定参数' );
-//                file_put_contents(__ROOT_DIR__ . DIRECTORY_SEPARATOR . 'model' . DIRECTORY_SEPARATOR . 'sql.txt', PHP_EOL . PHP_EOL . $sSql);
 
         $sSql = $aBindValue = NULL;
         unset( $sSql, $aBindValue );
@@ -462,11 +457,9 @@ class MyPdo
         $sTable = '',
         $bQueue = false
     ) {
-        //        var_dump($sPlatform, $sTable);
         $sSql = $aSqlData[ 'sql' ];
 
         foreach ( $aSqlData[ 'bind_value' ] as $k => $v ) {
-            ////////////////////////////////////////////
             $sSql = str_replace(
                 ':' . $k,
                 is_numeric( $v ) ? $v : '"' . $v . '"',
@@ -477,9 +470,9 @@ class MyPdo
         $aSqlData = NULL;
         unset( $aSqlData );
 
-//        var_dump($sSql, $sExplain, $sPlatform, $sTable, $bQueue);
-        //        var_dump($sSql, $sExplain, $sPlatform, $sTable, $bWriteSql);return;
-        SqlHsitory::writeSqlHistory( $sSql, $sExplain, $sPlatform, $sTable, $bQueue );
-//        die();
+        $sDepengName = DependContainer::sqlHistory();
+        Ioc::register($sDepengName, DependContainer::depend( $sDepengName));
+        $oHistory = Ioc::resolve($sDepengName);
+        $oHistory->writeSqlHistory($sSql, $sExplain, $sPlatform, $sTable, $bQueue);
     }
 }
