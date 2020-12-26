@@ -150,14 +150,6 @@ class Mysql
         self::$sMysqlObj = self::$aGroupObj[ $iDatabaseTag % count(
             DATDABASE_CONFIG[ 'MYSQL_GROUP' ]
         ) ];
-//        die();
-//        if ( !self::$sMysqlObj ) {
-//            ErrorInformAdminThrow::recordErrorAndInformAdmin(
-//                11,
-//                self::$aGroupObj
-//            );
-//            return FALSE;
-//        }
 
         return self::$sMysqlObj;
     }
