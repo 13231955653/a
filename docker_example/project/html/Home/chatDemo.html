@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>WebSocket示例</title>
+    
+    <script type="text/javascript">
+        var ws = false;
+        function WebSocketTest() {
+            if ("WebSocket" in window) {
+                
+                // 打开一个 web socket
+                ws = ws ? ws : new WebSocket("ws://192.168.125.135:9504");
+                
+                ws.onopen = function () {
+                    ws.send("user");
+                    console.log("数据发送中...");
+                };
+                
+                ws.onmessage = function (e) {
+                    var received_msg = e.data;
+                    console.log("数据已接收:" + received_msg)
+                };
+                
+                ws.onclose = function () {
+                    // 关闭 websocket
+                    console.log("连接已关闭...")
+                };
+            } else {
+                // 浏览器不支持 WebSocket
+                alert("您的浏览器不支持 WebSocket!");
+            }
+        }
+    </script>
+
+</head>
+<body>
+
+<div id="sse">
+    <a href="javascript:WebSocketTest()">打开连接</a>
+</div>
+
+</body>
+</html>

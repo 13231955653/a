@@ -2,8 +2,6 @@
 
 namespace Service\Ioc;
 
-//use ToolClass\Log\Exception;
-//use ToolClass\Server\Server;
 use Service\Depend\DependContainer;
 /**
  * 控制反转类
@@ -33,15 +31,6 @@ class Ioc
                 var_dump($sName, $sResolve);
             }
 
-//            Exception::throwException(
-//                Server::response(
-//                    Server::errorStatus(),
-//                    Server::returnError(
-//                        'ioc error 1'
-//                    )
-//                )
-//            );
-//            return FALSE;
             $sExceptionDepengName = DependContainer::exception();
             $oExceptionDepend = Ioc::resolve($sExceptionDepengName);
 
@@ -76,34 +65,10 @@ class Ioc
         $parameter = ''
     ) {
         if (!$sName) {
-//            Exception::throwException(
-//                Server::response(
-//                    Server::errorStatus(),
-//                    Server::returnError(
-//                        'ioc error 2'
-//                    )
-//                )
-//            );
-//            return FALSE;
-//            $sExceptionDepengName = DependContainer::exception();
-//            $oExceptionDepend = Ioc::resolve($sExceptionDepengName);
-//
-//            $sServerDepengName = DependContainer::server();
-//            $oServerDepend = Ioc::resolve($sServerDepengName);
-//
-//            $oExceptionDepend->throwException(
-//                $oServerDepend->response(
-//                    $oServerDepend->errorStatus(),
-//                    $oServerDepend->returnError('ioc error 2')
-//                )
-//            );
             return FALSE;
         }
 
         if ( static::registered( $sName ) ) {
-//            var_dump($sName);
-//            var_dump($parameter);
-//            var_dump(static::$aRegistry[ $sName ]);
             return new static::$aRegistry[ $sName ]($parameter);
         }
 
@@ -123,40 +88,9 @@ class Ioc
         $sName = ''
     ) {
         if (!$sName) {
-//            Exception::throwException(
-//                Server::response(
-//                    Server::errorStatus(),
-//                    Server::returnError(
-//                        'ioc error 3'
-//                    )
-//                )
-//            );
-//            return FALSE;
-//            $sExceptionDepengName = DependContainer::exception();
-//            $oExceptionDepend = Ioc::resolve($sExceptionDepengName);
-//
-//            $sServerDepengName = DependContainer::server();
-//            $oServerDepend = Ioc::resolve($sServerDepengName);
-//
-//            $oExceptionDepend->throwException(
-//                $oServerDepend->response(
-//                    $oServerDepend->errorStatus(),
-//                    $oServerDepend->returnError('ioc error 3')
-//                )
-//            );
             return FALSE;
         }
 
         return array_key_exists( $sName, static::$aRegistry );
     }
 }
-//Ioc::register("book", function () {
-//    $book = new Book();
-//    $book->setdb('db');
-//    $book->setfile('file');
-//
-//    return $book;
-//});
-//
-//// 注入依赖
-//$book = Ioc::resolve('book');

@@ -36,7 +36,7 @@ class Json extends ToolFather
         return $result;
     }
 
-    public static function toJson ($aData)
+    public static function toJson (array $aData)
     {
 //        ini_set("memory_limit","15121M");
         return json_encode($aData);

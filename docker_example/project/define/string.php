@@ -5,6 +5,9 @@ define( 'CHINESE_MAX_GET_NUMBER', 1000 );
 define(
     'SERVER_ERROR_INFO',
     [
+        'no redis setnx value' => 'no redis setnx value',
+        'port is used' => 'port is used',
+        'websocket port must number' => 'websocket port must number',
         'disposeLineFeed info must be string 1' => 'disposeLineFeed info must be string 1',
         'disposeLineFeed info must be string' => 'disposeLineFeed info must be string',
         'no redis key' => 'no redis key',

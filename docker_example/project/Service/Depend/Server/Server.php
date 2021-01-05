@@ -25,6 +25,11 @@ class Server extends Depend
     {
         return ServerTool::errorStatus();
     }
+    
+    public function getServerIp ()
+    {
+        ServerTool::getServerIp();
+    }
 
     public function returnError ($arguments = '')
     {
@@ -33,6 +38,15 @@ class Server extends Depend
         }
 
         return ServerTool::returnError($arguments);
+    }
+    
+    public function checkUsedPort (string $sPort = '')
+    {
+        if (!$sPort || !is_numeric($sPort)) {
+            return $this->throwError('websocket port must number');
+        }
+    
+        return ServerTool::checkUsedPort($sPort);
     }
 
     public function response ($arguments)

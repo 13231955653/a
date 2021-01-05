@@ -8,7 +8,6 @@ use command\CommandFather;
 use ToolClass\Date\Time;
 use ToolClass\Server\Server;
 
-//var_dump(time());
 Time::setStartTime();
 
 if (!isset($argc)) {
@@ -32,21 +31,14 @@ if (!$sName) {
 //echo $sName;
 $oCommand->showNowCommand($sName);
 if (!isset($CommandList[$sName])) {
+    if (DEBUG) {
+        $oCommand->outInfo($sName);
+    }
     $oCommand->outInfo('command no exist !!!');
     return false;
 }
-//$array = explode('_', $sName);
-//$sObj = '';
-//foreach ($array as $v) {
-//    $sObj .= ucfirst($v);
-//}
-//$sObj = 'command\\' . $sObj;
-//$array = null;
 
-//$CommandList[$sName]
-//use $sObj;
 $sObj = $CommandList[$sName];
-require_once __ROOT_DIR__ . DIRECTORY_SEPARATOR . $sObj . '.php';
 
 Server::setNeverTimeout();
 $obj = new $sObj();

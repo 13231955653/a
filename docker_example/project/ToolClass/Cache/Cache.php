@@ -110,6 +110,19 @@ class Cache extends ToolFather
 
         return FALSE;
     }
+    
+    public static function setnx (string $sKey = '', string $sValue = '')
+    {
+        if ( !$sKey ) {
+            return self::throwError('no redis key');
+        }
+    
+        if ( !$sValue ) {
+            return self::throwError('no redis setnx value');
+        }
+    
+        return self::redisClusterObject()->setnx( self::setKey( $sKey ), $sValue );
+    }
 
     public static
     function unlockForDatabase (

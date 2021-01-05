@@ -28,7 +28,13 @@ class DependContainer
     private static $sString = 'string';
     private static $sErrorInformAdminThrow = 'errorInformAdminThrow';
     private static $sSqlHistory = 'sqlHistory';
-
+    private static $sWebsocketChat = 'websocketChat';
+    
+    public static function websocketChat ()
+    {
+        return self::$sWebsocketChat;
+    }
+    
     public static function sqlHistory ()
     {
         return self::$sSqlHistory;
@@ -153,6 +159,9 @@ class DependContainer
 
         $sClass = '';
         switch ($sDepend) {
+            case 'websocketChat' :
+                $sClass = '\Service\Depend\Swoole\Websocket\Websocket';
+                break;
             case 'sqlHistory' :
                 $sClass = '\Service\Depend\Log\SqlHistory';
                 break;

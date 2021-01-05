@@ -127,6 +127,8 @@ NijFTFBZCLlRyIiv/gq1TSECAwEAAQ==
     private static $sLinuxOS  = 'linux';
 
     private static $bSetNeverTimeOut = FALSE;
+    
+    private static $sUsedPortPrefix = 'used-';
 
     public static function windowOs ()
     {
@@ -149,6 +151,19 @@ NijFTFBZCLlRyIiv/gq1TSECAwEAAQ==
     public static function errorStatus ()
     {
         return self::$iErrorStatus;
+    }
+    
+    public static function checkUsedPort (string $sPort = '')
+    {
+        if (!$sPort || !is_numeric($sPort)) {
+            return self::throwError('websocket port must number');
+        }
+    
+        $sDependName = DependContainer::cache();
+        Ioc::register($sDependName, DependContainer::depend( $sDependName));
+    
+        $oCache = Ioc::resolve($sDependName);
+        $oCache->setnx(self::$sUsedPortPrefix . $sPort, 1);
     }
 
     public static function returnError ($sKey = '')
@@ -415,7 +430,16 @@ NijFTFBZCLlRyIiv/gq1TSECAwEAAQ==
     //    {
     //        return $_SERVER[ 'HTTP_X_REAL_IP' ];
     //    }
-
+    
+    public static function getServerIp ()
+    {
+        if(!empty($_SERVER['SERVER_ADDR'])) {
+            return $_SERVER['SERVER_ADDR'];
+        }
+        
+        return gethostbyname($_SERVER['HOSTNAME']);
+    }
+    
     public static
     function userIp ()
     {

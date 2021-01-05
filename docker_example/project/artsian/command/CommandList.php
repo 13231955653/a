@@ -44,3 +44,4 @@ $CommandList['test'] = 'command\String\string\TestInsertIntoDatabase';
 $CommandList['handle_add_string'] = 'command\String\string\HandleAddString';
 $CommandList['dispose_string'] = 'command\String\string\DisposeString';
 $CommandList['replenish_chinese'] = 'command\String\string\ReplenishChinese';
+$CommandList['websocket_chat'] = 'command\Websocket\Chat\Chat';

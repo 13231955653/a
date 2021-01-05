@@ -44,6 +44,7 @@ class Cache extends Depend
 
         return CacheTool::hMset($sKey, $aData);
     }
+    
     public
     function hSet (
         string $sKey = '',
@@ -55,5 +56,18 @@ class Cache extends Depend
         }
 
         return CacheTool::hSet($sKey, $sHashKey, $sValue);
+    }
+    
+    public function setnx (string $sKey = '', string $sValue = '')
+    {
+        if ( !$sKey ) {
+            return self::throwError('no redis key');
+        }
+    
+        if ( !$sValue ) {
+            return self::throwError('no redis setnx value');
+        }
+    
+        return CacheTool::setnx( $sKey, $sValue);
     }
 }

@@ -42,26 +42,19 @@ try {
 
     if ( !strstr( $_SERVER[ 'REQUEST_URI' ], '.php' ) ) {
         $res = RouteTool::switchRoute();
-        //        if (is_array($res)) {
-        //            var_dump($res);
         echo ApiReturn::response( $res );
-        //        }
-        //        else {
-        //            var_dump($res);
-        //        }
     }
 } catch ( \Exception $e ) {
-    //    var_dump($_SERVER[ 'REQUEST_URI' ]);
-    var_dump( $e->getMessage() );
-    $res = Json::analyJson( $e->getMessage() );
-    if ( $res ) {
-        if ( !isset( $res[ Server::statusFieldValue() ] ) ) {
-            $res[ Server::statusFieldValue() ] = Server::errorStatus();
-        }
-    } else {
-
+    if (DEBUG) {
+        var_dump( $e->getMessage() );
     }
-
+    
+    $res = Json::analyJson( $e->getMessage() );
+    if ( !$res || !isset( Json::toArray($res)[ Server::statusFieldValue() ] ) ) {
+        echo Json::toJson([Server::statusFieldValue() => Server::errorStatus()]);
+        return;
+    }
+    
     echo ApiReturn::response( $res );
 }
 
