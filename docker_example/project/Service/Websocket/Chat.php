@@ -87,14 +87,24 @@ class Chat extends Service
             return;
         }
         
+        $aData = self::disposePushInfo($frame->data);
+        
         $oWebsocketDepend = self::resolveSwooleWebsocket();
         $oWebsocketDepend->push(
             $oWebsocketChat,
             $frame->fd,
-//            $frame->data
-            //////////////////
-            ['type'=>'server_send', 'data' => $frame->fd]
+            $aData
         );
+    }
+    
+    /////////////////////////////////////////
+    private static function disposePushInfo (array $aData = [])
+    {
+        if (!$aData) {
+            return [];
+        }
+        
+        return ['type'=>'server_send', 'data' => 'test'];
     }
     
     private static
