@@ -85,5 +85,6 @@ function sendMessage (sType = '', sMessage = '') {
 }
 
 window.onload = function () {
+    console.log('sss');
     connectWebsock();
 }

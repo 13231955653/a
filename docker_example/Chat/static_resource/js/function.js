@@ -18,3 +18,7 @@ function notice (sMessage = '') {
     sMessage = typeof aLang[sMessage] != 'undefined' ? aLang[sMessage] : sMessage;
     alert(sMessage);
 }
+
+var bInLoadFunctionJsFile = false; // 引入function文件中
+
+var bLoadFunctionJsFile = true; //是否引入function文件

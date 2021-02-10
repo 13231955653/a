@@ -1,0 +1,1 @@
+iptables -A INPUT -p tcp --dport 11001 -j ACCEPT 
