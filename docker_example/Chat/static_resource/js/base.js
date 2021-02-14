@@ -106,8 +106,32 @@ function loadJsCss (sType = '', sPath = '') {
     }
 
     let head = document.getElementsByTagName('head')[0];
-    dom.charset = typeof sCharset !== 'undefined' ? sCharset : 'UTF-8';
+    dom.charset = typeof sCharset !== 'undefined' ? sCharset : 'utf-8';
     head.appendChild(dom);
+}
+
+function setMeta () {
+    setMetaContent();
+}
+function setMetaContent () {
+    let head = document.getElementsByTagName('head');
+    let meta = document.createElement('meta');
+    meta.httpEquiv = 'content-type';
+    meta.content = 'text/html; charset=' + sCharset;
+    insertAfter(meta, head[0].getElementsByTagName('meta')[0]);
+}
+
+function setCharset () {
+    sCharset = typeof sCharset !== 'undefined' ? sCharset : 'utf-8';
+}
+
+function notice (sMessage = '') {
+    if (typeof sMessage !== 'string') {
+        return false;
+    }
+
+    sMessage = typeof aLang[sMessage] != 'undefined' ? aLang[sMessage] : sMessage;
+    alert(sMessage);
 }
 
 let beginTimer = false;
@@ -132,6 +156,10 @@ function begin () {
     if (beginTimer) {
         clearTimeout(beginTimer);
     }
+
+    setCharset();
+
+    setMeta();
 
     selectPlatForm();
 

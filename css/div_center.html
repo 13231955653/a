@@ -1,0 +1,40 @@
+<html>
+<meta charset="utf-8">
+<title>div居中</title>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    div>span{
+        word-wrap: break-word;
+        word-break: break-all;
+    }
+    div{
+        width: 100px;
+        height: 100px;
+    }
+    #box{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin: -50px 0 0 -50px;
+        background: #f00;
+    }
+    #box1{
+        position:absolute;
+        left:50%;
+        background: pink;
+        transform:translate(-50%,0);
+        //左右居中
+    }
+</style>
+<body>
+<div id="box">
+    <span>sssssssssssssssssssssssssssssss</span>
+</div>
+<div id="box1">
+    <span>sssssssssssssssssssssssssssssssssssssss</span>
+</div>
+</body>
+</html>

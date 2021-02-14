@@ -10,13 +10,15 @@ function inArray ( sSearch, aArray ) {
     return false;
 }
 
-function notice (sMessage = '') {
-    if (typeof sMessage !== 'string') {
-        return false;
+function insertAfter (newElement, targetElement) {
+    let parent = targetElement.parentNode;
+    if (parent) {
+        if(parent.lastChild == targetElement){
+            parent.appendChild(newElement);
+        }else{
+            parent.insertBefore(newElement, targetElement.nextSibling);
+        }
     }
-
-    sMessage = typeof aLang[sMessage] != 'undefined' ? aLang[sMessage] : sMessage;
-    alert(sMessage);
 }
 
 var bInLoadFunctionJsFile = false; // 引入function文件中
