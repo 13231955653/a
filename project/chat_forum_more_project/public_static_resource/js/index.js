@@ -42,19 +42,42 @@ function allocationHost (sUrl = '') {
     return aHost[hashFunc(sUrl, iHostNumber)];
 }
 
-const sBaseJs = '/public_static_resource/js/base.js';
+function isMobile () {
+    let userAgentInfo = navigator.userAgent;
+    let mobileAgents = [ 'Android', 'iPhone', 'SymbianOS', 'Windows Phone', 'iPad','iPod'];
+    let bIsMobile = false;
+
+    //根据userAgent判断是否是手机
+    for (let v = 0; v < mobileAgents.length; v++) {
+        if (userAgentInfo.indexOf(mobileAgents[v]) > 0) {
+            bIsMobile = true;
+            break;
+        }
+    }
+
+    return bIsMobile;
+}
+function platformTag () {
+    return isMobile ? 'mobile' : 'computer';
+}
+
+const sBaseJs = '/public_static_resource/js/' + platformTag() + '/base.js';
 const sBaseJsFullName = allocationHost(sBaseJs) + sBaseJs;
-const sBaseVariableJs = '/public_static_resource/js/variable.js';
+const sBaseVariableJs = '/public_static_resource/js/' + platformTag() + '/variable.js';
 const sBaseVariableJsFullName = allocationHost(sBaseVariableJs) + sBaseVariableJs;
-const sBaseFunctionJs = '/public_static_resource/js/function.js';
+const sBaseFunctionJs = '/public_static_resource/js/' + platformTag() + '/function.js';
 const sBaseFunctionJsFullName = allocationHost(sBaseFunctionJs) + sBaseFunctionJs;
+const sBaseJqueryJs = '/public_static_resource/js/' + platformTag() + '/jquery.js';
+const sBaseJqueryJsFullName = allocationHost(sBaseJqueryJs) + sBaseJqueryJs;
+const sBaseLogicJs = '/public_static_resource/js/' + platformTag() + '/logic.js';
+const sBaseLogicJsFullName = allocationHost(sBaseLogicJs) + sBaseLogicJs;
+const sBaseDomJs = '/public_static_resource/js/' + platformTag() + '/dom.js';
+const sBaseDomJsFullName = allocationHost(sBaseDomJs) + sBaseDomJs;
+const sBaseEncodeJs = '/public_static_resource/js/public/encode.js';
+const sBaseEncodeJsFullName = allocationHost(sBaseEncodeJs) + sBaseEncodeJs;
 
 const sDefaultVersionNumber = 'null';
 var aJsVersion = []; // js 文件版本号
 aJsVersion[sBaseJsFullName] = 'fsdgsdgsdvbcvher';
-aJsVersion[sBaseVariableJsFullName] = 'hdfhretw4536';
-aJsVersion[sBaseFunctionJsFullName] = 'gret4364yerh';
 
-window.onload = loadJs(sBaseVariableJsFullName);
-window.onload = loadJs(sBaseFunctionJsFullName);
 window.onload = loadJs(sBaseJsFullName);

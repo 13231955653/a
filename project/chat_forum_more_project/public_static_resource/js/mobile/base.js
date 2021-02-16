@@ -1,13 +1,3 @@
-// function selectPlatForm () {
-//     let aHrefInfo = window.location.pathname.split('/');
-//     switch (aHrefInfo[aHrefInfo.length - 1]) {
-//         case 'chat.html' :
-//             loadJsCss('js', './static_resource/js/chat.js');
-//             break;
-//     }
-// }
-//
-
 
 //
 // let loadFunctionJsFileTimer = false;
@@ -208,56 +198,98 @@
 //     // aBaseTimer[]
 // }
 //
-// function loadLocalJquery () {
-//     if (typeof jQuery == 'undefined' && !bLoadOriginJquery) {
-//         bLoadOriginJquery = true;
-//         consoleLog('bLoadOriginJquery');
+
 //
-//         dynamicLoadJs('http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js');
-//
-//         // reBegin(bOnload);
-//         reBeginTimer(bOnload, bResize);
-//
-//         bInLoadOriginJquery = true;
-//         loadOriginJqueyTimer = setTimeout(function () {
-//             bInLoadOriginJquery = false;
-//         }, iLoadOriginJqueryInterval);
-//
-//         return false;
-//     }
-// }
-//
-// let bInLoadBaseVariableJsFile = false; //引入基础变量js文件中
-// function baseBegin () {
-//     if (!bInLoadBaseVariableJsFile) {
-//         bInLoadBaseVariableJsFile = true;
-//         loadBaseFunction();
-//     }
-//
-//     if (!bLoadBaseVariableJsFile) {
-//         aBaseTimer['loadBaseFunctionJs'] = setTimeout(function () {
-//             baseBegin();
-//         }, aBaseTimerOutTime['loadBaseFunctionJs']);
-//         return;
-//     }
-// }
+let bInLoadBaseVariableJsFile = false; //引入基础变量js文件中
+let bInLoadBaseFunctionJsFile = false; //引入基础 function js文件中
+let bInLoadBaseLogicJsFile = false; //引入基础 logic js文件中
+let bInLoadBaseDomJsFile = false; //引入基础 dom js文件中
+let bInLoadBaseEncodeJsFile = false; //引入基础 encode js文件中
+function baseBegin () {
+    if (!bLoadBaseVariableJsFile && !bInLoadBaseVariableJsFile) {
+        // if (!bInLoadBaseVariableJsFile) {
+        bInLoadBaseVariableJsFile = true;
+        loadJs(sBaseVariableJsFullName)
+        // }
+
+        aBaseTimer['loadBaseVariableJs'] = setTimeout(function () {
+            baseBegin();
+        }, typeof aBaseTimerOutTime['loadBaseVariableJs'] !== 'undefined' ? aBaseTimerOutTime['loadBaseVariableJs'] : 30);
+        return;
+    }
+
+    if (!bLoadBaseEncodeJsFile && !bInLoadBaseEncodeJsFile) {
+        // if (!bInLoadBaseEncodeJsFile) {
+        bInLoadBaseEncodeJsFile = true;
+        loadJs(sBaseEncodeJsFullName)
+        // }
+
+        aBaseTimer['loadEncodeJs'] = setTimeout(function () {
+            baseBegin();
+        }, typeof aBaseTimerOutTime['loadEncodeJs'] !== 'undefined' ? aBaseTimerOutTime['loadEncodeJs'] : 30);
+        return;
+    }
+
+    if (!bLoadBaseLogicJsFile && !bInLoadBaseLogicJsFile) {
+        // if (!bInLoadBaseLogicJsFile) {
+            bInLoadBaseLogicJsFile = true;
+            loadJs(sBaseLogicJsFullName)
+        // }
+
+        aBaseTimer['loadBaseLogicJs'] = setTimeout(function () {
+            baseBegin();
+        }, typeof aBaseTimerOutTime['loadBaseLogicJs'] !== 'undefined' ? aBaseTimerOutTime['loadBaseLogicJs'] : 30);
+        return;
+    }
+
+    if (!bLoadBaseDomJsFile && !bInLoadBaseDomJsFile) {
+        // if (!bInLoadBaseDomJsFile) {
+            bInLoadBaseDomJsFile = true;
+            loadJs(sBaseDomJsFullName)
+        // }
+
+        aBaseTimer['loadBaseDomJs'] = setTimeout(function () {
+            baseBegin();
+        }, typeof aBaseTimerOutTime['loadBaseDomJs'] !== 'undefined' ? aBaseTimerOutTime['loadBaseDomJs'] : 30);
+        return;
+    }
+
+    if (!bLoadBaseFunctionJsFile && !bInLoadBaseFunctionJsFile) {
+        // if (!bInLoadBaseFunctionJsFile) {
+            bInLoadBaseFunctionJsFile = true;
+            loadJs(sBaseFunctionJsFullName)
+        // }
+
+        aBaseTimer['loadBaseFunctionJs'] = setTimeout(function () {
+            baseBegin();
+        }, typeof aBaseTimerOutTime['loadBaseFunctionJs'] !== 'undefined' ? aBaseTimerOutTime['loadBaseFunctionJs'] : 30);
+        return;
+    }
+
+    beginBase();
+}
 //
 // function loadBaseFunction () {
 //     loadJs(sHost + sBaseFunctionJs);
-// }
+//
 
-const sBaseVariableJs = '/public_static_resource/js/variable.js';
-const sBaseFunctionJs = '/public_static_resource/js/function.js';
 var aJsVersion = []; // js 文件版本号
-aJsVersion[sBaseFunctionJs] = '4444444444444444';
-let aAlreadyLoadJs = []; //已经load的js文件
-let aLoadingJs = []; //loading的js文件
+// aJsVersion[sBaseJsFullName] = 'fsdgsdgsdvbcvher';
+aJsVersion[sBaseVariableJsFullName] = 'hdfhretw4536';
+// const sBaseVariableJs = '/public_static_resource/js/variable.js';
+// const sBaseFunctionJs = '/public_static_resource/js/function.js';
+// var aJsVersion = []; // js 文件版本号
+// aJsVersion[sBaseFunctionJs] = '4444444444444444';
+// let aAlreadyLoadJs = []; //已经load的js文件
+// let aLoadingJs = []; //loading的js文件
 let aBaseTimer = []; //基础定时器
-const aBaseTimerOutTime = []; //基础定时器间隔时间
-aBaseTimerOutTime['loadVariableJs'] = 10;
-aBaseTimerOutTime['loadBaseFunctionJs'] = 10;
+var aBaseTimerOutTime = []; //基础定时器间隔时间
+// aBaseTimerOutTime['loadVariableJs'] = 10;
+// aBaseTimerOutTime['loadBaseFunctionJs'] = 10;
 // aBaseTimerOutTime['loadBaseVariableJsFileTimer'] = 30; // 基础变量定时器时间间隔
 var bLoadBaseVariableJsFile = false; //已引入基础变量js文件
-// var bLoadVariableJsFile = false; //是否引入变量定义文件
-// var bLoadFunctionJsFile = false; //是否引入function定义文件
+var bLoadBaseFunctionJsFile = false; //已引入function js文件
+var bLoadBaseLogicJsFile = false; //已引入 logic js文件
+var bLoadBaseDomJsFile = false; //已引入 dom js文件
+var bLoadBaseEncodeJsFile = false; //已引入 encode js文件
 window.onload = baseBegin();
