@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <script type="text/javascript" src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js" charset="utf-8"></script>
+</head>
+<body>
+</body>
+<script type="text/javascript" charset="utf-8">
+    function loadJs (sPath = '') {
+        if (!sPath) {
+            throw 'loadJs sPath is null';
+            return false;
+        }
+
+        let dom = document.createElement('script');
+        dom.type = 'text/javascript';
+        dom.src = sPath + '?ver=' + queryJsCssFileVersion('js', sPath);
+
+        let head = document.getElementsByTagName('head')[0];
+        dom.charset = typeof sCharset !== 'undefined' ? sCharset : 'utf-8';
+        head.appendChild(dom);
+    }
+    function queryJsCssFileVersion (sType = 'js', sPath = '') {
+        if (!sPath) {
+            throw 'queryJsCssFileVersion sPath is null';
+            return false;
+        }
+
+        let aVersion = [];
+        switch (sType) {
+            case 'js' :
+                aVersion = aJsVersion;
+                break;
+            default:
+                throw 'sType is not allowed';
+                break;
+        }
+
+        if (typeof aVersion[sPath] === 'undefined') {
+            // throw 'sPath not in aJsVersion';
+            return sDefaultVersionNumber;
+            return false;
+        }
+
+        return aVersion[sPath];
+    }
+    const sBaseJs = '/public_static_resource/js/base.js';
+    const sBaseProtocol = window.location.protocol;
+    const sBaseHost = 'you.com';
+    const sHost = sBaseProtocol + '//' + sBaseHost;
+    const sBaseJsFullName = sHost + sBaseJs;
+    const sDefaultVersionNumber = 2;
+    var aJsVersion = []; // js 文件版本号
+    aJsVersion[sBaseJsFullName] = '3';
+    window.onload = loadJs(sBaseJsFullName);
+</script>
+</html>
