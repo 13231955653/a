@@ -8,6 +8,7 @@
 </body>
 <script type="text/javascript" charset="utf-8">
     function loadJs (sPath = '') {
+        console.log(sPath);
         if (!sPath) {
             throw 'loadJs sPath is null';
             return false;
@@ -21,6 +22,7 @@
         dom.charset = typeof sCharset !== 'undefined' ? sCharset : 'utf-8';
         head.appendChild(dom);
     }
+
     function queryJsCssFileVersion (sType = 'js', sPath = '') {
         if (!sPath) {
             throw 'queryJsCssFileVersion sPath is null';
@@ -38,21 +40,24 @@
         }
 
         if (typeof aVersion[sPath] === 'undefined') {
-            // throw 'sPath not in aJsVersion';
             return sDefaultVersionNumber;
             return false;
         }
 
         return aVersion[sPath];
     }
-    const sBaseJs = '/public_static_resource/js/base.js';
-    const sBaseProtocol = window.location.protocol;
-    const sBaseHost = 'you.com';
-    const sHost = sBaseProtocol + '//' + sBaseHost;
-    const sBaseJsFullName = sHost + sBaseJs;
-    const sDefaultVersionNumber = 2;
+
+    function getMasterHost () {
+        let sTag = '.';
+        let aUrl = window.location.host.split(sTag);
+
+        return aUrl[aUrl.length - 2] + sTag + aUrl[aUrl.length - 1];
+    }
+
+    const sIndexJs = window.location.protocol + '//' + getMasterHost() + '/public_static_resource/js/index.js';
     var aJsVersion = []; // js 文件版本号
-    aJsVersion[sBaseJsFullName] = '3';
-    window.onload = loadJs(sBaseJsFullName);
+    aJsVersion[sIndexJs] = 'safsasgwgw';
+
+    window.onload = loadJs(sIndexJs);
 </script>
 </html>

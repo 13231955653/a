@@ -170,81 +170,81 @@
 //     dom.charset = typeof sCharset !== 'undefined' ? sCharset : 'utf-8';
 //     head.appendChild(dom);
 // }
-function queryPage () {
-    let sVariableJsFile = '';
-    switch (window.location.host) {
-        case sBaseHost :
-            sVariableJsFile = sBaseVariableJs;
-            break;
-        default:
-            throw 'queryPage host url is not allowed';
-            return false;
-            break;
-    }
-
-    loadVariableJs(sVariableJsFile);
-}
-
-
-function loadVariableJs (sPath = '', bForce = false) {
-    if (!sPath) {
-        throw 'loadVariableJs sPath is null';
-        return false;
-    }
-
-    if (!bForce && typeof aLoadingJs[sPath] !== 'undefined') {
-        return
-    }
-    aLoadingJs[sPath] = true;
-
-    if (typeof aAlreadyLoadJs[sPath] !== 'undefined') {
-        return
-    }
-    aAlreadyLoadJs[sPath] = true;
-
-    loadJs(sHost + sPath);
-
-    console.log(this);
-    // aBaseTimer[]
-}
-
-function loadLocalJquery () {
-    if (typeof jQuery == 'undefined' && !bLoadOriginJquery) {
-        bLoadOriginJquery = true;
-        consoleLog('bLoadOriginJquery');
-
-        dynamicLoadJs('http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js');
-
-        // reBegin(bOnload);
-        reBeginTimer(bOnload, bResize);
-
-        bInLoadOriginJquery = true;
-        loadOriginJqueyTimer = setTimeout(function () {
-            bInLoadOriginJquery = false;
-        }, iLoadOriginJqueryInterval);
-
-        return false;
-    }
-}
-
-let bInLoadBaseVariableJsFile = false; //引入基础变量js文件中
-function baseBegin () {
-    if (!bInLoadBaseVariableJsFile) {
-        bInLoadBaseVariableJsFile = true;
-        loadBaseFunction();
-    }
-
-    if (!bLoadBaseVariableJsFile) {
-        aBaseTimer['loadBaseFunctionJs'] = setTimeout(function () {
-            baseBegin();
-        }, aBaseTimerOutTime['loadBaseFunctionJs']);
-        return;
-    }
-}
-
-function loadBaseFunction () {
-    loadJs(sHost + sBaseFunctionJs);
-}
+// function queryPage () {
+//     let sVariableJsFile = '';
+//     switch (window.location.host) {
+//         case sBaseHost :
+//             sVariableJsFile = sBaseVariableJs;
+//             break;
+//         default:
+//             throw 'queryPage host url is not allowed';
+//             return false;
+//             break;
+//     }
+//
+//     loadVariableJs(sVariableJsFile);
+// }
+//
+//
+// function loadVariableJs (sPath = '', bForce = false) {
+//     if (!sPath) {
+//         throw 'loadVariableJs sPath is null';
+//         return false;
+//     }
+//
+//     if (!bForce && typeof aLoadingJs[sPath] !== 'undefined') {
+//         return
+//     }
+//     aLoadingJs[sPath] = true;
+//
+//     if (typeof aAlreadyLoadJs[sPath] !== 'undefined') {
+//         return
+//     }
+//     aAlreadyLoadJs[sPath] = true;
+//
+//     loadJs(sHost + sPath);
+//
+//     console.log(this);
+//     // aBaseTimer[]
+// }
+//
+// function loadLocalJquery () {
+//     if (typeof jQuery == 'undefined' && !bLoadOriginJquery) {
+//         bLoadOriginJquery = true;
+//         consoleLog('bLoadOriginJquery');
+//
+//         dynamicLoadJs('http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js');
+//
+//         // reBegin(bOnload);
+//         reBeginTimer(bOnload, bResize);
+//
+//         bInLoadOriginJquery = true;
+//         loadOriginJqueyTimer = setTimeout(function () {
+//             bInLoadOriginJquery = false;
+//         }, iLoadOriginJqueryInterval);
+//
+//         return false;
+//     }
+// }
+//
+// let bInLoadBaseVariableJsFile = false; //引入基础变量js文件中
+// function baseBegin () {
+//     if (!bInLoadBaseVariableJsFile) {
+//         bInLoadBaseVariableJsFile = true;
+//         loadBaseFunction();
+//     }
+//
+//     if (!bLoadBaseVariableJsFile) {
+//         aBaseTimer['loadBaseFunctionJs'] = setTimeout(function () {
+//             baseBegin();
+//         }, aBaseTimerOutTime['loadBaseFunctionJs']);
+//         return;
+//     }
+// }
+//
+// function loadBaseFunction () {
+//     loadJs(sHost + sBaseFunctionJs);
+// }
 
 const sBaseVariableJs = '/public_static_resource/js/variable.js';
 const sBaseFunctionJs = '/public_static_resource/js/function.js';

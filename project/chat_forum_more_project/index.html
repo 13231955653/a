@@ -21,6 +21,7 @@
         dom.charset = typeof sCharset !== 'undefined' ? sCharset : 'utf-8';
         head.appendChild(dom);
     }
+
     function queryJsCssFileVersion (sType = 'js', sPath = '') {
         if (!sPath) {
             throw 'queryJsCssFileVersion sPath is null';
@@ -38,22 +39,24 @@
         }
 
         if (typeof aVersion[sPath] === 'undefined') {
-            // throw 'sPath not in aJsVersion';
-            console.log();
             return sDefaultVersionNumber;
             return false;
         }
 
         return aVersion[sPath];
     }
-    const sBaseJs = '/public_static_resource/js/base.js';
-    const sBaseProtocol = window.location.protocol;
-    const sBaseHost = 'you.com';
-    const sHost = sBaseProtocol + '//' + sBaseHost;
-    const sBaseJsFullName = sHost + sBaseJs;
-    const sDefaultVersionNumber = 'null';
+
+    function getMasterHost () {
+        let sTag = '.';
+        let aUrl = window.location.host.split(sTag);
+
+        return aUrl[aUrl.length - 2] + sTag + aUrl[aUrl.length - 1];
+    }
+
+    const sIndexJs = window.location.protocol + '//' + getMasterHost() + '/public_static_resource/js/index.js';
     var aJsVersion = []; // js 文件版本号
-    aJsVersion[sBaseJsFullName] = '33333333333333333333';
-    window.onload = loadJs(sBaseJsFullName);
+    aJsVersion[sIndexJs] = 'safsasgwgw';
+
+    window.onload = loadJs(sIndexJs);
 </script>
 </html>
