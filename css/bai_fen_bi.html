@@ -1,0 +1,22 @@
+<html>
+<meta charset="utf-8">
+<title>百分比</title>
+<body>
+百分比大小取决于谁
+类型一：元素的margin-top、bottom及padding-top、bottom使用百分比作为单位时，其是相对父元素的宽度width来计算，而不是我们想象的高度height；
+
+类型二：元素的height使用百分比作为单位时，其是相对父元素高度height来计算，min-height及max-height也适用这条规律。
+
+类型三：含有定位属性的元素top、bottom使用百分比作为单位时，其是相对父元素高度height来计算，left、right相对父元素宽度width。
+
+类型四：当子元素设置width:100%分两种情况：
+
+1.子元素绝对定位，width:100% // width=父元素（padding×2+content:width）
+
+2.子元素非绝对定位，width:100% // width=父元素（contene:width）
+
+类型五：1.只父元素设置line-height:150%，子元素继承，与子元素字体大小无关；
+
+2.只父元素设置line-height:1.5，子元素line-height=子元素（font-size）×父元素（line-height）；//推荐
+</body>
+</html>

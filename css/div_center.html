@@ -24,16 +24,35 @@
     #box1{
         position:absolute;
         left:50%;
-        background: pink;
-        transform:translate(-50%,0);
-        //左右居中
+        top:50%;
+        transform:translate(-50%,-50%);
+        justify-content: center;
+        text-align: center;
+        background: green;
+        /*显示文字等可能造成模糊，*/
+        /*解决：这是因为transform时div的宽度或者高度并不是偶数，移动50%之后，像素点并不是整数，出了小数，和显示像素没有对上。*/
+        /*解决方案是使用flex完成垂直居中，设置排列方向为column，并设置justify-content: center，最后用text-align: center完成水平居中。方能保证文字显示清晰。*/
+    }
+    #box2{
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100px;
+        height: 100px;
+        margin: auto;
+        background: #f00;
     }
 </style>
 <body>
-<div id="box">
-    <span>sssssssssssssssssssssssssssssss</span>
-</div>
-<div id="box1">
+<!--<div id="box">-->
+<!--    <span>sssssssssssssssssssssssssssssss</span>-->
+<!--</div>-->
+<!--<div id="box1">-->
+<!--    <span>sssssssssssssssssssssssssssssssssssssss</span>-->
+<!--</div>-->
+<div id="box2">
     <span>sssssssssssssssssssssssssssssssssssssss</span>
 </div>
 </body>

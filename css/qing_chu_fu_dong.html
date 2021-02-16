@@ -1,0 +1,83 @@
+<html>
+<meta charset="utf-8">
+<title>清除浮动 / 高度塌陷</title>
+<style type="text/css">
+    *{margin:0px;padding:0px;}
+    /*方法1*/
+    .div1{
+        width:300px;
+        background:red;
+        border:2px solid red;
+        margin:100px auto;
+    }
+    .left{
+        float:left;
+        width:100px;
+        height:100px;
+        background:yellow;
+    }
+    .right{
+        float:right;
+        width:100px;
+        height:100px;
+        background:yellow;
+    }
+    .clearfloat{
+        clear:both;
+        width:100px;
+        height:100px;
+        background: pink;
+    }
+    /*方法2*/
+    /*.div1{*/
+    /*  width:300px;*/
+    /*  background:red;*/
+    /*  border:2px solid red;*/
+    /*  margin:100px auto;*/
+    /*}*/
+    /*.left{*/
+    /*    float:left;*/
+    /*    width:100px;*/
+    /*    height:100px;*/
+    /*    background:yellow;*/
+    /*}*/
+    /*.right{*/
+    /*    float:right;*/
+    /*    width:100px;*/
+    /*    height:100px;*/
+    /*    background:yellow;*/
+    /*}*/
+    /*.clearfloat:after{*/
+    /*    display:block;*/
+    /*    clear:both;*/
+    /*    content:"";*/
+    /*}*/
+    /*方法3 */
+    /*.div1{*/
+    /*  background:red;*/
+    /*  border:2px solid red;*/
+    /*  width:300px;*/
+    /*  margin:100px auto;*/
+    /*  !*解决代码*!*/
+    /*  overflow:hidden*/
+    /*}*/
+    /*.left{*/
+    /*float:left;*/
+    /*width:100px;*/
+    /*height:100px;*/
+    /*background:yellow;*/
+    /*}*/
+    /*.right{*/
+    /*float:right;*/
+    /*width:100px;*/
+    /*height:100px;*/
+    /*background:yellow;*/
+    /*}*/
+<body>
+<div class="div1">
+    <div class="left">Left</div>
+    <div class="right">Right</div>
+    <div class="clearfloat"></div>
+</div>
+</body>
+</html>
