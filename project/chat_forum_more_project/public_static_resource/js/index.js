@@ -3,6 +3,15 @@ const aBaseHost = [
     'you.com',
     'host.you.com',
     'master.you.com',
+    'you.com',
+    'host.you.com',
+    'master.you.com',
+    'you.com',
+    'host.you.com',
+    'master.you.com',
+    'you.com',
+    'host.you.com',
+    'master.you.com',
 ];
 var aHost = [];
 function setHosts () {

@@ -867,14 +867,6 @@ function checkUserSleep () {
 }
 checkUserSleep();
 
-//获取时间戳
-function getNowTime () {
-    return new Date().getTime();
-}
-function getNowTimeSecond () {
-    return parseInt(getNowTime() / 1000);
-}
-
 //按长度分割字符串为数组
 function splitLengthArray (sSrting) {
     let aSrting = [];

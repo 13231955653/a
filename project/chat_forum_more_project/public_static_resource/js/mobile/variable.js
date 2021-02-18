@@ -17,7 +17,7 @@ aJsVersion[sBaseEncodeJsFullName] = '111111111111112323';
 
 const sLocalstorageLangTag = 'localstorage_lang';
 
-const sLocalstorageLangTagMdtSalt = '9*^&*%^$%$67dasydg';
+const sLocalstorageTagMd5Salt = '______9*^&*%^$%$67dasy~`<>?dg';
 
 const sDefaultLangguage = 'cn';
 

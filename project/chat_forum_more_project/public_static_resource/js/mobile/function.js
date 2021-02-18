@@ -48,8 +48,9 @@ function setLocalstorageKey (sKey = '') {
     }
 
     sKey = reverseString(sKey);
-    sKey = hex_md5(sKey + '__' + sLocalstorageLangTagMdtSalt);
+    sKey = hex_md5(sKey + sLocalstorageTagMd5Salt);
     sKey = reverseString(sKey);
+    sKey = hex_md5(sKey);
 
     return sKey;
 }
@@ -67,8 +68,10 @@ let myStorage = (function myStorage () {
         sValue = JSON.stringify(sValue);
         // sValue = sValue;
 
-        console.log(setLocalstorageKey(sKey), sValue);
-        return localStorage.setItem(setLocalstorageKey(sKey), sValue);
+        sKey = setLocalstorageKey(sKey);
+
+        console.log(sKey, sValue);
+        return localStorage.setItem(sKey, sValue);
     };
 
     let get = function (sKey, bUpdateLifttime = true) {
@@ -79,6 +82,8 @@ let myStorage = (function myStorage () {
         }
         // sValue = sValue;
         oData = JSON.parse(oData);
+        console.log(sKey);
+        console.log(oData);
 
         try {
             if (typeof oData.iLiftTime !== 'undefined') {
@@ -129,8 +134,8 @@ function selectLang () {
     if (!sLang) {
         sLang = sDefaultLangguage;
 
-        myStorage.set(sLocalstorageLangTag, sLang);
     }
+    myStorage.set(sLocalstorageLangTag, sLang);
     console.log(sLang);
 
 }
