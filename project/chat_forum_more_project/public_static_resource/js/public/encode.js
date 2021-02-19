@@ -237,6 +237,8 @@ function binl2b64(binarray) {
     return str;
 }
 
+
+
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
         typeof define === 'function' && define.amd ? define(['exports'], factory) :
@@ -5502,5 +5504,32 @@ version: 2.9.0
     Object.defineProperty(exports, '__esModule', { value: true });
 
 })));
+
+function rsaEncode (sStr = '', sKey = '') {
+    if (typeof sStr !== 'string') {
+        sStr = JSON.stringify(sStr);
+    }
+
+    if (!isRealString(sStr)) {
+        console.log('rsaEncode sStr is not real syting');
+        return false;
+    }
+
+    //使用公钥解密
+    let encrypt = new JSEncrypt();
+    encrypt.setPublicKey('-----BEGIN PUBLIC KEY-----' + (sKey ? sKey : RSA_DEFAULT_PUBLIC) + '-----END PUBLIC KEY-----');
+    return encrypt.encrypt(sStr);
+}
+function rsaDecode (sStr = '', sKey = '') {
+    if (!isRealString(sStr)) {
+        console.log('rsaDecode sStr is not real syting');
+        return false;
+    }
+
+    //使用私钥解密
+    let decryptObj = new JSEncrypt();
+    decryptObj.setPrivateKey('-----BEGIN RSA PRIVATE KEY-----' + (sKey ? sKey : RSA_DEFAULT_PUBLIC) + '-----END RSA PRIVATE KEY-----');
+    return decryptObj.decrypt(sStr);
+}
 
 var bLoadBaseEncodeJsFile = true; //已引入 encode js文件

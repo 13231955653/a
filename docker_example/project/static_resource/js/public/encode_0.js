@@ -5592,7 +5592,7 @@ function rsaEncode (sString) {
     
     let aString = splitLengthArray(sString);
     // consoleLog('aaaaaaaaaaaaaaaaaaa');
-    consoleLog(aString);
+    // consoleLog(aString);
     let sEncodeString = '';
     for (let i in aString) {
         sEncodeString += doRsaEncode(aString[i]) + sIntervalTag;

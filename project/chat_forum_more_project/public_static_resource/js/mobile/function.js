@@ -17,8 +17,8 @@ function beginBase () {
 
 function notice (sStr = '') {
     if (!sStr) {
-        throw 'notice sStr is null';
-        return;
+        console.log('notice sStr is null');
+        return false;
     }
 
     alert(sStr);
@@ -26,7 +26,7 @@ function notice (sStr = '') {
 
 function reverseString (sStr = '') {
     if (!sStr) {
-        throw 'ss sStr is null';
+        console.log('reverseString sStr is null');
         return;
     }
 
@@ -41,24 +41,20 @@ function getNowTimeSecond () {
     return parseInt(getNowTime() / 1000);
 }
 
-function setLocalstorageKey (sKey = '') {
-    if (!sKey) {
-        notice('setLocalstorageKey sKey is null');
-        return ;
+function isRealString (sString = '') {
+    if (sString && (typeof sString === 'string' || typeof sString === 'number')) {
+        return true;
     }
 
-    sKey = reverseString(sKey);
-    sKey = hex_md5(sKey + sLocalstorageTagMd5Salt);
-    sKey = reverseString(sKey);
-    sKey = hex_md5(sKey);
-
-    return sKey;
+    console.log('isRealString sString is not real string');
+    return false;
 }
+
 
 let myStorage = (function myStorage () {
     if (!window.localStorage ) {
-        notice('localstorage error');
-        return ;
+        console.log('localstorage error');
+        return false;
     }
 
     let set = function (sKey, sValue, iLeftTime = false) {
@@ -66,12 +62,14 @@ let myStorage = (function myStorage () {
         sValue = iLeftTime ? {'sData': sValue, 'iLiftTime': iLeftTime * 1000, 'iSetTime': getNowTime()} : {'sData': sValue};
 
         sValue = JSON.stringify(sValue);
-        // sValue = sValue;
+        sValue = localstorageEncodeValue(sValue);
 
         sKey = setLocalstorageKey(sKey);
 
-        console.log(sKey, sValue);
-        return localStorage.setItem(sKey, sValue);
+        console.log('set storage key ' + sKey);
+        console.log('set storage value ' + sValue);
+        let bResult = localStorage.setItem(sKey, sValue);
+        return bResult === undefined ? true : false;
     };
 
     let get = function (sKey, bUpdateLifttime = true) {
@@ -80,16 +78,20 @@ let myStorage = (function myStorage () {
         if (!oData) {
             return false;
         }
-        // sValue = sValue;
+        oData = localstorageDecodeValue(oData);
         oData = JSON.parse(oData);
-        console.log(sKey);
+        console.log('get storage key ' + sKey);
+        console.log('get storage value ');
         console.log(oData);
+        if (!oData) {
+            return false;
+        }
 
         try {
             if (typeof oData.iLiftTime !== 'undefined') {
                 if (getNowTime() - oData.iSetTime > oData.iLiftTime) {
                     remove(sKey);
-                    return '';
+                    return false;
                 } else {
                     if (bUpdateLifttime) {
                         set(sKey, oData.sData, oData.iLiftTime / 1000);
@@ -129,15 +131,13 @@ function queryLang () {
     return myStorage.get(sLocalstorageLangTag);
 }
 
-function selectLang () {
-    let sLang = queryLang();
+function setLang (sLang = '') {
     if (!sLang) {
-        sLang = sDefaultLangguage;
-
+        console.log('setLang sLang is null');
+        return false;
     }
-    myStorage.set(sLocalstorageLangTag, sLang);
-    console.log(sLang);
 
+    return myStorage.set(sLocalstorageLangTag, sLang);
 }
 
 let bInLoadLocalJquery = false;

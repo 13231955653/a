@@ -9,7 +9,7 @@
 <script type="text/javascript" charset="utf-8">
     function loadJs (sPath = '') {
         if (!sPath) {
-            throw 'loadJs sPath is null';
+            console.log('loadJs sPath is null');
             return false;
         }
 
@@ -24,7 +24,7 @@
 
     function queryJsCssFileVersion (sType = 'js', sPath = '') {
         if (!sPath) {
-            throw 'queryJsCssFileVersion sPath is null';
+            console.log('queryJsCssFileVersion sPath is null');
             return false;
         }
 
@@ -34,7 +34,8 @@
                 aVersion = aJsVersion;
                 break;
             default:
-                throw 'sType is not allowed';
+                console.log('sType is not allowed');
+                return false;
                 break;
         }
 

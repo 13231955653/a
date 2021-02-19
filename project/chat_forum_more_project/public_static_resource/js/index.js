@@ -25,7 +25,7 @@ const iHostNumber = aHost.length;
 // hash 求余
 function hashFunc(sStr, iSize){
     if (!sStr ||!iSize) {
-        throw 'hashFunc sStr or iSize is null';
+        console.log('hashFunc sStr or iSize is null');
         return false;
     }
 
@@ -44,7 +44,7 @@ function hashFunc(sStr, iSize){
 
 function allocationHost (sUrl = '') {
     if (!sUrl) {
-        throw 'hashFunc sStr or iSize is null';
+        console.log('hashFunc sStr or iSize is null');
         return false;
     }
 
