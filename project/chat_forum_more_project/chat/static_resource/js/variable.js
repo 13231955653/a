@@ -3,7 +3,6 @@ const sWebsocketIpAddr = '192.168.192.128'; // websocket ip
 const sWebsocketPort = '11001'; // websocket port
 const aAllowChatTypes = []; // 允许的 websocket 类型
 aAllowChatTypes['online'] = '100'; // 对应的允许的 websocket 类型，文本长度
-let sCharset = 'utf-8'; // 编码
 
 var aTimerOutTime = [];
 aTimerOutTime['begin'] = 10; // base begin out time

@@ -1,20 +1,3 @@
-var aBaseTimerOutTime = []; //基础定时器间隔时间
-aBaseTimerOutTime['loadBaseVariableJs'] = 10;
-aBaseTimerOutTime['loadBaseFunctionJs'] = 10;
-aBaseTimerOutTime['loadLocalJquery'] = 10;
-aBaseTimerOutTime['loadBaseLogicJs'] = 10;
-aBaseTimerOutTime['loadBaseDomJs'] = 10;
-aBaseTimerOutTime['loadEncodeJs'] = 10;
-
-var aJsVersion = []; // js 文件版本号
-aJsVersion[sBaseJsFullName] = 'fsdgsdgsdvbcvher';
-aJsVersion[sBaseVariableJsFullName] = 'hdfhretw4536';
-aJsVersion[sBaseFunctionJsFullName] = 'gret4364yerh';
-aJsVersion[sBaseJqueryJsFullName] = 'dasdasdssssssssss';
-aJsVersion[sBaseLogicJsFullName] = 'dasdasdssss213241244124ssssss';
-aJsVersion[sBaseDomJsFullName] = 'dasd122222222222222222';
-aJsVersion[sBaseEncodeJsFullName] = '111111111111112323';
-
 const sLocalstorageLangTag = 'localstorage_lang';
 
 const sLocalstorageTagMd5Salt = '______9*^&*%^$%$67dasy~`<>?dg';
@@ -30,35 +13,73 @@ const RSA_LOCALSTORAGE_PUBLIC = 'MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAr60
 //RSA localstorage 私钥
 const RSA_LOCALSTORAGE_PRIVATE = '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';
 
-const aLocalstorageEncodeConfuseEncode = [];//localstorage 混淆加密
-aLocalstorageEncodeConfuseEncode['1'] = '天';
-aLocalstorageEncodeConfuseEncode['2'] = '地';
+const a1 = [];//localstorage 混淆加密
+a1['a'] = '一';
+a1['b'] = '二';
+a1['c'] = '三';
+a1['d'] = '四';
+a1['e'] = '五';
+a1['f'] = '六';
+a1['g'] = '七';
+a1['h'] = '八';
+a1['i'] = '九';
+a1['j'] = '零';
+a1['k'] = '壹';
+a1['l'] = '贰';
+a1['m'] = '叁';
+a1['n'] = '肆';
+a1['o'] = '伍';
+a1['p'] = '陆';
+a1['q'] = '柒';
+a1['r'] = '捌';
+a1['s'] = '玖';
+a1['t'] = '百';
+a1['u'] = '千';
+a1['v'] = '万';
+a1['w'] = '亿';
+a1['x'] = '兆';
+a1['y'] = '京';
+a1['z'] = '垓';
 
-aLocalstorageEncodeConfuseEncode['3'] = '君';
-aLocalstorageEncodeConfuseEncode['4'] = '亲';
+a1['A'] = '秭';
+a1['B'] = '穰';
+a1['C'] = '沟';
+a1['D'] = '涧';
+a1['E'] = '正';
+a1['F'] = '载';
+a1['G'] = '极';
+a1['H'] = '赤';
+a1['I'] = '橙';
+a1['J'] = '黄';
+a1['K'] = '绿';
+a1['L'] = '青';
+a1['M'] = '蓝';
+a1['N'] = '紫';
+a1['O'] = '白';
+a1['P'] = '黑';
+a1['Q'] = '红';
+a1['R'] = '黯';
+a1['S'] = '赫';
+a1['T'] = '靛';
+a1['U'] = '黛';
+a1['V'] = '丹';
+a1['W'] = '朱';
+a1['X'] = '彤';
+a1['Y'] = '绯';
+a1['Z'] = '绛';
 
-aLocalstorageEncodeConfuseEncode['5'] = '师';
-aLocalstorageEncodeConfuseEncode['6'] = '魑';
+a1['='] = '等';
+a1['/'] = '斜';
 
-aLocalstorageEncodeConfuseEncode['7'] = '魅';
-aLocalstorageEncodeConfuseEncode['8'] = '魍';
+a1['0'] = '东';
+a1['1'] = '南';
+a1['2'] = '西';
+a1['3'] = '北';
+a1['4'] = '上';
+a1['5'] = '中';
+a1['6'] = '下';
+a1['7'] = '指';
+a1['8'] = '位';
+a1['9'] = '向';
 
-aLocalstorageEncodeConfuseEncode['9'] = '魉';
-aLocalstorageEncodeConfuseEncode['0'] = '一';
-const aLocalstorageEncodeConfuseDecode = [];//localstorage 混淆加密
-aLocalstorageEncodeConfuseDecode['天'] = '2';
-aLocalstorageEncodeConfuseDecode['地'] = '1';
-
-aLocalstorageEncodeConfuseDecode['君'] = '4';
-aLocalstorageEncodeConfuseDecode['亲'] = '3';
-
-aLocalstorageEncodeConfuseDecode['师'] = '6';
-aLocalstorageEncodeConfuseDecode['魑'] = '5';
-
-aLocalstorageEncodeConfuseDecode['魅'] = '8';
-aLocalstorageEncodeConfuseDecode['魍'] = '7';
-
-aLocalstorageEncodeConfuseDecode['魉'] = '0';
-aLocalstorageEncodeConfuseDecode['一'] = '9';
-
-var bLoadBaseVariableJsFile = true; //已引入基础变量js文件
+const aLocalstorageEncodeConfuseEncode = a1;//localstorage 混淆加密

@@ -36,5 +36,3 @@ function writeFooter() {
 function bodyDom() {
     return document.getElementsByTagName('body')[0];
 }
-
-var bLoadBaseDomJsFile = true; //已引入 dom js文件

@@ -5532,4 +5532,84 @@ function rsaDecode (sStr = '', sKey = '') {
     return decryptObj.decrypt(sStr);
 }
 
-var bLoadBaseEncodeJsFile = true; //已引入 encode js文件
+function localstorageEncodeConfuse (sString = '', sType = '') {
+    if (!isRealString(sString)) {
+        console.log('localstorageEncodeConfuse sString is not real string');
+        return false;
+    }
+
+    switch (sType) {
+        case 'encode' :
+            sString = confuseStringEncode(sString);
+
+            let sPreg1 = '';
+            for (let i in aLocalstorageEncodeConfuseEncode) {
+                sPreg1 = new RegExp(i,'gm');
+                sString = sString.replace(sPreg1, aLocalstorageEncodeConfuseEncode[i]);
+            }
+
+            sString = strToBinary(sString);
+
+            sString = confuseStringDecode(sString);
+            break;
+        case 'decode' :
+            sString = confuseStringDecode(sString);
+
+            sString = binaryToStr(sString);
+
+            sString = confuseStringDecode(sString);
+
+            let aLocalstorageEncodeConfuseDecode = [];
+            for (let i in aLocalstorageEncodeConfuseEncode) {
+                aLocalstorageEncodeConfuseDecode[aLocalstorageEncodeConfuseEncode[i]] = i;
+            }
+
+            let sPreg2 = '';
+            for (let j in aLocalstorageEncodeConfuseDecode) {
+                sPreg2 = new RegExp(j,'gm');
+                sString = sString.replace(sPreg2, aLocalstorageEncodeConfuseDecode[j]);
+            }
+            break;
+        default :
+            return false;
+            break;
+    }
+
+    return sString;
+}
+
+function confuseStringEncode (sString = '') {
+    if (!isRealString(sString)) {
+        console.log('confuseStringEncode sString is not real string');
+        return false;
+    }
+
+    let iLength2 = sString.length.toString();
+    let sSplitLength2 = iLength2.substr(0, 1);
+    let sSplitString2 = sString.substr(iLength2 - sSplitLength2, sSplitLength2);
+    sString = sString.substr(0, iLength2 - sSplitLength2);
+    if (sString) {
+        sString = reverseString(sString);
+    }
+    sString += sSplitString2;
+
+    return sString;
+}
+
+function confuseStringDecode (sString = '') {
+    if (!isRealString(sString)) {
+        console.log('confuseStringDecode sString is not real string');
+        return false;
+    }
+
+    let iLength = sString.length.toString();
+    let sSplitLength = iLength.substr(0, 1);
+    let sSplitString = sString.substr(iLength - sSplitLength, sSplitLength);
+    sString = sString.substr(0, iLength - sSplitLength);
+    if (sString) {
+        sString = reverseString(sString);
+    }
+    sString += sSplitString;
+
+    return sString;
+}

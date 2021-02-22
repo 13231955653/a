@@ -1,13 +1,5 @@
-function beginBase () {
-    if (typeof jQuery === 'undefined') {
-        loadLocalJquery();
-
-        aBaseTimer['beginBase'] = setTimeout(function () {
-            baseBegin();
-        }, typeof aBaseTimerOutTime['beginBase'] !== 'undefined' ? aBaseTimerOutTime['beginBase'] : 30);
-        return;
-    }
-
+function functionBase () {
+    console.log(4);
     selectLang();
 
     // writePublicDom();
@@ -33,10 +25,6 @@ function reverseString (sStr = '') {
     return sStr.split('').reverse().join('');
 }
 
-//获取时间戳
-function getNowTime () {
-    return new Date().getTime();
-}
 function getNowTimeSecond () {
     return parseInt(getNowTime() / 1000);
 }
@@ -61,13 +49,15 @@ let myStorage = (function myStorage () {
         //存储
         sValue = iLeftTime ? {'sData': sValue, 'iLiftTime': iLeftTime * 1000, 'iSetTime': getNowTime()} : {'sData': sValue};
 
+        // console.log(sValue);
         sValue = JSON.stringify(sValue);
+        // console.log(sValue);
         sValue = localstorageEncodeValue(sValue);
 
         sKey = setLocalstorageKey(sKey);
 
-        console.log('set storage key ' + sKey);
-        console.log('set storage value ' + sValue);
+        // console.log('set storage key ' + sKey);
+        // console.log('set storage value ' + sValue);
         let bResult = localStorage.setItem(sKey, sValue);
         return bResult === undefined ? true : false;
     };
@@ -80,9 +70,9 @@ let myStorage = (function myStorage () {
         }
         oData = localstorageDecodeValue(oData);
         oData = JSON.parse(oData);
-        console.log('get storage key ' + sKey);
-        console.log('get storage value ');
-        console.log(oData);
+        // console.log('get storage key ' + sKey);
+        // console.log('get storage value ');
+        // console.log(oData);
         if (!oData) {
             return false;
         }
@@ -140,6 +130,35 @@ function setLang (sLang = '') {
     return myStorage.set(sLocalstorageLangTag, sLang);
 }
 
+function strToBinary(str){
+    let result = [];
+    let list = str.split('');
+    let binaryStr = '';
+    for(let i = 0; i < list.length; i++){
+        if(i != 0){
+            result.push(' ');
+        }
+        let item = list[i];
+        binaryStr = item.charCodeAt().toString(2);
+        result.push(binaryStr);
+    }
+    return result.join('');
+}
+
+//将二进制字符串转换成Unicode字符串
+function binaryToStr(str){
+    let result = [];
+    let list = str.split(' ');
+    let charValue = '';
+    for(let i = 0; i < list.length; i++){
+        let item = list[i];
+        let asciiCode = parseInt(item,2);
+        charValue = String.fromCharCode(asciiCode);
+        result.push(charValue);
+    }
+    return result.join('');
+}
+
 let bInLoadLocalJquery = false;
 function loadLocalJquery () {
     if (typeof jQuery === 'undefined') {
@@ -154,5 +173,3 @@ function loadLocalJquery () {
         return;
     }
 }
-
-var bLoadBaseFunctionJsFile = true; //已引入function js文件
