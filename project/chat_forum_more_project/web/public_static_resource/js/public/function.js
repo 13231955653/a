@@ -121,46 +121,6 @@ function setLang (sLang = '') {
     return myStorage.set(sLocalstorageLangTag, sLang);
 }
 
-function strToBinary(str){
-    let result = [];
-    let list = str.split('');
-    let binaryStr = '';
-    for(let i = 0; i < list.length; i++){
-        if(i != 0){
-            result.push(' ');
-        }
-        let item = list[i];
-        binaryStr = item.charCodeAt().toString(2);
-        result.push(binaryStr);
-    }
-    return result.join('');
-}
-
-//将二进制字符串转换成Unicode字符串
-function binaryToStr(str){
-    let result = [];
-    let list = str.split(' ');
-    let charValue = '';
-    for(let i = 0; i < list.length; i++){
-        let item = list[i];
-        let asciiCode = parseInt(item,2);
-        charValue = String.fromCharCode(asciiCode);
-        result.push(charValue);
-    }
-    return result.join('');
-}
-
-let bInLoadLocalJquery = false;
-function loadLocalJquery () {
-    if (typeof jQuery === 'undefined') {
-        if (!bInLoadLocalJquery) {
-            bInLoadLocalJquery = true;
-            loadJs(sBaseJqueryJsFullName);
-        }
-
-        aBaseTimer['loadLocalJquery'] = setTimeout(function () {
-            baseBegin();
-        }, typeof aBaseTimerOutTime['loadLocalJquery'] !== 'undefined' ? aBaseTimerOutTime['loadLocalJquery'] : 30);
-        return;
-    }
+function queryOrigin () {
+    return window.location.origin;
 }

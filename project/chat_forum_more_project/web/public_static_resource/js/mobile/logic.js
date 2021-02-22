@@ -21,17 +21,6 @@ function setLocalstorageKey (sKey = '') {
     return sKey;
 }
 
-// function testSetLocalstorage () {
-//     let sStr = '123456789';
-//     myStorage.set('test', sStr);
-//     // console.log(sStr);
-//     // let a = localstorageEncodeConfuse(sStr, 'encode');
-//     // console.log('=============');
-//     // console.log(a);
-//     // console.log('==============');
-//
-//     return false;
-// }
 function localstorageEncodeValue (sValue = '') {
     if (!isRealString(sValue)) {
         console.log('localstorageEncodeValue sValue is not real string');
@@ -75,19 +64,13 @@ function replaceLangs () {
     console.log(sUserLangvage);
 }
 
-function logicBegin (bLogicBegin = false) {
-    if (queryUserLang()) {
-        if (bLogicBegin) {
-            loadLang();
-        }
-    }
+function jump () {
+    // console.log(sOrigin);
+    // console.log(queryOrigin());
+}
 
-    if (typeof aLang === 'undefined') {
-        setTimeoutFunction('logicBegin');
-        return;
-    }
+function logicBegin () {
+    jump();
 
     writePublicDom();
-
-    // selectPage();
 }

@@ -1,34 +1,36 @@
 const sBaseProtocol = window.location.protocol;
 const aBaseHost = [
     'you.com',
-    'host.you.com',
-    'master.you.com',
-    'you.com',
-    'host.you.com',
-    'master.you.com',
-    'you.com',
-    'host.you.com',
-    'master.you.com',
-    'you.com',
-    'host.you.com',
-    'master.you.com',
+    'map.you.com',
+    'shop.you.com',
+    'bike.you.com',
+    'person.you.com',
+    'play.you.com',
+    'music.you.com',
+    'vedio.you.com',
+    // 'forum.you.com',
+    // 'friend.you.com',
+    // 'setting.you.com',
+    // 'chat.you.com',
 ];
-const iRequertJsTimeout = 5000;
+const iRequertTimeout = 9000;
 const iRequertLangJsTimeout = 5000;
 const iMaxLoadOriginJqueryWaitTime = 5000;
 let aBaseTimer = []; //基础定时器
-var aBaseTimerOutTime = []; //基础定时器间隔时间
-aBaseTimerOutTime['loadBaseVariableJs'] = 20;
-aBaseTimerOutTime['loadBaseEncodeJs'] = 20;
-aBaseTimerOutTime['loadBaseLogicJs'] = 20;
-aBaseTimerOutTime['loadBaseDomJs'] = 20;
-aBaseTimerOutTime['loadBaseFunctionJs'] = 20;
-aBaseTimerOutTime['loadOriginJquery'] = 20;
-aBaseTimerOutTime['loadLang'] = 20;
-aBaseTimerOutTime['logicBegin'] = 20;
-aBaseTimerOutTime['loadPlatformDomJs'] = 20;
-aBaseTimerOutTime['baseBegin'] = 20;
-var aJsVersion = []; // js 文件版本号
+const aBaseTimerOutTime = []; //基础定时器间隔时间
+aBaseTimerOutTime['loadBaseVariableJs'] = 555;
+aBaseTimerOutTime['loadBaseEncodeJs'] = 555;
+aBaseTimerOutTime['loadBaseLogicJs'] = 555;
+aBaseTimerOutTime['loadBaseDomJs'] = 555;
+aBaseTimerOutTime['loadBaseFunctionJs'] = 555;
+aBaseTimerOutTime['loadOriginJquery'] = 555;
+aBaseTimerOutTime['loadLang'] = 555;
+aBaseTimerOutTime['logicBegin'] = 555;
+aBaseTimerOutTime['loadPlatformDomJs'] = 555;
+aBaseTimerOutTime['baseBegin'] = 555;
+aBaseTimerOutTime['loadResetCss'] = 555;
+aBaseTimerOutTime['checkLoadCss'] = 555;
+const aJsVersion = []; // js 文件版本号
 let sBaseJsFullName = '';
 let sBaseVariableJsFullName = '';
 let sBaseFunctionJsFullName = '';
@@ -41,16 +43,16 @@ let sOriginJquery = '';
 let sCnLangs = '';
 let sEnLangs = '';
 function setJsPathAndVersion () {
-    let sBaseJs = '/public_static_resource/js/public/base.js';
-    let sBaseVariableJs = '/public_static_resource/js/public/variable.js';
-    let sBaseFunctionJs = '/public_static_resource/js/public/function.js';
-    let sBaseJqueryJs = '/public_static_resource/js/public/jquery.js';
-    let sBaseLogicJs = '/public_static_resource/js/' + platformTag() + '/logic.js';
-    let sBaseDomJs = '/public_static_resource/js/public/dom.js';
-    let sBaseEncodeJs = '/public_static_resource/js/public/encode.js';
-    let sCnLang = '/public_static_resource/js/lang/cn.js';
-    let sEnLang = '/public_static_resource/js/lang/cn.js';
-    let sPlatformDomJs = '/public_static_resource/js/' + platformTag() + '/dom.js';
+    const sBaseJs = '/public_static_resource/js/public/base.js';
+    const sBaseVariableJs = '/public_static_resource/js/public/variable.js';
+    const sBaseFunctionJs = '/public_static_resource/js/public/function.js';
+    const sBaseJqueryJs = '/public_static_resource/js/public/jquery.js';
+    const sBaseLogicJs = '/public_static_resource/js/' + platformTag() + '/logic.js';
+    const sBaseDomJs = '/public_static_resource/js/public/dom.js';
+    const sBaseEncodeJs = '/public_static_resource/js/public/encode.js';
+    const sCnLang = '/public_static_resource/js/lang/cn.js';
+    const sEnLang = '/public_static_resource/js/lang/cn.js';
+    const sPlatformDomJs = '/public_static_resource/js/' + platformTag() + '/dom.js';
 
     aJsVersion[sBaseJs] = '11111111111111111111111111111111';
     aJsVersion[sBaseVariableJs] = '222222222222222222222222222222';
@@ -61,6 +63,7 @@ function setJsPathAndVersion () {
     aJsVersion[sBaseEncodeJs] = '77777777777777777777777777777777777';
     aJsVersion[sCnLang] = '888888888888888888888';
     aJsVersion[sEnLang] = '9999999999999999999999999999';
+    aJsVersion[sPlatformDomJs] = 'ssssssssssssssssssssssssssssssssssssssssssssssssss';
 
     sOriginJquery = 'http://libs.baidu.com/jquery/2.0.0/jquery.min.js';
     aJsVersion[sOriginJquery] = 'dasdasdwqe214124';
@@ -77,6 +80,75 @@ function setJsPathAndVersion () {
     sEnLangs = setJsCssSrc('js', sEnLang);
     sPlatformDomJsFullName = setJsCssSrc('js', sPlatformDomJs);
 }
+const aCssVersion = []; // css 文件版本号
+let sResetCssFullPath = '';
+function setCssPathAndVersion () {
+    let sResetCss = '/public_static_resource/css/public/reset.css';
+
+    aCssVersion[sResetCss] = 'qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq';
+
+    sResetCssFullPath = setJsCssSrc('css', sResetCss);
+}
+
+function loadCss (sSrc = '', sCallback = '') {
+    if (!sSrc) {
+        console.log('loadCss sSrc is null');
+        return false;
+    }
+
+    let link = document.createElement('link');
+    link.type = 'text/css';
+    link.rel = 'stylesheet';
+    link.href = sSrc;
+    link.charset = sCharset;
+    link.id = sSrc;
+
+    if (sCallback) {
+        checkLoadCss(sCallback, link.id);
+    }
+
+    document.getElementsByTagName('head')[0].appendChild(link);
+}
+function checkLoadCss (sCallback = '', id = '') {
+    if (!sCallback || !id) {
+        console.log('checkLoadCss sCallback or id is null');
+        return false;
+    }
+
+    let sTimerKey = 'checkLoadCss' + '--' + sCallback;
+    if (document.getElementById(id)) {
+        clearTimeout(aBaseTimer[sTimerKey]);
+
+        window[sCallback]();
+        return;
+    }
+
+    aBaseTimer[sTimerKey] = setTimeout(function () {
+        checkLoadCss(sCallback, id);
+    }, aBaseTimerOutTime['checkLoadCss']);
+}
+
+function loadBaseCss () {
+    loadResetCss();
+
+}
+let bLoadResetCss = false;
+function loadResetCss () {
+    if (bLoadResetCss) {
+        return true;
+    }
+
+    if (!checkRequestJsCssLimit('css', 'loadResetCss')) {
+        return false;
+    }
+
+    loadCss(sResetCssFullPath, 'afterloadResetCss');
+
+    setTimeoutFunction('loadResetCss');
+}
+function afterloadResetCss () {
+    bLoadResetCss = true;
+}
 
 function setJsCssSrc (sType = '', sSrc = '') {
     if (!sType ||!sSrc) {
@@ -84,7 +156,17 @@ function setJsCssSrc (sType = '', sSrc = '') {
         return false;
     }
 
-    return allocationHost(sSrc) + sSrc + '?ver=' + aJsVersion[sSrc];
+    let sVersion = getNowTime();
+    switch (sType) {
+        case 'js' :
+            sVersion = aJsVersion[sSrc];
+            break;
+        case 'css' :
+            sVersion = aCssVersion[sSrc];
+            break;
+    }
+
+    return allocationHost(sSrc) + sSrc + '?v=' + sVersion;
 }
 
 let aHost = [];
@@ -162,8 +244,8 @@ function checkRequestJsCssLimit (sType = '', sFunction = '') {
 
     let iNowTime = getNowTime();
     let iLastRequestTime = typeof aRequestJsCssLastTime[sFunction] !== 'undefined' ? aRequestJsCssLastTime[sFunction] : 0;
-    if (iNowTime - iLastRequestTime < iRequertJsTimeout) {
-        console.log('checkRequestJsCssLimit ' + sFunction + ' time last ' + iRequertJsTimeout + ' millisecond');
+    if (iNowTime - iLastRequestTime < iRequertTimeout) {
+        console.log('checkRequestJsCssLimit ' + sFunction + ' time last ' + iRequertTimeout + ' millisecond');
         setTimeoutFunction(sFunction);
         return false;
     }
@@ -337,7 +419,7 @@ function loadLang (sLang = '') {
         case 'cn' :
             sLangJs = sCnLangs;
             break;
-        case 'cn' :
+        case 'en' :
             sLangJs = sEnLangs;
             break;
     }
@@ -366,12 +448,21 @@ function setTimeoutFunction (sFunction = '') {
     return true;
 }
 
+let bOnloadLoadLang = false;
 function baseBegin (bOnload = false) {
     if (bOnload) {
         setHosts();
 
         setJsPathAndVersion();
+
+        setCssPathAndVersion();
+
+        setTimeoutFunction('baseBegin');
+
+        return false;
     }
+
+    loadBaseCss();
 
     loadOriginJquery();
 
@@ -392,6 +483,22 @@ function baseBegin (bOnload = false) {
             loadLocalJquery();
         }
 
+        setTimeoutFunction('baseBegin');
+        return;
+    }
+
+    if (typeof window['queryUserLang'] === 'undefined') {
+        setTimeoutFunction('baseBegin');
+        return;
+    }
+    if (queryUserLang()) {
+        if (!bOnloadLoadLang) {
+            bOnloadLoadLang = true;
+            loadLang();
+        }
+    }
+
+    if (typeof aLang === 'undefined') {
         setTimeoutFunction('baseBegin');
         return;
     }

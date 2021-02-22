@@ -5613,3 +5613,32 @@ function confuseStringDecode (sString = '') {
 
     return sString;
 }
+
+function strToBinary(str){
+    let result = [];
+    let list = str.split('');
+    let binaryStr = '';
+    for(let i = 0; i < list.length; i++){
+        if(i != 0){
+            result.push(' ');
+        }
+        let item = list[i];
+        binaryStr = item.charCodeAt().toString(2);
+        result.push(binaryStr);
+    }
+    return result.join('');
+}
+
+//将二进制字符串转换成Unicode字符串
+function binaryToStr(str){
+    let result = [];
+    let list = str.split(' ');
+    let charValue = '';
+    for(let i = 0; i < list.length; i++){
+        let item = list[i];
+        let asciiCode = parseInt(item,2);
+        charValue = String.fromCharCode(asciiCode);
+        result.push(charValue);
+    }
+    return result.join('');
+}

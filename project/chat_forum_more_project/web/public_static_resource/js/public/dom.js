@@ -10,4 +10,10 @@ function writePublicDom() {
     writeRight();
 
     writeNotice();
+
+    writeShade();
+}
+
+function writeShade () {
+
 }

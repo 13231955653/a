@@ -14,10 +14,10 @@ function writeFooter() {
 
     let sInfo = '';
     sInfo += '<div id="footer">';
-    sInfo += '<a href=""><span class="re_lang">' + aLang['sasas'] + '</span></a>';
-    sInfo += '<a href=""><span class="re_lang">' + aLang['sasas'] + '</span></a>';
-    sInfo += '<a href=""><span class="re_lang">' + aLang['sasas'] + '</span></a>';
-    sInfo += '<a href=""><span class="re_lang">' + aLang['sasas'] + '</span></a>';
+    sInfo += '<a href=""><span class="re_lang">' + aLang['foot1'] + '</span></a>';
+    sInfo += '<a href=""><span class="re_lang">' + aLang['foot2'] + '</span></a>';
+    sInfo += '<a href=""><span class="re_lang">' + aLang['foot3'] + '</span></a>';
+    sInfo += '<a href=""><span class="re_lang">' + aLang['foot4'] + '</span></a>';
     sInfo += '</div>';
 
     let oBody = bodyDom();
