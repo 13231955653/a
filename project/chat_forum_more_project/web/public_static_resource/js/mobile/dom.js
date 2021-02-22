@@ -1,12 +1,3 @@
-
-function writePublicDom() {
-    writeHeader();
-
-    writeBody();
-
-    writeFooter();
-}
-
 function writeHeader() {
 
 }
@@ -30,7 +21,22 @@ function writeFooter() {
     sInfo += '</div>';
 
     let oBody = bodyDom();
+    $(oBody).append(sInfo);
+}
 
+function writeLeft () {
+
+}
+
+function writeRight () {
+
+}
+
+function writeNotice () {
+
+}
+
+function appendNode () {
 }
 
 function bodyDom() {

@@ -55,14 +55,39 @@ function localstorageDecodeValue (sValue = '') {
     return sValue;
 }
 
-function selectLang () {
-    let sLang = queryLang();
-    sLang = sLang ? sLang : sDefaultLangvage;
+function queryUserLang () {
+    if (sUserLangvage) {
+        return sUserLangvage;
+    }
 
-    if (!setLang(sLang)) {
-        console.log('selectLang setLang faild');
+    sUserLangvage = queryLang();
+    sUserLangvage = sUserLangvage ? sUserLangvage : sDefaultLangvage;
+
+    if (!setLang(sUserLangvage)) {
+        console.log('queryUserLang setLang faild');
         return false;
     }
 
-    return sLang;
+    return sUserLangvage;
+}
+
+function replaceLangs () {
+    console.log(sUserLangvage);
+}
+
+function logicBegin (bLogicBegin = false) {
+    if (queryUserLang()) {
+        if (bLogicBegin) {
+            loadLang();
+        }
+    }
+
+    if (typeof aLang === 'undefined') {
+        setTimeoutFunction('logicBegin');
+        return;
+    }
+
+    writePublicDom();
+
+    // selectPage();
 }

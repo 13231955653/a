@@ -1,12 +1,3 @@
-function functionBase () {
-    console.log(4);
-    selectLang();
-
-    // writePublicDom();
-
-    // selectPage();
-}
-
 function notice (sStr = '') {
     if (!sStr) {
         console.log('notice sStr is null');
