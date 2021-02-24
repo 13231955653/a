@@ -30,87 +30,172 @@ function isRealString (sString = '') {
 }
 
 
-let myStorage = (function myStorage () {
-    if (!window.localStorage ) {
-        console.log('localstorage error');
+// let myStorage = (function myStorage () {
+//     if (!window.localStorage ) {
+//         console.log('localstorage error');
+//         return false;
+//     }
+//
+//     let set = function (sKey, sValue, iLeftTime = false) {
+//         //存储
+//         sValue = iLeftTime ? {'sData': sValue, 'iLiftTime': iLeftTime * 1000, 'iSetTime': getNowTime()} : {'sData': sValue};
+//
+//         // console.log(sValue);
+//         sValue = JSON.stringify(sValue);
+//         // console.log(sValue);
+//         sValue = localstorageEncodeValue(sValue);
+//
+//         sKey = setLocalstorageKey(sKey);
+//
+//         // console.log('set storage key ' + sKey);
+//         // console.log('set storage value ' + sValue);
+//         let bResult = localStorage.setItem(sKey, sValue);
+//         return bResult === undefined ? true : false;
+//     };
+//
+//     let get = function (sKey, bUpdateLifttime = true) {
+//         //读取
+//         let oData = localStorage.getItem(setLocalstorageKey(sKey));
+//         if (!oData) {
+//             return false;
+//         }
+//         oData = localstorageDecodeValue(oData);
+//         oData = JSON.parse(oData);
+//         // console.log('get storage key ' + sKey);
+//         // console.log('get storage value ');
+//         // console.log(oData);
+//         if (!oData) {
+//             return false;
+//         }
+//
+//         try {
+//             if (typeof oData.iLiftTime !== 'undefined') {
+//                 if (getNowTime() - oData.iSetTime > oData.iLiftTime) {
+//                     remove(sKey);
+//                     return false;
+//                 } else {
+//                     if (bUpdateLifttime) {
+//                         set(sKey, oData.sData, oData.iLiftTime / 1000);
+//                     }
+//                 }
+//             }
+//
+//             return oData.sData;
+//         } catch (e) {}
+//     };
+//
+//     let remove = function (sKey) {
+//         //读取
+//         sKey = setLocalstorageKey(sKey);
+//         let oData = localStorage.getItem(sKey);
+//         if(!oData){
+//             return true;
+//         }
+//
+//         return localStorage.removeItem(sKey);
+//     };
+//
+//     let clear = function() {
+//         //清除对象
+//         localStorage.clear();
+//     };
+//
+//     return {
+//         set : set,
+//         get : get,
+//         remove : remove,
+//         clear : clear
+//     };
+// })();
+
+function queryLang () {
+    // return myStorage.get(sLocalstorageLangTag);
+    queryLocalstorage(sLocalstorageLangTag);
+}
+
+function queryLocalstorage (sKey = '') {
+    if (!sKey) {
+        console.log('queryLocalstorage sKey is null');
         return false;
     }
 
-    let set = function (sKey, sValue, iLeftTime = false) {
-        //存储
-        sValue = iLeftTime ? {'sData': sValue, 'iLiftTime': iLeftTime * 1000, 'iSetTime': getNowTime()} : {'sData': sValue};
+    // console.log(sKey);
+    sKey = setLocalstorageKey(sKey);
+    if (!sKey) {
+        console.log('queryLocalstorage setLocalstorageKey sKey is null');
+        return false;
+    }
+    // console.log(sKey);
 
-        // console.log(sValue);
-        sValue = JSON.stringify(sValue);
-        // console.log(sValue);
-        sValue = localstorageEncodeValue(sValue);
+    let sPage = setLocalstoragePostMessagePage(sKey);
+    if (!sPage) {
+        console.log('queryLocalstorage setLocalstoragePostMessagePage sPage is null');
+        return false;
+    }
+    // console.log(sPage);
 
-        sKey = setLocalstorageKey(sKey);
-
-        // console.log('set storage key ' + sKey);
-        // console.log('set storage value ' + sValue);
-        let bResult = localStorage.setItem(sKey, sValue);
-        return bResult === undefined ? true : false;
-    };
-
-    let get = function (sKey, bUpdateLifttime = true) {
-        //读取
-        let oData = localStorage.getItem(setLocalstorageKey(sKey));
-        if (!oData) {
-            return false;
-        }
-        oData = localstorageDecodeValue(oData);
-        oData = JSON.parse(oData);
-        // console.log('get storage key ' + sKey);
-        // console.log('get storage value ');
-        // console.log(oData);
-        if (!oData) {
-            return false;
-        }
-
-        try {
-            if (typeof oData.iLiftTime !== 'undefined') {
-                if (getNowTime() - oData.iSetTime > oData.iLiftTime) {
-                    remove(sKey);
-                    return false;
-                } else {
-                    if (bUpdateLifttime) {
-                        set(sKey, oData.sData, oData.iLiftTime / 1000);
-                    }
-                }
-            }
-
-            return oData.sData;
-        } catch (e) {}
-    };
-
-    let remove = function (sKey) {
-        //读取
-        sKey = setLocalstorageKey(sKey);
-        let oData = localStorage.getItem(sKey);
-        if(!oData){
-            return true;
-        }
-
-        return localStorage.removeItem(sKey);
-    };
-
-    let clear = function() {
-        //清除对象
-        localStorage.clear();
-    };
-
-    return {
-        set : set,
-        get : get,
-        remove : remove,
-        clear : clear
-    };
-})();
-
-function queryLang () {
-    return myStorage.get(sLocalstorageLangTag);
+    localstoragePostMessage(sPage, 'test', 'set');
 }
+
+function setLocalstoragePostMessagePage (sKey = '') {
+    if (!sKey) {
+        console.log('setLocalstoragePostMessagePage sKey is null');
+        return false;
+    }
+
+    return aStorageOrigins[hashFunc(sKey, iStorageOriginLength)];
+}
+
+function localstoragePostMessage (sPage = '', sMessage = '', sType = '') {
+    if (!sMessage || !sPage || !sType) {
+        console.log('localstoragePostMessage sMessage or sPage or sType is null');
+        return false;
+    }
+
+    console.log(sMessage);
+    console.log(sPage);
+    console.log(sType);
+    var win = document.getElementById(sPage);
+    console.log(win);
+    console.log(sPage);
+    aa();
+    // win.contentWindow.postMessage('ssssssssssssss', 'http://storage3.you.com');
+    // document.getElementById(sPage).contentWindow.postMessage("来自主页面消息", sPage)
+    // var win = document.getElementById(sPage).contentWindow;
+    // win.postMessage(JSON.stringify({a:'ssssssssssssssssssssssssssssss'}),'*');
+    // document.getElementById(sPage).contentWindow.postMessage('jogging, reading and writing', 'http://you.com/');
+}
+// 主页面监听message事件,
+// window.onload = aa();
+function aa (){
+    let o = document.getElementById('http://storage2.you.com/storage.html');
+    console.log(o);
+    o.contentWindow.postMessage("来自主页面消息", "http://b.com/iframepage.html")
+}
+window.addEventListener('message', function(event){
+    console.log("收到" + event.origin + "消息：" + event.data);
+}, false);
+
+// function getIframeIndex (sPage = '') {
+//     if (!sPage) {
+//         console.log('getIframeIndex sPage is null');
+//         return false;
+//     }
+//
+//     // let oIframes = document.getElementsByClassName(sLocalstorageIframeClass);
+//     console.log(sPage);
+//     console.log(aStorageOrigins);
+//
+//     for (let i in aStorageOrigins) {
+//         if (sPage === aStorageOrigins[i]) {
+//             return i;
+//         }
+//     }
+//
+//     return false;
+// }
+
+// function StorageOrigin
 
 function setLang (sLang = '') {
     if (!sLang) {
@@ -118,7 +203,7 @@ function setLang (sLang = '') {
         return false;
     }
 
-    return myStorage.set(sLocalstorageLangTag, sLang);
+    // return myStorage.set(sLocalstorageLangTag, sLang);
 }
 
 function queryOrigin () {

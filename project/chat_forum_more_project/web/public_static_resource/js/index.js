@@ -30,6 +30,8 @@ aBaseTimerOutTime['loadPlatformDomJs'] = 555;
 aBaseTimerOutTime['baseBegin'] = 555;
 aBaseTimerOutTime['loadResetCss'] = 555;
 aBaseTimerOutTime['checkLoadCss'] = 555;
+aBaseTimerOutTime['setLocalstorageOrigins'] = 555;
+aBaseTimerOutTime['loadLocalJquery'] = 555;
 const aJsVersion = []; // js 文件版本号
 let sBaseJsFullName = '';
 let sBaseVariableJsFullName = '';
@@ -90,6 +92,12 @@ function setCssPathAndVersion () {
     sResetCssFullPath = setJsCssSrc('css', sResetCss);
 }
 
+function setStaticResouresPathVersion () {
+    setJsPathAndVersion();
+
+    setCssPathAndVersion();
+}
+
 function loadCss (sSrc = '', sCallback = '') {
     if (!sSrc) {
         console.log('loadCss sSrc is null');
@@ -101,7 +109,7 @@ function loadCss (sSrc = '', sCallback = '') {
     link.rel = 'stylesheet';
     link.href = sSrc;
     link.charset = sCharset;
-    link.id = sSrc;
+    link.id = window.btoa(sSrc);
 
     if (sCallback) {
         checkLoadCss(sCallback, link.id);
@@ -126,6 +134,22 @@ function checkLoadCss (sCallback = '', id = '') {
     aBaseTimer[sTimerKey] = setTimeout(function () {
         checkLoadCss(sCallback, id);
     }, aBaseTimerOutTime['checkLoadCss']);
+}
+
+function loadBaseJs () {
+    loadOriginJquery();
+
+    loadBaseVariableJs();
+
+    loadBaseEncodeJs();
+
+    loadBaseLogicJs();
+
+    loadBaseDomJs();
+
+    loadPlatformDomJs();
+
+    loadBaseFunctionJs();
 }
 
 function loadBaseCss () {
@@ -448,14 +472,50 @@ function setTimeoutFunction (sFunction = '') {
     return true;
 }
 
+const aStorageOrigins = [
+    'storage1',
+    'storage2',
+    'storage3',
+    'storage4',
+    'storage5',
+    'storage6',
+    'storage7',
+    'storage8',
+    'storage9',
+];
+const iStorageOriginLength = aStorageOrigins.length;
+const sStoragePage = 'storage.html';
+function setLocalstorageOrigins () {
+    if (typeof window['bodyDom'] === 'undefined') {
+        setTimeoutFunction('setLocalstorageOrigins');
+        return false;
+    }
+
+    let sProtocol = window.location.protocol + '//';
+
+    let sMasterOrigin = sOrigin ? sOrigin : queryMasterOrigin();
+    sMasterOrigin = sMasterOrigin.replace(sProtocol, '');
+    let oIframe = '';
+    let oBody = document.getElementsByTagName('body')[0];
+    let sPage = '';
+    for (let i in aStorageOrigins) {
+        aStorageOrigins[i] = sPage = sProtocol + aStorageOrigins[i] + '.' + sMasterOrigin + '/' + sStoragePage;
+        oIframe = document.createElement('iframe');
+        oIframe.src = sPage;
+        // oIframe.className = 'display_none';
+        oIframe.id = sPage;
+        oBody.appendChild(oIframe);
+    }
+}
+
 let bOnloadLoadLang = false;
 function baseBegin (bOnload = false) {
     if (bOnload) {
         setHosts();
 
-        setJsPathAndVersion();
+        setStaticResouresPathVersion();
 
-        setCssPathAndVersion();
+        setLocalstorageOrigins();
 
         setTimeoutFunction('baseBegin');
 
@@ -464,19 +524,7 @@ function baseBegin (bOnload = false) {
 
     loadBaseCss();
 
-    loadOriginJquery();
-
-    loadBaseVariableJs();
-
-    loadBaseEncodeJs();
-
-    loadBaseLogicJs();
-
-    loadBaseDomJs();
-
-    loadPlatformDomJs();
-
-    loadBaseFunctionJs();
+    loadBaseJs();
 
     if (typeof jQuery === 'undefined') {
         if (getNowTime() - iLoadOriginJqueryLastTime > iMaxLoadOriginJqueryWaitTime) {

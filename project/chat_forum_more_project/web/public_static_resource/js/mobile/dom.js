@@ -38,7 +38,3 @@ function writeNotice () {
 
 function appendNode () {
 }
-
-function bodyDom() {
-    return document.getElementsByTagName('body')[0];
-}

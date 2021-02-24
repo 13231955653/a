@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
 </head>
-<body>
+<body style="background: #e7e6cb;">
 </body>
 <script type="text/javascript" charset="utf-8">
     function loadJs (s = '', b = true, c = false) {
@@ -36,8 +36,22 @@
         h.appendChild(o);
     }
 
+    var sOrigin = '';
+    function queryMasterOrigin () {
+        let sTag = '.';
+        sOrigin = window.location.origin;
+        let a = sOrigin.split(sTag);
+        let l = a.length;
+        let s = window.location.protocol;
+        sOrigin = a[l - 2] + sTag + a[l - 1];
+        sOrigin = sOrigin.replace(s + '//', '');
+        sOrigin = s + '//' + sOrigin;
+        return sOrigin;
+    }
+    queryMasterOrigin();
+
     const sCharset = 'utf-8'; // 编码
-    const sIndexJs = window.location.origin + '/public_static_resource/js/index.js?ver=dasdasdasdasdas';
+    const sIndexJs = sOrigin + '/public_static_resource/js/index.js?ver=dasdasdasdasdas';
     window.onload = loadJs(sIndexJs);
 </script>
 </html>

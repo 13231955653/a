@@ -62,10 +62,12 @@ function queryUserLang () {
 
 function replaceLangs () {
     console.log(sUserLangvage);
+    console.log('replaceLangs');
 }
 
 function jump () {
-    // console.log(sOrigin);
+    console.log('jump');
+    console.log(sOrigin);
     // console.log(queryOrigin());
 }
 

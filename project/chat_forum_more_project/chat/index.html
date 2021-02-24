@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
 </head>
-<body>
+<body style="background: #e7e6cb;">
 </body>
 <script type="text/javascript" charset="utf-8">
     function loadJs (s = '', b = true, c = false) {
@@ -40,9 +40,12 @@
     function queryMasterOrigin () {
         let sTag = '.';
         sOrigin = window.location.origin;
-        let aOrigin = sOrigin.split(sTag);
-        let aOriginLength = aOrigin.length;
-        sOrigin = window.location.protocol + '//' + aOrigin[aOriginLength - 2] + sTag + aOrigin[aOriginLength - 1];
+        let a = sOrigin.split(sTag);
+        let l = a.length;
+        let s = window.location.protocol;
+        sOrigin = a[l - 2] + sTag + a[l - 1];
+        sOrigin = sOrigin.replace(s + '//', '');
+        sOrigin = s + '//' + sOrigin;
         return sOrigin;
     }
     queryMasterOrigin();
