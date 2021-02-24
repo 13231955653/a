@@ -486,11 +486,6 @@ const aStorageOrigins = [
 const iStorageOriginLength = aStorageOrigins.length;
 const sStoragePage = 'storage.html';
 function setLocalstorageOrigins () {
-    if (typeof window['bodyDom'] === 'undefined') {
-        setTimeoutFunction('setLocalstorageOrigins');
-        return false;
-    }
-
     let sProtocol = window.location.protocol + '//';
 
     let sMasterOrigin = sOrigin ? sOrigin : queryMasterOrigin();
@@ -502,7 +497,7 @@ function setLocalstorageOrigins () {
         aStorageOrigins[i] = sPage = sProtocol + aStorageOrigins[i] + '.' + sMasterOrigin + '/' + sStoragePage;
         oIframe = document.createElement('iframe');
         oIframe.src = sPage;
-        // oIframe.className = 'display_none';
+        oIframe.className = 'display_none';
         oIframe.id = sPage;
         oBody.appendChild(oIframe);
     }

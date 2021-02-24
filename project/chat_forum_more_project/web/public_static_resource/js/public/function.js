@@ -134,7 +134,7 @@ function queryLocalstorage (sKey = '') {
     }
     // console.log(sPage);
 
-    localstoragePostMessage(sPage, 'test', 'set');
+    localstoragePostMessage(sPage, {action:'get',key:sKey});
 }
 
 function setLocalstoragePostMessagePage (sKey = '') {
@@ -146,56 +146,20 @@ function setLocalstoragePostMessagePage (sKey = '') {
     return aStorageOrigins[hashFunc(sKey, iStorageOriginLength)];
 }
 
-function localstoragePostMessage (sPage = '', sMessage = '', sType = '') {
-    if (!sMessage || !sPage || !sType) {
-        console.log('localstoragePostMessage sMessage or sPage or sType is null');
+function localstoragePostMessage (sPage = '', sMessage = '') {
+    if (!sMessage || !sPage) {
+        console.log('localstoragePostMessage sMessage or sPage is null');
         return false;
     }
 
-    console.log(sMessage);
-    console.log(sPage);
-    console.log(sType);
-    var win = document.getElementById(sPage);
-    console.log(win);
-    console.log(sPage);
-    aa();
-    // win.contentWindow.postMessage('ssssssssssssss', 'http://storage3.you.com');
-    // document.getElementById(sPage).contentWindow.postMessage("来自主页面消息", sPage)
-    // var win = document.getElementById(sPage).contentWindow;
-    // win.postMessage(JSON.stringify({a:'ssssssssssssssssssssssssssssss'}),'*');
-    // document.getElementById(sPage).contentWindow.postMessage('jogging, reading and writing', 'http://you.com/');
-}
-// 主页面监听message事件,
-// window.onload = aa();
-function aa (){
-    let o = document.getElementById('http://storage2.you.com/storage.html');
-    console.log(o);
-    o.contentWindow.postMessage("来自主页面消息", "http://b.com/iframepage.html")
+    let o = document.getElementById(sPage);
+    o.contentWindow.postMessage(sMessage, sPage);
 }
 window.addEventListener('message', function(event){
+    console.log(event);
     console.log("收到" + event.origin + "消息：" + event.data);
 }, false);
 
-// function getIframeIndex (sPage = '') {
-//     if (!sPage) {
-//         console.log('getIframeIndex sPage is null');
-//         return false;
-//     }
-//
-//     // let oIframes = document.getElementsByClassName(sLocalstorageIframeClass);
-//     console.log(sPage);
-//     console.log(aStorageOrigins);
-//
-//     for (let i in aStorageOrigins) {
-//         if (sPage === aStorageOrigins[i]) {
-//             return i;
-//         }
-//     }
-//
-//     return false;
-// }
-
-// function StorageOrigin
 
 function setLang (sLang = '') {
     if (!sLang) {
