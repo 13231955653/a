@@ -110,12 +110,15 @@ function isRealString (sString = '') {
 
 function queryLang () {
     // return myStorage.get(sLocalstorageLangTag);
-    queryLocalstorage(sLocalstorageLangTag);
+    queryLocalstorage(sLocalstorageLangTag, 'afterQueryLang');
+}
+function afterQueryLang (sLang = '') {
+    console.log(sLang);
 }
 
-function queryLocalstorage (sKey = '') {
-    if (!sKey) {
-        console.log('queryLocalstorage sKey is null');
+function queryLocalstorage (sKey = '', sAfterFunc = '') {
+    if (!sKey || !sAfterFunc) {
+        console.log('queryLocalstorage sKey or sAfterFunc is null');
         return false;
     }
 
@@ -134,7 +137,7 @@ function queryLocalstorage (sKey = '') {
     }
     // console.log(sPage);
 
-    localstoragePostMessage(sPage, {action:'get',key:sKey});
+    localstoragePostMessage(sPage, {action: 'get', key: sKey, after: sAfterFunc});
 }
 
 function setLocalstoragePostMessagePage (sKey = '') {
@@ -156,8 +159,15 @@ function localstoragePostMessage (sPage = '', sMessage = '') {
     o.contentWindow.postMessage(sMessage, sPage);
 }
 window.addEventListener('message', function(event){
-    console.log(event);
+    if (!event.data) {
+        return false;
+    }
+    console.log(event.data);
+    console.log(event.data.func);
+
     console.log("收到" + event.origin + "消息：" + event.data);
+
+    window[event.data.func](event.data.message);
 }, false);
 
 
