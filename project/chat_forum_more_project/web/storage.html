@@ -12,24 +12,29 @@
         }
 
         if (!event.data) {
-            // postMessageToFather({message:false});
-            top.postMessage({func: event.data.after, message:false}, event.origin);
+            top.postMessage({after: event.data.after, message:false}, event.origin);
             return false;
         }
 
         if (!event.data.action || !event.data.key || !event.data.after ) {
-            top.postMessage({func: event.data.after, message: false}, event.origin);
+            top.postMessage({after: event.data.after, message: false}, event.origin);
             return false;
         }
 
+        console.log('========================');
+        console.log('收到' + event.origin);
         console.log(event.data);
-        top.postMessage("子页面收到", event.origin);
+        console.log(event.data.action);
 
         switch (event.data.action) {
             case 'get' :
-                top.postMessage({func: event.data.after, message: myStorage.get(event.data.key)}, event.origin);
+                top.postMessage({after: event.data.after, message: myStorage.get(event.data.key)}, event.origin);
+                break;
+            case 'set' :
+                top.postMessage({after: event.data.after, message: myStorage.set(event.data.key, event.data.message, event.data.leftTime)}, event.origin);
                 break;
         }
+        console.log('========================');
     }, false);
 
     let myStorage = (function myStorage () {
@@ -42,48 +47,36 @@
             //存储
             sValue = iLeftTime ? {'sData': sValue, 'iLiftTime': iLeftTime * 1000, 'iSetTime': getNowTime()} : {'sData': sValue};
 
-            // console.log(sValue);
             sValue = JSON.stringify(sValue);
-            // console.log(sValue);
-            sValue = localstorageEncodeValue(sValue);
+            console.log(sKey);
+            console.log(sValue);
 
-            sKey = setLocalstorageKey(sKey);
-
-            // console.log('set storage key ' + sKey);
-            // console.log('set storage value ' + sValue);
             let bResult = localStorage.setItem(sKey, sValue);
             return bResult === undefined ? true : false;
         };
 
         let get = function (sKey, bUpdateLifttime = true) {
             //读取
+            console.log(sKey);
             let oData = localStorage.getItem(sKey);
             if (!oData) {
                 return false;
             }
-            // oData = localstorageDecodeValue(oData);
-            // oData = JSON.parse(oData);
-            // console.log('get storage key ' + sKey);
-            // console.log('get storage value ');
-            // console.log(oData);
-            // if (!oData) {
-            //     return false;
-            // }
+            oData = JSON.parse(oData);
 
-            try {
-                if (typeof oData.iLiftTime !== 'undefined') {
-                    if (getNowTime() - oData.iSetTime > oData.iLiftTime) {
-                        remove(sKey);
-                        return false;
-                    } else {
-                        if (bUpdateLifttime) {
-                            set(sKey, oData.sData, oData.iLiftTime / 1000);
-                        }
+            if (typeof oData.iLiftTime !== 'undefined') {
+                if (getNowTime() - oData.iSetTime > oData.iLiftTime) {
+                    remove(sKey);
+                    return false;
+                } else {
+                    if (bUpdateLifttime) {
+                        set(sKey, oData.sData, oData.iLiftTime / 1000);
                     }
                 }
+            }
 
-                return oData.sData;
-            } catch (e) {}
+            console.log(oData.sData);
+            return oData.sData;
         };
 
         let remove = function (sKey) {

@@ -503,7 +503,7 @@ function setLocalstorageOrigins () {
     }
 }
 
-let bOnloadLoadLang = false;
+// let bOnloadLoadLang = false;
 function baseBegin (bOnload = false) {
     if (bOnload) {
         setHosts();
@@ -534,12 +534,14 @@ function baseBegin (bOnload = false) {
         setTimeoutFunction('baseBegin');
         return;
     }
-    if (queryUserLang()) {
-        if (!bOnloadLoadLang) {
-            bOnloadLoadLang = true;
-            loadLang();
-        }
-    }
+
+    queryUserLang();
+    // if (queryUserLang()) {
+    //     if (!bOnloadLoadLang) {
+    //         bOnloadLoadLang = true;
+    //         loadLang();
+    //     }
+    // }
 
     if (typeof aLang === 'undefined') {
         setTimeoutFunction('baseBegin');

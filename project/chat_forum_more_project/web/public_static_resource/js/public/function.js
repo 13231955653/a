@@ -108,12 +108,23 @@ function isRealString (sString = '') {
 //     };
 // })();
 
-function queryLang () {
-    // return myStorage.get(sLocalstorageLangTag);
+function queryUserLang () {
+    if (sUserLangvage) {
+        return sUserLangvage;
+    }
+
     queryLocalstorage(sLocalstorageLangTag, 'afterQueryLang');
 }
 function afterQueryLang (sLang = '') {
     console.log(sLang);
+    sLang = false;
+    if (sLang) {
+        sUserLangvage = sLang;
+    } else {
+        sUserLangvage = sDefaultLangvage;
+
+        setLang(sUserLangvage);
+    }
 }
 
 function queryLocalstorage (sKey = '', sAfterFunc = '') {
@@ -122,22 +133,46 @@ function queryLocalstorage (sKey = '', sAfterFunc = '') {
         return false;
     }
 
-    // console.log(sKey);
-    sKey = setLocalstorageKey(sKey);
-    if (!sKey) {
-        console.log('queryLocalstorage setLocalstorageKey sKey is null');
-        return false;
-    }
-    // console.log(sKey);
+    // sKey = setLocalstorageKey(sKey);
+    // if (!sKey) {
+    //     console.log('queryLocalstorage setLocalstorageKey sKey is null');
+    //     return false;
+    // }
 
     let sPage = setLocalstoragePostMessagePage(sKey);
     if (!sPage) {
         console.log('queryLocalstorage setLocalstoragePostMessagePage sPage is null');
         return false;
     }
-    // console.log(sPage);
 
     localstoragePostMessage(sPage, {action: 'get', key: sKey, after: sAfterFunc});
+}
+
+function setLocalstorage (sKey = '', sMessage = '', iLeftTime = false, sAfterFunc = '') {
+    if (!sKey || !sAfterFunc || !sMessage) {
+        console.log('queryLocalstorage sKey or sAfterFunc or sMessage is null');
+        return false;
+    }
+
+    // sKey = setLocalstorageKey(sKey);
+    // if (!sKey) {
+    //     console.log('queryLocalstorage setLocalstorageKey sKey is null');
+    //     return false;
+    // }
+
+    // sMessage = localstorageEncodeValue(sMessage);
+    // if (!sMessage) {
+    //     console.log('queryLocalstorage localstorageEncodeValue sMessage is null');
+    //     return false;
+    // }
+
+    let sPage = setLocalstoragePostMessagePage(sKey);
+    if (!sPage) {
+        console.log('queryLocalstorage setLocalstoragePostMessagePage sPage is null');
+        return false;
+    }
+
+    localstoragePostMessage(sPage, {action: 'set', key: sKey, message: sMessage, leftTime: iLeftTime, after: sAfterFunc});
 }
 
 function setLocalstoragePostMessagePage (sKey = '') {
@@ -162,14 +197,17 @@ window.addEventListener('message', function(event){
     if (!event.data) {
         return false;
     }
+
+    if (!event.data || !event.data.after) {
+        console.log('addEventListener data or data.after is null');
+        return false;
+    }
+
+    console.log("收到" + event.origin + "消息：");
     console.log(event.data);
-    console.log(event.data.func);
 
-    console.log("收到" + event.origin + "消息：" + event.data);
-
-    window[event.data.func](event.data.message);
+    window[event.data.after](event.data.message);
 }, false);
-
 
 function setLang (sLang = '') {
     if (!sLang) {
@@ -177,9 +215,18 @@ function setLang (sLang = '') {
         return false;
     }
 
-    // return myStorage.set(sLocalstorageLangTag, sLang);
+    setLocalstorage(sLocalstorageLangTag, sLang, false, 'afterSetLang');
 }
+function afterSetLang (bSetLangResult = '') {
+    if (!bSetLangResult) {
+        console.log('afterSetLang bSetLangResult is null');
+        return false;
+    }
 
-function queryOrigin () {
-    return window.location.origin;
+    if (!bSetLangResult) {
+        console.log('afterSetLang bSetLangResult false');
+        return false;
+    }
+
+    loadLang(sUserLangvage);
 }

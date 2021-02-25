@@ -27,8 +27,7 @@ function localstorageEncodeValue (sValue = '') {
         return false;
     }
 
-    // testSetLocalstorage();
-
+    console.log(sValue);
     sValue = rsaEncode(sValue, RSA_LOCALSTORAGE_PUBLIC);
     sValue = localstorageEncodeConfuse(sValue, 'encode');
     return sValue;
@@ -44,21 +43,21 @@ function localstorageDecodeValue (sValue = '') {
     return sValue;
 }
 
-function queryUserLang () {
-    if (sUserLangvage) {
-        return sUserLangvage;
-    }
-
-    sUserLangvage = queryLang();
-    sUserLangvage = sUserLangvage ? sUserLangvage : sDefaultLangvage;
-
-    if (!setLang(sUserLangvage)) {
-        console.log('queryUserLang setLang faild');
-        return false;
-    }
-
-    return sUserLangvage;
-}
+// function queryUserLang () {
+//     if (sUserLangvage) {
+//         return sUserLangvage;
+//     }
+//
+//     sUserLangvage = queryLang();
+//     sUserLangvage = sUserLangvage ? sUserLangvage : sDefaultLangvage;
+//
+//     if (!setLang(sUserLangvage)) {
+//         console.log('queryUserLang setLang faild');
+//         return false;
+//     }
+//
+//     return sUserLangvage;
+// }
 
 function replaceLangs () {
     console.log(sUserLangvage);
