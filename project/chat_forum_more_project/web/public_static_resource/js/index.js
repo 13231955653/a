@@ -6,6 +6,12 @@ const sLocalstorgaeUserPersonalizedColorKey = 'user_personlized_color';
 const iDefaultUserPersonalizedColor = 1;
 let iFontSize = 16;
 const oHtml = document.getElementsByTagName('html')[0];
+const oDomFatherId = 'page_dom';
+const sShadeIndex = 'index_shade';
+const sIndexPlatform = 'platform_shade';
+const sIndexPage = 'page_shade';
+const iMaxZIndex = 2000000000;
+const sShadeBackgroundColor = 'rgb(231, 230, 203)';
 let iWinWidth = 0;
 let iWinHeight = 0;
 const sIsPhone = 'phone';
@@ -253,6 +259,7 @@ function winSize() {
     // }
     // console.log(iWinWidth);
 }
+winSize();
 
 function loadCss (sSrc = '', sCallback = '') {
     if (!sSrc) {
@@ -966,18 +973,58 @@ function setLocalstorageOrigins () {
         oBody.appendChild(oIframe);
     }
 }
-function bodyDom() {
-    let sDomId = 'page_dom';
-    let sInfo = '<div id="' + sDomId + '"></div>';
-    let oBody = document.getElementsByTagName('body')[0];
-    $(oBody).append(sInfo);
 
-    let oDom = document.getElementById(sDomId);
-    return oDom;
+function bodyDom () {
+    if (!document.getElementById(oDomFatherId)) {
+        let oDiv = document.createElement('div');
+        oDiv.id = oDomFatherId;
+
+        let oBody = document.getElementsByTagName('body')[0];
+        oBody.appendChild(oDiv);
+    }
+
+    return document.getElementById(oDomFatherId);
 }
 
 function shade () {
+    writeIndexShade();
 
+    writePlatformShade();
+
+    writePageShade();
+}
+function clearIndexShade () {
+    
+}
+function writeIndexShade () {
+    let oBody = bodyDom();
+
+    let oDiv = writeShade(sShadeIndex);
+    oBody.appendChild(oDiv);
+}
+function writePlatformShade () {
+    let oBody = bodyDom();
+
+    let oDiv = writeShade(sIndexPlatform);
+    oBody.appendChild(oDiv);
+}
+function writePageShade () {
+    let oBody = bodyDom();
+
+    let oDiv = writeShade(sIndexPage);
+    oBody.appendChild(oDiv);
+}
+function writeShade (sShadeId = '') {
+    let oDiv = document.createElement('div');
+    oDiv.id = sShadeId;
+    oDiv.style.width = iWinWidth + 'px';
+    oDiv.style.height = iWinHeight + 'px';
+    oDiv.style.position = 'absolute';
+    oDiv.style.top = '0px';
+    oDiv.style.left = '0px';
+    oDiv.style.zIndex = iMaxZIndex;
+    oDiv.style.backgroundColor = sShadeBackgroundColor;
+    return oDiv;
 }
 
 let bNoticeAstrict = false;
@@ -997,7 +1044,6 @@ function astrict () {
     return true;
 }
 
-// let bOnloadLoadLang = false;
 function baseBegin (bOnload = false) {
     if (bOnload) {
         winResize();
@@ -1032,12 +1078,6 @@ function baseBegin (bOnload = false) {
     }
 
     queryUserLang();
-    // if (queryUserLang()) {
-    //     if (!bOnloadLoadLang) {
-    //         bOnloadLoadLang = true;
-    //         loadLang();
-    //     }
-    // }
 
     if (typeof aLang === 'undefined') {
         setTimeoutFunction('baseBegin');
@@ -1048,6 +1088,8 @@ function baseBegin (bOnload = false) {
         setTimeoutFunction('baseBegin');
         return;
     }
+
+    clearIndexShade();
 
     logicBegin(true);
 }
