@@ -10,7 +10,8 @@ const oDomFatherId = 'page_dom';
 const sShadeIndex = 'index_shade';
 const sIndexPlatform = 'platform_shade';
 const sIndexPage = 'page_shade';
-const iMaxZIndex = 2000000000;
+const iMaxZIndex = 2000000001;
+const iShadeZIndex = 2000000000;
 const sShadeBackgroundColor = 'rgb(231, 230, 203)';
 let iWinWidth = 0;
 let iWinHeight = 0;
@@ -751,11 +752,14 @@ function getOneMmsPx (){
     oDiv.id = sId;
     oDiv.style.width = '1mm';
 
-    document.getElementsByTagName('body')[0].appendChild(oDiv);
+    bodyDom().appendChild(oDiv);
 
     // 原生方法获取浏览器对元素的计算值
-    oDiv = document.getElementById(sId).getBoundingClientRect();
-    return oDiv.width;
+    oDiv = document.getElementById(sId);
+    let oDiv1 = oDiv.getBoundingClientRect();
+    let iWidth = oDiv1.width;
+    oDiv.parentNode.removeChild(oDiv);
+    return iWidth;
 }
 
 function initializeFontSize () {
@@ -994,7 +998,8 @@ function shade () {
     writePageShade();
 }
 function clearIndexShade () {
-    
+    let oDiv = document.getElementById(sShadeIndex);
+    console.log(oDiv);
 }
 function writeIndexShade () {
     let oBody = bodyDom();
@@ -1022,7 +1027,7 @@ function writeShade (sShadeId = '') {
     oDiv.style.position = 'absolute';
     oDiv.style.top = '0px';
     oDiv.style.left = '0px';
-    oDiv.style.zIndex = iMaxZIndex;
+    oDiv.style.zIndex = iShadeZIndex;
     oDiv.style.backgroundColor = sShadeBackgroundColor;
     return oDiv;
 }
@@ -1089,9 +1094,13 @@ function baseBegin (bOnload = false) {
         return;
     }
 
-    clearIndexShade();
+    afterLoadIndexJs();
 
     logicBegin(true);
+}
+
+function afterLoadIndexJs () {
+    clearIndexShade();
 }
 
 function winResize () {
