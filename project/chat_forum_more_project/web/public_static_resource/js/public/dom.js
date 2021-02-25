@@ -18,6 +18,3 @@ function writeShade () {
 
 }
 
-function bodyDom() {
-    return document.getElementsByTagName('body')[0];
-}

@@ -1,0 +1,70 @@
+#page_dom{
+    width: 100%;
+    height: 100%;
+}
+#public_footer{
+    width: 100%;
+    height: var(--public_foot_height);
+    line-height: var(--public_foot_height);
+    background: var(--public_foot_background);
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+    /*display: flex;*/
+}
+#public_footer li{
+    height: 100%;
+    float: left;
+    text-align: center;
+    /*flex: 1;*/
+}
+#public_footer li>a{
+    display: block;
+}
+/*平分父*/
+/*一个子*/
+#public_footer li:nth-last-child(1):first-child,
+#public_footer li:nth-last-child(1):first-child~li{
+    width: 100%;
+}
+/*两个子*/
+#public_footer li:nth-last-child(2):first-child,
+#public_footer li:nth-last-child(2):first-child~li{
+    width: calc(100% / 2);
+}
+/*三个子*/
+#public_footer li:nth-last-child(3):first-child,
+#public_footer li:nth-last-child(3):first-child~li{
+    width: calc(100% / 3);
+}
+/*四个子*/
+#public_footer li:nth-last-child(4):first-child,
+#public_footer li:nth-last-child(4):first-child~li{
+    width: calc(100% / 4);
+}
+/*五个子*/
+#public_footer li:nth-last-child(5):first-child,
+#public_footer li:nth-last-child(5):first-child~li{
+    width: calc(100% / 5);
+}
+/*六个子*/
+#public_footer li:nth-last-child(6):first-child,
+#public_footer li:nth-last-child(6):first-child~li{
+    width: calc(100% / 6);
+}
+/*七个子*/
+#public_footer li:nth-last-child(7):first-child,
+#public_footer li:nth-last-child(7):first-child~li{
+    width: calc(100% / 7);
+}
+/*八个子*/
+#public_footer li:nth-last-child(8):first-child,
+#public_footer li:nth-last-child(8):first-child~li{
+    width: calc(100% / 8);
+}
+/*九个子*/
+#public_footer li:nth-last-child(9):first-child,
+#public_footer li:nth-last-child(9):first-child~li{
+    width: calc(100% / 9);
+}
+/*平分父*/

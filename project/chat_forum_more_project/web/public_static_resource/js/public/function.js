@@ -29,84 +29,77 @@ function isRealString (sString = '') {
     return false;
 }
 
+function disposeLocalstorageValue (sKey, sValue, iLeftTime = false) {
+    return iLeftTime ? {'v': sValue, 't': iLeftTime * 1000, 'st': getNowTime()} : {'v': sValue};
+}
 
-// let myStorage = (function myStorage () {
-//     if (!window.localStorage ) {
-//         console.log('localstorage error');
-//         return false;
-//     }
-//
-//     let set = function (sKey, sValue, iLeftTime = false) {
-//         //存储
-//         sValue = iLeftTime ? {'sData': sValue, 'iLiftTime': iLeftTime * 1000, 'iSetTime': getNowTime()} : {'sData': sValue};
-//
-//         // console.log(sValue);
-//         sValue = JSON.stringify(sValue);
-//         // console.log(sValue);
-//         sValue = localstorageEncodeValue(sValue);
-//
-//         sKey = setLocalstorageKey(sKey);
-//
-//         // console.log('set storage key ' + sKey);
-//         // console.log('set storage value ' + sValue);
-//         let bResult = localStorage.setItem(sKey, sValue);
-//         return bResult === undefined ? true : false;
-//     };
-//
-//     let get = function (sKey, bUpdateLifttime = true) {
-//         //读取
-//         let oData = localStorage.getItem(setLocalstorageKey(sKey));
-//         if (!oData) {
-//             return false;
-//         }
-//         oData = localstorageDecodeValue(oData);
-//         oData = JSON.parse(oData);
-//         // console.log('get storage key ' + sKey);
-//         // console.log('get storage value ');
-//         // console.log(oData);
-//         if (!oData) {
-//             return false;
-//         }
-//
-//         try {
-//             if (typeof oData.iLiftTime !== 'undefined') {
-//                 if (getNowTime() - oData.iSetTime > oData.iLiftTime) {
-//                     remove(sKey);
-//                     return false;
-//                 } else {
-//                     if (bUpdateLifttime) {
-//                         set(sKey, oData.sData, oData.iLiftTime / 1000);
-//                     }
-//                 }
-//             }
-//
-//             return oData.sData;
-//         } catch (e) {}
-//     };
-//
-//     let remove = function (sKey) {
-//         //读取
-//         sKey = setLocalstorageKey(sKey);
-//         let oData = localStorage.getItem(sKey);
-//         if(!oData){
-//             return true;
-//         }
-//
-//         return localStorage.removeItem(sKey);
-//     };
-//
-//     let clear = function() {
-//         //清除对象
-//         localStorage.clear();
-//     };
-//
-//     return {
-//         set : set,
-//         get : get,
-//         remove : remove,
-//         clear : clear
-//     };
-// })();
+let myStorage = (function myStorage () {
+    if (!window.localStorage ) {
+        console.log('myStorage localstorage error');
+        return false;
+    }
+
+    let set = function (sKey, sValue, iLeftTime = false) {
+        if (!sKey || !sValue) {
+            console.log('myStorage set sKey or sValue is null');
+            return false;
+        }
+
+        sValue = disposeLocalstorageValue (sKey, sValue, iLeftTime);
+
+        sValue = JSON.stringify(sValue);
+
+        let bResult = localStorage.setItem(sKey, sValue);
+        return bResult == undefined ? true : false;
+    };
+
+    let get = function (sKey, bUpdateLifttime = true) {
+        //读取
+        let oData = localStorage.getItem(sKey);
+        if (!oData) {
+            return false;
+        }
+        oData = JSON.parse(oData);
+        if (!oData) {
+            return false;
+        }
+
+        if (typeof oData.t !== 'undefined') {
+            if (getNowTime() - oData.st > oData.t) {
+                remove(sKey);
+                return false;
+            } else {
+                if (bUpdateLifttime) {
+                    set(sKey, oData.v, oData.t / 1000);
+                }
+            }
+        }
+
+        return oData.v;
+    };
+
+    let remove = function (sKey) {
+        //读取
+        let oData = localStorage.getItem(sKey);
+        if(!oData){
+            return true;
+        }
+
+        return localStorage.removeItem(sKey);
+    };
+
+    let clear = function() {
+        //清除对象
+        localStorage.clear();
+    };
+
+    return {
+        set : set,
+        get : get,
+        remove : remove,
+        clear : clear
+    };
+})();
 
 function queryUserLang () {
     if (sUserLangvage) {
@@ -116,15 +109,14 @@ function queryUserLang () {
     queryLocalstorage(sLocalstorageLangTag, 'afterQueryLang');
 }
 function afterQueryLang (sLang = '') {
-    console.log(sLang);
-    sLang = false;
     if (sLang) {
         sUserLangvage = sLang;
     } else {
         sUserLangvage = sDefaultLangvage;
-
         setLang(sUserLangvage);
     }
+
+    loadLang(sUserLangvage);
 }
 
 function queryLocalstorage (sKey = '', sAfterFunc = '') {
@@ -133,19 +125,23 @@ function queryLocalstorage (sKey = '', sAfterFunc = '') {
         return false;
     }
 
-    // sKey = setLocalstorageKey(sKey);
-    // if (!sKey) {
-    //     console.log('queryLocalstorage setLocalstorageKey sKey is null');
-    //     return false;
-    // }
-
-    let sPage = setLocalstoragePostMessagePage(sKey);
+    let sPage = localstoragePage(sKey);
     if (!sPage) {
+        window[sAfterFunc](false);
         console.log('queryLocalstorage setLocalstoragePostMessagePage sPage is null');
         return false;
     }
 
     localstoragePostMessage(sPage, {action: 'get', key: sKey, after: sAfterFunc});
+}
+
+function localstoragePage (sKey) {
+    if (!sKey) {
+        console.log('localstoragePage sKey is null');
+        return false;
+    }
+
+    return myStorage.get(sKey);
 }
 
 function setLocalstorage (sKey = '', sMessage = '', iLeftTime = false, sAfterFunc = '') {
@@ -154,19 +150,21 @@ function setLocalstorage (sKey = '', sMessage = '', iLeftTime = false, sAfterFun
         return false;
     }
 
-    // sKey = setLocalstorageKey(sKey);
-    // if (!sKey) {
-    //     console.log('queryLocalstorage setLocalstorageKey sKey is null');
-    //     return false;
-    // }
+    let sPage = localstoragePage (sKey);
+    if (!sPage) {
+        let sString = disposeLocalstorageValue (sKey, sMessage, iLeftTime);
+        let iLocalstorageNowCacheLength = parseInt(JSON.stringify(sString).length) + parseInt(sKey.length);
+        let iSize = 0;
+        for (let i in aLocalstorageAddressSize) {
+            iSize = parseInt(aLocalstorageAddressSize[i]) + parseInt(iLocalstorageNowCacheLength);
+            if (iMaxLocalstorageSize >= iSize) {
+                sPage = i;
+                myStorage.set(sKey, i);
+                break;
+            }
+        }
+    }
 
-    // sMessage = localstorageEncodeValue(sMessage);
-    // if (!sMessage) {
-    //     console.log('queryLocalstorage localstorageEncodeValue sMessage is null');
-    //     return false;
-    // }
-
-    let sPage = setLocalstoragePostMessagePage(sKey);
     if (!sPage) {
         console.log('queryLocalstorage setLocalstoragePostMessagePage sPage is null');
         return false;
@@ -175,14 +173,14 @@ function setLocalstorage (sKey = '', sMessage = '', iLeftTime = false, sAfterFun
     localstoragePostMessage(sPage, {action: 'set', key: sKey, message: sMessage, leftTime: iLeftTime, after: sAfterFunc});
 }
 
-function setLocalstoragePostMessagePage (sKey = '') {
-    if (!sKey) {
-        console.log('setLocalstoragePostMessagePage sKey is null');
-        return false;
-    }
-
-    return aStorageOrigins[hashFunc(sKey, iStorageOriginLength)];
-}
+// function setLocalstoragePostMessagePage (sKey = '') {
+//     if (!sKey) {
+//         console.log('setLocalstoragePostMessagePage sKey is null');
+//         return false;
+//     }
+//
+//     return aStorageOrigins[hashFunc(sKey, iStorageOriginLength)];
+// }
 
 function localstoragePostMessage (sPage = '', sMessage = '') {
     if (!sMessage || !sPage) {
@@ -203,8 +201,8 @@ window.addEventListener('message', function(event){
         return false;
     }
 
-    console.log("收到" + event.origin + "消息：");
-    console.log(event.data);
+    // console.log("收到" + event.origin + "消息：");
+    // console.log(event.data);
 
     window[event.data.after](event.data.message);
 }, false);
@@ -227,6 +225,57 @@ function afterSetLang (bSetLangResult = '') {
         console.log('afterSetLang bSetLangResult false');
         return false;
     }
+    //
+    // loadLang(sUserLangvage);
+}
 
-    loadLang(sUserLangvage);
+function queryUserPersonalizedColor () {
+    if (sPersonlizedColor) {
+        return sPersonlizedColor;
+    }
+
+    queryLocalstorgaeUserPersonalizedColor(sLocalstorgaeUserPersonalizedColorKey, 'afterQueryUserPersonalizedColor');
+}
+function queryLocalstorgaeUserPersonalizedColor (sKey = '', sAfterFunc = '') {
+    if (!sKey || !sAfterFunc) {
+        console.log('queryLocalstorgaeUserPersonalizedColor sKey or sAfterFunc is null');
+        return false;
+    }
+
+    let sPage = localstoragePage(sKey);
+    if (!sPage) {
+        window[sAfterFunc](false);
+        console.log('queryLocalstorgaeUserPersonalizedColor localstoragePage sPage is null');
+        return false;
+    }
+
+    localstoragePostMessage(sPage, {action: 'get', key: sKey, after: sAfterFunc});
+}
+function afterQueryUserPersonalizedColor (sPersonlizedColor1 = '') {
+    if (sPersonlizedColor1) {
+        sPersonlizedColor = sPersonlizedColor1;
+    } else {
+        sPersonlizedColor = iDefaultUserPersonalizedColor;
+
+        setPersonlizedColor(sPersonlizedColor);
+    }
+
+    loadPersonlizedColorCss(sPersonlizedColor);
+}
+function setPersonlizedColor (sPersonlizedColor1 = '') {
+    if (!sPersonlizedColor1) {
+        console.log('setPersonlizedColor sPersonlizedColor1 is null');
+        return false;
+    }
+
+    setLocalstorage(sLocalstorgaeUserPersonalizedColorKey, sPersonlizedColor1, false, 'loadPersonlizedColorCss');
+}
+function loadPersonlizedColorCss (sPersonlizedColor1 = '') {
+    sPersonlizedColor1 = sPersonlizedColor1 ? sPersonlizedColor1 : iDefaultUserPersonalizedColor;
+    if (!sPersonlizedColor1) {
+        console.log('loadPersonlizedColorCss sPersonlizedColor1 is null');
+        return false;
+    }
+
+    loadPersonalizedCss(sPersonlizedColor1);
 }

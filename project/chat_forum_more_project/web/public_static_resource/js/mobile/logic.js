@@ -60,18 +60,28 @@ function localstorageDecodeValue (sValue = '') {
 // }
 
 function replaceLangs () {
-    console.log(sUserLangvage);
-    console.log('replaceLangs');
+    let aReLangDom = $('.' + sReLangClass);
+    if (!aReLangDom.length) {
+        // setTimeoutFunction('replaceLangs');
+        return false;
+    }
+
+    let sString = '';
+    for (let i in aReLangDom) {
+        sString = typeof aReLangDom[i].id != 'undefined' ? aReLangDom[i].id : 'error';
+        sString = typeof aLang[sString] != 'undefined' ? aLang[sString] : aLang['error'];
+        aReLangDom[i].innerHTML = sString;
+    }
 }
 
-function jump () {
+function updateUrlToPage () {
     console.log('jump');
     console.log(sOrigin);
     // console.log(queryOrigin());
 }
 
 function logicBegin () {
-    jump();
+    updateUrlToPage();
 
     writePublicDom();
 }

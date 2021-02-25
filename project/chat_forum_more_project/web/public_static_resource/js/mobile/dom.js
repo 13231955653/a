@@ -13,15 +13,36 @@ function writeFooter() {
     }
 
     let sInfo = '';
-    sInfo += '<div id="footer">';
-    sInfo += '<a href=""><span class="re_lang">' + aLang['foot1'] + '</span></a>';
-    sInfo += '<a href=""><span class="re_lang">' + aLang['foot2'] + '</span></a>';
-    sInfo += '<a href=""><span class="re_lang">' + aLang['foot3'] + '</span></a>';
-    sInfo += '<a href=""><span class="re_lang">' + aLang['foot4'] + '</span></a>';
+    sInfo += '<div id="public_footer">';
+
+    sInfo += '<ul>';
+
+    sInfo += writeOneFooter('public_foot1');
+
+    sInfo += writeOneFooter('public_foot2');
+
+    sInfo += writeOneFooter('public_foot3');
+
+    sInfo += writeOneFooter('public_foot4');
+
+    sInfo += '</ul>';
+
     sInfo += '</div>';
 
     let oBody = bodyDom();
     $(oBody).append(sInfo);
+}
+function writeOneFooter (sId = '') {
+    let sInfo = '';
+    sInfo += '<li>';
+    sInfo += '<a href="">';
+    sInfo += '<span class="' + sReLangClass + '" id="' + sId + '">';
+    sInfo += typeof aLang[sId] !== 'undefined' ? aLang[sId] : aLang['langvage_error'];
+    sInfo += '</span>';
+    sInfo += '</a>';
+    sInfo += '</li>';
+
+    return sInfo;
 }
 
 function writeLeft () {
