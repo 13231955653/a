@@ -13,8 +13,18 @@ const sIndexPage = 'page_shade';
 const iMaxZIndex = 2000000001;
 const iShadeZIndex = 2000000000;
 const sShadeBackgroundColor = 'rgb(231, 230, 203)';
+const iSpeed = 1000;
+const sPublicFootClass = 'public_footer';
+const sPublicHeaderClass = 'public_header';
+const sPublicBodyClass = 'public_body';
+const sPublicLeftClass = 'public_left';
+const sPublicRightClass = 'public_right';
+const sPublicNoticeClass = 'public_notice';
+const sPublicShadeClass = 'public_shade';
+let bFirstLoad = false; // 新打开窗口
 let iWinWidth = 0;
 let iWinHeight = 0;
+let iBottomHiddenHeight = 0;
 const sIsPhone = 'phone';
 const sIsTablet = 'tablet';
 const sIsPc = 'pc';
@@ -161,6 +171,8 @@ aBaseTimerOutTime['replaceLangs'] = 70;
 aBaseTimerOutTime['loadPublicCss'] = 70;
 aBaseTimerOutTime['loadPersonalizedCss'] = 70;
 aBaseTimerOutTime['loadVariableCss'] = 70;
+aBaseTimerOutTime['writePublicDom'] = 70;
+aBaseTimerOutTime['shade'] = 70;
 const aJsVersion = []; // js 文件版本号
 let sBaseJsFullName = '';
 // let sBaseVariableJsFullName = '';
@@ -179,11 +191,11 @@ function setJsPathAndVersion () {
     const sBaseFunctionJs = '/public_static_resource/js/public/function.js';
     const sBaseJqueryJs = '/public_static_resource/js/public/jquery.js';
     const sBaseLogicJs = '/public_static_resource/js/' + platformTag() + '/logic.js';
-    const sBaseDomJs = '/public_static_resource/js/public/dom.js';
+    const sBaseDomJs = '/public_static_resource/js/public/dom/public_dom.js';
     const sBaseEncodeJs = '/public_static_resource/js/public/encode.js';
     const sCnLang = '/public_static_resource/js/lang/cn.js';
-    const sEnLang = '/public_static_resource/js/lang/cn.js';
-    const sPlatformDomJs = '/public_static_resource/js/' + platformTag() + '/dom.js';
+    const sEnLang = '/public_static_resource/js/lang/en.js';
+    const sPlatformDomJs = '/public_static_resource/js/' + platformTag() + '/dom/public_dom.js';
 
     aJsVersion[sBaseJs] = '11111111111111111111111111111111';
     // aJsVersion[sBaseVariableJs] = '222222222222222222222222222222';
@@ -259,6 +271,8 @@ function winSize() {
     //     iWinWidth = document.documentElement.clientWidth;
     // }
     // console.log(iWinWidth);
+
+    iBottomHiddenHeight = iWinHeight * 2;
 }
 winSize();
 
@@ -336,6 +350,7 @@ function loadPersonalizedCss (sPersonlizedColor1 = false) {
         setTimeoutFunction('loadPersonalizedCss');
         return;
     }
+    console.log('function.js queryUserPersonalizedColor is load');
 
     let sPersonalizedColor = sPersonlizedColor1 ? sPersonlizedColor1 : queryUserPersonalizedColor();
     // console.log(sPersonalizedColor);
@@ -344,6 +359,8 @@ function loadPersonalizedCss (sPersonlizedColor1 = false) {
         setTimeoutFunction('loadPersonalizedCss');
         return;
     }
+    bLoadPersonalizedCss = true;
+    console.log('loadPersonalizedCss sPersonalizedColor id is get');
 
     if (!checkRequestJsCssLimit('css', 'loadPersonalizedCss')) {
         return false;
@@ -663,7 +680,9 @@ function afterloadLocalJquery () {
 
 let iLastRequestLangTime = 0;
 function loadLang (sLang = '') {
+    // console.log(sLang);
     sLang = sLang ? sLang : sUserLangvage;
+    // console.log(sLang);
     if (!sLang) {
         console.log('loadLang sLang is null');
         return false;
@@ -979,45 +998,185 @@ function setLocalstorageOrigins () {
 }
 
 function bodyDom () {
-    if (!document.getElementById(oDomFatherId)) {
-        let oDiv = document.createElement('div');
-        oDiv.id = oDomFatherId;
-
-        let oBody = document.getElementsByTagName('body')[0];
-        oBody.appendChild(oDiv);
+    let oDom = document.getElementById(oDomFatherId);
+    if (oDom) {
+        return oDom;
     }
 
-    return document.getElementById(oDomFatherId);
+    oDom = document.createElement('div');
+    oDom.id = oDomFatherId;
+
+    let oBody = document.getElementsByTagName('body')[0];
+    oBody.appendChild(oDom);
+
+    return oDom;
 }
 
+//获取对象样式规则信息，IE下使用currentStyle
+function getStyle (obj, style) {
+    return obj.currentStyle?obj.currentStyle[style]:getComputedStyle(obj,false)[style];
+}
+
+//原生js动画类似jquery--animate
+function jsAnimate (obj, styleJson, speed, callback) {
+    if (!obj || !styleJson || !speed) {
+        console.log(obj);
+        console.log(params);
+        console.log(iSpeed1);
+        console.log('jsAnimate obj or styleJson or speed is null');
+        return;
+    }
+
+    clearInterval(obj.timer);
+    // 开启定时器
+    obj.timer = setInterval(function () {
+        var flag = true;//假设所有动作都已完成成立。
+        for (var styleName in styleJson) {
+            //1.取当前属性值
+            var iMov = 0;
+            // 透明度是小数，所以得单独处理
+            iMov=styleName=='opacity'?Math.round(parseFloat(getStyle(obj,styleName))*100):parseInt(getStyle(obj,styleName));
+
+            //2.计算速度
+            var speed=0;
+            speed=(styleJson[styleName]-iMov)/8;//缓冲处理，这边也可以是固定值
+            speed=speed>0?Math.ceil(speed):Math.floor(speed);//区分透明度及小数点，向上取整，向下取整
+
+            //3.判断是否到达预定值
+            if(styleJson[styleName]!=iMov){
+                flag=false;
+                if(styleName=='opacity'){//判断结果是否为透明度
+                    obj.style[styleName]=(iMov+speed)/100;
+                    obj.style.filter='alpha(opacity:'+(iMov+speed)+')';
+                }else{
+                    obj.style[styleName]=iMov+speed+'px';
+                }
+            }
+        }
+        if(flag){//到达设定值，停止定时器，执行回调
+            clearInterval(obj.timer);
+            if(callback){callback();}
+        }
+    }, speed)
+}
+function animates (obj = false, params = false, iSpeed1 = false, callback = false) {
+    if (!obj || !params || !iSpeed1) {
+        console.log(obj);
+        console.log(params);
+        console.log(iSpeed1);
+        console.log('animates obj or params or iSpeed1 is null');
+        return;
+    }
+
+    if (typeof jQuery !== undefined) {
+        // console.log('jquery');
+        $(obj).animate(params, iSpeed1, callback);
+        return;
+    }
+
+    // console.log('no jquery');
+    // jsAnimate (obj, params, iSpeed1)
+    // console.log(iSpeed1);
+    jsAnimate (obj, params, parseInt(iSpeed1 / 20));
+}
+
+function clearIndexShade () {
+    let oDiv = document.getElementById(sShadeIndex);
+    if (!oDiv) {
+        return;
+    }
+
+    animates(oDiv, {top: iBottomHiddenHeight}, iSpeed);
+}
+
+function clearPlatformShade () {
+    let oDiv = document.getElementById(sIndexPlatform);
+    if (!oDiv) {
+        return;
+    }
+
+    animates(oDiv, {top: iBottomHiddenHeight}, iSpeed);
+}
+
+function getPublicShadeDom () {
+    let oDom = document.getElementById(sPublicShadeClass);
+    return oDom !== null ? oDom : false;
+}
+function checkExistPublicShadeDom () {
+    return document.getElementById(sPublicShadeClass) ? true : false;
+}
+function writePublicShade () {
+    let oDiv = getPublicShadeDom();
+    if (oDiv) {
+        return true;
+    }
+
+    oDiv = document.createElement('div');
+    oDiv.id = sPublicShadeClass;
+
+    let oDom = bodyDom();
+    oDom.appendChild(oDiv);
+}
 function shade () {
+    if (!checkExistPublicShadeDom()) {
+        console.log('shade checkExistPublicShadeDom is false');
+        writePublicShade();
+        setTimeoutFunction('shade');
+        return;
+    }
+
     writeIndexShade();
 
     writePlatformShade();
 
     writePageShade();
 }
-function clearIndexShade () {
-    let oDiv = document.getElementById(sShadeIndex);
-    console.log(oDiv);
+function checkExistShade (sShadeId = '') {
+    if (!sShadeId) {
+        console.log('checkExistShade sShadeId is null');
+        return false;
+    }
+
+    return document.getElementById(sShadeId);
 }
 function writeIndexShade () {
-    let oBody = bodyDom();
+    if (checkExistShade(sShadeIndex)) {
+        console.log('writeIndexShade checkExistShade id ' + sShadeIndex + ' allready exist');
+        console.log('need to show');
+        return;
+    }
+
+    let oDom = getPublicShadeDom();
 
     let oDiv = writeShade(sShadeIndex);
-    oBody.appendChild(oDiv);
+    oDom.appendChild(oDiv);
+    oDiv.style.backgroundColor = sShadeBackgroundColor;
 }
 function writePlatformShade () {
-    let oBody = bodyDom();
+    if (checkExistShade(sIndexPlatform)) {
+        console.log('writePlatformShade checkExistShade id ' + sIndexPlatform + ' allready exist');
+        console.log('need to show');
+        return;
+    }
+
+    let oDom = getPublicShadeDom();
 
     let oDiv = writeShade(sIndexPlatform);
-    oBody.appendChild(oDiv);
+    oDom.appendChild(oDiv);
+    oDiv.style.backgroundColor = sShadeBackgroundColor;
 }
 function writePageShade () {
-    let oBody = bodyDom();
+    if (checkExistShade(sIndexPage)) {
+        console.log('writePageShade checkExistShade id ' + sIndexPage + ' allready exist');
+        console.log('need to show');
+        return;
+    }
+
+    let oDom = getPublicShadeDom();
 
     let oDiv = writeShade(sIndexPage);
-    oBody.appendChild(oDiv);
+    oDom.appendChild(oDiv);
+    oDiv.style.backgroundColor = sShadeBackgroundColor;
 }
 function writeShade (sShadeId = '') {
     let oDiv = document.createElement('div');
@@ -1028,7 +1187,6 @@ function writeShade (sShadeId = '') {
     oDiv.style.top = '0px';
     oDiv.style.left = '0px';
     oDiv.style.zIndex = iShadeZIndex;
-    oDiv.style.backgroundColor = sShadeBackgroundColor;
     return oDiv;
 }
 
@@ -1100,6 +1258,8 @@ function baseBegin (bOnload = false) {
 }
 
 function afterLoadIndexJs () {
+    bFirstLoad = true;
+
     clearIndexShade();
 }
 
@@ -1118,6 +1278,12 @@ function winResize () {
 window.onload = baseBegin(true);
 
 window.onresize = function () {
+    if (!bFirstLoad) {
+        console.log('window load but use resize');
+        return false;
+    }
+    console.log('window resize');
+
     if (aBaseTimer['winResize']) {
         clearTimeout(aBaseTimer['winResize']);
     }

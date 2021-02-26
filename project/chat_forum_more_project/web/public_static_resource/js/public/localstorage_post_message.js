@@ -13,9 +13,10 @@ window.addEventListener('message',function(event){
         return false;
     }
 
-    // console.log('========================');
-    // console.log('收到' + event.origin);
-    // console.log(event.data);
+    console.log('#######################################');
+    console.log('收到' + event.origin + '消息');
+    console.log(event.data);
+    console.log('#######################################');
     // console.log(event.data.action);
 
     switch (event.data.action) {

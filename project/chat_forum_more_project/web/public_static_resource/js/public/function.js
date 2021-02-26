@@ -109,12 +109,14 @@ function queryUserLang () {
     queryLocalstorage(sLocalstorageLangTag, 'afterQueryLang');
 }
 function afterQueryLang (sLang = '') {
+    // console.log(sLang);
     if (sLang) {
         sUserLangvage = sLang;
     } else {
         sUserLangvage = sDefaultLangvage;
         setLang(sUserLangvage);
     }
+    // console.log(sUserLangvage);
 
     loadLang(sUserLangvage);
 }
@@ -201,8 +203,10 @@ window.addEventListener('message', function(event){
         return false;
     }
 
-    // console.log("收到" + event.origin + "消息：");
-    // console.log(event.data);
+    console.log('^^^^^^^^^^^^^^^^^^^^^');
+    console.log("收到" + event.origin + "消息：");
+    console.log(event.data);
+    console.log('^^^^^^^^^^^^^^^^^^^^^');
 
     window[event.data.after](event.data.message);
 }, false);
