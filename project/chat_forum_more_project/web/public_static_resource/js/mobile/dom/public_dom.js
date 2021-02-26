@@ -39,13 +39,13 @@ function writeFooter() {
 
     sInfo += '<ul>';
 
-    sInfo += writeOneFooter('public_foot1');
+    sInfo += writeOneFooter(sForumPage);
 
-    sInfo += writeOneFooter('public_foot2');
+    sInfo += writeOneFooter(sChatPage);
 
-    sInfo += writeOneFooter('public_foot3');
+    sInfo += writeOneFooter(sFriendPage);
 
-    sInfo += writeOneFooter('public_foot4');
+    sInfo += writeOneFooter(sSettingPage);
 
     sInfo += '</ul>';
 
@@ -56,7 +56,7 @@ function writeFooter() {
 }
 function writeOneFooter (sId = '') {
     let sInfo = '';
-    sInfo += '<li>';
+    sInfo += '<li id="' + sId + sFootTag + sFootLiSuffix + '" class="' + sFootTag + '">';
     sInfo += '<a href="">';
     sInfo += '<span class="' + sReLangClass + '" id="' + sId + '">';
     sInfo += typeof aLang[sId] !== 'undefined' ? aLang[sId] : aLang['langvage_error'];

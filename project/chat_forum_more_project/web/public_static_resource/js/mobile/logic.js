@@ -62,6 +62,7 @@ function localstorageDecodeValue (sValue = '') {
 function replaceLangs () {
     let aReLangDom = $('.' + sReLangClass);
     if (!aReLangDom.length) {
+        console.log('replaceLangs class ' + sReLangClass + ' dom no get');
         // setTimeoutFunction('replaceLangs');
         return false;
     }
@@ -75,9 +76,11 @@ function replaceLangs () {
 }
 
 function updateUrlToPage () {
-    console.log('jump');
-    console.log(sOrigin);
-    // console.log(queryOrigin());
+    let sPage = getNowPage();
+
+    let sTitle = aLang[sPage + '_title'];
+
+    updateUrlArg (sUrlAddressPageKey, sPage, sTitle, 'loadPageJs');
 }
 
 function logicBegin () {

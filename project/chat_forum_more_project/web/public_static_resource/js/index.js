@@ -6,7 +6,7 @@ const sLocalstorgaeUserPersonalizedColorKey = 'user_personlized_color';
 const iDefaultUserPersonalizedColor = 1;
 let iFontSize = 16;
 const oHtml = document.getElementsByTagName('html')[0];
-const oDomFatherId = 'page_dom';
+const oDomFatherId = 'dom_father';
 const sShadeIndex = 'index_shade';
 const sIndexPlatform = 'platform_shade';
 const sIndexPage = 'page_shade';
@@ -21,6 +21,19 @@ const sPublicLeftClass = 'public_left';
 const sPublicRightClass = 'public_right';
 const sPublicNoticeClass = 'public_notice';
 const sPublicShadeClass = 'public_shade';
+const sUrlAddressPageKey = 'page';
+const sDefaultPage = 'forum';
+const sForumPage = 'forum';
+const sChatPage = 'chat';
+const sFriendPage = 'friend';
+const sSettingPage = 'setting';
+const sFootTag = '_foot';
+const sFootLiSuffix = '_li';
+const sActiveFootTag = 'foot_active';
+const sUrlAddressSignKey = 'sign';
+const sUrlAddressSignEncodeSalt = '_&*uh124jKYUSa87123_';
+const sUrlAddressChangeTimeKey = 'change_time';
+const sDefaultPageHtml = 'index.html';
 let bFirstLoad = false; // 新打开窗口
 let iWinWidth = 0;
 let iWinHeight = 0;
@@ -185,6 +198,10 @@ let sBaseEncodeJsFullName = '';
 let sOriginJquery = '';
 let sCnLangs = '';
 let sEnLangs = '';
+let sForumFullJs = '';
+let sChatFullJs = '';
+let sFriendFullJs = '';
+let sSettingFullJs = '';
 function setJsPathAndVersion () {
     const sBaseJs = '/public_static_resource/js/public/base.js';
     // const sBaseVariableJs = '/public_static_resource/js/public/variable.js';
@@ -196,6 +213,10 @@ function setJsPathAndVersion () {
     const sCnLang = '/public_static_resource/js/lang/cn.js';
     const sEnLang = '/public_static_resource/js/lang/en.js';
     const sPlatformDomJs = '/public_static_resource/js/' + platformTag() + '/dom/public_dom.js';
+    const sForumJs = '/public_static_resource/js/' + platformTag() + '/page/forum.js';
+    const sChatJs = '/public_static_resource/js/' + platformTag() + '/page/chat.js';
+    const sFriendJs = '/public_static_resource/js/' + platformTag() + '/page/friend.js';
+    const sSettingJs = '/public_static_resource/js/' + platformTag() + '/page/setting.js';
 
     aJsVersion[sBaseJs] = '11111111111111111111111111111111';
     // aJsVersion[sBaseVariableJs] = '222222222222222222222222222222';
@@ -207,6 +228,10 @@ function setJsPathAndVersion () {
     aJsVersion[sCnLang] = '888888888888888888888';
     aJsVersion[sEnLang] = '9999999999999999999999999999';
     aJsVersion[sPlatformDomJs] = 'ssssssssssssssssssssssssssssssssssssssssssssssssss';
+    aJsVersion[sForumJs] = 'dasdasdasdasdasdadasdasd11111111';
+    aJsVersion[sChatJs] = '2222222222dfsdfsdfsdfsdfffffffffff';
+    aJsVersion[sFriendJs] = '333333333eeeeeeeeeeeeeeeeeeeee';
+    aJsVersion[sSettingJs] = '44444444444fewrrrrrrrrrrrrrrr';
 
     sOriginJquery = 'http://libs.baidu.com/jquery/2.0.0/jquery.min.js';
     aJsVersion[sOriginJquery] = 'dasdasdwqe214124';
@@ -222,7 +247,12 @@ function setJsPathAndVersion () {
     sCnLangs = setJsCssSrc('js', sCnLang);
     sEnLangs = setJsCssSrc('js', sEnLang);
     sPlatformDomJsFullName = setJsCssSrc('js', sPlatformDomJs);
+    sForumFullJs = setJsCssSrc('js', sForumJs);
+    sChatFullJs = setJsCssSrc('js', sChatJs);
+    sFriendFullJs = setJsCssSrc('js', sFriendJs);
+    sSettingFullJs = setJsCssSrc('js', sSettingJs);
 }
+
 const aCssVersion = []; // css 文件版本号
 let sResetCssFullPath = '';
 let sPublicCssFullPath = '';
@@ -328,6 +358,70 @@ function loadBaseJs () {
     loadPlatformDomJs();
 
     loadBaseFunctionJs();
+}
+
+let bInLoadPageJs = false;
+function loadPageJs () {
+    if (bInLoadPageJs) {
+        console.log('loadPageJs bInLoadPageJs in load');
+        return ;
+    }
+    bInLoadPageJs = true;
+
+    let sPage = getNowPage();
+
+    let sPageJs = '';
+    switch (sPage) {
+        case sForumPage:
+            sPageJs = sForumFullJs;
+            break;
+        case sChatPage:
+            sPageJs = sChatFullJs;
+            break;
+        case sFriendPage:
+            sPageJs = sFriendFullJs;
+            break;
+        case sSettingPage:
+            sPageJs = sSettingFullJs;
+            break;
+    }
+
+    if (!sPageJs) {
+        console.log('loadPageJs sPageJs is null');
+        return false;
+    }
+
+    if (!checkRequestJsCssLimit('js', 'loadPageJs_' + sPageJs)) {
+        console.log('loadPageJs checkRequestJsCssLimit loadPageJs_' + sPageJs);
+        return false;
+    }
+
+    writePageShade();
+
+    loadJs(sPageJs, true, 'afterLoadPageJs');
+}
+function afterLoadPageJs () {
+    bInLoadPageJs = false;
+
+    let sPage = getNowPage();
+
+    let oFootActive = document.getElementById(sPage + sFootTag + sFootLiSuffix);
+    if (!oFootActive) {
+        console.log('afterLoadPageJs oFootActive is null');
+        return false;
+    }
+    oFootActive.className += ' ' + sActiveFootTag;
+
+    let oFooters = document.getElementsByClassName(sFootTag);
+    if (oFooters.length) {
+        let sRemoveClass = '';
+        for (let i in oFooters) {
+            sRemoveClass = sRemoveClass.replace(sActiveFootTag, '');
+            oFooters[i].setAttribute('class', sRemoveClass);
+        }
+    }
+
+    clearPageShade();
 }
 
 function loadBaseCss () {
@@ -1124,6 +1218,7 @@ function shade () {
         setTimeoutFunction('shade');
         return;
     }
+    console.log('shade checkExistPublicShadeDom is true');
 
     writeIndexShade();
 
@@ -1165,10 +1260,14 @@ function writePlatformShade () {
     oDom.appendChild(oDiv);
     oDiv.style.backgroundColor = sShadeBackgroundColor;
 }
+function showPageShade () {
+    let oDiv = document.createElement('div');
+    animates(oDiv, {top: iBottomHiddenHeight}, iSpeed);
+}
 function writePageShade () {
     if (checkExistShade(sIndexPage)) {
         console.log('writePageShade checkExistShade id ' + sIndexPage + ' allready exist');
-        console.log('need to show');
+        showPageShade();
         return;
     }
 
@@ -1177,6 +1276,14 @@ function writePageShade () {
     let oDiv = writeShade(sIndexPage);
     oDom.appendChild(oDiv);
     oDiv.style.backgroundColor = sShadeBackgroundColor;
+}
+function clearPageShade () {
+    let oDiv = document.getElementById(sIndexPage);
+    if (!oDiv) {
+        return;
+    }
+
+    animates(oDiv, {top: iBottomHiddenHeight}, iSpeed);
 }
 function writeShade (sShadeId = '') {
     let oDiv = document.createElement('div');
@@ -1199,12 +1306,16 @@ function astrict () {
 
     if (!isMobile()) {
         alert('The computer side is not enabled yet');
-        window.location.href = sAstrictJumpUrl;
 
+        illegality();
         return false;
     }
 
     return true;
+}
+
+function illegality () {
+    window.location.href = sAstrictJumpUrl;
 }
 
 function baseBegin (bOnload = false) {

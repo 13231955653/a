@@ -5595,7 +5595,6 @@ function confuseStringEncode (sString = '') {
 
     return sString;
 }
-
 function confuseStringDecode (sString = '') {
     if (!isRealString(sString)) {
         console.log('confuseStringDecode sString is not real string');
@@ -5641,4 +5640,40 @@ function binaryToStr(str){
         result.push(charValue);
     }
     return result.join('');
+}
+
+function urlEncode (sString = '') {
+    if (!sString) {
+        console.log('urlEncode sString is null');
+        return '';
+    }
+
+    sString = confuseStringEncode(sString);
+
+    let sEncodeString = '';
+    try {
+        sEncodeString = window.btoa(sString);
+    } catch (e) {
+        sEncodeString = '';
+    }
+
+    return sEncodeString;
+}
+
+function urlDecode (sString = '') {
+    if (!sString) {
+        console.log('urlDecode sString is null');
+        return '';
+    }
+
+    let sDecodeString = '';
+    try {
+        sDecodeString = window.atob(sString);
+
+        sDecodeString = confuseStringDecode(sDecodeString);
+    } catch (e) {
+        sDecodeString = '';
+    }
+
+    return sDecodeString;
 }

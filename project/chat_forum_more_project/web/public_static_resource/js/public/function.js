@@ -121,6 +121,157 @@ function afterQueryLang (sLang = '') {
     loadLang(sUserLangvage);
 }
 
+function getNowPage () {
+    let sPage = getUrlArgs('page');
+
+    return sPage ? sPage : sDefaultPage;
+}
+
+function arrayDelValByKey (aArray = [], sKey = '') {
+    if (!aArray || !sKey) {
+        console.log('arrayDelValByKey aArray or sKey is null');
+        return '';
+    }
+    for (let i in aArray) {
+        if (i !== sKey) {
+            continue;
+        }
+
+        delete aArray[sKey];
+    }
+
+    return aArray;
+}
+
+function getUrlArgs (sGetWhat = '') {
+    let sHref = window.location.href;
+
+    let aHref = sHref.split('?');
+    if (aHref.length < 2) {
+        console.log('getUrlArgs aHref.length < 2');
+        return sGetWhat ? '' : [];
+    }
+
+    let sArg = aHref[1];
+    sArg = urlDecode(sArg);
+    if (sArg) {
+        let aArg = sArg.split('&');
+        let aUrlArgs = [];
+        let aOneArg = [];
+        for (let i in aArg) {
+            aOneArg = aArg[i].split('=');
+            aUrlArgs[aOneArg[0]] = aOneArg[1];
+        }
+
+        if (!checkUrlSign(aUrlArgs)) {
+            console.log('do not change url args');
+            // alert('do not change url args');
+            //
+            // illegality();
+            return sGetWhat ? '' : [];
+        }
+
+        return sGetWhat ? (typeof aUrlArgs[sGetWhat] !== 'undefined' ? aUrlArgs[sGetWhat] : '') : aUrlArgs;
+    }
+
+    return sGetWhat ? '' : [];
+}
+
+function checkUrlSign (aUrlArgs = []) {
+    if (!aUrlArgs) {
+        console.log('checkUrlSign aUrlArgs is null');
+        return false;
+    }
+
+    let sSign = urlSign(aUrlArgs);
+
+    return sSign === aUrlArgs[sUrlAddressSignKey];
+}
+function urlSign (aUrlArgs = []) {
+    if (!aUrlArgs) {
+        console.log('urlSign aUrlArgs is null');
+        return '';
+    }
+
+    aUrlArgs.sort();
+
+    let sArg = '';
+    for (let i in aUrlArgs) {
+        if (i !== sUrlAddressSignKey) {
+            sArg += i + '=' + aUrlArgs[i] + '&';
+        }
+    }
+    sArg = sArg.substr(0, sArg.length - 1);
+
+    let sSign = hex_md5(sUrlAddressSignEncodeSalt + hex_md5(sArg + sUrlAddressSignEncodeSalt));
+    sSign = sSign.toLowerCase();
+
+    return sSign;
+}
+
+// 改变url 地址栏
+function updateUrlArg (sArgKey = '', sArgValue = '', sTitle = '', callback = false) {
+    if (!sArgKey || !sArgValue) {
+        console.log('updateUrlArg sArgKey or sArgValue is null');
+        return false;
+    }
+
+    let oLocation = window.location;
+
+    let sPageHtml = oLocation.pathname;
+    sPageHtml = sPageHtml !== '/' ? sPageHtml : '';
+    sPageHtml = sPageHtml ? sPageHtml : '/' + sDefaultPageHtml;
+
+    let sHref = oLocation.origin + sPageHtml;
+
+    let aArg = getUrlArgs();
+
+    aArg[sArgKey] = sArgValue;
+    if (typeof aArg[sUrlAddressPageKey] === 'undefined') {
+        aArg[sUrlAddressPageKey] = sDefaultPage;
+    }
+    aArg = arrayDelValByKey(aArg, sUrlAddressChangeTimeKey);
+    aArg = arrayDelValByKey(aArg, sUrlAddressSignKey);
+
+    aArg[sUrlAddressChangeTimeKey] = getNowTime();
+
+    let sArg = '';
+    for (let i in aArg) {
+        if (i === sArgKey) {
+            aArg[i] = sArgValue;
+        }
+
+        sArg += i + '=' + aArg[i] + '&';
+    }
+
+    sArg = sArg + sUrlAddressSignKey + '=' + urlSign(aArg);
+    sArg = urlEncode(sArg);
+
+    let sChangeUrl = sHref + '?' + sArg;
+
+    let stateObject = {};
+    window.history.pushState(stateObject, sTitle, sChangeUrl);
+
+    setPageTitle(sTitle);
+
+    if (callback) {
+        window[callback]();
+    }
+}
+
+function setPageTitle (sTitle = '') {
+    if (!sTitle) {
+        console.log('setPageTitle sTitle is null');
+        return false;
+    }
+
+    document.title = sTitle;
+}
+
+// window.onpopstate = function(event) {
+//     console.log("location: " + document.location + ", state: " + JSON.stringify(event.state));
+// };
+
 function queryLocalstorage (sKey = '', sAfterFunc = '') {
     if (!sKey || !sAfterFunc) {
         console.log('queryLocalstorage sKey or sAfterFunc is null');

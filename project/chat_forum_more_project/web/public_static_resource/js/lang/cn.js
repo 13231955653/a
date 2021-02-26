@@ -1,6 +1,10 @@
 var aLang = [];
 aLang['langvage_error'] = '语言错误';
-aLang['public_foot1'] = '脚1';
-aLang['public_foot2'] = '脚2';
-aLang['public_foot3'] = '脚3';
-aLang['public_foot4'] = '脚4';
+aLang['forum_foot'] = '脚1';
+aLang['chat_foot'] = '脚2';
+aLang['friend_foot'] = '脚3';
+aLang['setting_foot'] = '脚4';
+aLang['forum_title'] = '标题11111';
+aLang['chat_title'] = '标题2222';
+aLang['friend_title'] = '标题3333';
+aLang['setting_title'] = '标题44444';
