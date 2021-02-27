@@ -59,7 +59,7 @@ function writeOneFooter (sId = '') {
 
     let sInfo = '';
     sInfo += '<li id="' + sId + sFootTag + sFootLiSuffix + '" class="' + sFootTag + '">';
-    sInfo += '<a href="">';
+    sInfo += '<a href="javascript:void(0);" onclick="' + aFooterAction[sId] + '">';
     sInfo += '<span class="' + sReLangClass + '" id="' + sLang + '">';
     sInfo += typeof aLang[sLang] !== 'undefined' ? aLang[sLang] : aLang['langvage_error'];
     sInfo += '</span>';

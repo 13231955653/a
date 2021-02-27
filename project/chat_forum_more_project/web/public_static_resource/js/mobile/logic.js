@@ -75,16 +75,33 @@ function replaceLangs () {
     }
 }
 
-function updateUrlToPage () {
-    let sPage = getNowPage();
+function uodateUrlPageArg (sPage = '') {
+    writePageShade();
+
+    updateUrlPage(sPage);
+}
+
+let aAllreadyLoadPageJs = [];
+function updateUrlPage (sPage = '') {
+    sPage = sPage ? sPage : getNowPage();
 
     let sTitle = aLang[sPage + '_title'];
 
-    updateUrlArg (sUrlAddressPageKey, sPage, sTitle, 'loadPageJs');
+    let sAfterFunc = '';
+    if (typeof aAllreadyLoadPageJs[sPage] === 'undefined') {
+        sAfterFunc = 'loadPageJs';
+    } else {
+        sAfterFunc = 'afterLoadPageJs';
+    }
+    aAllreadyLoadPageJs[sPage] = getNowTime();
+
+    updateUrlArg (sUrlAddressPageKey, sPage, sTitle, sAfterFunc);
 }
 
 function logicBegin () {
+    showPageShade();
+
     writePublicDom();
 
-    updateUrlToPage();
+    updateUrlPage();
 }

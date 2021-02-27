@@ -12,8 +12,8 @@ const sIndexPlatform = 'platform_shade';
 const sIndexPage = 'page_shade';
 const iMaxZIndex = 2000000001;
 let iShadeZIndexBeginIndex = 1000000000;
-const sShadeBackgroundColor = '#e7e6cb';
-const iSpeed = 1000;
+// const sShadeBackgroundColor = '#e7e6cb';
+const iSpeed = 300;
 const sPublicFootClass = 'public_footer';
 const sPublicHeaderClass = 'public_header';
 const sPublicBodyClass = 'public_body';
@@ -21,12 +21,19 @@ const sPublicLeftClass = 'public_left';
 const sPublicRightClass = 'public_right';
 const sPublicNoticeClass = 'public_notice';
 const sPublicShadeClass = 'public_shade';
+const sShadeClass = 'shades';
 const sUrlAddressPageKey = 'page';
 const sDefaultPage = 'forum';
 const sForumPage = 'forum';
 const sChatPage = 'chat';
 const sFriendPage = 'friend';
 const sSettingPage = 'setting';
+const a3 = [];
+a3[sForumPage] = "uodateUrlPageArg('" + sForumPage + "')";
+a3[sChatPage] = "uodateUrlPageArg('" + sChatPage + "')";
+a3[sFriendPage] = "uodateUrlPageArg('" + sFriendPage + "')";
+a3[sSettingPage] = "uodateUrlPageArg('" + sSettingPage + "')";
+const aFooterAction = a3;
 const sFootTag = '_foot';
 const sFootLiSuffix = '_li';
 const sActiveFootTag = 'foot_active';
@@ -396,6 +403,8 @@ function loadPageJs () {
         return false;
     }
 
+    changeDomFatherOpacity();
+
     writePageShade();
 
     loadJs(sPageJs, true, 'afterLoadPageJs');
@@ -424,6 +433,8 @@ function afterLoadPageJs () {
     }
 
     oFootActive.className += ' ' + sActiveFootTag;
+
+    changeDomFatherOpacity(true);
 
     clearPageShade();
 }
@@ -1174,31 +1185,6 @@ function animates (obj = false, params = false, iSpeed1 = false, callback = fals
     jsAnimate (obj, params, parseInt(iSpeed1 / 20));
 }
 
-function clearIndexShade () {
-    let oDiv = document.getElementById(sShadeIndex);
-    if (!oDiv) {
-        return;
-    }
-
-    // animates(oDiv, {opacity: 0}, iSpeed, function () {
-    //     animates(oDiv, {top: iBottomHiddenHeight}, iSpeed);
-    // });
-    clearShade(oDiv);
-}
-
-function clearPlatformShade () {
-    let oDiv = document.getElementById(sIndexPlatform);
-    if (!oDiv) {
-        return;
-    }
-
-    // animates(oDiv, {top: iBottomHiddenHeight}, iSpeed);
-    // animates(oDiv, {opacity: 0}, iSpeed, function () {
-    //     animates(oDiv, {top: iBottomHiddenHeight}, iSpeed);
-    // });
-    clearShade(oDiv);
-}
-
 function getPublicShadeDom () {
     let oDom = document.getElementById(sPublicShadeClass);
     return oDom !== null ? oDom : false;
@@ -1214,6 +1200,7 @@ function writePublicShade () {
 
     oDiv = document.createElement('div');
     oDiv.id = sPublicShadeClass;
+    // oDiv.className = sShadeClass;
 
     let oDom = bodyDom();
     oDom.appendChild(oDiv);
@@ -1288,26 +1275,19 @@ function writePageShade (callbakc = false) {
         window[callbakc]();
     }
 }
-function clearPageShade () {
-    let oDiv = document.getElementById(sIndexPage);
-    if (!oDiv) {
-        return;
-    }
-
-    clearShade(oDiv);
-}
 function writeShade (sShadeId = '') {
     iShadeZIndexBeginIndex += parseInt(1);
 
     let oDiv = document.createElement('div');
     oDiv.id = sShadeId;
-    oDiv.style.width = iWinWidth + 'px';
-    oDiv.style.height = iWinHeight + 'px';
-    oDiv.style.position = 'absolute';
-    oDiv.style.top = '0px';
-    oDiv.style.left = '0px';
+    oDiv.className = sShadeClass;
+    // oDiv.style.width = '100%';
+    // oDiv.style.height = '100%';
+    // oDiv.style.position = 'absolute';
+    // oDiv.style.top = '0px';
+    // oDiv.style.left = '0px';
     oDiv.style.zIndex = iShadeZIndexBeginIndex;
-    oDiv.style.backgroundColor = sShadeBackgroundColor;
+    // oDiv.style.backgroundColor = 'green';
     return oDiv;
 }
 function appendShade (oDiv = false) {
@@ -1318,8 +1298,10 @@ function appendShade (oDiv = false) {
 
     let oDom = getPublicShadeDom();
     oDom.appendChild(oDiv);
-    oDiv.style.backgroundColor = sShadeBackgroundColor;
+    // oDiv.style.backgroundColor = sShadeBackgroundColor;
 }
+// let clearShadeTimer1 = false;
+// let clearShadeTimer2 = false;
 function clearShade (oDiv = false) {
     if (!oDiv) {
         console.log('clearShade oDiv is null');
@@ -1328,18 +1310,50 @@ function clearShade (oDiv = false) {
 
     animates(oDiv, {opacity: 0}, iSpeed, function () {
         animates(oDiv, {top: iBottomHiddenHeight}, iSpeed, function () {
-            console.log(oDiv);
-            makeZeroZindex(oDiv);
+            oDiv.style.zIndex = 0;
         });
     });
+    // clearShadeTimer1 = setTimeout(function () {
+    //     animates(oDiv, {opacity: 0}, iSpeed, function () {
+    //         clearTimeout(clearShadeTimer1);
+    //     });
+    // }, 1);
+    // clearShadeTimer2 = setTimeout(function () {
+    //     animates(oDiv, {top: iBottomHiddenHeight}, iSpeed, function () {
+    //         oDiv.style.zIndex = 0;
+    //         clearTimeout(clearShadeTimer2);
+    //     });
+    // }, 2);
 }
-function makeZeroZindex (oDiv = false) {
+function clearIndexShade () {
+    let oDiv = document.getElementById(sShadeIndex);
     if (!oDiv) {
-        console.log('makeZeroZindex oDiv is null, so no to do');
         return;
     }
 
-    oDiv.style.ZIndex = 0;
+    clearShade(oDiv);
+}
+function clearPlatformShade () {
+    let oDiv = document.getElementById(sIndexPlatform);
+    if (!oDiv) {
+        return;
+    }
+
+    clearShade(oDiv);
+}
+function clearPageShade () {
+    let oDiv = document.getElementById(sIndexPage);
+    if (!oDiv) {
+        return;
+    }
+
+    clearShade(oDiv);
+}
+function changeDomFatherOpacity (bShow = false) {
+    // let oBody = bodyDom();
+    //
+    // let iOpacity = bShow ? 100 : 0;
+    // animates(oBody, {opacity: iOpacity}, iSpeed);
 }
 
 function showShade (oDiv = false) {
@@ -1347,10 +1361,14 @@ function showShade (oDiv = false) {
         console.log('showShade oDiv is null, so no to do');
         return;
     }
+    console.log('showShade ' + oDiv.id);
 
-    animates(oDiv, {top: 0}, iSpeed, function () {
-        animates(oDiv, {opacity: 100}, iSpeed);
-    });
+    iShadeZIndexBeginIndex += parseInt(1);
+
+    oDiv.style.top = '0px';
+    oDiv.style.zIndex = iShadeZIndexBeginIndex;
+
+    animates(oDiv, {opacity: 100}, iSpeed);
 }
 
 let bNoticeAstrict = false;
