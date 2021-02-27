@@ -355,7 +355,7 @@ window.addEventListener('message', function(event){
     }
 
     console.log('^^^^^^^^^^^^^^^^^^^^^');
-    console.log("收到" + event.origin + "消息：");
+    console.log('get form ' + event.origin + ' message, will to do after load localstorage function');
     console.log(event.data);
     console.log('^^^^^^^^^^^^^^^^^^^^^');
 
@@ -364,7 +364,7 @@ window.addEventListener('message', function(event){
 
 function setLang (sLang = '') {
     if (!sLang) {
-        console.log('setLang sLang is null');
+        console.log('setLang sLang is null, so no to do');
         return false;
     }
 

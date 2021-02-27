@@ -14,7 +14,7 @@ window.addEventListener('message',function(event){
     }
 
     console.log('#######################################');
-    console.log('收到' + event.origin + '消息');
+    console.log('get form ' + event.origin + ' message, will cache localstorage');
     console.log(event.data);
     console.log('#######################################');
     // console.log(event.data.action);

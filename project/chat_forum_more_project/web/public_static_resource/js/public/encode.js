@@ -5672,6 +5672,7 @@ function urlDecode (sString = '') {
 
         sDecodeString = confuseStringDecode(sDecodeString);
     } catch (e) {
+        console.log(e);
         sDecodeString = '';
     }
 

@@ -55,11 +55,13 @@ function writeFooter() {
     $(oBody).append(sInfo);
 }
 function writeOneFooter (sId = '') {
+    let sLang = sId + sFootTag;
+
     let sInfo = '';
     sInfo += '<li id="' + sId + sFootTag + sFootLiSuffix + '" class="' + sFootTag + '">';
     sInfo += '<a href="">';
-    sInfo += '<span class="' + sReLangClass + '" id="' + sId + '">';
-    sInfo += typeof aLang[sId] !== 'undefined' ? aLang[sId] : aLang['langvage_error'];
+    sInfo += '<span class="' + sReLangClass + '" id="' + sLang + '">';
+    sInfo += typeof aLang[sLang] !== 'undefined' ? aLang[sLang] : aLang['langvage_error'];
     sInfo += '</span>';
     sInfo += '</a>';
     sInfo += '</li>';

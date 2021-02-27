@@ -11,8 +11,8 @@ const sShadeIndex = 'index_shade';
 const sIndexPlatform = 'platform_shade';
 const sIndexPage = 'page_shade';
 const iMaxZIndex = 2000000001;
-const iShadeZIndex = 2000000000;
-const sShadeBackgroundColor = 'rgb(231, 230, 203)';
+let iShadeZIndexBeginIndex = 1000000000;
+const sShadeBackgroundColor = '#e7e6cb';
 const iSpeed = 1000;
 const sPublicFootClass = 'public_footer';
 const sPublicHeaderClass = 'public_header';
@@ -363,7 +363,7 @@ function loadBaseJs () {
 let bInLoadPageJs = false;
 function loadPageJs () {
     if (bInLoadPageJs) {
-        console.log('loadPageJs bInLoadPageJs in load');
+        console.log('loadPageJs bInLoadPageJs in load, so no to do');
         return ;
     }
     bInLoadPageJs = true;
@@ -387,12 +387,12 @@ function loadPageJs () {
     }
 
     if (!sPageJs) {
-        console.log('loadPageJs sPageJs is null');
+        console.log('loadPageJs sPageJs is null, no to do');
         return false;
     }
 
     if (!checkRequestJsCssLimit('js', 'loadPageJs_' + sPageJs)) {
-        console.log('loadPageJs checkRequestJsCssLimit loadPageJs_' + sPageJs);
+        console.log('loadPageJs checkRequestJsCssLimit loadPageJs_' + sPageJs + ', limit, so no to load');
         return false;
     }
 
@@ -407,19 +407,23 @@ function afterLoadPageJs () {
 
     let oFootActive = document.getElementById(sPage + sFootTag + sFootLiSuffix);
     if (!oFootActive) {
-        console.log('afterLoadPageJs oFootActive is null');
+        console.log('afterLoadPageJs oFootActive is null, no to do');
         return false;
     }
-    oFootActive.className += ' ' + sActiveFootTag;
 
     let oFooters = document.getElementsByClassName(sFootTag);
     if (oFooters.length) {
-        let sRemoveClass = '';
+        let sPreg = new RegExp('\\s+' + sActiveFootTag,'gm');
         for (let i in oFooters) {
-            sRemoveClass = sRemoveClass.replace(sActiveFootTag, '');
-            oFooters[i].setAttribute('class', sRemoveClass);
+            if (!oFooters[i].className) {
+                continue;
+            }
+
+            oFooters[i].className = oFooters[i].className.toString().replace(sPreg, '');
         }
     }
+
+    oFootActive.className += ' ' + sActiveFootTag;
 
     clearPageShade();
 }
@@ -440,21 +444,21 @@ function loadPersonalizedCss (sPersonlizedColor1 = false) {
     }
 
     if (typeof window['queryUserPersonalizedColor'] === 'undefined') {
-        console.log('function.js queryUserPersonalizedColor no load');
+        console.log('function.js queryUserPersonalizedColor no load, settiomeout retry');
         setTimeoutFunction('loadPersonalizedCss');
         return;
     }
-    console.log('function.js queryUserPersonalizedColor is load');
+    console.log('function.js queryUserPersonalizedColor is load, will get user personlized color css id');
 
     let sPersonalizedColor = sPersonlizedColor1 ? sPersonlizedColor1 : queryUserPersonalizedColor();
     // console.log(sPersonalizedColor);
     if (!sPersonalizedColor) {
-        console.log('loadPersonalizedCss sPersonalizedColor id null');
+        console.log('loadPersonalizedCss sPersonalizedColor id null, settiomeout retry');
         setTimeoutFunction('loadPersonalizedCss');
         return;
     }
     bLoadPersonalizedCss = true;
-    console.log('loadPersonalizedCss sPersonalizedColor id is get');
+    console.log('loadPersonalizedCss sPersonalizedColor id is get, will load user personlized color css');
 
     if (!checkRequestJsCssLimit('css', 'loadPersonalizedCss')) {
         return false;
@@ -1163,14 +1167,10 @@ function animates (obj = false, params = false, iSpeed1 = false, callback = fals
     }
 
     if (typeof jQuery !== undefined) {
-        // console.log('jquery');
         $(obj).animate(params, iSpeed1, callback);
         return;
     }
 
-    // console.log('no jquery');
-    // jsAnimate (obj, params, iSpeed1)
-    // console.log(iSpeed1);
     jsAnimate (obj, params, parseInt(iSpeed1 / 20));
 }
 
@@ -1180,7 +1180,10 @@ function clearIndexShade () {
         return;
     }
 
-    animates(oDiv, {top: iBottomHiddenHeight}, iSpeed);
+    // animates(oDiv, {opacity: 0}, iSpeed, function () {
+    //     animates(oDiv, {top: iBottomHiddenHeight}, iSpeed);
+    // });
+    clearShade(oDiv);
 }
 
 function clearPlatformShade () {
@@ -1189,7 +1192,11 @@ function clearPlatformShade () {
         return;
     }
 
-    animates(oDiv, {top: iBottomHiddenHeight}, iSpeed);
+    // animates(oDiv, {top: iBottomHiddenHeight}, iSpeed);
+    // animates(oDiv, {opacity: 0}, iSpeed, function () {
+    //     animates(oDiv, {top: iBottomHiddenHeight}, iSpeed);
+    // });
+    clearShade(oDiv);
 }
 
 function getPublicShadeDom () {
@@ -1213,12 +1220,12 @@ function writePublicShade () {
 }
 function shade () {
     if (!checkExistPublicShadeDom()) {
-        console.log('shade checkExistPublicShadeDom is false');
+        console.log('shade checkExistPublicShadeDom is false, no father to append shade, will write public shade father, wait write shade');
         writePublicShade();
         setTimeoutFunction('shade');
         return;
     }
-    console.log('shade checkExistPublicShadeDom is true');
+    console.log('shade checkExistPublicShadeDom is true, will write son shade');
 
     writeIndexShade();
 
@@ -1236,46 +1243,50 @@ function checkExistShade (sShadeId = '') {
 }
 function writeIndexShade () {
     if (checkExistShade(sShadeIndex)) {
-        console.log('writeIndexShade checkExistShade id ' + sShadeIndex + ' allready exist');
+        console.log('writeIndexShade checkExistShade id ' + sShadeIndex + ' allready exist, so no write and now to show');
         console.log('need to show');
         return;
     }
 
-    let oDom = getPublicShadeDom();
-
     let oDiv = writeShade(sShadeIndex);
-    oDom.appendChild(oDiv);
-    oDiv.style.backgroundColor = sShadeBackgroundColor;
+    appendShade(oDiv);
 }
 function writePlatformShade () {
     if (checkExistShade(sIndexPlatform)) {
-        console.log('writePlatformShade checkExistShade id ' + sIndexPlatform + ' allready exist');
+        console.log('writePlatformShade checkExistShade id ' + sIndexPlatform + ' allready exist, so no write and now to show');
         console.log('need to show');
         return;
     }
 
-    let oDom = getPublicShadeDom();
-
     let oDiv = writeShade(sIndexPlatform);
-    oDom.appendChild(oDiv);
-    oDiv.style.backgroundColor = sShadeBackgroundColor;
+    appendShade(oDiv);
 }
 function showPageShade () {
-    let oDiv = document.createElement('div');
-    animates(oDiv, {top: iBottomHiddenHeight}, iSpeed);
+    // let oDiv = document.createElement('div');
+    // animates(oDiv, {top: iBottomHiddenHeight}, iSpeed);
+    let oDiv = document.getElementById(sIndexPage);
+    if (!oDiv) {
+        console.log('showPageShade page shade dom no get, will to write page shade and retry');
+
+        writePageShade('writePageShade');
+        return;
+    }
+
+    showShade(oDiv);
 }
-function writePageShade () {
+function writePageShade (callbakc = false) {
     if (checkExistShade(sIndexPage)) {
-        console.log('writePageShade checkExistShade id ' + sIndexPage + ' allready exist');
+        console.log('writePageShade checkExistShade id ' + sIndexPage + ' allready exist, so no write and now to show');
         showPageShade();
         return;
     }
 
-    let oDom = getPublicShadeDom();
-
     let oDiv = writeShade(sIndexPage);
-    oDom.appendChild(oDiv);
-    oDiv.style.backgroundColor = sShadeBackgroundColor;
+    appendShade(oDiv);
+
+    if (callbakc) {
+        window[callbakc]();
+    }
 }
 function clearPageShade () {
     let oDiv = document.getElementById(sIndexPage);
@@ -1283,9 +1294,11 @@ function clearPageShade () {
         return;
     }
 
-    animates(oDiv, {top: iBottomHiddenHeight}, iSpeed);
+    clearShade(oDiv);
 }
 function writeShade (sShadeId = '') {
+    iShadeZIndexBeginIndex += parseInt(1);
+
     let oDiv = document.createElement('div');
     oDiv.id = sShadeId;
     oDiv.style.width = iWinWidth + 'px';
@@ -1293,8 +1306,51 @@ function writeShade (sShadeId = '') {
     oDiv.style.position = 'absolute';
     oDiv.style.top = '0px';
     oDiv.style.left = '0px';
-    oDiv.style.zIndex = iShadeZIndex;
+    oDiv.style.zIndex = iShadeZIndexBeginIndex;
+    oDiv.style.backgroundColor = sShadeBackgroundColor;
     return oDiv;
+}
+function appendShade (oDiv = false) {
+    if (!oDiv) {
+        console.log('appendShade oDiv is null');
+        return;
+    }
+
+    let oDom = getPublicShadeDom();
+    oDom.appendChild(oDiv);
+    oDiv.style.backgroundColor = sShadeBackgroundColor;
+}
+function clearShade (oDiv = false) {
+    if (!oDiv) {
+        console.log('clearShade oDiv is null');
+        return;
+    }
+
+    animates(oDiv, {opacity: 0}, iSpeed, function () {
+        animates(oDiv, {top: iBottomHiddenHeight}, iSpeed, function () {
+            console.log(oDiv);
+            makeZeroZindex(oDiv);
+        });
+    });
+}
+function makeZeroZindex (oDiv = false) {
+    if (!oDiv) {
+        console.log('makeZeroZindex oDiv is null, so no to do');
+        return;
+    }
+
+    oDiv.style.ZIndex = 0;
+}
+
+function showShade (oDiv = false) {
+    if (!oDiv) {
+        console.log('showShade oDiv is null, so no to do');
+        return;
+    }
+
+    animates(oDiv, {top: 0}, iSpeed, function () {
+        animates(oDiv, {opacity: 100}, iSpeed);
+    });
 }
 
 let bNoticeAstrict = false;
@@ -1305,7 +1361,7 @@ function astrict () {
     bNoticeAstrict = true;
 
     if (!isMobile()) {
-        alert('The computer side is not enabled yet');
+        alert('The computer side is not enabled yet, will jump to ' + sAstrictJumpUrl);
 
         illegality();
         return false;
@@ -1318,54 +1374,71 @@ function illegality () {
     window.location.href = sAstrictJumpUrl;
 }
 
+function initializeBody () {
+    // console.log('ssssssssssssssssssss');
+    // let
+}
+
 function baseBegin (bOnload = false) {
-    if (bOnload) {
-        winResize();
+    try {
+        if (bOnload) {
+            initializeBody();
 
-        setHosts();
+            winResize();
 
-        setStaticResouresPathVersion();
+            setHosts();
 
-        setLocalstorageOrigins();
+            setStaticResouresPathVersion();
 
-        setTimeoutFunction('baseBegin');
+            setLocalstorageOrigins();
 
-        return false;
-    }
+            setTimeoutFunction('baseBegin');
 
-    loadBaseCss();
-
-    loadBaseJs();
-
-    if (typeof jQuery === 'undefined') {
-        if (getNowTime() - iLoadOriginJqueryLastTime > iMaxLoadOriginJqueryWaitTime) {
-            loadLocalJquery();
+            return false;
         }
 
-        setTimeoutFunction('baseBegin');
-        return;
+        loadBaseCss();
+
+        loadBaseJs();
+
+        if (typeof jQuery === 'undefined') {
+            if (getNowTime() - iLoadOriginJqueryLastTime > iMaxLoadOriginJqueryWaitTime) {
+                loadLocalJquery();
+            }
+
+            setTimeoutFunction('baseBegin');
+            return;
+        }
+
+        if (typeof window['queryUserLang'] === 'undefined') {
+            setTimeoutFunction('baseBegin');
+            return;
+        }
+
+        queryUserLang();
+
+        if (typeof aLang === 'undefined') {
+            setTimeoutFunction('baseBegin');
+            return;
+        }
+
+        if (typeof window['logicBegin'] === 'undefined') {
+            setTimeoutFunction('baseBegin');
+            return;
+        }
+
+        afterLoadIndexJs();
+
+        logicBegin(true);
+    } catch (e) {
+        console.log('catch exception');
+        console.log(e);
+        console.log('catch exception');
     }
+}
 
-    if (typeof window['queryUserLang'] === 'undefined') {
-        setTimeoutFunction('baseBegin');
-        return;
-    }
-
-    queryUserLang();
-
-    if (typeof aLang === 'undefined') {
-        setTimeoutFunction('baseBegin');
-        return;
-    }
-
-    if (typeof window['logicBegin'] === 'undefined') {
-        setTimeoutFunction('baseBegin');
-        return;
-    }
-
-    afterLoadIndexJs();
-
-    logicBegin(true);
+function exceptionHandle () {
+    console.log('exceptionHandle exception handle, no do will to do');
 }
 
 function afterLoadIndexJs () {
@@ -1390,10 +1463,10 @@ window.onload = baseBegin(true);
 
 window.onresize = function () {
     if (!bFirstLoad) {
-        console.log('window load but use resize');
+        console.log('window load but use resize, no use resize function');
         return false;
     }
-    console.log('window resize');
+    console.log('window resize, will do resize function');
 
     if (aBaseTimer['winResize']) {
         clearTimeout(aBaseTimer['winResize']);

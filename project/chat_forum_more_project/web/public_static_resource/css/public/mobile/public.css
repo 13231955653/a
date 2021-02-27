@@ -1,6 +1,11 @@
 #dom_father{
     width: 100%;
     height: 100%;
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+    opacity:0;
+    filter:alpha(opacity=0); /* 针对 IE8 以及更早的版本 */
 }
 #public_footer{
     width: 100%;

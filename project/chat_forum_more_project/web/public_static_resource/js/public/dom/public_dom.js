@@ -12,7 +12,7 @@ function writePublicDom() {
     writeNotice();
 
     if (!checkAllreadyWritePublicDom) {
-        console.log('writePublicDom checkAllreadyWritePublicDom is false');
+        console.log('writePublicDom checkAllreadyWritePublicDom is false, settimeout retry');
         setTimeoutFunction('writePublicDom');
         return;
     }

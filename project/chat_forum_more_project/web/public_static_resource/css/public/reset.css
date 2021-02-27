@@ -22,8 +22,14 @@ article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
     display: block;
 }
+html {
+    color: var(--default_html_font_color);
+    background: var(--eyeshield_background);
+}
 body {
     line-height: 1;
+    color: var(--default_html_font_color);
+    background: var(--eyeshield_background);
 }
 ol, ul {
     list-style: none;
@@ -42,14 +48,9 @@ table {
 }
 h1, h2, h3, h4, h5, h6, p,dl, dt, dd, ol, ul, li,a,i,b,span,table,thead,tbody,th,td,input{
     text-decoration:none;
-    color: #000000;
+    color: var(--default_font_color);
     font-family: "Helvetica Neue",Helvetica,Arial,"Microsoft Yahei UI","Microsoft YaHei",SimHei,"宋体",simsun,sans-serif;font-weight: normal;
 }
-html {
-    color: #000000;
-    background: #e7e6cb;
-}
-
 table {
     border-collapse:collapse;
     border-spacing:0;
@@ -96,7 +97,9 @@ input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
     -webkit-appearance: none;
 }
-input[type=number]{-moz-appearance:textfield;}
+input[type=number]{
+    -moz-appearance: textfield;
+}
 input[type=date]::-webkit-inner-spin-button,
 input[type=date]::-webkit-outer-spin-button {
     -webkit-appearance: none;
@@ -104,7 +107,7 @@ input[type=date]::-webkit-outer-spin-button {
 input[type=date]{-moz-appearance:textfield;}
 /*because legend doesn't inherit in IE */
 legend {
-    color: #000000;
+    color: var(--legend_font_color);
 }
 a:focus,a:hover{
     text-decoration: none;

@@ -62,7 +62,7 @@ function localstorageDecodeValue (sValue = '') {
 function replaceLangs () {
     let aReLangDom = $('.' + sReLangClass);
     if (!aReLangDom.length) {
-        console.log('replaceLangs class ' + sReLangClass + ' dom no get');
+        console.log('replaceLangs class ' + sReLangClass + ' dom no get, so no to do replace lang');
         // setTimeoutFunction('replaceLangs');
         return false;
     }
@@ -84,7 +84,7 @@ function updateUrlToPage () {
 }
 
 function logicBegin () {
-    updateUrlToPage();
-
     writePublicDom();
+
+    updateUrlToPage();
 }

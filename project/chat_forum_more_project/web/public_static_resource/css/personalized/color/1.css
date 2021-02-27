@@ -1,4 +1,8 @@
 :root{
+    --eyeshield_background: #e7e6cb;
+    --default_html_font_color: #e7572e;
+    --legend_font_color: #e7851d;
+    --default_font_color: #ff999c;
     --public_foot_background: red;
     --public_foot_active_background: #ff6b3d;
 }
