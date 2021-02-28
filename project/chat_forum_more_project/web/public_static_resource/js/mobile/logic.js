@@ -75,7 +75,49 @@ function replaceLangs () {
     }
 }
 
+function repeatedlyPage (sPage = '') {
+    if (!sPage) {
+        console.log('repeatedlyPage page is null，so no will to do');
+        return;
+    }
+
+    let sFunc = '';
+    switch (sPage) {
+        case sForumPage:
+            sFunc = 'repeatedly' + ucfirst(sPage) + 'Page';
+            break;
+        case sChatPage:
+            sFunc = 'repeatedly' + ucfirst(sPage) + 'Page';
+            break;
+        case sFriendPage:
+            sFunc = 'repeatedly' + ucfirst(sPage) + 'Page';
+            break;
+        case sSettingPage:
+            sFunc = 'repeatedly' + ucfirst(sPage) + 'Page';
+            break;
+    }
+
+    if (sFunc) {
+        window[sFunc]();
+    }
+}
+
+let sLastPage = '';
 function uodateUrlPageArg (sPage = '') {
+    if (!sPage) {
+        console.log('uodateUrlPageArg page is null，so no will to do');
+        return;
+    }
+
+    if (sLastPage === sPage) {
+        console.log('uodateUrlPageArg sLastPage === ' + sPage + ' ，so no change url and after action');
+        console.log('uodateUrlPageArg dispose show now page or reload now page dom');
+
+        repeatedlyPage(sLastPage);
+        return;
+    }
+    sLastPage = sPage;
+
     writePageShade();
 
     updateUrlPage(sPage);

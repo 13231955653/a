@@ -259,9 +259,18 @@ function updateUrlArg (sArgKey = '', sArgValue = '', sTitle = '', callback = fal
     }
 }
 
+function ucfirst (sString = '') {
+    if (!sString) {
+        console.log('ucfirst sString is null, so no to do');
+        return false;
+    }
+
+    return sString.charAt(0).toUpperCase() + sString.slice(1)
+}
+
 function setPageTitle (sTitle = '') {
     if (!sTitle) {
-        console.log('setPageTitle sTitle is null');
+        console.log('setPageTitle sTitle is null, so no to do');
         return false;
     }
 
