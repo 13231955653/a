@@ -1309,9 +1309,10 @@ function clearShade (oDiv = false) {
     }
 
     animates(oDiv, {opacity: 0}, iSpeed, function () {
-        animates(oDiv, {top: iBottomHiddenHeight}, iSpeed, function () {
-            oDiv.style.zIndex = 0;
-        });
+        oDiv.style.display = 'none';
+        // animates(oDiv, {top: iBottomHiddenHeight}, iSpeed, function () {
+        //     oDiv.style.zIndex = 0;
+        // });
     });
     // clearShadeTimer1 = setTimeout(function () {
     //     animates(oDiv, {opacity: 0}, iSpeed, function () {
@@ -1365,7 +1366,13 @@ function showShade (oDiv = false) {
 
     iShadeZIndexBeginIndex += parseInt(1);
 
-    oDiv.style.top = '0px';
+    oDiv.style.opacity = 0;
+    oDiv.style.filter = 'alpha(opacity:0)';
+    // oDiv.style.top = iBottomHiddenHeight + 'px';
+    oDiv.style.zIndex = 0;
+
+    // oDiv.style.top = '0px';
+    oDiv.style.display = 'block';
     oDiv.style.zIndex = iShadeZIndexBeginIndex;
 
     animates(oDiv, {opacity: 100}, iSpeed);
