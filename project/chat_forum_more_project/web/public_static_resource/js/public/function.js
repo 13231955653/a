@@ -443,3 +443,62 @@ function loadPersonlizedColorCss (sPersonlizedColor1 = '') {
 
     loadPersonalizedCss(sPersonlizedColor1);
 }
+
+function querySessionId () {
+    console.log('sssssssssssssssssssssssssssssss');
+    // if (sPersonlizedColor) {
+    //     return sPersonlizedColor;
+    // }
+
+    if (typeof window['hex_md5'] == 'undefined') {
+        setTimeoutFunction('querySessionId');
+        console.log('querySessionId hex_md5 is undefined, so settimeout to do ');
+        return;
+    }
+
+    queryLocalstorgaeSessionId(sLocalstorgaeSessionId, 'afterQuerySessionId');
+}
+function queryLocalstorgaeSessionId (sKey = '', sAfterFunc = '') {
+    if (!sKey || !sAfterFunc) {
+        console.log('queryLocalstorgaeSessionId sKey or sAfterFunc is null');
+        return false;
+    }
+
+    let sPage = localstoragePage(sKey);
+    if (!sPage) {
+        window[sAfterFunc](false);
+        console.log('queryLocalstorgaeSessionId localstoragePage sPage is null');
+        return false;
+    }
+
+    localstoragePostMessage(sPage, {action: 'get', key: sKey, after: sAfterFunc});
+}
+function afterQuerySessionId (sSession2 = '') {
+    console.log(sSession2);
+    if (sPersonlizedColor1) {
+        sPersonlizedColor = sPersonlizedColor1;
+    } else {
+        sPersonlizedColor = iDefaultUserPersonalizedColor;
+
+        setPersonlizedColor(sPersonlizedColor);
+    }
+
+    loadPersonlizedColorCss(sPersonlizedColor);
+}
+// function setPersonlizedColor (sPersonlizedColor1 = '') {
+//     if (!sPersonlizedColor1) {
+//         console.log('setPersonlizedColor sPersonlizedColor1 is null');
+//         return false;
+//     }
+//
+//     setLocalstorage(sLocalstorgaeUserPersonalizedColorKey, sPersonlizedColor1, false, 'loadPersonlizedColorCss');
+// }
+// function loadPersonlizedColorCss (sPersonlizedColor1 = '') {
+//     sPersonlizedColor1 = sPersonlizedColor1 ? sPersonlizedColor1 : iDefaultUserPersonalizedColor;
+//     if (!sPersonlizedColor1) {
+//         console.log('loadPersonlizedColorCss sPersonlizedColor1 is null');
+//         return false;
+//     }
+//
+//     loadPersonalizedCss(sPersonlizedColor1);
+// }

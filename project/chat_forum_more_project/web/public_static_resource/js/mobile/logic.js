@@ -98,7 +98,7 @@ function repeatedlyPage (sPage = '') {
     }
 
     if (sFunc) {
-        window[sFunc]();
+        window[sFunc](sLastPage === sPage);
     }
 }
 
@@ -113,7 +113,7 @@ function uodateUrlPageArg (sPage = '') {
         console.log('uodateUrlPageArg sLastPage === ' + sPage + ' ，so no change url and after action');
         console.log('uodateUrlPageArg dispose show now page or reload now page dom');
 
-        repeatedlyPage(sLastPage);
+        repeatedlyPage(sPage);
         return;
     }
     sLastPage = sPage;

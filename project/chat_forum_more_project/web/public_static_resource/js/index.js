@@ -1,19 +1,66 @@
 const sBaseProtocol = window.location.protocol;
+
 const iDefaultFontSize = 16; //默认pc字体大小
 const iDefaultOneFontMms = 3; //默认一个中文字占多宽，单位毫米
+
+const sGuidSplitTag = '-';
+const sUuidSplitTag = '-';
+const sUuidString = '0123456789abcdef';
+const sUniquiueStringSplitTag = '=';
+const sIndividuationUuidTag = '*';
+const sRandString = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+// const sIndividuationUuidStringRepeatNumber = 100;
+const iIndividuationUuidStringLength = 100;
+const iIndividuationUuidNumberMin = 0;
+const iIndividuationUuidNumberMax = 999999999999999999;
+const iIndividuationUuidRandomStringMinLength = 32;
+const iSessionBeforeFormatLength = 32;
+
+const sSessionSplitTag  = '_';
+const sSessionSalt  = '__()9789*&^%$sKUYsah98';
+let sSessionId = false;
+let sOldSessionId = false;
+let sNewSessionId = false;
+const updateSessionMinTime = 1800000;
+const updateSessionMaxTime = 5400000;
+// const updateSessionMinTime = 1000;
+// const updateSessionMaxTime = 3000;
+
+//localstorage相关
+const aLocalstorageAddressSize = [];
+const iMaxLocalstorageSize = 4718592;
+const aStorageOrigins = [
+    'storage1',
+    'storage2',
+    'storage3',
+    'storage4',
+    'storage5',
+    'storage6',
+    'storage7',
+    'storage8',
+    'storage9',
+];
+const iStorageOriginLength = aStorageOrigins.length;
+const sStoragePage = 'storage.html';
+const sLocalstorageTagMd5Salt = '______9*^&*%^$%$67dasy~`<>?dg';
 const sLocalstorageLangTag = 'localstorage_lang';
 const sLocalstorgaeUserPersonalizedColorKey = 'user_personlized_color';
+const sLocalstorgaeSessionId = 'session_id';
+//localstorage相关
+
 const iDefaultUserPersonalizedColor = 1;
 let iFontSize = 16;
+
 const oHtml = document.getElementsByTagName('html')[0];
+
 const oDomFatherId = 'dom_father';
 const sShadeIndex = 'index_shade';
 const sIndexPlatform = 'platform_shade';
 const sIndexPage = 'page_shade';
+
 const iMaxZIndex = 2000000001;
 let iShadeZIndexBeginIndex = 1000000000;
-// const sShadeBackgroundColor = '#e7e6cb';
-const iSpeed = 300;
+
 const sPublicFootClass = 'public_footer';
 const sPublicHeaderClass = 'public_header';
 const sPublicBodyClass = 'public_body';
@@ -22,7 +69,16 @@ const sPublicRightClass = 'public_right';
 const sPublicNoticeClass = 'public_notice';
 const sPublicShadeClass = 'public_shade';
 const sShadeClass = 'shades';
+const sFootTag = '_foot';
+const sFootLiSuffix = '_li';
+const sActiveFootTag = 'foot_active';
+const sReLangClass = 're_lang';
+
+const sUrlAddressSignEncodeSalt = '_&*uh124jKYUSa87123_';
 const sUrlAddressPageKey = 'page';
+const sUrlAddressSignKey = 'sign';
+const sUrlAddressChangeTimeKey = 'change_time';
+
 const sDefaultPage = 'forum';
 const sForumPage = 'forum';
 const sChatPage = 'chat';
@@ -34,22 +90,18 @@ a3[sChatPage] = "uodateUrlPageArg('" + sChatPage + "')";
 a3[sFriendPage] = "uodateUrlPageArg('" + sFriendPage + "')";
 a3[sSettingPage] = "uodateUrlPageArg('" + sSettingPage + "')";
 const aFooterAction = a3;
-const sFootTag = '_foot';
-const sFootLiSuffix = '_li';
-const sActiveFootTag = 'foot_active';
-const sUrlAddressSignKey = 'sign';
-const sUrlAddressSignEncodeSalt = '_&*uh124jKYUSa87123_';
-const sUrlAddressChangeTimeKey = 'change_time';
+
 const sDefaultPageHtml = 'index.html';
+
 let bFirstLoad = false; // 新打开窗口
+
 let iWinWidth = 0;
 let iWinHeight = 0;
-let iBottomHiddenHeight = 0;
+// let iBottomHiddenHeight = 0;
+
 const sIsPhone = 'phone';
 const sIsTablet = 'tablet';
 const sIsPc = 'pc';
-const sReLangClass = 're_lang';
-const sLocalstorageTagMd5Salt = '______9*^&*%^$%$67dasy~`<>?dg';
 
 const sDefaultLangvage = 'cn';
 let sUserLangvage = '';
@@ -149,27 +201,13 @@ const aBaseHost = [
     // 'setting.you.com',
     // 'chat.you.com',
 ];
-//localstorage相关
-const aLocalstorageAddressSize = [];
-// const aLocalstorageAddress = [];
-const iMaxLocalstorageSize = 4718592;
-const aStorageOrigins = [
-    'storage1',
-    'storage2',
-    'storage3',
-    'storage4',
-    'storage5',
-    'storage6',
-    'storage7',
-    'storage8',
-    'storage9',
-];
-const iStorageOriginLength = aStorageOrigins.length;
-const sStoragePage = 'storage.html';
-//localstorage相关
+
 const iRequertTimeout = 9000;
 const iRequertLangJsTimeout = 5000;
 const iMaxLoadOriginJqueryWaitTime = 5000;
+
+const iSpeed = 300;
+
 let aBaseTimer = []; //基础定时器
 const aBaseTimerOutTime = []; //基础定时器间隔时间
 aBaseTimerOutTime['winResize'] = 100;
@@ -193,6 +231,9 @@ aBaseTimerOutTime['loadPersonalizedCss'] = 70;
 aBaseTimerOutTime['loadVariableCss'] = 70;
 aBaseTimerOutTime['writePublicDom'] = 70;
 aBaseTimerOutTime['shade'] = 70;
+aBaseTimerOutTime['sessionId'] = 70;
+aBaseTimerOutTime['individuationUuid'] = 70;
+
 const aJsVersion = []; // js 文件版本号
 let sBaseJsFullName = '';
 // let sBaseVariableJsFullName = '';
@@ -209,6 +250,13 @@ let sForumFullJs = '';
 let sChatFullJs = '';
 let sFriendFullJs = '';
 let sSettingFullJs = '';
+
+const aCssVersion = []; // css 文件版本号
+let sResetCssFullPath = '';
+let sPublicCssFullPath = '';
+let sVariableCssFullPath = '';
+let sPersonalizedCssFullPath = '';
+
 function setJsPathAndVersion () {
     const sBaseJs = '/public_static_resource/js/public/base.js';
     // const sBaseVariableJs = '/public_static_resource/js/public/variable.js';
@@ -260,11 +308,6 @@ function setJsPathAndVersion () {
     sSettingFullJs = setJsCssSrc('js', sSettingJs);
 }
 
-const aCssVersion = []; // css 文件版本号
-let sResetCssFullPath = '';
-let sPublicCssFullPath = '';
-let sVariableCssFullPath = '';
-let sPersonalizedCssFullPath = '';
 function setCssPathAndVersion () {
     let sResetCss = '/public_static_resource/css/public/reset.css';
     let sPublicCss = '/public_static_resource/css/public/' + platformTag() + '/public.css';
@@ -309,7 +352,7 @@ function winSize() {
     // }
     // console.log(iWinWidth);
 
-    iBottomHiddenHeight = iWinHeight * 2;
+    // iBottomHiddenHeight = iWinHeight * 2;
 }
 winSize();
 
@@ -435,6 +478,8 @@ function afterLoadPageJs () {
     oFootActive.className += ' ' + sActiveFootTag;
 
     changeDomFatherOpacity(true);
+
+    repeatedlyPage(getUrlArgs(sUrlAddressPageKey));
 
     clearPageShade();
 }
@@ -1066,7 +1111,7 @@ function initializeFontSize () {
 //     }
 // }(window, window.lib || (window.lib = {}));
 
-function setTimeoutFunction (sFunction = '') {
+function setTimeoutFunction (sFunction = '', arg1 = '') {
     if (!sFunction) {
         console.log('setTimeoutFunction sFunction is null');
         return false;
@@ -1077,7 +1122,11 @@ function setTimeoutFunction (sFunction = '') {
     }
 
     aBaseTimer[sFunction] = setTimeout(function () {
-        window[sFunction]();
+        if (!arg1) {
+            window[sFunction]();
+        } else {
+            window[sFunction](arg1);
+        }
     }, typeof aBaseTimerOutTime[sFunction] !== 'undefined' ? aBaseTimerOutTime[sFunction] : 10);
 
     return true;
@@ -1395,6 +1444,169 @@ function astrict () {
     return true;
 }
 
+function fourBitString() {
+    return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+}
+// Generate a pseudo-GUID by concatenating random hexadecimal.
+function guid () {
+    return (fourBitString() + fourBitString() + sGuidSplitTag + fourBitString() + sGuidSplitTag + fourBitString() + sGuidSplitTag + fourBitString() + sGuidSplitTag + fourBitString() + fourBitString() + fourBitString());
+}
+function uuid () {
+    let s = [];
+    for (let i = 0; i < 36; i++) {
+        s[i] = sUuidString.substr(Math.floor(Math.random() * 0x10), 1);
+    }
+    s[14] = '4';  // bits 12-15 of the time_hi_and_version field to 0010
+    s[19] = sUuidString.substr((s[19] & 0x3) | 0x8, 1);  // bits 6-7 of the clock_seq_hi_and_reserved to 01
+    s[8] = s[13] = s[18] = s[23] = sUuidSplitTag;
+
+    let uuid = s.join('');
+    return uuid;
+}
+
+function individuationUuid () {
+    if (typeof window['hex_md5'] == 'undefined') {
+        setTimeoutFunction('individuationUuid');
+        console.log('individuationUuid hex_md5 undefined, so settimeout to do ');
+        return;
+    }
+    console.log('individuationUuid hex_md5 is defined, so individuationUuid to do ');
+
+    let a = uniquiueString();
+
+    let b = uniquiueString();
+
+    let s = sIndividuationUuidTag;
+
+    let c = a + s + b;
+
+    c = hex_md5(c);
+
+    while (c.length < iIndividuationUuidRandomStringMinLength) {
+        c += s + randomString(1);
+    }
+
+    c = c.toLowerCase();
+
+    return c;
+}
+function uniquiueString () {
+    let e = 'begin';
+    let a = iIndividuationUuidStringLength;
+    let b = iIndividuationUuidNumberMin;
+    let c = iIndividuationUuidNumberMax;
+    let d = sUniquiueStringSplitTag;
+    e += d + randomString(a);
+    e += d + randomNum(b, c);
+    e += d + getNowTime();
+    e += d + uuid();
+    e += d + guid();
+
+    e += d + randomString(a);
+    e += d + randomNum(b, c);
+    e += d + getNowTime();
+    e += d + uuid();
+    e += d + guid();
+
+    return e;
+}
+
+function sessionId () {
+    if (typeof window['querySessionId'] == 'undefined') {
+        setTimeoutFunction('sessionId');
+        console.log('sessionId querySessionId is undefined, so settimeout to do ');
+        return;
+    }
+
+    let s = individuationUuid();
+
+    if (typeof s == 'undefined') {
+        setTimeoutFunction('sessionId');
+        console.log('sessionId individuationUuid is undefined, so settimeout to do ');
+        return;
+    }
+    console.log('sessionId individuationUuid is defined, so to do ');
+
+    let sNowSessionId = setSessionIdFormat(s);
+    if (sSessionId) {
+        sOldSessionId = sSessionId;
+        sNewSessionId = sSessionId = sNowSessionId;
+    } else {
+        sSessionId = sNowSessionId;
+        sOldSessionId = false;
+        sNewSessionId = sSessionId;
+    }
+    console.log('old session ' + sOldSessionId);
+    console.log('new session ' + sNewSessionId);
+
+    if (sNewSessionId) {
+
+    }
+
+    let i = randomNum(updateSessionMinTime, updateSessionMaxTime);
+
+    aBaseTimer['updateSessionId'] = setTimeout(function () {
+        sessionId();
+    }, i);
+}
+function setSessionIdFormat (sSessionId1 = '') {
+    if (typeof window['hex_md5'] == 'undefined') {
+        setTimeoutFunction('setSessionIdFormat');
+        console.log('setSessionIdFormat hex_md5 undefined, so settimeout to do ');
+        return;
+    }
+
+    let a = sSessionId1;
+    if (!a) {
+        console.log('setSessionIdFormat sSessionId is null, so to do ');
+        return false;
+    }
+
+    while (a.length < iSessionBeforeFormatLength) {
+        a += randomString(1);
+    }
+
+    let p = sSessionSplitTag;
+
+    let aS = a.split('');
+    let s = '';
+    let z = '';
+    let q = 8;
+    for (let i in aS) {
+        z = i % q ? aS[i] : p + aS[i];
+        s += z;
+    }
+    s = s.substr(1, s.length - 1);
+
+    let y = sSessionSalt;
+
+    let t = s;
+    t = hex_md5(t + y);
+    t = t.substring(t.length - parseInt(q));
+
+    let r = reverseString(s);
+    r = hex_md5(r + y);
+    r = r.substr(0, q);
+
+    s = t + p + s + p + r;
+
+    return s.toLowerCase();
+}
+
+function randomString (e) {
+    e = e || 32;
+    let s = sRandString;
+    let a = s.length,
+        n = '';
+    for (i = 0; i < e; i++) n += s.charAt(Math.floor(Math.random() * a));
+    return n
+}
+function randomNum (Min, Max) {
+    let iRange = Max - Min;
+    let iRand = Math.random();
+    return(Min + Math.round(iRand * iRange));
+}
+
 function illegality () {
     window.location.href = sAstrictJumpUrl;
 }
@@ -1407,6 +1619,8 @@ function initializeBody () {
 function baseBegin (bOnload = false) {
     try {
         if (bOnload) {
+            sessionId();
+
             initializeBody();
 
             winResize();
@@ -1458,12 +1672,14 @@ function baseBegin (bOnload = false) {
     } catch (e) {
         console.log('catch exception');
         console.log(e);
+        exceptionHandle(e);
         console.log('catch exception');
     }
 }
 
-function exceptionHandle () {
-    console.log('exceptionHandle exception handle, no do will to do');
+function exceptionHandle (e) {
+    console.log('exceptionHandle exception handle, need to do ');
+    console.log(e);
 }
 
 function afterLoadIndexJs () {
@@ -1482,6 +1698,8 @@ function winResize () {
     setHeader();
 
     initializeFontSize();
+
+    clearPageShade();
 }
 
 window.onload = baseBegin(true);
