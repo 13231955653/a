@@ -25,50 +25,50 @@ function checkAllreadyWritePublicDom () {
 }
 
 function getPublicFootDom () {
-    let oDom = document.getElementById(sPublicFootClass);
+    let oDom = document.getElementById(sPublicFootId);
     return oDom !== null ? oDom : false;
 }
 function checkExistPublicFootDom () {
-    return document.getElementById(sPublicFootClass) ? true : false;
+    return document.getElementById(sPublicFootId) ? true : false;
 }
 
 function getPublicHeaderDom () {
-    let oDom = document.getElementById(sPublicHeaderClass);
+    let oDom = document.getElementById(sPublicHeaderId);
     return oDom !== null ? oDom : false;
 }
 function checkExistPublicHeaderDom () {
-    return document.getElementById(sPublicHeaderClass) ? true : false;
+    return document.getElementById(sPublicHeaderId) ? true : false;
 }
 
 function getPublicBodyDom () {
-    let oDom = document.getElementById(sPublicBodyClass);
+    let oDom = document.getElementById(sPublicBodyId);
     return oDom !== null ? oDom : false;
 }
 function checkExistPublicBodyDom () {
-    return document.getElementById(sPublicBodyClass) ? true : false;
+    return document.getElementById(sPublicBodyId) ? true : false;
 }
 
 function getPublicLeftDom () {
-    let oDom = document.getElementById(sPublicLeftClass);
+    let oDom = document.getElementById(sPublicLeftId);
     return oDom !== null ? oDom : false;
 }
 function checkExistPublicLeftDom () {
-    return document.getElementById(sPublicLeftClass) ? true : false;
+    return document.getElementById(sPublicLeftId) ? true : false;
 }
 
 function getPublicRightDom () {
-    let oDom = document.getElementById(sPublicRightClass);
+    let oDom = document.getElementById(sPublicRightId);
     return oDom !== null ? oDom : false;
 }
 function checkExistPublicRightDom () {
-    return document.getElementById(sPublicRightClass) ? true : false;
+    return document.getElementById(sPublicRightId) ? true : false;
 }
 
 function getPublicNoticeDom () {
-    let oDom = document.getElementById(sPublicNoticeClass);
+    let oDom = document.getElementById(sPublicNoticeId);
     return oDom !== null ? oDom : false;
 }
 function checkExistPublicNoticeDom () {
-    return document.getElementById(sPublicNoticeClass) ? true : false;
+    return document.getElementById(sPublicNoticeId) ? true : false;
 }
 

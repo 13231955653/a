@@ -162,6 +162,40 @@ function getNowPage () {
     return sPage ? sPage : sDefaultPage;
 }
 
+function isJson (sStr = '') {
+    if (!sStr) {
+        return false;
+    }
+
+    if (typeof sStr == 'sString') {
+        try {
+            JSON.parse(sStr);
+            return true;
+        } catch(e) {
+            console.log(e);
+            return false;
+        }
+    }
+}
+
+function inArray ( sSearch, aArray ) {
+    for ( let i in aArray ) {
+        if ( aArray[i] === sSearch ) {
+            return i;
+        }
+    }
+
+    return false;
+}
+function inArrayByKey ( sSearch, aArray ) {
+    for ( let i in aArray ) {
+        if ( i === sSearch ) {
+            return i;
+        }
+    }
+
+    return false;
+}
 function arrayDelValByKey (aArray = [], sKey = '') {
     if (!aArray || !sKey) {
         console.log('arrayDelValByKey aArray or sKey is null');

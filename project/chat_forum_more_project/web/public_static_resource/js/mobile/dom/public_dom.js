@@ -5,7 +5,7 @@ function writeHeader() {
     }
 
     let sInfo = '';
-    sInfo += '<div id="' + sPublicHeaderClass + '">';
+    sInfo += '<div id="' + sPublicHeaderId + '">';
 
     sInfo += '</div>';
 
@@ -20,12 +20,27 @@ function writeBody() {
     }
 
     let sInfo = '';
-    sInfo += '<div id="' + sPublicBodyClass + '">';
+    sInfo += '<div id="' + sPublicBodyId + '">';
+
+    sInfo += writeMobliePageFatherDom(sSettingBodyId);
+
+    sInfo += writeMobliePageFatherDom(sForumBodyId);
+
+    sInfo += writeMobliePageFatherDom(sChatBodyId);
+
+    sInfo += writeMobliePageFatherDom(sFriendBodyId);
 
     sInfo += '</div>';
 
     let oBody = bodyDom();
     $(oBody).append(sInfo);
+}
+
+function writeMobliePageFatherDom (sId) {
+    let sInfo = '';
+    sInfo += '<div id="' + sId + '">';
+    sInfo += '</div>';
+    return sInfo;
 }
 
 function writeFooter() {
@@ -35,7 +50,7 @@ function writeFooter() {
     }
 
     let sInfo = '';
-    sInfo += '<div id="' + sPublicFootClass + '">';
+    sInfo += '<div id="' + sPublicFootId + '">';
 
     sInfo += '<ul>';
 
@@ -76,7 +91,7 @@ function writeLeft () {
     }
 
     let sInfo = '';
-    sInfo += '<div id="' + sPublicLeftClass + '">';
+    sInfo += '<div id="' + sPublicLeftId + '">';
 
     sInfo += '</div>';
 
@@ -91,7 +106,7 @@ function writeRight () {
     }
 
     let sInfo = '';
-    sInfo += '<div id="' + sPublicRightClass + '">';
+    sInfo += '<div id="' + sPublicRightId + '">';
 
     sInfo += '</div>';
 
@@ -106,7 +121,7 @@ function writeNotice () {
     }
 
     let sInfo = '';
-    sInfo += '<div id="' + sPublicNoticeClass + '">';
+    sInfo += '<div id="' + sPublicNoticeId + '">';
 
     sInfo += '</div>';
 

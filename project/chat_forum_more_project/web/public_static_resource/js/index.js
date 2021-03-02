@@ -62,21 +62,25 @@ const sShadeIndex = 'index_shade';
 const sIndexPlatform = 'platform_shade';
 const sIndexPage = 'page_shade';
 
-const iMaxZIndex = 2000000001;
+// const iMaxZIndex = 2000000001;
 let iShadeZIndexBeginIndex = 1000000000;
 
-const sPublicFootClass = 'public_footer';
-const sPublicHeaderClass = 'public_header';
-const sPublicBodyClass = 'public_body';
-const sPublicLeftClass = 'public_left';
-const sPublicRightClass = 'public_right';
-const sPublicNoticeClass = 'public_notice';
-const sPublicShadeClass = 'public_shade';
-const sShadeClass = 'shades';
+const sPublicFootId = 'public_footer';
+const sPublicHeaderId = 'public_header';
+const sPublicBodyId = 'public_body';
+const sPublicLeftId = 'public_left';
+const sPublicRightId = 'public_right';
+const sPublicNoticeId = 'public_notice';
+const sPublicShadeId = 'public_shade';
+// const sShadeClass = 'shades';
 const sFootTag = '_foot';
 const sFootLiSuffix = '_li';
 const sActiveFootTag = 'foot_active';
 const sReLangClass = 're_lang';
+const sSettingBodyId = 'setting_body';
+const sForumBodyId = 'forum_body';
+const sChatBodyId = 'chat_body';
+const sFriendBodyId = 'friend_body';
 
 const sUrlAddressSignEncodeSalt = '_&*uh124jKYUSa87123_';
 const sUrlAddressPageKey = 'page';
@@ -233,6 +237,11 @@ aBaseTimerOutTime['shade'] = 15;
 aBaseTimerOutTime['individuationUuid'] = 15;
 aBaseTimerOutTime['makeSessionid'] = 15;
 aBaseTimerOutTime['cacheSessionId'] = 15;
+aBaseTimerOutTime['repeatedlySettingPage'] = 15;
+aBaseTimerOutTime['repeatedlyFriendPage'] = 15;
+aBaseTimerOutTime['repeatedlyForumPage'] = 15;
+aBaseTimerOutTime['repeatedlyChatPage'] = 15;
+aBaseTimerOutTime['loadApiQueryJs'] = 15;
 aBaseTimerOutTime['checkSessionIdOutTime'] = 120000;
 aBaseTimerOutTime['checkSessionKeyFormat'] = 180000;
 
@@ -245,6 +254,7 @@ let sBaseLogicJsFullName = '';
 let sBaseDomJsFullName = '';
 let sPlatformDomJsFullName = '';
 let sBaseEncodeJsFullName = '';
+let sApiQueryJsFullName = '';
 let sOriginJquery = '';
 let sCnLangs = '';
 let sEnLangs = '';
@@ -274,6 +284,7 @@ function setJsPathAndVersion () {
     const sChatJs = '/public_static_resource/js/' + platformTag() + '/page/chat.js';
     const sFriendJs = '/public_static_resource/js/' + platformTag() + '/page/friend.js';
     const sSettingJs = '/public_static_resource/js/' + platformTag() + '/page/setting.js';
+    const sApiQueryJs = '/public_static_resource/js/public/query/query.js';
 
     aJsVersion[sBaseJs] = '11111111111111111111111111111111';
     // aJsVersion[sBaseVariableJs] = '222222222222222222222222222222';
@@ -289,6 +300,7 @@ function setJsPathAndVersion () {
     aJsVersion[sChatJs] = '2222222222dfsdfsdfsdfsdfffffffffff';
     aJsVersion[sFriendJs] = '333333333eeeeeeeeeeeeeeeeeeeee';
     aJsVersion[sSettingJs] = '44444444444fewrrrrrrrrrrrrrrr';
+    aJsVersion[sApiQueryJs] = 'kkkkkkkkkkkkkkkkdasdasdkkkkkkkkkkkkkkkkkkkkkkk';
 
     sOriginJquery = 'http://libs.baidu.com/jquery/2.1.4/jquery.min.js';
     aJsVersion[sOriginJquery] = 'dasdasdwqe214124';
@@ -309,6 +321,7 @@ function setJsPathAndVersion () {
     sChatFullJs = setJsCssSrc('js', sChatJs);
     sFriendFullJs = setJsCssSrc('js', sFriendJs);
     sSettingFullJs = setJsCssSrc('js', sSettingJs);
+    sApiQueryJsFullName = setJsCssSrc('js', sApiQueryJs);
 }
 
 function setCssPathAndVersion () {
@@ -711,6 +724,23 @@ function checkRequestJsCssLimit (sType = '', sFunction = '') {
 // function afterloadBaseVariableJs () {
 //     bLoadBaseVariableJs = true;
 // }
+let bLoadApiQueryJs = false;
+function loadApiQueryJs () {
+    if (bLoadApiQueryJs) {
+        return true;
+    }
+
+    if (!checkRequestJsCssLimit('js', 'loadApiQueryJs')) {
+        return false;
+    }
+
+    loadJs(sApiQueryJsFullName, true, 'afterloadApiQueryJs');
+
+    setTimeoutFunction('loadApiQueryJs');
+}
+function afterloadApiQueryJs () {
+    bLoadApiQueryJs = true;
+}
 let bLoadBaseEncodeJs = false;
 function loadBaseEncodeJs () {
     if (bLoadBaseEncodeJs) {
@@ -1128,13 +1158,14 @@ function setTimeoutFunction (sFunction = '', arg1 = '') {
         console.log('setTimeoutFunction aBaseTimerOutTime ' + sFunction + ' undefined');
     }
 
+    console.log(sFunction);
     aBaseTimer[sFunction] = setTimeout(function () {
         if (!arg1) {
             window[sFunction]();
         } else {
             window[sFunction](arg1);
         }
-    }, typeof aBaseTimerOutTime[sFunction] !== 'undefined' ? aBaseTimerOutTime[sFunction] : 10);
+    }, aBaseTimerOutTime[sFunction]);
 
     return true;
 }
@@ -1242,11 +1273,11 @@ function animates (obj = false, params = false, iSpeed1 = false, callback = fals
 }
 
 function getPublicShadeDom () {
-    let oDom = document.getElementById(sPublicShadeClass);
+    let oDom = document.getElementById(sPublicShadeId);
     return oDom !== null ? oDom : false;
 }
 function checkExistPublicShadeDom () {
-    return document.getElementById(sPublicShadeClass) ? true : false;
+    return document.getElementById(sPublicShadeId) ? true : false;
 }
 function writePublicShade () {
     let oDiv = getPublicShadeDom();
@@ -1255,7 +1286,7 @@ function writePublicShade () {
     }
 
     oDiv = document.createElement('div');
-    oDiv.id = sPublicShadeClass;
+    oDiv.id = sPublicShadeId;
     // oDiv.className = sShadeClass;
 
     let oDom = bodyDom();
@@ -1336,7 +1367,7 @@ function writeShade (sShadeId = '') {
 
     let oDiv = document.createElement('div');
     oDiv.id = sShadeId;
-    oDiv.className = sShadeClass;
+    oDiv.className = sShadeId;
     // oDiv.style.width = '100%';
     // oDiv.style.height = '100%';
     // oDiv.style.position = 'absolute';
@@ -1565,6 +1596,7 @@ function checkSessionIdOutTime () {
     }
 
     setTimeoutFunction('checkSessionIdOutTime');
+    console.log('checkSessionIdOutTime settimeout check ');
 }
 function makeSessionid () {
     let s = individuationUuid();
