@@ -101,6 +101,41 @@ let myStorage = (function myStorage () {
     };
 })();
 
+let cookie = {
+    set:function (sKey, sVal, iTime) {
+        //设置cookie方法
+        let iOutTime = parseInt(getNowTime()) + parseInt(iTime); //获取当前时间
+        document.cookie = sKey + '=' + sVal + ';expires=' + iOutTime;  //设置cookie
+    },
+
+    get:function (sKey) {//获取cookie方法
+        /*获取cookie参数*/
+        let sCookie = document.cookie.replace(/[ ]/g,'');
+        //获取cookie，并且将获得的cookie格式化，去掉空格字符
+        let aArrCookie = sCookie.split(';')
+        //将获得的cookie以"分号"为标识 将cookie保存到aArrCookie的数组中
+        let tips = 'false';  //声明变量tips
+        let arr = [];
+        for(let i = 0; i < aArrCookie.length; i++){   //使用for循环查找cookie中的tips变量
+            arr =aArrCookie[i].split('=');   //将单条cookie用"等号"为标识，将单条cookie保存为arr数组
+            if (sKey == arr[0]) {
+                //匹配变量名称，其中arr[0]是指的cookie名称，如果该条变量为tips则执行判断语句中的赋值操作
+                tips = arr[1];   //将cookie的值赋给变量tips
+                break;   //终止for循环遍历
+            }
+        }
+        return tips;
+    }
+}
+
+function queryOldSessionId () {
+    return cookie.get(sOldSessionIdCookieKey);
+}
+
+function queryNewSessionId () {
+    return cookie.get(sNewSessionIdCookieKey);
+}
+
 function queryUserLang () {
     if (sUserLangvage) {
         return sUserLangvage;
@@ -443,62 +478,3 @@ function loadPersonlizedColorCss (sPersonlizedColor1 = '') {
 
     loadPersonalizedCss(sPersonlizedColor1);
 }
-
-function querySessionId () {
-    console.log('sssssssssssssssssssssssssssssss');
-    // if (sPersonlizedColor) {
-    //     return sPersonlizedColor;
-    // }
-
-    if (typeof window['hex_md5'] == 'undefined') {
-        setTimeoutFunction('querySessionId');
-        console.log('querySessionId hex_md5 is undefined, so settimeout to do ');
-        return;
-    }
-
-    queryLocalstorgaeSessionId(sLocalstorgaeSessionId, 'afterQuerySessionId');
-}
-function queryLocalstorgaeSessionId (sKey = '', sAfterFunc = '') {
-    if (!sKey || !sAfterFunc) {
-        console.log('queryLocalstorgaeSessionId sKey or sAfterFunc is null');
-        return false;
-    }
-
-    let sPage = localstoragePage(sKey);
-    if (!sPage) {
-        window[sAfterFunc](false);
-        console.log('queryLocalstorgaeSessionId localstoragePage sPage is null');
-        return false;
-    }
-
-    localstoragePostMessage(sPage, {action: 'get', key: sKey, after: sAfterFunc});
-}
-function afterQuerySessionId (sSession2 = '') {
-    console.log(sSession2);
-    if (sPersonlizedColor1) {
-        sPersonlizedColor = sPersonlizedColor1;
-    } else {
-        sPersonlizedColor = iDefaultUserPersonalizedColor;
-
-        setPersonlizedColor(sPersonlizedColor);
-    }
-
-    loadPersonlizedColorCss(sPersonlizedColor);
-}
-// function setPersonlizedColor (sPersonlizedColor1 = '') {
-//     if (!sPersonlizedColor1) {
-//         console.log('setPersonlizedColor sPersonlizedColor1 is null');
-//         return false;
-//     }
-//
-//     setLocalstorage(sLocalstorgaeUserPersonalizedColorKey, sPersonlizedColor1, false, 'loadPersonlizedColorCss');
-// }
-// function loadPersonlizedColorCss (sPersonlizedColor1 = '') {
-//     sPersonlizedColor1 = sPersonlizedColor1 ? sPersonlizedColor1 : iDefaultUserPersonalizedColor;
-//     if (!sPersonlizedColor1) {
-//         console.log('loadPersonlizedColorCss sPersonlizedColor1 is null');
-//         return false;
-//     }
-//
-//     loadPersonalizedCss(sPersonlizedColor1);
-// }

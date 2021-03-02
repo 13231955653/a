@@ -18,13 +18,17 @@ const iSessionBeforeFormatLength = 32;
 
 const sSessionSplitTag  = '_';
 const sSessionSalt  = '__()9789*&^%$sKUYsah98';
-let sSessionId = false;
+// let sSessionId = false;
 let sOldSessionId = false;
 let sNewSessionId = false;
-const updateSessionMinTime = 1800000;
-const updateSessionMaxTime = 5400000;
+const iUpdateSessionMinTime = 1800000;
+const iUpdateSessionMaxTime = 5400000;
+const iSessionOutTime = 5410;
+const sSessionIdSplitLength =8;
 // const updateSessionMinTime = 1000;
 // const updateSessionMaxTime = 3000;
+const sOldSessionIdCookieKey = 'old_session_id';
+const sNewSessionIdCookieKey = 'new_session_id';
 
 //localstorage相关
 const aLocalstorageAddressSize = [];
@@ -40,12 +44,12 @@ const aStorageOrigins = [
     'storage8',
     'storage9',
 ];
-const iStorageOriginLength = aStorageOrigins.length;
+// const iStorageOriginLength = aStorageOrigins.length;
 const sStoragePage = 'storage.html';
 const sLocalstorageTagMd5Salt = '______9*^&*%^$%$67dasy~`<>?dg';
 const sLocalstorageLangTag = 'localstorage_lang';
 const sLocalstorgaeUserPersonalizedColorKey = 'user_personlized_color';
-const sLocalstorgaeSessionId = 'session_id';
+// const sLocalstorgaeSessionId = 'session_id';
 //localstorage相关
 
 const iDefaultUserPersonalizedColor = 1;
@@ -196,10 +200,6 @@ const aBaseHost = [
     'play.you.com',
     'music.you.com',
     'vedio.you.com',
-    // 'forum.you.com',
-    // 'friend.you.com',
-    // 'setting.you.com',
-    // 'chat.you.com',
 ];
 
 const iRequertTimeout = 9000;
@@ -210,29 +210,31 @@ const iSpeed = 300;
 
 let aBaseTimer = []; //基础定时器
 const aBaseTimerOutTime = []; //基础定时器间隔时间
-aBaseTimerOutTime['winResize'] = 100;
-// aBaseTimerOutTime['loadBaseVariableJs'] = 70;
-aBaseTimerOutTime['loadBaseEncodeJs'] = 70;
-aBaseTimerOutTime['loadBaseLogicJs'] = 70;
-aBaseTimerOutTime['loadBaseDomJs'] = 70;
-aBaseTimerOutTime['loadBaseFunctionJs'] = 70;
-aBaseTimerOutTime['loadOriginJquery'] = 70;
-aBaseTimerOutTime['loadLang'] = 70;
-aBaseTimerOutTime['logicBegin'] = 70;
-aBaseTimerOutTime['loadPlatformDomJs'] = 70;
-aBaseTimerOutTime['baseBegin'] = 70;
-aBaseTimerOutTime['loadResetCss'] = 70;
-aBaseTimerOutTime['checkLoadCss'] = 70;
-aBaseTimerOutTime['setLocalstorageOrigins'] = 70;
-aBaseTimerOutTime['loadLocalJquery'] = 70;
-aBaseTimerOutTime['replaceLangs'] = 70;
-aBaseTimerOutTime['loadPublicCss'] = 70;
-aBaseTimerOutTime['loadPersonalizedCss'] = 70;
-aBaseTimerOutTime['loadVariableCss'] = 70;
-aBaseTimerOutTime['writePublicDom'] = 70;
-aBaseTimerOutTime['shade'] = 70;
-aBaseTimerOutTime['sessionId'] = 70;
-aBaseTimerOutTime['individuationUuid'] = 70;
+aBaseTimerOutTime['winResize'] = 15;
+aBaseTimerOutTime['loadBaseEncodeJs'] = 15;
+aBaseTimerOutTime['loadBaseLogicJs'] = 15;
+aBaseTimerOutTime['loadBaseDomJs'] = 15;
+aBaseTimerOutTime['loadBaseFunctionJs'] = 15;
+aBaseTimerOutTime['loadOriginJquery'] = 15;
+aBaseTimerOutTime['loadLang'] = 15;
+aBaseTimerOutTime['logicBegin'] = 15;
+aBaseTimerOutTime['loadPlatformDomJs'] = 15;
+aBaseTimerOutTime['baseBegin'] = 15;
+aBaseTimerOutTime['loadResetCss'] = 15;
+aBaseTimerOutTime['checkLoadCss'] = 15;
+aBaseTimerOutTime['setLocalstorageOrigins'] = 15;
+aBaseTimerOutTime['loadLocalJquery'] = 15;
+aBaseTimerOutTime['replaceLangs'] = 15;
+aBaseTimerOutTime['loadPublicCss'] = 15;
+aBaseTimerOutTime['loadPersonalizedCss'] = 15;
+aBaseTimerOutTime['loadVariableCss'] = 15;
+aBaseTimerOutTime['writePublicDom'] = 15;
+aBaseTimerOutTime['shade'] = 15;
+aBaseTimerOutTime['individuationUuid'] = 15;
+aBaseTimerOutTime['makeSessionid'] = 15;
+aBaseTimerOutTime['cacheSessionId'] = 15;
+aBaseTimerOutTime['checkSessionIdOutTime'] = 120000;
+aBaseTimerOutTime['checkSessionKeyFormat'] = 180000;
 
 const aJsVersion = []; // js 文件版本号
 let sBaseJsFullName = '';
@@ -288,10 +290,11 @@ function setJsPathAndVersion () {
     aJsVersion[sFriendJs] = '333333333eeeeeeeeeeeeeeeeeeeee';
     aJsVersion[sSettingJs] = '44444444444fewrrrrrrrrrrrrrrr';
 
-    sOriginJquery = 'http://libs.baidu.com/jquery/2.0.0/jquery.min.js';
+    sOriginJquery = 'http://libs.baidu.com/jquery/2.1.4/jquery.min.js';
     aJsVersion[sOriginJquery] = 'dasdasdwqe214124';
 
     sOriginJquery = sOriginJquery + '?ver=' + aJsVersion[sOriginJquery];
+    // sOriginJquery = sOriginJquery;
     sBaseJsFullName = setJsCssSrc('js', sBaseJs);
     // sBaseVariableJsFullName = setJsCssSrc('js', sBaseVariableJs);
     sBaseFunctionJsFullName = setJsCssSrc('js', sBaseFunctionJs);
@@ -401,13 +404,13 @@ function loadBaseJs () {
 
     loadBaseEncodeJs();
 
-    loadBaseLogicJs();
+    loadBaseFunctionJs();
 
     loadBaseDomJs();
 
     loadPlatformDomJs();
 
-    loadBaseFunctionJs();
+    loadBaseLogicJs();
 }
 
 let bInLoadPageJs = false;
@@ -666,6 +669,10 @@ function platformTag () {
 //获取时间戳
 function getNowTime () {
     return new Date().getTime();
+}
+//获取时间戳
+function getTime () {
+    return parseInt(getNowTime() / 1000);
 }
 
 let aRequestJsCssLastTime = [];
@@ -1466,9 +1473,9 @@ function uuid () {
 
 function individuationUuid () {
     if (typeof window['hex_md5'] == 'undefined') {
-        setTimeoutFunction('individuationUuid');
+        // setTimeoutFunction('individuationUuid');
         console.log('individuationUuid hex_md5 undefined, so settimeout to do ');
-        return;
+        return false;
     }
     console.log('individuationUuid hex_md5 is defined, so individuationUuid to do ');
 
@@ -1512,48 +1519,95 @@ function uniquiueString () {
 }
 
 function sessionId () {
-    if (typeof window['querySessionId'] == 'undefined') {
+    if (typeof window['queryOldSessionId'] == 'undefined') {
         setTimeoutFunction('sessionId');
-        console.log('sessionId querySessionId is undefined, so settimeout to do ');
-        return;
+        console.log('sessionId queryOldSessionId undefined, so settimeout retry ');
+        return false;
     }
 
-    let s = individuationUuid();
-
-    if (typeof s == 'undefined') {
+    if (typeof window['queryNewSessionId'] == 'undefined') {
         setTimeoutFunction('sessionId');
-        console.log('sessionId individuationUuid is undefined, so settimeout to do ');
-        return;
+        console.log('sessionId queryNewSessionId undefined, so settimeout retry ');
+        return false;
     }
-    console.log('sessionId individuationUuid is defined, so to do ');
 
-    let sNowSessionId = setSessionIdFormat(s);
-    if (sSessionId) {
-        sOldSessionId = sSessionId;
-        sNewSessionId = sSessionId = sNowSessionId;
+    sOldSessionId = queryOldSessionId();
+    sNewSessionId = queryNewSessionId();
+    if (sNewSessionId != 'false') {
+        checkSessionIdOutTime();
+
+        checkSessionKeyFormat();
     } else {
-        sSessionId = sNowSessionId;
-        sOldSessionId = false;
-        sNewSessionId = sSessionId;
-    }
-    console.log('old session ' + sOldSessionId);
-    console.log('new session ' + sNewSessionId);
-
-    if (sNewSessionId) {
-
+        makeSessionid();
     }
 
-    let i = randomNum(updateSessionMinTime, updateSessionMaxTime);
-
+    let i = randomNum(iUpdateSessionMinTime, iUpdateSessionMaxTime);
     aBaseTimer['updateSessionId'] = setTimeout(function () {
         sessionId();
     }, i);
 }
+function checkSessionIdOutTime () {
+    if (!sNewSessionId) {
+        console.log('checkSessionIdOutTime sNewSessionId is false, so no to do ');
+        return false;
+    }
+
+    let s = sNewSessionId.split(sSessionSplitTag);
+
+    if (parseInt(getTime()) - parseInt(s[s.length - 1]) > iSessionOutTime) {
+        sOldSessionId = sNewSessionId;
+        sNewSessionId = false;
+        cacheSessionId();
+
+        // if (parseInt(getTime()) - parseInt(s[s.length - 1]) > 1) {
+        console.log('checkSessionIdOutTime session id is timeout, so will to makeSessionid ');
+        makeSessionid();
+    }
+
+    setTimeoutFunction('checkSessionIdOutTime');
+}
+function makeSessionid () {
+    let s = individuationUuid();
+    if (!s) {
+        setTimeoutFunction('makeSessionid');
+        console.log('makeSessionid individuationUuid is false, so settimeout to do ');
+        return;
+    }
+    console.log('makeSessionid individuationUuid is defined, so to do ');
+
+    let n = setSessionIdFormat(s);
+    if (!n) {
+        setTimeoutFunction('makeSessionid');
+        console.log('makeSessionid setSessionIdFormat is false, so settimeout to do ');
+        return;
+    }
+
+    sOldSessionId = sNewSessionId ? sNewSessionId : sOldSessionId;
+    sNewSessionId = n;
+
+    if (sNewSessionId) {
+        cacheSessionId();
+        return;
+    }
+
+    setTimeoutFunction('makeSessionid');
+    console.log('makeSessionid sNewSessionId is false, so settimeout to retry ');
+}
+function cacheSessionId () {
+    if (!sNewSessionId) {
+        setTimeoutFunction('cacheSessionId');
+        console.log('cacheSessionId sNewSessionId is false, so settimeout to retry ');
+        return;
+    }
+
+    cookie.set(sOldSessionIdCookieKey, sOldSessionId, iUpdateSessionMaxTime);
+    cookie.set(sNewSessionIdCookieKey, sNewSessionId, iUpdateSessionMaxTime);
+}
 function setSessionIdFormat (sSessionId1 = '') {
     if (typeof window['hex_md5'] == 'undefined') {
-        setTimeoutFunction('setSessionIdFormat');
+        // setTimeoutFunction('setSessionIdFormat');
         console.log('setSessionIdFormat hex_md5 undefined, so settimeout to do ');
-        return;
+        return false;
     }
 
     let a = sSessionId1;
@@ -1571,26 +1625,85 @@ function setSessionIdFormat (sSessionId1 = '') {
     let aS = a.split('');
     let s = '';
     let z = '';
-    let q = 8;
+    let q = sSessionIdSplitLength;
     for (let i in aS) {
         z = i % q ? aS[i] : p + aS[i];
         s += z;
     }
     s = s.substr(1, s.length - 1);
 
-    let y = sSessionSalt;
+    s = setSessionIdPrefix(s) + p + s + p + setSessionIdSuffix(s);
+
+    return s.toLowerCase() + sSessionSplitTag + getTime();
+}
+function setSessionIdPrefix (s) {
+    let q = sSessionIdSplitLength;
 
     let t = s;
-    t = hex_md5(t + y);
-    t = t.substring(t.length - parseInt(q));
+    t = hex_md5(t + sSessionSalt);
+    return t.substring(t.length - parseInt(q)).toLowerCase();
+}
+function setSessionIdSuffix (s) {
+    let q = sSessionIdSplitLength;
 
     let r = reverseString(s);
-    r = hex_md5(r + y);
-    r = r.substr(0, q);
+    r = hex_md5(r + sSessionSalt);
+    return r.substr(0, q).toLowerCase();
+}
+function checkSessionKeyFormat () {
+    let t = sSessionSplitTag;
+    if (sOldSessionId != 'false') {
+        if (!doCheckSessionId(sOldSessionId.split(t), 'old')) {
+            setTimeoutCheckSessionIdFormat();
 
-    s = t + p + s + p + r;
+            updateSessionId();
 
-    return s.toLowerCase();
+            return;
+        }
+    }
+
+    if (sNewSessionId != 'false') {
+        if (!doCheckSessionId(sNewSessionId.split(t), 'new')) {
+            setTimeoutCheckSessionIdFormat();
+
+            updateSessionId();
+
+            return;
+        }
+    }
+
+    setTimeoutCheckSessionIdFormat();
+}
+function updateSessionId () {
+    sOldSessionId = sNewSessionId;
+    sNewSessionId = false;
+    cacheSessionId();
+}
+function setTimeoutCheckSessionIdFormat () {
+    setTimeoutFunction('checkSessionKeyFormat');
+    console.log('checkSessionKeyFormat settimeout check');
+}
+function doCheckSessionId (s, sSessionIdType) {
+    let a = s[0];
+    let b = s[s.length - 2];
+    s.pop();
+    s.pop();
+    s.shift();
+    s = s.join(sSessionSplitTag);
+    let c = setSessionIdPrefix(s);
+    let d = setSessionIdSuffix(s);
+
+    if (
+        (a !== c)
+        ||
+        (b !== d)
+    ) {
+        console.log('checkSessionKeyFormat ' + sSessionIdType + ' format error, so makeSessionId');
+        makeSessionid();
+        return false;
+    }
+
+    return true;
 }
 
 function randomString (e) {
@@ -1655,7 +1768,6 @@ function baseBegin (bOnload = false) {
         }
 
         queryUserLang();
-
         if (typeof aLang === 'undefined') {
             setTimeoutFunction('baseBegin');
             return;
