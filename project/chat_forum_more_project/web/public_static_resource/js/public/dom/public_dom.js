@@ -48,6 +48,7 @@ function checkExistPublicBodyDom () {
     return document.getElementById(sPublicBodyId) ? true : false;
 }
 
+
 function getPublicLeftDom () {
     let oDom = document.getElementById(sPublicLeftId);
     return oDom !== null ? oDom : false;

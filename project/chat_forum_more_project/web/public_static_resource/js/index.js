@@ -31,24 +31,18 @@ const sOldSessionIdCookieKey = 'old_session_id';
 const sNewSessionIdCookieKey = 'new_session_id';
 
 //localstorage相关
-const aLocalstorageAddressSize = [];
+// const aLocalstorageAddressSize = [];
 const iMaxLocalstorageSize = 4718592;
-const aStorageOrigins = [
-    'storage1',
-    'storage2',
-    'storage3',
-    'storage4',
-    'storage5',
-    'storage6',
-    'storage7',
-    'storage8',
-    'storage9',
-];
+const sOriginLocalstorageSizeKey = 'origin_localstorage_size';
+// const iMaxLocalstorageSize1 = 4718593;
+const sStorageOriginsSonPrefix = 'storage';
 // const iStorageOriginLength = aStorageOrigins.length;
 const sStoragePage = 'storage.html';
 const sLocalstorageTagMd5Salt = '______9*^&*%^$%$67dasy~`<>?dg';
 const sLocalstorageLangTag = 'localstorage_lang';
 const sLocalstorgaeUserPersonalizedColorKey = 'user_personlized_color';
+const sLocalstorgaeNowPageTag = 'localstorage_cache_now_page';
+const sLocalstorgaeBeginTag = 0;
 // const sLocalstorgaeSessionId = 'session_id';
 //localstorage相关
 
@@ -68,6 +62,7 @@ let iShadeZIndexBeginIndex = 1000000000;
 const sPublicFootId = 'public_footer';
 const sPublicHeaderId = 'public_header';
 const sPublicBodyId = 'public_body';
+const sStoragePageBodyId = 'storage_body';
 const sPublicLeftId = 'public_left';
 const sPublicRightId = 'public_right';
 const sPublicNoticeId = 'public_notice';
@@ -81,6 +76,7 @@ const sSettingBodyId = 'setting_body';
 const sForumBodyId = 'forum_body';
 const sChatBodyId = 'chat_body';
 const sFriendBodyId = 'friend_body';
+const sDisplayNoneClass = 'display_none';
 
 const sUrlAddressSignEncodeSalt = '_&*uh124jKYUSa87123_';
 const sUrlAddressPageKey = 'page';
@@ -214,34 +210,38 @@ const iSpeed = 300;
 
 let aBaseTimer = []; //基础定时器
 const aBaseTimerOutTime = []; //基础定时器间隔时间
-aBaseTimerOutTime['winResize'] = 15;
-aBaseTimerOutTime['loadBaseEncodeJs'] = 15;
-aBaseTimerOutTime['loadBaseLogicJs'] = 15;
-aBaseTimerOutTime['loadBaseDomJs'] = 15;
-aBaseTimerOutTime['loadBaseFunctionJs'] = 15;
-aBaseTimerOutTime['loadOriginJquery'] = 15;
-aBaseTimerOutTime['loadLang'] = 15;
-aBaseTimerOutTime['logicBegin'] = 15;
-aBaseTimerOutTime['loadPlatformDomJs'] = 15;
-aBaseTimerOutTime['baseBegin'] = 15;
-aBaseTimerOutTime['loadResetCss'] = 15;
-aBaseTimerOutTime['checkLoadCss'] = 15;
-aBaseTimerOutTime['setLocalstorageOrigins'] = 15;
-aBaseTimerOutTime['loadLocalJquery'] = 15;
-aBaseTimerOutTime['replaceLangs'] = 15;
-aBaseTimerOutTime['loadPublicCss'] = 15;
-aBaseTimerOutTime['loadPersonalizedCss'] = 15;
-aBaseTimerOutTime['loadVariableCss'] = 15;
-aBaseTimerOutTime['writePublicDom'] = 15;
-aBaseTimerOutTime['shade'] = 15;
-aBaseTimerOutTime['individuationUuid'] = 15;
-aBaseTimerOutTime['makeSessionid'] = 15;
-aBaseTimerOutTime['cacheSessionId'] = 15;
-aBaseTimerOutTime['repeatedlySettingPage'] = 15;
-aBaseTimerOutTime['repeatedlyFriendPage'] = 15;
-aBaseTimerOutTime['repeatedlyForumPage'] = 15;
-aBaseTimerOutTime['repeatedlyChatPage'] = 15;
-aBaseTimerOutTime['loadApiQueryJs'] = 15;
+// const t = 15;
+const t = 2000;
+aBaseTimerOutTime['winResize'] = t;
+aBaseTimerOutTime['loadBaseEncodeJs'] = t;
+aBaseTimerOutTime['loadBaseLogicJs'] = t;
+aBaseTimerOutTime['loadBaseDomJs'] = t;
+aBaseTimerOutTime['loadBaseFunctionJs'] = t;
+aBaseTimerOutTime['loadOriginJquery'] = t;
+aBaseTimerOutTime['loadLang'] = t;
+aBaseTimerOutTime['logicBegin'] = t;
+aBaseTimerOutTime['loadPlatformDomJs'] = t;
+aBaseTimerOutTime['baseBegin'] = t;
+aBaseTimerOutTime['loadResetCss'] = t;
+aBaseTimerOutTime['checkLoadCss'] = t;
+aBaseTimerOutTime['writeStorageDom'] = t;
+aBaseTimerOutTime['loadLocalJquery'] = t;
+aBaseTimerOutTime['replaceLangs'] = t;
+aBaseTimerOutTime['loadPublicCss'] = t;
+aBaseTimerOutTime['loadPersonalizedCss'] = t;
+aBaseTimerOutTime['loadVariableCss'] = t;
+aBaseTimerOutTime['writePublicDom'] = t;
+aBaseTimerOutTime['shade'] = t;
+aBaseTimerOutTime['individuationUuid'] = t;
+aBaseTimerOutTime['makeSessionid'] = t;
+aBaseTimerOutTime['cacheSessionId'] = t;
+aBaseTimerOutTime['repeatedlySettingPage'] = t;
+aBaseTimerOutTime['repeatedlyFriendPage'] = t;
+aBaseTimerOutTime['repeatedlyForumPage'] = t;
+aBaseTimerOutTime['repeatedlyChatPage'] = t;
+aBaseTimerOutTime['loadApiQueryJs'] = t;
+aBaseTimerOutTime['sessionId'] = t;
+aBaseTimerOutTime['localstoragePostMessage'] = t;
 aBaseTimerOutTime['checkSessionIdOutTime'] = 120000;
 aBaseTimerOutTime['checkSessionKeyFormat'] = 180000;
 
@@ -500,7 +500,327 @@ function afterLoadPageJs () {
     clearPageShade();
 }
 
+function queryUserPersonalizedColor () {
+    if (sPersonlizedColor) {
+        return sPersonlizedColor;
+    }
+
+    // queryLocalstorgaeUserPersonalizedColor(sLocalstorgaeUserPersonalizedColorKey, 'afterQueryUserPersonalizedColor');
+    queryLocalstorage(sLocalstorgaeUserPersonalizedColorKey, 'afterQueryUserPersonalizedColor');
+}
+/**
+ *
+ * @param c color string
+ */
+function afterQueryUserPersonalizedColor (c = '') {
+    if (c) {
+        sPersonlizedColor = c;
+    } else {
+        sPersonlizedColor = iDefaultUserPersonalizedColor;
+
+        setPersonlizedColor(sPersonlizedColor);
+    }
+
+    loadPersonlizedColorCss(sPersonlizedColor);
+}
+/**
+ *
+ * @param c localstorage key string
+ * @returns {boolean}
+ */
+function setPersonlizedColor (c = '') {
+    if (!c) {
+        console.log('setPersonlizedColor c is null');
+        return false;
+    }
+
+    setLocalstorage(sLocalstorgaeUserPersonalizedColorKey, c, false, 'loadPersonlizedColorCss');
+}
+/**
+ *
+ * @param c personnalzed color
+ * @returns {boolean}
+ */
+function loadPersonlizedColorCss (c = '') {
+    c = c ? c : iDefaultUserPersonalizedColor;
+    if (!c) {
+        console.log('loadPersonlizedColorCss c is null');
+        return false;
+    }
+
+    loadPersonalizedCss(c);
+}
+
+/**
+ *
+ * @param k localstorage key  string
+ * @param f localstorage callback  string
+ * @returns {boolean}
+ */
+function queryLocalstorage (k = '', f = '') {
+    if (!k || !f) {
+        console.log('queryLocalstorage k or f is null');
+        return false;
+    }
+
+    let p = localstoragePage(k);
+
+    p = storagePage(p);
+    if (!p) {
+        window[f](false);
+        console.log('queryLocalstorage setLocalstorageOrigins p is null');
+        return false;
+    }
+
+    localstoragePostMessage(p, {action: 'get', key: k, after: f});
+}
+
+/**
+ *
+ * @param k local localstorage key
+ * @param v local localstorage value
+ */
+function localstorageLocalCache (k = '', v = '') {
+    if (!k) {
+        console.log('localstorageLocalCache k or v is null, so no to do');
+        return false;
+    }
+
+    myStorage.set(k, v);
+}
+/**
+ *
+ * @param k local localstorage key
+ */
+function queryLocalstorageCache (k = '') {
+    if (!k) {
+        console.log('queryLocalstorageCache k is null, so no to do');
+        return false;
+    }
+
+    return myStorage.get(k);
+}
+
+/**
+ *
+ * @param k localstorage key string
+ * @returns {boolean}
+ */
+function localstoragePage (k) {
+    if (!k) {
+        console.log('localstoragePage k is null');
+        return false;
+    }
+
+    let i = myStorage.get(k);
+
+    if (!i) {
+        i = sLocalstorgaeBeginTag;
+        localstorageLocalCache (k, i);
+    }
+
+    return i;
+}
+
+function localstorageNowPage () {
+    let i = myStorage.get(sLocalstorgaeNowPageTag);
+    return i ? i : sLocalstorgaeBeginTag;
+}
+
+/**
+ *
+ * @param k localstorage key
+ * @param m localstorage message
+ * @param t localstorage lefttime
+ * @param f localstorage callback function
+ * @returns {boolean}
+ */
+function setLocalstorage (k = '', m = '', t = false, f = '') {
+    if (!k || !f || !m) {
+        console.log('queryLocalstorage k or f or m is null');
+        return false;
+    }
+
+    let p = localstoragePage (k);
+
+    let s = disposeLocalstorageValue (m, t);
+    let l = parseInt(JSON.stringify(s).length) + parseInt(k.length);
+
+    p = localstorageNowPage();
+
+    let q = 1;
+    let z = 0;
+    let sss = sOriginLocalstorageSizeKey;
+    let c = queryLocalstorageCache(sss);
+    c = eval('(' + z + ')');
+    c = c ? c : {};
+    while (!z || iMaxLocalstorageSize < z) {
+        p = z ? parseInt(p) + parseInt(1) : p;
+
+        if (!c || typeof c[p] == 'undefined') {
+            z = l;
+            c[p] = z;
+        } else {
+            q = parseInt(c[p]);
+
+            z = parseInt(q) + parseInt(l);
+            c[p] = z;
+        }
+    }
+
+    localstorageLocalCache(k, p);
+
+    localstorageLocalCache(sss, c);
+
+    p = storagePage(p);
+
+    localstoragePostMessage(p, {action: 'set', key: k, message: m, leftTime: t, after: f});
+}
+// function localstorageLocalCache () {
+//
+// }
+
+function localstoragePostMessage (p = '', m = '') {
+    if (!m || !p) {
+        console.log('localstoragePostMessage m or p is null');
+        return false;
+    }
+
+    let o = document.getElementById(p);
+    if (!o) {
+        writeStorageDom(p);
+
+        let t = setTimeout(function () {
+            console.log('localstoragePostMessage o is null, so settimeout retry ');
+            localstoragePostMessage (p, m);
+
+            clearTimeout(t);
+        }, aBaseTimerOutTime['localstoragePostMessage']);
+        return false;
+    }
+
+    o.contentWindow.postMessage(m, p);
+}
+
+window.addEventListener('message', function(event){
+    if (!event.data) {
+        return false;
+    }
+
+    if (!event.data || !event.data.after) {
+        console.log('addEventListener data or data.after is null');
+        return false;
+    }
+
+    console.log('^^^^^^^^^^^^^^^^^^^^^');
+    console.log('get form ' + event.origin + ' message, will to do after load localstorage function');
+    console.log(event.data);
+    console.log('^^^^^^^^^^^^^^^^^^^^^');
+
+    window[event.data.after](event.data.message);
+}, false);
+
+/**
+ *
+ * @param v value string
+ * @param t lefttime
+ * @returns {*}
+ */
+function disposeLocalstorageValue (v, t = false) {
+    v = typeof v != 'object' ? v : JSON.stringify(v);
+
+    return t ? {'v': v, 't': t * 1000, 'st': getNowTime()} : {'v': v};
+}
+
+let myStorage = (function myStorage () {
+    if (!window.localStorage ) {
+        console.log('myStorage localstorage error');
+        return false;
+    }
+
+    let set = function (sKey, sValue, iLeftTime = false) {
+        if (!sKey) {
+            console.log('myStorage set sKey or sValue is null');
+            return false;
+        }
+
+        sValue = disposeLocalstorageValue (sValue, iLeftTime);
+
+        sValue = JSON.stringify(sValue);
+
+        let bResult = localStorage.setItem(sKey, sValue);
+        return bResult == undefined ? true : false;
+    };
+
+    let get = function (sKey, bUpdateLifttime = true) {
+        //读取
+        let oData = localStorage.getItem(sKey);
+        if (!oData) {
+            return false;
+        }
+        oData = JSON.parse(oData);
+        if (!oData) {
+            return false;
+        }
+
+        if (typeof oData.t !== 'undefined') {
+            if (getNowTime() - oData.st > oData.t) {
+                remove(sKey);
+                return false;
+            } else {
+                if (bUpdateLifttime) {
+                    set(sKey, oData.v, oData.t / 1000);
+                }
+            }
+        }
+
+        // isJson(oData.v);
+        //
+        return oData.v;
+    };
+
+    let remove = function (sKey) {
+        //读取
+        let oData = localStorage.getItem(sKey);
+        if(!oData){
+            return true;
+        }
+
+        return localStorage.removeItem(sKey);
+    };
+
+    let clear = function() {
+        //清除对象
+        localStorage.clear();
+    };
+
+    return {
+        set : set,
+        get : get,
+        remove : remove,
+        clear : clear
+    };
+})();
+
+function isJson (sStr = '') {
+    if (!sStr) {
+        return false;
+    }
+
+    if (typeof sStr == 'sString') {
+        try {
+            JSON.parse(sStr);
+            return true;
+        } catch(e) {
+            console.log(e);
+            return false;
+        }
+    }
+}
+
 function loadBaseCss () {
+    // queryUserPersonalizedColor();
+
     loadResetCss();
 
     loadPersonalizedCss();
@@ -510,27 +830,19 @@ function loadBaseCss () {
     loadVariableCss();
 }
 let bLoadPersonalizedCss = false;
-function loadPersonalizedCss (sPersonlizedColor1 = false) {
+function loadPersonalizedCss (c = false) {
+    if (!c) {
+        queryUserPersonalizedColor();
+        return;
+    }
+
     if (bLoadPersonalizedCss) {
+        console.log('loadPersonalizedCss bLoadPersonalizedCss in loading, so no to do ');
         return true;
     }
-
-    if (typeof window['queryUserPersonalizedColor'] === 'undefined') {
-        console.log('function.js queryUserPersonalizedColor no load, settiomeout retry');
-        setTimeoutFunction('loadPersonalizedCss');
-        return;
-    }
-    console.log('function.js queryUserPersonalizedColor is load, will get user personlized color css id');
-
-    let sPersonalizedColor = sPersonlizedColor1 ? sPersonlizedColor1 : queryUserPersonalizedColor();
-    // console.log(sPersonalizedColor);
-    if (!sPersonalizedColor) {
-        console.log('loadPersonalizedCss sPersonalizedColor id null, settiomeout retry');
-        setTimeoutFunction('loadPersonalizedCss');
-        return;
-    }
     bLoadPersonalizedCss = true;
-    console.log('loadPersonalizedCss sPersonalizedColor id is get, will load user personlized color css');
+
+    let sPersonalizedColor = c;
 
     if (!checkRequestJsCssLimit('css', 'loadPersonalizedCss')) {
         return false;
@@ -542,10 +854,10 @@ function loadPersonalizedCss (sPersonlizedColor1 = false) {
 
     loadCss(sPersonalizedCssFullPath, 'afterloadPersonalizedCss');
 
-    setTimeoutFunction('loadPersonalizedCss');
+    setTimeoutFunction('loadPersonalizedCss', c);
 }
 function afterloadPersonalizedCss () {
-    bLoadPersonalizedCss = true;
+    bLoadPersonalizedCss = false;
 }
 let bLoadVariableCss = false;
 function loadVariableCss () {
@@ -1170,27 +1482,53 @@ function setTimeoutFunction (sFunction = '', arg1 = '') {
     return true;
 }
 
-function setLocalstorageOrigins () {
-    let sProtocol = window.location.protocol + '//';
+function htmlBodyDom () {
+    return document.getElementsByTagName('body')[0];
+}
 
-    let sMasterOrigin = sOrigin ? sOrigin : queryMasterOrigin();
-    sMasterOrigin = sMasterOrigin.replace(sProtocol, '');
-    let oIframe = '';
-    let oBody = document.getElementsByTagName('body')[0];
-    let sPage = '';
-    let sStoragePage1 = '';
-    for (let i in aStorageOrigins) {
-        sStoragePage1 = sPage = sProtocol + aStorageOrigins[i] + '.' + sMasterOrigin + '/' + sStoragePage;
-        aStorageOrigins[i] = sStoragePage1;
-        aLocalstorageAddressSize[sStoragePage1] = 0;
-        oIframe = document.createElement('iframe');
-        oIframe.src = sPage;
-        oIframe.className = 'display_none';
-        oIframe.id = sPage;
-        oIframe.width = 0;
-        oIframe.height = 0;
-        oBody.appendChild(oIframe);
+// function storageBody () {
+//     return document.getElementById(sStoragePageBodyId);
+// }
+// function getStorageBodyDom () {
+//     let oDom = document.getElementById(sStoragePageBodyId);
+//     return oDom !== null ? oDom : false;
+// }
+// function checkExissStorageBodyDom () {
+//     return document.getElementById(sStoragePageBodyId) ? true : false;
+// }
+// function writeStorageDody() {
+//     let oDom = getStorageBodyDom();
+//     if (oDom) {
+//         return true;
+//     }
+//
+//     let o = document.createElement('div');
+//     o.id = sStoragePageBodyId;
+//     o.className = sDisplayNoneClass;
+//
+//     bodyDom().appendChild(o);
+// }
+function storagePage (i = 0) {
+    let p = window.location.protocol + '//';
+
+    let o = sOrigin ? sOrigin : queryMasterOrigin();
+    o = o.replace(p, '');
+    return p + i + '.' + sStorageOriginsSonPrefix + '.' + o + '/' + sStoragePage;
+}
+function writeStorageDom (p = 0) {
+    let d = p;
+    if (!document.getElementById(d)) {
+        let o = document.createElement('iframe');
+        o.src = p;
+        o.className = sDisplayNoneClass;
+        o.id = d;
+        o.width = 0;
+        o.height = 0;
+
+        bodyDom().appendChild(o);
     }
+
+    return true;
 }
 
 function bodyDom () {
@@ -1202,7 +1540,7 @@ function bodyDom () {
     oDom = document.createElement('div');
     oDom.id = oDomFatherId;
 
-    let oBody = document.getElementsByTagName('body')[0];
+    let oBody = htmlBodyDom();
     oBody.appendChild(oDom);
 
     return oDom;
@@ -1774,14 +2112,16 @@ function baseBegin (bOnload = false) {
 
             setStaticResouresPathVersion();
 
-            setLocalstorageOrigins();
-
             setTimeoutFunction('baseBegin');
 
             return false;
         }
 
+        // console.log(1);
+        // return ;
+
         loadBaseCss();
+        // return ;
 
         loadBaseJs();
 

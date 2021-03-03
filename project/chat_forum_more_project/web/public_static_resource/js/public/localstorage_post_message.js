@@ -17,7 +17,6 @@ window.addEventListener('message',function(event){
     console.log('get form ' + event.origin + ' message, will cache localstorage');
     console.log(event.data);
     console.log('#######################################');
-    // console.log(event.data.action);
 
     switch (event.data.action) {
         case 'get' :
@@ -27,11 +26,17 @@ window.addEventListener('message',function(event){
             top.postMessage({after: event.data.after, message: myStorage.set(event.data.key, event.data.message, event.data.leftTime)}, event.origin);
             break;
     }
-    // console.log('========================');
 }, false);
 
-function disposeLocalstorageValue (sKey, sValue, iLeftTime = false) {
-    return iLeftTime ? {'v': sValue, 't': iLeftTime * 1000, 'st': getNowTime()} : {'v': sValue};
+function disposeLocalstorageValue (v, t = false) {
+    v = typeof v != 'object' ? v : JSON.stringify(v);
+
+    return t ? {'v': v, 't': t * 1000, 'st': getNowTime()} : {'v': v};
+}
+
+//获取时间戳
+function getNowTime () {
+    return new Date().getTime();
 }
 
 let myStorage = (function myStorage () {
@@ -46,7 +51,8 @@ let myStorage = (function myStorage () {
             return false;
         }
 
-        sValue = disposeLocalstorageValue (sKey, sValue, iLeftTime);
+        console.log(sKey, sValue, iLeftTime);
+        sValue = disposeLocalstorageValue (sValue, iLeftTime);
 
         sValue = JSON.stringify(sValue);
 
