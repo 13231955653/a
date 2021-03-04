@@ -97,7 +97,18 @@ function repeatedlyPage (sPage = '') {
             break;
     }
 
+    ///////////////////////////////////////////////////////
+    // typeof window[sFunc]
+    // console.log(sFunc);
+    // console.log(typeof window[sFunc] == 'undefined');
     if (sFunc) {
+        if (typeof window[sFunc] == 'undefined') {
+            console.log('repeatedlyPage window ' + sFunc + ' is undefined, so settimeout retry ');
+            setTimeoutFunction('repeatedlyPage', sPage);
+            return;
+        }
+
+        console.log('repeatedlyPage window ' + sFunc + ' is defined, so will to do ');
         window[sFunc](sLastPage === sPage);
     }
 }

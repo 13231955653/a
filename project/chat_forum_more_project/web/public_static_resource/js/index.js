@@ -211,7 +211,7 @@ const iSpeed = 300;
 let aBaseTimer = []; //基础定时器
 const aBaseTimerOutTime = []; //基础定时器间隔时间
 // const t = 15;
-const t = 2000;
+const t = 15;
 aBaseTimerOutTime['winResize'] = t;
 aBaseTimerOutTime['loadBaseEncodeJs'] = t;
 aBaseTimerOutTime['loadBaseLogicJs'] = t;
@@ -241,6 +241,7 @@ aBaseTimerOutTime['repeatedlyForumPage'] = t;
 aBaseTimerOutTime['repeatedlyChatPage'] = t;
 aBaseTimerOutTime['loadApiQueryJs'] = t;
 aBaseTimerOutTime['sessionId'] = t;
+aBaseTimerOutTime['repeatedlyPage'] = t;
 aBaseTimerOutTime['localstoragePostMessage'] = t;
 aBaseTimerOutTime['checkSessionIdOutTime'] = 120000;
 aBaseTimerOutTime['checkSessionKeyFormat'] = 180000;
@@ -269,42 +270,41 @@ let sPublicCssFullPath = '';
 let sVariableCssFullPath = '';
 let sPersonalizedCssFullPath = '';
 
+const sBaseJs = '/public_static_resource/js/public/base.js';
+// const sBaseVariableJs = '/public_static_resource/js/public/variable.js';
+const sBaseFunctionJs = '/public_static_resource/js/public/function.js';
+const sBaseJqueryJs = '/public_static_resource/js/public/jquery.js';
+const sBaseLogicJs = '/public_static_resource/js/' + platformTag() + '/logic.js';
+const sBaseDomJs = '/public_static_resource/js/public/dom/public_dom.js';
+const sBaseEncodeJs = '/public_static_resource/js/public/encode.js';
+const sCnLang = '/public_static_resource/js/lang/cn.js';
+const sEnLang = '/public_static_resource/js/lang/en.js';
+const sPlatformDomJs = '/public_static_resource/js/' + platformTag() + '/dom/public_dom.js';
+const sForumJs = '/public_static_resource/js/' + platformTag() + '/page/forum.js';
+const sChatJs = '/public_static_resource/js/' + platformTag() + '/page/chat.js';
+const sFriendJs = '/public_static_resource/js/' + platformTag() + '/page/friend.js';
+const sSettingJs = '/public_static_resource/js/' + platformTag() + '/page/setting.js';
+const sApiQueryJs = '/public_static_resource/js/public/query/query.js';
+sOriginJquery = 'http://libs.baidu.com/jquery/2.1.4/jquery.min.js';
+
+aJsVersion[sBaseJs] = '11111111111111111111111111111111';
+// aJsVersion[sBaseVariableJs] = '222222222222222222222222222222';
+aJsVersion[sBaseFunctionJs] = '3333333333333333333333333333333333333';
+aJsVersion[sBaseJqueryJs] = '4444444444444444444444444444444444444444444';
+aJsVersion[sBaseLogicJs] = '55555555555555555555555555555555555555555555555555';
+aJsVersion[sBaseDomJs] = '6666666666666666666666666666666666666666666';
+aJsVersion[sBaseEncodeJs] = '77777777777777777777777777777777777';
+aJsVersion[sCnLang] = '888888888888888888888';
+aJsVersion[sEnLang] = '9999999999999999999999999999';
+aJsVersion[sPlatformDomJs] = 'ssssssssssssssssssssssssssssssssssssssssssssssssss';
+aJsVersion[sForumJs] = 'dasdasdasdasdasdadasdasd11111111';
+aJsVersion[sChatJs] = '2222222222dfsdfsdfsdfsdfffffffffff';
+aJsVersion[sFriendJs] = '333333333eeeeeeeeeeeeeeeeeeeee';
+aJsVersion[sSettingJs] = '44444444444fewrrrrrrrrrrrrrrr';
+aJsVersion[sApiQueryJs] = 'kkkkkkkkkkkkkkkkdasdasdkkkkkkkkkkkkkkkkkkkkkkk';
+aJsVersion[sOriginJquery] = 'dasdasdwqe214124';
+
 function setJsPathAndVersion () {
-    const sBaseJs = '/public_static_resource/js/public/base.js';
-    // const sBaseVariableJs = '/public_static_resource/js/public/variable.js';
-    const sBaseFunctionJs = '/public_static_resource/js/public/function.js';
-    const sBaseJqueryJs = '/public_static_resource/js/public/jquery.js';
-    const sBaseLogicJs = '/public_static_resource/js/' + platformTag() + '/logic.js';
-    const sBaseDomJs = '/public_static_resource/js/public/dom/public_dom.js';
-    const sBaseEncodeJs = '/public_static_resource/js/public/encode.js';
-    const sCnLang = '/public_static_resource/js/lang/cn.js';
-    const sEnLang = '/public_static_resource/js/lang/en.js';
-    const sPlatformDomJs = '/public_static_resource/js/' + platformTag() + '/dom/public_dom.js';
-    const sForumJs = '/public_static_resource/js/' + platformTag() + '/page/forum.js';
-    const sChatJs = '/public_static_resource/js/' + platformTag() + '/page/chat.js';
-    const sFriendJs = '/public_static_resource/js/' + platformTag() + '/page/friend.js';
-    const sSettingJs = '/public_static_resource/js/' + platformTag() + '/page/setting.js';
-    const sApiQueryJs = '/public_static_resource/js/public/query/query.js';
-
-    aJsVersion[sBaseJs] = '11111111111111111111111111111111';
-    // aJsVersion[sBaseVariableJs] = '222222222222222222222222222222';
-    aJsVersion[sBaseFunctionJs] = '3333333333333333333333333333333333333';
-    aJsVersion[sBaseJqueryJs] = '4444444444444444444444444444444444444444444';
-    aJsVersion[sBaseLogicJs] = '55555555555555555555555555555555555555555555555555';
-    aJsVersion[sBaseDomJs] = '6666666666666666666666666666666666666666666';
-    aJsVersion[sBaseEncodeJs] = '77777777777777777777777777777777777';
-    aJsVersion[sCnLang] = '888888888888888888888';
-    aJsVersion[sEnLang] = '9999999999999999999999999999';
-    aJsVersion[sPlatformDomJs] = 'ssssssssssssssssssssssssssssssssssssssssssssssssss';
-    aJsVersion[sForumJs] = 'dasdasdasdasdasdadasdasd11111111';
-    aJsVersion[sChatJs] = '2222222222dfsdfsdfsdfsdfffffffffff';
-    aJsVersion[sFriendJs] = '333333333eeeeeeeeeeeeeeeeeeeee';
-    aJsVersion[sSettingJs] = '44444444444fewrrrrrrrrrrrrrrr';
-    aJsVersion[sApiQueryJs] = 'kkkkkkkkkkkkkkkkdasdasdkkkkkkkkkkkkkkkkkkkkkkk';
-
-    sOriginJquery = 'http://libs.baidu.com/jquery/2.1.4/jquery.min.js';
-    aJsVersion[sOriginJquery] = 'dasdasdwqe214124';
-
     sOriginJquery = sOriginJquery + '?ver=' + aJsVersion[sOriginJquery];
     // sOriginJquery = sOriginJquery;
     sBaseJsFullName = setJsCssSrc('js', sBaseJs);
@@ -495,6 +495,7 @@ function afterLoadPageJs () {
 
     changeDomFatherOpacity(true);
 
+    // console.log(window['repeatedlyForumPage']);
     repeatedlyPage(getUrlArgs(sUrlAddressPageKey));
 
     clearPageShade();
@@ -825,9 +826,9 @@ function loadBaseCss () {
 
     loadPersonalizedCss();
 
-    loadPublicCss();
-
     loadVariableCss();
+
+    loadPublicCss();
 }
 let bLoadPersonalizedCss = false;
 function loadPersonalizedCss (c = false) {
@@ -1010,7 +1011,7 @@ function checkRequestJsCssLimit (sType = '', sFunction = '') {
     let iNowTime = getNowTime();
     let iLastRequestTime = typeof aRequestJsCssLastTime[sFunction] !== 'undefined' ? aRequestJsCssLastTime[sFunction] : 0;
     if (iNowTime - iLastRequestTime < iRequertTimeout) {
-        console.log('checkRequestJsCssLimit ' + sFunction + ' time last ' + iRequertTimeout + ' millisecond');
+        console.log('checkRequestJsCssLimit ' + sFunction + ' time last ' + iRequertTimeout + ' millisecond, so wait a minutes retry ');
         setTimeoutFunction(sFunction);
         return false;
     }
@@ -1470,7 +1471,7 @@ function setTimeoutFunction (sFunction = '', arg1 = '') {
         console.log('setTimeoutFunction aBaseTimerOutTime ' + sFunction + ' undefined');
     }
 
-    console.log(sFunction);
+    // console.log(sFunction);
     aBaseTimer[sFunction] = setTimeout(function () {
         if (!arg1) {
             window[sFunction]();
@@ -1508,6 +1509,12 @@ function htmlBodyDom () {
 //
 //     bodyDom().appendChild(o);
 // }
+/**
+ * 设置storage 页面 url
+ *
+ * @param i page 远程storage 子域名 序号 type number
+ * @returns {string}
+ */
 function storagePage (i = 0) {
     let p = window.location.protocol + '//';
 
@@ -1515,6 +1522,13 @@ function storagePage (i = 0) {
     o = o.replace(p, '');
     return p + i + '.' + sStorageOriginsSonPrefix + '.' + o + '/' + sStoragePage;
 }
+
+/**
+ *
+ * 写远程 storage 页面 iframe
+ * @param p 远程 storage 页面完整 url type string
+ * @returns {boolean}
+ */
 function writeStorageDom (p = 0) {
     let d = p;
     if (!document.getElementById(d)) {
@@ -1529,6 +1543,34 @@ function writeStorageDom (p = 0) {
     }
 
     return true;
+}
+
+/**
+ * 先读取本地localstorage，写对应远程storage页面 iframe dom
+ */
+function writeLocalstorageIframe () {
+    let s = queryLocalstorageCache(sOriginLocalstorageSizeKey);
+
+    let a = jsonConvertFormatForReadNumberKey(s);
+
+    for (let i in a) {
+        if (a[i] > 0) {
+            writeStorageDom (storagePage(i));
+        }
+    }
+}
+
+/**
+ *
+ * @param s josn data json string
+ */
+function jsonConvertFormatForReadNumberKey (s = '') {
+    if (!s) {
+        console.log('jsonToArray s is null, so return []');
+        return [];
+    }
+
+    return eval('(' + s + ')');
 }
 
 function bodyDom () {
@@ -1787,7 +1829,7 @@ function showShade (oDiv = false) {
         console.log('showShade oDiv is null, so no to do');
         return;
     }
-    console.log('showShade ' + oDiv.id);
+    console.log('showShade ' + oDiv.id + ', show shade ');
 
     iShadeZIndexBeginIndex += parseInt(1);
 
@@ -1934,7 +1976,7 @@ function checkSessionIdOutTime () {
     }
 
     setTimeoutFunction('checkSessionIdOutTime');
-    console.log('checkSessionIdOutTime settimeout check ');
+    console.log('checkSessionIdOutTime settimeout check, settimeout retry ');
 }
 function makeSessionid () {
     let s = individuationUuid();
@@ -2051,7 +2093,7 @@ function updateSessionId () {
 }
 function setTimeoutCheckSessionIdFormat () {
     setTimeoutFunction('checkSessionKeyFormat');
-    console.log('checkSessionKeyFormat settimeout check');
+    console.log('checkSessionKeyFormat settimeout check, settimeout retry ');
 }
 function doCheckSessionId (s, sSessionIdType) {
     let a = s[0];
@@ -2102,56 +2144,82 @@ function initializeBody () {
 function baseBegin (bOnload = false) {
     try {
         if (bOnload) {
+            console.log(1);
             sessionId();
 
+            console.log(2);
             initializeBody();
 
+            console.log(3);
             winResize();
 
+            console.log(4);
             setHosts();
 
+            console.log(5);
             setStaticResouresPathVersion();
 
+            console.log(6);
             setTimeoutFunction('baseBegin');
-
-            return false;
         }
 
-        // console.log(1);
-        // return ;
-
+        console.log(7);
         loadBaseCss();
-        // return ;
 
+        console.log(77);
+        writeLocalstorageIframe();
+
+        console.log(8);
         loadBaseJs();
 
+        console.log(9);
         if (typeof jQuery === 'undefined') {
+            console.log(10);
             if (getNowTime() - iLoadOriginJqueryLastTime > iMaxLoadOriginJqueryWaitTime) {
+                console.log(11);
                 loadLocalJquery();
             }
 
+            console.log(12);
             setTimeoutFunction('baseBegin');
             return;
         }
 
+        console.log(13);
         if (typeof window['queryUserLang'] === 'undefined') {
+            console.log(14);
             setTimeoutFunction('baseBegin');
             return;
         }
 
+        console.log(14);
         queryUserLang();
+        console.log(15);
         if (typeof aLang === 'undefined') {
+            console.log(16);
             setTimeoutFunction('baseBegin');
             return;
         }
 
+        console.log(17);
         if (typeof window['logicBegin'] === 'undefined') {
+            console.log(18);
             setTimeoutFunction('baseBegin');
             return;
         }
 
+        console.log(19);
         afterLoadIndexJs();
 
+        if (typeof window['apiQuery'] === 'undefined') {
+            loadApiQueryJs();
+
+            console.log('baseBegin apiQuery is undefined. will to load apiQuery js file ');
+            // setTimeoutFunction('baseBegin', bNoFirst);
+            // return;
+        }
+
+        console.log(20);
         logicBegin(true);
     } catch (e) {
         console.log('catch exception');
