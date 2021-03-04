@@ -243,6 +243,8 @@ aBaseTimerOutTime['loadApiQueryJs'] = t;
 aBaseTimerOutTime['sessionId'] = t;
 aBaseTimerOutTime['repeatedlyPage'] = t;
 aBaseTimerOutTime['localstoragePostMessage'] = t;
+aBaseTimerOutTime['doCheckSessionId'] = t;
+aBaseTimerOutTime['checkSessionKeyFormat1'] = t;
 aBaseTimerOutTime['checkSessionIdOutTime'] = 120000;
 aBaseTimerOutTime['checkSessionKeyFormat'] = 180000;
 
@@ -411,7 +413,7 @@ function checkLoadCss (sCallback = '', id = '') {
 }
 
 function loadBaseJs () {
-    loadOriginJquery();
+    // loadOriginJquery();
 
     // loadBaseVariableJs();
 
@@ -501,10 +503,18 @@ function afterLoadPageJs () {
     clearPageShade();
 }
 
+let bInloadUserPersonalizedColorFromLocalstorage = false;
 function queryUserPersonalizedColor () {
     if (sPersonlizedColor) {
+        console.log('queryUserPersonalizedColor sPersonlizedColor is defined, so no to load user personlized color css file');
         return sPersonlizedColor;
     }
+
+    if (bInloadUserPersonalizedColorFromLocalstorage) {
+        console.log('queryUserPersonalizedColor bInloadUserPersonalizedColorFromLocalstorage is true, so no to load user personlized color css file');
+        return;
+    }
+    bInloadUserPersonalizedColorFromLocalstorage = true;
 
     // queryLocalstorgaeUserPersonalizedColor(sLocalstorgaeUserPersonalizedColorKey, 'afterQueryUserPersonalizedColor');
     queryLocalstorage(sLocalstorgaeUserPersonalizedColorKey, 'afterQueryUserPersonalizedColor');
@@ -521,6 +531,7 @@ function afterQueryUserPersonalizedColor (c = '') {
 
         setPersonlizedColor(sPersonlizedColor);
     }
+    bInloadUserPersonalizedColorFromLocalstorage = false;
 
     loadPersonlizedColorCss(sPersonlizedColor);
 }
@@ -731,6 +742,33 @@ function disposeLocalstorageValue (v, t = false) {
     v = typeof v != 'object' ? v : JSON.stringify(v);
 
     return t ? {'v': v, 't': t * 1000, 'st': getNowTime()} : {'v': v};
+}
+
+let cookie = {
+    set:function (sKey, sVal, iTime) {
+        //设置cookie方法
+        let iOutTime = parseInt(getNowTime()) + parseInt(iTime); //获取当前时间
+        document.cookie = sKey + '=' + sVal + ';expires=' + iOutTime;  //设置cookie
+    },
+
+    get:function (sKey) {//获取cookie方法
+        /*获取cookie参数*/
+        let sCookie = document.cookie.replace(/[ ]/g,'');
+        //获取cookie，并且将获得的cookie格式化，去掉空格字符
+        let aArrCookie = sCookie.split(';')
+        //将获得的cookie以"分号"为标识 将cookie保存到aArrCookie的数组中
+        let tips = 'false';  //声明变量tips
+        let arr = [];
+        for(let i = 0; i < aArrCookie.length; i++){   //使用for循环查找cookie中的tips变量
+            arr =aArrCookie[i].split('=');   //将单条cookie用"等号"为标识，将单条cookie保存为arr数组
+            if (sKey == arr[0]) {
+                //匹配变量名称，其中arr[0]是指的cookie名称，如果该条变量为tips则执行判断语句中的赋值操作
+                tips = arr[1];   //将cookie的值赋给变量tips
+                break;   //终止for循环遍历
+            }
+        }
+        return tips;
+    }
 }
 
 let myStorage = (function myStorage () {
@@ -1188,12 +1226,13 @@ function loadLang (sLang = '') {
     sLang = sLang ? sLang : sUserLangvage;
     // console.log(sLang);
     if (!sLang) {
-        console.log('loadLang sLang is null');
+        console.log('loadLang sLang is null, so no to load lang js ');
         return false;
     }
 
     let iTime = getNowTime();
     if (iTime - iLastRequestLangTime < iRequertLangJsTimeout) {
+        console.log('loadLang sLang last time limit, so no to load lang js ');
         setTimeoutFunction('loadLang');
         return false;
     }
@@ -1209,10 +1248,11 @@ function loadLang (sLang = '') {
             break;
     }
     if (!sLangJs) {
-        console.log('loadLang sLangJs is null');
+        console.log('loadLang sLangJs is null, so no to load lang js ');
         return false;
     }
 
+    // console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaa');
     loadJs(sLangJs, true, 'replaceLangs');
 }
 
@@ -1461,7 +1501,7 @@ function initializeFontSize () {
 //     }
 // }(window, window.lib || (window.lib = {}));
 
-function setTimeoutFunction (sFunction = '', arg1 = '') {
+function setTimeoutFunction (sFunction = '', arg1 = '', arg2 = '') {
     if (!sFunction) {
         console.log('setTimeoutFunction sFunction is null');
         return false;
@@ -1476,7 +1516,11 @@ function setTimeoutFunction (sFunction = '', arg1 = '') {
         if (!arg1) {
             window[sFunction]();
         } else {
-            window[sFunction](arg1);
+            if (arg2) {
+                window[sFunction](arg1, arg2);
+            } else {
+                window[sFunction](arg1);
+            }
         }
     }, aBaseTimerOutTime[sFunction]);
 
@@ -1885,9 +1929,13 @@ function uuid () {
 function individuationUuid () {
     if (typeof window['hex_md5'] == 'undefined') {
         // setTimeoutFunction('individuationUuid');
+        console.log(sOldSessionId);
+        console.log(sNewSessionId);
         console.log('individuationUuid hex_md5 undefined, so settimeout to do ');
         return false;
     }
+    console.log(sOldSessionId);
+    console.log(sNewSessionId);
     console.log('individuationUuid hex_md5 is defined, so individuationUuid to do ');
 
     let a = uniquiueString();
@@ -1929,52 +1977,68 @@ function uniquiueString () {
     return e;
 }
 
+function queryOldSessionId () {
+    return cookie.get(sOldSessionIdCookieKey);
+}
+
+function queryNewSessionId () {
+    return cookie.get(sNewSessionIdCookieKey);
+}
 function sessionId () {
-    if (typeof window['queryOldSessionId'] == 'undefined') {
-        setTimeoutFunction('sessionId');
-        console.log('sessionId queryOldSessionId undefined, so settimeout retry ');
-        return false;
-    }
-
-    if (typeof window['queryNewSessionId'] == 'undefined') {
-        setTimeoutFunction('sessionId');
-        console.log('sessionId queryNewSessionId undefined, so settimeout retry ');
-        return false;
-    }
-
+    console.log('sessionId, to do');
     sOldSessionId = queryOldSessionId();
     sNewSessionId = queryNewSessionId();
+    // console.log(sOldSessionId);
+    // console.log(sNewSessionId);
     if (sNewSessionId != 'false') {
+        console.log('sessionId sNewSessionId is true, will check new session format ');
+
         checkSessionIdOutTime();
 
         checkSessionKeyFormat();
     } else {
+        console.log('sessionId sNewSessionId is false, will make session id ');
+
         makeSessionid();
     }
 
     let i = randomNum(iUpdateSessionMinTime, iUpdateSessionMaxTime);
-    aBaseTimer['updateSessionId'] = setTimeout(function () {
+    let t = setTimeout(function () {
         sessionId();
+
+        clearTimeout(t);
     }, i);
 }
 function checkSessionIdOutTime () {
+    // console.log(sOldSessionId);
+    // console.log(sNewSessionId);
     if (!sNewSessionId) {
-        console.log('checkSessionIdOutTime sNewSessionId is false, so no to do ');
+        // console.log(sOldSessionId);
+        // console.log(sNewSessionId);
+        console.log('checkSessionIdOutTime sNewSessionId is false, so will to make session id ');
+
+        makeSessionid();
         return false;
     }
+    // console.log(sOldSessionId);
+    // console.log(sNewSessionId);
 
     let s = sNewSessionId.split(sSessionSplitTag);
 
     if (parseInt(getTime()) - parseInt(s[s.length - 1]) > iSessionOutTime) {
-        sOldSessionId = sNewSessionId;
-        sNewSessionId = false;
-        cacheSessionId();
-
+        // console.log(sOldSessionId);
+        // console.log(sNewSessionId);
         // if (parseInt(getTime()) - parseInt(s[s.length - 1]) > 1) {
         console.log('checkSessionIdOutTime session id is timeout, so will to makeSessionid ');
         makeSessionid();
+
+        // sOldSessionId = sNewSessionId;
+        // sNewSessionId = false;
+        // cacheSessionId();
     }
 
+    // console.log(sOldSessionId);
+    // console.log(sNewSessionId);
     setTimeoutFunction('checkSessionIdOutTime');
     console.log('checkSessionIdOutTime settimeout check, settimeout retry ');
 }
@@ -1982,6 +2046,8 @@ function makeSessionid () {
     let s = individuationUuid();
     if (!s) {
         setTimeoutFunction('makeSessionid');
+        // console.log(sOldSessionId);
+        // console.log(sNewSessionId);
         console.log('makeSessionid individuationUuid is false, so settimeout to do ');
         return;
     }
@@ -1990,6 +2056,8 @@ function makeSessionid () {
     let n = setSessionIdFormat(s);
     if (!n) {
         setTimeoutFunction('makeSessionid');
+        // console.log(sOldSessionId);
+        // console.log(sNewSessionId);
         console.log('makeSessionid setSessionIdFormat is false, so settimeout to do ');
         return;
     }
@@ -1998,14 +2066,20 @@ function makeSessionid () {
     sNewSessionId = n;
 
     if (sNewSessionId) {
+        // console.log(sOldSessionId);
+        // console.log(sNewSessionId);
         cacheSessionId();
         return;
     }
 
+    // console.log(sOldSessionId);
+    // console.log(sNewSessionId);
     setTimeoutFunction('makeSessionid');
     console.log('makeSessionid sNewSessionId is false, so settimeout to retry ');
 }
 function cacheSessionId () {
+    // console.log(sNewSessionId);
+    // console.log(sOldSessionId);
     if (!sNewSessionId) {
         setTimeoutFunction('cacheSessionId');
         console.log('cacheSessionId sNewSessionId is false, so settimeout to retry ');
@@ -2063,39 +2137,76 @@ function setSessionIdSuffix (s) {
     return r.substr(0, q).toLowerCase();
 }
 function checkSessionKeyFormat () {
+    if (typeof window['hex_md5'] == 'undefined') {
+        console.log('checkSessionKeyFormat hex_md5 undefined, so settimeout to retry ');
+
+        let t = setTimeout(function () {
+            checkSessionKeyFormat();
+            clearTimeout(t);
+        }, 20);
+        return false;
+    }
+
+    // console.log(sOldSessionId);
+    // console.log(sNewSessionId);
     let t = sSessionSplitTag;
     if (sOldSessionId != 'false') {
+        // console.log(sOldSessionId);
+        // console.log(sNewSessionId);
         if (!doCheckSessionId(sOldSessionId.split(t), 'old')) {
-            setTimeoutCheckSessionIdFormat();
+            console.log('checkSessionKeyFormat old session is false, so make new session id');
+            makeSessionid();
 
-            updateSessionId();
+            setTimeoutFunction('checkSessionKeyFormat');
+            console.log('checkSessionKeyFormat settimeout check, settimeout retry ');
 
+            // updateSessionId();
             return;
         }
     }
 
     if (sNewSessionId != 'false') {
         if (!doCheckSessionId(sNewSessionId.split(t), 'new')) {
-            setTimeoutCheckSessionIdFormat();
+            console.log('checkSessionKeyFormat new session is false, so make new session id');
+            makeSessionid();
 
-            updateSessionId();
+            setTimeoutFunction('checkSessionKeyFormat');
+            console.log('checkSessionKeyFormat settimeout check, settimeout retry ');
 
+            // updateSessionId();
             return;
         }
     }
 
-    setTimeoutCheckSessionIdFormat();
-}
-function updateSessionId () {
-    sOldSessionId = sNewSessionId;
-    sNewSessionId = false;
-    cacheSessionId();
-}
-function setTimeoutCheckSessionIdFormat () {
     setTimeoutFunction('checkSessionKeyFormat');
     console.log('checkSessionKeyFormat settimeout check, settimeout retry ');
 }
+// function updateSessionId () {
+//     // sOldSessionId = sNewSessionId;
+//     // sNewSessionId = false;
+//     // cacheSessionId();
+//     makeSessionid();
+// }
+// function setTimeoutCheckSessionIdFormat () {
+//     setTimeoutFunction('checkSessionKeyFormat');
+//     console.log('checkSessionKeyFormat settimeout check, settimeout retry ');
+// }
 function doCheckSessionId (s, sSessionIdType) {
+    // console.log(s);
+    // console.log(sSessionIdType);
+    // console.log(sOldSessionId);
+    // console.log(sNewSessionId);
+    if (typeof window['hex_md5'] == 'undefined') {
+        setTimeoutFunction('doCheckSessionId', s, sSessionIdType);
+        // console.log(sOldSessionId);
+        // console.log(sNewSessionId);
+        console.log('doCheckSessionId hex_md5 undefined, so settimeout to do ');
+        return false;
+    }
+    // console.log(sOldSessionId);
+    // console.log(sNewSessionId);
+    console.log('doCheckSessionId hex_md5 is defined, so sttimeout to check session id ');
+
     let a = s[0];
     let b = s[s.length - 2];
     s.pop();
@@ -2145,32 +2256,29 @@ function baseBegin (bOnload = false) {
     try {
         if (bOnload) {
             console.log(1);
-            sessionId();
+            loadOriginJquery();
 
             console.log(2);
-            initializeBody();
+            writeLocalstorageIframe();
 
             console.log(3);
-            winResize();
+            sessionId();
 
             console.log(4);
-            setHosts();
+            initializeBody();
 
             console.log(5);
-            setStaticResouresPathVersion();
+            winResize();
 
             console.log(6);
+            setHosts();
+
+            console.log(7);
+            setStaticResouresPathVersion();
+
+            console.log(8);
             setTimeoutFunction('baseBegin');
         }
-
-        console.log(7);
-        loadBaseCss();
-
-        console.log(77);
-        writeLocalstorageIframe();
-
-        console.log(8);
-        loadBaseJs();
 
         console.log(9);
         if (typeof jQuery === 'undefined') {
@@ -2186,32 +2294,41 @@ function baseBegin (bOnload = false) {
         }
 
         console.log(13);
-        if (typeof window['queryUserLang'] === 'undefined') {
-            console.log(14);
-            setTimeoutFunction('baseBegin');
-            return;
-        }
+        loadBaseCss();
 
         console.log(14);
-        queryUserLang();
+        loadBaseJs();
+
         console.log(15);
-        if (typeof aLang === 'undefined') {
+        if (typeof window['queryUserLang'] === 'undefined') {
             console.log(16);
             setTimeoutFunction('baseBegin');
             return;
         }
 
         console.log(17);
-        if (typeof window['logicBegin'] === 'undefined') {
+        if (typeof aLang === 'undefined') {
             console.log(18);
+            queryUserLang();
+
+            console.log(19);
             setTimeoutFunction('baseBegin');
             return;
         }
 
-        console.log(19);
+        console.log(20);
+        if (typeof window['logicBegin'] === 'undefined') {
+            console.log(21);
+            setTimeoutFunction('baseBegin');
+            return;
+        }
+
+        console.log(22);
         afterLoadIndexJs();
 
+        console.log(23);
         if (typeof window['apiQuery'] === 'undefined') {
+            console.log(24);
             loadApiQueryJs();
 
             console.log('baseBegin apiQuery is undefined. will to load apiQuery js file ');
@@ -2219,7 +2336,7 @@ function baseBegin (bOnload = false) {
             // return;
         }
 
-        console.log(20);
+        console.log(25);
         logicBegin(true);
     } catch (e) {
         console.log('catch exception');
