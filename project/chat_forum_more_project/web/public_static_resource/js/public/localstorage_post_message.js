@@ -14,7 +14,7 @@ window.addEventListener('message',function(event){
     }
 
     console.log('#######################################');
-    console.log('get form ' + event.origin + ' message, will cache localstorage');
+    console.log('get form ' + event.origin + ' message, will do origin localstorage');
     console.log(event.data);
     console.log('#######################################');
 

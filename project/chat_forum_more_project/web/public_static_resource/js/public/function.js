@@ -235,6 +235,7 @@ function setBrowserTitle (t = '') {
         console.log('setPageTitle t is null, so no to do');
         return false;
     }
+    console.log('setPageTitle t is true, so will set browser title ');
 
     document.title = t;
 }
@@ -301,12 +302,14 @@ function replaceTitle (t = '') {
         console.log('replaceTitle t is null, so no to do ');
         return;
     }
+    console.log('replaceTitle t is true, will to replace browser title lang ');
 
     if (typeof window['aLang'] == 'undefined') {
-        console.log('replaceTitle aLang is false, so settimtoue retry ');
+        console.log('replaceTitle aLang is false, so settimtout retry to repalce browser title lang ');
         setTimeoutFunction('replaceTitle', t);
         return;
     }
+    console.log('replaceTitle aLang is true, so replace browser title lang ');
 
     setBrowserTitle(aLang[t]);
 }
@@ -323,12 +326,14 @@ function replaceLang (p = '', d = '') {
         console.log('replaceLang p or d is null, so no to do ');
         return;
     }
+    console.log('replaceLang, will to do replace lang ');
 
     if (typeof aLang == 'undefined') {
-        console.log('replaceLang aLang is false, so settimtoue retry ');
+        console.log('replaceLang aLang is false, so settimtoue retry replace lang ');
         setTimeoutFunction('replaceLang', p, d);
         return;
     }
+    console.log('replaceLang aLang is true, will to replace lang ');
 
     let o = false;
     switch (p) {
@@ -341,6 +346,7 @@ function replaceLang (p = '', d = '') {
         console.log('replaceLang dom is null, so no to do ');
         return;
     }
+    console.log('replaceLang dom is true, will to replace lang ');
 
     let s = o.getElementsByClassName(sReLangClass);
     for (let i in s) {

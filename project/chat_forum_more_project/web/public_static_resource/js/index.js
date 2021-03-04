@@ -99,7 +99,7 @@ const aFooterAction = a3;
 
 const sDefaultPageHtml = 'index.html';
 
-let bFirstLoad = false; // 新打开窗口
+let bFirstLoad = true; // 新打开窗口
 
 let iWinWidth = 0;
 let iWinHeight = 0;
@@ -214,7 +214,7 @@ let aBaseTimer = []; //基础定时器
 const aBaseTimerOutTime = []; //基础定时器间隔时间
 // const t = 15;
 const t = 15;
-aBaseTimerOutTime['winResize'] = t;
+aBaseTimerOutTime['winResize'] = 100;
 aBaseTimerOutTime['loadBaseEncodeJs'] = t;
 aBaseTimerOutTime['loadBaseLogicJs'] = t;
 aBaseTimerOutTime['loadBaseDomJs'] = t;
@@ -250,6 +250,7 @@ aBaseTimerOutTime['checkSessionKeyFormat1'] = t;
 aBaseTimerOutTime['replaceWindowTitle'] = t;
 aBaseTimerOutTime['replaceDomLang'] = t;
 aBaseTimerOutTime['replaceLang'] = t;
+aBaseTimerOutTime['replaceTitle'] = t;
 aBaseTimerOutTime['checkSessionIdOutTime'] = 120000;
 aBaseTimerOutTime['checkSessionKeyFormat'] = 180000;
 
@@ -1724,8 +1725,9 @@ function writePublicShade () {
 }
 function shade () {
     if (!checkExistPublicShadeDom()) {
-        console.log('shade checkExistPublicShadeDom is false, no father to append shade, will write public shade father, wait write shade');
+        console.log('shade checkExistPublicShadeDom is false, no shade father dom, will write shade father dom, settimeout retry to write shade ');
         writePublicShade();
+
         setTimeoutFunction('shade');
         return;
     }
@@ -1876,10 +1878,10 @@ function changeDomFatherOpacity (bShow = false) {
 
 function showShade (oDiv = false) {
     if (!oDiv) {
-        console.log('showShade oDiv is null, so no to do');
+        console.log('showShade oDiv dom is null, so no to do');
         return;
     }
-    console.log('showShade ' + oDiv.id + ', show shade ');
+    console.log('showShade ' + oDiv.id + ', will to show shade ');
 
     iShadeZIndexBeginIndex += parseInt(1);
 
@@ -1991,7 +1993,7 @@ function queryNewSessionId () {
     return cookie.get(sNewSessionIdCookieKey);
 }
 function sessionId () {
-    console.log('sessionId, to do');
+    console.log('sessionId, begin to do ');
     sOldSessionId = queryOldSessionId();
     sNewSessionId = queryNewSessionId();
     // console.log(sOldSessionId);
@@ -2046,7 +2048,7 @@ function checkSessionIdOutTime () {
     // console.log(sOldSessionId);
     // console.log(sNewSessionId);
     setTimeoutFunction('checkSessionIdOutTime');
-    console.log('checkSessionIdOutTime settimeout check, settimeout retry ');
+    console.log('checkSessionIdOutTime settimeout check, settimeout recheck ');
 }
 function makeSessionid () {
     let s = individuationUuid();
@@ -2144,10 +2146,11 @@ function setSessionIdSuffix (s) {
 }
 function checkSessionKeyFormat () {
     if (typeof window['hex_md5'] == 'undefined') {
-        console.log('checkSessionKeyFormat hex_md5 undefined, so settimeout to retry ');
+        console.log('checkSessionKeyFormat hex_md5 undefined, so settimeout to recheck session format ');
 
         let t = setTimeout(function () {
             checkSessionKeyFormat();
+
             clearTimeout(t);
         }, 20);
         return false;
@@ -2331,7 +2334,7 @@ function baseBegin (bOnload = false) {
             console.log(19);
             loadApiQueryJs();
 
-            console.log('baseBegin apiQuery is undefined. will to load apiQuery js file ');
+            console.log('baseBegin query is undefined. will to load query js file ');
             // setTimeoutFunction('baseBegin', bNoFirst);
             // return;
         }
@@ -2359,7 +2362,7 @@ function exceptionHandle (e) {
 }
 
 function afterLoadIndexJs () {
-    bFirstLoad = true;
+    bFirstLoad = false;
 
     clearIndexShade();
 }
