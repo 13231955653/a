@@ -207,7 +207,7 @@ function updateUrlArg (sArgKey = '', sArgValue = '', sTitle = '', callback = fal
     let stateObject = {};
     window.history.pushState(stateObject, sTitle, sChangeUrl);
 
-    setPageTitle(sTitle);
+    setBrowserTitle(sTitle);
 
     if (callback) {
         window[callback]();
@@ -223,13 +223,20 @@ function ucfirst (sString = '') {
     return sString.charAt(0).toUpperCase() + sString.slice(1)
 }
 
-function setPageTitle (sTitle = '') {
-    if (!sTitle) {
-        console.log('setPageTitle sTitle is null, so no to do');
+/**
+ *
+ * 设置浏览器title
+ *
+ * @param t 浏览器title type string
+ * @returns {boolean}
+ */
+function setBrowserTitle (t = '') {
+    if (!t) {
+        console.log('setPageTitle t is null, so no to do');
         return false;
     }
 
-    document.title = sTitle;
+    document.title = t;
 }
 
 // window.onpopstate = function(event) {
@@ -284,3 +291,120 @@ function afterSetLang (bSetLangResult = '') {
 //     localstoragePostMessage(sPage, {action: 'get', key: sKey, after: sAfterFunc});
 // }
 
+/**
+ *
+ *  改写 浏览器 title
+ * @param t window title type string
+ */
+function replaceTitle (t = '') {
+    if (!t) {
+        console.log('replaceTitle t is null, so no to do ');
+        return;
+    }
+
+    if (typeof window['aLang'] == 'undefined') {
+        console.log('replaceTitle aLang is false, so settimtoue retry ');
+        setTimeoutFunction('replaceTitle', t);
+        return;
+    }
+
+    setBrowserTitle(aLang[t]);
+}
+
+/**
+ *
+ * 替换dom语言
+ *
+ * @param p 传入第二参数的类型 type string id/class/tag
+ * @param d 需要替换语言的dom的 id/class/tag type sting
+ */
+function replaceLang (p = '', d = '') {
+    if (!p || !d) {
+        console.log('replaceLang p or d is null, so no to do ');
+        return;
+    }
+
+    if (typeof aLang == 'undefined') {
+        console.log('replaceLang aLang is false, so settimtoue retry ');
+        setTimeoutFunction('replaceLang', p, d);
+        return;
+    }
+
+    let o = false;
+    switch (p) {
+        case sReplaceLangIdType :
+            o = document.getElementById(d);
+            break;
+    }
+
+    if (!o) {
+        console.log('replaceLang dom is null, so no to do ');
+        return;
+    }
+
+    let s = o.getElementsByClassName(sReLangClass);
+    for (let i in s) {
+        s[i].innerHTML = aLang[s[i].id];
+    }
+}
+
+/**
+ *
+ * 更新 url page 参数
+ *
+ * p url page 更新为 p type sting
+ *
+ * @type {string}
+ */
+let sLastPage = '';
+function uodateUrlPageArg (p = '') {
+    if (!p) {
+        console.log('uodateUrlPageArg page is null，so no will to do');
+        return;
+    }
+
+    if (sLastPage === p) {
+        console.log('uodateUrlPageArg sLastPage === ' + p + ' ，so no change url and after action');
+        console.log('uodateUrlPageArg dispose show now page or reload now page dom');
+
+        repeatedlyPage(p);
+        return;
+    }
+    sLastPage = p;
+
+    writePageShade();
+
+    updateUrlPage(p);
+}
+
+/**
+ *
+ * 更新url page 参数
+ *
+ * p page 更新为 p type sting
+ *
+ * @type {Array}
+ */
+let aAllreadyLoadPageJs = [];
+function updateUrlPage (p = '') {
+    p = p ? p : getNowPage();
+
+    ////////////////////////////////////
+    // let sTitle = aLang[p + '_title'];
+    let t = '';
+    replaceWindowTitle(p + '_title');
+
+    let f = ''; // 回调函数
+    if (typeof aAllreadyLoadPageJs[p] == 'undefined') {
+        console.log('updateUrlPage aAllreadyLoadPageJs ' + p + ' is undefined, so load page js ');
+        f = 'loadPageJs';
+    } else {
+        console.log('updateUrlPage aAllreadyLoadPageJs ' + p + ' is defined, so load afterLoadPageJs ');
+        f = 'afterLoadPageJs';
+    }
+    aAllreadyLoadPageJs[p] = getNowTime();
+
+    updateUrlArg (sUrlAddressPageKey, p, t, f);
+}
+
+const bLoadFunctionJs = true;

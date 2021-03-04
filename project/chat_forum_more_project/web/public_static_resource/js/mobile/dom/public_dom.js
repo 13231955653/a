@@ -49,8 +49,10 @@ function writeFooter() {
         return true;
     }
 
+    let f = sPublicFootId;
+
     let sInfo = '';
-    sInfo += '<div id="' + sPublicFootId + '">';
+    sInfo += '<div id="' + f + '">';
 
     sInfo += '<ul>';
 
@@ -68,6 +70,8 @@ function writeFooter() {
 
     let oBody = bodyDom();
     $(oBody).append(sInfo);
+
+    replaceDomLang(sReplaceLangIdType, f);
 }
 function writeOneFooter (sId = '') {
     let sLang = sId + sFootTag;
@@ -76,7 +80,8 @@ function writeOneFooter (sId = '') {
     sInfo += '<li id="' + sId + sFootTag + sFootLiSuffix + '" class="' + sFootTag + '">';
     sInfo += '<a href="javascript:void(0);" onclick="' + aFooterAction[sId] + '">';
     sInfo += '<span class="' + sReLangClass + '" id="' + sLang + '">';
-    sInfo += typeof aLang[sLang] !== 'undefined' ? aLang[sLang] : aLang['langvage_error'];
+    /////////////////////////////////////
+    // sInfo += typeof aLang[sLang] !== 'undefined' ? aLang[sLang] : aLang['langvage_error'];
     sInfo += '</span>';
     sInfo += '</a>';
     sInfo += '</li>';
@@ -129,5 +134,24 @@ function writeNotice () {
     $(oBody).append(sInfo);
 }
 
-function appendNode () {
+/**
+ *
+ * 替换dom语言
+ *
+ * @param p 传入第二参数的类型 type string id/class/tag
+ * @param d 需要替换语言的dom的 id/class/tag type sting
+ */
+function replaceDomLang (p = '', d = '') {
+    if (!p || !d) {
+        console.log('replaceDomLang p or d is null, so no to do ');
+        return;
+    }
+
+    if (typeof bLoadFunctionJs == 'undefined') {
+        console.log('replaceDomLang bLoadFunctionJs is false, so settimtoue retry ');
+        setTimeoutFunction('replaceDomLang', p, d);
+        return;
+    }
+
+    replaceLang(p, d);
 }

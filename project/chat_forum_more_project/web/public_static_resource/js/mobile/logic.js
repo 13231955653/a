@@ -113,42 +113,24 @@ function repeatedlyPage (sPage = '') {
     }
 }
 
-let sLastPage = '';
-function uodateUrlPageArg (sPage = '') {
-    if (!sPage) {
-        console.log('uodateUrlPageArg page is null，so no will to do');
+/**
+ *
+ *  改写 浏览器 title
+ * @param t window title type string
+ */
+function replaceWindowTitle (t = '') {
+    if (!t) {
+        console.log('replaceWindowTitle t is null, so no to do ');
         return;
     }
 
-    if (sLastPage === sPage) {
-        console.log('uodateUrlPageArg sLastPage === ' + sPage + ' ，so no change url and after action');
-        console.log('uodateUrlPageArg dispose show now page or reload now page dom');
-
-        repeatedlyPage(sPage);
+    if (typeof bLoadFunctionJs == 'undefined') {
+        console.log('replaceWindowTitle bLoadFunctionJs is false, so settimtoue retry ');
+        setTimeoutFunction('replaceWindowTitle', t);
         return;
     }
-    sLastPage = sPage;
 
-    writePageShade();
-
-    updateUrlPage(sPage);
-}
-
-let aAllreadyLoadPageJs = [];
-function updateUrlPage (sPage = '') {
-    sPage = sPage ? sPage : getNowPage();
-
-    let sTitle = aLang[sPage + '_title'];
-
-    let sAfterFunc = '';
-    if (typeof aAllreadyLoadPageJs[sPage] === 'undefined') {
-        sAfterFunc = 'loadPageJs';
-    } else {
-        sAfterFunc = 'afterLoadPageJs';
-    }
-    aAllreadyLoadPageJs[sPage] = getNowTime();
-
-    updateUrlArg (sUrlAddressPageKey, sPage, sTitle, sAfterFunc);
+    replaceTitle(t);
 }
 
 function logicBegin () {

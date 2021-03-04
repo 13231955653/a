@@ -78,6 +78,8 @@ const sChatBodyId = 'chat_body';
 const sFriendBodyId = 'friend_body';
 const sDisplayNoneClass = 'display_none';
 
+const sReplaceLangIdType = 'id';
+
 const sUrlAddressSignEncodeSalt = '_&*uh124jKYUSa87123_';
 const sUrlAddressPageKey = 'page';
 const sUrlAddressSignKey = 'sign';
@@ -245,6 +247,9 @@ aBaseTimerOutTime['repeatedlyPage'] = t;
 aBaseTimerOutTime['localstoragePostMessage'] = t;
 aBaseTimerOutTime['doCheckSessionId'] = t;
 aBaseTimerOutTime['checkSessionKeyFormat1'] = t;
+aBaseTimerOutTime['replaceWindowTitle'] = t;
+aBaseTimerOutTime['replaceDomLang'] = t;
+aBaseTimerOutTime['replaceLang'] = t;
 aBaseTimerOutTime['checkSessionIdOutTime'] = 120000;
 aBaseTimerOutTime['checkSessionKeyFormat'] = 180000;
 
@@ -287,7 +292,8 @@ const sChatJs = '/public_static_resource/js/' + platformTag() + '/page/chat.js';
 const sFriendJs = '/public_static_resource/js/' + platformTag() + '/page/friend.js';
 const sSettingJs = '/public_static_resource/js/' + platformTag() + '/page/setting.js';
 const sApiQueryJs = '/public_static_resource/js/public/query/query.js';
-sOriginJquery = 'http://libs.baidu.com/jquery/2.1.4/jquery.min.js';
+// sOriginJquery = 'http://libs.baidu.com/jquery/2.1.4/jquery.min.js'; ////////////国内外需要更换适用的地址
+sOriginJquery = 'http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js'; ////////////国内外需要更换适用的地址
 
 aJsVersion[sBaseJs] = '11111111111111111111111111111111';
 // aJsVersion[sBaseVariableJs] = '222222222222222222222222222222';
@@ -2276,59 +2282,53 @@ function baseBegin (bOnload = false) {
             console.log(7);
             setStaticResouresPathVersion();
 
-            console.log(8);
-            setTimeoutFunction('baseBegin');
+            // console.log(8);
+            // setTimeoutFunction('baseBegin');
         }
 
-        console.log(9);
+        console.log(8);
         if (typeof jQuery === 'undefined') {
-            console.log(10);
+            console.log(9);
             if (getNowTime() - iLoadOriginJqueryLastTime > iMaxLoadOriginJqueryWaitTime) {
-                console.log(11);
+                console.log(10);
                 loadLocalJquery();
             }
 
-            console.log(12);
+            console.log(11);
             setTimeoutFunction('baseBegin');
             return;
         }
 
-        console.log(13);
+        console.log(12);
         loadBaseCss();
 
-        console.log(14);
+        console.log(13);
         loadBaseJs();
 
-        console.log(15);
-        if (typeof window['queryUserLang'] === 'undefined') {
-            console.log(16);
-            setTimeoutFunction('baseBegin');
-            return;
+        console.log(14);
+        if (typeof aLang === 'undefined') {
+            console.log(15);
+            if (typeof window['queryUserLang'] != 'undefined') {
+                console.log(16);
+
+                queryUserLang();
+                // setTimeoutFunction('baseBegin');
+                // return;
+            }
+
+            // console.log(18);
+            //
+            // console.log(19);
+            // setTimeoutFunction('baseBegin');
+            // return;
         }
 
         console.log(17);
-        if (typeof aLang === 'undefined') {
-            console.log(18);
-            queryUserLang();
-
-            console.log(19);
-            setTimeoutFunction('baseBegin');
-            return;
-        }
-
-        console.log(20);
-        if (typeof window['logicBegin'] === 'undefined') {
-            console.log(21);
-            setTimeoutFunction('baseBegin');
-            return;
-        }
-
-        console.log(22);
         afterLoadIndexJs();
 
-        console.log(23);
+        console.log(18);
         if (typeof window['apiQuery'] === 'undefined') {
-            console.log(24);
+            console.log(19);
             loadApiQueryJs();
 
             console.log('baseBegin apiQuery is undefined. will to load apiQuery js file ');
@@ -2336,7 +2336,14 @@ function baseBegin (bOnload = false) {
             // return;
         }
 
-        console.log(25);
+        console.log(20);
+
+        console.log(21);
+        if (typeof window['logicBegin'] === 'undefined') {
+            console.log(22);
+            setTimeoutFunction('baseBegin');
+            return;
+        }
         logicBegin(true);
     } catch (e) {
         console.log('catch exception');
