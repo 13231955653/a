@@ -1,157 +1,136 @@
 function writeHeader() {
-    let oDom = getPublicHeaderDom();
-    if (oDom) {
+    // let oDom = getPublicHeaderDom();
+    if (getPublicHeaderDom()) {
         return true;
     }
 
-    let sInfo = '';
-    sInfo += '<div id="' + sPublicHeaderId + '">';
+    let s = '';
+    s += '<div id="' + sPublicHeaderId + '">';
 
-    sInfo += '</div>';
+    s += '</div>';
 
-    let oBody = bodyDom();
-    $(oBody).append(sInfo);
+    // let oBody = bodyDom();
+    $(bodyDom()).append(s);
 }
 
 function writeBody() {
-    let oDom = getPublicBodyDom();
-    if (oDom) {
+    // let oDom = getPublicBodyDom();
+    if (getPublicBodyDom()) {
         return true;
     }
 
-    let sInfo = '';
-    sInfo += '<div id="' + sPublicBodyId + '">';
+    let s = '';
+    s += '<div id="' + sPublicBodyId + '">';
 
-    sInfo += writeMobliePageFatherDom(sSettingBodyId);
+    s += writeMobliePageFatherDom(sSettingBodyId);
 
-    sInfo += writeMobliePageFatherDom(sForumBodyId);
+    s += writeMobliePageFatherDom(sForumBodyId);
 
-    sInfo += writeMobliePageFatherDom(sChatBodyId);
+    s += writeMobliePageFatherDom(sChatBodyId);
 
-    sInfo += writeMobliePageFatherDom(sFriendBodyId);
+    s += writeMobliePageFatherDom(sFriendBodyId);
 
-    sInfo += '</div>';
+    s += '</div>';
 
-    let oBody = bodyDom();
-    $(oBody).append(sInfo);
+    // let oBody = bodyDom();
+    $(bodyDom()).append(s);
 }
 
-function writeMobliePageFatherDom (sId) {
-    let sInfo = '';
-    sInfo += '<div id="' + sId + '">';
-    sInfo += '</div>';
-    return sInfo;
+function writeMobliePageFatherDom (d) {
+    let s = '';
+    s += '<div id="' + d + '">';
+    s += '</div>';
+    return s;
 }
 
 function writeFooter() {
-    let oDom = getPublicFootDom();
-    if (oDom) {
+    // let oDom = getPublicFootDom();
+    if (getPublicFootDom()) {
         return true;
     }
 
     let f = sPublicFootId;
 
-    let sInfo = '';
-    sInfo += '<div id="' + f + '">';
+    let s = '';
+    s += '<div id="' + f + '">';
 
-    sInfo += '<ul>';
+    s += '<ul>';
 
-    sInfo += writeOneFooter(sForumPage);
+    s += writeOneFooter(sForumPage);
 
-    sInfo += writeOneFooter(sChatPage);
+    s += writeOneFooter(sChatPage);
 
-    sInfo += writeOneFooter(sFriendPage);
+    s += writeOneFooter(sFriendPage);
 
-    sInfo += writeOneFooter(sSettingPage);
+    s += writeOneFooter(sSettingPage);
 
-    sInfo += '</ul>';
+    s += '</ul>';
 
-    sInfo += '</div>';
+    s += '</div>';
 
-    let oBody = bodyDom();
-    $(oBody).append(sInfo);
+    // let oBody = bodyDom();
+    $(bodyDom()).append(s);
 
     replaceDomLang(sReplaceLangIdType, f);
 }
-function writeOneFooter (sId = '') {
-    let sLang = sId + sFootTag;
+function writeOneFooter (d = '') {
+    let l = d + sFootTag;
 
-    let sInfo = '';
-    sInfo += '<li id="' + sId + sFootTag + sFootLiSuffix + '" class="' + sFootTag + '">';
-    sInfo += '<a href="javascript:void(0);" onclick="' + aFooterAction[sId] + '">';
-    sInfo += '<span class="' + sReLangClass + '" id="' + sLang + '">';
+    let s = '';
+    s += '<li id="' + d + sFootTag + sFootLiSuffix + '" class="' + sFootTag + '">';
+    s += '<a href="javascript:void(0);" onclick="' + aFooterAction[d] + '">';
+    s += '<span class="' + sReLangClass + '" id="' + l + '">';
     /////////////////////////////////////
-    // sInfo += typeof aLang[sLang] !== 'undefined' ? aLang[sLang] : aLang['langvage_error'];
-    sInfo += '</span>';
-    sInfo += '</a>';
-    sInfo += '</li>';
+    // s += typeof aLang[sLang] !== 'undefined' ? aLang[sLang] : aLang['langvage_error'];
+    s += '</span>';
+    s += '</a>';
+    s += '</li>';
 
-    return sInfo;
+    return s;
 }
 
 function writeLeft () {
-    let oDom = getPublicLeftDom();
-    if (oDom) {
+    // let oDom = getPublicLeftDom();
+    if (getPublicLeftDom()) {
         return true;
     }
 
-    let sInfo = '';
-    sInfo += '<div id="' + sPublicLeftId + '">';
+    let s = '';
+    s += '<div id="' + sPublicLeftId + '">';
 
-    sInfo += '</div>';
+    s += '</div>';
 
-    let oBody = bodyDom();
-    $(oBody).append(sInfo);
+    // let oBody = bodyDom();
+    $(bodyDom()).append(s);
 }
 
 function writeRight () {
-    let oDom = getPublicRightDom();
-    if (oDom) {
+    // let oDom = getPublicRightDom();
+    if (getPublicRightDom()) {
         return true;
     }
 
-    let sInfo = '';
-    sInfo += '<div id="' + sPublicRightId + '">';
+    let s = '';
+    s += '<div id="' + sPublicRightId + '">';
 
-    sInfo += '</div>';
+    s += '</div>';
 
-    let oBody = bodyDom();
-    $(oBody).append(sInfo);
+    // let oBody = bodyDom();
+    $(bodyDom()).append(s);
 }
 
 function writeNotice () {
-    let oDom = getPublicNoticeDom();
-    if (oDom) {
+    // let oDom = getPublicNoticeDom();
+    if (getPublicNoticeDom()) {
         return true;
     }
 
-    let sInfo = '';
-    sInfo += '<div id="' + sPublicNoticeId + '">';
+    let s = '';
+    s += '<div id="' + sPublicNoticeId + '">';
 
-    sInfo += '</div>';
+    s += '</div>';
 
-    let oBody = bodyDom();
-    $(oBody).append(sInfo);
+    // let oBody = bodyDom();
+    $(bodyDom()).append(s);
 }
 
-/**
- *
- * 替换dom语言
- *
- * @param p 传入第二参数的类型 type string id/class/tag
- * @param d 需要替换语言的dom的 id/class/tag type sting
- */
-function replaceDomLang (p = '', d = '') {
-    if (!p || !d) {
-        console.log('replaceDomLang p or d is null, so no to do ');
-        return;
-    }
-
-    if (typeof bLoadFunctionJs == 'undefined') {
-        console.log('replaceDomLang bLoadFunctionJs is false, so settimtoue retry ');
-        setTimeoutFunction('replaceDomLang', p, d);
-        return;
-    }
-
-    replaceLang(p, d);
-}

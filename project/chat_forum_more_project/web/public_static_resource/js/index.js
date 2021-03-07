@@ -55,14 +55,15 @@ const oDomFatherId = 'dom_father';
 const sShadeIndex = 'index_shade';
 const sIndexPlatform = 'platform_shade';
 const sIndexPage = 'page_shade';
-
 // const iMaxZIndex = 2000000001;
-let iShadeZIndexBeginIndex = 1000000000;
+let iShadeZIndex = 1000000000;
+const sInvisibleClass = 'invisible';
+const sVisibleClass = 'gradually_visible';
 
 const sPublicFootId = 'public_footer';
 const sPublicHeaderId = 'public_header';
 const sPublicBodyId = 'public_body';
-const sStoragePageBodyId = 'storage_body';
+// const sStoragePageBodyId = 'storage_body';
 const sPublicLeftId = 'public_left';
 const sPublicRightId = 'public_right';
 const sPublicNoticeId = 'public_notice';
@@ -195,13 +196,13 @@ const aLocalstorageEncodeConfuseEncode = a1;//localstorage 混淆加密
 const sAstrictJumpUrl = 'https://www.baidu.com';
 const aBaseHost = [
     'you.com',
-    'map.you.com',
-    'shop.you.com',
-    'bike.you.com',
-    'person.you.com',
-    'play.you.com',
-    'music.you.com',
-    'vedio.you.com',
+    '0.son.you.com',
+    '1.son.you.com',
+    '2.son.you.com',
+    '3.son.you.com',
+    '4.son.you.com',
+    '5.son.you.com',
+    '6.son.you.com',
 ];
 
 const iRequertTimeout = 9000;
@@ -211,50 +212,52 @@ const iMaxLoadOriginJqueryWaitTime = 5000;
 const iSpeed = 300;
 
 let aBaseTimer = []; //基础定时器
-const aBaseTimerOutTime = []; //基础定时器间隔时间
-// const t = 15;
+const b = []; //基础定时器间隔时间
+// const t = 2000;
 const t = 15;
-aBaseTimerOutTime['winResize'] = 100;
-aBaseTimerOutTime['loadBaseEncodeJs'] = t;
-aBaseTimerOutTime['loadBaseLogicJs'] = t;
-aBaseTimerOutTime['loadBaseDomJs'] = t;
-aBaseTimerOutTime['loadBaseFunctionJs'] = t;
-aBaseTimerOutTime['loadOriginJquery'] = t;
-aBaseTimerOutTime['loadLang'] = t;
-aBaseTimerOutTime['logicBegin'] = t;
-aBaseTimerOutTime['loadPlatformDomJs'] = t;
-aBaseTimerOutTime['baseBegin'] = t;
-aBaseTimerOutTime['loadResetCss'] = t;
-aBaseTimerOutTime['checkLoadCss'] = t;
-aBaseTimerOutTime['writeStorageDom'] = t;
-aBaseTimerOutTime['loadLocalJquery'] = t;
-aBaseTimerOutTime['replaceLangs'] = t;
-aBaseTimerOutTime['loadPublicCss'] = t;
-aBaseTimerOutTime['loadPersonalizedCss'] = t;
-aBaseTimerOutTime['loadVariableCss'] = t;
-aBaseTimerOutTime['writePublicDom'] = t;
-aBaseTimerOutTime['shade'] = t;
-aBaseTimerOutTime['individuationUuid'] = t;
-aBaseTimerOutTime['makeSessionid'] = t;
-aBaseTimerOutTime['cacheSessionId'] = t;
-aBaseTimerOutTime['repeatedlySettingPage'] = t;
-aBaseTimerOutTime['repeatedlyFriendPage'] = t;
-aBaseTimerOutTime['repeatedlyForumPage'] = t;
-aBaseTimerOutTime['repeatedlyChatPage'] = t;
-aBaseTimerOutTime['loadApiQueryJs'] = t;
-aBaseTimerOutTime['sessionId'] = t;
-aBaseTimerOutTime['repeatedlyPage'] = t;
-aBaseTimerOutTime['localstoragePostMessage'] = t;
-aBaseTimerOutTime['doCheckSessionId'] = t;
-aBaseTimerOutTime['checkSessionKeyFormat1'] = t;
-aBaseTimerOutTime['replaceWindowTitle'] = t;
-aBaseTimerOutTime['replaceDomLang'] = t;
-aBaseTimerOutTime['replaceLang'] = t;
-aBaseTimerOutTime['replaceTitle'] = t;
-aBaseTimerOutTime['checkSessionIdOutTime'] = 120000;
-aBaseTimerOutTime['checkSessionKeyFormat'] = 180000;
+b['winResize'] = 100;
+b['loadBaseEncodeJs'] = t;
+b['loadBaseLogicJs'] = t;
+b['loadBaseDomJs'] = t;
+b['loadBaseFunctionJs'] = t;
+b['loadOriginJquery'] = t;
+b['loadLang'] = t;
+b['logicBegin'] = t;
+b['loadPlatformDomJs'] = t;
+b['baseBegin'] = t;
+b['loadResetCss'] = t;
+b['checkLoadCss'] = t;
+b['writeStorageDom'] = t;
+b['loadLocalJquery'] = t;
+b['replaceLangs'] = t;
+b['loadPublicCss'] = t;
+b['loadPersonalizedCss'] = t;
+b['loadVariableCss'] = t;
+b['writePublicDom'] = t;
+b['shade'] = t;
+b['individuationUuid'] = t;
+b['makeSessionid'] = t;
+b['cacheSessionId'] = t;
+b['repeatedlySettingPage'] = t;
+b['repeatedlyFriendPage'] = t;
+b['repeatedlyForumPage'] = t;
+b['repeatedlyChatPage'] = t;
+b['loadApiQueryJs'] = t;
+b['sessionId'] = t;
+b['repeatedlyPage'] = t;
+b['localstoragePostMessage'] = t;
+b['doCheckSessionId'] = t;
+b['checkSessionKeyFormat1'] = t;
+b['replaceWindowTitle'] = t;
+b['replaceDomLang'] = t;
+b['replaceLang'] = t;
+b['replaceTitle'] = t;
+b['logicBegin'] = t;
+b['writePublicDom'] = t;
+b['checkSessionIdOutTime'] = 120000;
+b['checkSessionKeyFormat'] = 180000;
+const aBaseTimerOutTime = b; //基础定时器间隔时间
 
-const aJsVersion = []; // js 文件版本号
 let sBaseJsFullName = '';
 // let sBaseVariableJsFullName = '';
 let sBaseFunctionJsFullName = '';
@@ -296,22 +299,24 @@ const sApiQueryJs = '/public_static_resource/js/public/query/query.js';
 // sOriginJquery = 'http://libs.baidu.com/jquery/2.1.4/jquery.min.js'; ////////////国内外需要更换适用的地址
 sOriginJquery = 'http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js'; ////////////国内外需要更换适用的地址
 
-aJsVersion[sBaseJs] = '11111111111111111111111111111111';
-// aJsVersion[sBaseVariableJs] = '222222222222222222222222222222';
-aJsVersion[sBaseFunctionJs] = '3333333333333333333333333333333333333';
-aJsVersion[sBaseJqueryJs] = '4444444444444444444444444444444444444444444';
-aJsVersion[sBaseLogicJs] = '55555555555555555555555555555555555555555555555555';
-aJsVersion[sBaseDomJs] = '6666666666666666666666666666666666666666666';
-aJsVersion[sBaseEncodeJs] = '77777777777777777777777777777777777';
-aJsVersion[sCnLang] = '888888888888888888888';
-aJsVersion[sEnLang] = '9999999999999999999999999999';
-aJsVersion[sPlatformDomJs] = 'ssssssssssssssssssssssssssssssssssssssssssssssssss';
-aJsVersion[sForumJs] = 'dasdasdasdasdasdadasdasd11111111';
-aJsVersion[sChatJs] = '2222222222dfsdfsdfsdfsdfffffffffff';
-aJsVersion[sFriendJs] = '333333333eeeeeeeeeeeeeeeeeeeee';
-aJsVersion[sSettingJs] = '44444444444fewrrrrrrrrrrrrrrr';
-aJsVersion[sApiQueryJs] = 'kkkkkkkkkkkkkkkkdasdasdkkkkkkkkkkkkkkkkkkkkkkk';
-aJsVersion[sOriginJquery] = 'dasdasdwqe214124';
+const c = [];  // js 文件版本号
+c[sBaseJs] = '11111111111111111111111111111111';
+// c[sBaseVariableJs] = '222222222222222222222222222222';
+c[sBaseFunctionJs] = '3333333333333333333333333333333333333';
+c[sBaseJqueryJs] = '4444444444444444444444444444444444444444444';
+c[sBaseLogicJs] = '55555555555555555555555555555555555555555555555555';
+c[sBaseDomJs] = '6666666666666666666666666666666666666666666';
+c[sBaseEncodeJs] = '77777777777777777777777777777777777';
+c[sCnLang] = '888888888888888888888';
+c[sEnLang] = '9999999999999999999999999999';
+c[sPlatformDomJs] = 'ssssssssssssssssssssssssssssssssssssssssssssssssss';
+c[sForumJs] = 'dasdasdasdasdasdadasdasd11111111';
+c[sChatJs] = '2222222222dfsdfsdfsdfsdfffffffffff';
+c[sFriendJs] = '333333333eeeeeeeeeeeeeeeeeeeee';
+c[sSettingJs] = '44444444444fewrrrrrrrrrrrrrrr';
+c[sApiQueryJs] = 'kkkkkkkkkkkkkkkkdasdasdkkkkkkkkkkkkkkkkkkkkkkk';
+c[sOriginJquery] = 'dasdasdwqe214124';
+const aJsVersion = c; // js 文件版本号
 
 function setJsPathAndVersion () {
     sOriginJquery = sOriginJquery + '?ver=' + aJsVersion[sOriginJquery];
@@ -568,6 +573,28 @@ function loadPersonlizedColorCss (c = '') {
     }
 
     loadPersonalizedCss(c);
+}
+
+/**
+ *
+ * 替换dom语言
+ *
+ * @param p 传入第二参数的类型 type string id/class/tag
+ * @param d 需要替换语言的dom的 id/class/tag type sting
+ */
+function replaceDomLang (p = '', d = '') {
+    if (!p || !d) {
+        console.log('replaceDomLang p or d is null, so no to do ');
+        return;
+    }
+
+    if (typeof bLoadFunctionJs == 'undefined') {
+        console.log('replaceDomLang bLoadFunctionJs is false, so settimtoue retry ');
+        setTimeoutFunction('replaceDomLang', p, d);
+        return;
+    }
+
+    replaceLang(p, d);
 }
 
 /**
@@ -1315,23 +1342,27 @@ function checkPlatform () {
 
 // 获取每毫米的像素值
 function getOneMmsPx (){
-    let sId = 'get_one_mms_px';
+    let d = 'get_one_mms_px';
 
     // 创建一个1mm宽的元素插入到页面，然后坐等出结果
-    let oDiv = document.createElement('div');
-    oDiv.id = sId;
-    oDiv.style.width = '1mm';
+    let o = document.createElement('div');
+    o.id = d;
+    o.style.width = '1mm';
 
-    bodyDom().appendChild(oDiv);
+    bodyDom().appendChild(o);
 
     // 原生方法获取浏览器对元素的计算值
-    oDiv = document.getElementById(sId);
-    let oDiv1 = oDiv.getBoundingClientRect();
-    let iWidth = oDiv1.width;
-    oDiv.parentNode.removeChild(oDiv);
-    return iWidth;
+    o = document.getElementById(d);
+    // let o1 = o.getBoundingClientRect();
+    let w = o.getBoundingClientRect().width;
+    o.parentNode.removeChild(o);
+    return w;
 }
 
+/**
+ *
+ * 根据每毫米px大小 设置字体大小
+ */
 function initializeFontSize () {
     let sPlatform = checkPlatform();
 
@@ -1695,7 +1726,7 @@ function animates (obj = false, params = false, iSpeed1 = false, callback = fals
         return;
     }
 
-    if (typeof jQuery !== undefined) {
+    if (typeof jQuery != 'undefined') {
         $(obj).animate(params, iSpeed1, callback);
         return;
     }
@@ -1794,73 +1825,81 @@ function writePageShade (callbakc = false) {
         window[callbakc]();
     }
 }
-function writeShade (sShadeId = '') {
-    iShadeZIndexBeginIndex += parseInt(1);
 
-    let oDiv = document.createElement('div');
-    oDiv.id = sShadeId;
-    oDiv.className = sShadeId;
-    // oDiv.style.width = '100%';
-    // oDiv.style.height = '100%';
-    // oDiv.style.position = 'absolute';
-    // oDiv.style.top = '0px';
-    // oDiv.style.left = '0px';
-    oDiv.style.zIndex = iShadeZIndexBeginIndex;
-    // oDiv.style.backgroundColor = 'green';
-    return oDiv;
+/**
+ *
+ * 写遮罩层
+ * @param d 遮罩层 id type string
+ * @returns {HTMLDivElement}
+ */
+function writeShade (d = '') {
+    iShadeZIndex += parseInt(1);
+
+    let o = document.createElement('div');
+    o.id = d;
+    o.className = d;
+    // o.style.width = '100%';
+    // o.style.height = '100%';
+    // o.style.position = 'absolute';
+    // o.style.top = '0px';
+    // o.style.left = '0px';
+    o.style.zIndex = iShadeZIndex;
+    // o.style.backgroundColor = 'green';
+    return o;
 }
-function appendShade (oDiv = false) {
-    if (!oDiv) {
-        console.log('appendShade oDiv is null');
+
+/**
+ *
+ * 添加遮罩层 dom
+ *
+ * @param d 遮罩层 dom
+ */
+function appendShade (d = false) {
+    if (!d) {
+        console.log('appendShade d is null, so no to do ');
         return;
     }
 
-    let oDom = getPublicShadeDom();
-    oDom.appendChild(oDiv);
+    // let o = getPublicShadeDom();
+    getPublicShadeDom().appendChild(d);
     // oDiv.style.backgroundColor = sShadeBackgroundColor;
 }
-// let clearShadeTimer1 = false;
-// let clearShadeTimer2 = false;
-function clearShade (oDiv = false) {
-    if (!oDiv) {
-        console.log('clearShade oDiv is null');
-        return;
-    }
 
-    animates(oDiv, {opacity: 0}, iSpeed, function () {
-        oDiv.style.display = 'none';
-        // animates(oDiv, {top: iBottomHiddenHeight}, iSpeed, function () {
-        //     oDiv.style.zIndex = 0;
-        // });
-    });
-    // clearShadeTimer1 = setTimeout(function () {
-    //     animates(oDiv, {opacity: 0}, iSpeed, function () {
-    //         clearTimeout(clearShadeTimer1);
-    //     });
-    // }, 1);
-    // clearShadeTimer2 = setTimeout(function () {
-    //     animates(oDiv, {top: iBottomHiddenHeight}, iSpeed, function () {
-    //         oDiv.style.zIndex = 0;
-    //         clearTimeout(clearShadeTimer2);
-    //     });
-    // }, 2);
-}
+/**
+ *
+ * 清除 未读取到 index js 遮罩层
+ *
+ */
 function clearIndexShade () {
-    let oDiv = document.getElementById(sShadeIndex);
-    if (!oDiv) {
+    let o = document.getElementById(sShadeIndex);
+    if (!o) {
+        console.log('clearIndexShade o is null, so no to do ');
         return;
     }
 
-    clearShade(oDiv);
+    clearShade(o);
 }
+
+/**
+ *
+ * 清除品台遮罩层
+ *
+ */
 function clearPlatformShade () {
-    let oDiv = document.getElementById(sIndexPlatform);
-    if (!oDiv) {
+    let o = document.getElementById(sIndexPlatform);
+    if (!o) {
+        console.log('clearPlatformShade o id null, so no to do ');
         return;
     }
 
-    clearShade(oDiv);
+    clearShade(o);
 }
+
+/**
+ *
+ * 清除对
+ *
+ */
 function clearPageShade () {
     let oDiv = document.getElementById(sIndexPage);
     if (!oDiv) {
@@ -1876,25 +1915,49 @@ function changeDomFatherOpacity (bShow = false) {
     // animates(oBody, {opacity: iOpacity}, iSpeed);
 }
 
-function showShade (oDiv = false) {
-    if (!oDiv) {
-        console.log('showShade oDiv dom is null, so no to do');
+function showShade (o = false) {
+    if (!o) {
+        console.log('showShade o dom is null, so no to do');
         return;
     }
-    console.log('showShade ' + oDiv.id + ', will to show shade ');
+    console.log('showShade ' + o.id + ', will to show shade ');
 
-    iShadeZIndexBeginIndex += parseInt(1);
+    iShadeZIndex += parseInt(1);
 
-    oDiv.style.opacity = 0;
-    oDiv.style.filter = 'alpha(opacity:0)';
-    // oDiv.style.top = iBottomHiddenHeight + 'px';
-    oDiv.style.zIndex = 0;
+    // o.style.opacity = 0;
+    // o.style.filter = 'alpha(opacity:0)';
+    // o.style.zIndex = 0;
+    //
+    // o.style.display = 'block';
+    let p1 = new RegExp('\\s+' + sInvisibleClass,'gm');
+    let p2 = new RegExp('\\s+' + sVisibleClass,'gm');
+    o.className = o.className.replace(p1, '');
+    o.className = o.className.replace(p2, '');
+    o.className += ' ' + sVisibleClass;
+    o.style.zIndex = iShadeZIndex;
+    // o.style.backgroundColor = 'red';
 
-    // oDiv.style.top = '0px';
-    oDiv.style.display = 'block';
-    oDiv.style.zIndex = iShadeZIndexBeginIndex;
+    animates(o, {opacity: 100}, iSpeed);
+}
+/**
+ *
+ * 清除 遮罩层
+ *
+ * @param o 遮罩层 dom
+ */
+function clearShade (o = false) {
+    if (!o) {
+        console.log('clearShade o is null, so no to do ');
+        return;
+    }
 
-    animates(oDiv, {opacity: 100}, iSpeed);
+    animates(o, {opacity: 0}, iSpeed, function () {
+        let p1 = new RegExp('\\s+' + sInvisibleClass,'gm');
+        let p2 = new RegExp('\\s+' + sVisibleClass,'gm');
+        o.className = o.className.replace(p1, '');
+        o.className = o.className.replace(p2, '');
+        o.className += ' ' + sInvisibleClass;
+    });
 }
 
 let bNoticeAstrict = false;
@@ -2167,7 +2230,7 @@ function checkSessionKeyFormat () {
             makeSessionid();
 
             setTimeoutFunction('checkSessionKeyFormat');
-            console.log('checkSessionKeyFormat settimeout check, settimeout retry ');
+            console.log('checkSessionKeyFormat settimeout check, settimeout check ');
 
             // updateSessionId();
             return;
@@ -2180,7 +2243,7 @@ function checkSessionKeyFormat () {
             makeSessionid();
 
             setTimeoutFunction('checkSessionKeyFormat');
-            console.log('checkSessionKeyFormat settimeout check, settimeout retry ');
+            console.log('checkSessionKeyFormat settimeout check, settimeout check ');
 
             // updateSessionId();
             return;
@@ -2188,7 +2251,7 @@ function checkSessionKeyFormat () {
     }
 
     setTimeoutFunction('checkSessionKeyFormat');
-    console.log('checkSessionKeyFormat settimeout check, settimeout retry ');
+    console.log('checkSessionKeyFormat settimeout check, settimeout check ');
 }
 // function updateSessionId () {
 //     // sOldSessionId = sNewSessionId;

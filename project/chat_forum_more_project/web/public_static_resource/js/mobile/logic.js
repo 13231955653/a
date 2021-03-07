@@ -134,6 +134,12 @@ function replaceWindowTitle (t = '') {
 }
 
 function logicBegin () {
+    if (typeof window['writePublicDom'] == 'undefined') {
+        console.log('logicBegin writePublicDom is undefined, so settimeout retry to logicBegin ');
+        setTimeoutFunction('logicBegin');
+        return;
+    }
+
     showPageShade();
 
     writePublicDom();

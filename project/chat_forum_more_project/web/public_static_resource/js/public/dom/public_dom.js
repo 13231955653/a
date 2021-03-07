@@ -1,4 +1,10 @@
 function writePublicDom() {
+    if (typeof window['writeHeader'] == 'undefined') {
+        console.log('writePublicDom writeHeader is undefined, so settimeout retry writePublicDom');
+        setTimeoutFunction('writePublicDom');
+        return;
+    }
+
     writeHeader();
 
     writeBody();

@@ -244,7 +244,6 @@ function setBrowserTitle (t = '') {
 //     console.log("location: " + document.location + ", state: " + JSON.stringify(event.state));
 // };
 
-
 // function setLocalstoragePostMessagePage (sKey = '') {
 //     if (!sKey) {
 //         console.log('setLocalstoragePostMessagePage sKey is null');

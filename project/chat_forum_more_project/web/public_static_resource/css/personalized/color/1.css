@@ -5,5 +5,7 @@
     --default_font_color: #ff999c;
     --public_foot_background: red;
     --public_foot_active_background: #ff6b3d;
-    --shade_background_color: green;
+    --shade_index_background_color: green;
+    --shade_platform_background_color: #001080;
+    --shade_page_background_color: #800007;
 }
