@@ -1,8 +1,17 @@
 const sBaseProtocol = window.location.protocol + '//';
 
+let sOrigin = '';
+
+const oHtml = document.getElementsByTagName('html')[0];
+const oHead = document.getElementsByTagName('head')[0];
+const oBody = document.getElementsByTagName('body')[0];
+
+let sCharset = 'utf-8';
+
 const iDefaultFontSize = 16; //默认pc字体大小
 const iDefaultOneFontMms = 3; //默认一个中文字占多宽，单位毫米
 
+const sUniquiueStringPrefix = 'uniquiue';
 const sGuidSplitTag = '-';
 const sUuidSplitTag = '-';
 const sUuidString = '0123456789abcdef';
@@ -10,10 +19,10 @@ const sUniquiueStringSplitTag = '=';
 const sIndividuationUuidTag = '*';
 const sRandString = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 // const sIndividuationUuidStringRepeatNumber = 100;
-const iIndividuationUuidStringLength = 100;
-const iIndividuationUuidNumberMin = 0;
-const iIndividuationUuidNumberMax = 999999999999999999;
-const iIndividuationUuidRandomStringMinLength = 32;
+const iIndividuationUniqueStrLength = 100;
+const iIndividuationUniqueStrNumberMin = 0;
+const iIndividuationUniqueStrNumberMax = 999999999999999999;
+const iIndividuationUniqueStrMinLength = 32;
 const iSessionBeforeFormatLength = 32;
 
 const sSessionSplitTag  = '_';
@@ -48,8 +57,6 @@ const sLocalstorgaeBeginTag = 0;
 
 const iDefaultUserPersonalizedColor = 1;
 let iFontSize = 16;
-
-const oHtml = document.getElementsByTagName('html')[0];
 
 const oDomFatherId = 'dom_father';
 const sShadeIndex = 'index_shade';
@@ -386,7 +393,6 @@ function winSize() {
 
     // iBottomHiddenHeight = iWinHeight * 2;
 }
-winSize();
 
 function loadCss (sSrc = '', sCallback = '') {
     if (!sSrc) {
@@ -405,7 +411,7 @@ function loadCss (sSrc = '', sCallback = '') {
         checkLoadCss(sCallback, link.id);
     }
 
-    head.appendChild(link);
+    oHead.appendChild(link);
 }
 function checkLoadCss (sCallback = '', id = '') {
     if (!sCallback || !id) {
@@ -511,7 +517,6 @@ function afterLoadPageJs () {
 
     changeDomFatherOpacity(true);
 
-    // console.log(window['repeatedlyForumPage']);
     repeatedlyPage(getUrlArgs(sUrlAddressPageKey));
 
     clearPageShade();
@@ -1289,40 +1294,91 @@ function afterloadLocalJquery () {
     bLoadLocalJquery = true;
 }
 
+/**
+ *
+ * 加载语言包
+ *
+ * l 语言包 名字 type string
+ *
+ * @type {number}
+ */
 let iLastRequestLangTime = 0;
-function loadLang (sLang = '') {
-    // console.log(sLang);
-    sLang = sLang ? sLang : sUserLangvage;
-    // console.log(sLang);
-    if (!sLang) {
-        console.log('loadLang sLang is null, so no to load lang js ');
+function loadLang (l = '') {
+    // console.log(l);
+    l = l ? l : sUserLangvage;
+    // console.log(l);
+    if (!l) {
+        console.log('loadLang l is null, so no to load lang js ');
         return false;
     }
 
-    let iTime = getNowTime();
-    if (iTime - iLastRequestLangTime < iRequertLangJsTimeout) {
-        console.log('loadLang sLang last time limit, so no to load lang js ');
+    let t = getNowTime();
+    if (t - iLastRequestLangTime < iRequertLangJsTimeout) {
+        console.log('loadLang l last time limit, so no to load lang js ');
         setTimeoutFunction('loadLang');
         return false;
     }
-    iLastRequestLangTime = iTime;
+    iLastRequestLangTime = t;
 
-    let sLangJs = '';
-    switch (sLang) {
+    let y = '';
+    switch (l) {
         case 'cn' :
-            sLangJs = sCnLangs;
+            y = sCnLangs;
             break;
         case 'en' :
-            sLangJs = sEnLangs;
+            y = sEnLangs;
             break;
     }
-    if (!sLangJs) {
-        console.log('loadLang sLangJs is null, so no to load lang js ');
+    if (!y) {
+        console.log('loadLang y is null, so no to load lang js ');
         return false;
     }
 
     // console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaa');
-    loadJs(sLangJs, true, 'replaceLangs');
+    loadJs(y, true, 'replaceLangs');
+}
+
+function loadJs (s = '', b = true, c = false) {
+    if (!s) {
+        return false;
+    }
+
+    let o = document.createElement('script');
+    o.type = 'text/javascript';
+    o.src = s;
+    o.async = b;
+    o.charset = sCharset;
+
+    if (c) {
+        if (o.addEventListener) {
+            o.addEventListener('load', function () {
+                window[c]();
+            }, false);
+        } else if (o.attachEvent) {
+            o.attachEvent('onreadystatechange', function () {
+                var target = window.event.srcElement;
+                if (target.readyState == 'loaded') {
+                    window[c]();
+                }
+            });
+        }
+    }
+
+    oHead.appendChild(o);
+}
+
+function queryMasterOrigin () {
+    let t = '.';
+    let o = window.location.origin;
+    let a = o.split(t);
+    let l = a.length;
+    let s = window.location.protocol;
+    o = a[l - 2] + t + a[l - 1];
+    o = o.replace(s + '//', '');
+    o = s + '//' + o;
+
+    sOrigin = o;
+    return o;
 }
 
 let bSetHeader = false;
@@ -1333,24 +1389,24 @@ function setHeader () {
     bSetHeader = true;
 
     if (isMobile()) {
-        let oMeta = document.createElement('meta');
-        oMeta.name = 'viewport';
-        oMeta.content = 'width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0';
-        head.appendChild(oMeta);
+        let m = document.createElement('meta');
+        m.name = 'viewport';
+        m.content = 'width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0';
+        oHead.appendChild(m);
     }
 }
 
-const ua = navigator;
+// const ua = navigator;
 // console.log(ua);
 let os = function() {
-    let sUserAgent = ua.userAgent;
-    isWindowsPhone = /(?:Windows Phone)/.test(sUserAgent),
-    isSymbian = /(?:SymbianOS)/.test(sUserAgent) || isWindowsPhone,
-    isAndroid = /(?:Android)/.test(sUserAgent),
-    isFireFox = /(?:Firefox)/.test(sUserAgent),
-    isChrome = /(?:Chrome|CriOS)/.test(sUserAgent),
-    isTablet = /(?:iPad|PlayBook)/.test(sUserAgent) || (isAndroid && !/(?:Mobile)/.test(sUserAgent)) || (isFireFox && /(?:Tablet)/.test(sUserAgent)),
-    isPhone = /(?:iPhone)/.test(sUserAgent) && !isTablet,
+    let ua = navigator.userAgent;
+    isWindowsPhone = /(?:Windows Phone)/.test(ua),
+    isSymbian = /(?:SymbianOS)/.test(ua) || isWindowsPhone,
+    isAndroid = /(?:Android)/.test(ua),
+    isFireFox = /(?:Firefox)/.test(ua),
+    isChrome = /(?:Chrome|CriOS)/.test(ua),
+    isTablet = /(?:iPad|PlayBook)/.test(ua) || (isAndroid && !/(?:Mobile)/.test(ua)) || (isFireFox && /(?:Tablet)/.test(ua)),
+    isPhone = /(?:iPhone)/.test(ua) && !isTablet,
     isPc = !isPhone && !isAndroid && !isSymbian;
 
     return {
@@ -1384,7 +1440,7 @@ function getOneMmsPx (){
     o.id = d;
     o.style.width = '1mm';
 
-    bodyDom().appendChild(o);
+    fatherFom().appendChild(o);
 
     // 原生方法获取浏览器对元素的计算值
     o = document.getElementById(d);
@@ -1399,17 +1455,17 @@ function getOneMmsPx (){
  * 根据每毫米px大小 设置字体大小
  */
 function initializeFontSize () {
-    let sPlatform = checkPlatform();
+    let p = checkPlatform();
 
-    // if (sPlatform === sIsPhone) {
+    // if (p === sIsPhone) {
     //     iFontSize = Math.ceil(iDefaultOneFontMms * getOneMmsPx());
     // }
 
-    // if (sPlatform === sIsTablet) {
+    // if (p === sIsTablet) {
         iFontSize = Math.ceil(iDefaultOneFontMms * getOneMmsPx());
     // }
 
-    if (sPlatform === sIsPc) {
+    if (p === sIsPc) {
         iFontSize = iDefaultFontSize;
     }
 
@@ -1574,35 +1630,44 @@ function initializeFontSize () {
 //     }
 // }(window, window.lib || (window.lib = {}));
 
-function setTimeoutFunction (sFunction = '', arg1 = '', arg2 = '') {
-    if (!sFunction) {
-        console.log('setTimeoutFunction sFunction is null');
+/**
+ *
+ * 定时处理函数
+ *
+ * @param f 函数名 type string
+ * @param a 参数1 type string
+ * @param b 参数2 type string
+ * @returns {boolean}
+ */
+function setTimeoutFunction (f = '', a = '', b = '') {
+    if (!f) {
+        console.log('setTimeoutFunction f is null');
         return false;
     }
 
-    if (typeof aBaseTimerOutTime[sFunction] === 'undefined') {
-        console.log('setTimeoutFunction aBaseTimerOutTime ' + sFunction + ' undefined');
+    if (typeof aBaseTimerOutTime[f] === 'undefined') {
+        console.log('setTimeoutFunction aBaseTimerOutTime ' + f + ' undefined');
     }
 
-    // console.log(sFunction);
-    aBaseTimer[sFunction] = setTimeout(function () {
-        if (!arg1) {
-            window[sFunction]();
+    // console.log(f);
+    aBaseTimer[f] = setTimeout(function () {
+        if (!a) {
+            window[f]();
         } else {
-            if (arg2) {
-                window[sFunction](arg1, arg2);
+            if (b) {
+                window[f](a, b);
             } else {
-                window[sFunction](arg1);
+                window[f](a);
             }
         }
-    }, aBaseTimerOutTime[sFunction]);
+    }, aBaseTimerOutTime[f]);
 
     return true;
 }
 
-function htmlBodyDom () {
-    return document.getElementsByTagName('body')[0];
-}
+// function htmlBodyDom () {
+//     return document.getElementsByTagName('body')[0];
+// }
 
 // function storageBody () {
 //     return document.getElementById(sStoragePageBodyId);
@@ -1639,8 +1704,6 @@ function storagePage (i = 0) {
     o = o.replace(p, '');
     return p + i + '.' + sStorageOriginsSonPrefix + '.' + o + '/' + sStoragePage;
 }
-
-
 /**
  * 先读取本地localstorage，写对应远程storage页面 iframe dom
  */
@@ -1675,7 +1738,7 @@ function writeStorageDom (p = 0) {
     // o.width = 0;
     // o.height = 0;
 
-    bodyDom().appendChild(o);
+    fatherFom().appendChild(o);
 
     if (o.attachEvent) {
         o.attachEvent('onload', function() {
@@ -1692,7 +1755,10 @@ function writeStorageDom (p = 0) {
 
 /**
  *
- * @param s josn data json string
+ * json 转成 字符串
+ *
+ * @param s 需要转换的json type json
+ * @returns {Array|any}
  */
 function jsonConvertFormatForReadNumberKey (s = '') {
     if (!s) {
@@ -1703,7 +1769,7 @@ function jsonConvertFormatForReadNumberKey (s = '') {
     return eval('(' + s + ')');
 }
 
-function bodyDom () {
+function fatherFom () {
     let o = document.getElementById(oDomFatherId);
     if (o) {
         return o;
@@ -1713,73 +1779,109 @@ function bodyDom () {
     o.id = oDomFatherId;
 
     // let oBody = htmlBodyDom();
-    htmlBodyDom().appendChild(o);
+    oBody.appendChild(o);
 
     return o;
 }
 
-//获取对象样式规则信息，IE下使用currentStyle
-function getStyle (obj, style) {
-    return obj.currentStyle?obj.currentStyle[style]:getComputedStyle(obj,false)[style];
+/**
+ *
+ * 获取对象样式规则信息，IE下使用currentStyle
+ *
+ * @param o 对象 dom type object
+ * @param s 样式 type string
+ * @returns {string}
+ */
+function getStyle (o, s) {
+    return o.currentStyle ? o.currentStyle[s] : getComputedStyle(o,false)[s];
 }
 
-//原生js动画类似jquery--animate
-function jsAnimate (obj, styleJson, speed, callback) {
-    if (!obj || !styleJson || !speed) {
-        console.log(obj);
-        console.log(params);
-        console.log(iSpeed1);
-        console.log('jsAnimate obj or styleJson or speed is null');
+/**
+ *
+ * 原生js动画类似jquery--animate
+ *
+ * @param o 对象 dom type object
+ * @param s 样式 type json
+ * @param p 改变样式速度  number
+ * @param c 回调函数 type strting
+ */
+function jsAnimate (o, s, p, c) {
+    if (!o || !s || !p) {
+        console.log('jsAnimate o or s or p is null');
         return;
     }
 
-    clearInterval(obj.timer);
+    clearInterval(o.timer);
     // 开启定时器
-    obj.timer = setInterval(function () {
-        var flag = true;//假设所有动作都已完成成立。
-        for (var styleName in styleJson) {
+    o.timer = setInterval(function () {
+        let f = true;//假设所有动作都已完成成立。
+        for (let n in s) {
             //1.取当前属性值
-            var iMov = 0;
+            let m = 0;
             // 透明度是小数，所以得单独处理
-            iMov=styleName=='opacity'?Math.round(parseFloat(getStyle(obj,styleName))*100):parseInt(getStyle(obj,styleName));
+            m = n == 'opacity' ? Math.round(parseFloat(getStyle(o, n)) * 100) : parseInt(getStyle(o, n));
 
             //2.计算速度
-            var speed=0;
-            speed=(styleJson[styleName]-iMov)/8;//缓冲处理，这边也可以是固定值
-            speed=speed>0?Math.ceil(speed):Math.floor(speed);//区分透明度及小数点，向上取整，向下取整
+            let p = 0;
+            p = (s[n] - m) / 8;//缓冲处理，这边也可以是固定值
+            p = p > 0 ? Math.ceil(p) : Math.floor(p);//区分透明度及小数点，向上取整，向下取整
 
             //3.判断是否到达预定值
-            if(styleJson[styleName]!=iMov){
-                flag=false;
-                if(styleName=='opacity'){//判断结果是否为透明度
-                    obj.style[styleName]=(iMov+speed)/100;
-                    obj.style.filter='alpha(opacity:'+(iMov+speed)+')';
+            if (s[n] != m) {
+                f = false;
+                if (n == 'opacity' ) {//判断结果是否为透明度
+                    o.style[n] = (m + p) / 100;
+                    o.style.filter = 'alpha(opacity:' + (m + p) + ')';
                 }else{
-                    obj.style[styleName]=iMov+speed+'px';
+                    o.style[n] = m + p + 'px';
                 }
             }
         }
-        if(flag){//到达设定值，停止定时器，执行回调
-            clearInterval(obj.timer);
-            if(callback){callback();}
+        if(f){//到达设定值，停止定时器，执行回调
+            clearInterval(o.timer);
+            if (c) {
+                c();
+            }
         }
-    }, speed)
+    }, p)
 }
-function animates (obj = false, params = false, iSpeed1 = false, callback = false) {
-    if (!obj || !params || !iSpeed1) {
-        console.log(obj);
-        console.log(params);
-        console.log(iSpeed1);
-        console.log('animates obj or params or iSpeed1 is null');
+
+/**
+ *
+ *
+ *
+ * @param o 对象 dom  type object
+ * @param s 样式 type json
+ * @param p 改变样式速度 type number
+ * @param c 回调函数 type string
+ */
+function animates (o = false, s = false, p = false, c = false) {
+    if (!o || !s || !p) {
+        console.log('animates o or s or p is null');
         return;
     }
 
     if (typeof jQuery != 'undefined') {
-        $(obj).animate(params, iSpeed1, callback);
+        $(o).animate(s, p, c);
         return;
     }
 
-    jsAnimate (obj, params, parseInt(iSpeed1 / 20));
+    jsAnimate (o, s, parseInt(p / 20));
+}
+
+/**
+ *
+ * 修改 page  dom father 透明度
+ *
+ * @param b 显示或隐藏  bool true 显示  false 隐藏
+ */
+function changeDomFatherOpacity (b = false) {
+    //////////////////////////
+    console.log('修改 page dom father opacity');
+    // let oBody = bodyDom();
+    //
+    // let iOpacity = b ? 100 : 0;
+    // animates(oBody, {opacity: iOpacity}, iSpeed);
 }
 
 function getPublicShadeDom () {
@@ -1790,17 +1892,19 @@ function checkExistPublicShadeDom () {
     return document.getElementById(sPublicShadeId) ? true : false;
 }
 function writePublicShade () {
-    let oDiv = getPublicShadeDom();
-    if (oDiv) {
+    let o = getPublicShadeDom();
+    if (o) {
+        console.log('writePublicShade public shade is true, so no to do ');
+
         return true;
     }
 
-    oDiv = document.createElement('div');
-    oDiv.id = sPublicShadeId;
-    // oDiv.className = sShadeClass;
+    o = document.createElement('div');
+    o.id = sPublicShadeId;
+    // o.className = sShadeClass;
 
-    let oDom = bodyDom();
-    oDom.appendChild(oDiv);
+    // let oDom = bodyDom();
+    fatherFom().appendChild(o);
 }
 function shade () {
     if (!checkExistPublicShadeDom()) {
@@ -1818,13 +1922,13 @@ function shade () {
 
     writePageShade();
 }
-function checkExistShade (sShadeId = '') {
-    if (!sShadeId) {
-        console.log('checkExistShade sShadeId is null');
+function checkExistShade (d = '') {
+    if (!d) {
+        console.log('checkExistShade ' + d + ' is null');
         return false;
     }
 
-    return document.getElementById(sShadeId);
+    return document.getElementById(d);
 }
 function writeIndexShade () {
     if (checkExistShade(sShadeIndex)) {
@@ -1833,8 +1937,8 @@ function writeIndexShade () {
         return;
     }
 
-    let oDiv = writeShade(sShadeIndex);
-    appendShade(oDiv);
+    // let oDiv = writeShade(sShadeIndex);
+    appendShade(writeShade(sShadeIndex));
 }
 function writePlatformShade () {
     if (checkExistShade(sIndexPlatform)) {
@@ -1843,23 +1947,30 @@ function writePlatformShade () {
         return;
     }
 
-    let oDiv = writeShade(sIndexPlatform);
-    appendShade(oDiv);
+    // let oDiv = writeShade(sIndexPlatform);
+    appendShade(writeShade(sIndexPlatform));
 }
 function showPageShade () {
     // let oDiv = document.createElement('div');
     // animates(oDiv, {top: iBottomHiddenHeight}, iSpeed);
-    let oDiv = document.getElementById(sIndexPage);
-    if (!oDiv) {
+    let o = document.getElementById(sIndexPage);
+    if (!o) {
         console.log('showPageShade page shade dom no get, will to write page shade and retry');
 
         writePageShade('writePageShade');
         return;
     }
 
-    showShade(oDiv);
+    showShade(o);
 }
-function writePageShade (callbakc = false) {
+
+/**
+ *
+ * page 遮罩层
+ *
+ * @param c 回调函数 function name type string
+ */
+function writePageShade (c = false) {
     if (checkExistShade(sIndexPage)) {
         console.log('writePageShade checkExistShade id ' + sIndexPage + ' allready exist, so no write and now to show');
         showPageShade();
@@ -1869,8 +1980,8 @@ function writePageShade (callbakc = false) {
     let oDiv = writeShade(sIndexPage);
     appendShade(oDiv);
 
-    if (callbakc) {
-        window[callbakc]();
+    if (c) {
+        window[c]();
     }
 }
 
@@ -1895,7 +2006,6 @@ function writeShade (d = '') {
     // o.style.backgroundColor = 'green';
     return o;
 }
-
 /**
  *
  * 添加遮罩层 dom
@@ -1913,56 +2023,6 @@ function appendShade (d = false) {
     // oDiv.style.backgroundColor = sShadeBackgroundColor;
 }
 
-/**
- *
- * 清除 未读取到 index js 遮罩层
- *
- */
-function clearIndexShade () {
-    let o = document.getElementById(sShadeIndex);
-    if (!o) {
-        console.log('clearIndexShade o is null, so no to do ');
-        return;
-    }
-
-    clearShade(o);
-}
-
-/**
- *
- * 清除品台遮罩层
- *
- */
-function clearPlatformShade () {
-    let o = document.getElementById(sIndexPlatform);
-    if (!o) {
-        console.log('clearPlatformShade o id null, so no to do ');
-        return;
-    }
-
-    clearShade(o);
-}
-
-/**
- *
- * 清除对
- *
- */
-function clearPageShade () {
-    let oDiv = document.getElementById(sIndexPage);
-    if (!oDiv) {
-        return;
-    }
-
-    clearShade(oDiv);
-}
-function changeDomFatherOpacity (bShow = false) {
-    // let oBody = bodyDom();
-    //
-    // let iOpacity = bShow ? 100 : 0;
-    // animates(oBody, {opacity: iOpacity}, iSpeed);
-}
-
 function showShade (o = false) {
     if (!o) {
         console.log('showShade o dom is null, so no to do');
@@ -1972,18 +2032,13 @@ function showShade (o = false) {
 
     iShadeZIndex += parseInt(1);
 
-    // o.style.opacity = 0;
-    // o.style.filter = 'alpha(opacity:0)';
-    // o.style.zIndex = 0;
-    //
-    // o.style.display = 'block';
     let p1 = new RegExp('\\s+' + sInvisibleClass,'gm');
     let p2 = new RegExp('\\s+' + sVisibleClass,'gm');
     o.className = o.className.replace(p1, '');
     o.className = o.className.replace(p2, '');
+
     o.className += ' ' + sVisibleClass;
     o.style.zIndex = iShadeZIndex;
-    // o.style.backgroundColor = 'red';
 
     animates(o, {opacity: 100}, iSpeed);
 }
@@ -1998,6 +2053,7 @@ function clearShade (o = false) {
         console.log('clearShade o is null, so no to do ');
         return;
     }
+    console.log('clearShade ' + o.id + ' is true, will to clear shade ');
 
     animates(o, {opacity: 0}, iSpeed, function () {
         let p1 = new RegExp('\\s+' + sInvisibleClass,'gm');
@@ -2006,6 +2062,49 @@ function clearShade (o = false) {
         o.className = o.className.replace(p2, '');
         o.className += ' ' + sInvisibleClass;
     });
+}
+/**
+ *
+ * 清除 未读取到 index js 遮罩层
+ *
+ */
+function clearIndexShade () {
+    let o = document.getElementById(sShadeIndex);
+    if (!o) {
+        console.log('clearIndexShade o is null, so no to do ');
+        return;
+    }
+
+    clearShade(o);
+}
+/**
+ *
+ * 清除品台遮罩层
+ *
+ */
+function clearPlatformShade () {
+    let o = document.getElementById(sIndexPlatform);
+    if (!o) {
+        console.log('clearPlatformShade o id null, so no to do ');
+        return;
+    }
+
+    clearShade(o);
+}
+/**
+ *
+ * 清除 page 遮罩层
+ *
+ */
+function clearPageShade () {
+    let o = document.getElementById(sIndexPage);
+    if (!o) {
+        console.log('clearPageShade o is null, so no to do ');
+
+        return;
+    }
+
+    clearShade(o);
 }
 
 let bNoticeAstrict = false;
@@ -2030,7 +2129,8 @@ function fourBitString() {
 }
 // Generate a pseudo-GUID by concatenating random hexadecimal.
 function guid () {
-    return (fourBitString() + fourBitString() + sGuidSplitTag + fourBitString() + sGuidSplitTag + fourBitString() + sGuidSplitTag + fourBitString() + sGuidSplitTag + fourBitString() + fourBitString() + fourBitString());
+    let s = sGuidSplitTag;
+    return (fourBitString() + fourBitString() + s + fourBitString() + s + fourBitString() + s + fourBitString() + s + fourBitString() + fourBitString() + fourBitString());
 }
 function uuid () {
     let s = [];
@@ -2041,21 +2141,22 @@ function uuid () {
     s[19] = sUuidString.substr((s[19] & 0x3) | 0x8, 1);  // bits 6-7 of the clock_seq_hi_and_reserved to 01
     s[8] = s[13] = s[18] = s[23] = sUuidSplitTag;
 
-    let uuid = s.join('');
-    return uuid;
+    // let uuid = s.join('');
+    return s.join('');
 }
 
 function individuationUuid () {
     if (typeof window['hex_md5'] == 'undefined') {
-        // setTimeoutFunction('individuationUuid');
-        console.log(sOldSessionId);
-        console.log(sNewSessionId);
         console.log('individuationUuid hex_md5 undefined, so settimeout to do ');
         return false;
     }
-    console.log(sOldSessionId);
-    console.log(sNewSessionId);
     console.log('individuationUuid hex_md5 is defined, so individuationUuid to do ');
+
+    // if (typeof window['reverseString'] == 'undefined') {
+    //     console.log('individuationUuid reverseString undefined, so settimeout to do ');
+    //     return false;
+    // }
+    // console.log('individuationUuid reverseString is defined, so individuationUuid to do ');
 
     let a = uniquiueString();
 
@@ -2067,8 +2168,8 @@ function individuationUuid () {
 
     c = hex_md5(c);
 
-    while (c.length < iIndividuationUuidRandomStringMinLength) {
-        c += s + randomString(1);
+    while (c.length < iIndividuationUniqueStrMinLength) {
+        c += s + randStr(1);
     }
 
     c = c.toLowerCase();
@@ -2076,24 +2177,25 @@ function individuationUuid () {
     return c;
 }
 function uniquiueString () {
-    let e = 'begin';
-    let a = iIndividuationUuidStringLength;
-    let b = iIndividuationUuidNumberMin;
-    let c = iIndividuationUuidNumberMax;
+    let s = sUniquiueStringPrefix;
+    let a = iIndividuationUniqueStrLength;
+    let b = iIndividuationUniqueStrNumberMin;
+    let c = iIndividuationUniqueStrNumberMax;
     let d = sUniquiueStringSplitTag;
-    e += d + randomString(a);
-    e += d + randomNum(b, c);
-    e += d + getNowTime();
-    e += d + uuid();
-    e += d + guid();
 
-    e += d + randomString(a);
-    e += d + randomNum(b, c);
-    e += d + getNowTime();
-    e += d + uuid();
-    e += d + guid();
+    s += d + randStr(a);
+    s += d + randNum(b, c);
+    s += d + getNowTime();
+    s += d + uuid();
+    s += d + guid();
 
-    return e;
+    s += d + randStr(a);
+    s += d + randNum(b, c);
+    s += d + getNowTime();
+    s += d + uuid();
+    s += d + guid();
+
+    return s;
 }
 
 function queryOldSessionId () {
@@ -2107,8 +2209,6 @@ function sessionId () {
     console.log('sessionId, begin to do ');
     sOldSessionId = queryOldSessionId();
     sNewSessionId = queryNewSessionId();
-    // console.log(sOldSessionId);
-    // console.log(sNewSessionId);
     if (sNewSessionId != 'false') {
         console.log('sessionId sNewSessionId is true, will check new session format ');
 
@@ -2121,7 +2221,7 @@ function sessionId () {
         makeSessionid();
     }
 
-    let i = randomNum(iUpdateSessionMinTime, iUpdateSessionMaxTime);
+    let i = randNum(iUpdateSessionMinTime, iUpdateSessionMaxTime);
     let t = setTimeout(function () {
         sessionId();
 
@@ -2129,55 +2229,47 @@ function sessionId () {
     }, i);
 }
 function checkSessionIdOutTime () {
-    // console.log(sOldSessionId);
-    // console.log(sNewSessionId);
     if (!sNewSessionId) {
-        // console.log(sOldSessionId);
-        // console.log(sNewSessionId);
         console.log('checkSessionIdOutTime sNewSessionId is false, so will to make session id ');
 
         makeSessionid();
         return false;
     }
-    // console.log(sOldSessionId);
-    // console.log(sNewSessionId);
+    console.log('checkSessionIdOutTime sNewSessionId is true, so will to check session id out time ');
 
     let s = sNewSessionId.split(sSessionSplitTag);
 
     if (parseInt(getTime()) - parseInt(s[s.length - 1]) > iSessionOutTime) {
-        // console.log(sOldSessionId);
-        // console.log(sNewSessionId);
-        // if (parseInt(getTime()) - parseInt(s[s.length - 1]) > 1) {
         console.log('checkSessionIdOutTime session id is timeout, so will to makeSessionid ');
         makeSessionid();
-
-        // sOldSessionId = sNewSessionId;
-        // sNewSessionId = false;
-        // cacheSessionId();
     }
 
-    // console.log(sOldSessionId);
-    // console.log(sNewSessionId);
-    setTimeoutFunction('checkSessionIdOutTime');
     console.log('checkSessionIdOutTime settimeout check, settimeout recheck ');
+    setTimeoutFunction('checkSessionIdOutTime');
 }
 function makeSessionid () {
     let s = individuationUuid();
     if (!s) {
-        setTimeoutFunction('makeSessionid');
-        // console.log(sOldSessionId);
-        // console.log(sNewSessionId);
         console.log('makeSessionid individuationUuid is false, so settimeout to do ');
+
+        setTimeoutFunction('makeSessionid');
         return;
     }
     console.log('makeSessionid individuationUuid is defined, so to do ');
 
+    if (typeof window['reverseString'] == 'undefined') {
+        console.log('makeSessionid reverseString undefined, so settimeout to do ');
+
+        setTimeoutFunction('makeSessionid');
+        return false;
+    }
+    console.log('makeSessionid reverseString is defined, so individuationUuid to do ');
+
     let n = setSessionIdFormat(s);
     if (!n) {
-        setTimeoutFunction('makeSessionid');
-        // console.log(sOldSessionId);
-        // console.log(sNewSessionId);
         console.log('makeSessionid setSessionIdFormat is false, so settimeout to do ');
+
+        setTimeoutFunction('makeSessionid');
         return;
     }
 
@@ -2185,23 +2277,20 @@ function makeSessionid () {
     sNewSessionId = n;
 
     if (sNewSessionId) {
-        // console.log(sOldSessionId);
-        // console.log(sNewSessionId);
+        console.log('makeSessionid sNewSessionId is true, so will to cache session and update old session ');
+
         cacheSessionId();
         return;
     }
 
-    // console.log(sOldSessionId);
-    // console.log(sNewSessionId);
-    setTimeoutFunction('makeSessionid');
     console.log('makeSessionid sNewSessionId is false, so settimeout to retry ');
+    setTimeoutFunction('makeSessionid');
 }
 function cacheSessionId () {
-    // console.log(sNewSessionId);
-    // console.log(sOldSessionId);
     if (!sNewSessionId) {
-        setTimeoutFunction('cacheSessionId');
         console.log('cacheSessionId sNewSessionId is false, so settimeout to retry ');
+
+        setTimeoutFunction('cacheSessionId');
         return;
     }
 
@@ -2222,7 +2311,7 @@ function setSessionIdFormat (sSessionId1 = '') {
     }
 
     while (a.length < iSessionBeforeFormatLength) {
-        a += randomString(1);
+        a += randStr(1);
     }
 
     let p = sSessionSplitTag;
@@ -2267,20 +2356,16 @@ function checkSessionKeyFormat () {
         return false;
     }
 
-    // console.log(sOldSessionId);
-    // console.log(sNewSessionId);
+
+
     let t = sSessionSplitTag;
     if (sOldSessionId != 'false') {
-        // console.log(sOldSessionId);
-        // console.log(sNewSessionId);
         if (!doCheckSessionId(sOldSessionId.split(t), 'old')) {
             console.log('checkSessionKeyFormat old session is false, so make new session id');
             makeSessionid();
 
-            setTimeoutFunction('checkSessionKeyFormat');
             console.log('checkSessionKeyFormat settimeout check, settimeout check ');
-
-            // updateSessionId();
+            setTimeoutFunction('checkSessionKeyFormat');
             return;
         }
     }
@@ -2290,10 +2375,8 @@ function checkSessionKeyFormat () {
             console.log('checkSessionKeyFormat new session is false, so make new session id');
             makeSessionid();
 
-            setTimeoutFunction('checkSessionKeyFormat');
             console.log('checkSessionKeyFormat settimeout check, settimeout check ');
-
-            // updateSessionId();
+            setTimeoutFunction('checkSessionKeyFormat');
             return;
         }
     }
@@ -2301,31 +2384,31 @@ function checkSessionKeyFormat () {
     setTimeoutFunction('checkSessionKeyFormat');
     console.log('checkSessionKeyFormat settimeout check, settimeout check ');
 }
-// function updateSessionId () {
-//     // sOldSessionId = sNewSessionId;
-//     // sNewSessionId = false;
-//     // cacheSessionId();
-//     makeSessionid();
-// }
-// function setTimeoutCheckSessionIdFormat () {
-//     setTimeoutFunction('checkSessionKeyFormat');
-//     console.log('checkSessionKeyFormat settimeout check, settimeout retry ');
-// }
-function doCheckSessionId (s, sSessionIdType) {
-    // console.log(s);
-    // console.log(sSessionIdType);
-    // console.log(sOldSessionId);
-    // console.log(sNewSessionId);
+
+/**
+ *
+ * 检查 session id 格式
+ *
+ * @param s session id type string
+ * @param t 类型 新老session type string
+ * @returns {boolean}
+ */
+function doCheckSessionId (s, t) {
     if (typeof window['hex_md5'] == 'undefined') {
-        setTimeoutFunction('doCheckSessionId', s, sSessionIdType);
-        // console.log(sOldSessionId);
-        // console.log(sNewSessionId);
         console.log('doCheckSessionId hex_md5 undefined, so settimeout to do ');
+
+        setTimeoutFunction('doCheckSessionId', s, t);
         return false;
     }
-    // console.log(sOldSessionId);
-    // console.log(sNewSessionId);
     console.log('doCheckSessionId hex_md5 is defined, so sttimeout to check session id ');
+
+    if (typeof window['reverseString'] == 'undefined') {
+        console.log('doCheckSessionId reverseString undefined, so settimeout to do ');
+
+        setTimeoutFunction('doCheckSessionId', s, t);
+        return false;
+    }
+    console.log('doCheckSessionId reverseString is defined, so individuationUuid to do ');
 
     let a = s[0];
     let b = s[s.length - 2];
@@ -2341,7 +2424,8 @@ function doCheckSessionId (s, sSessionIdType) {
         ||
         (b !== d)
     ) {
-        console.log('checkSessionKeyFormat ' + sSessionIdType + ' format error, so makeSessionId');
+        console.log('checkSessionKeyFormat ' + t + ' format error, so makeSessionId');
+
         makeSessionid();
         return false;
     }
@@ -2349,33 +2433,56 @@ function doCheckSessionId (s, sSessionIdType) {
     return true;
 }
 
-function randomString (e) {
-    e = e || 32;
+/**
+ *
+ * 随机字符串
+ *
+ * @param l 随机字符串 长度 type int
+ * @returns {string|string}
+ */
+function randStr (l) {
+    l = l || 32;
     let s = sRandString;
     let a = s.length,
         n = '';
-    for (i = 0; i < e; i++) n += s.charAt(Math.floor(Math.random() * a));
-    return n
+    for (let i = 0; i < l; i++) {
+        n += s.charAt(Math.floor(Math.random() * a));
+    }
+
+    return n;
 }
-function randomNum (Min, Max) {
-    let iRange = Max - Min;
-    let iRand = Math.random();
-    return(Min + Math.round(iRand * iRange));
+
+/**
+ *
+ * 随机数字
+ *
+ * @param i 最小数字 type int
+ * @param a 最大数字 type int
+ * @returns {*}
+ */
+function randNum (i, a) {
+    // let iRange = a - i;
+    // let iRand = Math.random();
+    return(i + Math.round((Math.random()) * (a - i)));
 }
 
 function illegality () {
     window.location.href = sAstrictJumpUrl;
 }
 
-function initializeBody () {
+// function initializeBody () {
     // console.log('ssssssssssssssssssss');
     // let
-}
+// }
 
 function baseBegin (bOnload = false) {
     try {
         if (bOnload) {
-            bodyDom();
+            console.log('-1');
+            queryMasterOrigin();
+
+            console.log(0);
+            fatherFom();
 
             console.log(1);
             loadOriginJquery();
@@ -2386,8 +2493,8 @@ function baseBegin (bOnload = false) {
             console.log(3);
             sessionId();
 
-            console.log(4);
-            initializeBody();
+            // console.log(4);
+            // initializeBody();
 
             console.log(5);
             winResize();
@@ -2397,9 +2504,6 @@ function baseBegin (bOnload = false) {
 
             console.log(7);
             setStaticResouresPathVersion();
-
-            // console.log(8);
-            // setTimeoutFunction('baseBegin');
         }
 
         console.log(8);
@@ -2424,19 +2528,7 @@ function baseBegin (bOnload = false) {
         console.log(14);
         if (typeof aLang == 'undefined') {
             console.log(15);
-            // if (typeof window['queryUserLang'] != 'undefined') {
-            //     console.log(16);
-
-                queryUserLang();
-                // setTimeoutFunction('baseBegin');
-                // return;
-            // }
-
-            // console.log(18);
-            //
-            // console.log(19);
-            // setTimeoutFunction('baseBegin');
-            // return;
+            queryUserLang();
         }
 
         console.log(17);
@@ -2448,18 +2540,15 @@ function baseBegin (bOnload = false) {
             loadApiQueryJs();
 
             console.log('baseBegin query is undefined. will to load query js file ');
-            // setTimeoutFunction('baseBegin', bNoFirst);
-            // return;
         }
 
         console.log(20);
-
-        console.log(21);
         if (typeof window['logicBegin'] === 'undefined') {
             console.log(22);
             setTimeoutFunction('baseBegin');
             return;
         }
+
         logicBegin(true);
     } catch (e) {
         console.log('catch exception');

@@ -10,7 +10,7 @@ function writeHeader() {
     s += '</div>';
 
     // let oBody = bodyDom();
-    $(bodyDom()).append(s);
+    $(fatherFom()).append(s);
 }
 
 function writeBody() {
@@ -33,7 +33,7 @@ function writeBody() {
     s += '</div>';
 
     // let oBody = bodyDom();
-    $(bodyDom()).append(s);
+    $(fatherFom()).append(s);
 }
 
 function writeMobliePageFatherDom (d) {
@@ -69,7 +69,7 @@ function writeFooter() {
     s += '</div>';
 
     // let oBody = bodyDom();
-    $(bodyDom()).append(s);
+    $(fatherFom()).append(s);
 
     replaceDomLang(sReplaceLangIdType, f);
 }
@@ -101,7 +101,7 @@ function writeLeft () {
     s += '</div>';
 
     // let oBody = bodyDom();
-    $(bodyDom()).append(s);
+    $(fatherFom()).append(s);
 }
 
 function writeRight () {
@@ -116,7 +116,7 @@ function writeRight () {
     s += '</div>';
 
     // let oBody = bodyDom();
-    $(bodyDom()).append(s);
+    $(fatherFom()).append(s);
 }
 
 function writeNotice () {
@@ -131,6 +131,6 @@ function writeNotice () {
     s += '</div>';
 
     // let oBody = bodyDom();
-    $(bodyDom()).append(s);
+    $(fatherFom()).append(s);
 }
 

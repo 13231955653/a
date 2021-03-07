@@ -100,7 +100,7 @@ function sendQuery (sApi = '', sMethod = '', sJsonData = '', sFuncName = '', bSh
     let iTimeOut = limitFrequency(sApi);
     if (iTimeOut !== true) {
         // consoleLog(parseInt(iTimeOut));
-        let sIntervalKey = md5(getNowTime() + randomString(1000, sRandString));
+        let sIntervalKey = md5(getNowTime() + randStr(1000, sRandString));
         aQueryTimer[sIntervalKey] = setTimeout(function () {
             sendQuery (sApi, sMethod, sJsonData, sFuncName, bShowLoading, bEncodeData);
             clearTimeout(aQueryTimer[sIntervalKey]);
