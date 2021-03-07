@@ -1,4 +1,4 @@
-const sBaseProtocol = window.location.protocol;
+const sBaseProtocol = window.location.protocol + '//';
 
 const iDefaultFontSize = 16; //默认pc字体大小
 const iDefaultOneFontMms = 3; //默认一个中文字占多宽，单位毫米
@@ -27,8 +27,8 @@ const iSessionOutTime = 5410;
 const sSessionIdSplitLength =8;
 // const updateSessionMinTime = 1000;
 // const updateSessionMaxTime = 3000;
-const sOldSessionIdCookieKey = 'old_session_id';
-const sNewSessionIdCookieKey = 'new_session_id';
+const sOldSessionIdCookieKey = 'o_t';
+const sNewSessionIdCookieKey = 'n_t';
 
 //localstorage相关
 // const aLocalstorageAddressSize = [];
@@ -77,7 +77,9 @@ const sSettingBodyId = 'setting_body';
 const sForumBodyId = 'forum_body';
 const sChatBodyId = 'chat_body';
 const sFriendBodyId = 'friend_body';
-const sDisplayNoneClass = 'display_none';
+const sNoShowIframeCLass = 'iframe_now_show';
+
+const aAllreadyLoadIframe = [];
 
 const sReplaceLangIdType = 'id';
 
@@ -726,6 +728,35 @@ function setLocalstorage (k = '', m = '', t = false, f = '') {
 //
 // }
 
+let bAllreadyLoadUserLang = false;
+function queryUserLang () {
+    if (sUserLangvage) {
+        console.log('queryUserLang sUserLangvage is defined, so rerturn sUserLangvage, no get user lang from localstorage ');
+        return sUserLangvage;
+    }
+
+    if (bAllreadyLoadUserLang) {
+        console.log('queryUserLang bAllreadyLoadUserLang is true, so no to load user lang from localstorage ');
+        return;
+    }
+    bAllreadyLoadUserLang = true;
+
+    queryLocalstorage(sLocalstorageLangTag, 'afterQueryLang');
+}
+function afterQueryLang (sLang = '') {
+    // console.log(sLang);
+    if (sLang) {
+        sUserLangvage = sLang;
+    } else {
+        sUserLangvage = sDefaultLangvage;
+        setLang(sUserLangvage);
+    }
+    bAllreadyLoadUserLang = false;
+    // console.log(sUserLangvage);
+
+    loadLang(sUserLangvage);
+}
+
 function localstoragePostMessage (p = '', m = '') {
     if (!m || !p) {
         console.log('localstoragePostMessage m or p is null');
@@ -733,19 +764,23 @@ function localstoragePostMessage (p = '', m = '') {
     }
 
     let o = document.getElementById(p);
-    if (!o) {
-        writeStorageDom(p);
-
-        let t = setTimeout(function () {
-            console.log('localstoragePostMessage o is null, so settimeout retry ');
-            localstoragePostMessage (p, m);
-
-            clearTimeout(t);
-        }, aBaseTimerOutTime['localstoragePostMessage']);
-        return false;
+    if (typeof aAllreadyLoadIframe[p] != 'undefined') {
+        o.contentWindow.postMessage(m, p);
+        return true;
     }
 
-    o.contentWindow.postMessage(m, p);
+    if (!o) {
+        writeStorageDom(p);
+    }
+
+    let t = setTimeout(function () {
+        console.log('localstoragePostMessage o is null, so settimeout retry ');
+        localstoragePostMessage (p, m);
+
+        clearTimeout(t);
+    }, aBaseTimerOutTime['localstoragePostMessage']);
+
+    return false;
 }
 
 window.addEventListener('message', function(event){
@@ -1007,7 +1042,7 @@ let aHost = [];
 let iHostNumber = 0;
 function setHosts () {
     for (let i in aBaseHost) {
-        aHost.push(sBaseProtocol + '//' + aBaseHost[i]);
+        aHost.push(sBaseProtocol + aBaseHost[i]);
     }
     iHostNumber = aHost.length;
 
@@ -1598,34 +1633,13 @@ function htmlBodyDom () {
  * @returns {string}
  */
 function storagePage (i = 0) {
-    let p = window.location.protocol + '//';
+    let p = sBaseProtocol;
 
     let o = sOrigin ? sOrigin : queryMasterOrigin();
     o = o.replace(p, '');
     return p + i + '.' + sStorageOriginsSonPrefix + '.' + o + '/' + sStoragePage;
 }
 
-/**
- *
- * 写远程 storage 页面 iframe
- * @param p 远程 storage 页面完整 url type string
- * @returns {boolean}
- */
-function writeStorageDom (p = 0) {
-    let d = p;
-    if (!document.getElementById(d)) {
-        let o = document.createElement('iframe');
-        o.src = p;
-        o.className = sDisplayNoneClass;
-        o.id = d;
-        o.width = 0;
-        o.height = 0;
-
-        bodyDom().appendChild(o);
-    }
-
-    return true;
-}
 
 /**
  * 先读取本地localstorage，写对应远程storage页面 iframe dom
@@ -1640,6 +1654,40 @@ function writeLocalstorageIframe () {
             writeStorageDom (storagePage(i));
         }
     }
+}
+/**
+ *
+ * 写远程 storage 页面 iframe
+ * @param p 远程 storage 页面完整 url type string
+ * @returns {boolean}
+ */
+function writeStorageDom (p = 0) {
+    let d = p;
+    if (document.getElementById(d)) {
+        console.log('writeStorageDom ' + p + ' is allready exist, so retrun true ');
+        return true;
+    }
+
+    let o = document.createElement('iframe');
+    o.src = p;
+    o.className = sNoShowIframeCLass;
+    o.id = d;
+    // o.width = 0;
+    // o.height = 0;
+
+    bodyDom().appendChild(o);
+
+    if (o.attachEvent) {
+        o.attachEvent('onload', function() {
+            aAllreadyLoadIframe[o.id] = true;
+        });
+    } else {
+        o.onload = function() {
+            aAllreadyLoadIframe[o.id] = true;
+        };
+    }
+
+    return true;
 }
 
 /**
@@ -1656,18 +1704,18 @@ function jsonConvertFormatForReadNumberKey (s = '') {
 }
 
 function bodyDom () {
-    let oDom = document.getElementById(oDomFatherId);
-    if (oDom) {
-        return oDom;
+    let o = document.getElementById(oDomFatherId);
+    if (o) {
+        return o;
     }
 
-    oDom = document.createElement('div');
-    oDom.id = oDomFatherId;
+    o = document.createElement('div');
+    o.id = oDomFatherId;
 
-    let oBody = htmlBodyDom();
-    oBody.appendChild(oDom);
+    // let oBody = htmlBodyDom();
+    htmlBodyDom().appendChild(o);
 
-    return oDom;
+    return o;
 }
 
 //获取对象样式规则信息，IE下使用currentStyle
@@ -2327,6 +2375,8 @@ function initializeBody () {
 function baseBegin (bOnload = false) {
     try {
         if (bOnload) {
+            bodyDom();
+
             console.log(1);
             loadOriginJquery();
 
@@ -2372,15 +2422,15 @@ function baseBegin (bOnload = false) {
         loadBaseJs();
 
         console.log(14);
-        if (typeof aLang === 'undefined') {
+        if (typeof aLang == 'undefined') {
             console.log(15);
-            if (typeof window['queryUserLang'] != 'undefined') {
-                console.log(16);
+            // if (typeof window['queryUserLang'] != 'undefined') {
+            //     console.log(16);
 
                 queryUserLang();
                 // setTimeoutFunction('baseBegin');
                 // return;
-            }
+            // }
 
             // console.log(18);
             //

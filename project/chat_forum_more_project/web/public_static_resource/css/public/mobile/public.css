@@ -128,3 +128,8 @@
 /*    transition: all 1s;*/
 /*    opacity: 0;*/
 /*}*/
+.iframe_now_show{
+    visibility: hidden !important;
+    width: 0px;
+    height: 0px;
+}

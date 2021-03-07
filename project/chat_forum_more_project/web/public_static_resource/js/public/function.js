@@ -29,34 +29,6 @@ function isRealString (sString = '') {
     return false;
 }
 
-let bAllreadyLoadUserLang = false;
-function queryUserLang () {
-    if (sUserLangvage) {
-        console.log('queryUserLang sUserLangvage is defined, so rerturn sUserLangvage, no get user lang from localstorage ');
-        return sUserLangvage;
-    }
-
-    if (bAllreadyLoadUserLang) {
-        console.log('queryUserLang bAllreadyLoadUserLang is true, so no to load user lang from localstorage ');
-        return;
-    }
-    bAllreadyLoadUserLang = true;
-
-    queryLocalstorage(sLocalstorageLangTag, 'afterQueryLang');
-}
-function afterQueryLang (sLang = '') {
-    // console.log(sLang);
-    if (sLang) {
-        sUserLangvage = sLang;
-    } else {
-        sUserLangvage = sDefaultLangvage;
-        setLang(sUserLangvage);
-    }
-    bAllreadyLoadUserLang = false;
-    // console.log(sUserLangvage);
-
-    loadLang(sUserLangvage);
-}
 
 function getNowPage () {
     let sPage = getUrlArgs('page');

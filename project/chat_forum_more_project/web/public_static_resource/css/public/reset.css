@@ -115,7 +115,4 @@ a:focus,a:hover{
 input,a{
     box-sizing: border-box;
 }
-.display_none{
-    display: none;
-}
 
