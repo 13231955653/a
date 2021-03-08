@@ -2266,6 +2266,8 @@ function clearShade (o = false) {
         o.className = o.className.replace(p1, '');
         o.className = o.className.replace(p2, '');
         o.className += ' ' + sInvisibleClass;
+
+        o.style.zIndex = 0;
     });
 }
 /**
