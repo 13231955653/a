@@ -548,7 +548,8 @@ function loadCss (r = '', c = '') {
     l.rel = 'stylesheet';
     l.href = r;
     l.charset = sCharset;
-    l.id = window.btoa(r);
+    // l.id = window.btoa(r);
+    l.id = r;
 
     if (c) {
         checkLoadCss(c, l.id);
@@ -1495,6 +1496,23 @@ function afterloadLocalJquery () {
     bLoadLocalJquery = true;
 }
 
+
+/**
+ *
+ * 在 j 之后插入 新节点n
+ *
+ * @param n 新节点 type dom
+ * @param j
+ */
+function insertAfter (n, j) {
+    let p = j.parentNode;
+    if (p.lastChild == j) {
+        p.appendChild(n);
+    } else {
+        p.insertBefore(n,j.nextSibling);
+    }
+}
+
 /**
  *
  * 加载语言包
@@ -1566,6 +1584,7 @@ function loadJs (s = '', b = true, c = false) {
     }
 
     oHead.appendChild(o);
+    insertAfter(o, document.getElementById(sIndexJsScriptId));
 }
 
 function queryMasterOrigin () {
