@@ -16,6 +16,8 @@ function repeatedlyForumPage (bNoFirst = false) {
     }
     console.log('repeatedlyForumPage allready');
     console.log(bNoFirst);
+
+    clearPageShade();
 }
 
 function existForumBody () {

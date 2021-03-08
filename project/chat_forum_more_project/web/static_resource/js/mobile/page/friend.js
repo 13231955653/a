@@ -16,6 +16,8 @@ function repeatedlyFriendPage (bNoFirst = false) {
     }
     console.log('repeatedlyFriendPage allready');
     console.log(bNoFirst);
+
+    clearPageShade();
 }
 
 function existFriendBody () {

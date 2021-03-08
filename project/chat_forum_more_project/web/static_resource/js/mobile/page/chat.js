@@ -17,6 +17,8 @@ function repeatedlyChatPage (bNoFirst = false) {
     }
     console.log('repeatedlyChatPage allready');
     console.log(bNoFirst);
+
+    clearPageShade();
 }
 
 function existChatBody () {

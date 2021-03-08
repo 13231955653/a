@@ -15,6 +15,8 @@ function repeatedlySettingPage (bNoFirst = false) {
     }
     console.log('repeatedlySettingPage allready');
     console.log(bNoFirst);
+
+    clearPageShade();
 }
 
 function existSettingBody () {
