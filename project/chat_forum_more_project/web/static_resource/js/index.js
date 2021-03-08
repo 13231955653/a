@@ -185,6 +185,7 @@ const sLocalstorgaeBeginTag = 0;
 const iDefaultUserPersonalizedColor = 1;
 let iFontSize = 16;
 
+const sIndexJsScriptId = 'index_js_script';
 const sFinalMetaId = 'copyright_content';
 
 const oDomFatherId = 'dom_father';
@@ -553,7 +554,9 @@ function loadCss (r = '', c = '') {
         checkLoadCss(c, l.id);
     }
 
-    oHead.appendChild(l);
+    // sIndexJsScriptId
+    // oHead.appendChild(l);
+    oHead.insertBefore(l, document.getElementById(sIndexJsScriptId));
 }
 
 /**
