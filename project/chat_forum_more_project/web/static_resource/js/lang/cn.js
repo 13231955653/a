@@ -1,4 +1,9 @@
 var aLang = [];
+aLang['application_name_content'] = '规定页面所代表的 Web 应用程序的名称。';
+aLang['description_content'] = '规定页面的描述。搜索引擎会把这个描述显示在搜索结果中。';
+aLang['keywords_content'] = '关键词1，关键词2，关键词3';
+aLang['author_content'] = 'white 小白 邮箱';
+aLang['copyright_content'] = '版权所有，保留一切权利。';
 aLang['langvage_error'] = '语言错误';
 aLang['forum_foot'] = '脚1';
 aLang['chat_foot'] = '脚2';

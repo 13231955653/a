@@ -6,10 +6,7 @@ const sBaseProtocol = window.location.protocol + '//';
 
 let sOrigin = '';
 
-const oHtml = document.getElementsByTagName('html')[0];
-const oHead = document.getElementsByTagName('head')[0];
-const oBody = document.getElementsByTagName('body')[0];
-
+const sHtmlLang = 'zh-cn';
 let sCharset = 'utf-8';
 
 const iDefaultFontSize = 16; //默认pc字体大小
@@ -43,6 +40,132 @@ const sSessionIdSplitLength =8;
 const sOldSessionIdCookieKey = 'o_t';
 const sNewSessionIdCookieKey = 'n_t';
 
+const sContentAndCharset = 'content_charset';
+const sContentAndCharsetType = 'Content-Type';
+const sContentAndCharsetContent = 'text/html; charset=utf-8';
+const sCopyright = 'copyright';
+const sAuther = 'auther';
+const sKeywords = 'keywords';
+const sDescription = 'description';
+const sApplicationName = 'application-name';
+const sRobots = 'robots';
+const sAllowCurlPage = 'noindex';
+const sAllowIndexOther = 'nofollow';
+const sAboutIe = 'about_ie';
+const sAboutIeHttpEquiv = 'x-ua-compatible';
+const sAboutIeContent = 'ie=edge';
+const sClearType = 'cleartype';
+const sClearTypeHttpEquiv = 'cleartype';
+const sClearTypeContent = 'on';
+// Pinned Site
+const sSkypeToolbar = 'skype_toolbar';
+const sSkypeToolbarContent = 'skype_toolbar_parser_compatible';
+const sWin8Ie10_1 = 'msapplication-TileImage';
+const sWin8Ie10_1Content = 'pinned-tile-144.png';
+const sWin8Ie10_2 = 'msapplication-TileColor';
+const sWin8Ie10_2Content = '#009900';
+const sWin9_1Ie11 = 'msapplication-config';
+const sWin9_1Ie11Content = 'ieconfig.xml';
+// Pinned Site
+// <!-- 优先使用最新的chrome版本 -->
+const sGoogleBrowser = 'google_browser';
+const sGoogleBrowserHttpEquiv = 'X-UA-Compatible';
+const sGoogleBrowserContent = 'chrome=1';
+// <!-- 禁止自动翻译 -->
+// const sGoogleForbidTranslate = 'google';
+// const sGoogleForbidTranslateName = 'google';
+// const sGoogleForbidTranslateValue = 'notranslate';
+// 360浏览器
+// <!-- 选择使用的浏览器解析内核 -->
+const s360 = '360_nei_he';
+const s360Name = 'renderer';
+const s360Content = 'webkit|ie-comp|ie-stand';
+// UC手机浏览器
+<!-- 将屏幕锁定在特定的方向 -->
+const sUc = 'uc_';
+const sUcName = 'screen-orientation';
+const sUcContent = 'landscape/portrait';
+// <!-- 全屏显示页面 -->
+const sFullScreen = 'full-screen';
+const sFullScreenName = 'full-screen';
+const sFullScreenContent = 'yes';
+// <!-- 强制图片显示，即使是"text mode" -->
+// <meta name="imagemode" content="force">
+// <!-- 应用模式，默认将全屏，禁止长按菜单，禁止手势，标准排版，强制图片显示。 -->
+const sAppMode = 'app_mode';
+const sAppModeName = 'browsermode';
+const sAppModeContent = 'application';
+// <!-- 禁止夜间模式显示 -->
+const sForbidNight = 'forbid_night';
+const sForbidNightName = 'nightmode';
+const sForbidNightContent = 'disable';
+// <!-- 使用适屏模式显示 -->
+const sAdaptScreen = 'adapt_screen';
+const sAdaptScreenName = 'layoutmode';
+const sAdaptScreenContent = 'fitscreen';
+// <!-- 当页面有太多文字时禁止缩放 -->
+// <meta name="wap-font-scale" content="no">
+// QQ手机浏览器
+<!-- 锁定屏幕在特定方向 -->
+const sQqImmobilizationOrientation = 'qq_orientation';
+const sQqImmobilizationOrientationName = 'x5-orientation';
+const sQqImmobilizationOrientationContent = 'landscape/portrait';
+// <!-- 全屏显示 -->
+const sQqFullScreen = 'qq_fullscreen';
+const sQqFullScreenName = 'x5-fullscreen';
+const sQqFullScreenContent = 'true';
+// <!-- 页面将以应用模式显示 -->
+// <meta name="x5-page-mode" content="app">
+const sQqAppMode = 'qq_app_mode';
+const sQqAppModeName = 'x5-page-mode';
+const sQqAppModeContent = 'app';
+// Apple iOS
+// <!-- Smart App Banner -->
+const sIosAppBanner = 'apple-ios-itunes-app';
+const sIosAppBannerName = 'apple-itunes-app';
+const sIosAppBannerContent = 'app-id=APP_ID,affiliate-data=AFFILIATE_ID,app-argument=SOME_TEXT';
+// <!-- 禁止自动探测并格式化手机号码 -->
+const sForbidQueryTelNumber = 'query_tel_num_and_format';
+const sForbidQueryTelNumberName = 'format-detection';
+const sForbidQueryTelNumberContent = 'telephone=no';
+// <!-- 忽略识别邮箱 -->
+// <meta content="email=no" name="format-detection" />
+const sNeglectEmail = 'neglect_email';
+const sNeglectEmailName = 'format-detection';
+const sNeglectEmailContent = 'email=no';
+// <!-- 是否启用 WebApp 全屏模式 -->
+// <meta name="apple-mobile-web-app-capable" content="yes">
+const sAppFullScreenMode = 'app_full_screen_mode';
+const sAppFullScreenModeName = 'apple-mobile-web-app-capable';
+const sAppFullScreenModeContent = 'yes';
+// <!-- 设置状态栏的背景颜色,只有在 “apple-mobile-web-app-capable” content=”yes” 时生效 -->
+const sAppleMobileWebBarColor = 'apple_mobile_web_bar_color';
+const sAppleMobileWebBarColorName = 'apple-mobile-web-app-status-bar-style';
+const sAppleMobileWebBarColorContent = 'black';
+// <!-- 添加到主屏后的标题 -->
+// <meta name="apple-mobile-web-app-title" content="App Title">
+// Google Android
+// <meta name="theme-color" content="#E64545">
+// <!-- 添加到主屏 -->
+// <meta name="mobile-web-app-capable" content="yes">
+// App Links
+// <!-- iOS -->
+// <meta property="al:ios:url" content="applinks://docs">
+// <meta property="al:ios:app_store_id" content="12345">
+// <meta property="al:ios:app_name" content="App Links">
+// <!-- Android -->
+// <meta property="al:android:url" content="applinks://docs">
+// <meta property="al:android:app_name" content="App Links">
+// <meta property="al:android:package" content="org.applinks">
+// <!-- Web Fallback -->
+// <meta property="al:web:url" content="http://applinks.org/documentation">
+// <!-- More info: http://applinks.org/documentation/ -->
+// 移动端
+// <!-- `width=device-width` 会导致 iPhone 5 添加到主屏后以 WebApp 全屏模式打开页面时出现黑边  -->
+const sMobileFullScreen = 'mobile_full_screen';
+const sMobileFullScreenName = 'viewport';
+const sMobileFullScreenContent = 'width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0';
+
 //localstorage相关
 // const aLocalstorageAddressSize = [];
 const iMaxLocalstorageSize = 4718592;
@@ -61,6 +184,8 @@ const sLocalstorgaeBeginTag = 0;
 
 const iDefaultUserPersonalizedColor = 1;
 let iFontSize = 16;
+
+const sFinalMetaId = 'copyright_content';
 
 const oDomFatherId = 'dom_father';
 const sShadeIndex = 'index_shade';
@@ -271,6 +396,7 @@ b['logicBegin'] = t;
 b['writePublicDom'] = t;
 b['afterLoadPageJs'] = t;
 b['updateUrlPage'] = t;
+b['setContent'] = t;
 b['checkSessionIdOutTime'] = 120000;
 b['checkSessionKeyFormat'] = 180000;
 const aTimer = b; //基础定时器间隔时间
@@ -1453,23 +1579,202 @@ function queryMasterOrigin () {
     return o;
 }
 
-let bSetHeader = false;
-function setHeader () {
-    if (bSetHeader) {
+let bSetMeta = false;
+function setMeta () {
+    if (bSetMeta) {
         return;
     }
-    bSetHeader = true;
+    bSetMeta = true;
 
-    if (isMobile()) {
-        let m = document.createElement('meta');
-        m.name = 'viewport';
-        m.content = 'width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0';
-        oHead.appendChild(m);
+    let a = [
+        sContentAndCharset,
+        sRobots,
+        sAboutIe,
+        sClearType,
+        sSkypeToolbar,
+        sWin8Ie10_1,
+        sWin8Ie10_2,
+        sWin9_1Ie11,
+        sGoogleBrowser,
+        // sGoogleForbidTranslate,
+        s360,
+        sUc,
+        sFullScreen,
+        sAppMode,
+        sForbidNight,
+        sAdaptScreen,
+        sQqImmobilizationOrientation,
+        sQqFullScreen,
+        sQqAppMode,
+        sIosAppBanner,
+        sForbidQueryTelNumber,
+        sNeglectEmail,
+        sAppFullScreenMode,
+        sAppleMobileWebBarColor,
+        sMobileFullScreen,
+        // sAppleMobileWebAppCapable,
+        sAuther,
+        sKeywords,
+        sDescription,
+        sApplicationName,
+        sCopyright,
+    ];
+
+    for (let i in a) {
+        setContent(a[i]);
     }
 }
+function finalMeta () {
+    return document.getElementById(sFinalMetaId);
+}
+/**
+ *
+ * 设置 meta 标签
+ *
+ * @param n meta name type string
+ */
+function setContent (n = '') {
+    if (typeof window['aLang'] == 'undefined') {
+        console.log('setContent aLang is undefined, so settimeout retry to setContent ');
+        setTimeoutFunction('setContent', n);
+        return;
+    }
 
-// const ua = navigator;
-// console.log(ua);
+    let o = finalMeta();
+    let m = '';
+    if (n !== sCopyright) {
+        m = document.createElement('meta');
+    }
+    switch (n) {
+        case sCopyright :
+            o.name = 'Copyright';
+            o.content = aLang['copyright_content'];
+            return;
+            break;
+        case sAuther :
+            m.name = 'author';
+            m.content = aLang['author_content'];
+            break;
+        case sKeywords :
+            m.name = 'keywords';
+            m.content = aLang['keywords_content'];
+            break;
+        case sDescription :
+            m.name = 'description';
+            m.content = aLang['description_content'];
+            break;
+        case sApplicationName :
+            m.name = 'application-name';
+            m.content = aLang['application_name_content'];
+            break;
+        case sRobots :
+            m.name = 'robots';
+            m.content = sAllowCurlPage + ',' + sAllowIndexOther;
+            break;
+        case sContentAndCharset :
+            m.httpEquiv = sContentAndCharsetType;
+            m.content = sContentAndCharsetContent;
+            break;
+        case sAboutIe :
+            m.httpEquiv = sAboutIeHttpEquiv;
+            m.content = sAboutIeContent;
+            break;
+        case sClearType :
+            m.httpEquiv = sClearTypeHttpEquiv;
+            m.content = sClearTypeContent;
+            break;
+        case sSkypeToolbar :
+            m.name = sSkypeToolbar;
+            m.content = sSkypeToolbarContent;
+            break;
+        case sWin8Ie10_1 :
+            m.name = sWin8Ie10_1;
+            m.content = sWin8Ie10_1Content;
+            break;
+        case sWin8Ie10_2 :
+            m.name = sWin8Ie10_2;
+            m.content = sWin8Ie10_2Content;
+            break;
+        case sWin9_1Ie11 :
+            m.name = sWin9_1Ie11;
+            m.content = sWin9_1Ie11Content;
+            break;
+        case sGoogleBrowser :
+            m.httpEquiv = sGoogleBrowserHttpEquiv;
+            m.content = sGoogleBrowserContent;
+            break;
+        // case sGoogleForbidTranslate :
+        //     m.name = sGoogleForbidTranslateName;
+        //     m.value = sGoogleForbidTranslateValue;
+        //     break;
+        case s360 :
+            m.name = s360Name;
+            m.content = s360Content;
+            break;
+        case sUc :
+            m.name = sUcName;
+            m.content = sUcContent;
+            break;
+        case sFullScreen :
+            m.name = sFullScreenName;
+            m.content = sFullScreenContent;
+            break;
+        case sAppMode :
+            m.name = sAppModeName;
+            m.content = sAppModeContent;
+            break;
+        case sForbidNight :
+            m.name = sForbidNightName;
+            m.content = sForbidNightContent;
+            break;
+        case sAdaptScreen :
+            m.name = sAdaptScreenName;
+            m.content = sAdaptScreenContent;
+            break;
+        case sQqImmobilizationOrientation :
+            m.name = sQqImmobilizationOrientationName;
+            m.content = sQqImmobilizationOrientationContent;
+            break;
+        case sQqFullScreen :
+            m.name = sQqFullScreenName;
+            m.content = sQqFullScreenContent;
+            break;
+        case sQqAppMode :
+            m.name = sQqAppModeName;
+            m.content = sQqAppModeContent;
+            break;
+        case sIosAppBanner :
+            m.name = sIosAppBannerName;
+            m.content = sIosAppBannerContent;
+            break;
+        case sForbidQueryTelNumber :
+            m.name = sForbidQueryTelNumberName;
+            m.content = sForbidQueryTelNumberContent;
+            break;
+        case sNeglectEmail :
+            m.name = sNeglectEmailName;
+            m.content = sNeglectEmailContent;
+            break;
+        case sAppFullScreenMode :
+            m.name = sAppFullScreenModeName;
+            m.content = sAppFullScreenModeContent;
+            break;
+        case sAppleMobileWebBarColor :
+            m.name = sAppleMobileWebBarColorName;
+            m.content = sAppleMobileWebBarColorContent;
+            break;
+        case sMobileFullScreen :
+            m.name = sMobileFullScreenName;
+            m.content = sMobileFullScreenContent;
+            break;
+        // case sAppleMobileWebAppCapable :
+        //     m.name = sAppleMobileWebAppCapableName;
+        //     m.content = sAppleMobileWebAppCapableContent;
+        //     break;
+    }
+    oHead.insertBefore(m, finalMeta());
+}
+
 let os = function() {
     let ua = navigator.userAgent;
     isWindowsPhone = /(?:Windows Phone)/.test(ua),
@@ -1512,7 +1817,7 @@ function getOneMmsPx (){
     o.id = d;
     o.style.width = '1mm';
 
-    fatherFom().appendChild(o);
+    fatherDom().appendChild(o);
 
     // 原生方法获取浏览器对元素的计算值
     o = document.getElementById(d);
@@ -1563,6 +1868,11 @@ function setTimeoutFunction (f = '', a = '', b = '') {
     if (typeof aTimer[f] == 'undefined') {
         console.log(f);
         console.log('setTimeoutFunction aBaseTimerOutTime ' + f + ' undefined');
+    }
+
+    if (typeof window[f] != 'function') {
+        console.log(f);
+        console.log('setTimeoutFunction ' + f + ' is not function');
     }
 
     aBaseTimer[f] = setTimeout(function () {
@@ -1625,7 +1935,7 @@ function writeStorageDom (p = 0) {
     o.className = sNoShowIframeCLass;
     o.id = d;
 
-    fatherFom().appendChild(o);
+    fatherDom().appendChild(o);
 
     if (o.attachEvent) {
         o.attachEvent('onload', function() {
@@ -1656,7 +1966,7 @@ function jsonConvertFormatForReadNumberKey (s = '') {
     return eval('(' + s + ')');
 }
 
-function fatherFom () {
+function fatherDom () {
     let o = document.getElementById(oDomFatherId);
     if (o) {
         return o;
@@ -1784,7 +2094,7 @@ function writePublicShade () {
     o = document.createElement('div');
     o.id = sPublicShadeId;
 
-    fatherFom().appendChild(o);
+    fatherDom().appendChild(o);
 }
 function shade () {
     if (!checkExistPublicShadeDom()) {
@@ -2340,17 +2650,46 @@ function illegality () {
     // let
 // }
 
+function setHtmlLang () {
+    oHtml.lang = sHtmlLang;
+}
+
+let oHtml = false;
+let oHead = false;
+let oBody = false;
 function baseBegin (bOnload = false) {
     // try {
         if (bOnload) {
+            oHtml = document.getElementsByTagName('html')[0];
+            if (typeof oHtml == 'undefined') {
+                console.log('-5');
+                setTimeoutFunction('baseBegin', bOnload);
+                return;
+            }
+            oHead = document.getElementsByTagName('head')[0];
+            if (typeof oHead == 'undefined') {
+                console.log('-4');
+                setTimeoutFunction('baseBegin', bOnload);
+                return;
+            }
+            oBody = document.getElementsByTagName('body')[0];
+            if (typeof oBody == 'undefined') {
+                console.log('-3');
+                setTimeoutFunction('baseBegin', bOnload);
+                return;
+            }
+
+            console.log('-2__2');
+            setHtmlLang();
+
             console.log('-2');
-            setHeader();
+            setMeta();
 
             console.log('-1');
             queryMasterOrigin();
 
             console.log(0);
-            fatherFom();
+            fatherDom();
 
             console.log(1);
             loadOriginJquery();
@@ -2375,7 +2714,7 @@ function baseBegin (bOnload = false) {
         }
 
         console.log(8);
-        if (typeof jQuery === 'undefined') {
+        if (typeof jQuery == 'undefined') {
             console.log(9);
             if (getNowTime() - iLoadOriginJqueryLastTime > iMaxLoadOriginJqueryWaitTime) {
                 console.log(10);
@@ -2403,7 +2742,7 @@ function baseBegin (bOnload = false) {
         afterLoadIndexJs();
 
         console.log(18);
-        if (typeof window['apiQuery'] === 'undefined') {
+        if (typeof window['apiQuery'] == 'undefined') {
             console.log(19);
             loadApiJs();
 
@@ -2411,7 +2750,7 @@ function baseBegin (bOnload = false) {
         }
 
         console.log(20);
-        if (typeof window['logicBegin'] === 'undefined') {
+        if (typeof window['logicBegin'] == 'undefined') {
             console.log(22);
             setTimeoutFunction('baseBegin');
             return;

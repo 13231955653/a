@@ -134,15 +134,19 @@ function replaceWindowTitle (t = '') {
 }
 
 function logicBegin () {
+    showPageShade();
+
     if (typeof window['writePublicDom'] == 'undefined') {
         console.log('logicBegin writePublicDom is undefined, so settimeout retry to logicBegin ');
         setTimeoutFunction('logicBegin');
         return;
     }
-
-    showPageShade();
-
     writePublicDom();
 
+    if (typeof window['updateUrlPage'] == 'undefined') {
+        console.log('logicBegin updateUrlPage is undefined, so settimeout retry to logicBegin ');
+        setTimeoutFunction('logicBegin');
+        return;
+    }
     updateUrlPage();
 }
