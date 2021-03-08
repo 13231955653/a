@@ -362,6 +362,22 @@ function uodateUrlPageArg (p = '') {
     updateUrlPage(p);
 }
 
+function replaceLangs () {
+    let a = $('.' + sReLangClass);
+    if (!a.length) {
+        console.log('replaceLangs class ' + sReLangClass + ' dom no get, so no to do replace lang');
+        // setTimeoutFunction('replaceLangs');
+        return false;
+    }
+
+    let s = '';
+    for (let i in a) {
+        s = typeof a[i].id != 'undefined' ? a[i].id : 'error';
+        s = typeof aLang[s] != 'undefined' ? aLang[s] : aLang['error'];
+        a[i].innerHTML = s;
+    }
+}
+
 /**
  *
  * 更新url page 参数

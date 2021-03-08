@@ -59,21 +59,21 @@ function localstorageDecodeValue (sValue = '') {
 //     return sUserLangvage;
 // }
 
-function replaceLangs () {
-    let aReLangDom = $('.' + sReLangClass);
-    if (!aReLangDom.length) {
-        console.log('replaceLangs class ' + sReLangClass + ' dom no get, so no to do replace lang');
-        // setTimeoutFunction('replaceLangs');
-        return false;
-    }
-
-    let sString = '';
-    for (let i in aReLangDom) {
-        sString = typeof aReLangDom[i].id != 'undefined' ? aReLangDom[i].id : 'error';
-        sString = typeof aLang[sString] != 'undefined' ? aLang[sString] : aLang['error'];
-        aReLangDom[i].innerHTML = sString;
-    }
-}
+// function replaceLangs () {
+//     let aReLangDom = $('.' + sReLangClass);
+//     if (!aReLangDom.length) {
+//         console.log('replaceLangs class ' + sReLangClass + ' dom no get, so no to do replace lang');
+//         // setTimeoutFunction('replaceLangs');
+//         return false;
+//     }
+//
+//     let sString = '';
+//     for (let i in aReLangDom) {
+//         sString = typeof aReLangDom[i].id != 'undefined' ? aReLangDom[i].id : 'error';
+//         sString = typeof aLang[sString] != 'undefined' ? aLang[sString] : aLang['error'];
+//         aReLangDom[i].innerHTML = sString;
+//     }
+// }
 
 function repeatedlyPage (sPage = '') {
     if (!sPage) {
