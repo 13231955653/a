@@ -1,6 +1,6 @@
 function repeatedlyForumPage (bNoFirst = false) {
     if (typeof window['apiQuery'] === 'undefined') {
-        loadApiQueryJs();
+        loadApiJs();
 
         console.log('repeatedlyForumPage apiQuery is undefined. so settimeout retry ');
         setTimeoutFunction('repeatedlyForumPage', bNoFirst);

@@ -1,7 +1,7 @@
 //需判断是否第一次 laod 或者强制刷新
 function repeatedlyChatPage (bNoFirst = false) {
     if (typeof window['apiQuery'] === 'undefined') {
-        loadApiQueryJs();
+        loadApiJs();
 
         console.log('repeatedlyChatPage apiQuery is undefined. so settimeout retry ');
         setTimeoutFunction('repeatedlyChatPage', bNoFirst);

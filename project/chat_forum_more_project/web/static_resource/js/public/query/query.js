@@ -23,7 +23,7 @@ function apiQuery (sUrl = '', sSendJsonData = '', sMethod = 'post') {
         console.log('apiQuery jQuery undefined. so settimeout retry ');
         aBaseTimer[sFunction] = setTimeout(function () {
             apiQuery (sUrl, sSendJsonData, sMethod);
-        }, aBaseTimerOutTime['apiQuery']);
+        }, aTimer['apiQuery']);
         return;
     }
 

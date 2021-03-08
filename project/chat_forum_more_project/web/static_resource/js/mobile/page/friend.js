@@ -1,6 +1,6 @@
 function repeatedlyFriendPage (bNoFirst = false) {
     if (typeof window['apiQuery'] === 'undefined') {
-        loadApiQueryJs();
+        loadApiJs();
 
         console.log('repeatedlyFriendPage apiQuery is undefined. so settimeout retry ');
         setTimeoutFunction('repeatedlyFriendPage', bNoFirst);

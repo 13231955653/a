@@ -1,3 +1,5 @@
+const debug = true;
+
 const sBaseProtocol = window.location.protocol + '//';
 
 let sOrigin = '';
@@ -224,11 +226,13 @@ let aBaseTimer = []; //基础定时器
 const b = []; //基础定时器间隔时间
 // const t = 2000;
 const t = 15;
-b['winResize'] = 100;
-b['loadBaseEncodeJs'] = t;
-b['loadBaseLogicJs'] = t;
-b['loadBaseDomJs'] = t;
-b['loadBaseFunctionJs'] = t;
+// const t2 = 2000;
+const t2 = 100;
+b['winResize'] = t2;
+b['loadEncodeJs'] = t;
+b['loadLogicJs'] = t;
+b['loadDomJs'] = t;
+b['loadFunctionJs'] = t;
 b['loadOriginJquery'] = t;
 b['loadLang'] = t;
 b['logicBegin'] = t;
@@ -251,7 +255,7 @@ b['repeatedlySettingPage'] = t;
 b['repeatedlyFriendPage'] = t;
 b['repeatedlyForumPage'] = t;
 b['repeatedlyChatPage'] = t;
-b['loadApiQueryJs'] = t;
+b['loadApiJs'] = t;
 b['sessionId'] = t;
 b['repeatedlyPage'] = t;
 b['localstoragePostMessage'] = t;
@@ -263,9 +267,11 @@ b['replaceLang'] = t;
 b['replaceTitle'] = t;
 b['logicBegin'] = t;
 b['writePublicDom'] = t;
+b['afterLoadPageJs'] = t;
+b['updateUrlPage'] = t;
 b['checkSessionIdOutTime'] = 120000;
 b['checkSessionKeyFormat'] = 180000;
-const aBaseTimerOutTime = b; //基础定时器间隔时间
+const aTimer = b; //基础定时器间隔时间
 
 let sBaseJsFullName = '';
 // let sBaseVariableJsFullName = '';
@@ -288,43 +294,43 @@ const aCssVersion = []; // css 文件版本号
 let sResetCssFullPath = '';
 let sPublicCssFullPath = '';
 let sVariableCssFullPath = '';
-let sPersonalizedCssFullPath = '';
+let sPersonalizedCssPath = '';
 
-const sBaseJs = '/public_static_resource/js/public/base.js';
-// const sBaseVariableJs = '/public_static_resource/js/public/variable.js';
-const sBaseFunctionJs = '/public_static_resource/js/public/function.js';
-const sBaseJqueryJs = '/public_static_resource/js/public/jquery.js';
-const sBaseLogicJs = '/public_static_resource/js/' + platformTag() + '/logic.js';
-const sBaseDomJs = '/public_static_resource/js/public/dom/public_dom.js';
-const sBaseEncodeJs = '/public_static_resource/js/public/encode.js';
-const sCnLang = '/public_static_resource/js/lang/cn.js';
-const sEnLang = '/public_static_resource/js/lang/en.js';
-const sPlatformDomJs = '/public_static_resource/js/' + platformTag() + '/dom/public_dom.js';
-const sForumJs = '/public_static_resource/js/' + platformTag() + '/page/forum.js';
-const sChatJs = '/public_static_resource/js/' + platformTag() + '/page/chat.js';
-const sFriendJs = '/public_static_resource/js/' + platformTag() + '/page/friend.js';
-const sSettingJs = '/public_static_resource/js/' + platformTag() + '/page/setting.js';
-const sApiQueryJs = '/public_static_resource/js/public/query/query.js';
+const sBaseJs = '/static_resource/js/public/base.js';
+// const sBaseVariableJs = '/static_resource/js/public/variable.js';
+const sFunctionJs = '/static_resource/js/public/function.js';
+const sJqueryJs = '/static_resource/js/public/jquery.js';
+const sLogicJs = '/static_resource/js/' + platformTag() + '/logic.js';
+const sDomJs = '/static_resource/js/public/dom/public_dom.js';
+const sBaseEncodeJs = '/static_resource/js/public/encode.js';
+const sCnLang = '/static_resource/js/lang/cn.js';
+const sEnLang = '/static_resource/js/lang/en.js';
+const sPlatformDomJs = '/static_resource/js/' + platformTag() + '/dom/public_dom.js';
+const sForumJs = '/static_resource/js/' + platformTag() + '/page/forum.js';
+const sChatJs = '/static_resource/js/' + platformTag() + '/page/chat.js';
+const sFriendJs = '/static_resource/js/' + platformTag() + '/page/friend.js';
+const sSettingJs = '/static_resource/js/' + platformTag() + '/page/setting.js';
+const sApiJs = '/static_resource/js/public/query/query.js';
 // sOriginJquery = 'http://libs.baidu.com/jquery/2.1.4/jquery.min.js'; ////////////国内外需要更换适用的地址
 sOriginJquery = 'http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js'; ////////////国内外需要更换适用的地址
 
 const c = [];  // js 文件版本号
-c[sBaseJs] = '11111111111111111111111111111111';
-// c[sBaseVariableJs] = '222222222222222222222222222222';
-c[sBaseFunctionJs] = '3333333333333333333333333333333333333';
-c[sBaseJqueryJs] = '4444444444444444444444444444444444444444444';
-c[sBaseLogicJs] = '55555555555555555555555555555555555555555555555555';
-c[sBaseDomJs] = '6666666666666666666666666666666666666666666';
-c[sBaseEncodeJs] = '77777777777777777777777777777777777';
-c[sCnLang] = '888888888888888888888';
-c[sEnLang] = '9999999999999999999999999999';
-c[sPlatformDomJs] = 'ssssssssssssssssssssssssssssssssssssssssssssssssss';
-c[sForumJs] = 'dasdasdasdasdasdadasdasd11111111';
-c[sChatJs] = '2222222222dfsdfsdfsdfsdfffffffffff';
-c[sFriendJs] = '333333333eeeeeeeeeeeeeeeeeeeee';
-c[sSettingJs] = '44444444444fewrrrrrrrrrrrrrrr';
-c[sApiQueryJs] = 'kkkkkkkkkkkkkkkkdasdasdkkkkkkkkkkkkkkkkkkkkkkk';
-c[sOriginJquery] = 'dasdasdwqe214124';
+c[sBaseJs] = 'fsdffdsfsgsgetwet';
+// c[sBaseVariableJs] = 'twetwetwetrgdfg';
+c[sFunctionJs] = 'gdfgdfhreyeryer';
+c[sJqueryJs] = 'hfdhdfhdfhgdf';
+c[sLogicJs] = 'fsdfsdgsdfh';
+c[sDomJs] = 'hdfhdfhdf';
+c[sBaseEncodeJs] = 'gdfhdfhdf';
+c[sCnLang] = 'gdfgdfg';
+c[sEnLang] = 'hdfhdfh';
+c[sPlatformDomJs] = 'jghjtyuty';
+c[sForumJs] = 'nghjfty';
+c[sChatJs] = 'hfgtyetry';
+c[sFriendJs] = 'hfghrtyrty';
+c[sSettingJs] = 'hfghftyrt';
+c[sApiJs] = 'hfghfgnvbn';
+c[sOriginJquery] = 'hfghfgh';
 const aJsVersion = c; // js 文件版本号
 
 function setJsPathAndVersion () {
@@ -332,10 +338,10 @@ function setJsPathAndVersion () {
     // sOriginJquery = sOriginJquery;
     sBaseJsFullName = setJsCssSrc('js', sBaseJs);
     // sBaseVariableJsFullName = setJsCssSrc('js', sBaseVariableJs);
-    sBaseFunctionJsFullName = setJsCssSrc('js', sBaseFunctionJs);
-    sBaseJqueryJsFullName = setJsCssSrc('js', sBaseJqueryJs);
-    sBaseLogicJsFullName = setJsCssSrc('js', sBaseLogicJs);
-    sBaseDomJsFullName = setJsCssSrc('js', sBaseDomJs);
+    sBaseFunctionJsFullName = setJsCssSrc('js', sFunctionJs);
+    sBaseJqueryJsFullName = setJsCssSrc('js', sJqueryJs);
+    sBaseLogicJsFullName = setJsCssSrc('js', sLogicJs);
+    sBaseDomJsFullName = setJsCssSrc('js', sDomJs);
     sBaseEncodeJsFullName = setJsCssSrc('js', sBaseEncodeJs);
     sCnLangs = setJsCssSrc('js', sCnLang);
     sEnLangs = setJsCssSrc('js', sEnLang);
@@ -344,13 +350,13 @@ function setJsPathAndVersion () {
     sChatFullJs = setJsCssSrc('js', sChatJs);
     sFriendFullJs = setJsCssSrc('js', sFriendJs);
     sSettingFullJs = setJsCssSrc('js', sSettingJs);
-    sApiQueryJsFullName = setJsCssSrc('js', sApiQueryJs);
+    sApiQueryJsFullName = setJsCssSrc('js', sApiJs);
 }
 
 function setCssPathAndVersion () {
-    let sResetCss = '/public_static_resource/css/public/reset.css';
-    let sPublicCss = '/public_static_resource/css/public/' + platformTag() + '/public.css';
-    let sVariableCss = '/public_static_resource/css/public/' + platformTag() + '/variable.css';
+    let sResetCss = '/static_resource/css/public/reset.css';
+    let sPublicCss = '/static_resource/css/public/' + platformTag() + '/public.css';
+    let sVariableCss = '/static_resource/css/public/' + platformTag() + '/variable.css';
 
     aCssVersion[sResetCss] = 'qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq';
     aCssVersion[sPublicCss] = 'dddddddddddddddddddddddddddddddddddddddddddddddddd';
@@ -394,42 +400,61 @@ function winSize() {
     // iBottomHiddenHeight = iWinHeight * 2;
 }
 
-function loadCss (sSrc = '', sCallback = '') {
-    if (!sSrc) {
-        console.log('loadCss sSrc is null');
+/**
+ *
+ *加载 css 文件
+ *
+ * @param r link src type string
+ * @param c 回调函数 type string
+ * @returns {boolean}
+ */
+function loadCss (r = '', c = '') {
+    if (!r) {
+        console.log('loadCss r is null');
         return false;
     }
 
-    let link = document.createElement('link');
-    link.type = 'text/css';
-    link.rel = 'stylesheet';
-    link.href = sSrc;
-    link.charset = sCharset;
-    link.id = window.btoa(sSrc);
+    let l = document.createElement('link');
+    l.type = 'text/css';
+    l.rel = 'stylesheet';
+    l.href = r;
+    l.charset = sCharset;
+    l.id = window.btoa(r);
 
-    if (sCallback) {
-        checkLoadCss(sCallback, link.id);
+    if (c) {
+        checkLoadCss(c, l.id);
     }
 
-    oHead.appendChild(link);
+    oHead.appendChild(l);
 }
-function checkLoadCss (sCallback = '', id = '') {
-    if (!sCallback || !id) {
-        console.log('checkLoadCss sCallback or id is null');
+
+/**
+ *
+ * 检查 css 是否加载
+ *
+ * @param c 回调函数 type  string
+ * @param d css link 标签 id type string
+ * @returns {boolean}
+ */
+function checkLoadCss (c = '', d = '') {
+    if (!c || !d) {
+        console.log('checkLoadCss c or d is null');
         return false;
     }
 
-    let sTimerKey = 'checkLoadCss' + '--' + sCallback;
-    if (document.getElementById(id)) {
-        clearTimeout(aBaseTimer[sTimerKey]);
+    let k = 'checkLoadCss' + '--' + c;
+    if (document.getElementById(d)) {
+        clearTimeout(aBaseTimer[k]);
 
-        window[sCallback]();
+        clearTimeout(aBaseTimer[k]);
+
+        window[c]();
         return;
     }
 
-    aBaseTimer[sTimerKey] = setTimeout(function () {
-        checkLoadCss(sCallback, id);
-    }, aBaseTimerOutTime['checkLoadCss']);
+    aBaseTimer[k] = setTimeout(function () {
+        checkLoadCss(c, d);
+    }, aTimer['checkLoadCss']);
 }
 
 function loadBaseJs () {
@@ -437,15 +462,15 @@ function loadBaseJs () {
 
     // loadBaseVariableJs();
 
-    loadBaseEncodeJs();
+    loadEncodeJs();
 
-    loadBaseFunctionJs();
+    loadFunctionJs();
 
-    loadBaseDomJs();
+    loadDomJs();
 
     loadPlatformDomJs();
 
-    loadBaseLogicJs();
+    loadLogicJs();
 }
 
 let bInLoadPageJs = false;
@@ -491,6 +516,14 @@ function loadPageJs () {
     loadJs(sPageJs, true, 'afterLoadPageJs');
 }
 function afterLoadPageJs () {
+    if (typeof window['urlDecode'] == 'undefined') {
+        console.log('afterLoadPageJs urlDecode is undefined, so settimtoue retry ');
+
+        setTimeoutFunction('afterLoadPageJs');
+        return;
+    }
+    console.log('afterLoadPageJs urlDecode is defined, so will to do ');
+
     bInLoadPageJs = false;
 
     let sPage = getNowPage();
@@ -682,6 +715,42 @@ function localstorageNowPage () {
 
 /**
  *
+ * set localstorage lang
+ *
+ * @param l 语言 type string
+ * @returns {boolean}
+ */
+function setLang (l = '') {
+    if (!l) {
+        console.log('setLang l is null, so no to do');
+        return false;
+    }
+
+    setLocalstorage(sLocalstorageLangTag, l, false, 'afterSetLang');
+}
+
+/**
+ *
+ * set localstorage lang 之后操作
+ *
+ * @param b 结果 type bool
+ * @returns {boolean}
+ */
+function afterSetLang (b = '') {
+    if (!b) {
+        console.log('afterSetLang b is null');
+        return false;
+    }
+
+    if (!b) {
+        console.log('afterSetLang b false');
+        return false;
+    }
+    //
+    // loadLang(sUserLangvage);
+}
+/**
+ *
  * @param k localstorage key
  * @param m localstorage message
  * @param t localstorage lefttime
@@ -783,7 +852,7 @@ function localstoragePostMessage (p = '', m = '') {
         localstoragePostMessage (p, m);
 
         clearTimeout(t);
-    }, aBaseTimerOutTime['localstoragePostMessage']);
+    }, aTimer['localstoragePostMessage']);
 
     return false;
 }
@@ -961,11 +1030,11 @@ function loadPersonalizedCss (c = false) {
         return false;
     }
 
-    let sPersonalizedCss = '/public_static_resource/css/personalized/color/' + sPersonalizedColor + '.css';
+    let sPersonalizedCss = '/static_resource/css/personalized/color/' + sPersonalizedColor + '.css';
     aCssVersion[sPersonalizedCss] = 'ppppppppppppppppppsssssssssssssssss';
-    sPersonalizedCssFullPath = setJsCssSrc('css', sPersonalizedCss);
+    sPersonalizedCssPath = setJsCssSrc('css', sPersonalizedCss);
 
-    loadCss(sPersonalizedCssFullPath, 'afterloadPersonalizedCss');
+    loadCss(sPersonalizedCssPath, 'afterloadPersonalizedCss');
 
     setTimeoutFunction('loadPersonalizedCss', c);
 }
@@ -1040,7 +1109,10 @@ function setJsCssSrc (sType = '', sSrc = '') {
             break;
     }
 
-    return allocationHost(sSrc) + sSrc + '?v=' + sVersion;
+    return allocationHost(sSrc) + sSrc + '?v=' + sVersion + jsCssVersionSuffix();
+}
+function jsCssVersionSuffix () {
+    return debug ? getNowTime() : '';
 }
 
 let aHost = [];
@@ -1149,73 +1221,73 @@ function checkRequestJsCssLimit (sType = '', sFunction = '') {
 // function afterloadBaseVariableJs () {
 //     bLoadBaseVariableJs = true;
 // }
-let bLoadApiQueryJs = false;
-function loadApiQueryJs () {
-    if (bLoadApiQueryJs) {
+let bLoadApiJs = false;
+function loadApiJs () {
+    if (bLoadApiJs) {
         return true;
     }
 
-    if (!checkRequestJsCssLimit('js', 'loadApiQueryJs')) {
+    if (!checkRequestJsCssLimit('js', 'loadApiJs')) {
         return false;
     }
 
-    loadJs(sApiQueryJsFullName, true, 'afterloadApiQueryJs');
+    loadJs(sApiQueryJsFullName, true, 'afterloadApiJs');
 
-    setTimeoutFunction('loadApiQueryJs');
+    setTimeoutFunction('loadApiJs');
 }
-function afterloadApiQueryJs () {
-    bLoadApiQueryJs = true;
+function afterloadApiJs () {
+    bLoadApiJs = true;
 }
-let bLoadBaseEncodeJs = false;
-function loadBaseEncodeJs () {
-    if (bLoadBaseEncodeJs) {
+let bLoadEncodeJs = false;
+function loadEncodeJs () {
+    if (bLoadEncodeJs) {
         return true;
     }
 
-    if (!checkRequestJsCssLimit('js', 'loadBaseEncodeJs')) {
+    if (!checkRequestJsCssLimit('js', 'loadEncodeJs')) {
         return false;
     }
 
-    loadJs(sBaseEncodeJsFullName, true, 'afterloadBaseEncodeJs');
+    loadJs(sBaseEncodeJsFullName, true, 'afterloadEncodeJs');
 
-    setTimeoutFunction('loadBaseEncodeJs');
+    setTimeoutFunction('loadEncodeJs');
 }
-function afterloadBaseEncodeJs () {
-    bLoadBaseEncodeJs = true;
+function afterloadEncodeJs () {
+    bLoadEncodeJs = true;
 }
-let bLoadBaseLogicJs = false;
-function loadBaseLogicJs () {
-    if (bLoadBaseLogicJs) {
+let bLoadLogicJs = false;
+function loadLogicJs () {
+    if (bLoadLogicJs) {
         return true;
     }
 
-    if (!checkRequestJsCssLimit('js', 'loadBaseLogicJs')) {
+    if (!checkRequestJsCssLimit('js', 'loadLogicJs')) {
         return false;
     }
 
-    loadJs(sBaseLogicJsFullName, true, 'afterloadBaseLogicJs');
+    loadJs(sBaseLogicJsFullName, true, 'afterloadLogicJs');
 
-    setTimeoutFunction('loadBaseLogicJs');
+    setTimeoutFunction('loadLogicJs');
 }
-function afterloadBaseLogicJs () {
-    bLoadBaseLogicJs = true;
+function afterloadLogicJs () {
+    bLoadLogicJs = true;
 }
-let bLoadBaseDomJs = false;
-function loadBaseDomJs () {
-    if (bLoadBaseDomJs) {
+let bLoadDomJs = false;
+function loadDomJs () {
+    if (bLoadDomJs) {
         return true;
     }
 
-    if (!checkRequestJsCssLimit('js', 'loadBaseDomJs')) {
+    if (!checkRequestJsCssLimit('js', 'loadDomJs')) {
         return false;
     }
 
-    loadJs(sBaseDomJsFullName, true, 'afterloadBaseDomJs');
+    loadJs(sBaseDomJsFullName, true, 'afterloadDomJs');
 
-    setTimeoutFunction('loadBaseDomJs');
+    setTimeoutFunction('loadDomJs');
 }
-function afterloadBaseDomJs () {
-    bLoadBaseDomJs = true;
+function afterloadDomJs () {
+    bLoadDomJs = true;
 }
 let bLoadPlatformDomJs = false;
 function loadPlatformDomJs () {
@@ -1234,22 +1306,22 @@ function loadPlatformDomJs () {
 function afterloadPlatformDomJs () {
     bLoadPlatformDomJs = true;
 }
-let bLoadBaseFunctionJs = false;
-function loadBaseFunctionJs () {
-    if (bLoadBaseFunctionJs) {
+let bLoadFunctionJs1 = false;
+function loadFunctionJs () {
+    if (bLoadFunctionJs1) {
         return true;
     }
 
-    if (!checkRequestJsCssLimit('js', 'loadBaseFunctionJs')) {
+    if (!checkRequestJsCssLimit('js', 'loadFunctionJs')) {
         return false;
     }
 
-    loadJs(sBaseFunctionJsFullName, true, 'afterloadBaseFunctionJs');
+    loadJs(sBaseFunctionJsFullName, true, 'afterloadFunctionJs');
 
-    setTimeoutFunction('loadBaseFunctionJs');
+    setTimeoutFunction('loadFunctionJs');
 }
-function afterloadBaseFunctionJs () {
-    bLoadBaseFunctionJs = true;
+function afterloadFunctionJs () {
+    bLoadFunctionJs1 = true;
 }
 let bLoadOriginJquery = false;
 let iLoadOriginJqueryLastTime = 0;
@@ -1640,17 +1712,23 @@ function initializeFontSize () {
  * @returns {boolean}
  */
 function setTimeoutFunction (f = '', a = '', b = '') {
+    // console.log('======================');
     if (!f) {
+        console.log(f);
         console.log('setTimeoutFunction f is null');
         return false;
     }
 
-    if (typeof aBaseTimerOutTime[f] === 'undefined') {
+    if (typeof aTimer[f] == 'undefined') {
+        console.log(f);
         console.log('setTimeoutFunction aBaseTimerOutTime ' + f + ' undefined');
     }
 
     // console.log(f);
+    // console.log('======================');
     aBaseTimer[f] = setTimeout(function () {
+        // console.log(f);
+        // console.log(window[f]);
         if (!a) {
             window[f]();
         } else {
@@ -1660,7 +1738,7 @@ function setTimeoutFunction (f = '', a = '', b = '') {
                 window[f](a);
             }
         }
-    }, aBaseTimerOutTime[f]);
+    }, aTimer[f]);
 
     return true;
 }
@@ -2352,7 +2430,7 @@ function checkSessionKeyFormat () {
             checkSessionKeyFormat();
 
             clearTimeout(t);
-        }, 20);
+        }, aTimer['checkSessionKeyFormat']);
         return false;
     }
 
@@ -2537,7 +2615,7 @@ function baseBegin (bOnload = false) {
         console.log(18);
         if (typeof window['apiQuery'] === 'undefined') {
             console.log(19);
-            loadApiQueryJs();
+            loadApiJs();
 
             console.log('baseBegin query is undefined. will to load query js file ');
         }
@@ -2598,5 +2676,5 @@ window.onresize = function () {
 
     aBaseTimer['winResize'] = setTimeout(function () {
         winResize();
-    }, aBaseTimerOutTime['winResize']);
+    }, aTimer['winResize']);
 }

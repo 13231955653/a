@@ -5578,103 +5578,117 @@ function localstorageEncodeConfuse (sString = '', sType = '') {
     return sString;
 }
 
-function confuseStringEncode (sString = '') {
-    if (!isRealString(sString)) {
-        console.log('confuseStringEncode sString is not real string');
+function confuseStringEncode (s = '') {
+    if (!isRealString(s)) {
+        console.log('confuseStringEncode s is not real string');
         return false;
     }
 
-    let iLength2 = sString.length.toString();
-    let sSplitLength2 = iLength2.substr(0, 1);
-    let sSplitString2 = sString.substr(iLength2 - sSplitLength2, sSplitLength2);
-    sString = sString.substr(0, iLength2 - sSplitLength2);
-    if (sString) {
-        sString = reverseString(sString);
+    let l = s.length.toString();
+    let h = l.substr(0, 1);
+    let g = s.substr(l - h, h);
+    s = s.substr(0, l - h);
+    if (s) {
+        s = reverseString(s);
     }
-    sString += sSplitString2;
+    s += g;
 
-    return sString;
+    return s;
 }
-function confuseStringDecode (sString = '') {
-    if (!isRealString(sString)) {
-        console.log('confuseStringDecode sString is not real string');
+function confuseStringDecode (s = '') {
+    if (!isRealString(s)) {
+        console.log('confuseStringDecode s is not real string');
         return false;
     }
 
-    let iLength = sString.length.toString();
-    let sSplitLength = iLength.substr(0, 1);
-    let sSplitString = sString.substr(iLength - sSplitLength, sSplitLength);
-    sString = sString.substr(0, iLength - sSplitLength);
-    if (sString) {
-        sString = reverseString(sString);
+    let l = s.length.toString();
+    let p = l.substr(0, 1);
+    let g = s.substr(l - p, p);
+    s = s.substr(0, l - p);
+    if (s) {
+        s = reverseString(s);
     }
-    sString += sSplitString;
+    s += g;
 
-    return sString;
+    return s;
 }
 
-function strToBinary(str){
-    let result = [];
-    let list = str.split('');
-    let binaryStr = '';
-    for(let i = 0; i < list.length; i++){
+function strToBinary(s){
+    let r = [];
+    let l = s.split('');
+    let b = '';
+    for(let i = 0; i < l.length; i++){
         if(i != 0){
-            result.push(' ');
+            r.push(' ');
         }
-        let item = list[i];
-        binaryStr = item.charCodeAt().toString(2);
-        result.push(binaryStr);
+        let t = l[i];
+        b = t.charCodeAt().toString(2);
+        r.push(b);
     }
-    return result.join('');
+    return r.join('');
 }
 
 //将二进制字符串转换成Unicode字符串
-function binaryToStr(str){
-    let result = [];
-    let list = str.split(' ');
-    let charValue = '';
-    for(let i = 0; i < list.length; i++){
-        let item = list[i];
-        let asciiCode = parseInt(item,2);
-        charValue = String.fromCharCode(asciiCode);
-        result.push(charValue);
+function binaryToStr (s) {
+    let r = [];
+    let l = s.split(' ');
+    let c = '';
+    for(let i = 0; i < l.length; i++){
+        let t = l[i];
+        let a = parseInt(t,2);
+        c = String.fromCharCode(a);
+        r.push(c);
     }
-    return result.join('');
+    return r.join('');
 }
 
-function urlEncode (sString = '') {
-    if (!sString) {
-        console.log('urlEncode sString is null');
+/**
+ *
+ * url 参数加密
+ *
+ * @param s url 参数字符串 type string
+ * @returns {string}
+ */
+function urlEncode (s = '') {
+    if (!s) {
+        console.log('urlEncode s is null');
         return '';
     }
 
-    sString = confuseStringEncode(sString);
+    s = confuseStringEncode(s);
 
-    let sEncodeString = '';
+    let e = '';
     try {
-        sEncodeString = window.btoa(sString);
+        e = window.btoa(s);
     } catch (e) {
-        sEncodeString = '';
+        e = '';
     }
 
-    return sEncodeString;
+    return e;
 }
 
-function urlDecode (sString = '') {
-    if (!sString) {
-        console.log('urlDecode sString is null');
+/**
+ *
+ * 解密 url 参数
+ *
+ * @param s url 参数 字符串 type string
+ * @returns {string|boolean|string}
+ */
+function urlDecode (s = '') {
+    if (!s) {
+        console.log('urlDecode s is null');
         return '';
     }
 
-    let sDecodeString = '';
+    let d = '';
     try {
-        sDecodeString = window.atob(sString);
+        d = window.atob(s);
 
-        sDecodeString = confuseStringDecode(sDecodeString);
+        d = confuseStringDecode(d);
     } catch (e) {
         console.log(e);
-        sDecodeString = '';
+        d = '';
     }
 
-    return sDecodeString;
+    return d;
 }

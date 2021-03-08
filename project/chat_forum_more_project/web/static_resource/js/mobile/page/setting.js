@@ -1,6 +1,6 @@
 function repeatedlySettingPage (bNoFirst = false) {
     if (typeof window['apiQuery'] === 'undefined') {
-        loadApiQueryJs();
+        loadApiJs();
 
         console.log('repeatedlySettingPage apiQuery is undefined. so settimeout retry ');
         setTimeoutFunction('repeatedlySettingPage', bNoFirst);

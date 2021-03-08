@@ -71,6 +71,14 @@ function arrayDelValByKey (aArray = [], sKey = '') {
 }
 
 function getUrlArgs (sGetWhat = '') {
+    // if (typeof window['urlDecode'] == 'undefined') {
+    //     console.log('getUrlArgs urlDecode is undefined, so settimtoue retry ');
+    //
+    //     setTimeoutFunction('getUrlArgs', sGetWhat);
+    //     return;
+    // }
+    // console.log('getUrlArgs urlDecode is defined, so will to do ');
+
     let sHref = window.location.href;
 
     let aHref = sHref.split('?');
@@ -225,27 +233,27 @@ function setBrowserTitle (t = '') {
 //     return aStorageOrigins[hashFunc(sKey, iStorageOriginLength)];
 // }
 
-function setLang (sLang = '') {
-    if (!sLang) {
-        console.log('setLang sLang is null, so no to do');
-        return false;
-    }
-
-    setLocalstorage(sLocalstorageLangTag, sLang, false, 'afterSetLang');
-}
-function afterSetLang (bSetLangResult = '') {
-    if (!bSetLangResult) {
-        console.log('afterSetLang bSetLangResult is null');
-        return false;
-    }
-
-    if (!bSetLangResult) {
-        console.log('afterSetLang bSetLangResult false');
-        return false;
-    }
-    //
-    // loadLang(sUserLangvage);
-}
+// function setLang (sLang = '') {
+//     if (!sLang) {
+//         console.log('setLang sLang is null, so no to do');
+//         return false;
+//     }
+//
+//     setLocalstorage(sLocalstorageLangTag, sLang, false, 'afterSetLang');
+// }
+// function afterSetLang (bSetLangResult = '') {
+//     if (!bSetLangResult) {
+//         console.log('afterSetLang bSetLangResult is null');
+//         return false;
+//     }
+//
+//     if (!bSetLangResult) {
+//         console.log('afterSetLang bSetLangResult false');
+//         return false;
+//     }
+//     //
+//     // loadLang(sUserLangvage);
+// }
 
 // function queryLocalstorgaeUserPersonalizedColor (sKey = '', sAfterFunc = '') {
 //     if (!sKey || !sAfterFunc) {
@@ -364,6 +372,14 @@ function uodateUrlPageArg (p = '') {
  */
 let aAllreadyLoadPageJs = [];
 function updateUrlPage (p = '') {
+    if (typeof window['urlDecode'] == 'undefined') {
+        console.log('updateUrlPage urlDecode is undefined, so settimtoue retry ');
+
+        setTimeoutFunction('updateUrlPage', p);
+        return;
+    }
+    console.log('updateUrlPage urlDecode is defined, so will to do ');
+
     p = p ? p : getNowPage();
 
     ////////////////////////////////////
