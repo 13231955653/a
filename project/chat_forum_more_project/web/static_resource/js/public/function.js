@@ -1,93 +1,140 @@
-function notice (sStr = '') {
-    if (!sStr) {
-        console.log('notice sStr is null');
+/**
+ *
+ * 用户提示信息
+ *
+ * @param s 提示信息 type string
+ * @returns {boolean}
+ */
+function notice (s = '') {
+    if (!s) {
+        console.log('notice s is null');
         return false;
     }
 
-    alert(sStr);
+    alert(s);
 }
 
-function reverseString (sStr = '') {
-    if (!sStr) {
-        console.log('reverseString sStr is null');
+/**
+ *
+ * 反转字符串
+ *
+ * @param s 需反转的字符串 type string
+ * @returns {string}
+ */
+function reverseString (s = '') {
+    if (!s) {
+        console.log('reverseString s is null');
         return;
     }
 
-    return sStr.split('').reverse().join('');
+    return s.split('').reverse().join('');
 }
 
-function getNowTimeSecond () {
-    return parseInt(getNowTime() / 1000);
-}
-
-function isRealString (sString = '') {
-    if (sString && (typeof sString === 'string' || typeof sString === 'number')) {
+/**
+ *
+ * 检查是否字符串格式
+ *
+ * @param s 需检查的字符串 type string
+ * @returns {boolean}
+ */
+function isRealString (s = '') {
+    if (s && (typeof s === 'string' || typeof s === 'number')) {
         return true;
     }
 
-    console.log('isRealString sString is not real string');
+    console.log('isRealString s is not real string');
     return false;
 }
 
-
+/**
+ *
+ * 获取现在页面  page 信息
+ *
+ * @returns {*}
+ */
 function getNowPage () {
-    let sPage = getUrlArgs('page');
+    let p = getUrlArgs('page');
 
-    return sPage ? sPage : sDefaultPage;
+    return p ? p : sDefaultPage;
 }
 
-function inArray ( sSearch, aArray ) {
-    for ( let i in aArray ) {
-        if ( aArray[i] === sSearch ) {
+/**
+ *
+ * 检查数组中是否包含某值
+ *
+ * @param s 检查的字符串
+ * @param aArray 待检查的数组
+ * @returns {string|boolean}
+ */
+function inArray ( s, a ) {
+    for ( let i in a ) {
+        if ( a[i] === s ) {
             return i;
         }
     }
 
     return false;
 }
-function inArrayByKey ( sSearch, aArray ) {
-    for ( let i in aArray ) {
-        if ( i === sSearch ) {
+
+/**
+ *
+ * 检查数组中是否包含某键
+ *
+ * @param k 待检查的键
+ * @param a 待检查的数组
+ * @returns {string|boolean}
+ */
+function inArrayByKey ( k, a ) {
+    for ( let i in a ) {
+        if ( i === k ) {
             return i;
         }
     }
 
     return false;
 }
-function arrayDelValByKey (aArray = [], sKey = '') {
-    if (!aArray || !sKey) {
-        console.log('arrayDelValByKey aArray or sKey is null');
+
+/**
+ *
+ * 根据键值删除数组中的值
+ *
+ * @param a 待删除的数组
+ * @param k 要删除的键值
+ * @returns {string|*}
+ */
+function arrayDelValByKey (a = [], k = '') {
+    if (!a || !k) {
+        console.log('arrayDelValByKey a or k is null');
         return '';
     }
-    for (let i in aArray) {
-        if (i !== sKey) {
+    for (let i in a) {
+        if (i !== k) {
             continue;
         }
 
-        delete aArray[sKey];
+        delete a[k];
     }
 
-    return aArray;
+    return a;
 }
 
-function getUrlArgs (sGetWhat = '') {
-    // if (typeof window['urlDecode'] == 'undefined') {
-    //     console.log('getUrlArgs urlDecode is undefined, so settimtoue retry ');
-    //
-    //     setTimeoutFunction('getUrlArgs', sGetWhat);
-    //     return;
-    // }
-    // console.log('getUrlArgs urlDecode is defined, so will to do ');
+/**
+ *
+ * 获取url参数
+ *
+ * @param w 获取参数 的键 type string
+ * @returns {*}
+ */
+function getUrlArgs (w = '') {
+    let h = window.location.href;
 
-    let sHref = window.location.href;
-
-    let aHref = sHref.split('?');
-    if (aHref.length < 2) {
-        console.log('getUrlArgs aHref.length < 2');
-        return sGetWhat ? '' : [];
+    let s = h.split('?');
+    if (s.length < 2) {
+        console.log('getUrlArgs s.length < 2');
+        return w ? '' : [];
     }
 
-    let sArg = aHref[1];
+    let sArg = s[1];
     sArg = urlDecode(sArg);
     if (sArg) {
         let aArg = sArg.split('&');
@@ -100,107 +147,135 @@ function getUrlArgs (sGetWhat = '') {
 
         if (!checkUrlSign(aUrlArgs)) {
             console.log('do not change url args');
-            // alert('do not change url args');
-            //
-            // illegality();
-            return sGetWhat ? '' : [];
+            return w ? '' : [];
         }
 
-        return sGetWhat ? (typeof aUrlArgs[sGetWhat] !== 'undefined' ? aUrlArgs[sGetWhat] : '') : aUrlArgs;
+        return w ? (typeof aUrlArgs[w] !== 'undefined' ? aUrlArgs[w] : '') : aUrlArgs;
     }
 
-    return sGetWhat ? '' : [];
+    return w ? '' : [];
 }
 
-function checkUrlSign (aUrlArgs = []) {
-    if (!aUrlArgs) {
-        console.log('checkUrlSign aUrlArgs is null');
+/**
+ *
+ * 检查url sign 值
+ *
+ * @param u url ? 后字符串 type string
+ * @returns {boolean}
+ */
+function checkUrlSign (u = []) {
+    if (!u) {
+        console.log('checkUrlSign u is null');
         return false;
     }
 
-    let sSign = urlSign(aUrlArgs);
+    let s = urlSign(u);
 
-    return sSign === aUrlArgs[sUrlAddressSignKey];
+    return s === u[sUrlAddressSignKey];
 }
-function urlSign (aUrlArgs = []) {
-    if (!aUrlArgs) {
-        console.log('urlSign aUrlArgs is null');
+
+/**
+ *
+ * 设置url sign 值
+ *
+ * @param u url ? 后字符串 type string
+ * @returns {string}
+ */
+function urlSign (u = []) {
+    if (!u) {
+        console.log('urlSign u is null');
         return '';
     }
 
-    aUrlArgs.sort();
+    u.sort();
 
     let sArg = '';
-    for (let i in aUrlArgs) {
+    for (let i in u) {
         if (i !== sUrlAddressSignKey) {
-            sArg += i + '=' + aUrlArgs[i] + '&';
+            sArg += i + '=' + u[i] + '&';
         }
     }
     sArg = sArg.substr(0, sArg.length - 1);
 
-    let sSign = hex_md5(sUrlAddressSignEncodeSalt + hex_md5(sArg + sUrlAddressSignEncodeSalt));
-    sSign = sSign.toLowerCase();
+    let s = hex_md5(sUrlAddressSignEncodeSalt + hex_md5(sArg + sUrlAddressSignEncodeSalt));
+    s = s.toLowerCase();
 
-    return sSign;
+    return s;
 }
 
-// 改变url 地址栏
-function updateUrlArg (sArgKey = '', sArgValue = '', sTitle = '', callback = false) {
-    if (!sArgKey || !sArgValue) {
-        console.log('updateUrlArg sArgKey or sArgValue is null');
+/**
+ *
+ * 改变url 地址栏
+ *
+ * @param k 需改变的 url 键
+ * @param v 改变的值
+ * @param t 浏览器标题
+ * @param c 回调函数
+ * @returns {boolean}
+ */
+function updateUrlArg (k = '', v = '', t = '', c = false) {
+    if (!k || !v) {
+        console.log('updateUrlArg k or v is null');
         return false;
     }
 
-    let oLocation = window.location;
+    let l = window.location;
 
-    let sPageHtml = oLocation.pathname;
-    sPageHtml = sPageHtml !== '/' ? sPageHtml : '';
-    sPageHtml = sPageHtml ? sPageHtml : '/' + sDefaultPageHtml;
+    let p = l.pathname;
+    p = p !== '/' ? p : '';
+    p = p ? p : '/' + sDefaultPageHtml;
 
-    let sHref = oLocation.origin + sPageHtml;
+    let h = l.origin + p;
 
-    let aArg = getUrlArgs();
+    let a = getUrlArgs();
 
-    aArg[sArgKey] = sArgValue;
-    if (typeof aArg[sUrlAddressPageKey] === 'undefined') {
-        aArg[sUrlAddressPageKey] = sDefaultPage;
+    a[k] = v;
+    if (typeof a[sUrlAddressPageKey] === 'undefined') {
+        a[sUrlAddressPageKey] = sDefaultPage;
     }
-    aArg = arrayDelValByKey(aArg, sUrlAddressChangeTimeKey);
-    aArg = arrayDelValByKey(aArg, sUrlAddressSignKey);
+    a = arrayDelValByKey(a, sUrlAddressChangeTimeKey);
+    a = arrayDelValByKey(a, sUrlAddressSignKey);
 
-    aArg[sUrlAddressChangeTimeKey] = getNowTime();
+    a[sUrlAddressChangeTimeKey] = getNowTime();
 
-    let sArg = '';
-    for (let i in aArg) {
-        if (i === sArgKey) {
-            aArg[i] = sArgValue;
+    let s = '';
+    for (let i in a) {
+        if (i === k) {
+            a[i] = v;
         }
 
-        sArg += i + '=' + aArg[i] + '&';
+        s += i + '=' + a[i] + '&';
     }
 
-    sArg = sArg + sUrlAddressSignKey + '=' + urlSign(aArg);
-    sArg = urlEncode(sArg);
+    s = s + sUrlAddressSignKey + '=' + urlSign(a);
+    s = urlEncode(s);
 
-    let sChangeUrl = sHref + '?' + sArg;
+    let g = h + '?' + s;
 
-    let stateObject = {};
-    window.history.pushState(stateObject, sTitle, sChangeUrl);
+    let o = {};
+    window.history.pushState(o, t, g);
 
-    setBrowserTitle(sTitle);
+    setBrowserTitle(t);
 
-    if (callback) {
-        window[callback]();
+    if (c) {
+        window[c]();
     }
 }
 
-function ucfirst (sString = '') {
-    if (!sString) {
-        console.log('ucfirst sString is null, so no to do');
+/**
+ *
+ * 字符串首字母大写
+ *
+ * @param s 带处理的字符串 type string
+ * @returns {string|boolean}
+ */
+function ucfirst (s = '') {
+    if (!s) {
+        console.log('ucfirst s is null, so no to do');
         return false;
     }
 
-    return sString.charAt(0).toUpperCase() + sString.slice(1)
+    return s.charAt(0).toUpperCase() + s.slice(1)
 }
 
 /**
@@ -219,57 +294,6 @@ function setBrowserTitle (t = '') {
 
     document.title = t;
 }
-
-// window.onpopstate = function(event) {
-//     console.log("location: " + document.location + ", state: " + JSON.stringify(event.state));
-// };
-
-// function setLocalstoragePostMessagePage (sKey = '') {
-//     if (!sKey) {
-//         console.log('setLocalstoragePostMessagePage sKey is null');
-//         return false;
-//     }
-//
-//     return aStorageOrigins[hashFunc(sKey, iStorageOriginLength)];
-// }
-
-// function setLang (sLang = '') {
-//     if (!sLang) {
-//         console.log('setLang sLang is null, so no to do');
-//         return false;
-//     }
-//
-//     setLocalstorage(sLocalstorageLangTag, sLang, false, 'afterSetLang');
-// }
-// function afterSetLang (bSetLangResult = '') {
-//     if (!bSetLangResult) {
-//         console.log('afterSetLang bSetLangResult is null');
-//         return false;
-//     }
-//
-//     if (!bSetLangResult) {
-//         console.log('afterSetLang bSetLangResult false');
-//         return false;
-//     }
-//     //
-//     // loadLang(sUserLangvage);
-// }
-
-// function queryLocalstorgaeUserPersonalizedColor (sKey = '', sAfterFunc = '') {
-//     if (!sKey || !sAfterFunc) {
-//         console.log('queryLocalstorgaeUserPersonalizedColor sKey or sAfterFunc is null');
-//         return false;
-//     }
-//
-//     let sPage = localstoragePage(sKey);
-//     if (!sPage) {
-//         window[sAfterFunc](false);
-//         console.log('queryLocalstorgaeUserPersonalizedColor localstoragePage sPage is null');
-//         return false;
-//     }
-//
-//     localstoragePostMessage(sPage, {action: 'get', key: sKey, after: sAfterFunc});
-// }
 
 /**
  *
@@ -523,8 +547,6 @@ function updateUrlPage (p = '') {
 
     p = p ? p : getNowPage();
 
-    ////////////////////////////////////
-    // let sTitle = aLang[p + '_title'];
     let t = '';
     replaceWindowTitle(p + '_title');
 
@@ -540,11 +562,6 @@ function updateUrlPage (p = '') {
 
     updateUrlArg (sUrlAddressPageKey, p, t, f);
 }
-
-
-
-
-
 
 /**
  *
@@ -564,7 +581,6 @@ function oldSessionId () {
 function newSessionId () {
     return cookie.get(sNewSessionIdCookieKey);
 }
-
 /**
  *
  * 检查session
@@ -601,14 +617,6 @@ function sessionId () {
  * @returns {boolean}
  */
 function makeSessionid () {
-    if (typeof window['reverseString'] == 'undefined') {
-        console.log('makeSessionid reverseString undefined, so settimeout to do ');
-
-        setTimeoutFunction('makeSessionid');
-        return false;
-    }
-    console.log('makeSessionid reverseString is defined, so individuationUuid to do ');
-
     let s = individuationUuid();
     if (!s) {
         console.log('makeSessionid individuationUuid is false, so settimeout to do ');
@@ -746,27 +754,7 @@ function generateUUID () {
         return (c=='x' ? r : (r&0x3|0x8)).toString(16);
     });
     return i;
-};
-// function fourBitString() {
-//     return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
-// }
-// // Generate a pseudo-GUID by concatenating random hexadecimal.
-// function guid () {
-//     let s = sGuidSplitTag;
-//     return (fourBitString() + fourBitString() + s + fourBitString() + s + fourBitString() + s + fourBitString() + s + fourBitString() + fourBitString());
-// }
-// function uuid () {
-//     let s = [];
-//     for (let i = 0; i < 36; i++) {
-//         s[i] = sUuidString.substr(Math.floor(Math.random() * 0x10), 1);
-//     }
-//     s[14] = '4';  // bits 12-15 of the time_hi_and_version field to 0010
-//     s[19] = sUuidString.substr((s[19] & 0x3) | 0x8, 1);  // bits 6-7 of the clock_seq_hi_and_reserved to 01
-//     s[8] = s[13] = s[18] = s[23] = sUuidSplitTag;
-//
-//     // let uuid = s.join('');
-//     return s.join('');
-// }
+}
 function checkSessionIdOutTime () {
     if (!sNewSessionId) {
         console.log('checkSessionIdOutTime sNewSessionId is false, so will to make session id ');
@@ -899,14 +887,6 @@ function doCheckSessionId (s, t) {
         return false;
     }
     console.log('doCheckSessionId hex_md5 is defined, so sttimeout to check session id ');
-
-    if (typeof window['reverseString'] == 'undefined') {
-        console.log('doCheckSessionId reverseString undefined, so settimeout to do ');
-
-        setTimeoutFunction('doCheckSessionId', s, t);
-        return false;
-    }
-    console.log('doCheckSessionId reverseString is defined, so individuationUuid to do ');
 
     let a = s[0];
     let b = s[s.length - 2];
