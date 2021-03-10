@@ -5,6 +5,8 @@
     left: 0px;
     bottom: 0px;
     overflow: hidden;
+    opacity: 0 !important;
+    filter: alpha(opacity=0)!important; /* 针对 IE8 以及更早的版本 */
 }
 #public_footer{
     width: 100%;

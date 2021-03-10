@@ -522,65 +522,65 @@ function winSize() {
     // iBottomHiddenHeight = iWinHeight * 2;
 }
 
-/**
- *
- *加载 css 文件
- *
- * @param r link src type string
- * @param c 回调函数 type string
- * @returns {boolean}
- */
-function loadCss (r = '', c = '') {
-    if (!r) {
-        console.log('loadCss r is null');
-        return false;
-    }
+// /**
+//  *
+//  *加载 css 文件
+//  *
+//  * @param r link src type string
+//  * @param c 回调函数 type string
+//  * @returns {boolean}
+//  */
+// function loadCss (r = '', c = '') {
+//     if (!r) {
+//         console.log('loadCss r is null');
+//         return false;
+//     }
+//
+//     let l = document.createElement('link');
+//     l.type = 'text/css';
+//     l.rel = 'stylesheet';
+//     l.href = r;
+//     l.charset = sCharset;
+//     // l.id = window.btoa(r);
+//     l.id = r;
+//
+//     if (c) {
+//         checkLoadCss(c, l.id);
+//     }
+//
+//     // sIndexJsScriptId
+//     // oHead.appendChild(l);
+//     oHead.insertBefore(l, document.getElementById(sIndexJsScriptId));
+// }
 
-    let l = document.createElement('link');
-    l.type = 'text/css';
-    l.rel = 'stylesheet';
-    l.href = r;
-    l.charset = sCharset;
-    // l.id = window.btoa(r);
-    l.id = r;
-
-    if (c) {
-        checkLoadCss(c, l.id);
-    }
-
-    // sIndexJsScriptId
-    // oHead.appendChild(l);
-    oHead.insertBefore(l, document.getElementById(sIndexJsScriptId));
-}
-
-/**
- *
- * 检查 css 是否加载
- *
- * @param c 回调函数 type  string
- * @param d css link 标签 id type string
- * @returns {boolean}
- */
-function checkLoadCss (c = '', d = '') {
-    if (!c || !d) {
-        console.log('checkLoadCss c or d is null');
-        return false;
-    }
-
-    let k = 'checkLoadCss' + '--' + c;
-    if (document.getElementById(d)) {
-        clearTimeout(aBaseTimer[k]);
-
-        clearTimeout(aBaseTimer[k]);
-
-        window[c]();
-        return;
-    }
-
-    aBaseTimer[k] = setTimeout(function () {
-        checkLoadCss(c, d);
-    }, aTimer['checkLoadCss']);
-}
+// /**
+//  *
+//  * 检查 css 是否加载
+//  *
+//  * @param c 回调函数 type  string
+//  * @param d css link 标签 id type string
+//  * @returns {boolean}
+//  */
+// function checkLoadCss (c = '', d = '') {
+//     if (!c || !d) {
+//         console.log('checkLoadCss c or d is null');
+//         return false;
+//     }
+//
+//     let k = 'checkLoadCss' + '--' + c;
+//     if (document.getElementById(d)) {
+//         clearTimeout(aBaseTimer[k]);
+//
+//         clearTimeout(aBaseTimer[k]);
+//
+//         window[c]();
+//         return;
+//     }
+//
+//     aBaseTimer[k] = setTimeout(function () {
+//         checkLoadCss(c, d);
+//     }, aTimer['checkLoadCss']);
+// }
 
 function loadBaseJs () {
     // loadOriginJquery();
@@ -611,16 +611,16 @@ function loadPageJs () {
     let sPageJs = '';
     switch (sPage) {
         case sForumPage:
-            sPageJs = sForumFullJs;
+            sPageJs = sForumJsFile;
             break;
         case sChatPage:
-            sPageJs = sChatFullJs;
+            sPageJs = sChatJsFile;
             break;
         case sFriendPage:
-            sPageJs = sFriendFullJs;
+            sPageJs = sFriendJsFile;
             break;
         case sSettingPage:
-            sPageJs = sSettingFullJs;
+            sPageJs = sSettingJsFile;
             break;
     }
 
@@ -678,65 +678,65 @@ function afterLoadPageJs () {
     repeatedlyPage(getUrlArgs(sUrlAddressPageKey));
 }
 
-let bInloadUserPersonalizedColorFromLocalstorage = false;
-function queryUserPersonalizedColor () {
-    if (sPersonlizedColor) {
-        console.log('queryUserPersonalizedColor sPersonlizedColor is defined, so no to load user personlized color css file');
-        return sPersonlizedColor;
-    }
-
-    if (bInloadUserPersonalizedColorFromLocalstorage) {
-        console.log('queryUserPersonalizedColor bInloadUserPersonalizedColorFromLocalstorage is true, so no to load user personlized color css file');
-        return;
-    }
-    bInloadUserPersonalizedColorFromLocalstorage = true;
-
-    // queryLocalstorgaeUserPersonalizedColor(sLocalstorgaeUserPersonalizedColorKey, 'afterQueryUserPersonalizedColor');
-    queryLocalstorage(sLocalstorgaeUserPersonalizedColorKey, 'afterQueryUserPersonalizedColor');
-}
-/**
- *
- * @param c color string
- */
-function afterQueryUserPersonalizedColor (c = '') {
-    if (c) {
-        sPersonlizedColor = c;
-    } else {
-        sPersonlizedColor = iDefaultUserPersonalizedColor;
-
-        setPersonlizedColor(sPersonlizedColor);
-    }
-    bInloadUserPersonalizedColorFromLocalstorage = false;
-
-    loadPersonlizedColorCss(sPersonlizedColor);
-}
-/**
- *
- * @param c localstorage key string
- * @returns {boolean}
- */
-function setPersonlizedColor (c = '') {
-    if (!c) {
-        console.log('setPersonlizedColor c is null');
-        return false;
-    }
-
-    setLocalstorage(sLocalstorgaeUserPersonalizedColorKey, c, false, 'loadPersonlizedColorCss');
-}
-/**
- *
- * @param c personnalzed color
- * @returns {boolean}
- */
-function loadPersonlizedColorCss (c = '') {
-    c = c ? c : iDefaultUserPersonalizedColor;
-    if (!c) {
-        console.log('loadPersonlizedColorCss c is null');
-        return false;
-    }
-
-    loadPersonalizedCss(c);
-}
+// let bInloadUserPersonalizedColorFromLocalstorage = false;
+// function queryUserPersonalizedColor () {
+//     if (sPersonlizedColor) {
+//         console.log('queryUserPersonalizedColor sPersonlizedColor is defined, so no to load user personlized color css file');
+//         return sPersonlizedColor;
+//     }
+//
+//     if (bInloadUserPersonalizedColorFromLocalstorage) {
+//         console.log('queryUserPersonalizedColor bInloadUserPersonalizedColorFromLocalstorage is true, so no to load user personlized color css file');
+//         return;
+//     }
+//     bInloadUserPersonalizedColorFromLocalstorage = true;
+//
+//     // queryLocalstorgaeUserPersonalizedColor(sLocalstorgaeUserPersonalizedColorKey, 'afterQueryUserPersonalizedColor');
+//     queryLocalstorage(sLocalstorgaeUserPersonalizedColorKey, 'afterQueryUserPersonalizedColor');
+// }
+// /**
+//  *
+//  * @param c color string
+//  */
+// function afterQueryUserPersonalizedColor (c = '') {
+//     if (c) {
+//         sPersonlizedColor = c;
+//     } else {
+//         sPersonlizedColor = iDefaultUserPersonalizedColor;
+//
+//         setPersonlizedColor(sPersonlizedColor);
+//     }
+//     bInloadUserPersonalizedColorFromLocalstorage = false;
+//
+//     loadPersonlizedColorCss(sPersonlizedColor);
+// }
+// /**
+//  *
+//  * @param c localstorage key string
+//  * @returns {boolean}
+//  */
+// function setPersonlizedColor (c = '') {
+//     if (!c) {
+//         console.log('setPersonlizedColor c is null');
+//         return false;
+//     }
+//
+//     setLocalstorage(sLocalstorgaeUserPersonalizedColorKey, c, false, 'loadPersonlizedColorCss');
+// }
+// /**
+//  *
+//  * @param c personnalzed color
+//  * @returns {boolean}
+//  */
+// function loadPersonlizedColorCss (c = '') {
+//     c = c ? c : iDefaultUserPersonalizedColor;
+//     if (!c) {
+//         console.log('loadPersonlizedColorCss c is null');
+//         return false;
+//     }
+//
+//     loadPersonalizedCss(c);
+// }
 
 /**
  *
@@ -1123,98 +1123,98 @@ let cookie = {
 //     }
 // }
 
-function loadBaseCss () {
-    // queryUserPersonalizedColor();
-
-    loadResetCss();
-
-    loadPersonalizedCss();
-
-    loadVariableCss();
-
-    loadPublicCss();
-}
-let bLoadPersonalizedCss = false;
-function loadPersonalizedCss (c = false) {
-    if (!c) {
-        queryUserPersonalizedColor();
-        return;
-    }
-
-    if (bLoadPersonalizedCss) {
-        console.log('loadPersonalizedCss bLoadPersonalizedCss in loading, so no to do ');
-        return true;
-    }
-    bLoadPersonalizedCss = true;
-
-    let sPersonalizedColor = c;
-
-    if (!checkRequestJsCssLimit('css', 'loadPersonalizedCss')) {
-        return false;
-    }
-
-    let sPersonalizedCss = '/static_resource/css/personalized/color/' + sPersonalizedColor + '.css';
-    aCssVersion[sPersonalizedCss] = 'ppppppppppppppppppsssssssssssssssss';
-    sPersonalizedCssPath = setJsCssSrc('css', sPersonalizedCss);
-
-    loadCss(sPersonalizedCssPath, 'afterloadPersonalizedCss');
-
-    setTimeoutFunction('loadPersonalizedCss', c);
-}
-function afterloadPersonalizedCss () {
-    bLoadPersonalizedCss = false;
-}
-let bLoadVariableCss = false;
-function loadVariableCss () {
-    if (bLoadVariableCss) {
-        return true;
-    }
-
-    if (!checkRequestJsCssLimit('css', 'loadVariableCss')) {
-        return false;
-    }
-
-    loadCss(sVariableCssFullPath, 'afterloadVariableCss');
-
-    setTimeoutFunction('loadVariableCss');
-}
-function afterloadVariableCss () {
-    bLoadVariableCss = true;
-}
-let bLoadPublicCss = false;
-function loadPublicCss () {
-    if (bLoadPublicCss) {
-        return true;
-    }
-
-    if (!checkRequestJsCssLimit('css', 'loadPublicCss')) {
-        return false;
-    }
-
-    loadCss(sPublicCssFullPath, 'afterloadPublicCss');
-
-    setTimeoutFunction('loadPublicCss');
-}
-function afterloadPublicCss () {
-    bLoadPublicCss = true;
-}
-let bLoadResetCss = false;
-function loadResetCss () {
-    if (bLoadResetCss) {
-        return true;
-    }
-
-    if (!checkRequestJsCssLimit('css', 'loadResetCss')) {
-        return false;
-    }
-
-    loadCss(sResetCssFullPath, 'afterloadResetCss');
-
-    setTimeoutFunction('loadResetCss');
-}
-function afterloadResetCss () {
-    bLoadResetCss = true;
-}
+// function loadBaseCss () {
+//     // queryUserPersonalizedColor();
+//
+//     loadResetCss();
+//
+//     loadPersonalizedCss();
+//
+//     loadVariableCss();
+//
+//     loadPublicCss();
+// }
+// let bLoadPersonalizedCss = false;
+// function loadPersonalizedCss (c = false) {
+//     if (!c) {
+//         queryUserPersonalizedColor();
+//         return;
+//     }
+//
+//     if (bLoadPersonalizedCss) {
+//         console.log('loadPersonalizedCss bLoadPersonalizedCss in loading, so no to do ');
+//         return true;
+//     }
+//     bLoadPersonalizedCss = true;
+//
+//     let sPersonalizedColor = c;
+//
+//     if (!checkRequestJsCssLimit('css', 'loadPersonalizedCss')) {
+//         return false;
+//     }
+//
+//     let sPersonalizedCss = '/static_resource/css/personalized/color/' + sPersonalizedColor + '.css';
+//     aCssVersion[sPersonalizedCss] = 'ppppppppppppppppppsssssssssssssssss';
+//     sPersonalizedCssPath = setJsCssSrc('css', sPersonalizedCss);
+//
+//     loadCss(sPersonalizedCssPath, 'afterloadPersonalizedCss');
+//
+//     setTimeoutFunction('loadPersonalizedCss', c);
+// }
+// function afterloadPersonalizedCss () {
+//     bLoadPersonalizedCss = false;
+// }
+// let bLoadVariableCss = false;
+// function loadVariableCss () {
+//     if (bLoadVariableCss) {
+//         return true;
+//     }
+//
+//     if (!checkRequestJsCssLimit('css', 'loadVariableCss')) {
+//         return false;
+//     }
+//
+//     loadCss(sVariableCssFullPath, 'afterloadVariableCss');
+//
+//     setTimeoutFunction('loadVariableCss');
+// }
+// function afterloadVariableCss () {
+//     bLoadVariableCss = true;
+// }
+// let bLoadPublicCss = false;
+// function loadPublicCss () {
+//     if (bLoadPublicCss) {
+//         return true;
+//     }
+//
+//     if (!checkRequestJsCssLimit('css', 'loadPublicCss')) {
+//         return false;
+//     }
+//
+//     loadCss(sPublicCssFullPath, 'afterloadPublicCss');
+//
+//     setTimeoutFunction('loadPublicCss');
+// }
+// function afterloadPublicCss () {
+//     bLoadPublicCss = true;
+// }
+// let bLoadResetCss = false;
+// function loadResetCss () {
+//     if (bLoadResetCss) {
+//         return true;
+//     }
+//
+//     if (!checkRequestJsCssLimit('css', 'loadResetCss')) {
+//         return false;
+//     }
+//
+//     loadCss(sResetCssFullPath, 'afterloadResetCss');
+//
+//     setTimeoutFunction('loadResetCss');
+// }
+// function afterloadResetCss () {
+//     bLoadResetCss = true;
+// }
 
 // function setJsCssSrc (sType = '', sSrc = '') {
 //     if (!sType ||!sSrc) {
@@ -1354,7 +1354,7 @@ function loadApiJs () {
         return false;
     }
 
-    loadJs(sApiQueryJsFullName, true, 'afterloadApiJs');
+    loadJs(sApiJsFile, true, 'afterloadApiJs');
 
     setTimeoutFunction('loadApiJs');
 }
@@ -1371,7 +1371,7 @@ function loadEncodeJs () {
         return false;
     }
 
-    loadJs(sBaseEncodeJsFullName, true, 'afterloadEncodeJs');
+    loadJs(sEncodeJsFile, true, 'afterloadEncodeJs');
 
     setTimeoutFunction('loadEncodeJs');
 }
@@ -1388,7 +1388,7 @@ function loadLogicJs () {
         return false;
     }
 
-    loadJs(sBaseLogicJsFullName, true, 'afterloadLogicJs');
+    loadJs(sLogicJsFile, true, 'afterloadLogicJs');
 
     setTimeoutFunction('loadLogicJs');
 }
@@ -1405,7 +1405,7 @@ function loadDomJs () {
         return false;
     }
 
-    loadJs(sBaseDomJsFullName, true, 'afterloadDomJs');
+    loadJs(sDomJsFile, true, 'afterloadDomJs');
 
     setTimeoutFunction('loadDomJs');
 }
@@ -1422,7 +1422,7 @@ function loadPlatformDomJs () {
         return false;
     }
 
-    loadJs(sPlatformDomJsFullName, true, 'afterloadPlatformDomJs');
+    loadJs(sPlatformDomJsFile, true, 'afterloadPlatformDomJs');
 
     setTimeoutFunction('loadPlatformDomJs');
 }
@@ -1439,37 +1439,12 @@ function loadFunctionJs () {
         return false;
     }
 
-    loadJs(sBaseFunctionJsFullName, true, 'afterloadFunctionJs');
+    loadJs(sFunctionJsFile, true, 'afterloadFunctionJs');
 
     setTimeoutFunction('loadFunctionJs');
 }
 function afterloadFunctionJs () {
     bLoadFunctionJs1 = true;
-}
-let bLoadOriginJquery = false;
-let iLoadOriginJqueryLastTime = 0;
-let bAllreadyLoadOriginJquery = false;
-function loadOriginJquery () {
-    if (bLoadOriginJquery) {
-        return true;
-    }
-
-    if (!checkRequestJsCssLimit('js', 'loadOriginJquery')) {
-        return false;
-    }
-    iLoadOriginJqueryLastTime = getNowTime();
-
-    if (bAllreadyLoadOriginJquery) {
-        return;
-    }
-    bLoadOriginJquery = true;
-
-    loadJs(sOriginJquery, true, 'afterloadOriginJquery');
-
-    setTimeoutFunction('loadOriginJquery');
-}
-function afterloadOriginJquery () {
-    bLoadOriginJquery = true;
 }
 let bLoadLocalJquery = false;
 function loadLocalJquery () {
@@ -1481,7 +1456,7 @@ function loadLocalJquery () {
         return false;
     }
 
-    loadJs(sBaseJqueryJsFullName, true, 'afterloadLocalJquery');
+    loadJs(sJqueryJsFile, true, 'afterloadLocalJquery');
 
     setTimeoutFunction('loadLocalJquery');
 }
@@ -2706,8 +2681,8 @@ function baseBegin (bOnload = false) {
             // console.log(0);
             // fatherDom();
 
-            console.log(1);
-            loadOriginJquery();
+            // console.log(1);
+            // loadOriginJquery();
 
             // console.log(2);
             // writeLocalstorageIframe();
@@ -2736,13 +2711,13 @@ function baseBegin (bOnload = false) {
                 loadLocalJquery();
             }
 
-            console.log(11);
-            setTimeoutFunction('baseBegin');
-            return;
+            // console.log(11);
+            // setTimeoutFunction('baseBegin');
+            // return;
         }
 
-        console.log(12);
-        loadBaseCss();
+        // console.log(12);
+        // loadBaseCss();
 
         console.log(13);
         loadBaseJs();
@@ -2765,15 +2740,17 @@ function baseBegin (bOnload = false) {
         }
 
         console.log(20);
-        if (typeof window['logicBegin'] == 'undefined') {
+        if (typeof window['logicBegin'] != 'undefined') {
             console.log(22);
-            setTimeoutFunction('baseBegin');
-            return;
+
+            logicBegin(true);
+            // setTimeoutFunction('baseBegin');
+            // return;
         }
 
         // checkUseTime();
 
-        logicBegin(true);
+        // logicBegin(true);
     // } catch (e) {
     //     console.log('catch exception');
     //     console.log(e);

@@ -4,16 +4,27 @@
 
 const sBaseProtocol = window.location.protocol + '//';
 
-const aBaseHost = [
-    'you.com',
-    '0.son.you.com',
-    '1.son.you.com',
-    '2.son.you.com',
-    '3.son.you.com',
-    '4.son.you.com',
-    '5.son.you.com',
-    '6.son.you.com',
-];
+const sBaseHostSonPrefix = 'static_resource';
+const sBaseHostSonNumber = 21;
+// const aBaseHost = [
+//     '01.static_resource.you.com',
+//     '02.static_resource.you.com',
+//     '03.static_resource.you.com',
+//     '04.static_resource.you.com',
+//     '05.static_resource.you.com',
+//     '06.static_resource.you.com',
+//     '07.static_resource.you.com',
+//     '08.static_resource.you.com',
+//     '09.static_resource.you.com',
+//     '10.static_resource.you.com',
+//     '11.static_resource.you.com',
+//     '12.static_resource.you.com',
+//     '13.static_resource.you.com',
+//     '14.static_resource.you.com',
+//     '15.static_resource.you.com',
+//     '16.static_resource.you.com',
+//     '17.static_resource.you.com',
+// ];
 
 const sQueryOneMmPxId = 'get_one_mms_px';
 
@@ -62,11 +73,13 @@ const iRequertTimeout = 9000;
 const iRequertLangJsTimeout = 5000;
 const iMaxLoadOriginJqueryWaitTime = 5000;
 
+const iNoticeTimeLimit = 3600000;
+
 let aBaseTimer = []; //基础定时器
 const b = []; //基础定时器间隔时间
-// const t = 2000;
+// const t = 1000;
 const t = 15;
-// const t2 = 2000;
+// const t2 = 1000;
 const t2 = 100;
 b['winResize'] = t2;
 b['loadEncodeJs'] = t;
@@ -118,8 +131,8 @@ b['checkSessionIdOutTime'] = 181652;
 b['checkSessionKeyFormat'] = 253648;
 const aTimer = b; //基础定时器间隔时间
 
-const sIndexJsScriptId = 'index_js_script';
-const sFinalMetaId = 'copyright_content';
+const sIndexScriptTagId = 'index_js_script';
+const sFinalMetaTagId = 'copyright_content';
 
 const sContentAndCharset = 'content_charset';
 const sContentAndCharsetType = 'Content-Type';
@@ -247,29 +260,34 @@ const sMobileFullScreen = 'mobile_full_screen';
 const sMobileFullScreenName = 'viewport';
 const sMobileFullScreenContent = 'width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0';
 
-let sBaseJsFullName = '';
+const sAutherInfo = 'white 小白 邮箱';
+const sKeyword = '关键词1，关键词2，关键词3';
+const sDescriptionContent = '规定页面的描述。搜索引擎会把这个描述显示在搜索结果中。';
+const sApplicationNameContent = '规定页面所代表的 Web 应用程序的名称。';
+const sCopyrightContent = '版权所有，保留一切权利。';
+
+let sBaseJsFile = '';
 let sIndexJsFullName = '';
-// let sBaseVariableJsFullName = '';
-let sBaseFunctionJsFullName = '';
-let sBaseJqueryJsFullName = '';
-let sBaseLogicJsFullName = '';
-let sBaseDomJsFullName = '';
-let sPlatformDomJsFullName = '';
-let sBaseEncodeJsFullName = '';
-let sApiQueryJsFullName = '';
+let sFunctionJsFile = '';
+let sJqueryJsFile = '';
+let sLogicJsFile = '';
+let sDomJsFile = '';
+let sPlatformDomJsFile = '';
+let sEncodeJsFile = '';
+let sApiJsFile = '';
 let sOriginJquery = '';
-let sCnLangs = '';
-let sEnLangs = '';
-let sForumFullJs = '';
-let sChatFullJs = '';
-let sFriendFullJs = '';
-let sSettingFullJs = '';
+let sCnLangFile = '';
+let sEnLangFile = '';
+let sForumJsFile = '';
+let sChatJsFile = '';
+let sFriendJsFile = '';
+let sSettingJsFile = '';
 
 const aCssVersion = []; // css 文件版本号
-let sResetCssFullPath = '';
-let sPublicCssFullPath = '';
-let sVariableCssFullPath = '';
-let sPersonalizedCssPath = '';
+let sResetCssFile = '';
+let sPublicCssFile = '';
+// let sVariableCssFullPath = '';
+let sPersonalizedCssFile = '';
 
 const sBaseJs = '/static_resource/js/public/base.js';
 const sIndexJs = '/static_resource/js/index.js';
@@ -287,29 +305,184 @@ const sChatJs = '/static_resource/js/' + platformTag() + '/page/chat.js';
 const sFriendJs = '/static_resource/js/' + platformTag() + '/page/friend.js';
 const sSettingJs = '/static_resource/js/' + platformTag() + '/page/setting.js';
 const sApiJs = '/static_resource/js/public/query/query.js';
+sOriginJquery = 'http://code.jquery.com/jquery-1.9.1.min.js'; ////////////国内外需要更换适用的地址
 // sOriginJquery = 'http://libs.baidu.com/jquery/2.1.4/jquery.min.js'; ////////////国内外需要更换适用的地址
-sOriginJquery = 'http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js'; ////////////国内外需要更换适用的地址
+// sOriginJquery = 'http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js'; ////////////国内外需要更换适用的地址
 
 const c = [];  // js 文件版本号
-c[sBaseJs] = 'fsdffdsfsgsgetwet';
-c[sIndexJs] = 'fsdffdsfsdddddgsgetwet';
-// c[sBaseVariableJs] = 'twetwetwetrgdfg';
-c[sFunctionJs] = 'gdfgdfhreyeryer';
-c[sJqueryJs] = 'hfdhdfhdfhgdf';
-c[sLogicJs] = 'fsdfsdgsdfh';
-c[sDomJs] = 'hdfhdfhdf';
-c[sBaseEncodeJs] = 'gdfhdfhdf';
-c[sCnLang] = 'gdfgdfg';
-c[sEnLang] = 'hdfhdfh';
-c[sPlatformDomJs] = 'jghjtyuty';
-c[sForumJs] = 'nghjfty';
-c[sChatJs] = 'hfgtyetry';
-c[sFriendJs] = 'hfghrtyrty';
-c[sSettingJs] = 'hfghftyrt';
-c[sApiJs] = 'hfghfgnvbn';
-c[sOriginJquery] = 'hfghfgh';
+c[sBaseJs] = 'aaaaaaa';
+c[sIndexJs] = 'bbbbbbbb';
+// c[sBaseVariableJs] = 'cccccccc';
+c[sFunctionJs] = 'ddddddd';
+c[sJqueryJs] = 'eeeeeeee';
+c[sLogicJs] = 'ffffffff';
+c[sDomJs] = 'gggggggg';
+c[sBaseEncodeJs] = 'hhhhhhhhh';
+c[sCnLang] = 'iiiiiii';
+c[sEnLang] = 'jjjjjjjj';
+c[sPlatformDomJs] = 'kkkkkkkkk';
+c[sForumJs] = 'lllllll';
+c[sChatJs] = 'mmmmmmmm';
+c[sFriendJs] = 'nnnnnnnn';
+c[sSettingJs] = 'oooooooo';
+c[sApiJs] = 'ppppppp';
+// c[sOriginJquery] = 'qqqqqq';
 const aJsVersion = c; // js 文件版本号
 
+let bAllreadyLoadBaseCss = false;
+function loadBaseCss () {
+    if (bAllreadyLoadBaseCss) {
+        return;
+    }
+    bAllreadyLoadBaseCss = true;
+
+    // console.log('ppppppppppppppppppppppppppppppppppppp');
+
+    let t2 = setTimeout(function () {
+        clearTimeout(t2);
+
+        loadPersonalizedCss();
+    }, 1);
+
+    let t1 = setTimeout(function () {
+        clearTimeout(t1);
+
+        loadResetCss();
+    }, 2);
+
+    let t3 = setTimeout(function () {
+        clearTimeout(t3);
+
+        loadPublicCss();
+    }, 3);
+}
+
+let bLoadPublicCss = false;
+function loadPublicCss () {
+    if (bLoadPublicCss) {
+        return true;
+    }
+
+    if (!checkRequestJsCssLimit('css', 'loadPublicCss')) {
+        return false;
+    }
+
+    // console.log(sPublicCssFullPath);
+    loadCss(sPublicCssFile, 'afterloadPublicCss');
+
+    setTimeoutFunction('loadPublicCss');
+}
+function afterloadPublicCss () {
+    bLoadPublicCss = true;
+}
+
+let bLoadResetCss = false;
+function loadResetCss () {
+    if (bLoadResetCss) {
+        return true;
+    }
+
+    if (!checkRequestJsCssLimit('css', 'loadResetCss')) {
+        return false;
+    }
+
+    loadCss(sResetCssFile, 'afterloadResetCss');
+
+    setTimeoutFunction('loadResetCss');
+}
+function afterloadResetCss () {
+    bLoadResetCss = true;
+}
+
+let bLoadPersonalizedCss = false;
+function loadPersonalizedCss (c = false) {
+    if (!c) {
+        queryUserPersonalizedColor();
+        return;
+    }
+
+    if (bLoadPersonalizedCss) {
+        console.log('loadPersonalizedCss bLoadPersonalizedCss in loading, so no to do ');
+        return true;
+    }
+    bLoadPersonalizedCss = true;
+
+    let sPersonalizedColor = c;
+
+    if (!checkRequestJsCssLimit('css', 'loadPersonalizedCss')) {
+        return false;
+    }
+
+    let sPersonalizedCss = '/static_resource/css/personalized/color/' + sPersonalizedColor + '.css';
+    aCssVersion[sPersonalizedCss] = 'ggggggggd';
+    sPersonalizedCssFile = setJsCssSrc('css', sPersonalizedCss);
+
+    loadCss(sPersonalizedCssFile, 'afterloadPersonalizedCss');
+
+    setTimeoutFunction('loadPersonalizedCss', c);
+}
+function afterloadPersonalizedCss () {
+    bLoadPersonalizedCss = false;
+}
+
+/**
+ *
+ *加载 css 文件
+ *
+ * @param r link src type string
+ * @param c 回调函数 type string
+ * @returns {boolean}
+ */
+function loadCss (r = '', c = '') {
+    if (!r) {
+        console.log('loadCss r is null');
+        return false;
+    }
+
+    let l = document.createElement('link');
+    l.type = 'text/css';
+    l.rel = 'stylesheet';
+    l.href = r;
+    l.charset = sCharset;
+    // l.id = window.btoa(r);
+    l.id = r;
+
+    if (c) {
+        checkLoadCss(c, l.id);
+    }
+
+    // sIndexJsScriptId
+    // oHead.appendChild(l);
+    oHead.insertBefore(l, document.getElementById(sIndexScriptTagId));
+}
+/**
+ *
+ * 检查 css 是否加载
+ *
+ * @param c 回调函数 type  string
+ * @param d css link 标签 id type string
+ * @returns {boolean}
+ */
+function checkLoadCss (c = '', d = '') {
+    if (!c || !d) {
+        console.log('checkLoadCss c or d is null');
+        return false;
+    }
+
+    let k = 'checkLoadCss' + '--' + c;
+    if (document.getElementById(d)) {
+        clearTimeout(aBaseTimer[k]);
+
+        clearTimeout(aBaseTimer[k]);
+
+        window[c]();
+        return;
+    }
+
+    aBaseTimer[k] = setTimeout(function () {
+        checkLoadCss(c, d);
+    }, aTimer['checkLoadCss']);
+}
 /**
  *
  * 在 j 之后插入 新节点n
@@ -324,6 +497,67 @@ function insertAfter (n, j) {
     } else {
         p.insertBefore(n,j.nextSibling);
     }
+}
+
+
+let bInloadUserPersonalizedColorFromLocalstorage = false;
+function queryUserPersonalizedColor () {
+    if (sPersonlizedColor) {
+        console.log('queryUserPersonalizedColor sPersonlizedColor is defined, so no to load user personlized color css file');
+        return sPersonlizedColor;
+    }
+
+    if (bInloadUserPersonalizedColorFromLocalstorage) {
+        console.log('queryUserPersonalizedColor bInloadUserPersonalizedColorFromLocalstorage is true, so no to load user personlized color css file');
+        return;
+    }
+    bInloadUserPersonalizedColorFromLocalstorage = true;
+
+    // queryLocalstorgaeUserPersonalizedColor(sLocalstorgaeUserPersonalizedColorKey, 'afterQueryUserPersonalizedColor');
+    queryLocalstorage(sLocalstorgaeUserPersonalizedColorKey, 'afterQueryUserPersonalizedColor');
+}
+/**
+ *
+ * @param c color string
+ */
+function afterQueryUserPersonalizedColor (c = '') {
+    if (c) {
+        sPersonlizedColor = c;
+    } else {
+        sPersonlizedColor = iDefaultUserPersonalizedColor;
+
+        setPersonlizedColor(sPersonlizedColor);
+    }
+    bInloadUserPersonalizedColorFromLocalstorage = false;
+
+    loadPersonlizedColorCss(sPersonlizedColor);
+}
+/**
+ *
+ * @param c localstorage key string
+ * @returns {boolean}
+ */
+function setPersonlizedColor (c = '') {
+    if (!c) {
+        console.log('setPersonlizedColor c is null');
+        return false;
+    }
+
+    setLocalstorage(sLocalstorgaeUserPersonalizedColorKey, c, false, 'loadPersonlizedColorCss');
+}
+/**
+ *
+ * @param c personnalzed color
+ * @returns {boolean}
+ */
+function loadPersonlizedColorCss (c = '') {
+    c = c ? c : iDefaultUserPersonalizedColor;
+    if (!c) {
+        console.log('loadPersonlizedColorCss c is null');
+        return false;
+    }
+
+    loadPersonalizedCss(c);
 }
 
 // function replaceLangs () {
@@ -376,21 +610,21 @@ function loadJs (s = '', b = true, c = false) {
     }
 
     oHead.appendChild(o);
-    insertAfter(o, document.getElementById(sIndexJsScriptId));
+    insertAfter(o, document.getElementById(sIndexScriptTagId));
 }
 
 function setCssPathAndVersion () {
     let sResetCss = '/static_resource/css/public/reset.css';
     let sPublicCss = '/static_resource/css/public/' + platformTag() + '/public.css';
-    let sVariableCss = '/static_resource/css/public/' + platformTag() + '/variable.css';
+    // let sVariableCss = '/static_resource/css/public/' + platformTag() + '/variable.css';
 
-    aCssVersion[sResetCss] = 'qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq';
-    aCssVersion[sPublicCss] = 'dddddddddddddddddddddddddddddddddddddddddddddddddd';
-    aCssVersion[sVariableCss] = 'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb';
+    aCssVersion[sResetCss] = 'zzzzzzz';
+    aCssVersion[sPublicCss] = 'yyyyyy';
+    // aCssVersion[sVariableCss] = 'xxxxx';
 
-    sResetCssFullPath = setJsCssSrc('css', sResetCss);
-    sPublicCssFullPath = setJsCssSrc('css', sPublicCss);
-    sVariableCssFullPath = setJsCssSrc('css', sVariableCss);
+    sResetCssFile = setJsCssSrc('css', sResetCss);
+    sPublicCssFile = setJsCssSrc('css', sPublicCss);
+    // sVariableCssFullPath = setJsCssSrc('css', sVariableCss);
 }
 
 function isMobile () {
@@ -437,9 +671,14 @@ function hashFunc(sStr, iSize){
 let aHost = [];
 let iHostNumber = 0;
 function setHosts () {
-    for (let i in aBaseHost) {
-        aHost.push(sBaseProtocol + aBaseHost[i]);
+    let i = 0;
+    let o = window.location.host;
+    for (i; i < sBaseHostSonNumber; i++) {
+        aHost.push(sBaseProtocol + i + '.' + sBaseHostSonPrefix + '.' + o);
     }
+    // for (let i in aBaseHost) {
+    //     aHost.push(sBaseProtocol + aBaseHost[i]);
+    // }
     iHostNumber = aHost.length;
 
     return true;
@@ -486,24 +725,24 @@ function jsCssVersionSuffix () {
 }
 
 function setJsPathAndVersion () {
-    sOriginJquery = sOriginJquery + '?ver=' + aJsVersion[sOriginJquery];
+    // sOriginJquery = sOriginJquery + '?ver=' + aJsVersion[sOriginJquery];
     // sOriginJquery = sOriginJquery;
-    sBaseJsFullName = setJsCssSrc('js', sBaseJs);
+    sBaseJsFile = setJsCssSrc('js', sBaseJs);
     sIndexJsFullName = setJsCssSrc('js', sIndexJs);
     // sBaseVariableJsFullName = setJsCssSrc('js', sBaseVariableJs);
-    sBaseFunctionJsFullName = setJsCssSrc('js', sFunctionJs);
-    sBaseJqueryJsFullName = setJsCssSrc('js', sJqueryJs);
-    sBaseLogicJsFullName = setJsCssSrc('js', sLogicJs);
-    sBaseDomJsFullName = setJsCssSrc('js', sDomJs);
-    sBaseEncodeJsFullName = setJsCssSrc('js', sBaseEncodeJs);
-    sCnLangs = setJsCssSrc('js', sCnLang);
-    sEnLangs = setJsCssSrc('js', sEnLang);
-    sPlatformDomJsFullName = setJsCssSrc('js', sPlatformDomJs);
-    sForumFullJs = setJsCssSrc('js', sForumJs);
-    sChatFullJs = setJsCssSrc('js', sChatJs);
-    sFriendFullJs = setJsCssSrc('js', sFriendJs);
-    sSettingFullJs = setJsCssSrc('js', sSettingJs);
-    sApiQueryJsFullName = setJsCssSrc('js', sApiJs);
+    sFunctionJsFile = setJsCssSrc('js', sFunctionJs);
+    sJqueryJsFile = setJsCssSrc('js', sJqueryJs);
+    sLogicJsFile = setJsCssSrc('js', sLogicJs);
+    sDomJsFile = setJsCssSrc('js', sDomJs);
+    sEncodeJsFile = setJsCssSrc('js', sBaseEncodeJs);
+    sCnLangFile = setJsCssSrc('js', sCnLang);
+    sEnLangFile = setJsCssSrc('js', sEnLang);
+    sPlatformDomJsFile = setJsCssSrc('js', sPlatformDomJs);
+    sForumJsFile = setJsCssSrc('js', sForumJs);
+    sChatJsFile = setJsCssSrc('js', sChatJs);
+    sFriendJsFile = setJsCssSrc('js', sFriendJs);
+    sSettingJsFile = setJsCssSrc('js', sSettingJs);
+    sApiJsFile = setJsCssSrc('js', sApiJs);
 }
 
 function setStaticResouresPathVersion () {
@@ -512,7 +751,6 @@ function setStaticResouresPathVersion () {
     setCssPathAndVersion();
 }
 
-const iNoticeTimeLimit = 1;
 function checkUseTime () {
     if (getTime() - iBeginTime > iNoticeTimeLimit) {
         iBeginTime = getTime();
@@ -543,30 +781,44 @@ function showUseTimeLimitNotice () {
  * @returns {boolean}
  */
 function setTimeoutFunction (f = '', a = '', b = '') {
+    // console.log(f);
+    // console.log(1);
     if (!f) {
         console.log(f);
         console.log('setTimeoutFunction f is null');
         return false;
     }
 
+    // console.log(aTimer[f]);
     if (typeof aTimer[f] == 'undefined') {
         console.log(f);
         console.log('setTimeoutFunction aTimer ' + f + ' undefined');
     }
 
+    // console.log(3);
     if (typeof window[f] != 'function') {
         console.log(f);
         console.log('setTimeoutFunction ' + f + ' is not function');
+        // if (typeof window[f] == 'undefined') {
+            setTimeoutFunction(f, a, b);
+            return;
+        // }
     }
 
+    // console.log(4);
+    // console.log(aTimer[f]);
     aBaseTimer[f] = setTimeout(function () {
-        console.log(f);
+        // console.log(f);
         if (!a) {
+            // console.log(5);
             window[f]();
         } else {
+            // console.log(6);
             if (b) {
+                // console.log(7);
                 window[f](a, b);
             } else {
+                // console.log(8);
                 window[f](a);
             }
         }
@@ -676,7 +928,7 @@ function setMeta () {
     }
 }
 function finalMeta () {
-    return document.getElementById(sFinalMetaId);
+    return document.getElementById(sFinalMetaTagId);
 }
 /**
  *
@@ -685,12 +937,12 @@ function finalMeta () {
  * @param n meta name type string
  */
 function setContent (n = '') {
-    if (typeof window['aLang'] == 'undefined') {
-        console.log('setContent aLang is undefined, so settimeout retry to setContent ');
-        setTimeoutFunction('setContent', n);
-        return;
-    }
-    console.log('setContent aLang is defined, so to do setContent ');
+    // if (typeof window['aLang'] == 'undefined') {
+    //     console.log('setContent aLang is undefined, so settimeout retry to setContent ');
+    //     setTimeoutFunction('setContent', n);
+    //     return;
+    // }
+    // console.log('setContent aLang is defined, so to do setContent ');
 
     let o = finalMeta();
     let m = '';
@@ -700,24 +952,24 @@ function setContent (n = '') {
     switch (n) {
         case sCopyright :
             o.name = 'Copyright';
-            o.content = aLang['copyright_content'];
+            o.content = sCopyrightContent;
             return;
             break;
         case sAuther :
             m.name = 'author';
-            m.content = aLang['author_content'];
+            m.content = sAutherInfo;
             break;
         case sKeywords :
             m.name = 'keywords';
-            m.content = aLang['keywords_content'];
+            m.content = sKeyword;
             break;
         case sDescription :
             m.name = 'description';
-            m.content = aLang['description_content'];
+            m.content = sDescriptionContent;
             break;
         case sApplicationName :
             m.name = 'application-name';
-            m.content = aLang['application_name_content'];
+            m.content = sApplicationNameContent;
             break;
         case sRobots :
             m.name = 'robots';
@@ -900,10 +1152,10 @@ function loadLang (l = '') {
     let y = '';
     switch (l) {
         case 'cn' :
-            y = sCnLangs;
+            y = sCnLangFile;
             break;
         case 'en' :
-            y = sEnLangs;
+            y = sEnLangFile;
             break;
     }
     if (!y) {
@@ -1283,66 +1535,144 @@ function initializeFontSize () {
     oHtml.style.fontSize = iFontSize + 'px';
 }
 
+let bLoadOriginJquery = false;
+let iLoadOriginJqueryLastTime = 0;
+let bAllreadyLoadOriginJquery = false;
+function loadOriginJquery () {
+    if (bLoadOriginJquery) {
+        return true;
+    }
+
+    if (!checkRequestJsCssLimit('js', 'loadOriginJquery')) {
+        return false;
+    }
+    iLoadOriginJqueryLastTime = getNowTime();
+
+    if (bAllreadyLoadOriginJquery) {
+        return true;
+    }
+    bLoadOriginJquery = true;
+
+    loadJs(sOriginJquery, true, 'afterloadOriginJquery');
+
+    setTimeoutFunction('loadOriginJquery');
+}
+function afterloadOriginJquery () {
+    bLoadOriginJquery = true;
+}
+
 let iBeginTime = 0;
 let oHtml = false;
 let oHead = false;
 let oBody = false;
 function base () {
-    oHtml = document.getElementsByTagName('html')[0];
-    // console.log(oHtml);
-    if (typeof oHtml == 'undefined') {
-        console.log('-5');
-        setTimeoutFunction('base');
-        return;
-    }
-    oHead = document.getElementsByTagName('head')[0];
-    // console.log(oHead);
-    if (typeof oHead == 'undefined') {
-        console.log('-4');
-        setTimeoutFunction('base');
-        return;
-    }
-    oBody = document.getElementsByTagName('body')[0];
-    // console.log(oBody);
-    if (typeof oBody == 'undefined') {
-        console.log('-3');
-        setTimeoutFunction('base');
-        return;
-    }
     console.log('base begin');
 
-    iBeginTime = getTime();
-    checkUseTime();
+    if (!oHtml || typeof oHtml == 'undefined') {
+        oHtml = document.getElementsByTagName('html')[0];
 
-    console.log('-2__3');
-    setHtmlLang();
+        setTimeoutFunction('base');
+        return;
+    }
+    if (!oHead || typeof oHead == 'undefined') {
+        oHead = document.getElementsByTagName('head')[0];
 
-    console.log('-2__2');
-    initializeFontSize();
+        setTimeoutFunction('base');
+        return;
+    }
+    if (!oBody || typeof oBody == 'undefined') {
+        oBody = document.getElementsByTagName('body')[0];
 
-    console.log('-2__1_1');
-    writeLocalstorageIframe();
-
-    console.log('2__1');
-    if (typeof aLang == 'undefined') {
-        console.log('2__0');
-        queryUserLang();
+        setTimeoutFunction('base');
+        return;
     }
 
-    console.log('-2');
-    setMeta();
+    let t4 = setTimeout(function () {
+        clearTimeout(t4);
 
-    console.log('-1');
-    queryMasterOrigin();
+        setHtmlLang();
+    }, 1);
 
-    console.log(0);
-    fatherDom();
+    let t5 = setTimeout(function () {
+        clearTimeout(t5);
 
-    setHosts();
+        initializeFontSize();
+    }, 1);
 
-    setStaticResouresPathVersion();
+    let t8 = setTimeout(function () {
+        clearTimeout(t8);
 
-    loadIndexJs();
+        setMeta();
+    }, 1);
+
+    let t10 = setTimeout(function () {
+        clearTimeout(t10);
+
+        fatherDom();
+    }, 1);
+
+    let t6 = setTimeout(function () {
+        clearTimeout(t6);
+
+        writeLocalstorageIframe();
+    }, 1);
+
+    let t9 = setTimeout(function () {
+        clearTimeout(t9);
+
+        queryMasterOrigin();
+    }, 1);
+
+    let t14 = setTimeout(function () {
+        clearTimeout(t14);
+
+        setHosts();
+    }, 1);
+
+    let t15 = setTimeout(function () {
+        clearTimeout(t15);
+
+        setCssPathAndVersion();
+    }, 1);
+
+    let t16 = setTimeout(function () {
+        clearTimeout(t16);
+
+        setJsPathAndVersion();
+    }, 1);
+
+    let t2 = setTimeout(function () {
+        clearTimeout(t2);
+
+        loadBaseCss();
+    }, 1);
+
+    if (typeof aLang == 'undefined') {
+        let t7 = setTimeout(function () {
+            clearTimeout(t7);
+
+            queryUserLang();
+        }, 1);
+    }
+
+    let t1 = setTimeout(function () {
+        clearTimeout(t1);
+
+        loadOriginJquery();
+    });
+
+    let t3 = setTimeout(function () {
+        clearTimeout(t3);
+
+        iBeginTime = getTime();
+        checkUseTime();
+    }, 1);
+
+    let t13 = setTimeout(function () {
+        clearTimeout(t13);
+
+        loadIndexJs();
+    }, 1);
 }
 
 window.onload = base();
