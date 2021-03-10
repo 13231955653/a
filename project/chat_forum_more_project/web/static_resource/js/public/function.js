@@ -295,6 +295,123 @@ function replaceTitle (t = '') {
 
 /**
  *
+ * 修改 page  dom father 透明度
+ *
+ * @param b 显示或隐藏  bool true 显示  false 隐藏
+ */
+function changeDomFatherOpacity (b = false) {
+    console.log('修改 page dom father opacity');
+}
+
+/**
+ *
+ * 获取对象样式规则信息，IE下使用currentStyle
+ *
+ * @param o 对象 dom type object
+ * @param s 样式 type string
+ * @returns {string}
+ */
+function getStyle (o, s) {
+    return o.currentStyle ? o.currentStyle[s] : getComputedStyle(o,false)[s];
+}
+
+/**
+ *
+ * 原生js动画类似jquery--animate
+ *
+ * @param o 对象 dom type object
+ * @param s 样式 type json
+ * @param p 改变样式速度  number
+ * @param c 回调函数 type strting
+ */
+function jsAnimate (o, s, p, c) {
+    if (!o || !s || !p) {
+        console.log('jsAnimate o or s or p is null');
+        return;
+    }
+
+    clearInterval(o.timer);
+    // 开启定时器
+    o.timer = setInterval(function () {
+        let f = true;//假设所有动作都已完成成立。
+        for (let n in s) {
+            //1.取当前属性值
+            let m = 0;
+            // 透明度是小数，所以得单独处理
+            m = n == 'opacity' ? Math.round(parseFloat(getStyle(o, n)) * 100) : parseInt(getStyle(o, n));
+
+            //2.计算速度
+            let p = 0;
+            p = (s[n] - m) / 8;//缓冲处理，这边也可以是固定值
+            p = p > 0 ? Math.ceil(p) : Math.floor(p);//区分透明度及小数点，向上取整，向下取整
+
+            //3.判断是否到达预定值
+            if (s[n] != m) {
+                f = false;
+                if (n == 'opacity' ) {//判断结果是否为透明度
+                    o.style[n] = (m + p) / 100;
+                    o.style.filter = 'alpha(opacity:' + (m + p) + ')';
+                }else{
+                    o.style[n] = m + p + 'px';
+                }
+            }
+        }
+        if(f){//到达设定值，停止定时器，执行回调
+            clearInterval(o.timer);
+            if (c) {
+                c();
+            }
+        }
+    }, p)
+}
+
+/**
+ *
+ *
+ *
+ * @param o 对象 dom  type object
+ * @param s 样式 type json
+ * @param p 改变样式速度 type number
+ * @param c 回调函数 type string
+ */
+function animates (o = false, s = false, p = false, c = false) {
+    if (!o || !s || !p) {
+        console.log('animates o or s or p is null');
+        return;
+    }
+
+    if (typeof jQuery != 'undefined') {
+        $(o).animate(s, p, c);
+        return;
+    }
+
+    jsAnimate (o, s, parseInt(p / 20));
+}
+
+/**
+ *
+ * 替换dom语言
+ *
+ * @param p 传入第二参数的类型 type string id/class/tag
+ * @param d 需要替换语言的dom的 id/class/tag type sting
+ */
+function replaceDomLang (p = '', d = '') {
+    if (!p || !d) {
+        console.log('replaceDomLang p or d is null, so no to do ');
+        return;
+    }
+
+    if (typeof bLoadFunctionJs == 'undefined') {
+        console.log('replaceDomLang bLoadFunctionJs is false, so settimtoue retry ');
+        setTimeoutFunction('replaceDomLang', p, d);
+        return;
+    }
+
+    replaceLang(p, d);
+}
+
+/**
+ *
  * 替换dom语言
  *
  * @param p 传入第二参数的类型 type string id/class/tag
@@ -422,6 +539,431 @@ function updateUrlPage (p = '') {
     aAllreadyLoadPageJs[p] = getNowTime();
 
     updateUrlArg (sUrlAddressPageKey, p, t, f);
+}
+
+
+
+
+
+
+/**
+ *
+ * 获取旧的session id
+ *
+ * @returns {*|string}
+ */
+function oldSessionId () {
+    return cookie.get(sOldSessionIdCookieKey);
+}
+/**
+ *
+ * 获取新的session id
+ *
+ * @returns {*|string}
+ */
+function newSessionId () {
+    return cookie.get(sNewSessionIdCookieKey);
+}
+
+/**
+ *
+ * 检查session
+ *
+ */
+function sessionId () {
+    console.log('sessionId, begin to do ');
+    sOldSessionId = oldSessionId();
+    sNewSessionId = newSessionId();
+    if (sNewSessionId != 'false') {
+        console.log('sessionId sNewSessionId is true, will check new session format ');
+
+        checkSessionIdOutTime();
+
+        checkSessionKeyFormat();
+    } else {
+        console.log('sessionId sNewSessionId is false, will make session id ');
+
+        makeSessionid();
+    }
+
+    let i = randNum(iUpdateSessionMinTime, iUpdateSessionMaxTime);
+    let t = setTimeout(function () {
+        clearTimeout(t);
+
+        sessionId();
+    }, i);
+}
+
+/**
+ *
+ * 生成 session id
+ *
+ * @returns {boolean}
+ */
+function makeSessionid () {
+    if (typeof window['reverseString'] == 'undefined') {
+        console.log('makeSessionid reverseString undefined, so settimeout to do ');
+
+        setTimeoutFunction('makeSessionid');
+        return false;
+    }
+    console.log('makeSessionid reverseString is defined, so individuationUuid to do ');
+
+    let s = individuationUuid();
+    if (!s) {
+        console.log('makeSessionid individuationUuid is false, so settimeout to do ');
+
+        setTimeoutFunction('makeSessionid');
+        return;
+    }
+    console.log('makeSessionid individuationUuid is true, so to do ');
+
+    let n = setSessionIdFormat(s);
+    if (!n) {
+        console.log('makeSessionid setSessionIdFormat is false, so settimeout to do ');
+
+        setTimeoutFunction('makeSessionid');
+        return;
+    }
+
+    sOldSessionId = sNewSessionId ? sNewSessionId : sOldSessionId;
+    sNewSessionId = n;
+
+    if (sNewSessionId) {
+        console.log('makeSessionid sNewSessionId is true, so will to cache session and update old session ');
+
+        cacheSessionId();
+        return;
+    }
+
+    console.log('makeSessionid sNewSessionId is false, so settimeout to retry ');
+    setTimeoutFunction('makeSessionid');
+}
+/**
+ *
+ * 生成自定义 uuid
+ *
+ * @returns {string|boolean}
+ */
+function individuationUuid () {
+    if (typeof window['hex_md5'] == 'undefined') {
+        console.log('individuationUuid hex_md5 undefined, so settimeout to do ');
+        return false;
+    }
+    console.log('individuationUuid hex_md5 is defined, so individuationUuid to do ');
+
+    let a = individuationUuidUniqueStr();
+
+    while (a.length < iIndividuationUniqueStrMinLength) {
+        a += sIndividuationUuidTag + '---' + randStr(1);
+    }
+
+    a = hex_md5(a);
+    a = a.toLowerCase();
+
+    return a;
+}
+/**
+ *
+ * 生成自定义 uuid 唯一字符串 md5 字符串
+ *
+ * @returns {string|boolean}
+ */
+function individuationUuidUniqueStr () {
+    let d = sUniqueStrSplitTag;
+
+    let s = randStr(iIndividuationUniqueStrLength);
+    s += d + randNum(iIndividuationUniqueStrNumberMin, iIndividuationUniqueStrNumberMax);
+    s += d + getNowTime();
+    s += d + navigatorInfo();
+    s += d + screenInfo();
+    s += d + generateUUID();
+    s += d + userIpInfo();
+
+    s = hex_md5(s);
+
+    return s;
+}
+function userIpInfo () {
+    let t = '*';
+    let s = '';
+
+    s += t + sIp;
+    s += t + sCid;
+    s += t + sIpCityName;
+
+    return s;
+}
+/**
+ *
+ * location 信息
+ *
+ */
+function screenInfo () {
+    let t = '+';
+    let s = '';
+    let n = screen;
+
+    s += t + n.availHeight;
+    s += t + n.availWidth;
+    s += t + n.width;
+    s += t + n.height;
+    s += t + n.pixelDepth;
+    s += t + n.colorDepth;
+
+    return s;
+}
+/**
+ *
+ * navigator 信息
+ *
+ * @returns {string}
+ */
+function navigatorInfo () {
+    let t = '~';
+    let s = '';
+    let n = navigator;
+
+    s += t + n.appCodeName;
+    s += t + n.appName;
+    s += t + n.appVersion;
+    s += t + n.cookieEnabled;
+    // s += t + n.geolocation;
+    s += t + n.language;
+    s += t + n.onLine;
+    s += t + n.platform;
+    s += t + n.product;
+    s += t + n.userAgent;
+    s += t + n.hardwareConcurrency;
+
+    return s;
+}
+function generateUUID () {
+    let d = getNowTime();
+    let i = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        let r = (d + Math.random()*16)%16 | 0;
+        d = Math.floor(d/16);
+        return (c=='x' ? r : (r&0x3|0x8)).toString(16);
+    });
+    return i;
+};
+// function fourBitString() {
+//     return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+// }
+// // Generate a pseudo-GUID by concatenating random hexadecimal.
+// function guid () {
+//     let s = sGuidSplitTag;
+//     return (fourBitString() + fourBitString() + s + fourBitString() + s + fourBitString() + s + fourBitString() + s + fourBitString() + fourBitString());
+// }
+// function uuid () {
+//     let s = [];
+//     for (let i = 0; i < 36; i++) {
+//         s[i] = sUuidString.substr(Math.floor(Math.random() * 0x10), 1);
+//     }
+//     s[14] = '4';  // bits 12-15 of the time_hi_and_version field to 0010
+//     s[19] = sUuidString.substr((s[19] & 0x3) | 0x8, 1);  // bits 6-7 of the clock_seq_hi_and_reserved to 01
+//     s[8] = s[13] = s[18] = s[23] = sUuidSplitTag;
+//
+//     // let uuid = s.join('');
+//     return s.join('');
+// }
+function checkSessionIdOutTime () {
+    if (!sNewSessionId) {
+        console.log('checkSessionIdOutTime sNewSessionId is false, so will to make session id ');
+
+        makeSessionid();
+        return false;
+    }
+    console.log('checkSessionIdOutTime sNewSessionId is true, so will to check session id out time ');
+
+    let s = sNewSessionId.split(sSessionSplitTag);
+
+    if (parseInt(getTime()) - parseInt(s[s.length - 1]) > iSessionOutTime) {
+        console.log('checkSessionIdOutTime session id is timeout, so will to makeSessionid ');
+        makeSessionid();
+    }
+
+    console.log('checkSessionIdOutTime settimeout check, settimeout recheck ');
+    setTimeoutFunction('checkSessionIdOutTime');
+}
+function cacheSessionId () {
+    if (!sNewSessionId) {
+        console.log('cacheSessionId sNewSessionId is false, so settimeout to retry ');
+
+        setTimeoutFunction('cacheSessionId');
+        return;
+    }
+    console.log('cacheSessionId sNewSessionId is true, so to do ');
+
+    cookie.set(sOldSessionIdCookieKey, sOldSessionId, iUpdateSessionMaxTime);
+    cookie.set(sNewSessionIdCookieKey, sNewSessionId, iUpdateSessionMaxTime);
+}
+function setSessionIdFormat (sSessionId1 = '') {
+    if (typeof window['hex_md5'] == 'undefined') {
+        // setTimeoutFunction('setSessionIdFormat');
+        console.log('setSessionIdFormat hex_md5 undefined, so settimeout to do ');
+        return false;
+    }
+
+    let a = sSessionId1;
+    if (!a) {
+        console.log('setSessionIdFormat sSessionId is null, so to do ');
+        return false;
+    }
+
+    while (a.length < iSessionBeforeFormatLength) {
+        a += randStr(1);
+    }
+
+    let p = sSessionSplitTag;
+
+    let aS = a.split('');
+    let s = '';
+    let z = '';
+    let q = sSessionIdSplitLength;
+    for (let i in aS) {
+        z = i % q ? aS[i] : p + aS[i];
+        s += z;
+    }
+    s = s.substr(1, s.length - 1);
+
+    s = setSessionIdPrefix(s) + p + s + p + setSessionIdSuffix(s);
+
+    return s.toLowerCase() + sSessionSplitTag + getTime();
+}
+function setSessionIdPrefix (s) {
+    let q = sSessionIdSplitLength;
+
+    let t = s;
+    t = hex_md5(t + sSessionSalt);
+    return t.substring(t.length - parseInt(q)).toLowerCase();
+}
+function setSessionIdSuffix (s) {
+    let q = sSessionIdSplitLength;
+
+    let r = reverseString(s);
+    r = hex_md5(r + sSessionSalt);
+    return r.substr(0, q).toLowerCase();
+}
+function checkSessionKeyFormat () {
+    if (typeof window['hex_md5'] == 'undefined') {
+        console.log('checkSessionKeyFormat hex_md5 undefined, so settimeout to recheck session format ');
+
+        let t = setTimeout(function () {
+            checkSessionKeyFormat();
+
+            clearTimeout(t);
+        }, aTimer['checkSessionKeyFormat']);
+        return false;
+    }
+
+    let t = sSessionSplitTag;
+    if (sOldSessionId != 'false') {
+        if (!doCheckSessionId(sOldSessionId.split(t), 'old')) {
+            console.log('checkSessionKeyFormat old session is false, so make new session id');
+            makeSessionid();
+
+            console.log('checkSessionKeyFormat settimeout check, settimeout check ');
+            setTimeoutFunction('checkSessionKeyFormat');
+            return;
+        }
+    }
+
+    if (sNewSessionId != 'false') {
+        if (!doCheckSessionId(sNewSessionId.split(t), 'new')) {
+            console.log('checkSessionKeyFormat new session is false, so make new session id');
+            makeSessionid();
+
+            console.log('checkSessionKeyFormat settimeout check, settimeout check ');
+            setTimeoutFunction('checkSessionKeyFormat');
+            return;
+        }
+    }
+
+    setTimeoutFunction('checkSessionKeyFormat');
+    console.log('checkSessionKeyFormat settimeout check, settimeout check ');
+}
+/**
+ *
+ * 检查 session id 格式
+ *
+ * @param s session id type string
+ * @param t 类型 新老session type string
+ * @returns {boolean}
+ */
+function doCheckSessionId (s, t) {
+    if (typeof window['hex_md5'] == 'undefined') {
+        console.log('doCheckSessionId hex_md5 undefined, so settimeout to do ');
+
+        setTimeoutFunction('doCheckSessionId', s, t);
+        return false;
+    }
+    console.log('doCheckSessionId hex_md5 is defined, so sttimeout to check session id ');
+
+    if (typeof window['reverseString'] == 'undefined') {
+        console.log('doCheckSessionId reverseString undefined, so settimeout to do ');
+
+        setTimeoutFunction('doCheckSessionId', s, t);
+        return false;
+    }
+    console.log('doCheckSessionId reverseString is defined, so individuationUuid to do ');
+
+    let a = s[0];
+    let b = s[s.length - 2];
+    s.pop();
+    s.pop();
+    s.shift();
+    s = s.join(sSessionSplitTag);
+    let c = setSessionIdPrefix(s);
+    let d = setSessionIdSuffix(s);
+
+    if (
+        (a !== c)
+        ||
+        (b !== d)
+    ) {
+        console.log('checkSessionKeyFormat ' + t + ' format error, so makeSessionId');
+
+        makeSessionid();
+        return false;
+    }
+
+    return true;
+}
+
+/**
+ *
+ * 随机字符串
+ *
+ * @param l 随机字符串 长度 type int
+ * @returns {string|string}
+ */
+function randStr (l) {
+    l = l || 32;
+    let s = sRandString;
+    let a = s.length,
+        n = '';
+    for (let i = 0; i < l; i++) {
+        n += s.charAt(Math.floor(Math.random() * a));
+    }
+
+    return n;
+}
+
+/**
+ *
+ * 随机数字
+ *
+ * @param i 最小数字 type int
+ * @param a 最大数字 type int
+ * @returns {*}
+ */
+function randNum (i, a) {
+    return(i + Math.round((Math.random()) * (a - i)));
+}
+
+function illegality () {
+    window.location.href = sAstrictJumpUrl;
 }
 
 const bLoadFunctionJs = true;

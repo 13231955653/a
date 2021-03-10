@@ -55,7 +55,7 @@ const b = []; //基础定时器间隔时间
 // const t = 1000;
 const t = 15;
 // const t2 = 1000;
-const t2 = 16;
+const t2 = 300;
 b['winResize'] = t2;
 b['loadEncodeJs'] = t;
 b['loadLogicJs'] = t;
@@ -101,6 +101,8 @@ b['setContent'] = t;
 b['base'] = t;
 b['loadIndexJs'] = t;
 b['showUseTimeLimitNotice'] = t;
+b['clearShade'] = t;
+b['sessId'] = t;
 b['checkUseTime'] = 60000;
 b['checkSessionIdOutTime'] = 181652;
 b['checkSessionKeyFormat'] = 253648;
@@ -303,19 +305,19 @@ function loadBaseCss () {
         clearTimeout(t2);
 
         loadPersonalizedCss();
-    }, 1);
+    }, 0);
 
     let t1 = setTimeout(function () {
         clearTimeout(t1);
 
         loadResetCss();
-    }, 1);
+    }, 0);
 
     let t3 = setTimeout(function () {
         clearTimeout(t3);
 
         loadPublicCss();
-    }, 1);
+    }, 0);
 }
 
 let bLoadPublicCss = false;
@@ -604,6 +606,20 @@ function allocationHost (u = '') {
     }
 
     return aHost[hashFunc(u, iHostNumber)];
+}
+
+let sIp = '';
+let sCid = '';
+let sIpCityName = '';
+const sQueryUserIpAddress = 'http://pv.sohu.com/cityjson?ie=' + sCharset;
+function getUserIp () {
+    loadJs(sQueryUserIpAddress, false, 'setUserIp');
+}
+function setUserIp () {
+    console.log(returnCitySN);
+    sIp = returnCitySN.cip;
+    sCid = returnCitySN.cid;
+    sIpCityName = returnCitySN.cname;
 }
 
 //获取毫秒时间戳
@@ -994,6 +1010,117 @@ function afterQueryLang (sLang = '') {
 
     loadLang(sUserLangvage);
 }
+/**
+ *
+ * set localstorage lang
+ *
+ * @param l 语言 type string
+ * @returns {boolean}
+ */
+function setLang (l = '') {
+    if (!l) {
+        console.log('setLang l is null, so no to do');
+        return false;
+    }
+
+    setLocalstorage(sLocalstorageLangTag, l, false, 'afterSetLang');
+}
+/**
+ *
+ * set localstorage lang 之后操作
+ *
+ * @param b 结果 type bool
+ * @returns {boolean}
+ */
+function afterSetLang (b = '') {
+    if (!b) {
+        console.log('afterSetLang b is null');
+        return false;
+    }
+
+    if (!b) {
+        console.log('afterSetLang b false');
+        return false;
+    }
+}
+
+/**
+ *
+ * @param k localstorage key
+ * @param m localstorage message
+ * @param t localstorage lefttime
+ * @param f localstorage callback function
+ * @returns {boolean}
+ */
+function setLocalstorage (k = '', m = '', t = false, f = '') {
+    if (!k || !f || !m) {
+        console.log('queryLocalstorage k or f or m is null');
+        return false;
+    }
+
+    let p = localstoragePage (k);
+
+    let s = disposeLocalstorageValue (m, t);
+    let l = parseInt(JSON.stringify(s).length) + parseInt(k.length);
+
+    p = localstorageNowPage();
+
+    let q = 1;
+    let z = 0;
+    let sss = sOriginLocalstorageSizeKey;
+    let c = queryLocalstorageCache(sss);
+    c = eval('(' + z + ')');
+    c = c ? c : {};
+    while (!z || iMaxLocalstorageSize < z) {
+        p = z ? parseInt(p) + parseInt(1) : p;
+
+        if (!c || typeof c[p] == 'undefined') {
+            z = l;
+            c[p] = z;
+        } else {
+            q = parseInt(c[p]);
+
+            z = parseInt(q) + parseInt(l);
+            c[p] = z;
+        }
+    }
+
+    localstorageLocalCache(k, p);
+
+    localstorageLocalCache(sss, c);
+
+    p = storagePage(p);
+
+    localstoragePostMessage(p, {action: 'set', key: k, message: m, leftTime: t, after: f});
+}
+
+let cookie = {
+    set:function (sKey, sVal, iTime) {
+        //设置cookie方法
+        let iOutTime = parseInt(getNowTime()) + parseInt(iTime); //获取当前时间
+        document.cookie = sKey + '=' + sVal + ';expires=' + iOutTime;  //设置cookie
+    },
+
+    get:function (sKey) {//获取cookie方法
+        /*获取cookie参数*/
+        let sCookie = document.cookie.replace(/[ ]/g,'');
+        //获取cookie，并且将获得的cookie格式化，去掉空格字符
+        let aArrCookie = sCookie.split(';')
+        //将获得的cookie以"分号"为标识 将cookie保存到aArrCookie的数组中
+        let tips = 'false';  //声明变量tips
+        let arr = [];
+        for(let i = 0; i < aArrCookie.length; i++){   //使用for循环查找cookie中的tips变量
+            arr =aArrCookie[i].split('=');   //将单条cookie用"等号"为标识，将单条cookie保存为arr数组
+            if (sKey == arr[0]) {
+                //匹配变量名称，其中arr[0]是指的cookie名称，如果该条变量为tips则执行判断语句中的赋值操作
+                tips = arr[1];   //将cookie的值赋给变量tips
+                break;   //终止for循环遍历
+            }
+        }
+        return tips;
+    }
+}
+
 
 /**
  *
@@ -1401,6 +1528,24 @@ function initializeFontSize () {
     oHtml.style.fontSize = iFontSize + 'px';
 }
 
+let bLoadLocalJquery = false;
+function loadLocalJquery () {
+    if (bLoadLocalJquery) {
+        return true;
+    }
+
+    if (!checkRequestJsCssLimit('js', 'loadLocalJquery')) {
+        return false;
+    }
+
+    loadJs(sJqueryJsFile, true, 'afterloadLocalJquery');
+
+    setTimeoutFunction('loadLocalJquery');
+}
+function afterloadLocalJquery () {
+    bLoadLocalJquery = true;
+}
+
 let bLoadOriginJquery = false;
 let iLoadOriginJqueryLastTime = 0;
 let bAllreadyLoadOriginJquery = false;
@@ -1425,6 +1570,152 @@ function loadOriginJquery () {
 }
 function afterloadOriginJquery () {
     bLoadOriginJquery = true;
+}
+
+let bLoadEncodeJs = false;
+function loadEncodeJs () {
+    if (bLoadEncodeJs) {
+        return true;
+    }
+
+    if (!checkRequestJsCssLimit('js', 'loadEncodeJs')) {
+        return false;
+    }
+
+    loadJs(sEncodeJsFile, true, 'afterloadEncodeJs');
+
+    setTimeoutFunction('loadEncodeJs');
+}
+function afterloadEncodeJs () {
+    bLoadEncodeJs = true;
+}
+
+let bLoadFunctionJs1 = false;
+function loadFunctionJs () {
+    if (bLoadFunctionJs1) {
+        return true;
+    }
+
+    if (!checkRequestJsCssLimit('js', 'loadFunctionJs')) {
+        return false;
+    }
+
+    loadJs(sFunctionJsFile, true, 'afterloadFunctionJs');
+
+    setTimeoutFunction('loadFunctionJs');
+}
+function afterloadFunctionJs () {
+    bLoadFunctionJs1 = true;
+}
+
+let bLoadDomJs = false;
+function loadDomJs () {
+    if (bLoadDomJs) {
+        return true;
+    }
+
+    if (!checkRequestJsCssLimit('js', 'loadDomJs')) {
+        return false;
+    }
+
+    loadJs(sDomJsFile, true, 'afterloadDomJs');
+
+    setTimeoutFunction('loadDomJs');
+}
+function afterloadDomJs () {
+    bLoadDomJs = true;
+}
+
+let bLoadPlatformDomJs = false;
+function loadPlatformDomJs () {
+    if (bLoadPlatformDomJs) {
+        return true;
+    }
+
+    if (!checkRequestJsCssLimit('js', 'loadPlatformDomJs')) {
+        return false;
+    }
+
+    loadJs(sPlatformDomJsFile, true, 'afterloadPlatformDomJs');
+
+    setTimeoutFunction('loadPlatformDomJs');
+}
+function afterloadPlatformDomJs () {
+    bLoadPlatformDomJs = true;
+}
+
+let bLoadLogicJs = false;
+function loadLogicJs () {
+    if (bLoadLogicJs) {
+        return true;
+    }
+
+    if (!checkRequestJsCssLimit('js', 'loadLogicJs')) {
+        return false;
+    }
+
+    loadJs(sLogicJsFile, true, 'afterloadLogicJs');
+
+    setTimeoutFunction('loadLogicJs');
+}
+function afterloadLogicJs () {
+    bLoadLogicJs = true;
+}
+
+let bLoadApiJs = false;
+function loadApiJs () {
+    if (bLoadApiJs) {
+        return true;
+    }
+
+    if (!checkRequestJsCssLimit('js', 'loadApiJs')) {
+        return false;
+    }
+
+    loadJs(sApiJsFile, true, 'afterloadApiJs');
+
+    setTimeoutFunction('loadApiJs');
+}
+function afterloadApiJs () {
+    bLoadApiJs = true;
+}
+
+function loadBaseJs () {
+    let t1 = setTimeout(function () {
+        clearTimeout(t1);
+
+        loadEncodeJs();
+    }, 0);
+
+    let t2 = setTimeout(function () {
+        clearTimeout(t2);
+
+        loadFunctionJs();
+    }, 0);
+
+    let t3 = setTimeout(function () {
+        clearTimeout(t3);
+
+        loadDomJs();
+    }, 0);
+
+    let t4 = setTimeout(function () {
+        clearTimeout(t4);
+
+        loadPlatformDomJs();
+    }, 0);
+
+    let t5 = setTimeout(function () {
+        clearTimeout(t5);
+
+        loadLogicJs();
+    }, 0);
+
+    let t6 = setTimeout(function () {
+        clearTimeout(t6);
+
+        loadApiJs();
+    }, 0);
 }
 
 let iBeginTime = 0;
@@ -1453,92 +1744,100 @@ function base () {
         return;
     }
 
+    getUserIp();
+
     let t4 = setTimeout(function () {
         clearTimeout(t4);
 
         setHtmlLang();
-    }, 1);
+    }, 0);
 
     let t5 = setTimeout(function () {
         clearTimeout(t5);
 
         initializeFontSize();
-    }, 1);
+    }, 0);
 
     let t8 = setTimeout(function () {
         clearTimeout(t8);
 
         setMeta();
-    }, 1);
+    }, 0);
 
     let t10 = setTimeout(function () {
         clearTimeout(t10);
 
         fatherDom();
-    }, 1);
+    }, 0);
 
     let t6 = setTimeout(function () {
         clearTimeout(t6);
 
         writeLocalstorageIframe();
-    }, 1);
+    }, 0);
 
     let t9 = setTimeout(function () {
         clearTimeout(t9);
 
         queryMasterOrigin();
-    }, 1);
+    }, 0);
 
     let t14 = setTimeout(function () {
         clearTimeout(t14);
 
         setHosts();
-    }, 1);
+    }, 0);
 
     let t15 = setTimeout(function () {
         clearTimeout(t15);
 
         setCssPathAndVersion();
-    }, 1);
+    }, 0);
 
     let t16 = setTimeout(function () {
         clearTimeout(t16);
 
         setJsPathAndVersion();
-    }, 1);
+    }, 0);
 
     let t2 = setTimeout(function () {
         clearTimeout(t2);
 
         loadBaseCss();
-    }, 1);
+    }, 0);
 
     if (typeof aLang == 'undefined') {
         let t7 = setTimeout(function () {
             clearTimeout(t7);
 
             queryUserLang();
-        }, 1);
+        }, 0);
     }
 
     let t1 = setTimeout(function () {
         clearTimeout(t1);
 
         loadOriginJquery();
-    });
+    }, 0);
 
     let t3 = setTimeout(function () {
         clearTimeout(t3);
 
         iBeginTime = getTime();
         checkUseTime();
-    }, 1);
+    }, 0);
+
+    let t21 = setTimeout(function () {
+        clearTimeout(t21);
+
+        loadBaseJs();
+    }, 0);
 
     let t13 = setTimeout(function () {
         clearTimeout(t13);
 
         loadIndexJs();
-    }, 1);
+    }, 0);
 }
 
 window.onload = base();
