@@ -55,7 +55,7 @@ const b = []; //基础定时器间隔时间
 // const t = 1000;
 const t = 15;
 // const t2 = 1000;
-const t2 = 300;
+const t2 = 15;
 b['winResize'] = t2;
 b['loadEncodeJs'] = t;
 b['loadLogicJs'] = t;
@@ -1746,6 +1746,18 @@ function base () {
 
     getUserIp();
 
+    let t9 = setTimeout(function () {
+        clearTimeout(t9);
+
+        queryMasterOrigin();
+    }, 0);
+
+    let t14 = setTimeout(function () {
+        clearTimeout(t14);
+
+        setHosts();
+    }, 0);
+
     let t4 = setTimeout(function () {
         clearTimeout(t4);
 
@@ -1774,18 +1786,6 @@ function base () {
         clearTimeout(t6);
 
         writeLocalstorageIframe();
-    }, 0);
-
-    let t9 = setTimeout(function () {
-        clearTimeout(t9);
-
-        queryMasterOrigin();
-    }, 0);
-
-    let t14 = setTimeout(function () {
-        clearTimeout(t14);
-
-        setHosts();
     }, 0);
 
     let t15 = setTimeout(function () {
