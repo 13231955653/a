@@ -143,6 +143,7 @@ function replaceWindowTitle (t = '') {
 }
 
 function logicBegin () {
+    console.log('logicBegin');
     // showPageShade();
 
     if (typeof window['writePublicDom'] == 'undefined') {

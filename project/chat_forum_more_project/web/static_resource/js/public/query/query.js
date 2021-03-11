@@ -17,7 +17,8 @@ const aApiHostLength = 7;
 let iRequestNumber = 0;
 
 function apiQuery (sUrl = '', sSendJsonData = '', sMethod = 'post') {
-    if (typeof jQuery === 'undefined') {
+    // if (typeof jQuery == 'undefined') {
+    if (!bJquery) {
         loadLocalJquery();
 
         console.log('apiQuery jQuery undefined. so settimeout retry ');

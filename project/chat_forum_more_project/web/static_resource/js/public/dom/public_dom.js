@@ -19,7 +19,8 @@ function pubShade () {
     writePublicShade();
 }
 function pubHeader () {
-    if (typeof jQuery == 'undefined') {
+    // if (typeof jQuery == 'undefined') {
+    if (!bJquery) {
         setTimeoutFunction('pubHeader');
         console.log('pubHeader jQuery is undefined, so settimeout retry to pubHeader ');
         return;
@@ -36,7 +37,8 @@ function pubHeader () {
     writeHeader();
 }
 function pubBody () {
-    if (typeof jQuery == 'undefined') {
+    if (!bJquery) {
+    // if (typeof jQuery == 'undefined') {
         setTimeoutFunction('pubBody');
         console.log('pubBody jQuery is undefined, so settimeout retry to pubBody ');
         return;
@@ -53,7 +55,8 @@ function pubBody () {
     writeBody();
 }
 function pubFooter () {
-    if (typeof jQuery == 'undefined') {
+    if (!bJquery) {
+    // if (typeof jQuery == 'undefined') {
         setTimeoutFunction('pubFooter');
         console.log('pubFooter jQuery is undefined, so settimeout retry to pubFooter ');
         return;
@@ -70,7 +73,8 @@ function pubFooter () {
     writeFooter();
 }
 function pubLeft () {
-    if (typeof jQuery == 'undefined') {
+    if (!bJquery) {
+    // if (typeof jQuery == 'undefined') {
         setTimeoutFunction('pubLeft');
         console.log('pubLeft jQuery is undefined, so settimeout retry to pubLeft ');
         return;
@@ -87,7 +91,8 @@ function pubLeft () {
     writeLeft();
 }
 function pubRight () {
-    if (typeof jQuery == 'undefined') {
+    if (!bJquery) {
+    // if (typeof jQuery == 'undefined') {
         setTimeoutFunction('pubRight');
         console.log('pubRight jQuery is undefined, so settimeout retry to pubRight ');
         return;
@@ -104,7 +109,8 @@ function pubRight () {
     writeRight();
 }
 function pubNotice () {
-    if (typeof jQuery == 'undefined') {
+    if (!bJquery) {
+    // if (typeof jQuery == 'undefined') {
         setTimeoutFunction('pubNotice');
         console.log('writeNotice jQuery is undefined, so settimeout retry to writeNotice ');
         return;
@@ -249,6 +255,9 @@ function shade (d = '') {
         case sBaseShadeId :
             f = 'writeBaseShade';
             break;
+        case sIndexShadeId :
+            f = 'writeIndexShade';
+            break;
     }
     if (!f) {
         console.log('shade f is null, so no to do ');
@@ -331,7 +340,8 @@ function appendShade (d = false) {
         return;
     }
 
-    // console.log(getPublicShadeDom());
+    console.log(getPublicShadeDom());
+    console.log(d);
     // oHead.insertBefore(m, finalMeta());
     getPublicShadeDom().appendChild(d);
 }

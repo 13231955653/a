@@ -405,7 +405,8 @@ function animates (o = false, s = false, p = false, c = false) {
         return;
     }
 
-    if (typeof jQuery != 'undefined') {
+    if (bJquery) {
+    // if (typeof jQuery != 'undefined') {
         $(o).animate(s, p, c);
         return;
     }
@@ -505,7 +506,8 @@ function uodateUrlPageArg (p = '') {
 }
 
 function replaceLangs () {
-    if (typeof jQuery === 'undefined') {
+    if (!bJquery) {
+    // if (typeof jQuery === 'undefined') {
         console.log('replaceLangs jQuery is undefined, so settimeout retry to replaceLangs ');
 
         setTimeoutFunction('replaceLangs');
