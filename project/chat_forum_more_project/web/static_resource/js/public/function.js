@@ -150,6 +150,7 @@ function getUrlArgs (w = '') {
             return w ? '' : [];
         }
 
+        console.log(aUrlArgs);
         return w ? (typeof aUrlArgs[w] !== 'undefined' ? aUrlArgs[w] : '') : aUrlArgs;
     }
 
@@ -498,7 +499,7 @@ function uodateUrlPageArg (p = '') {
     }
     sLastPage = p;
 
-    writePageShade();
+    // writePageShade();
 
     updateUrlPage(p);
 }
@@ -544,6 +545,8 @@ function updateUrlPage (p = '') {
         return;
     }
     console.log('updateUrlPage urlDecode is defined, so will to do ');
+    console.log(getUrlArgs());
+    console.log('updateUrlPage console lod url args, maybe to hidden ');
 
     p = p ? p : getNowPage();
 
@@ -942,8 +945,8 @@ function randNum (i, a) {
     return(i + Math.round((Math.random()) * (a - i)));
 }
 
-function illegality () {
-    window.location.href = sAstrictJumpUrl;
-}
+// function illegality () {
+//     window.location.href = sAstrictJumpUrl;
+// }
 
 const bLoadFunctionJs = true;

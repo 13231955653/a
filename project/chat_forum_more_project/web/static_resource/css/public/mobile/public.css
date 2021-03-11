@@ -78,12 +78,15 @@
 .foot_active{
     background: var(--public_foot_active_background);
 }
-#index_shade, #platform_shade, #page_shade{
+.shades{
     width: 100%;
     height: 100%;
     position: absolute;
     top: 0px;
     left: 0px;
+}
+#base_shade{
+    background: var(--base_shade_background_color);
 }
 #index_shade{
     background: var(--shade_index_background_color);

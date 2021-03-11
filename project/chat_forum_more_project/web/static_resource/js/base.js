@@ -5,12 +5,19 @@ const sBaseProtocol = window.location.protocol + '//';
 const sBaseHostSonPrefix = 'static_resource';
 const sBaseHostSonNumber = 21;
 
+const iSpeed = 300; //动画速度
+
 const sQueryOneMmPxId = 'get_one_mms_px';
+
+const sAstrictJumpUrl = 'https://www.baidu.com';
 
 const aAllreadyLoadIframe = [];
 
 const iDefaultFontSize = 16; //默认pc字体大小
 const iDefaultOneFontMms = 2.5; //默认一个中文字占多宽，单位毫米
+
+let iWinWidth = 0;
+let iWinHeight = 0;
 
 //localstorage相关
 const iMaxLocalstorageSize = 4718592;
@@ -24,7 +31,18 @@ const sLocalstorgaeNowPageTag = 'localstorage_cache_now_page';
 const sLocalstorgaeBeginTag = 0;
 //localstorage相关
 
+const sShadeClass = 'shades';
+const sPublicShadeId = 'public_shade';
+
 const sNoShowIframeCLass = 'iframe_no_show';
+
+const sBaseShadeId = 'base_shade';
+const sIndexShadeId = 'index_shade';
+const sPlatformShadeId = 'platform_shade';
+const sPageShadeId = 'page_shade';
+let iShadeBeginZIndex = 1000000000;
+const sInvisibleClass = 'invisible';
+const sVisibleClass = 'gradually_visible';
 
 const iDefaultUserPersonalizedColor = 1;
 let iFontSize = 16;
@@ -53,9 +71,9 @@ const iNoticeTimeLimit = 3600000;
 let aBaseTimer = []; //基础定时器
 const b = []; //基础定时器间隔时间
 // const t = 1000;
-const t = 15;
+const t = 10;
 // const t2 = 1000;
-const t2 = 15;
+const t2 = 10;
 b['winResize'] = t2;
 b['loadEncodeJs'] = t;
 b['loadLogicJs'] = t;
@@ -65,7 +83,7 @@ b['loadOriginJquery'] = t;
 b['loadLang'] = t;
 b['logicBegin'] = t;
 b['loadPlatformDomJs'] = t;
-b['baseBegin'] = t;
+b['indexBegin'] = t;
 b['loadResetCss'] = t;
 b['checkLoadCss'] = t;
 b['writeStorageDom'] = t;
@@ -94,15 +112,24 @@ b['replaceDomLang'] = t;
 b['replaceLang'] = t;
 b['replaceTitle'] = t;
 b['logicBegin'] = t;
-b['writePublicDom'] = t;
 b['afterLoadPageJs'] = t;
 b['updateUrlPage'] = t;
 b['setContent'] = t;
-b['base'] = t;
+b['baseBegin'] = t;
 b['loadIndexJs'] = t;
 b['showUseTimeLimitNotice'] = t;
 b['clearShade'] = t;
 b['sessId'] = t;
+b['indexBeginLogic'] = t;
+b['loadOriginJquery'] = t;
+b['baseShade'] = t;
+b['pubHeader'] = t;
+b['pubBody'] = t;
+b['pubFooter'] = t;
+b['pubLeft'] = t;
+b['pubRight'] = t;
+b['pubNotice'] = t;
+b['clearBaseShade'] = 100;
 b['checkUseTime'] = 60000;
 b['checkSessionIdOutTime'] = 181652;
 b['checkSessionKeyFormat'] = 253648;
@@ -616,7 +643,7 @@ function getUserIp () {
     loadJs(sQueryUserIpAddress, false, 'setUserIp');
 }
 function setUserIp () {
-    console.log(returnCitySN);
+    // console.log(returnCitySN);
     sIp = returnCitySN.cip;
     sCid = returnCitySN.cid;
     sIpCityName = returnCitySN.cname;
@@ -714,9 +741,13 @@ function setTimeoutFunction (f = '', a = '', b = '') {
 
     if (typeof window[f] != 'function') {
         console.log(f);
-        console.log('setTimeoutFunction ' + f + ' is not function');
+        console.log('setTimeoutFunction ' + f + ' is not function, so settimeout retry to asyn ');
 
-        setTimeoutFunction(f, a, b);
+        let t = setTimeout(function () {
+            clearTimeout(t);
+
+            setTimeoutFunction(f, a, b);
+        }, 0);
         return;
     }
 
@@ -733,6 +764,34 @@ function setTimeoutFunction (f = '', a = '', b = '') {
     }, aTimer[f]);
 
     return true;
+}
+function asyn (f, a) {
+    if (!f) {
+        console.log(f);
+        console.log('asyn f is null');
+        return false;
+    }
+
+    if (typeof window[f] != 'function') {
+        console.log('asyn ' + f + ' is not function, so settimeout retry to asyn ');
+
+        let t = setTimeout(function () {
+            clearTimeout(t);
+
+            asyn(f, a);
+        }, 0);
+        return;
+    }
+    let t = setTimeout(function () {
+        clearTimeout(t);
+
+        if (a) {
+            window[f](a);
+            return;
+        }
+
+        window[f]();
+    }, 0);
 }
 
 let aRequestJsCssLastTime = [];
@@ -979,6 +1038,7 @@ function fatherDom () {
     o = document.createElement('div');
     o.id = oDomFatherId;
 
+    // console.log(oBody);
     oBody.appendChild(o);
 
     return o;
@@ -1681,6 +1741,12 @@ function afterloadApiJs () {
 }
 
 function loadBaseJs () {
+    let t7 = setTimeout(function () {
+        clearTimeout(t7);
+
+        loadIndexJs();
+    }, 0);
+
     let t1 = setTimeout(function () {
         clearTimeout(t1);
 
@@ -1722,122 +1788,412 @@ let iBeginTime = 0;
 let oHtml = false;
 let oHead = false;
 let oBody = false;
-function base () {
+function baseBegin (bOnload = false) {
     console.log('base begin');
+    if (bOnload) {
+        bFirstLoad = true;
+    }
 
-    if (!oHtml || typeof oHtml == 'undefined') {
+    console.log('base 111111111111111111');
+    asyn('setHtmlLang');
+    if (
+        (!oHtml || typeof oHtml == 'undefined')
+        ||
+        (!oHead || typeof oHead == 'undefined')
+        ||
+        !oBody || typeof oBody == 'undefined'
+    ) {
         oHtml = document.getElementsByTagName('html')[0];
-
-        setTimeoutFunction('base');
-        return;
-    }
-    if (!oHead || typeof oHead == 'undefined') {
         oHead = document.getElementsByTagName('head')[0];
-
-        setTimeoutFunction('base');
-        return;
-    }
-    if (!oBody || typeof oBody == 'undefined') {
         oBody = document.getElementsByTagName('body')[0];
 
-        setTimeoutFunction('base');
+        setTimeoutFunction('baseBegin', bOnload);
         return;
     }
 
-    getUserIp();
-
-    let t9 = setTimeout(function () {
-        clearTimeout(t9);
-
-        queryMasterOrigin();
-    }, 0);
-
-    let t14 = setTimeout(function () {
-        clearTimeout(t14);
-
-        setHosts();
-    }, 0);
-
-    let t4 = setTimeout(function () {
-        clearTimeout(t4);
-
-        setHtmlLang();
-    }, 0);
-
-    let t5 = setTimeout(function () {
-        clearTimeout(t5);
-
-        initializeFontSize();
-    }, 0);
-
-    let t8 = setTimeout(function () {
-        clearTimeout(t8);
-
-        setMeta();
-    }, 0);
-
-    let t10 = setTimeout(function () {
-        clearTimeout(t10);
-
-        fatherDom();
-    }, 0);
-
-    let t6 = setTimeout(function () {
-        clearTimeout(t6);
-
-        writeLocalstorageIframe();
-    }, 0);
-
-    let t15 = setTimeout(function () {
-        clearTimeout(t15);
-
-        setCssPathAndVersion();
-    }, 0);
-
-    let t16 = setTimeout(function () {
-        clearTimeout(t16);
-
-        setJsPathAndVersion();
-    }, 0);
-
-    let t2 = setTimeout(function () {
-        clearTimeout(t2);
-
-        loadBaseCss();
-    }, 0);
-
-    if (typeof aLang == 'undefined') {
-        let t7 = setTimeout(function () {
-            clearTimeout(t7);
-
-            queryUserLang();
-        }, 0);
+    console.log('base 2222222222222222');
+    if (bOnload) {
+        asyn('winResize', bOnload);
     }
 
-    let t1 = setTimeout(function () {
-        clearTimeout(t1);
+    console.log('base 3333333333333');
+    asyn('getUserIp');
 
-        loadOriginJquery();
+    console.log('base 44444444444444');
+    asyn('queryMasterOrigin');
+
+    console.log('base 5555555555555');
+    asyn('setHosts');
+
+    console.log('base 666666666666666');
+    asyn('initializeFontSize');
+
+    console.log('base 7777777777777');
+    asyn('setMeta');
+
+    console.log('base 8888888888888888');
+    asyn('fatherDom');
+
+    console.log('base 999999999999999');
+    asyn('writePublicDom');
+
+    console.log('base aaaaaaaaaaaaaaaaaaa');
+    asyn('writeLocalstorageIframe');
+
+    console.log('base bbbbbbbbbbbbbbbbb');
+    asyn('setCssPathAndVersion');
+
+    console.log('base cccccccccccccccccccc');
+    asyn('setJsPathAndVersion');
+
+    console.log('base dddddddddddddddddd');
+    asyn('loadBaseCss');
+
+    console.log('base eeeeeeeeeeeeeeeee');
+    asyn('queryUserLang');
+
+    console.log('base fffffffffffffffff');
+    asyn('loadOriginJquery');
+
+    console.log('base gggggggggggggggg');
+    iBeginTime = getTime();
+    asyn('checkUseTime');
+
+    console.log('base hhhhhhhhhhhhhhhhhhhh');
+    asyn('loadBaseJs');
+}
+function winResize (bOnload = false) {
+    asyn('shade', sBaseShadeId);
+
+    let t = setTimeout(function () {
+        clearTimeout(t);
+
+        if (bOnload) {
+            astrict();
+        }
     }, 0);
 
-    let t3 = setTimeout(function () {
-        clearTimeout(t3);
+    winSize();
 
-        iBeginTime = getTime();
-        checkUseTime();
-    }, 0);
-
-    let t21 = setTimeout(function () {
-        clearTimeout(t21);
-
-        loadBaseJs();
-    }, 0);
-
-    let t13 = setTimeout(function () {
-        clearTimeout(t13);
-
-        loadIndexJs();
-    }, 0);
+    initializeFontSize();
 }
 
-window.onload = base();
+// function getPublicShadeDom () {
+//     let o = document.getElementById(sPublicShadeId);
+//     return o !== null ? o : false;
+// }
+// function checkExistPublicShadeDom () {
+//     return document.getElementById(sPublicShadeId) ? true : false;
+// }
+// function writePublicShade () {
+//     let o = getPublicShadeDom();
+//     if (o) {
+//         console.log('writePublicShade public shade is true, so no to do ');
+//
+//         return true;
+//     }
+//
+//     o = document.createElement('div');
+//     o.id = sPublicShadeId;
+//
+//     fatherDom().appendChild(o);
+// }
+//
+// function checkExistShade (d = '') {
+//     if (!d) {
+//         console.log('checkExistShade ' + d + ' is null');
+//         return false;
+//     }
+//
+//     return document.getElementById(d);
+// }
+//
+// /**
+//  *
+//  * 写遮罩层
+//  * @param d 遮罩层 id type string
+//  * @returns {HTMLDivElement}
+//  */
+// function writeShade (d = '') {
+//     iShadeBeginZIndex += parseInt(1);
+//
+//     let o = document.createElement('div');
+//     o.id = d;
+//     o.className = sShadeClass;
+//     o.style.zIndex = iShadeBeginZIndex;
+//
+//     return o;
+// }
+//
+// /**
+//  *
+//  * 添加遮罩层 dom
+//  *
+//  * @param d 遮罩层 dom
+//  */
+// function appendShade (d = false) {
+//     if (!d) {
+//         console.log('appendShade d is null, so no to do ');
+//         return;
+//     }
+//
+//     if (!checkExistPublicShadeDom()) {
+//         let t = setTimeout(function () {
+//             clearTimeout(t);
+//
+//             writePublicShade();
+//         }, 0);
+//
+//         let t1 = setTimeout(function () {
+//             clearTimeout(t1);
+//
+//             setTimeoutFunction('appendShade');
+//         }, 0);
+//
+//         return;
+//     }
+//
+//     // console.log(getPublicShadeDom());
+//     // oHead.insertBefore(m, finalMeta());
+//     getPublicShadeDom().appendChild(d);
+// }
+//
+// function writeBaseShade () {
+//     if (checkExistShade(sBaseShadeId)) {
+//         console.log('uuuuuuuuuuuuuuuuuuuuuuuu');
+//         console.log('writeIndexShade checkExistShade id ' + sBaseShadeId + ' allready exist, so no write and now to show');
+//         console.log('need to show');
+//         return;
+//     }
+//
+//     let t = setTimeout(function () {
+//         clearTimeout(t);
+//
+//         appendShade(writeShade(sBaseShadeId));
+//     }, 0);
+// }
+
+// /**
+//  *
+//  * 清除 遮罩层
+//  *
+//  * @param o 遮罩层 dom
+//  */
+// function clearShade (o = false) {
+//     console.log('zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz');
+//     console.log(o);
+//     if (!o) {
+//         console.log('clearShade o is null, so no to do ');
+//         return;
+//     }
+//     console.log('clearShade ' + o.id + ' is true, will to clear shade ');
+//
+//     if (typeof window['animates'] == 'undefined') {
+//         console.log('clearShade animates is undefined, so settimeout retry clearShade ');
+//
+//         let t = setTimeout(function () {
+//             clearTimeout(t);
+//
+//             setTimeoutFunction('clearShade', o);
+//         })
+//         return;
+//     }
+//
+//     animates(o, {opacity: 0}, iSpeed, function () {
+//         let p1 = new RegExp('\\s+' + sInvisibleClass,'gm');
+//         let p2 = new RegExp('\\s+' + sVisibleClass,'gm');
+//         o.className = o.className.replace(p1, '');
+//         o.className = o.className.replace(p2, '');
+//         o.className += ' ' + sInvisibleClass;
+//
+//         o.style.zIndex = 0;
+//     });
+// }
+
+// function writeIndexShade () {
+//     if (checkExistShade(sIndexShadeId)) {
+//         console.log('writeIndexShade checkExistShade id ' + sIndexShadeId + ' allready exist, so no write and now to show');
+//         console.log('need to show');
+//         return;
+//     }
+//
+//     appendShade(writeShade(sIndexShadeId));
+// }
+
+// function shade (d = '') {
+//     console.log('kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk');
+//     if (!d) {
+//         console.log('shade d is null, so no to do ');
+//         return;
+//     }
+//
+//     if (!checkExistPublicShadeDom()) {
+//         console.log('shade checkExistPublicShadeDom is false, no shade father dom, will write shade father dom, settimeout retry to write shade ');
+//         let t1 = setTimeout(function () {
+//             clearTimeout(t1);
+//
+//             writePublicShade();
+//         }, 0);
+//
+//         let t2 = setTimeout(function () {
+//             clearTimeout(t2);
+//
+//             setTimeoutFunction('shade', d);
+//         }, 0);
+//         return;
+//     }
+//     console.log('shade checkExistPublicShadeDom is true, will write son shade');
+//
+//     // let t3 = setTimeout(function () {
+//     //     clearTimeout(t3);
+//     //
+//     //     writeIndexShade();
+//     // }, 0);
+//     console.log('qqqqqqqqqqqqqqqqqqq');
+//     let f = '';
+//     switch (d) {
+//         case sBaseShadeId :
+//             f = 'writeBaseShade';
+//             break;
+//     }
+//     console.log('aaaaaaaaaaaaaa');
+//     if (!f) {
+//         console.log('shade f is null, so no to do ');
+//         return;
+//     }
+//
+//     // console.log(f);
+//     // console.log('zzzzzzzzzzzzzzz');
+//     // let t3 = setTimeout(function () {
+//     //     clearTimeout(t3);
+//
+//         window[f]();
+//     // }, 0);
+//
+//     // let t4 = setTimeout(function () {
+//     //     clearTimeout(t4);
+//     //
+//     //     writePlatformShade();
+//     // }, 0);
+//     //
+//     // let t5 = setTimeout(function () {
+//     //     clearTimeout(t5);
+//     //
+//     //     writePageShade();
+//     // }, 0);
+// }
+
+function illegality () {
+    window.location.href = sAstrictJumpUrl;
+}
+
+let bNoticeAstrict = false;
+function astrict () {
+    if (bNoticeAstrict) {
+        return;
+    }
+    bNoticeAstrict = true;
+
+    if (!isMobile()) {
+        alert('The computer side is not enabled yet, will jump to ' + sAstrictJumpUrl);
+
+        illegality();
+        return false;
+    }
+
+    return true;
+}
+
+/**
+ *
+ * 浏览器尺寸
+ *
+ */
+function winSize() {
+    //获取窗口宽度
+    if (window.innerWidth) {
+        iWinWidth = window.innerWidth;
+    }else if ((document.body) && (document.body.clientWidth)) {
+        iWinWidth = document.body.clientWidth;
+    }
+
+    //获取窗口高度
+    if (window.innerHeight) {
+        iWinHeight = window.innerHeight;
+    } else if ((document.body) && (document.body.clientHeight)) {
+        iWinHeight = document.body.clientHeight;
+    }
+
+    // //通过深入Document内部对body进行检测，获取窗口大小
+    // if (document.documentElement  && document.documentElement.clientHeight && document.documentElement.clientWidth) {
+    //     iWinHeight = document.documentElement.clientHeight;
+    //     iWinWidth = document.documentElement.clientWidth;
+    // }
+}
+
+// function baseShade () {
+//     // if (typeof window['shade'] == 'undefined') {
+//     //     console.log('baseShade shade is undefined, so settimeout retry baseShade ');
+//     //
+//     //     setTimeoutFunction('baseShade');
+//     //     return;
+//     // }
+//     shade(sBaseShadeId);
+// }
+
+// function winResize (bOnload = false) {
+//     // console.log('jjjjjjjjjjjjjjjjjjjjjjjjjjjjjj');
+//     baseShade();
+//
+//     let t = setTimeout(function () {
+//         clearTimeout(t);
+//
+//         if (bOnload) {
+//             astrict();
+//         }
+//     }, 0)
+//
+//     winSize();
+//
+//     initializeFontSize();
+// }
+
+// function sessId () {
+//     if (typeof window['sessionId'] == 'undefined') {
+//         console.log('sessId sessionId is undefined, so settimeout retry sessId ');
+//
+//         let t = setTimeout(function () {
+//             clearTimeout(t);
+//
+//             setTimeoutFunction('sessId');
+//         }, 0);
+//         return;
+//     }
+//     console.log('sessId sessionId is defined, so to sessionId ');
+//
+//     let t2 = setTimeout(function () {
+//         clearTimeout(t2);
+//
+//         sessionId();
+//     }, 0);
+// }
+
+window.onload = baseBegin(true);
+
+window.onresize = function () {
+    if (bFirstLoad) {
+        console.log('window load but use resize, no use resize function');
+        return false;
+    }
+    console.log('window resize, will do resize function');
+
+    shade(sBaseShadeId);
+
+    if (aBaseTimer['winResize']) {
+        clearTimeout(aBaseTimer['winResize']);
+    }
+
+    aBaseTimer['winResize'] = setTimeout(function () {
+        winResize();
+    }, aTimer['winResize']);
+}

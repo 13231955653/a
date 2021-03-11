@@ -23,3 +23,9 @@ function repeatedlyForumPage (bNoFirst = false) {
 function existForumBody () {
     return document.getElementById(sForumBodyId) ? true : false;
 }
+
+function forumBegin () {
+    repeatedlyPage(sForumPage);
+}
+
+window.onload = forumBegin();

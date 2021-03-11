@@ -75,42 +75,51 @@ function localstorageDecodeValue (sValue = '') {
 //     }
 // }
 
-function repeatedlyPage (sPage = '') {
-    if (!sPage) {
+function repeatedlyPage (p = '') {
+    if (!p) {
         console.log('repeatedlyPage page is null，so no will to do');
         return;
     }
 
-    let sFunc = '';
-    switch (sPage) {
+    let f = '';
+    switch (p) {
         case sForumPage:
-            sFunc = 'repeatedly' + ucfirst(sPage) + 'Page';
+            f = 'repeatedly' + ucfirst(p) + 'Page';
             break;
         case sChatPage:
-            sFunc = 'repeatedly' + ucfirst(sPage) + 'Page';
+            f = 'repeatedly' + ucfirst(p) + 'Page';
             break;
         case sFriendPage:
-            sFunc = 'repeatedly' + ucfirst(sPage) + 'Page';
+            f = 'repeatedly' + ucfirst(p) + 'Page';
             break;
         case sSettingPage:
-            sFunc = 'repeatedly' + ucfirst(sPage) + 'Page';
+            f = 'repeatedly' + ucfirst(p) + 'Page';
             break;
     }
 
     ///////////////////////////////////////////////////////
-    // typeof window[sFunc]
-    // console.log(sFunc);
-    // console.log(typeof window[sFunc] == 'undefined');
-    if (sFunc) {
-        if (typeof window[sFunc] == 'undefined') {
-            console.log('repeatedlyPage window ' + sFunc + ' is undefined, so settimeout retry ');
-            setTimeoutFunction('repeatedlyPage', sPage);
-            return;
-        }
-
-        console.log('repeatedlyPage window ' + sFunc + ' is defined, so will to do ');
-        window[sFunc](sLastPage === sPage);
+    // typeof window[f]
+    // console.log(f);
+    // console.log(typeof window[f] == 'undefined');
+    if (!f) {
+        console.log('repeatedlyPage window ' + f + ' is null, so no to do ');
+        return;
     }
+
+    if (typeof window[f] == 'undefined') {
+        console.log('repeatedlyPage window ' + f + ' is undefined, so settimeout retry ');
+        setTimeoutFunction('repeatedlyPage', p);
+        return;
+    }
+    console.log('repeatedlyPage window ' + f + ' is defined, so will to do ');
+    let t = setTimeout(function () {
+        clearTimeout(t);
+
+        window[f](sLastPage === p);
+    }, 0);
+    // window[f]();
+
+    sLastPage = p;
 }
 
 /**
@@ -134,14 +143,14 @@ function replaceWindowTitle (t = '') {
 }
 
 function logicBegin () {
-    showPageShade();
+    // showPageShade();
 
     if (typeof window['writePublicDom'] == 'undefined') {
         console.log('logicBegin writePublicDom is undefined, so settimeout retry to logicBegin ');
         setTimeoutFunction('logicBegin');
         return;
     }
-    writePublicDom();
+    // writePublicDom();
 
     if (typeof window['updateUrlPage'] == 'undefined') {
         console.log('logicBegin updateUrlPage is undefined, so settimeout retry to logicBegin ');

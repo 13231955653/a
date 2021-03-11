@@ -22,12 +22,13 @@ const sSessionIdSplitLength =8;
 const sOldSessionIdCookieKey = 'o_t';
 const sNewSessionIdCookieKey = 'n_t';
 
-const sIndexShadeId = 'index_shade';
-const sPlatformShadeId = 'platform_shade';
-const sPageShadeId = 'page_shade';
-let iShadeBeginZIndex = 1000000000;
-const sInvisibleClass = 'invisible';
-const sVisibleClass = 'gradually_visible';
+// const sBaseShadeId = 'base_shade';
+// const sIndexShadeId = 'index_shade';
+// const sPlatformShadeId = 'platform_shade';
+// const sPageShadeId = 'page_shade';
+// let iShadeBeginZIndex = 1000000000;
+// const sInvisibleClass = 'invisible';
+// const sVisibleClass = 'gradually_visible';
 
 const sPublicFootId = 'public_footer';
 const sPublicHeaderId = 'public_header';
@@ -35,7 +36,6 @@ const sPublicBodyId = 'public_body';
 const sPublicLeftId = 'public_left';
 const sPublicRightId = 'public_right';
 const sPublicNoticeId = 'public_notice';
-const sPublicShadeId = 'public_shade';
 const sFootTag = '_foot';
 const sFootLiSuffix = '_li';
 const sActiveFootTag = 'foot_active';
@@ -68,8 +68,8 @@ const sDefaultPageHtml = 'index.html';
 
 let bFirstLoad = true; // 新打开窗口
 
-let iWinWidth = 0;
-let iWinHeight = 0;
+// let iWinWidth = 0;
+// let iWinHeight = 0;
 
 //RSA公钥
 const RSA_DEFAULT_PUBLIC = 'MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEA0lPvdk7Kbuxesr97W/rEqEsvhFBM6Uk/9GELq/b8aWyzbO9Zf1Z9St9EqWr7U26t9mQoZOuUQLMu7ijp/AsXOR7ojZIzdJ/QESptMHrlcSmRRHf2nUzeh1SCs8xveKNNuoJjqcGXcoUPzrtrQbtpcgNY3rofkIIi/xdSDDiGVxk8yrkFZIAdPi0w6oUwOedcnp9bosnURR42i7RcEX4/KUkN2pcd26nZGrrMGqOrOmLayx3GWBrRQ6dvBW/fM1a065SUiGlpCaG6lR0P1zRp7RPX/J73b47oaBCoOf8CVMjR5Nhdggduflu5nYVn0GRG8hGDlo0pRL+DwiI6NH6WloOgp4QYyVlczVs6gHYU5oW6AiwD8dp00IYQmJGhh8H9koO4+K1v1BdHvlNx+TcXRCWiqxqrkRAh80hRAvX1Ybhax+eV1ADr1PKR8TlJTUFrCIO9FrC42Hh/JFQITkzGzGFo1ZIfPY60kMsKyG/jGbs969/A4xz9UJaU0WuqRrjZd1HSiGd800FC4tragVPY8fLoIJs21bPuVKRwjRBO061CM6JyODzClUPN8iT20TaASWGQuLlBssZnUWrpU4Hgx1KIFm7reaXsaxsPZGiKkULBrFKeZoxUsnNSKoPBZGqm7dCqCeGSzjEOuvpyNx3gLz3vLPkrPYyw61kWVUxDGBECAwEAAQ==';
@@ -150,36 +150,32 @@ a1['8'] = '位';
 a1['9'] = '向';
 const aLocalstorageEncodeConfuseEncode = a1;//localstorage 混淆加密
 
-const sAstrictJumpUrl = 'https://www.baidu.com';
-
-const iSpeed = 300; //动画速度
-
-/**
- *
- * 浏览器尺寸
- *
- */
-function winSize() {
-    //获取窗口宽度
-    if (window.innerWidth) {
-        iWinWidth = window.innerWidth;
-    }else if ((document.body) && (document.body.clientWidth)) {
-        iWinWidth = document.body.clientWidth;
-    }
-
-    //获取窗口高度
-    if (window.innerHeight) {
-        iWinHeight = window.innerHeight;
-    } else if ((document.body) && (document.body.clientHeight)) {
-        iWinHeight = document.body.clientHeight;
-    }
-
-    // //通过深入Document内部对body进行检测，获取窗口大小
-    // if (document.documentElement  && document.documentElement.clientHeight && document.documentElement.clientWidth) {
-    //     iWinHeight = document.documentElement.clientHeight;
-    //     iWinWidth = document.documentElement.clientWidth;
-    // }
-}
+// /**
+//  *
+//  * 浏览器尺寸
+//  *
+//  */
+// function winSize() {
+//     //获取窗口宽度
+//     if (window.innerWidth) {
+//         iWinWidth = window.innerWidth;
+//     }else if ((document.body) && (document.body.clientWidth)) {
+//         iWinWidth = document.body.clientWidth;
+//     }
+//
+//     //获取窗口高度
+//     if (window.innerHeight) {
+//         iWinHeight = window.innerHeight;
+//     } else if ((document.body) && (document.body.clientHeight)) {
+//         iWinHeight = document.body.clientHeight;
+//     }
+//
+//     // //通过深入Document内部对body进行检测，获取窗口大小
+//     // if (document.documentElement  && document.documentElement.clientHeight && document.documentElement.clientWidth) {
+//     //     iWinHeight = document.documentElement.clientHeight;
+//     //     iWinWidth = document.documentElement.clientWidth;
+//     // }
+// }
 
 let bInLoadPageJs = false;
 function loadPageJs () {
@@ -222,11 +218,11 @@ function loadPageJs () {
         changeDomFatherOpacity();
     }, 0);
 
-    let t2 = setTimeout(function () {
-        clearTimeout(t2);
-
-        writePageShade();
-    }, 0);
+    // let t2 = setTimeout(function () {
+    //     clearTimeout(t2);
+    //
+    //     writePageShade();
+    // }, 0);
 
     let t3 = setTimeout(function () {
         clearTimeout(t3);
@@ -278,348 +274,368 @@ function afterLoadPageJs () {
     }, 0);
 }
 
-function getPublicShadeDom () {
-    let o = document.getElementById(sPublicShadeId);
-    return o !== null ? o : false;
-}
-function checkExistPublicShadeDom () {
-    return document.getElementById(sPublicShadeId) ? true : false;
-}
-function writePublicShade () {
-    let o = getPublicShadeDom();
-    if (o) {
-        console.log('writePublicShade public shade is true, so no to do ');
+// function getPublicShadeDom () {
+//     let o = document.getElementById(sPublicShadeId);
+//     return o !== null ? o : false;
+// }
+// function checkExistPublicShadeDom () {
+//     return document.getElementById(sPublicShadeId) ? true : false;
+// }
+// function writePublicShade () {
+//     let o = getPublicShadeDom();
+//     if (o) {
+//         console.log('writePublicShade public shade is true, so no to do ');
+//
+//         return true;
+//     }
+//
+//     o = document.createElement('div');
+//     o.id = sPublicShadeId;
+//
+//     fatherDom().appendChild(o);
+// }
+// function shade () {
+//     if (!checkExistPublicShadeDom()) {
+//         console.log('shade checkExistPublicShadeDom is false, no shade father dom, will write shade father dom, settimeout retry to write shade ');
+//         let t1 = setTimeout(function () {
+//             clearTimeout(t1);
+//
+//             writePublicShade();
+//         }, 0);
+//
+//         let t2 = setTimeout(function () {
+//             clearTimeout(t2);
+//
+//             setTimeoutFunction('shade');
+//         }, 0);
+//         return;
+//     }
+//     console.log('shade checkExistPublicShadeDom is true, will write son shade');
+//
+//     let t3 = setTimeout(function () {
+//         clearTimeout(t3);
+//
+//         writeIndexShade();
+//     }, 0);
+//
+//     let t4 = setTimeout(function () {
+//         clearTimeout(t4);
+//
+//         writePlatformShade();
+//     }, 0);
+//
+//     let t5 = setTimeout(function () {
+//         clearTimeout(t5);
+//
+//         writePageShade();
+//     }, 0);
+// }
+// function checkExistShade (d = '') {
+//     if (!d) {
+//         console.log('checkExistShade ' + d + ' is null');
+//         return false;
+//     }
+//
+//     return document.getElementById(d);
+// }
+// function writeIndexShade () {
+//     if (checkExistShade(sIndexShadeId)) {
+//         console.log('writeIndexShade checkExistShade id ' + sIndexShadeId + ' allready exist, so no write and now to show');
+//         console.log('need to show');
+//         return;
+//     }
+//
+//     appendShade(writeShade(sIndexShadeId));
+// }
+// function writePlatformShade () {
+//     if (checkExistShade(sPlatformShadeId)) {
+//         console.log('writePlatformShade checkExistShade id ' + sPlatformShadeId + ' allready exist, so no write and now to show');
+//         console.log('need to show');
+//         return;
+//     }
+//
+//     appendShade(writeShade(sPlatformShadeId));
+// }
+// function showPageShade () {
+//     let o = document.getElementById(sPageShadeId);
+//     if (!o) {
+//         console.log('showPageShade page shade dom no get, will to write page shade and retry');
+//
+//         let t = setTimeout(function () {
+//             clearTimeout(t);
+//
+//             writePageShade('writePageShade');
+//         }, 0);
+//         return;
+//     }
+//
+//     showShade(o);
+// }
+// /**
+//  *
+//  * page 遮罩层
+//  *
+//  * @param c 回调函数 function name type string
+//  */
+// function writePageShade (c = false) {
+//     if (checkExistShade(sPageShadeId)) {
+//         console.log('writePageShade checkExistShade id ' + sPageShadeId + ' allready exist, so no write and now to show');
+//
+//         let t = setTimeout(function () {
+//             clearTimeout(t);
+//
+//             showPageShade();
+//         }, 0);
+//         return;
+//     }
+//
+//     let o = writeShade(sPageShadeId);
+//     appendShade(o);
+//
+//     if (c) {
+//         window[c]();
+//     }
+// }
 
-        return true;
-    }
+// /**
+//  *
+//  * 写遮罩层
+//  * @param d 遮罩层 id type string
+//  * @returns {HTMLDivElement}
+//  */
+// function writeShade (d = '') {
+//     iShadeBeginZIndex += parseInt(1);
+//
+//     let o = document.createElement('div');
+//     o.id = d;
+//     o.className = d;
+//     o.style.zIndex = iShadeBeginZIndex;
+//
+//     return o;
+// }
+// /**
+//  *
+//  * 添加遮罩层 dom
+//  *
+//  * @param d 遮罩层 dom
+//  */
+// function appendShade (d = false) {
+//     if (!d) {
+//         console.log('appendShade d is null, so no to do ');
+//         return;
+//     }
+//
+//     getPublicShadeDom().appendChild(d);
+// }
 
-    o = document.createElement('div');
-    o.id = sPublicShadeId;
+// function showShade (o = false) {
+//     if (!o) {
+//         console.log('showShade o dom is null, so no to do');
+//         return;
+//     }
+//     console.log('showShade ' + o.id + ', will to show shade ');
+//
+//     iShadeBeginZIndex += parseInt(1);
+//
+//     let p1 = new RegExp('\\s+' + sInvisibleClass,'gm');
+//     let p2 = new RegExp('\\s+' + sVisibleClass,'gm');
+//     o.className = o.className.replace(p1, '');
+//     o.className = o.className.replace(p2, '');
+//
+//     o.className += ' ' + sVisibleClass;
+//     o.style.zIndex = iShadeBeginZIndex;
+//
+//     animates(o, {opacity: 100}, iSpeed);
+// }
+// /**
+//  *
+//  * 清除 遮罩层
+//  *
+//  * @param o 遮罩层 dom
+//  */
+// function clearShade (o = false) {
+//     if (!o) {
+//         console.log('clearShade o is null, so no to do ');
+//         return;
+//     }
+//     console.log('clearShade ' + o.id + ' is true, will to clear shade ');
+//
+//     if (typeof window['animates'] == 'undefined') {
+//         console.log('clearShade animates is undefined, so settimeout retry clearShade ');
+//
+//         setTimeoutFunction('clearShade');
+//         return;
+//     }
+//
+//     animates(o, {opacity: 0}, iSpeed, function () {
+//         let p1 = new RegExp('\\s+' + sInvisibleClass,'gm');
+//         let p2 = new RegExp('\\s+' + sVisibleClass,'gm');
+//         o.className = o.className.replace(p1, '');
+//         o.className = o.className.replace(p2, '');
+//         o.className += ' ' + sInvisibleClass;
+//
+//         o.style.zIndex = 0;
+//     });
+// }
+// /**
+//  *
+//  * 清除 未读取到 index js 遮罩层
+//  *
+//  */
+// function clearIndexShade () {
+//     let o = document.getElementById(sIndexShadeId);
+//     if (!o) {
+//         console.log('clearIndexShade o is null, so no to do ');
+//         return;
+//     }
+//
+//     clearShade(o);
+// }
+// /**
+//  *
+//  * 清除品台遮罩层
+//  *
+//  */
+// function clearPlatformShade () {
+//     let o = document.getElementById(sPlatformShadeId);
+//     if (!o) {
+//         console.log('clearPlatformShade o id null, so no to do ');
+//         return;
+//     }
+//
+//     clearShade(o);
+// }
+// /**
+//  *
+//  * 清除 page 遮罩层
+//  *
+//  */
+// function clearPageShade () {
+//     let o = document.getElementById(sPageShadeId);
+//     if (!o) {
+//         console.log('clearPageShade o is null, so no to do ');
+//
+//         return;
+//     }
+//
+//     clearShade(o);
+// }
 
-    fatherDom().appendChild(o);
-}
-function shade () {
-    if (!checkExistPublicShadeDom()) {
-        console.log('shade checkExistPublicShadeDom is false, no shade father dom, will write shade father dom, settimeout retry to write shade ');
-        let t1 = setTimeout(function () {
-            clearTimeout(t1);
+// let bNoticeAstrict = false;
+// function astrict () {
+//     if (bNoticeAstrict) {
+//         return;
+//     }
+//     bNoticeAstrict = true;
+//
+//     if (!isMobile()) {
+//         alert('The computer side is not enabled yet, will jump to ' + sAstrictJumpUrl);
+//
+//         illegality();
+//         return false;
+//     }
+//
+//     return true;
+// }
 
-            writePublicShade();
-        }, 0);
-
-        let t2 = setTimeout(function () {
-            clearTimeout(t2);
-
-            setTimeoutFunction('shade');
-        }, 0);
-        return;
-    }
-    console.log('shade checkExistPublicShadeDom is true, will write son shade');
-
-    let t3 = setTimeout(function () {
-        clearTimeout(t3);
-
-        writeIndexShade();
-    }, 0);
-
-    let t4 = setTimeout(function () {
-        clearTimeout(t4);
-
-        writePlatformShade();
-    }, 0);
-
-    let t5 = setTimeout(function () {
-        clearTimeout(t5);
-
-        writePageShade();
-    }, 0);
-}
-function checkExistShade (d = '') {
-    if (!d) {
-        console.log('checkExistShade ' + d + ' is null');
-        return false;
-    }
-
-    return document.getElementById(d);
-}
-function writeIndexShade () {
-    if (checkExistShade(sIndexShadeId)) {
-        console.log('writeIndexShade checkExistShade id ' + sIndexShadeId + ' allready exist, so no write and now to show');
-        console.log('need to show');
-        return;
-    }
-
-    appendShade(writeShade(sIndexShadeId));
-}
-function writePlatformShade () {
-    if (checkExistShade(sPlatformShadeId)) {
-        console.log('writePlatformShade checkExistShade id ' + sPlatformShadeId + ' allready exist, so no write and now to show');
-        console.log('need to show');
-        return;
-    }
-
-    appendShade(writeShade(sPlatformShadeId));
-}
-function showPageShade () {
-    let o = document.getElementById(sPageShadeId);
-    if (!o) {
-        console.log('showPageShade page shade dom no get, will to write page shade and retry');
-
-        let t = setTimeout(function () {
-            clearTimeout(t);
-
-            writePageShade('writePageShade');
-        }, 0);
-        return;
-    }
-
-    showShade(o);
-}
-
-/**
- *
- * page 遮罩层
- *
- * @param c 回调函数 function name type string
- */
-function writePageShade (c = false) {
-    if (checkExistShade(sPageShadeId)) {
-        console.log('writePageShade checkExistShade id ' + sPageShadeId + ' allready exist, so no write and now to show');
-
-        let t = setTimeout(function () {
-            clearTimeout(t);
-
-            showPageShade();
-        }, 0);
-        return;
-    }
-
-    let o = writeShade(sPageShadeId);
-    appendShade(o);
-
-    if (c) {
-        window[c]();
-    }
-}
-
-/**
- *
- * 写遮罩层
- * @param d 遮罩层 id type string
- * @returns {HTMLDivElement}
- */
-function writeShade (d = '') {
-    iShadeBeginZIndex += parseInt(1);
-
-    let o = document.createElement('div');
-    o.id = d;
-    o.className = d;
-    o.style.zIndex = iShadeBeginZIndex;
-
-    return o;
-}
-/**
- *
- * 添加遮罩层 dom
- *
- * @param d 遮罩层 dom
- */
-function appendShade (d = false) {
-    if (!d) {
-        console.log('appendShade d is null, so no to do ');
-        return;
-    }
-
-    getPublicShadeDom().appendChild(d);
-}
-
-function showShade (o = false) {
-    if (!o) {
-        console.log('showShade o dom is null, so no to do');
-        return;
-    }
-    console.log('showShade ' + o.id + ', will to show shade ');
-
-    iShadeBeginZIndex += parseInt(1);
-
-    let p1 = new RegExp('\\s+' + sInvisibleClass,'gm');
-    let p2 = new RegExp('\\s+' + sVisibleClass,'gm');
-    o.className = o.className.replace(p1, '');
-    o.className = o.className.replace(p2, '');
-
-    o.className += ' ' + sVisibleClass;
-    o.style.zIndex = iShadeBeginZIndex;
-
-    animates(o, {opacity: 100}, iSpeed);
-}
-/**
- *
- * 清除 遮罩层
- *
- * @param o 遮罩层 dom
- */
-function clearShade (o = false) {
-    if (!o) {
-        console.log('clearShade o is null, so no to do ');
-        return;
-    }
-    console.log('clearShade ' + o.id + ' is true, will to clear shade ');
-
-    if (typeof window['animates'] == 'undefined') {
-        console.log('clearShade animates is undefined, so settimeout retry clearShade ');
-
-        setTimeoutFunction('clearShade');
-        return;
-    }
-
-    animates(o, {opacity: 0}, iSpeed, function () {
-        let p1 = new RegExp('\\s+' + sInvisibleClass,'gm');
-        let p2 = new RegExp('\\s+' + sVisibleClass,'gm');
-        o.className = o.className.replace(p1, '');
-        o.className = o.className.replace(p2, '');
-        o.className += ' ' + sInvisibleClass;
-
-        o.style.zIndex = 0;
-    });
-}
-/**
- *
- * 清除 未读取到 index js 遮罩层
- *
- */
-function clearIndexShade () {
-    let o = document.getElementById(sIndexShadeId);
-    if (!o) {
-        console.log('clearIndexShade o is null, so no to do ');
-        return;
-    }
-
-    clearShade(o);
-}
-/**
- *
- * 清除品台遮罩层
- *
- */
-function clearPlatformShade () {
-    let o = document.getElementById(sPlatformShadeId);
-    if (!o) {
-        console.log('clearPlatformShade o id null, so no to do ');
-        return;
-    }
-
-    clearShade(o);
-}
-/**
- *
- * 清除 page 遮罩层
- *
- */
-function clearPageShade () {
-    let o = document.getElementById(sPageShadeId);
-    if (!o) {
-        console.log('clearPageShade o is null, so no to do ');
-
-        return;
-    }
-
-    clearShade(o);
-}
-
-let bNoticeAstrict = false;
-function astrict () {
-    if (bNoticeAstrict) {
-        return;
-    }
-    bNoticeAstrict = true;
-
-    if (!isMobile()) {
-        alert('The computer side is not enabled yet, will jump to ' + sAstrictJumpUrl);
-
-        illegality();
-        return false;
-    }
-
-    return true;
-}
+// function sessId () {
+//     if (typeof window['sessionId'] == 'undefined') {
+//         console.log('sessId sessionId is undefined, so settimeout retry sessId ');
+//
+//         setTimeoutFunction('sessId');
+//         return;
+//     }
+//     console.log('sessId sessionId is defined, so to sessionId ');
+//
+//     sessionId();
+// }
 
 function sessId () {
     if (typeof window['sessionId'] == 'undefined') {
         console.log('sessId sessionId is undefined, so settimeout retry sessId ');
 
-        setTimeoutFunction('sessId');
+        let t = setTimeout(function () {
+            clearTimeout(t);
+
+            setTimeoutFunction('sessId');
+        }, 0);
         return;
     }
     console.log('sessId sessionId is defined, so to sessionId ');
 
-    sessionId();
+    let t2 = setTimeout(function () {
+        clearTimeout(t2);
+
+        sessionId();
+    }, 0);
 }
 
-function baseBegin (bOnload = false) {
-    console.log('11111111111');
-    if (bOnload) {
-        console.log('22222222222');
-        sessId();
+// /**
+//  *
+//  * 清除 未读取到 index js 遮罩层
+//  *
+//  */
+// // let iMaxClearBaseShadeNumber = 100;
+// let iClearBaseShadeInterval = 100;
+// function clearBaseShade () {
+//     console.log('lllllllllllllllllllllllllllllllll');
+//     console.log(sBaseShadeId);
+//     let o = document.getElementById(sBaseShadeId);
+//     console.log(o);
+//     if (!o) {
+//         console.log('clearBaseShade o is null, so no to do ');
+//         let t = setTimeout(function () {
+//             clearTimeout(t);
+//
+//             clearBaseShade();
+//         }, iClearBaseShadeInterval);
+//         return;
+//     }
+//
+//     clearShade(o);
+// }
 
-        console.log('3333333333333333');
-        winResize();
-    }
+function indexBegin () {
+    console.log('indexBegin 11111111111');
+    asyn('sessId');
 
-    console.log('4444444444444444444');
-    if (typeof jQuery == 'undefined') {
-        console.log('555555555555555555555');
-        if (getNowTime() - iLoadOriginJqueryLastTime > iMaxLoadOriginJqueryWaitTime) {
-            console.log('6666666666666666666');
-            loadLocalJquery();
-        }
-    }
+    console.log('indexBegin 222222222222222');
+    asyn('clearBaseShade');
 
-    console.log('7777777777777777777');
-    afterLoadIndexJs();
+    console.log('indexBegin 3333333333333');
+    asyn('loadLocalJquery1');
 
-    console.log('8888888888888888888');
-    if (typeof window['logicBegin'] == 'undefined') {
-        console.log('9999999999999999999');
-        console.log('baseBegin logicBegin is undefined, so settimeout retry baseBegin');
+    console.log('indexBegin 4444444444444');
+    asyn('indexBeginLogic');
+}
 
-        setTimeoutFunction('baseBegin');
+function loadLocalJquery1 () {
+    if (typeof jQuery != 'undefined') {
         return;
     }
 
-    console.log('00000000000000000');
+    console.log('loadOriginJquery 11111');
+    if (getNowTime() - iLoadOriginJqueryLastTime > iMaxLoadOriginJqueryWaitTime) {
+        console.log('loadOriginJquery 2222');
+        loadLocalJquery();
+        return;
+    }
+
+    setTimeoutFunction('loadOriginJquery');
+}
+
+function indexBeginLogic () {
+    // console.log('ssssssssssssdasdasd');
+    // return;
+    if (typeof window['logicBegin'] == 'undefined') {
+        console.log('indexBeginLogic logicBegin is undefined, so settimeout retry indexBeginLogic');
+
+        setTimeoutFunction('indexBeginLogic');
+        return;
+    }
+    console.log('indexBeginLogic logicBegin is defined, so will to logicBegin ');
+
     logicBegin(true);
 }
 
-function afterLoadIndexJs () {
-    bFirstLoad = false;
-
-    clearIndexShade();
-}
-
-function winResize () {
-    shade();
-
-    astrict();
-
-    winSize();
-
-    initializeFontSize();
-}
-
-window.onload = baseBegin(true);
-
-window.onresize = function () {
-    if (!bFirstLoad) {
-        console.log('window load but use resize, no use resize function');
-        return false;
-    }
-    console.log('window resize, will do resize function');
-
-    if (aBaseTimer['winResize']) {
-        clearTimeout(aBaseTimer['winResize']);
-    }
-
-    aBaseTimer['winResize'] = setTimeout(function () {
-        winResize();
-    }, aTimer['winResize']);
-}
+window.onload = indexBegin();
