@@ -28,7 +28,7 @@ let sIpCityName = '';
 const sQueryUserIpAddress = 'http://pv.sohu.com/cityjson?ie=' + sCharset;
 
 //localstorage相关
-const iMaxLocalstorageSize = 4718592;
+const iMaxLocalstorageSize = 3718592;
 const sOriginLocalstorageSizeKey = 'origin_localstorage_size';
 const sStorageOriginsSonPrefix = 'storage';
 const sStoragePage = 'storage.html';
@@ -1486,9 +1486,9 @@ function setLocalstorage (k = '', m = '', t = false, f = '') {
 
     let q = 1;
     let z = 0;
-    // let sss = sOriginLocalstorageSizeKey;
-    // let c = queryLocalstorageCache(sss);
-    let c = queryLocalstorageCache(sOriginLocalstorageSizeKey);
+    let d = sOriginLocalstorageSizeKey;
+    let c = queryLocalstorageCache(d);
+    // let c = queryLocalstorageCache(sOriginLocalstorageSizeKey);
     c = eval('(' + z + ')');
     c = c ? c : {};
     while (!z || iMaxLocalstorageSize < z) {
@@ -1507,7 +1507,8 @@ function setLocalstorage (k = '', m = '', t = false, f = '') {
 
     // localstorageLocalCache(k, p);
 
-    // localstorageLocalCache(sss, c);
+    // localstorageLocalCache(d, c);
+    asyn('localstorageLocalCache', d, c);
 
     p = storagePage(p);
 
