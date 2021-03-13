@@ -120,17 +120,30 @@ function writeRight () {
 }
 
 function writeNotice () {
-    // let oDom = getPublicNoticeDom();
-    if (getPublicNoticeDom()) {
-        return true;
-    }
-
-    let s = '';
-    s += '<div id="' + sPublicNoticeId + '">';
-
-    s += '</div>';
-
-    // let oBody = bodyDom();
-    $(fatherDom()).append(s);
+    /////////////////////////////////////////////////////////////
+    // // let oDom = getPublicNoticeDom();
+    // if (getPublicNoticeDom()) {
+    //     return true;
+    // }
+    //
+    // let s = '';
+    // s += '<div id="' + sPublicNoticeId + '">';
+    //
+    // s += '</div>';
+    //
+    // // let oBody = bodyDom();
+    // $(fatherDom()).append(s);
 }
 
+// asyn('clearBaseShade');
+
+function platformBegin () {
+    // oHtml.style.visibility = 'visible';
+    // oBody.style.visibility = 'visible';
+
+    console.log('platformBegin 11111111111');
+    asyn('showPlatformShade');
+
+    console.log('platformBegin 333333333333');
+    asyn('clearIndexShade');
+}

@@ -40,7 +40,7 @@ const sLocalstorgaeBeginTag = 0;
 //localstorage相关
 
 const sShadeClass = 'shades';
-const sPublicShadeId = 'public_shade';
+const sPublicShadeId = 'shade_father';
 
 const sNoShowIframeCLass = 'iframe_no_show';
 
@@ -60,6 +60,7 @@ let sUserLangvage = '';
 let sPersonlizedColor = '';
 
 const oDomFatherId = 'dom_father';
+const oDomStorageId = 'storage_father';
 
 let sOrigin = '';
 
@@ -88,17 +89,19 @@ b['loadOriginJquery'] = t;
 b['loadLang'] = t;
 b['logicBegin'] = t;
 b['loadPlatformDomJs'] = t;
-b['indexBegin'] = t;
+// b['indexBegin'] = t;
 b['loadResetCss'] = t;
 b['checkLoadCss'] = 50;
 b['writeStorageDom'] = t;
+b['pageBegin'] = t;
 b['loadLocalJquery'] = t;
 b['replaceLangs'] = t;
 b['loadPublicCss'] = t;
 b['loadPersonalizedCss'] = t;
 b['loadVariableCss'] = t;
 b['writePublicDom'] = t;
-b['shade'] = t;
+b['showIndexShade'] = t;
+b['loadLocalJquery1'] = t;
 b['individuationUuid'] = t;
 b['makeSessionid'] = t;
 b['cacheSessionId'] = t;
@@ -133,6 +136,10 @@ b['pubFooter'] = t;
 b['pubLeft'] = t;
 b['pubRight'] = t;
 b['pubNotice'] = t;
+b['platformBegin'] = t;
+// b['writeIndexShade1'] = t;
+b['showBaseShade'] = t;
+b['showShade'] = t;
 b['clearBaseShade'] = 100;
 b['checkUseTime'] = 60000;
 b['checkSessionIdOutTime'] = 181652;
@@ -283,7 +290,7 @@ const sPublicHeaderId = 'public_header';
 const sPublicBodyId = 'public_body';
 const sPublicLeftId = 'public_left';
 const sPublicRightId = 'public_right';
-const sPublicNoticeId = 'public_notice';
+const sPublicNoticeId = 'notice_father';
 const sFootTag = '_foot';
 const sFootLiSuffix = '_li';
 const sActiveFootTag = 'foot_active';
@@ -511,6 +518,8 @@ function afterloadPublicCss () {
     bLoadPublicCss = true;
 }
 
+
+
 let bLoadResetCss = false;
 function loadResetCss () {
     if (bLoadResetCss) {
@@ -592,13 +601,20 @@ function loadCss (r = '', c = '') {
     asyn('asynLoadCss', l);
 }
 function asynLoadCss (l) {
-    oHead.insertBefore(l, sIndexScriptTag);
+    // oHead.insertBefore(l, sIndexScriptTag);
+    insertAfter(l, oFinalMeta ? oFinalMeta : finalMeta());
 }
-let sIndexScriptTag = '';
+let oIndexScriptTag = '';
 function indexScriptTag () {
-    sIndexScriptTag = document.getElementById(sIndexScriptTagId);
+    oIndexScriptTag = document.getElementById(sIndexScriptTagId);
 }
 indexScriptTag();
+
+let oFinalMeta = '';
+function finalMeta () {
+    oFinalMeta = document.getElementById(sFinalMetaTagId);
+    return oFinalMeta;
+}
 /**
  *
  * 检查 css 是否加载
@@ -713,6 +729,112 @@ function loadPersonlizedColorCss (c = '') {
     }, 0);
 }
 
+let bInLoadPageJs = false;
+let sPageNow = '';
+function loadPageJs () {
+    console.log('zzzzzzzzzzzzzzzzzzzzzzzzaaaa');
+    if (bInLoadPageJs) {
+        console.log('loadPageJs bInLoadPageJs in load, so no to do');
+        return ;
+    }
+    bInLoadPageJs = true;
+
+    asyn('showPageShade');
+
+    // let sPage = getNowPage();
+    let j = '';
+    sPageNow = getNowPage();
+    switch (sPageNow) {
+        case sForumPage:
+            j = sForumJsFile;
+            break;
+        case sChatPage:
+            j = sChatJsFile;
+            break;
+        case sFriendPage:
+            j = sFriendJsFile;
+            break;
+        case sSettingPage:
+            j = sSettingJsFile;
+            break;
+    }
+
+    if (!j) {
+        console.log('loadPageJs j is null, no to do');
+        return false;
+    }
+
+    if (!checkRequestJsCssLimit('js', 'loadPageJs_' + j)) {
+        console.log('loadPageJs checkRequestJsCssLimit loadPageJs_' + j + ', limit, so no to load');
+        return false;
+    }
+
+    let t1 = setTimeout(function () {
+        clearTimeout(t1);
+
+        changeDomFatherOpacity();
+    }, 0);
+
+    // let t2 = setTimeout(function () {
+    //     clearTimeout(t2);
+    //
+    //     writePageShade();
+    // }, 0);
+
+    let t3 = setTimeout(function () {
+        clearTimeout(t3);
+
+        loadJs(j, true, 'afterLoadPageJs');
+    }, 0);
+}
+function afterLoadPageJs () {
+    if (typeof window['urlDecode'] == 'undefined') {
+        console.log('afterLoadPageJs urlDecode is undefined, so settimtoue retry ');
+
+        setTimeoutFunction('afterLoadPageJs');
+        return;
+    }
+    console.log('afterLoadPageJs urlDecode is defined, so will to do ');
+
+    bInLoadPageJs = false;
+
+    // console.log('qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqs');
+    // console.log(sPageNow + 'Begin');
+    asyn(sPageNow + 'Begin');
+
+    // let sPage = getNowPage();
+    // let f = document.getElementById(getNowPage() + sFootTag + sFootLiSuffix);
+    // if (!f) {
+    //     console.log('afterLoadPageJs f is null, no to do');
+    //     return false;
+    // }
+    //
+    // let o = document.getElementsByClassName(sFootTag);
+    // if (o.length) {
+    //     let sPreg = new RegExp('\\s+' + sActiveFootTag,'gm');
+    //     for (let i in o) {
+    //         if (!o[i].className) {
+    //             continue;
+    //         }
+    //
+    //         o[i].className = o[i].className.toString().replace(sPreg, '');
+    //     }
+    // }
+    // f.className += ' ' + sActiveFootTag;
+    //
+    // let t1 = setTimeout(function () {
+    //     clearTimeout(t1);
+    //
+    //     changeDomFatherOpacity(true);
+    // }, 0);
+    //
+    // let t2 = setTimeout(function () {
+    //     clearTimeout(t2);
+    //
+    //     repeatedlyPage(getUrlArgs(sUrlAddressPageKey));
+    // }, 0);
+}
+
 function loadJs (s = '', b = true, c = false) {
     if (!s) {
         return false;
@@ -721,7 +843,10 @@ function loadJs (s = '', b = true, c = false) {
     let o = document.createElement('script');
     o.type = 'text/javascript';
     o.src = s;
-    o.async = b;
+    // if (b) {
+    //     o.async = 'async';
+    // }
+    // o.defer = 'defer';
     o.charset = sCharset;
 
     if (c) {
@@ -749,7 +874,8 @@ function loadJs (s = '', b = true, c = false) {
     asyn('asynLoadJs', o);
 }
 function asynLoadJs (o) {
-    oHead.appendChild(o);
+    // oHead.appendChild(o);
+    insertAfter(o, oIndexScriptTag);
 }
 
 function setCssPathAndVersion () {
@@ -968,6 +1094,8 @@ function asyn (f = '', a = '', b = '') {
         }, 0);
         return;
     }
+    console.log('asyn ' + f + ' is function, so will to do ' + f + ' ');
+
     let t = setTimeout(function () {
         clearTimeout(t);
 
@@ -1041,10 +1169,25 @@ function afterloadIndexJs () {
 
     asyn('indexBegin');
 }
+//
+
 
 function setHtmlLang () {
     oHtml.lang = sHtmlLang;
 }
+
+// function appendChildPreventRedraw (appendChild, FragmentId) {
+//     let d = document.getElementById(FragmentId);
+//     if (!d) {
+//         d = document.createDocumentFragment();
+//         d.id = FragmentId;
+//     }
+//
+//     d.appendChild(appendChild);
+//     // console.log(d);
+//     // appendFather.appendChild(d);
+//     // return d;
+// }
 
 let bSetMeta = false;
 function setMeta () {
@@ -1053,7 +1196,7 @@ function setMeta () {
     }
     bSetMeta = true;
 
-    oHtml.style.display = 'none';
+    // oHtml.style.display = 'none';
 
     let a = [
         sContentAndCharset,
@@ -1087,19 +1230,16 @@ function setMeta () {
         sCopyright,
     ];
 
-    // let s = '';
+    let o = document.createDocumentFragment();
+    let m = '';
     for (let i in a) {
-        setContent(a[i]);
+        m = setContent(a[i]);
+        if (m) {
+            o.appendChild(m);
+        }
     }
-    // console.log(s);
-
-    oHtml.style.display = 'block';
+    oHead.appendChild(o);
 }
-let oFinalMeta = '';
-function finalMeta () {
-    oFinalMeta = document.getElementById(sFinalMetaTagId);
-}
-finalMeta();
 /**
  *
  * 设置 meta 标签
@@ -1107,16 +1247,12 @@ finalMeta();
  * @param n meta name type string
  */
 function setContent (n = '') {
-    let o = oFinalMeta;
-    let m = '';
-    if (n !== sCopyright) {
-        m = document.createElement('meta');
-    }
+    let m = document.createElement('meta');
     switch (n) {
         case sCopyright :
-            o.name = 'Copyright';
-            o.content = sCopyrightContent;
-            return;
+            m.id = sFinalMetaTagId;
+            m.name = 'Copyright';
+            m.content = sCopyrightContent;
             break;
         case sAuther :
             m.name = 'author';
@@ -1231,26 +1367,19 @@ function setContent (n = '') {
             m.content = sMobileFullScreenContent;
             break;
     }
-    oHead.insertBefore(m, oFinalMeta);
-    // console.log(m);
-    // return m;
+    return m;
 }
 
 let oFatherDom = '';
 function fatherDom () {
-    let o = oFatherDom ? oFatherDom : document.getElementById(oDomFatherId);
-    if (o) {
-        return o;
-    }
-
-    o = document.createElement('div');
-    o.id = oDomFatherId;
-
-    // console.log(oBody);
-    oBody.appendChild(o);
-    oFatherDom = o;
-
-    return o;
+    // if (oFatherDom) {
+    //     return oFatherDom;
+    // }
+    //
+    // oFatherDom = document.getElementById(oDomFatherId);
+    // return oFatherDom;
+    oFatherDom = oFatherDom ? oFatherDom : document.getElementById(oDomFatherId);
+    return oFatherDom;
 }
 
 let bAllreadyLoadUserLang = false;
@@ -1727,6 +1856,15 @@ function writeLocalstorageIframe () {
         }
     }
 }
+let oStorageDom = '';
+function storageDom () {
+    if (oStorageDom) {
+        return oStorageDom;
+    }
+
+    oStorageDom = document.getElementById(oDomStorageId);
+    return oStorageDom;
+}
 /**
  *
  * 写远程 storage 页面 iframe
@@ -1745,7 +1883,7 @@ function writeStorageDom (p = 0) {
     o.className = sNoShowIframeCLass;
     o.id = d;
 
-    fatherDom().appendChild(o);
+    storageDom().appendChild(o);
 
     if (o.attachEvent) {
         o.attachEvent('onload', function() {
@@ -1974,6 +2112,8 @@ function loadPlatformDomJs () {
 }
 function afterloadPlatformDomJs () {
     bLoadPlatformDomJs = true;
+
+    asyn('platformBegin');
 }
 
 let bLoadLogicJs = false;
@@ -1997,7 +2137,7 @@ function loadLogicJs () {
 function afterloadLogicJs () {
     bLoadLogicJs = true;
 
-    // asyn('logicBegin');
+    asyn('logicBegin');
 }
 
 let bLoadApiJs = false;
@@ -2071,6 +2211,9 @@ function loadBaseJs () {
     //     loadEncodeJs();
     // }, 0);
     asyn('loadEncodeJs');
+
+    // console.log('indexBegin 3333333333333');
+    // asyn('loadLocalJquery1');
 }
 
 let iBeginTime = 0;
@@ -2081,6 +2224,11 @@ function baseBegin (bOnload = false) {
     console.log('base begin');
     if (bOnload) {
         bFirstLoad = true;
+
+        asyn('showBaseShade');
+
+        console.log('indexBegin 11111111111');
+        asyn('sessId');
     }
 
     console.log('base 111111111111111111');
@@ -2102,6 +2250,9 @@ function baseBegin (bOnload = false) {
 
     console.log('base 2222222222222222');
     if (bOnload) {
+        oHtml.style.visibility = 'hidden';
+        oBody.style.visibility = 'hidden';
+
         asyn('winResize', bOnload);
     }
 
@@ -2152,7 +2303,8 @@ function baseBegin (bOnload = false) {
     asyn('loadBaseJs');
 }
 function winResize (bOnload = false) {
-    asyn('shade', sBaseShadeId);
+    // asyn('shade', sBaseShadeId);
+    asyn('writePublicShade');
 
     let t = setTimeout(function () {
         clearTimeout(t);
@@ -2226,7 +2378,7 @@ window.onresize = function () {
     }
     console.log('window resize, will do resize function');
 
-    shade(sBaseShadeId);
+    // shade(sBaseShadeId);
 
     if (aBaseTimer['winResize']) {
         clearTimeout(aBaseTimer['winResize']);

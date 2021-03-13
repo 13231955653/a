@@ -204,64 +204,7 @@ function urlSign (u = []) {
     return s;
 }
 
-/**
- *
- * 改变url 地址栏
- *
- * @param k 需改变的 url 键
- * @param v 改变的值
- * @param t 浏览器标题
- * @param c 回调函数
- * @returns {boolean}
- */
-function updateUrlArg (k = '', v = '', t = '', c = false) {
-    if (!k || !v) {
-        console.log('updateUrlArg k or v is null');
-        return false;
-    }
 
-    let l = window.location;
-
-    let p = l.pathname;
-    p = p !== '/' ? p : '';
-    p = p ? p : '/' + sDefaultPageHtml;
-
-    let h = l.origin + p;
-
-    let a = getUrlArgs();
-
-    a[k] = v;
-    if (typeof a[sUrlAddressPageKey] === 'undefined') {
-        a[sUrlAddressPageKey] = sDefaultPage;
-    }
-    a = arrayDelValByKey(a, sUrlAddressChangeTimeKey);
-    a = arrayDelValByKey(a, sUrlAddressSignKey);
-
-    a[sUrlAddressChangeTimeKey] = getNowTime();
-
-    let s = '';
-    for (let i in a) {
-        if (i === k) {
-            a[i] = v;
-        }
-
-        s += i + '=' + a[i] + '&';
-    }
-
-    s = s + sUrlAddressSignKey + '=' + urlSign(a);
-    s = urlEncode(s);
-
-    let g = h + '?' + s;
-
-    let o = {};
-    window.history.pushState(o, t, g);
-
-    setBrowserTitle(t);
-
-    if (c) {
-        window[c]();
-    }
-}
 
 /**
  *
@@ -427,11 +370,11 @@ function replaceDomLang (p = '', d = '') {
         return;
     }
 
-    if (typeof bLoadFunctionJs == 'undefined') {
-        console.log('replaceDomLang bLoadFunctionJs is false, so settimtoue retry ');
-        setTimeoutFunction('replaceDomLang', p, d);
-        return;
-    }
+    // if (typeof bLoadFunctionJs == 'undefined') {
+    //     console.log('replaceDomLang bLoadFunctionJs is false, so settimtoue retry ');
+    //     setTimeoutFunction('replaceDomLang', p, d);
+    //     return;
+    // }
 
     replaceLang(p, d);
 }
@@ -476,34 +419,7 @@ function replaceLang (p = '', d = '') {
     }
 }
 
-/**
- *
- * 更新 url page 参数
- *
- * p url page 更新为 p type sting
- *
- * @type {string}
- */
-let sLastPage = '';
-function uodateUrlPageArg (p = '') {
-    if (!p) {
-        console.log('uodateUrlPageArg page is null，so no will to do');
-        return;
-    }
 
-    if (sLastPage === p) {
-        console.log('uodateUrlPageArg sLastPage === ' + p + ' ，so no change url and after action');
-        console.log('uodateUrlPageArg dispose show now page or reload now page dom');
-
-        repeatedlyPage(p);
-        return;
-    }
-    sLastPage = p;
-
-    // writePageShade();
-
-    updateUrlPage(p);
-}
 
 function replaceLangs () {
     if (!bJquery) {
@@ -530,43 +446,7 @@ function replaceLangs () {
     }
 }
 
-/**
- *
- * 更新url page 参数
- *
- * p page 更新为 p type sting
- *
- * @type {Array}
- */
-let aAllreadyLoadPageJs = [];
-function updateUrlPage (p = '') {
-    if (typeof window['urlDecode'] == 'undefined') {
-        console.log('updateUrlPage urlDecode is undefined, so settimtoue retry ');
 
-        setTimeoutFunction('updateUrlPage', p);
-        return;
-    }
-    console.log('updateUrlPage urlDecode is defined, so will to do ');
-    console.log(getUrlArgs());
-    console.log('updateUrlPage console lod url args, maybe to hidden ');
-
-    p = p ? p : getNowPage();
-
-    let t = '';
-    replaceWindowTitle(p + '_title');
-
-    let f = ''; // 回调函数
-    if (typeof aAllreadyLoadPageJs[p] == 'undefined') {
-        console.log('updateUrlPage aAllreadyLoadPageJs ' + p + ' is undefined, so load page js ');
-        f = 'loadPageJs';
-    } else {
-        console.log('updateUrlPage aAllreadyLoadPageJs ' + p + ' is defined, so load afterLoadPageJs ');
-        f = 'afterLoadPageJs';
-    }
-    aAllreadyLoadPageJs[p] = getNowTime();
-
-    updateUrlArg (sUrlAddressPageKey, p, t, f);
-}
 
 /**
  *
@@ -951,4 +831,4 @@ function randNum (i, a) {
 //     window.location.href = sAstrictJumpUrl;
 // }
 
-const bLoadFunctionJs = true;
+// const bLoadFunctionJs = true;

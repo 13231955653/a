@@ -177,102 +177,7 @@
 //     // }
 // }
 
-let bInLoadPageJs = false;
-function loadPageJs () {
-    if (bInLoadPageJs) {
-        console.log('loadPageJs bInLoadPageJs in load, so no to do');
-        return ;
-    }
-    bInLoadPageJs = true;
 
-    // let sPage = getNowPage();
-    let j = '';
-    switch (getNowPage()) {
-        case sForumPage:
-            j = sForumJsFile;
-            break;
-        case sChatPage:
-            j = sChatJsFile;
-            break;
-        case sFriendPage:
-            j = sFriendJsFile;
-            break;
-        case sSettingPage:
-            j = sSettingJsFile;
-            break;
-    }
-
-    if (!j) {
-        console.log('loadPageJs j is null, no to do');
-        return false;
-    }
-
-    if (!checkRequestJsCssLimit('js', 'loadPageJs_' + j)) {
-        console.log('loadPageJs checkRequestJsCssLimit loadPageJs_' + j + ', limit, so no to load');
-        return false;
-    }
-
-    let t1 = setTimeout(function () {
-        clearTimeout(t1);
-
-        changeDomFatherOpacity();
-    }, 0);
-
-    // let t2 = setTimeout(function () {
-    //     clearTimeout(t2);
-    //
-    //     writePageShade();
-    // }, 0);
-
-    let t3 = setTimeout(function () {
-        clearTimeout(t3);
-
-        loadJs(j, true, 'afterLoadPageJs');
-    }, 0);
-}
-function afterLoadPageJs () {
-    if (typeof window['urlDecode'] == 'undefined') {
-        console.log('afterLoadPageJs urlDecode is undefined, so settimtoue retry ');
-
-        setTimeoutFunction('afterLoadPageJs');
-        return;
-    }
-    console.log('afterLoadPageJs urlDecode is defined, so will to do ');
-
-    bInLoadPageJs = false;
-
-    // let sPage = getNowPage();
-    let f = document.getElementById(getNowPage() + sFootTag + sFootLiSuffix);
-    if (!f) {
-        console.log('afterLoadPageJs f is null, no to do');
-        return false;
-    }
-
-    let o = document.getElementsByClassName(sFootTag);
-    if (o.length) {
-        let sPreg = new RegExp('\\s+' + sActiveFootTag,'gm');
-        for (let i in o) {
-            if (!o[i].className) {
-                continue;
-            }
-
-            o[i].className = o[i].className.toString().replace(sPreg, '');
-        }
-    }
-    f.className += ' ' + sActiveFootTag;
-
-    let t1 = setTimeout(function () {
-        clearTimeout(t1);
-
-        changeDomFatherOpacity(true);
-    }, 0);
-
-    let t2 = setTimeout(function () {
-        clearTimeout(t2);
-
-        repeatedlyPage(getUrlArgs(sUrlAddressPageKey));
-    }, 0);
-}
 
 // function getPublicShadeDom () {
 //     let o = document.getElementById(sPublicShadeId);
@@ -595,30 +500,31 @@ function sessId () {
 //     clearShade(o);
 // }
 
-function indexBegin () {
-    console.log('indexBegin 11111111111');
-    asyn('sessId');
+// function indexBegin () {
+//     // oHtml.style.visibility = 'visible';
+//
+//     // console.log('indexBegin 4444444444444');
+//     // asyn('writeIndexShade1');
+//
+//     console.log('indexBegin 11111111111');
+//     asyn('sessId');
+//
+//     console.log('indexBegin 3333333333333');
+//     asyn('loadLocalJquery1');
+// }
 
-    console.log('indexBegin 222222222222222');
-    asyn('clearBaseShade');
-
-    console.log('indexBegin 4444444444444');
-    asyn('writeIndexShade1');
-
-    console.log('indexBegin 3333333333333');
-    asyn('loadLocalJquery1');
-}
-
-function writeIndexShade1 () {
-    if (typeof window['shade'] != 'undefined') {
-        console.log('writeIndexShade1 shade is defined, so to shade');
-        asyn('shade', sIndexShadeId);
-        return;
-    }
-    console.log('writeIndexShade1 shade is undefined, so settimeout retry to writeIndexShade1');
-
-    setTimeoutFunction('writeIndexShade1');
-}
+// function writeIndexShade1 () {
+//     if (typeof window['shade'] != 'undefined') {
+//         console.log('writeIndexShade1 shade is defined, so to shade');
+//         asyn('shade', sIndexShadeId);
+//
+//         asyn('clearBaseShade');
+//         return;
+//     }
+//     console.log('writeIndexShade1 shade is undefined, so settimeout retry to writeIndexShade1');
+//
+//     setTimeoutFunction('writeIndexShade1');
+// }
 
 function loadLocalJquery1 () {
     if (bJquery) {
@@ -649,5 +555,30 @@ function loadLocalJquery1 () {
 //
 //     logicBegin(true);
 // }
+
+function pageBegin () {
+    console.log('pageBegin 1111111111111');
+    asyn('showPageShade');
+
+    console.log('pageBegin 222222222222');
+    // asyn('repeatedlyPage', sPageNow);
+
+    // console.log('pageBegin 33333333333333333333');
+    // asyn('updateUrlPage', sPageNow);
+
+    console.log('pageBegin 444444444444444444');
+    asyn('clearPlatformShade');
+}
+
+function indexBegin () {
+    console.log('indexBegin 11111111111');
+    asyn('showIndexShade');
+
+    console.log('indexBegin 22222222222222');
+    asyn('loadLocalJquery1');
+
+    console.log('indexBegin 333333333333');
+    asyn('clearBaseShade');
+}
 
 // window.onload = indexBegin();
