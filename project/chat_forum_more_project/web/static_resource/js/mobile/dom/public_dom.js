@@ -1,7 +1,71 @@
-function writeHeader() {
-    // let oDom = getPublicHeaderDom();
-    if (getPublicHeaderDom()) {
-        return true;
+const aBody = [
+    'writeBodyHeader',
+    'writeBodyBody',
+    'writeBodyFooter',
+    'writeBodyLeft',
+    'writeBodyRight',
+];
+let bWriteBody = false;
+function writePublicDom() {
+    if (!bJquery) {
+        console.log('writePublicDom jQuery is undefined, so settimeout retry to writePublicDom ');
+
+        setTimeoutFunction('writePublicDom');
+        return;
+    }
+    console.log('pubHeader jQuery is defined, so will to do ');;
+
+    for (let i in aBody) {
+        if (typeof window[aBody[i]] == 'undefined') {
+            setTimeoutFunction('writePublicDom');
+            console.log('writePublicDom ' + aBody[i] + ' is undefined, so settimeout retry to writePublicDom ');
+            return;
+        }
+    }
+
+    if (bWriteBody) {
+        return;
+    }
+    bWriteBody = true;
+
+    console.log('writePublicDom all is defined, so will to do ');
+
+    let s = '';
+    for (let i in aBody) {
+        s += window[aBody[i]]();
+
+    }
+    fatherDom().innerHTML = s;
+}
+
+let oBodyHeader = null;
+function bodyHeaderDom () {
+    oBodyHeader = oBodyHeader ? oBodyHeader : document.getElementById(sPublicHeaderId);
+    return oBodyHeader != null ? oBodyHeader : false;
+}
+let oBodyBody = null;
+function bodyBodyDom () {
+    oBodyBody = oBodyBody ? oBodyBody : document.getElementById(sPublicBodyId);
+    return oBodyBody != null ? oBodyBody : false;
+}
+let oBodyFooter = null;
+function bodyFooterDom () {
+    oBodyFooter = oBodyFooter ? oBodyFooter : document.getElementById(sPublicFootId);
+    return oBodyFooter != null ? oBodyFooter : false;
+}
+let oBodyLeft = null;
+function bodyLeftDom () {
+    oBodyLeft = oBodyLeft ? oBodyLeft : document.getElementById(sPublicLeftId);
+    return oBodyLeft != null ? oBodyLeft : false;
+}
+let oBodyRight = null;
+function bodyRightDom () {
+    oBodyRight = oBodyRight ? oBodyRight : document.getElementById(sPublicRightId);
+    return oBodyRight != null ? oBodyRight : false;
+}
+function writeBodyHeader() {
+    if (bodyHeaderDom()) {
+        return '';
     }
 
     let s = '';
@@ -9,50 +73,48 @@ function writeHeader() {
 
     s += '</div>';
 
-    // let oBody = bodyDom();
-    $(fatherDom()).append(s);
+    return s;
 }
 
-function writeBody() {
-    // let oDom = getPublicBodyDom();
-    if (getPublicBodyDom()) {
-        return true;
+function writeBodyBody() {
+    if (bodyBodyDom()) {
+        return '';
     }
 
     let s = '';
     s += '<div id="' + sPublicBodyId + '">';
 
-    s += writeMobliePageFatherDom(sSettingBodyId);
+    s += writeMobliePageDom(sSettingBodyId);
 
-    s += writeMobliePageFatherDom(sForumBodyId);
+    s += writeMobliePageDom(sForumBodyId);
 
-    s += writeMobliePageFatherDom(sChatBodyId);
+    s += writeMobliePageDom(sChatBodyId);
 
-    s += writeMobliePageFatherDom(sFriendBodyId);
+    s += writeMobliePageDom(sFriendBodyId);
 
     s += '</div>';
 
-    // let oBody = bodyDom();
-    $(fatherDom()).append(s);
+    return s;
 }
 
-function writeMobliePageFatherDom (d) {
+function writeMobliePageDom (d) {
+    if (document.getElementById(d) != null) {
+        return '';
+    }
+
     let s = '';
     s += '<div id="' + d + '">';
     s += '</div>';
     return s;
 }
 
-function writeFooter() {
-    // let oDom = getPublicFootDom();
-    if (getPublicFootDom()) {
-        return true;
+function writeBodyFooter() {
+    if (bodyFooterDom()) {
+        return '';
     }
 
-    let f = sPublicFootId;
-
     let s = '';
-    s += '<div id="' + f + '">';
+    s += '<div id="' + sPublicFootId + '">';
 
     s += '<ul>';
 
@@ -68,20 +130,21 @@ function writeFooter() {
 
     s += '</div>';
 
-    // let oBody = bodyDom();
-    $(fatherDom()).append(s);
-
-    replaceDomLang(sReplaceLangIdType, f);
+    // replaceDomLang(sReplaceLangIdType, f);
+    return s;
 }
 function writeOneFooter (d = '') {
+    let id = d + sFootTag + sFootLiSuffix;
+    if (document.getElementById(id) != null) {
+        return '';
+    }
+
     let l = d + sFootTag;
 
     let s = '';
-    s += '<li id="' + d + sFootTag + sFootLiSuffix + '" class="' + sFootTag + '">';
+    s += '<li id="' + id + '" class="' + sFootTag + '">';
     s += '<a href="javascript:void(0);" onclick="' + aFooterAction[d] + '">';
     s += '<span class="' + sReLangClass + '" id="' + l + '">';
-    /////////////////////////////////////
-    // s += typeof aLang[sLang] !== 'undefined' ? aLang[sLang] : aLang['langvage_error'];
     s += '</span>';
     s += '</a>';
     s += '</li>';
@@ -89,10 +152,9 @@ function writeOneFooter (d = '') {
     return s;
 }
 
-function writeLeft () {
-    // let oDom = getPublicLeftDom();
-    if (getPublicLeftDom()) {
-        return true;
+function writeBodyLeft () {
+    if (bodyLeftDom()) {
+        return '';
     }
 
     let s = '';
@@ -100,14 +162,12 @@ function writeLeft () {
 
     s += '</div>';
 
-    // let oBody = bodyDom();
-    $(fatherDom()).append(s);
+    return s;
 }
 
-function writeRight () {
-    // let oDom = getPublicRightDom();
-    if (getPublicRightDom()) {
-        return true;
+function writeBodyRight () {
+    if (bodyRightDom()) {
+        return '';
     }
 
     let s = '';
@@ -115,32 +175,10 @@ function writeRight () {
 
     s += '</div>';
 
-    // let oBody = bodyDom();
-    $(fatherDom()).append(s);
+    return s;
 }
-
-function writeNotice () {
-    /////////////////////////////////////////////////////////////
-    // // let oDom = getPublicNoticeDom();
-    // if (getPublicNoticeDom()) {
-    //     return true;
-    // }
-    //
-    // let s = '';
-    // s += '<div id="' + sPublicNoticeId + '">';
-    //
-    // s += '</div>';
-    //
-    // // let oBody = bodyDom();
-    // $(fatherDom()).append(s);
-}
-
-// asyn('clearBaseShade');
 
 function platformBegin () {
-    // oHtml.style.visibility = 'visible';
-    // oBody.style.visibility = 'visible';
-
     console.log('platformBegin 11111111111');
     asyn('showPlatformShade');
 

@@ -51,6 +51,8 @@ const sPageShadeId = 'page_shade';
 let iShadeBeginZIndex = 1000000000;
 const sInvisibleClass = 'invisible';
 const sVisibleClass = 'gradually_visible';
+const sOpacityShowClass = 'opacity_show';
+const sOpacityHiddenClass = 'opacity_hidden';
 
 const iDefaultUserPersonalizedColor = 1;
 let iFontSize = 16;
@@ -130,12 +132,12 @@ b['sessId'] = t;
 b['indexBeginLogic'] = t;
 b['loadOriginJquery'] = t;
 b['baseShade'] = t;
-b['pubHeader'] = t;
-b['pubBody'] = t;
-b['pubFooter'] = t;
-b['pubLeft'] = t;
-b['pubRight'] = t;
-b['pubNotice'] = t;
+// b['pubHeader'] = t;
+// b['pubBody'] = t;
+// b['pubFooter'] = t;
+// b['pubLeft'] = t;
+// b['pubRight'] = t;
+// b['pubNotice'] = t;
 b['platformBegin'] = t;
 // b['writeIndexShade1'] = t;
 b['showBaseShade'] = t;
@@ -798,7 +800,7 @@ function afterLoadPageJs () {
 
     bInLoadPageJs = false;
 
-    // console.log('qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqs');
+    console.log('qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqs');
     // console.log(sPageNow + 'Begin');
     asyn(sPageNow + 'Begin');
 
@@ -2216,6 +2218,18 @@ function loadBaseJs () {
     // asyn('loadLocalJquery1');
 }
 
+/**
+ *
+ * 修改body状态，是否显示或隐藏
+ *
+ * @param b 显示或隐藏 type bool true 显示
+ */
+function changeBodyStatus (b = true) {
+    let h = b ? 'visible' : 'hidden';
+    oHtml.style.visibility = h;
+    oBody.style.visibility = h;
+}
+
 let iBeginTime = 0;
 let oHtml = false;
 let oHead = false;
@@ -2250,8 +2264,9 @@ function baseBegin (bOnload = false) {
 
     console.log('base 2222222222222222');
     if (bOnload) {
-        oHtml.style.visibility = 'hidden';
-        oBody.style.visibility = 'hidden';
+        // oHtml.style.visibility = 'hidden';
+        // oBody.style.visibility = 'hidden';
+        asyn('changeBodyStatus', false);
 
         asyn('winResize', bOnload);
     }
@@ -2273,6 +2288,9 @@ function baseBegin (bOnload = false) {
 
     console.log('base 8888888888888888');
     asyn('fatherDom');
+
+    console.log('base 888888888--------------------111111111111111111111111111111');
+    asyn('writePublicShade');
 
     console.log('base 999999999999999');
     asyn('writePublicDom');
@@ -2303,9 +2321,6 @@ function baseBegin (bOnload = false) {
     asyn('loadBaseJs');
 }
 function winResize (bOnload = false) {
-    // asyn('shade', sBaseShadeId);
-    asyn('writePublicShade');
-
     let t = setTimeout(function () {
         clearTimeout(t);
 
@@ -2317,6 +2332,10 @@ function winResize (bOnload = false) {
     asyn('winSize');
 
     asyn('initializeFontSize');
+
+    if (bOnload){
+        asyn('clearBaseShade');
+    }
 }
 
 function illegality () {
@@ -2378,7 +2397,7 @@ window.onresize = function () {
     }
     console.log('window resize, will do resize function');
 
-    // shade(sBaseShadeId);
+    asyn('showBaseShade');
 
     if (aBaseTimer['winResize']) {
         clearTimeout(aBaseTimer['winResize']);

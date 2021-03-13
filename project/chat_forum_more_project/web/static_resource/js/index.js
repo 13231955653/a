@@ -556,12 +556,21 @@ function loadLocalJquery1 () {
 //     logicBegin(true);
 // }
 
+function afterPageAction () {
+    console.log('/////////////////////////////////////////////////////');
+    asyn('clearPageShade');
+
+    asyn('changeBodyStatus', true);
+
+    asyn('showDomFather');
+}
+
 function pageBegin () {
     console.log('pageBegin 1111111111111');
     asyn('showPageShade');
 
     console.log('pageBegin 222222222222');
-    // asyn('repeatedlyPage', sPageNow);
+    asyn('afterPageAction');
 
     // console.log('pageBegin 33333333333333333333');
     // asyn('updateUrlPage', sPageNow);
