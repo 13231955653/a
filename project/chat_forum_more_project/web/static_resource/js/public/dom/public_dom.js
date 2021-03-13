@@ -155,11 +155,7 @@ function showPageShade () {
     if (!o) {
         console.log('showPageShade page shade dom no get, will to write page shade and retry');
 
-        let t = setTimeout(function () {
-            clearTimeout(t);
-
-            writePageShade('writePageShade');
-        }, 0);
+        setTimeoutFunction('showPageShade');
         return;
     }
 

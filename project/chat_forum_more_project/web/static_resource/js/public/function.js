@@ -446,26 +446,6 @@ function replaceLangs () {
     }
 }
 
-
-
-/**
- *
- * 获取旧的session id
- *
- * @returns {*|string}
- */
-function oldSessionId () {
-    return cookie.get(sOldSessionIdCookieKey);
-}
-/**
- *
- * 获取新的session id
- *
- * @returns {*|string}
- */
-function newSessionId () {
-    return cookie.get(sNewSessionIdCookieKey);
-}
 /**
  *
  * 检查session
@@ -473,9 +453,30 @@ function newSessionId () {
  */
 function sessionId () {
     console.log('sessionId, begin to do ');
-    sOldSessionId = oldSessionId();
-    sNewSessionId = newSessionId();
-    if (sNewSessionId != 'false') {
+    if (sNewSessionId === '') {
+        console.log('sessionId sNewSessionId is null, and no query from localstorage, so will query session id from localstorage and settimeout retry to sessionId ');
+
+        asyn('queryNewSessonId');
+
+        setTimeoutFunction('sessionId');
+        return;
+    }
+
+    if (sOldSessionId === '') {
+        console.log('sessionId sOldSessionId is null, and no query from localstorage, so will query session id from localstorage and settimeout retry to sessionId ');
+
+        asyn('queryOldSessonId');
+
+        setTimeoutFunction('sessionId');
+        return;
+    }
+
+    // sOldSessionId = oldSessionId();
+    // sNewSessionId = newSessionId();
+    console.log('**************************************');
+    console.log(sNewSessionId);
+    console.log(sOldSessionId);
+    if (sNewSessionId) {
         console.log('sessionId sNewSessionId is true, will check new session format ');
 
         checkSessionIdOutTime();
@@ -488,6 +489,7 @@ function sessionId () {
     }
 
     let i = randNum(iUpdateSessionMinTime, iUpdateSessionMaxTime);
+    // console.log(i);
     let t = setTimeout(function () {
         clearTimeout(t);
 
@@ -659,18 +661,6 @@ function checkSessionIdOutTime () {
     console.log('checkSessionIdOutTime settimeout check, settimeout recheck ');
     setTimeoutFunction('checkSessionIdOutTime');
 }
-function cacheSessionId () {
-    if (!sNewSessionId) {
-        console.log('cacheSessionId sNewSessionId is false, so settimeout to retry ');
-
-        setTimeoutFunction('cacheSessionId');
-        return;
-    }
-    console.log('cacheSessionId sNewSessionId is true, so to do ');
-
-    cookie.set(sOldSessionIdCookieKey, sOldSessionId, iUpdateSessionMaxTime);
-    cookie.set(sNewSessionIdCookieKey, sNewSessionId, iUpdateSessionMaxTime);
-}
 function setSessionIdFormat (sSessionId1 = '') {
     if (typeof window['hex_md5'] == 'undefined') {
         // setTimeoutFunction('setSessionIdFormat');
@@ -731,7 +721,7 @@ function checkSessionKeyFormat () {
     }
 
     let t = sSessionSplitTag;
-    if (sOldSessionId != 'false') {
+    if (sOldSessionId) {
         if (!doCheckSessionId(sOldSessionId.split(t), 'old')) {
             console.log('checkSessionKeyFormat old session is false, so make new session id');
             makeSessionid();
@@ -742,7 +732,7 @@ function checkSessionKeyFormat () {
         }
     }
 
-    if (sNewSessionId != 'false') {
+    if (sNewSessionId) {
         if (!doCheckSessionId(sNewSessionId.split(t), 'new')) {
             console.log('checkSessionKeyFormat new session is false, so make new session id');
             makeSessionid();
@@ -794,6 +784,100 @@ function doCheckSessionId (s, t) {
     }
 
     return true;
+}
+/**
+ *
+ * 获取旧的session id
+ *
+ * @returns {*|string}
+ */
+// function oldSessionId () {
+//     return cookie.get(sOldSessionIdCookieKey);
+//
+// }
+let bAllreadyQueryOldSessionId = false;
+function queryOldSessonId () {
+    if (sOldSessionId) {
+        console.log('queryOldSessonId sOldSessionId is defined, so return sOldSessionId, no get sOldSessionId from localstorage ');
+        return sOldSessionId;
+    }
+
+    if (bAllreadyQueryOldSessionId) {
+        console.log('queryOldSessonId bAllreadyQueryOldSessionId is true, so no to load user lang from localstorage ');
+        return;
+    }
+    bAllreadyQueryOldSessionId = true;
+
+    asyn('queryLocalstorage', sOldSessionIdStorageKey, 'afterQueryOldSessonId');
+}
+function afterQueryOldSessonId (s) {
+    console.log('=========================');
+    sOldSessionId = s;
+    console.log(sOldSessionId);
+}
+/**
+ *
+ * 获取新的session id
+ *
+ * @returns {*|string}
+ */
+// function newSessionId () {
+//     return cookie.get(sNewSessionIdCookieKey);
+// }
+let bAllreadyQueryNewSessionId = false;
+function queryNewSessonId () {
+    if (sNewSessionId) {
+        console.log('queryOldSessonId sNewSessionId is defined, so return sNewSessionId, no get sNewSessionId from localstorage ');
+        return sNewSessionId;
+    }
+
+    if (bAllreadyQueryNewSessionId) {
+        console.log('queryOldSessonId bAllreadyQueryNewSessionId is true, so no to load user lang from localstorage ');
+        return;
+    }
+    bAllreadyQueryNewSessionId = true;
+
+    asyn('queryLocalstorage', sNewSessionIdStorageKey, 'afterQueryNewSessonId');
+}
+function afterQueryNewSessonId (s) {
+    console.log('=========================');
+    sNewSessionId = s;
+    console.log(sNewSessionId);
+}
+function cacheSessionId () {
+    if (!sNewSessionId) {
+        console.log('cacheSessionId sNewSessionId is false, so settimeout to retry ');
+
+        setTimeoutFunction('cacheSessionId');
+        return;
+    }
+    console.log('cacheSessionId sNewSessionId is true, so to do ');
+
+    // cookie.set(sOldSessionIdCookieKey, sOldSessionId, iUpdateSessionMaxTime);
+    // cookie.set(sNewSessionIdCookieKey, sNewSessionId, iUpdateSessionMaxTime);
+    sOldSessionId = sOldSessionId ? sOldSessionId : sNewSessionId;
+    aBaseTimer['cacheSessionId_sOldSessionId'] = setTimeout(function () {
+        clearTimeout(aBaseTimer['cacheSessionId_sOldSessionId']);
+
+        setLocalstorage(sOldSessionIdStorageKey, sOldSessionId, iUpdateSessionMaxTime, 'afterCacheSessionId');
+    }, aTimer['cacheSessionId_sOldSessionId']);
+
+    aBaseTimer['cacheSessionId_sNewSessionId'] = setTimeout(function () {
+        clearTimeout(aBaseTimer['cacheSessionId_sNewSessionId']);
+
+        setLocalstorage(sNewSessionIdStorageKey, sNewSessionId, iUpdateSessionMaxTime, 'afterCacheSessionId');
+    }, aBaseTimer['cacheSessionId_sNewSessionId']);
+}
+function afterCacheSessionId (b = '') {
+    if (!b) {
+        console.log('afterCacheSessionId b is null');
+        return false;
+    }
+
+    if (!b) {
+        console.log('afterCacheSessionId b false');
+        return false;
+    }
 }
 
 /**

@@ -91,7 +91,7 @@ b['loadOriginJquery'] = t;
 b['loadLang'] = t;
 b['logicBegin'] = t;
 b['loadPlatformDomJs'] = t;
-// b['indexBegin'] = t;
+b['showPageShade'] = t;
 b['loadResetCss'] = t;
 b['checkLoadCss'] = 50;
 b['writeStorageDom'] = t;
@@ -130,6 +130,7 @@ b['showUseTimeLimitNotice'] = t;
 b['clearShade'] = t;
 b['sessId'] = t;
 b['indexBeginLogic'] = t;
+b['indexBegin'] = t;
 b['loadOriginJquery'] = t;
 b['baseShade'] = t;
 // b['pubHeader'] = t;
@@ -270,14 +271,14 @@ const iSessionBeforeFormatLength = 32;
 
 const sSessionSplitTag  = '_';
 const sSessionSalt  = '__()9789*&^%$sKUYsah98';
-let sOldSessionId = false;
-let sNewSessionId = false;
+let sOldSessionId = '';
+let sNewSessionId = '';
 const iUpdateSessionMinTime = 1800000;
 const iUpdateSessionMaxTime = 5400000;
 const iSessionOutTime = 5410;
 const sSessionIdSplitLength =8;
-const sOldSessionIdCookieKey = 'o_t';
-const sNewSessionIdCookieKey = 'n_t';
+const sOldSessionIdStorageKey = 'old_session_id';
+const sNewSessionIdStorageKey = 'new_session_id';
 
 // const sBaseShadeId = 'base_shade';
 // const sIndexShadeId = 'index_shade';
@@ -1066,6 +1067,8 @@ function setTimeoutFunction (f = '', a = '', b = '') {
     }
 
     aBaseTimer[f] = setTimeout(function () {
+        clearTimeout(aBaseTimer[f]);
+
         if (!a) {
             window[f]();
         } else {
@@ -1398,9 +1401,8 @@ function queryUserLang () {
     bAllreadyLoadUserLang = true;
 
     // queryLocalstorage(sLocalstorageLangTag, 'afterQueryLang');
-    asyn('queryLocalstorage', 'sLocalstorageLangTag', 'afterQueryLang');
+    asyn('queryLocalstorage', sLocalstorageLangTag, 'afterQueryLang');
 }
-
 /**
  *
  *
@@ -1468,6 +1470,9 @@ function afterSetLang (b = '') {
  */
 function setLocalstorage (k = '', m = '', t = false, f = '') {
     if (!k || !f || !m) {
+        console.log(k);
+        console.log(m);
+        console.log(f);
         console.log('queryLocalstorage k or f or m is null');
         return false;
     }
@@ -1481,8 +1486,9 @@ function setLocalstorage (k = '', m = '', t = false, f = '') {
 
     let q = 1;
     let z = 0;
-    let sss = sOriginLocalstorageSizeKey;
-    let c = queryLocalstorageCache(sss);
+    // let sss = sOriginLocalstorageSizeKey;
+    // let c = queryLocalstorageCache(sss);
+    let c = queryLocalstorageCache(sOriginLocalstorageSizeKey);
     c = eval('(' + z + ')');
     c = c ? c : {};
     while (!z || iMaxLocalstorageSize < z) {
@@ -1499,9 +1505,9 @@ function setLocalstorage (k = '', m = '', t = false, f = '') {
         }
     }
 
-    localstorageLocalCache(k, p);
+    // localstorageLocalCache(k, p);
 
-    localstorageLocalCache(sss, c);
+    // localstorageLocalCache(sss, c);
 
     p = storagePage(p);
 
@@ -1632,6 +1638,8 @@ function localstoragePage (k) {
 
     if (!i) {
         i = sLocalstorgaeBeginTag;
+        // console.log(k);
+        // console.log(i);
         localstorageLocalCache (k, i);
     }
 
@@ -1655,6 +1663,8 @@ function queryLocalstorage (k = '', f = '') {
         return false;
     }
 
+    // console.log('**********************************');
+    // console.log(k);
     let p = localstoragePage(k);
 
     p = storagePage(p);
