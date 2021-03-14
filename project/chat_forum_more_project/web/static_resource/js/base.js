@@ -808,37 +808,7 @@ function afterLoadPageJs () {
     // console.log(sPageNow + 'Begin');
     asyn(sPageNow + 'Begin');
 
-    // let sPage = getNowPage();
-    // let f = document.getElementById(getNowPage() + sFootTag + sFootLiSuffix);
-    // if (!f) {
-    //     console.log('afterLoadPageJs f is null, no to do');
-    //     return false;
-    // }
-    //
-    // let o = document.getElementsByClassName(sFootTag);
-    // if (o.length) {
-    //     let sPreg = new RegExp('\\s+' + sActiveFootTag,'gm');
-    //     for (let i in o) {
-    //         if (!o[i].className) {
-    //             continue;
-    //         }
-    //
-    //         o[i].className = o[i].className.toString().replace(sPreg, '');
-    //     }
-    // }
-    // f.className += ' ' + sActiveFootTag;
-    //
-    // let t1 = setTimeout(function () {
-    //     clearTimeout(t1);
-    //
-    //     changeDomFatherOpacity(true);
-    // }, 0);
-    //
-    // let t2 = setTimeout(function () {
-    //     clearTimeout(t2);
-    //
-    //     repeatedlyPage(getUrlArgs(sUrlAddressPageKey));
-    // }, 0);
+    asyn('updateActiveFooter');
 }
 
 function loadJs (s = '', b = true, c = false) {

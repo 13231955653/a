@@ -185,3 +185,38 @@ function platformBegin () {
     console.log('platformBegin 333333333333');
     asyn('clearIndexShade');
 }
+
+function updateActiveFooter () {
+    // let sPage = getNowPage();
+    let f = document.getElementById(getNowPage() + sFootTag + sFootLiSuffix);
+    if (!f) {
+        console.log('afterLoadPageJs f is null, so no to do');
+        return false;
+    }
+    console.log('afterLoadPageJs f is true, so to do');
+
+    let o = document.getElementsByClassName(sFootTag);
+    if (o.length) {
+        let p = new RegExp('\\s+' + sActiveFootTag,'gm');
+        for (let i in o) {
+            if (!o[i].className) {
+                continue;
+            }
+
+            o[i].className = o[i].className.toString().replace(p, '');
+        }
+    }
+    f.className += ' ' + sActiveFootTag;
+
+    let t = setTimeout(function () {
+        clearTimeout(t);
+
+        changeDomFatherOpacity(true);
+    }, 0);
+
+    // let z = setTimeout(function () {
+    //     clearTimeout(z);
+    //
+    //     repeatedlyPage(getUrlArgs(sUrlAddressPageKey));
+    // }, 0);
+}
