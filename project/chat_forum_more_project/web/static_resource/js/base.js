@@ -132,6 +132,7 @@ b['sessId'] = t;
 b['indexBeginLogic'] = t;
 b['indexBegin'] = t;
 b['loadOriginJquery'] = t;
+b['domAnimate'] = t;
 b['baseShade'] = t;
 // b['pubHeader'] = t;
 // b['pubBody'] = t;
@@ -315,12 +316,12 @@ const sForumPage = 'forum';
 const sChatPage = 'chat';
 const sFriendPage = 'friend';
 const sSettingPage = 'setting';
-const a3 = [];
-a3[sForumPage] = "uodateUrlPageArg('" + sForumPage + "')";
-a3[sChatPage] = "uodateUrlPageArg('" + sChatPage + "')";
-a3[sFriendPage] = "uodateUrlPageArg('" + sFriendPage + "')";
-a3[sSettingPage] = "uodateUrlPageArg('" + sSettingPage + "')";
-const aFooterAction = a3;
+// const a3 = [];
+// a3[sForumPage] = "uodateUrlPageArg('" + sForumPage + "')";
+// a3[sChatPage] = "uodateUrlPageArg('" + sChatPage + "')";
+// a3[sFriendPage] = "uodateUrlPageArg('" + sFriendPage + "')";
+// a3[sSettingPage] = "uodateUrlPageArg('" + sSettingPage + "')";
+// const aFooterAction = a3;
 
 const sDefaultPageHtml = 'index.html';
 

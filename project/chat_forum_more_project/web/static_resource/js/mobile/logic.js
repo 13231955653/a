@@ -85,6 +85,7 @@ function localstorageDecodeValue (sValue = '') {
  */
 let sLastPage = '';
 function uodateUrlPageArg (p = '') {
+    console.log('uodateUrlPageArg begin, p ' + p);
     if (!p) {
         console.log('uodateUrlPageArg page is null，so no will to do');
         return;

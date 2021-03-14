@@ -5,6 +5,10 @@ const aBody = [
     'writeBodyLeft',
     'writeBodyRight',
 ];
+
+const sUpdateUrlPageKey = '_update_url_page';
+const sFooterOnclickTag = 'footer_onclick';
+
 let bWriteBody = false;
 function writePublicDom() {
     if (!bJquery) {
@@ -36,6 +40,21 @@ function writePublicDom() {
 
     }
     fatherDom().innerHTML = s;
+
+    asyn('bindFooterOnclick');
+}
+
+let aFooterOnclick = [];
+function bindFooterOnclick () {
+    aFooterOnclick = $('.' + sFooterOnclickTag);
+    let i = 0;
+    let l = aFooterOnclick.length;
+    for (i; i < l; i ++) {
+        aFooterOnclick[i].index = i;
+        aFooterOnclick[i].onclick = function () {
+            uodateUrlPageArg(aFooterOnclick[this.index].getAttribute(sUpdateUrlPageKey));
+        };
+    }
 }
 
 let oBodyHeader = null;
@@ -143,7 +162,8 @@ function writeOneFooter (d = '') {
 
     let s = '';
     s += '<li id="' + id + '" class="' + sFootTag + '">';
-    s += '<a href="javascript:void(0);" onclick="' + aFooterAction[d] + '">';
+    // s += '<a href="javascript:void(0);" onclick="' + aFooterAction[d] + '">';
+    s += '<a href="javascript:void(0);" ' + sUpdateUrlPageKey + '="' + d + '" class="' + sFooterOnclickTag + '">';
     s += '<span class="' + sReLangClass + '" id="' + l + '">';
     s += '</span>';
     s += '</a>';

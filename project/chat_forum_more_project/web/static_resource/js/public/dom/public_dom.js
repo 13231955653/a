@@ -201,11 +201,23 @@ function showShade (o = false) {
     o.className += ' ' + sVisibleClass;
     o.style.zIndex = iShadeBeginZIndex;
 
-    animates(o, {opacity: 100}, iSpeed);
+    asyn('domAnimate', o, {opacity: 100});
+}
+
+function domAnimate (o, j) {
+    if (typeof window['animates'] == 'undefined') {
+        console.log('domAnimate animates is undefined, so settimeout retry to do domAnimate ');
+        setTimeoutFunction('domAnimate', o, j);
+        return;
+    }
+    console.log('domAnimate animates is defined, so to do domAnimate ');
+
+    animates(o, j, iSpeed);
 }
 
 function showDomFather () {
+    let h = sOpacityShowClass;
     let g = new RegExp('\\s*' + sOpacityHiddenClass,'gm');
     fatherDom().className = fatherDom().className.toString().replace(g, '');
-    fatherDom().className += fatherDom().className.toString().length > 0 ? ' ' + sOpacityShowClass : sOpacityShowClass;
+    fatherDom().className += fatherDom().className.toString().length > 0 ? ' ' + h : h;
 }
