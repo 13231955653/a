@@ -544,6 +544,7 @@ function afterloadResetCss () {
 
 let bLoadPersonalizedCss = false;
 function loadPersonalizedCss (c = false) {
+    console.log('load user personalized color, begin');
     if (!c) {
         queryUserPersonalizedColor();
         return;
@@ -664,13 +665,14 @@ function insertAfter (n, j) {
 
 let bInloadUserPersonalizedColorFromLocalstorage = false;
 function queryUserPersonalizedColor () {
+    console.log('queryUserPersonalizedColor query user personalized color, begin ');
     if (sPersonlizedColor) {
         console.log('queryUserPersonalizedColor sPersonlizedColor is defined, so no to load user personlized color css file');
         return sPersonlizedColor;
     }
 
     if (bInloadUserPersonalizedColorFromLocalstorage) {
-        console.log('queryUserPersonalizedColor bInloadUserPersonalizedColorFromLocalstorage is true, so no to load user personlized color css file');
+        console.log('queryUserPersonalizedColor bInloadUserPersonalizedColorFromLocalstorage is true, so no to load user personlized color css file');l
         return;
     }
     bInloadUserPersonalizedColorFromLocalstorage = true;
@@ -683,6 +685,7 @@ function queryUserPersonalizedColor () {
  * @param c color string
  */
 function afterQueryUserPersonalizedColor (c = '') {
+    console.log('afterQueryUserPersonalizedColor, c ' + c);
     if (c) {
         sPersonlizedColor = c;
     } else {
@@ -1066,8 +1069,8 @@ function setTimeoutFunction (f = '', a = '', b = '') {
         return;
     }
 
-    aBaseTimer[f] = setTimeout(function () {
-        clearTimeout(aBaseTimer[f]);
+    let t = setTimeout(function () {
+        clearTimeout(t);
 
         if (!a) {
             window[f]();
@@ -1659,22 +1662,28 @@ function localstorageNowPage () {
  * @returns {boolean}
  */
 function queryLocalstorage (k = '', f = '') {
+    console.log('queryLocalstorage, begin ');
+    console.log('queryLocalstorage, key ' + k);
     if (!k || !f) {
         console.log('queryLocalstorage k or f is null');
         return false;
     }
 
-    // console.log('**********************************');
-    // console.log(k);
+    console.log('**********************************');
+    console.log(k);
     let p = localstoragePage(k);
+    console.log(p);
 
     p = storagePage(p);
+    console.log(p);
     if (!p) {
         window[f](false);
         console.log('queryLocalstorage setLocalstorageOrigins p is null');
         return false;
     }
 
+    console.log('queryLocalstorage localstoragePostMessage, begin ');
+    console.log({action: 'get', key: k, after: f});
     let t = setTimeout(function () {
         clearTimeout(t);
 
@@ -1683,6 +1692,7 @@ function queryLocalstorage (k = '', f = '') {
 }
 
 function localstoragePostMessage (p = '', m = '') {
+    console.log('localstoragePostMessage, begin ');
     if (!m || !p) {
         console.log('localstoragePostMessage m or p is null');
         return false;
@@ -1690,6 +1700,9 @@ function localstoragePostMessage (p = '', m = '') {
 
     let o = document.getElementById(p);
     if (typeof aAllreadyLoadIframe[p] != 'undefined') {
+        console.log('localstoragePostMessage o is true, so to do ');
+        console.log (p);
+        console.log (m);
         o.contentWindow.postMessage(m, p);
         return true;
     }
@@ -1700,7 +1713,8 @@ function localstoragePostMessage (p = '', m = '') {
 
     // let t = setTimeout(function () {
         console.log('localstoragePostMessage o is null, so settimeout retry ');
-        // localstoragePostMessage (p, m);
+        console.log (p);
+        console.log (m);
         setTimeoutFunction('localstoragePostMessage', p, m);
 
         // clearTimeout(t);

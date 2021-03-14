@@ -45,54 +45,53 @@ let myStorage = (function myStorage () {
         return false;
     }
 
-    let set = function (sKey, sValue, iLeftTime = false) {
-        if (!sKey || !sValue) {
-            console.log('myStorage set sKey or sValue is null');
+    let set = function (k, v, t = false) {
+        if (!k) {
+            console.log('myStorage set k or v is null');
             return false;
         }
 
-        console.log(sKey, sValue, iLeftTime);
-        sValue = disposeLocalstorageValue (sValue, iLeftTime);
+        v = disposeLocalstorageValue (v, t);
 
-        sValue = JSON.stringify(sValue);
+        v = JSON.stringify(v);
 
-        let bResult = localStorage.setItem(sKey, sValue);
-        return bResult == undefined ? true : false;
+        let b = localStorage.setItem(k, v);
+        return b == undefined ? true : false;
     };
 
-    let get = function (sKey, bUpdateLifttime = true) {
+    let get = function (k, t = true) {
         //读取
-        let oData = localStorage.getItem(sKey);
-        if (!oData) {
+        let d = localStorage.getItem(k);
+        if (!d) {
             return false;
         }
-        oData = JSON.parse(oData);
-        if (!oData) {
+        d = JSON.parse(d);
+        if (!d) {
             return false;
         }
 
-        if (typeof oData.t !== 'undefined') {
-            if (getNowTime() - oData.st > oData.t) {
-                remove(sKey);
+        if (typeof d.t !== 'undefined') {
+            if (getNowTime() - d.st > d.t) {
+                remove(k);
                 return false;
             } else {
-                if (bUpdateLifttime) {
-                    set(sKey, oData.v, oData.t / 1000);
+                if (t) {
+                    set(k, d.v, d.t / 1000);
                 }
             }
         }
 
-        return oData.v;
+        return d.v;
     };
 
-    let remove = function (sKey) {
+    let remove = function (k) {
         //读取
-        let oData = localStorage.getItem(sKey);
-        if(!oData){
+        // let oData = localStorage.getItem(k);
+        if(!localStorage.getItem(k)){
             return true;
         }
 
-        return localStorage.removeItem(sKey);
+        return localStorage.removeItem(k);
     };
 
     let clear = function() {
