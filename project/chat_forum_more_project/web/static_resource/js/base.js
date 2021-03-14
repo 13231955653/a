@@ -134,14 +134,7 @@ b['indexBegin'] = t;
 b['loadOriginJquery'] = t;
 b['domAnimate'] = t;
 b['baseShade'] = t;
-// b['pubHeader'] = t;
-// b['pubBody'] = t;
-// b['pubFooter'] = t;
-// b['pubLeft'] = t;
-// b['pubRight'] = t;
-// b['pubNotice'] = t;
 b['platformBegin'] = t;
-// b['writeIndexShade1'] = t;
 b['showBaseShade'] = t;
 b['showShade'] = t;
 b['clearBaseShade'] = 100;
@@ -257,10 +250,6 @@ const sDescriptionContent = '规定页面的描述。搜索引擎会把这个描
 const sApplicationNameContent = '规定页面所代表的 Web 应用程序的名称。';
 const sCopyrightContent = '版权所有，保留一切权利。';
 
-// const sUniqueStrPrefix = 'uniquiue';
-// const sGuidSplitTag = '-';
-// const sUuidSplitTag = '-';
-// const sUuidString = '0123456789abcdef';
 const sIndividuationUuidTag = '*';
 const sUniqueStrSplitTag = '_';
 const sRandString = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -281,20 +270,12 @@ const sSessionIdSplitLength =8;
 const sOldSessionIdStorageKey = 'old_session_id';
 const sNewSessionIdStorageKey = 'new_session_id';
 
-// const sBaseShadeId = 'base_shade';
-// const sIndexShadeId = 'index_shade';
-// const sPlatformShadeId = 'platform_shade';
-// const sPageShadeId = 'page_shade';
-// let iShadeBeginZIndex = 1000000000;
-// const sInvisibleClass = 'invisible';
-// const sVisibleClass = 'gradually_visible';
-
 const sPublicFootId = 'public_footer';
 const sPublicHeaderId = 'public_header';
 const sPublicBodyId = 'public_body';
 const sPublicLeftId = 'public_left';
 const sPublicRightId = 'public_right';
-const sPublicNoticeId = 'notice_father';
+// const sPublicNoticeId = 'notice_father';
 const sFootTag = '_foot';
 const sFootLiSuffix = '_li';
 const sActiveFootTag = 'foot_active';
@@ -316,19 +297,10 @@ const sForumPage = 'forum';
 const sChatPage = 'chat';
 const sFriendPage = 'friend';
 const sSettingPage = 'setting';
-// const a3 = [];
-// a3[sForumPage] = "uodateUrlPageArg('" + sForumPage + "')";
-// a3[sChatPage] = "uodateUrlPageArg('" + sChatPage + "')";
-// a3[sFriendPage] = "uodateUrlPageArg('" + sFriendPage + "')";
-// a3[sSettingPage] = "uodateUrlPageArg('" + sSettingPage + "')";
-// const aFooterAction = a3;
 
 const sDefaultPageHtml = 'index.html';
 
 let bFirstLoad = true; // 新打开窗口
-
-// let iWinWidth = 0;
-// let iWinHeight = 0;
 
 //RSA公钥
 const RSA_DEFAULT_PUBLIC = 'MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEA0lPvdk7Kbuxesr97W/rEqEsvhFBM6Uk/9GELq/b8aWyzbO9Zf1Z9St9EqWr7U26t9mQoZOuUQLMu7ijp/AsXOR7ojZIzdJ/QESptMHrlcSmRRHf2nUzeh1SCs8xveKNNuoJjqcGXcoUPzrtrQbtpcgNY3rofkIIi/xdSDDiGVxk8yrkFZIAdPi0w6oUwOedcnp9bosnURR42i7RcEX4/KUkN2pcd26nZGrrMGqOrOmLayx3GWBrRQ6dvBW/fM1a065SUiGlpCaG6lR0P1zRp7RPX/J73b47oaBCoOf8CVMjR5Nhdggduflu5nYVn0GRG8hGDlo0pRL+DwiI6NH6WloOgp4QYyVlczVs6gHYU5oW6AiwD8dp00IYQmJGhh8H9koO4+K1v1BdHvlNx+TcXRCWiqxqrkRAh80hRAvX1Ybhax+eV1ADr1PKR8TlJTUFrCIO9FrC42Hh/JFQITkzGzGFo1ZIfPY60kMsKyG/jGbs969/A4xz9UJaU0WuqRrjZd1HSiGd800FC4tragVPY8fLoIJs21bPuVKRwjRBO061CM6JyODzClUPN8iT20TaASWGQuLlBssZnUWrpU4Hgx1KIFm7reaXsaxsPZGiKkULBrFKeZoxUsnNSKoPBZGqm7dCqCeGSzjEOuvpyNx3gLz3vLPkrPYyw61kWVUxDGBECAwEAAQ==';
@@ -513,7 +485,6 @@ function loadPublicCss () {
         return false;
     }
 
-    // loadCss(sPublicCssFile, 'afterloadPublicCss');
     asyn('loadCss', sPublicCssFile, 'afterloadPublicCss');
 
     setTimeoutFunction('loadPublicCss');
@@ -534,7 +505,6 @@ function loadResetCss () {
         return false;
     }
 
-    // loadCss(sResetCssFile, 'afterloadResetCss');
     asyn('loadCss', sResetCssFile, 'afterloadResetCss');
 
     setTimeoutFunction('loadResetCss');
@@ -567,7 +537,6 @@ function loadPersonalizedCss (c = false) {
     aCssVersion[sPersonalizedCss] = 'ggggggggd';
     sPersonalizedCssFile = setJsCssSrc('css', sPersonalizedCss);
 
-    // loadCss(sPersonalizedCssFile, 'afterloadPersonalizedCss');
     asyn('loadCss', sPersonalizedCssFile, 'afterloadPersonalizedCss');
 
     setTimeoutFunction('loadPersonalizedCss', c);
@@ -601,12 +570,9 @@ function loadCss (r = '', c = '') {
         checkLoadCss(c, l.id);
     }
 
-    // oHead.insertBefore(l, document.getElementById(sIndexScriptTagId));
-    // oHead.insertBefore(l, sIndexScriptTag);
     asyn('asynLoadCss', l);
 }
 function asynLoadCss (l) {
-    // oHead.insertBefore(l, sIndexScriptTag);
     insertAfter(l, oFinalMeta ? oFinalMeta : finalMeta());
 }
 let oIndexScriptTag = '';
@@ -678,7 +644,6 @@ function queryUserPersonalizedColor () {
     }
     bInloadUserPersonalizedColorFromLocalstorage = true;
 
-    // queryLocalstorage(sLocalstorgaeUserPersonalizedColorKey, 'afterQueryUserPersonalizedColor');
     asyn('queryLocalstorage', sLocalstorgaeUserPersonalizedColorKey, 'afterQueryUserPersonalizedColor');
 }
 /**
@@ -692,12 +657,10 @@ function afterQueryUserPersonalizedColor (c = '') {
     } else {
         sPersonlizedColor = iDefaultUserPersonalizedColor;
 
-        // setPersonlizedColor(sPersonlizedColor);
         asyn('setPersonlizedColor', sPersonlizedColor);
     }
     bInloadUserPersonalizedColorFromLocalstorage = false;
 
-    // loadPersonlizedColorCss(sPersonlizedColor);
     asyn('loadPersonlizedColorCss', sPersonlizedColor);
 }
 /**
@@ -749,7 +712,6 @@ function loadPageJs () {
 
     asyn('showPageShade');
 
-    // let sPage = getNowPage();
     let j = '';
     sPageNow = getNowPage();
     switch (sPageNow) {
@@ -783,12 +745,6 @@ function loadPageJs () {
         changeDomFatherOpacity();
     }, 0);
 
-    // let t2 = setTimeout(function () {
-    //     clearTimeout(t2);
-    //
-    //     writePageShade();
-    // }, 0);
-
     console.log('popooooooooooooooooooooooooooooo');
     let t3 = setTimeout(function () {
         clearTimeout(t3);
@@ -808,7 +764,6 @@ function afterLoadPageJs () {
     bInLoadPageJs = false;
 
     console.log('qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqs');
-    // console.log(sPageNow + 'Begin');
     asyn(sPageNow + 'Begin');
 
     asyn('updateActiveFooter');
@@ -848,12 +803,9 @@ function loadJs (s = '', b = true, c = false) {
         }
     }
 
-    // oHead.appendChild(o);
-    // insertAfter(o, document.getElementById(sIndexScriptTagId));
     asyn('asynLoadJs', o);
 }
 function asynLoadJs (o) {
-    // oHead.appendChild(o);
     insertAfter(o, oIndexScriptTag);
 }
 
@@ -923,7 +875,6 @@ function getUserIp () {
     loadJs(sQueryUserIpAddress, false, 'setUserIp');
 }
 function setUserIp () {
-    // console.log(returnCitySN);
     sIp = returnCitySN.cip;
     sCid = returnCitySN.cid;
     sIpCityName = returnCitySN.cname;
@@ -962,7 +913,6 @@ function setJsCssSrc (t = '', s = '') {
             break;
     }
 
-    // return allocationHost(s) + s + '?v=' + v + jsCssVersionSuffix();
     return allocationHost(s) + s + '?v=' + v + sFileVersionSuffix;
 }
 let sFileVersionSuffix = '';
@@ -1157,27 +1107,12 @@ function setHtmlLang () {
     oHtml.lang = sHtmlLang;
 }
 
-// function appendChildPreventRedraw (appendChild, FragmentId) {
-//     let d = document.getElementById(FragmentId);
-//     if (!d) {
-//         d = document.createDocumentFragment();
-//         d.id = FragmentId;
-//     }
-//
-//     d.appendChild(appendChild);
-//     // console.log(d);
-//     // appendFather.appendChild(d);
-//     // return d;
-// }
-
 let bSetMeta = false;
 function setMeta () {
     if (bSetMeta) {
         return;
     }
     bSetMeta = true;
-
-    // oHtml.style.display = 'none';
 
     let a = [
         sContentAndCharset,
@@ -1353,12 +1288,6 @@ function setContent (n = '') {
 
 let oFatherDom = '';
 function fatherDom () {
-    // if (oFatherDom) {
-    //     return oFatherDom;
-    // }
-    //
-    // oFatherDom = document.getElementById(oDomFatherId);
-    // return oFatherDom;
     oFatherDom = oFatherDom ? oFatherDom : document.getElementById(oDomFatherId);
     return oFatherDom;
 }
@@ -1376,7 +1305,6 @@ function queryUserLang () {
     }
     bAllreadyLoadUserLang = true;
 
-    // queryLocalstorage(sLocalstorageLangTag, 'afterQueryLang');
     asyn('queryLocalstorage', sLocalstorageLangTag, 'afterQueryLang');
 }
 /**
@@ -1390,12 +1318,10 @@ function afterQueryLang (l = '') {
         sUserLangvage = l;
     } else {
         sUserLangvage = sDefaultLangvage;
-        // setLang(sUserLangvage);
         asyn('setLang', sUserLangvage);
     }
     bAllreadyLoadUserLang = false;
 
-    // loadLang(sUserLangvage);
     asyn('loadLang', sUserLangvage);
 }
 /**
@@ -1464,7 +1390,6 @@ function setLocalstorage (k = '', m = '', t = false, f = '') {
     let z = 0;
     let d = sOriginLocalstorageSizeKey;
     let c = queryLocalstorageCache(d);
-    // let c = queryLocalstorageCache(sOriginLocalstorageSizeKey);
     c = eval('(' + z + ')');
     c = c ? c : {};
     while (!z || iMaxLocalstorageSize < z) {
@@ -1481,9 +1406,6 @@ function setLocalstorage (k = '', m = '', t = false, f = '') {
         }
     }
 
-    // localstorageLocalCache(k, p);
-
-    // localstorageLocalCache(d, c);
     asyn('localstorageLocalCache', d, c);
 
     p = storagePage(p);
@@ -1615,8 +1537,6 @@ function localstoragePage (k) {
 
     if (!i) {
         i = sLocalstorgaeBeginTag;
-        // console.log(k);
-        // console.log(i);
         localstorageLocalCache (k, i);
     }
 
@@ -1684,14 +1604,10 @@ function localstoragePostMessage (p = '', m = '') {
         writeStorageDom(p);
     }
 
-    // let t = setTimeout(function () {
-        console.log('localstoragePostMessage o is null, so settimeout retry ');
-        console.log (p);
-        console.log (m);
-        setTimeoutFunction('localstoragePostMessage', p, m);
-
-        // clearTimeout(t);
-    // }, aTimer['localstoragePostMessage']);
+    console.log('localstoragePostMessage o is null, so settimeout retry ');
+    console.log (p);
+    console.log (m);
+    setTimeoutFunction('localstoragePostMessage', p, m);
 
     return false;
 }
@@ -1743,7 +1659,6 @@ let myStorage = (function myStorage () {
 
     let remove = function (k) {
         //读取
-        // let oData = localStorage.getItem(k);
         if(!localStorage.getItem(k)){
             return true;
         }
@@ -2163,57 +2078,19 @@ function afterloadApiJs () {
 }
 
 function loadBaseJs () {
-    // let t7 = setTimeout(function () {
-    //     clearTimeout(t7);
-    //
-    //     loadIndexJs();
-    // }, 0);
     asyn('loadIndexJs');
 
-    // let t2 = setTimeout(function () {
-    //     clearTimeout(t2);
-    //
-    //     loadFunctionJs();
-    // }, 0);
     asyn('loadFunctionJs');
 
-    // let t3 = setTimeout(function () {
-    //     clearTimeout(t3);
-    //
-    //     loadDomJs();
-    // }, 0);
     asyn('loadDomJs');
 
-    // let t4 = setTimeout(function () {
-    //     clearTimeout(t4);
-    //
-    //     loadPlatformDomJs();
-    // }, 0);
     asyn('loadPlatformDomJs');
 
-    // let t5 = setTimeout(function () {
-    //     clearTimeout(t5);
-    //
-    //     loadLogicJs();
-    // }, 0);
     asyn('loadLogicJs');
 
-    // let t6 = setTimeout(function () {
-    //     clearTimeout(t6);
-    //
-    //     loadApiJs();
-    // }, 0);
     asyn('loadApiJs');
 
-    // let t1 = setTimeout(function () {
-    //     clearTimeout(t1);
-    //
-    //     loadEncodeJs();
-    // }, 0);
     asyn('loadEncodeJs');
-
-    // console.log('indexBegin 3333333333333');
-    // asyn('loadLocalJquery1');
 }
 
 /**
@@ -2228,11 +2105,43 @@ function changeBodyStatus (b = true) {
     oBody.style.visibility = h;
 }
 
+function sessId () {
+    if (typeof window['sessionId'] == 'undefined') {
+        console.log('sessId sessionId is undefined, so settimeout retry sessId ');
+
+        let t = setTimeout(function () {
+            clearTimeout(t);
+
+            setTimeoutFunction('sessId');
+        }, 0);
+        return;
+    }
+    console.log('sessId sessionId is defined, so to sessionId ');
+
+    asyn('sessionId');
+}
+
+function baseBegin () {
+    if (!window.localStorage) {
+        return false;
+    }
+
+    try {
+        localStorage.setItem('private_test', 1);
+        console.log('localstorage is can use, just do it !!! ');
+
+        asyn('baseBegins');
+    } catch (e) {
+        //无痕模式
+        console.log('localstorage is forbidden, web can not normal use, so we nothing to do ');
+    }
+}
+
 let iBeginTime = 0;
 let oHtml = false;
 let oHead = false;
 let oBody = false;
-function baseBegin (bOnload = false) {
+function baseBegins (bOnload = false) {
     console.log('base begin');
     if (bOnload) {
         bFirstLoad = true;
@@ -2256,14 +2165,12 @@ function baseBegin (bOnload = false) {
         oHead = document.getElementsByTagName('head')[0];
         oBody = document.getElementsByTagName('body')[0];
 
-        setTimeoutFunction('baseBegin', bOnload);
+        setTimeoutFunction('baseBegins', bOnload);
         return;
     }
 
     console.log('base 2222222222222222');
     if (bOnload) {
-        // oHtml.style.visibility = 'hidden';
-        // oBody.style.visibility = 'hidden';
         asyn('changeBodyStatus', false);
 
         asyn('winResize', bOnload);
@@ -2349,7 +2256,6 @@ function astrict () {
 
     let b = bMobile !== '' ? bMobile : isMobile();
     if (!b) {
-    // if (!isMobile()) {
         alert('The computer side is not enabled yet, will jump to ' + sAstrictJumpUrl);
 
         illegality();
