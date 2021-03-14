@@ -11,13 +11,13 @@ const sFooterOnclickTag = 'footer_onclick';
 
 let bWriteBody = false;
 function writePublicDom() {
-    if (!bJquery) {
-        console.log('writePublicDom jQuery is undefined, so settimeout retry to writePublicDom ');
-
-        setTimeoutFunction('writePublicDom');
-        return;
-    }
-    console.log('pubHeader jQuery is defined, so will to do ');;
+    // if (!bJquery) {
+    //     console.log('writePublicDom jQuery is undefined, so settimeout retry to writePublicDom ');
+    //
+    //     setTimeoutFunction('writePublicDom');
+    //     return;
+    // }
+    // console.log('pubHeader jQuery is defined, so will to do ');;
 
     for (let i in aBody) {
         if (typeof window[aBody[i]] == 'undefined') {
@@ -32,7 +32,7 @@ function writePublicDom() {
     }
     bWriteBody = true;
 
-    console.log('writePublicDom all is defined, so will to do ');
+    // console.log('writePublicDom all is defined, so will to do ');
 
     let s = '';
     for (let i in aBody) {
@@ -48,7 +48,7 @@ function writePublicDom() {
 
 let oFooter = '';
 function replaceFooterLang () {
-    oFooter = oFooter ? oFooter : document.getElementById(sPublicFootId);
+    oFooter = oFooter ? oFooter : domById(sPublicFootId);
     asyn('replaceLang', sReplaceLangIdType, oFooter);
 }
 
@@ -67,27 +67,27 @@ function bindFooterOnclick () {
 
 let oBodyHeader = null;
 function bodyHeaderDom () {
-    oBodyHeader = oBodyHeader ? oBodyHeader : document.getElementById(sPublicHeaderId);
+    oBodyHeader = oBodyHeader ? oBodyHeader : domById(sPublicHeaderId);
     return oBodyHeader != null ? oBodyHeader : false;
 }
 let oBodyBody = null;
 function bodyBodyDom () {
-    oBodyBody = oBodyBody ? oBodyBody : document.getElementById(sPublicBodyId);
+    oBodyBody = oBodyBody ? oBodyBody : domById(sPublicBodyId);
     return oBodyBody != null ? oBodyBody : false;
 }
 let oBodyFooter = null;
 function bodyFooterDom () {
-    oBodyFooter = oBodyFooter ? oBodyFooter : document.getElementById(sPublicFootId);
+    oBodyFooter = oBodyFooter ? oBodyFooter : domById(sPublicFootId);
     return oBodyFooter != null ? oBodyFooter : false;
 }
 let oBodyLeft = null;
 function bodyLeftDom () {
-    oBodyLeft = oBodyLeft ? oBodyLeft : document.getElementById(sPublicLeftId);
+    oBodyLeft = oBodyLeft ? oBodyLeft : domById(sPublicLeftId);
     return oBodyLeft != null ? oBodyLeft : false;
 }
 let oBodyRight = null;
 function bodyRightDom () {
-    oBodyRight = oBodyRight ? oBodyRight : document.getElementById(sPublicRightId);
+    oBodyRight = oBodyRight ? oBodyRight : domById(sPublicRightId);
     return oBodyRight != null ? oBodyRight : false;
 }
 function writeBodyHeader() {
@@ -125,7 +125,7 @@ function writeBodyBody() {
 }
 
 function writeMobliePageDom (d) {
-    if (document.getElementById(d) != null) {
+    if (domById(d) != null) {
         return '';
     }
 
@@ -162,7 +162,7 @@ function writeBodyFooter() {
 }
 function writeOneFooter (d = '') {
     let id = d + sFootTag + sFootLiSuffix;
-    if (document.getElementById(id) != null) {
+    if (domById(id) != null) {
         return '';
     }
 
@@ -207,21 +207,35 @@ function writeBodyRight () {
 }
 
 function platformBegin () {
-    console.log('platformBegin 11111111111');
-    asyn('showPlatformShade');
+    // if (typeof window['showPlatformShade'] == 'undefined') {
+    //     console.log('platformBegin showPlatformShade is undefined, so settimeout retry to do platformBegin ');
+    //     setTimeoutFunction('platformBegin');
+    //     return;
+    // }
+    //
+    // if (typeof window['clearIndexShade'] == 'undefined') {
+    //     console.log('platformBegin clearIndexShade is undefined, so settimeout retry to do platformBegin ');
+    //     setTimeoutFunction('platformBegin');
+    //     return;
+    // }
 
-    console.log('platformBegin 333333333333');
+    // console.log('platformBegin 11111111111');
+    asyn('showPlatformShade');
+    // showPlatformShade();
+
+    // console.log('platformBegin 333333333333');
     asyn('clearIndexShade');
+    // clearIndexShade();
 }
 
 function updateActiveFooter () {
     // let sPage = getNowPage();
-    let f = document.getElementById(getNowPage() + sFootTag + sFootLiSuffix);
+    let f = domById(getNowPage() + sFootTag + sFootLiSuffix);
     if (!f) {
         console.log('afterLoadPageJs f is null, so no to do');
         return false;
     }
-    console.log('afterLoadPageJs f is true, so to do');
+    // console.log('afterLoadPageJs f is true, so to do');
 
     let o = document.getElementsByClassName(sFootTag);
     if (o.length) {

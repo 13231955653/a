@@ -1,44 +1,13 @@
-/**
- *
- * 清除 遮罩层
- *
- * @param o 遮罩层 dom
- */
-function clearShade (o = false) {
-    if (!o) {
-        console.log('clearShade o is null, so no to do ');
-        return;
-    }
-    console.log('clearShade ' + o.id + ' is true, will to clear shade ');
-
-    if (typeof window['animates'] == 'undefined') {
-        console.log('clearShade animates is undefined, so settimeout retry clearShade ');
-
-        let t = setTimeout(function () {
-            clearTimeout(t);
-
-            setTimeoutFunction('clearShade', o);
-        })
-        return;
-    }
-
-    animates(o, {opacity: 0}, iSpeed, function () {
-        let p1 = new RegExp('\\s+' + sInvisibleClass,'gm');
-        let p2 = new RegExp('\\s+' + sVisibleClass,'gm');
-        o.className = o.className.replace(p1, '');
-        o.className = o.className.replace(p2, '');
-        o.className += ' ' + sInvisibleClass;
-
-        o.style.zIndex = 0;
-    });
-}
-
 let oShadeFather = '';
 function getPublicShadeDom () {
     oShadeFather = oShadeFather ? oShadeFather : document.getElementById(sPublicShadeId);
     return oShadeFather;
 }
 
+let oBaseShade = '';
+let oIndexShade = '';
+let oPlatformShade = '';
+let oPageShade = '';
 let bWriteShade = false;
 function writePublicShade () {
     if (bWriteShade) {
@@ -46,7 +15,6 @@ function writePublicShade () {
         return;
     }
     bWriteShade = true;
-    console.log('writePublicShade bWriteShade is false, so will to write shades ');
 
     let a = [
         sBaseShadeId,
@@ -61,16 +29,40 @@ function writePublicShade () {
         m = document.createElement('div');
         m.id = a[i];
         m.className = sShadeClass + ' ' + sInvisibleClass;
-        m.style.zIndex = 0;
         if (m) {
             o.appendChild(m);
         }
     }
+    asyn('asynAppendShade', o);
+}
+function asynAppendShade (o) {
     getPublicShadeDom().appendChild(o);
+}
+function baseShades () {
+    oBaseShade = oBaseShade ? oBaseShade : domById(sBaseShadeId);
+    return oBaseShade;
+}
+function indexShade () {
+    oIndexShade = oIndexShade ? oIndexShade : domById(sIndexShadeId);
+    return oIndexShade;
+}
+function platformShade () {
+    oPlatformShade = oPlatformShade ? oPlatformShade : domById(sPlatformShadeId);
+    return oPlatformShade;
+}
+function pageShade () {
+    oPageShade = oPageShade ? oPageShade : domById(sPageShadeId);
+    return oPageShade;
 }
 
 function showBaseShade () {
-    let o = document.getElementById(sBaseShadeId);
+    if (aShades[sBaseShadeId]) {
+        console.log('!!!!!!!!!!!!!in show base shade, settimeout retry to do showBaseShade ');
+        setTimeoutFunction('showBaseShade');
+        return;
+    }
+
+    let o = baseShades();
     if (!o) {
         console.log('showBaseShade ' + sBaseShadeId + ' shade dom no get, will to settimeout retry showBaseShade ');
 
@@ -78,7 +70,7 @@ function showBaseShade () {
         return;
     }
 
-    showShade(o);
+    asyn('showShade', o);
 }
 /**
  *
@@ -86,19 +78,30 @@ function showBaseShade () {
  *
  */
 function clearBaseShade () {
-    let o = document.getElementById(sBaseShadeId);
+    if (!aShades[sBaseShadeId]) {
+        console.log('!!!!!!!!!!!!!in clear base shade, settimeout retry to do clearBaseShade ');
+        setTimeoutFunction('clearBaseShade');
+        return;
+    }
+
+    let o = baseShades();
     if (!o) {
         console.log('clearBaseShade o is null, so no to do ');
         setTimeoutFunction('clearBaseShade');
         return;
     }
-    console.log('clearBaseShade o is true, so will clear shade ' + sBaseShadeId);
 
-    clearShade(o);
+    asyn('clearShade', o);
 }
 
 function showIndexShade () {
-    let o = document.getElementById(sIndexShadeId);
+    if (aShades[sIndexShadeId]) {
+        console.log('!!!!!!!!!!!!!in show index shade, settimeout retry to do showIndexShade ');
+        setTimeoutFunction('showIndexShade');
+        return;
+    }
+
+    let o = indexShade();
     if (!o) {
         console.log('showIndexShade ' + sIndexShadeId + ' shade dom no get, will to settimeout retry showIndexShade ');
 
@@ -106,7 +109,7 @@ function showIndexShade () {
         return;
     }
 
-    showShade(o);
+    asyn('showShade', o);
 }
 /**
  *
@@ -114,18 +117,30 @@ function showIndexShade () {
  *
  */
 function clearIndexShade () {
-    let o = document.getElementById(sIndexShadeId);
+    if (!aShades[sIndexShadeId]) {
+        console.log('!!!!!!!!!!!!!in clear index shade, settimeout retry to do clearIndexShade ');
+        setTimeoutFunction('clearIndexShade');
+        return;
+    }
+
+    let o = indexShade();
     if (!o) {
         console.log('clearIndexShade o is null, so will settimeout retry clearIndexShade ');
         setTimeoutFunction('clearIndexShade');
         return;
     }
 
-    clearShade(o);
+    asyn('clearShade', o);
 }
 
 function showPlatformShade () {
-    let o = document.getElementById(sPlatformShadeId);
+    if (aShades[sIndexShadeId]) {
+        console.log('!!!!!!!!!!!!!in show platform shade, settimeout retry to do showPlatformShade ');
+        setTimeoutFunction('showPlatformShade');
+        return;
+    }
+
+    let o = platformShade();
     if (!o) {
         console.log('showPlatformShade ' + sPlatformShadeId + ' shade dom no get, will to settimeout retry showPlatformShade ');
 
@@ -133,7 +148,7 @@ function showPlatformShade () {
         return;
     }
 
-    showShade(o);
+    asyn('showShade', o);
 }
 /**
  *
@@ -141,17 +156,29 @@ function showPlatformShade () {
  *
  */
 function clearPlatformShade () {
-    let o = document.getElementById(sPlatformShadeId);
-    if (!o) {
-        console.log('clearPlatformShade o id null, so no to do ');
+    if (!aShades[sPlatformShadeId]) {
+        console.log('!!!!!!!!!!!!!in clear platform shade, settimeout retry to do clearPlatformShade ');
+        setTimeoutFunction('clearPlatformShade');
         return;
     }
 
-    clearShade(o);
+    let o = platformShade();
+    if (!o) {
+        console.log('clearPlatformShade o id null, so no to do, meybe error ');
+        return;
+    }
+
+    asyn('clearShade', o);
 }
 
 function showPageShade () {
-    let o = document.getElementById(sPageShadeId);
+    if (aShades[sPlatformShadeId]) {
+        console.log('!!!!!!!!!!!!!in show page shade, settimeout retry to do showPageShade ');
+        setTimeoutFunction('showPageShade');
+        return;
+    }
+
+    let o = pageShade();
     if (!o) {
         console.log('showPageShade page shade dom no get, will to write page shade and retry');
 
@@ -159,7 +186,7 @@ function showPageShade () {
         return;
     }
 
-    showShade(o);
+    asyn('showShade', o);
 }
 /**
  *
@@ -167,57 +194,137 @@ function showPageShade () {
  *
  */
 function clearPageShade () {
-    let o = document.getElementById(sPageShadeId);
+    if (!aShades[sPlatformShadeId]) {
+        console.log('!!!!!!!!!!!!!in clear page shade, settimeout retry to do clearPageShade ');
+        setTimeoutFunction('clearPageShade');
+        return;
+    }
+
+    let o = pageShade();
     if (!o) {
-        console.log('clearPageShade o is null, so no to do ');
+        console.log('clearPageShade o is null, so no to do, meybe error ');
 
         return;
     }
 
-    clearShade(o);
+    asyn('clearShade', o);
 }
 
+let aShades = [];
+aShades[sBaseShadeId] = false;
+aShades[sIndexShadeId] = false;
+aShades[sPlatformShadeId] = false;
+aShades[sPageShadeId] = false;
 function showShade (o = false) {
-    if (!o) {
-        console.log('showShade o dom is null, so no to do');
-        return;
-    }
-    if (!o) {
-        console.log(o);
-        console.log('showShade shade dom no get, will to settimeout retry showShade ');
+    // if (!o) {
+    //     console.log('showShade o dom is null, so no to do');
+    //     return;
+    // }
+    // afterShowShade(true, o.id);
 
+    if (typeof window['animates'] == 'undefined') {
+        console.log('showShade animates is undefined, so settimeout retry to do showShade ');
         setTimeoutFunction('showShade', o);
         return;
     }
-    console.log('showShade ' + o.id + ', will to show shade ');
 
-    iShadeBeginZIndex += parseInt(1);
+    let p1 = new RegExp('\\s*' + sInvisibleClass,'gm');
+    let p2 = new RegExp('\\s*' + sVisibleClass,'gm');
 
-    let p1 = new RegExp('\\s+' + sInvisibleClass,'gm');
-    let p2 = new RegExp('\\s+' + sVisibleClass,'gm');
-    o.className = o.className.replace(p1, '');
-    o.className = o.className.replace(p2, '');
+    let s = o.className;
+    s = s.replace(p1, '');
+    s = s.replace(p2, '');
 
-    o.className += ' ' + sVisibleClass;
-    o.style.zIndex = iShadeBeginZIndex;
+    o.className = s ? s + ' ' + sVisibleClass : sVisibleClass;
 
-    asyn('domAnimate', o, {opacity: 100});
+    o.style.filter = 'alpha(opacity:' + 0 + ')';
+    o.style.opacity = 0 / 100;
+
+    animates(o, {opacity: 100}, iSpeed, function () {
+        // afterShowShade(false, o.id);
+        aShades[o.id] = true;
+    });
 }
+// let bInShowBaseShade = false;
+// let bInClearBaseShade = false;
+// let bInShowIndexShade = false;
+// let bInClearIndexShade = false;
+// let bInShowPlatformShade = false;
+// let bInClearPlatformShade = false;
+// let bInShowPageShade = false;
+// let bInClearPageShade = false;
+// function afterShowShade (s, d) {
+//     switch (d) {
+//         case sBaseShadeId :
+//             if (s) {
+//                 bInShowBaseShade = true;
+//             } else {
+//                 bInClearBaseShade = false;
+//             }
+//             break;
+//         case sIndexShadeId :
+//             if (s) {
+//                 bInShowIndexShade = true;
+//             } else {
+//                 bInClearIndexShade = false;
+//             }
+//             break;
+//         case sPlatformShadeId :
+//             if (s) {
+//                 bInShowPlatformShade = true;
+//             } else {
+//                 bInClearPlatformShade = false;
+//             }
+//             break;
+//         case sPageShadeId :
+//             if (s) {
+//                 bInShowPageShade = true;
+//             } else {
+//                 bInClearPageShade = false;
+//             }
+//             break;
+//     }
+// }
+/**
+ *
+ * 清除 遮罩层
+ *
+ * @param o 遮罩层 dom
+ */
+function clearShade (o = false) {
+    // if (!o) {
+    //     console.log('clearShade o is null, so no to do ');
+    //     return;
+    // }
+    // afterShowShade(false, o.id);
 
-function domAnimate (o, j) {
     if (typeof window['animates'] == 'undefined') {
-        console.log('domAnimate animates is undefined, so settimeout retry to do domAnimate ');
-        setTimeoutFunction('domAnimate', o, j);
+        console.log('clearShade animates is undefined, so settimeout retry clearShade ');
+        setTimeoutFunction('clearShade', o);
         return;
     }
-    console.log('domAnimate animates is defined, so to do domAnimate ');
 
-    animates(o, j, iSpeed);
+    o.style.filter = 'alpha(opacity:' + 100 + ')';
+    o.style.opacity = 100 / 100;
+    o.className += ' ' + sVisibleClass;
+
+    animates(o, {opacity: 0}, iSpeed, function () {
+        let p1 = new RegExp('\\s*' + sInvisibleClass,'gm');
+        let p2 = new RegExp('\\s*' + sVisibleClass,'gm');
+
+        let s = o.className;
+        s = s.replace(p1, '');
+        s = s.replace(p2, '');
+        o.className = s ? s + ' ' + sInvisibleClass : sInvisibleClass;
+
+        aShades[o.id] = false;
+        // afterShowShade(true, o.id);
+    });
 }
 
-function showDomFather () {
-    let h = sOpacityShowClass;
-    let g = new RegExp('\\s*' + sOpacityHiddenClass,'gm');
-    fatherDom().className = fatherDom().className.toString().replace(g, '');
-    fatherDom().className += fatherDom().className.toString().length > 0 ? ' ' + h : h;
-}
+// function showDomFather () {
+//     let h = sOpacityShowClass;
+//     let g = new RegExp('\\s*' + sOpacityHiddenClass,'gm');
+//     fatherDom().className = fatherDom().className.toString().replace(g, '');
+//     fatherDom().className += fatherDom().className.toString().length > 0 ? ' ' + h : h;
+// }

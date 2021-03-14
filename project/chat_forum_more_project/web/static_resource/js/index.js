@@ -36,30 +36,42 @@ function loadLocalJquery1 () {
 function afterPageAction () {
     console.log('/////////////////////////////////////////////////////');
     asyn('clearPageShade');
+    // clearPageShade();
 
     asyn('changeBodyStatus', true);
+    // changeBodyStatus(true);
 
-    asyn('showDomFather');
+    // asyn('showDomFather');
 }
 
 function pageBegin () {
-    console.log('pageBegin 1111111111111');
+    // console.log('pageBegin 1111111111111');
     asyn('showPageShade');
+    // showPageShade();
 
-    console.log('pageBegin 222222222222');
+    // console.log('pageBegin 222222222222');
     asyn('afterPageAction');
 
-    console.log('pageBegin 444444444444444444');
+    // console.log('pageBegin 444444444444444444');
     asyn('clearPlatformShade');
+    // clearPlatformShade();
 }
 
 function indexBegin () {
-    console.log('indexBegin 11111111111');
-    asyn('showIndexShade');
-
-    console.log('indexBegin 22222222222222');
     asyn('loadLocalJquery1');
 
-    console.log('indexBegin 333333333333');
+    // if (typeof window['clearBaseShade'] == 'undefined') {
+    //     console.log('platformBegin clearBaseShade is undefined, so settimeout retry to do platformBegin ');
+    //     setTimeoutFunction('indexBegin');
+    //     return;
+    // }
+
+    // console.log('indexBegin 11111111111');
+    // asyn('showIndexShade');
+
+    // console.log('indexBegin 22222222222222');
+
+    // console.log('indexBegin 333333333333');
     asyn('clearBaseShade');
+    // clearBaseShade();
 }
