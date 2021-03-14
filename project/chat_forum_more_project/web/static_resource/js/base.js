@@ -744,6 +744,7 @@ function loadPageJs () {
         console.log('loadPageJs bInLoadPageJs in load, so no to do');
         return ;
     }
+    console.log('loadPageJs bInLoadPageJs in no load, so to do load ');
     bInLoadPageJs = true;
 
     asyn('showPageShade');
@@ -788,6 +789,7 @@ function loadPageJs () {
     //     writePageShade();
     // }, 0);
 
+    console.log('popooooooooooooooooooooooooooooo');
     let t3 = setTimeout(function () {
         clearTimeout(t3);
 

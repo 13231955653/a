@@ -418,20 +418,18 @@ function replaceLang (p = '', d = '') {
         s[i].innerHTML = aLang[s[i].id];
     }
 }
-
-
-
 function replaceLangs () {
-    if (!bJquery) {
-    // if (typeof jQuery === 'undefined') {
-        console.log('replaceLangs jQuery is undefined, so settimeout retry to replaceLangs ');
+    // if (!bJquery) {
+    //     // if (typeof jQuery === 'undefined') {
+    //     console.log('replaceLangs jQuery is undefined, so settimeout retry to replaceLangs ');
+    //
+    //     setTimeoutFunction('replaceLangs');
+    //     return;
+    // }
+    // console.log('replaceLangs jQuery is defined, so to replaceLangs ');
 
-        setTimeoutFunction('replaceLangs');
-        return;
-    }
-    console.log('replaceLangs jQuery is defined, so to replaceLangs ');
-
-    let a = $('.' + sReLangClass);
+    // let a = $('.' + sReLangClass);
+    let a = oBody.getElementsByClassName(sReLangClass);
     if (!a.length) {
         console.log('replaceLangs class ' + sReLangClass + ' dom no get, so no to do replace lang');
         // setTimeoutFunction('replaceLangs');
@@ -445,6 +443,9 @@ function replaceLangs () {
         a[i].innerHTML = s;
     }
 }
+
+
+
 
 /**
  *

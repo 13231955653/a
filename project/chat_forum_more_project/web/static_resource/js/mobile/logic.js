@@ -91,18 +91,32 @@ function uodateUrlPageArg (p = '') {
         return;
     }
 
-    // if (sLastPage === p) {
-    //     console.log('uodateUrlPageArg sLastPage === ' + p + ' ，so no change url and after action');
-    //     console.log('uodateUrlPageArg dispose show now page or reload now page dom');
-    //
-    //     // repeatedlyPage(p);
-    //     return;
-    // }
+    if (sLastPage === p) {
+        console.log('uodateUrlPageArg sLastPage === ' + p + ' ，so no change url and after action');
+        console.log('uodateUrlPageArg dispose show now page or reload now page dom');
+        console.log('/////////////////////////////////////////////////');
+        // repeatedlyPage(p);
+
+        asyn('showPageShade');
+
+        asyn('againOnlickFooter');
+        return;
+    }
     sLastPage = p;
 
     // writePageShade();
 
     updateUrlPage(p);
+}
+
+/**
+ *
+ * 多次点击同一个脚步事件
+ *
+ */
+function againOnlickFooter () {
+    console.log('/////////////////////////////////////////////////');
+    asyn('clearPageShade');
 }
 
 // function repeatedlyPage (p = '') {
@@ -184,6 +198,8 @@ function replaceWindowTitle (t = '') {
  */
 let aAllreadyLoadPageJs = [];
 function updateUrlPage (p = '') {
+    console.log('ggggggggggggggggggggggggggggggggggggggggggg');
+    console.log('updateUrlPage, begin ');
     if (typeof window['urlDecode'] == 'undefined') {
         console.log('updateUrlPage urlDecode is undefined, so settimtoue retry ');
 

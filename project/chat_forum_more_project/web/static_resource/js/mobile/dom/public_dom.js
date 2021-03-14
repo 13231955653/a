@@ -42,6 +42,14 @@ function writePublicDom() {
     fatherDom().innerHTML = s;
 
     asyn('bindFooterOnclick');
+
+    asyn('replaceFooterLang');
+}
+
+let oFooter = '';
+function replaceFooterLang () {
+    oFooter = oFooter ? oFooter : document.getElementById(sPublicFootId);
+    asyn('replaceLang', sReplaceLangIdType, oFooter);
 }
 
 let aFooterOnclick = [];
