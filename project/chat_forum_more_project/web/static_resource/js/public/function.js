@@ -292,46 +292,46 @@ function getStyle (o, s) {
  * @param p 改变样式速度  number
  * @param c 回调函数 type strting
  */
-function jsAnimate (o, s, p, c) {
-    if (!o || !s || !p) {
-        console.log('jsAnimate o or s or p is null');
-        return;
-    }
-
-    clearInterval(o.timer);
-    // 开启定时器
-    o.timer = setInterval(function () {
-        let f = true;//假设所有动作都已完成成立。
-        for (let n in s) {
-            //1.取当前属性值
-            let m = 0;
-            // 透明度是小数，所以得单独处理
-            m = n == 'opacity' ? Math.round(parseFloat(getStyle(o, n)) * 100) : parseInt(getStyle(o, n));
-
-            //2.计算速度
-            let p = 0;
-            p = (s[n] - m) / 8;//缓冲处理，这边也可以是固定值
-            p = p > 0 ? Math.ceil(p) : Math.floor(p);//区分透明度及小数点，向上取整，向下取整
-
-            //3.判断是否到达预定值
-            if (s[n] != m) {
-                f = false;
-                if (n == 'opacity' ) {//判断结果是否为透明度
-                    o.style[n] = (m + p) / 100;
-                    o.style.filter = 'alpha(opacity:' + (m + p) + ')';
-                }else{
-                    o.style[n] = m + p + 'px';
-                }
-            }
-        }
-        if(f){//到达设定值，停止定时器，执行回调
-            clearInterval(o.timer);
-            if (c) {
-                c();
-            }
-        }
-    }, p)
-}
+// function jsAnimate (o, s, p, c) {
+//     if (!o || !s || !p) {
+//         console.log('jsAnimate o or s or p is null');
+//         return;
+//     }
+//
+//     clearInterval(o.timer);
+//     // 开启定时器
+//     o.timer = setInterval(function () {
+//         let f = true;//假设所有动作都已完成成立。
+//         for (let n in s) {
+//             //1.取当前属性值
+//             let m = 0;
+//             // 透明度是小数，所以得单独处理
+//             m = n == 'opacity' ? Math.round(parseFloat(getStyle(o, n)) * 100) : parseInt(getStyle(o, n));
+//
+//             //2.计算速度
+//             let p = 0;
+//             p = (s[n] - m) / 8;//缓冲处理，这边也可以是固定值
+//             p = p > 0 ? Math.ceil(p) : Math.floor(p);//区分透明度及小数点，向上取整，向下取整
+//
+//             //3.判断是否到达预定值
+//             if (s[n] != m) {
+//                 f = false;
+//                 if (n == 'opacity' ) {//判断结果是否为透明度
+//                     o.style[n] = (m + p) / 100;
+//                     o.style.filter = 'alpha(opacity:' + (m + p) + ')';
+//                 }else{
+//                     o.style[n] = m + p + 'px';
+//                 }
+//             }
+//         }
+//         if(f){//到达设定值，停止定时器，执行回调
+//             clearInterval(o.timer);
+//             if (c) {
+//                 c();
+//             }
+//         }
+//     }, p)
+// }
 
 /**
  *
@@ -348,13 +348,17 @@ function animates (o = false, s = false, p = false, c = false) {
         return;
     }
 
+    // console.log('iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii');
+    // console.log(bJquery);
     if (bJquery) {
     // if (typeof jQuery != 'undefined') {
         $(o).animate(s, p, c);
         return;
     }
 
-    jsAnimate (o, s, parseInt(p / 20));
+    setTimeoutFunction('animates');
+
+    // jsAnimate (o, s, parseInt(p / 20));
 }
 
 /**

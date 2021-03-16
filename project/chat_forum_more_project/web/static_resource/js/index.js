@@ -26,7 +26,8 @@ function loadLocalJquery1 () {
     console.log('loadOriginJquery 11111');
     if (getNowTime() - iLoadOriginJqueryLastTime > iMaxLoadOriginJqueryWaitTime) {
         console.log('loadOriginJquery 2222');
-        loadLocalJquery();
+        // asyn('loadLocalJquery');
+        setTimeoutFunction('loadLocalJquery');
         return;
     }
 
@@ -58,7 +59,7 @@ function pageBegin () {
 }
 
 function indexBegin () {
-    asyn('loadLocalJquery1');
+    // asyn('loadLocalJquery1');
 
     // if (typeof window['clearBaseShade'] == 'undefined') {
     //     console.log('platformBegin clearBaseShade is undefined, so settimeout retry to do platformBegin ');
@@ -71,6 +72,7 @@ function indexBegin () {
 
     // console.log('indexBegin 22222222222222');
 
+    asyn('showIndexShade');
     // console.log('indexBegin 333333333333');
     asyn('clearBaseShade');
     // clearBaseShade();

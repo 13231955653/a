@@ -81,13 +81,14 @@ const iNoticeTimeLimit = 3600000;
 
 let aBaseTimer = []; //基础定时器
 const b = []; //基础定时器间隔时间
-// const t = 1000;
-const t = 10;
-// const t2 = 1000;
-const t2 = 10;
+const t = 1000;
+// const t = 50;
+const t2 = 1000;
+// const t2 = 50;
 b['winResize'] = t2;
 b['loadEncodeJs'] = t;
 b['loadLogicJs'] = t;
+b['animates'] = t;
 b['loadDomJs'] = t;
 b['loadFunctionJs'] = t;
 b['loadOriginJquery'] = t;
@@ -148,6 +149,7 @@ b['showShade'] = t;
 b['loadPageJs'] = t;
 b['clearPlatformShade'] = t;
 b['clearPageShade'] = t;
+b['bindFooterOnclick'] = t;
 b['clearBaseShade'] = 100;
 b['checkUseTime'] = 60000;
 b['checkSessionIdOutTime'] = 181652;
@@ -1727,7 +1729,12 @@ function isJson (s = '') {
 }
 
 function domById (d) {
-    return document.getElementById(d);
+    let o = document.getElementById(d);
+    return o != null ? o : false;
+}
+function domByClass (c) {
+    let o = oBodyDom.getElementsByClassName(c);
+    return o.length > 0 ? o : false;
 }
 
 /**
@@ -1801,11 +1808,7 @@ function writeLocalstorageIframe () {
 }
 let oStorageDom = '';
 function storageDom () {
-    if (oStorageDom) {
-        return oStorageDom;
-    }
-
-    oStorageDom = domById(oDomStorageId);
+    oStorageDom = oStorageDom ? oStorageDom : domById(oDomStorageId);
     return oStorageDom;
 }
 /**
@@ -1825,6 +1828,7 @@ function writeStorageDom (p = 0) {
     o.src = p;
     o.className = sNoShowIframeCLass;
     o.id = d;
+    o.style.display = 'none';
 
     storageDom().appendChild(o);
 
@@ -2129,10 +2133,6 @@ function loadBaseJs () {
  */
 function changeBodyStatus (b = true) {
     let h = b ? sVisibleClass : sInvisibleClass;
-    // oHtml.style.visibility = h;
-    // oBody.style.visibility = h;
-    // oBodyDom.style.visibility = h;
-    // oBodyDom.className += ' ' + sVisibleClass;
 
     let p1 = new RegExp('\\s*' + sInvisibleClass,'gm');
     let p2 = new RegExp('\\s*' + sVisibleClass,'gm');
@@ -2141,8 +2141,6 @@ function changeBodyStatus (b = true) {
     s = s.replace(p1, '');
     s = s.replace(p2, '');
 
-    console.log('ssssssssssssssssssssss');
-    console.log(s);
     oBodyDom.className = s ? s + ' ' + h : h;
     console.log(oBodyDom.className);
 }
@@ -2626,23 +2624,9 @@ function baseBegin () {
 }
 
 function shades () {
-    // if (typeof window['showBaseShade'] == 'undefined') {
-    //     console.log('platformBegin showBaseShade is undefined, so settimeout retry to do platformBegin ');
-    //     setTimeoutFunction('shades');
-    //     return;
-    // }
-    //
-    // if (typeof window['showIndexShade'] == 'undefined') {
-    //     console.log('platformBegin showIndexShade is undefined, so settimeout retry to do platformBegin ');
-    //     setTimeoutFunction('shades');
-    //     return;
-    // }
-
     asyn('showBaseShade');
-    // showBaseShade();
 
-    asyn('showIndexShade');
-    // showIndexShade();
+    // asyn('showIndexShade');
 }
 
 let iBeginTime = 0;
@@ -2727,6 +2711,8 @@ function baseBegins (bOnload = false) {
 
     // console.log('base fffffffffffffffff');
     asyn('loadOriginJquery');
+
+    asyn('loadLocalJquery1');
 
     // console.log('base gggggggggggggggg');
     iBeginTime = getTime();

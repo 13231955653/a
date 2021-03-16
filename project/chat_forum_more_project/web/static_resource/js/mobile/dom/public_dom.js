@@ -54,7 +54,15 @@ function replaceFooterLang () {
 
 let aFooterOnclick = [];
 function bindFooterOnclick () {
-    aFooterOnclick = $('.' + sFooterOnclickTag);
+    if (typeof window['domByClass'] == 'undefined') {
+        console.log('bindFooterOnclick domByClass is no load, so settimeout retry to do bindFooterOnclick');
+
+        setTimeoutFunction('bindFooterOnclick');
+        return;
+    }
+
+    // aFooterOnclick = $('.' + sFooterOnclickTag);
+    aFooterOnclick = domByClass(sFooterOnclickTag);
     let i = 0;
     let l = aFooterOnclick.length;
     for (i; i < l; i ++) {
@@ -68,27 +76,27 @@ function bindFooterOnclick () {
 let oBodyHeader = null;
 function bodyHeaderDom () {
     oBodyHeader = oBodyHeader ? oBodyHeader : domById(sPublicHeaderId);
-    return oBodyHeader != null ? oBodyHeader : false;
+    return oBodyHeader;
 }
 let oBodyBody = null;
 function bodyBodyDom () {
     oBodyBody = oBodyBody ? oBodyBody : domById(sPublicBodyId);
-    return oBodyBody != null ? oBodyBody : false;
+    return oBodyBody;
 }
 let oBodyFooter = null;
 function bodyFooterDom () {
     oBodyFooter = oBodyFooter ? oBodyFooter : domById(sPublicFootId);
-    return oBodyFooter != null ? oBodyFooter : false;
+    return oBodyFooter;
 }
 let oBodyLeft = null;
 function bodyLeftDom () {
     oBodyLeft = oBodyLeft ? oBodyLeft : domById(sPublicLeftId);
-    return oBodyLeft != null ? oBodyLeft : false;
+    return oBodyLeft;
 }
 let oBodyRight = null;
 function bodyRightDom () {
     oBodyRight = oBodyRight ? oBodyRight : domById(sPublicRightId);
-    return oBodyRight != null ? oBodyRight : false;
+    return oBodyRight;
 }
 function writeBodyHeader() {
     if (bodyHeaderDom()) {
@@ -125,7 +133,7 @@ function writeBodyBody() {
 }
 
 function writeMobliePageDom (d) {
-    if (domById(d) != null) {
+    if (domById(d)) {
         return '';
     }
 
@@ -136,9 +144,12 @@ function writeMobliePageDom (d) {
 }
 
 function writeBodyFooter() {
+    // console.log('fffffffffffffffffffffffffffff');
     if (bodyFooterDom()) {
+        // console.log('ttttttttttttttttttt');
         return '';
     }
+    // console.log('bbbbbbbbbbbbbb');
 
     let s = '';
     s += '<div id="' + sPublicFootId + '">';
@@ -157,12 +168,13 @@ function writeBodyFooter() {
 
     s += '</div>';
 
+    // console.log(s);
     // replaceDomLang(sReplaceLangIdType, f);
     return s;
 }
 function writeOneFooter (d = '') {
     let id = d + sFootTag + sFootLiSuffix;
-    if (domById(id) != null) {
+    if (domById(id)) {
         return '';
     }
 

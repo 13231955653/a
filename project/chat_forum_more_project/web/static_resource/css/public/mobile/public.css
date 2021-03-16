@@ -1,3 +1,6 @@
+:root{
+    --public_foot_height:3rem;
+}
 #body{
     visibility: hidden;
     width: 100%;
@@ -23,6 +26,7 @@
     bottom: 0px;
 }
 #public_footer li{
+    display: block;
     height: 100%;
     float: left;
     text-align: center;
