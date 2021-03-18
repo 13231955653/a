@@ -55,14 +55,14 @@ let sLastPage = '';
 function uodateUrlPageArg (p = '') {
     // console.log('uodateUrlPageArg begin, p ' + p);
     if (!p) {
-        console.log('uodateUrlPageArg page is null，so no will to do');
+        // console.log('uodateUrlPageArg page is null，so no will to do');
         return;
     }
 
     if (sLastPage === p) {
-        console.log('uodateUrlPageArg sLastPage === ' + p + ' ，so no change url and after action');
-        console.log('uodateUrlPageArg dispose show now page or reload now page dom');
-        console.log('/////////////////////////////////////////////////');
+        // console.log('uodateUrlPageArg sLastPage === ' + p + ' ，so no change url and after action');
+        // console.log('uodateUrlPageArg dispose show now page or reload now page dom');
+        // console.log('/////////////////////////////////////////////////');
         // repeatedlyPage(p);
 
         asyn('showPageShade');
@@ -77,6 +77,8 @@ function uodateUrlPageArg (p = '') {
 
     // updateUrlPage(p);
     asyn('updateUrlPage', p);
+
+    console.log('点击过后需要检测当前页面是否需要刷新');
 }
 
 /**
@@ -85,7 +87,7 @@ function uodateUrlPageArg (p = '') {
  *
  */
 function againOnlickFooter () {
-    console.log('/////////////////////////////////////////////////');
+    // console.log('/////////////////////////////////////////////////');
     asyn('clearPageShade');
     // clearPageShade();
 }
@@ -97,12 +99,12 @@ function againOnlickFooter () {
  */
 function replaceWindowTitle (t = '') {
     if (!t) {
-        console.log('replaceWindowTitle t is null, so no to do ');
+        // console.log('replaceWindowTitle t is null, so no to do ');
         return;
     }
 
     if (typeof window['replaceTitle'] == 'undefined') {
-        console.log('replaceWindowTitle bLoadFunctionJs is false, so settimtoue retry ');
+        // console.log('replaceWindowTitle bLoadFunctionJs is false, so settimtoue retry ');
         setTimeoutFunction('replaceWindowTitle', t);
         return;
     }
@@ -124,7 +126,7 @@ function updateUrlPage (p = '') {
     // console.log('ggggggggggggggggggggggggggggggggggggggggggg');
     // console.log('updateUrlPage, begin ');
     if (typeof window['urlDecode'] == 'undefined') {
-        console.log('updateUrlPage urlDecode is no laod, so settimtoue retry ');
+        // console.log('updateUrlPage urlDecode is no laod, so settimtoue retry ');
 
         setTimeoutFunction('updateUrlPage', p);
         return;
@@ -132,7 +134,7 @@ function updateUrlPage (p = '') {
     // console.log('updateUrlPage urlDecode is defined, so will to do ');
 
     if (typeof window['getNowPage'] == 'undefined') {
-        console.log('updateUrlPage getNowPage is no load, so settimtoue retry ');
+        // console.log('updateUrlPage getNowPage is no load, so settimtoue retry ');
 
         setTimeoutFunction('updateUrlPage', p);
         return;
@@ -149,10 +151,10 @@ function updateUrlPage (p = '') {
 
     let f = ''; // 回调函数
     if (typeof aAllreadyLoadPageJs[p] == 'undefined') {
-        console.log('updateUrlPage aAllreadyLoadPageJs ' + p + ' is no load, so load page js ');
+        // console.log('updateUrlPage aAllreadyLoadPageJs ' + p + ' is no load, so load page js ');
         f = 'loadPageJs';
     } else {
-        console.log('updateUrlPage aAllreadyLoadPageJs ' + p + ' is load, so load afterLoadPageJs ');
+        // console.log('updateUrlPage aAllreadyLoadPageJs ' + p + ' is load, so load afterLoadPageJs ');
         f = 'afterLoadPageJs';
     }
     aAllreadyLoadPageJs[p] = getNowTime();
@@ -224,6 +226,6 @@ function updateUrlArg (k = '', v = '', t = '', c = false) {
 }
 
 function logicBegin () {
-    console.log('logicBegin begin');
+    // console.log('logicBegin begin');
     asyn('updateUrlPage');
 }

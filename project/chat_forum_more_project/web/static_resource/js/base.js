@@ -42,7 +42,7 @@ const sLocalstorgaeBeginTag = 0;
 //localstorage相关
 
 const sShadeClass = 'shades';
-const sPublicShadeId = 'shade_father';
+const sDomShadeId = 'shade_father';
 
 const sNoShowIframeCLass = 'iframe_no_show';
 
@@ -66,6 +66,7 @@ let sPersonlizedColor = '';
 const sBodyDomFatherId = 'body';
 const oDomFatherId = 'dom_father';
 const oDomStorageId = 'storage_father';
+const sDomNoticeId = 'notice_father';
 
 let sOrigin = '';
 
@@ -81,10 +82,10 @@ const iNoticeTimeLimit = 3600000;
 
 let aBaseTimer = []; //基础定时器
 const b = []; //基础定时器间隔时间
-const t = 1000;
-// const t = 50;
-const t2 = 1000;
-// const t2 = 50;
+// const t = 1000;
+const t = 50;
+// const t2 = 1000;
+const t2 = 50;
 b['winResize'] = t2;
 b['loadEncodeJs'] = t;
 b['loadLogicJs'] = t;
@@ -97,13 +98,14 @@ b['logicBegin'] = t;
 b['loadPlatformDomJs'] = t;
 b['showPageShade'] = t;
 b['loadResetCss'] = t;
-b['checkLoadCss'] = 50;
+b['checkLoadCss'] = t;
 b['writeStorageDom'] = t;
+b['localstorageIsForbidden'] = t;
 b['personalizedCssFromLocalstorage'] = t;
 b['pageBegin'] = t;
 b['loadLocalJquery'] = t;
 b['replaceLangs'] = t;
-b['shades'] = t;
+// b['shades'] = t;
 b['loadPublicCss'] = t;
 b['loadPersonalizedCss'] = t;
 b['loadVariableCss'] = t;
@@ -150,7 +152,7 @@ b['loadPageJs'] = t;
 b['clearPlatformShade'] = t;
 b['clearPageShade'] = t;
 b['bindFooterOnclick'] = t;
-b['clearBaseShade'] = 100;
+b['clearBaseShade'] = t;
 b['checkUseTime'] = 60000;
 b['checkSessionIdOutTime'] = 181652;
 b['checkSessionKeyFormat'] = 253648;
@@ -288,7 +290,6 @@ const sPublicHeaderId = 'public_header';
 const sPublicBodyId = 'public_body';
 const sPublicLeftId = 'public_left';
 const sPublicRightId = 'public_right';
-// const sPublicNoticeId = 'notice_father';
 const sFootTag = '_foot';
 const sFootLiSuffix = '_li';
 const sActiveFootTag = 'foot_active';
@@ -309,6 +310,7 @@ const sDefaultPage = 'forum';
 const sForumPage = 'forum';
 const sChatPage = 'chat';
 const sFriendPage = 'friend';
+const sAboutMePage = 'about_me';
 const sSettingPage = 'setting';
 
 const sDefaultPageHtml = 'index.html';
@@ -510,8 +512,6 @@ function afterloadPublicCss () {
     bLoadPublicCss = true;
 }
 
-
-
 let bLoadResetCss = false;
 function loadResetCss () {
     if (bLoadResetCss) {
@@ -539,7 +539,7 @@ function loadPersonalizedCss (c = false) {
     }
 
     if (bLoadPersonalizedCss) {
-        console.log('loadPersonalizedCss bLoadPersonalizedCss in loading, so no to do ');
+        // console.log('loadPersonalizedCss bLoadPersonalizedCss in loading, so no to do ');
         return true;
     }
     bLoadPersonalizedCss = true;
@@ -572,7 +572,7 @@ function afterloadPersonalizedCss () {
  */
 function loadCss (r = '', c = '') {
     if (!r) {
-        console.log('loadCss r is null');
+        // console.log('loadCss r is null');
         return false;
     }
 
@@ -613,7 +613,7 @@ function finalMeta () {
  */
 function checkLoadCss (c = '', d = '') {
     if (!c || !d) {
-        console.log('checkLoadCss c or d is null');
+        // console.log('checkLoadCss c or d is null');
         return false;
     }
 
@@ -651,12 +651,12 @@ let bInloadUserPersonalizedColorFromLocalstorage = false;
 function queryUserPersonalizedColor () {
     // console.log('queryUserPersonalizedColor query user personalized color, begin ');
     if (sPersonlizedColor) {
-        console.log('queryUserPersonalizedColor sPersonlizedColor is defined, so no to load user personlized color css file');
+        // console.log('queryUserPersonalizedColor sPersonlizedColor is defined, so no to load user personlized color css file');
         return sPersonlizedColor;
     }
 
     if (bInloadUserPersonalizedColorFromLocalstorage) {
-        console.log('queryUserPersonalizedColor bInloadUserPersonalizedColorFromLocalstorage is true, so no to load user personlized color css file');l
+        // console.log('queryUserPersonalizedColor bInloadUserPersonalizedColorFromLocalstorage is true, so no to load user personlized color css file');l
         return;
     }
     bInloadUserPersonalizedColorFromLocalstorage = true;
@@ -687,7 +687,7 @@ function afterQueryUserPersonalizedColor (c = '') {
  */
 function setPersonlizedColor (c = '') {
     if (!c) {
-        console.log('setPersonlizedColor c is null');
+        // console.log('setPersonlizedColor c is null');
         return false;
     }
 
@@ -705,7 +705,7 @@ function setPersonlizedColor (c = '') {
 function loadPersonlizedColorCss (c = '') {
     c = c ? c : iDefaultUserPersonalizedColor;
     if (!c) {
-        console.log('loadPersonlizedColorCss c is null');
+        // console.log('loadPersonlizedColorCss c is null');
         return false;
     }
 
@@ -727,7 +727,7 @@ function loadPageJs () {
 
     // console.log('zzzzzzzzzzzzzzzzzzzzzzzzaaaa');
     if (bInLoadPageJs) {
-        console.log('loadPageJs bInLoadPageJs in load, so no to do');
+        // console.log('loadPageJs bInLoadPageJs in load, so no to do');
         return ;
     }
     // console.log('loadPageJs bInLoadPageJs in no load, so to do load ');
@@ -756,12 +756,12 @@ function loadPageJs () {
     }
 
     if (!j) {
-        console.log('loadPageJs j is null, no to do');
+        // console.log('loadPageJs j is null, no to do');
         return false;
     }
 
     if (!checkRequestJsCssLimit('js', 'loadPageJs_' + j)) {
-        console.log('loadPageJs checkRequestJsCssLimit loadPageJs_' + j + ', limit, so no to load');
+        // console.log('loadPageJs checkRequestJsCssLimit loadPageJs_' + j + ', limit, so no to load');
         return false;
     }
 
@@ -780,7 +780,7 @@ function loadPageJs () {
 }
 function afterLoadPageJs () {
     if (typeof window['urlDecode'] == 'undefined') {
-        console.log('afterLoadPageJs urlDecode is undefined, so settimtoue retry ');
+        // console.log('afterLoadPageJs urlDecode is undefined, so settimtoue retry ');
 
         setTimeoutFunction('afterLoadPageJs');
         return;
@@ -856,9 +856,9 @@ function setCssPathAndVersion () {
  */
 function hashFunc(s, i){
     if (!s ||!i) {
-        console.log(s);
-        console.log(i);
-        console.log('hashFunc s or i is null');
+        // console.log(s);
+        // console.log(i);
+        // console.log('hashFunc s or i is null');
         return false;
     }
 
@@ -890,7 +890,7 @@ function setHosts () {
 
 function allocationHost (u = '') {
     if (!u) {
-        console.log('hashFunc sStr or iSize is null');
+        // console.log('hashFunc sStr or iSize is null');
         return false;
     }
 
@@ -925,7 +925,7 @@ function getTime () {
  */
 function setJsCssSrc (t = '', s = '') {
     if (!t ||!s) {
-        console.log('hashFunc t or s is null');
+        // console.log('hashFunc t or s is null');
         return false;
     }
 
@@ -976,7 +976,7 @@ function checkUseTime () {
 }
 function showUseTimeLimitNotice () {
     if (typeof aLang == 'undefined') {
-        console.log('showUseTimeLimitNotice aLang is undefined, so settimeout retry ');
+        // console.log('showUseTimeLimitNotice aLang is undefined, so settimeout retry ');
 
         setTimeoutFunction('showUseTimeLimitNotice');
         return;
@@ -996,19 +996,19 @@ function showUseTimeLimitNotice () {
  */
 function setTimeoutFunction (f = '', a = '', b = '') {
     if (!f) {
-        console.log(f);
-        console.log('setTimeoutFunction f is null');
+        // console.log(f);
+        // console.log('setTimeoutFunction f is null');
         return false;
     }
 
-    if (typeof aTimer[f] == 'undefined') {
-        console.log(f);
-        console.log('setTimeoutFunction aTimer ' + f + ' undefined');
-    }
+    // if (typeof aTimer[f] == 'undefined') {
+        // console.log(f);
+        // console.log('setTimeoutFunction aTimer ' + f + ' undefined');
+    // }
 
     if (typeof window[f] != 'function') {
-        console.log(f);
-        console.log('setTimeoutFunction ' + f + ' is not function, so settimeout retry to asyn ');
+        // console.log(f);
+        // console.log('setTimeoutFunction ' + f + ' is not function, so settimeout retry to asyn ');
 
         let t = setTimeout(function () {
             clearTimeout(t);
@@ -1020,15 +1020,23 @@ function setTimeoutFunction (f = '', a = '', b = '') {
 
     let t = setTimeout(function () {
         clearTimeout(t);
+        // console.log('!!!!!!!!!!!!!!!!a setTimeoutFunction ' + f + ' will to do , bingo ');
 
         if (!a) {
+            // console.log('!!!!!!!!!!!!!!!!b setTimeoutFunction ' + f + ' will to do , bingo !!! ');
             window[f]();
+            return;
         } else {
             if (b) {
+                // console.log('!!!!!!!!!!!!!!!!c setTimeoutFunction ' + f + ' will to do , bingo b ');
                 window[f](a, b);
+                return;
             } else {
+                // console.log('!!!!!!!!!!!!!!!!d setTimeoutFunction ' + f + ' will to do , bingo a ');
                 window[f](a);
+                return;
             }
+            // console.log('!!!!!!!!!!!!!!!!e setTimeoutFunction ' + f + ' will to do , bingo null ');
         }
     }, aTimer[f]);
 
@@ -1036,13 +1044,13 @@ function setTimeoutFunction (f = '', a = '', b = '') {
 }
 function asyn (f = '', a = '', b = '') {
     if (!f) {
-        console.log(f);
-        console.log('asyn f is null');
+        // console.log(f);
+        // console.log('asyn f is null');
         return false;
     }
 
     if (typeof window[f] != 'function') {
-        console.log('==========================asyn ' + f + ' is not function, so settimeout retry to asyn ');
+        // console.log('==========================asyn ' + f + ' is not function, so settimeout retry to asyn ');
 
         let t = setTimeout(function () {
             clearTimeout(t);
@@ -1073,14 +1081,14 @@ function asyn (f = '', a = '', b = '') {
 let aRequestJsCssLastTime = [];
 function checkRequestJsCssLimit (p = '', f = '') {
     if (!f) {
-        console.log('checkRequestJsCssLimit p or f is null');
+        // console.log('checkRequestJsCssLimit p or f is null');
         return false;
     }
 
     let t = getNowTime();
     let l = typeof aRequestJsCssLastTime[f] !== 'undefined' ? aRequestJsCssLastTime[f] : 0;
     if (t - l < iRequertTimeout) {
-        console.log('************************checkRequestJsCssLimit ' + f + ' time last ' + iRequertTimeout + ' millisecond, so wait a minutes retry ');
+        // console.log('************************checkRequestJsCssLimit ' + f + ' time last ' + iRequertTimeout + ' millisecond, so wait a minutes retry ');
         setTimeoutFunction(f);
         return false;
     }
@@ -1312,21 +1320,15 @@ function setContent (n = '') {
     return m;
 }
 
-let oFatherDom = '';
-function fatherDom () {
-    oFatherDom = oFatherDom ? oFatherDom : domById(oDomFatherId);
-    return oFatherDom;
-}
-
 let bAllreadyLoadUserLang = false;
 function queryUserLang () {
     if (sUserLangvage) {
-        console.log('queryUserLang sUserLangvage is defined, so rerturn sUserLangvage, no get user lang from localstorage ');
+        // console.log('queryUserLang sUserLangvage is defined, so rerturn sUserLangvage, no get user lang from localstorage ');
         return sUserLangvage;
     }
 
     if (bAllreadyLoadUserLang) {
-        console.log('queryUserLang bAllreadyLoadUserLang is true, so no to load user lang from localstorage ');
+        // console.log('queryUserLang bAllreadyLoadUserLang is true, so no to load user lang from localstorage ');
         return;
     }
     bAllreadyLoadUserLang = true;
@@ -1359,7 +1361,7 @@ function afterQueryLang (l = '') {
  */
 function setLang (l = '') {
     if (!l) {
-        console.log('setLang l is null, so no to do');
+        // console.log('setLang l is null, so no to do');
         return false;
     }
 
@@ -1378,12 +1380,12 @@ function setLang (l = '') {
  */
 function afterSetLang (b = '') {
     if (!b) {
-        console.log('afterSetLang b is null');
+        // console.log('afterSetLang b is null');
         return false;
     }
 
     if (!b) {
-        console.log('afterSetLang b false');
+        // console.log('afterSetLang b false');
         return false;
     }
 }
@@ -1398,10 +1400,10 @@ function afterSetLang (b = '') {
  */
 function setLocalstorage (k = '', m = '', t = false, f = '') {
     if (!k || !f || !m) {
-        console.log(k);
-        console.log(m);
-        console.log(f);
-        console.log('queryLocalstorage k or f or m is null');
+        // console.log(k);
+        // console.log(m);
+        // console.log(f);
+        // console.log('queryLocalstorage k or f or m is null');
         return false;
     }
 
@@ -1443,32 +1445,32 @@ function setLocalstorage (k = '', m = '', t = false, f = '') {
     }, 0);
 }
 
-let cookie = {
-    set:function (sKey, sVal, iTime) {
-        //设置cookie方法
-        let iOutTime = parseInt(getNowTime()) + parseInt(iTime); //获取当前时间
-        document.cookie = sKey + '=' + sVal + ';expires=' + iOutTime;  //设置cookie
-    },
-
-    get:function (sKey) {//获取cookie方法
-        /*获取cookie参数*/
-        let sCookie = document.cookie.replace(/[ ]/g,'');
-        //获取cookie，并且将获得的cookie格式化，去掉空格字符
-        let aArrCookie = sCookie.split(';')
-        //将获得的cookie以"分号"为标识 将cookie保存到aArrCookie的数组中
-        let tips = 'false';  //声明变量tips
-        let arr = [];
-        for(let i = 0; i < aArrCookie.length; i++){   //使用for循环查找cookie中的tips变量
-            arr =aArrCookie[i].split('=');   //将单条cookie用"等号"为标识，将单条cookie保存为arr数组
-            if (sKey == arr[0]) {
-                //匹配变量名称，其中arr[0]是指的cookie名称，如果该条变量为tips则执行判断语句中的赋值操作
-                tips = arr[1];   //将cookie的值赋给变量tips
-                break;   //终止for循环遍历
-            }
-        }
-        return tips;
-    }
-}
+// let cookie = {
+//     set:function (sKey, sVal, iTime) {
+//         //设置cookie方法
+//         let iOutTime = parseInt(getNowTime()) + parseInt(iTime); //获取当前时间
+//         document.cookie = sKey + '=' + sVal + ';expires=' + iOutTime;  //设置cookie
+//     },
+//
+//     get:function (sKey) {//获取cookie方法
+//         /*获取cookie参数*/
+//         let sCookie = document.cookie.replace(/[ ]/g,'');
+//         //获取cookie，并且将获得的cookie格式化，去掉空格字符
+//         let aArrCookie = sCookie.split(';')
+//         //将获得的cookie以"分号"为标识 将cookie保存到aArrCookie的数组中
+//         let tips = 'false';  //声明变量tips
+//         let arr = [];
+//         for(let i = 0; i < aArrCookie.length; i++){   //使用for循环查找cookie中的tips变量
+//             arr =aArrCookie[i].split('=');   //将单条cookie用"等号"为标识，将单条cookie保存为arr数组
+//             if (sKey == arr[0]) {
+//                 //匹配变量名称，其中arr[0]是指的cookie名称，如果该条变量为tips则执行判断语句中的赋值操作
+//                 tips = arr[1];   //将cookie的值赋给变量tips
+//                 break;   //终止for循环遍历
+//             }
+//         }
+//         return tips;
+//     }
+// }
 
 
 /**
@@ -1483,13 +1485,13 @@ let iLastRequestLangTime = 0;
 function loadLang (l = '') {
     l = l ? l : sUserLangvage;
     if (!l) {
-        console.log('loadLang l is null, so no to load lang js ');
+        // console.log('loadLang l is null, so no to load lang js ');
         return false;
     }
 
     let t = getNowTime();
     if (t - iLastRequestLangTime < iRequertLangJsTimeout) {
-        console.log('loadLang l last time limit, so no to load lang js ');
+        // console.log('loadLang l last time limit, so no to load lang js ');
         setTimeoutFunction('loadLang', l);
         return false;
     }
@@ -1505,7 +1507,7 @@ function loadLang (l = '') {
             break;
     }
     if (!y) {
-        console.log('loadLang y is null, so no to load lang js ');
+        // console.log('loadLang y is null, so no to load lang js ');
         return false;
     }
 
@@ -1522,7 +1524,7 @@ window.addEventListener('message', function(event){
     }
 
     if (!event.data || !event.data.after) {
-        console.log('addEventListener data or data.after is null');
+        // console.log('addEventListener data or data.after is null');
         return false;
     }
 
@@ -1555,7 +1557,7 @@ function disposeLocalstorageValue (v, t = false) {
  */
 function localstoragePage (k) {
     if (!k) {
-        console.log('localstoragePage k is null');
+        // console.log('localstoragePage k is null');
         return false;
     }
 
@@ -1584,7 +1586,7 @@ function queryLocalstorage (k = '', f = '') {
     // console.log('queryLocalstorage, begin ');
     // console.log('queryLocalstorage, key ' + k);
     if (!k || !f) {
-        console.log('queryLocalstorage k or f is null');
+        // console.log('queryLocalstorage k or f is null');
         return false;
     }
 
@@ -1597,7 +1599,7 @@ function queryLocalstorage (k = '', f = '') {
     // console.log(p);
     if (!p) {
         window[f](false);
-        console.log('queryLocalstorage setLocalstorageOrigins p is null');
+        // console.log('queryLocalstorage setLocalstorageOrigins p is null');
         return false;
     }
 
@@ -1613,7 +1615,7 @@ function queryLocalstorage (k = '', f = '') {
 function localstoragePostMessage (p = '', m = '') {
     // console.log('localstoragePostMessage, begin ');
     if (!m || !p) {
-        console.log('localstoragePostMessage m or p is null');
+        // console.log('localstoragePostMessage m or p is null');
         return false;
     }
 
@@ -1630,7 +1632,7 @@ function localstoragePostMessage (p = '', m = '') {
         writeStorageDom(p);
     }
 
-    console.log('localstoragePostMessage o is null, so settimeout retry ');
+    // console.log('localstoragePostMessage o is null, so settimeout retry ');
     // console.log (p);
     // console.log (m);
     setTimeoutFunction('localstoragePostMessage', p, m);
@@ -1640,13 +1642,13 @@ function localstoragePostMessage (p = '', m = '') {
 
 let myStorage = (function myStorage () {
     if (!window.localStorage ) {
-        console.log('myStorage localstorage error');
+        // console.log('myStorage localstorage error');
         return false;
     }
 
     let set = function (k, v, t = false) {
         if (!k) {
-            console.log('myStorage set k or v is null');
+            // console.log('myStorage set k or v is null');
             return false;
         }
 
@@ -1746,7 +1748,7 @@ function domByClass (c) {
  */
 function jsonConvertFormatForReadNumberKey (s = '') {
     if (!s) {
-        console.log('jsonToArray s is null, so return []');
+        // console.log('jsonToArray s is null, so return []');
         return [];
     }
 
@@ -1760,7 +1762,7 @@ function jsonConvertFormatForReadNumberKey (s = '') {
  */
 function localstorageLocalCache (k = '', v = '') {
     if (!k) {
-        console.log('localstorageLocalCache k or v is null, so no to do');
+        // console.log('localstorageLocalCache k or v is null, so no to do');
         return false;
     }
 
@@ -1772,7 +1774,7 @@ function localstorageLocalCache (k = '', v = '') {
  */
 function queryLocalstorageCache (k = '') {
     if (!k) {
-        console.log('queryLocalstorageCache k is null, so no to do');
+        // console.log('queryLocalstorageCache k is null, so no to do');
         return false;
     }
 
@@ -1806,11 +1808,6 @@ function writeLocalstorageIframe () {
         }
     }
 }
-let oStorageDom = '';
-function storageDom () {
-    oStorageDom = oStorageDom ? oStorageDom : domById(oDomStorageId);
-    return oStorageDom;
-}
 /**
  *
  * 写远程 storage 页面 iframe
@@ -1820,7 +1817,7 @@ function storageDom () {
 function writeStorageDom (p = 0) {
     let d = p;
     if (domById(d)) {
-        console.log('writeStorageDom ' + p + ' is allready exist, so retrun true ');
+        // console.log('writeStorageDom ' + p + ' is allready exist, so retrun true ');
         return true;
     }
 
@@ -1828,7 +1825,7 @@ function writeStorageDom (p = 0) {
     o.src = p;
     o.className = sNoShowIframeCLass;
     o.id = d;
-    o.style.display = 'none';
+    // o.style.display = 'none';
 
     storageDom().appendChild(o);
 
@@ -2142,7 +2139,7 @@ function changeBodyStatus (b = true) {
     s = s.replace(p2, '');
 
     oBodyDom.className = s ? s + ' ' + h : h;
-    console.log(oBodyDom.className);
+    // console.log(oBodyDom.className);
 }
 
 /**
@@ -2151,9 +2148,9 @@ function changeBodyStatus (b = true) {
  *
  */
 function sessionId () {
-    console.log('sessionId, begin to do ');
+    // console.log('sessionId, begin to do ');
     if (sNewSessionId === '') {
-        console.log('sessionId sNewSessionId is null, and no query from localstorage, so will query session id from localstorage and settimeout retry to sessionId ');
+        // console.log('sessionId sNewSessionId is null, and no query from localstorage, so will query session id from localstorage and settimeout retry to sessionId ');
 
         asyn('queryNewSessonId');
 
@@ -2162,7 +2159,7 @@ function sessionId () {
     }
 
     if (sOldSessionId === '') {
-        console.log('sessionId sOldSessionId is null, and no query from localstorage, so will query session id from localstorage and settimeout retry to sessionId ');
+        // console.log('sessionId sOldSessionId is null, and no query from localstorage, so will query session id from localstorage and settimeout retry to sessionId ');
 
         asyn('queryOldSessonId');
 
@@ -2172,17 +2169,17 @@ function sessionId () {
 
     // sOldSessionId = oldSessionId();
     // sNewSessionId = newSessionId();
-    console.log('**************************************');
-    console.log(sNewSessionId);
-    console.log(sOldSessionId);
+    // console.log('**************************************');
+    // console.log(sNewSessionId);
+    // console.log(sOldSessionId);
     if (sNewSessionId) {
-        console.log('sessionId sNewSessionId is true, will check new session format ');
+        // console.log('sessionId sNewSessionId is true, will check new session format ');
 
         checkSessionIdOutTime();
 
         checkSessionKeyFormat();
     } else {
-        console.log('sessionId sNewSessionId is false, will make session id ');
+        // console.log('sessionId sNewSessionId is false, will make session id ');
 
         makeSessionid();
     }
@@ -2204,16 +2201,16 @@ function sessionId () {
 function makeSessionid () {
     let s = individuationUuid();
     if (!s) {
-        console.log('makeSessionid individuationUuid is false, so settimeout to do ');
+        // console.log('makeSessionid individuationUuid is false, so settimeout to do ');
 
         setTimeoutFunction('makeSessionid');
         return;
     }
-    console.log('makeSessionid individuationUuid is true, so to do ');
+    // console.log('makeSessionid individuationUuid is true, so to do ');
 
     let n = setSessionIdFormat(s);
     if (!n) {
-        console.log('makeSessionid setSessionIdFormat is false, so settimeout to do ');
+        // console.log('makeSessionid setSessionIdFormat is false, so settimeout to do ');
 
         setTimeoutFunction('makeSessionid');
         return;
@@ -2223,13 +2220,13 @@ function makeSessionid () {
     sNewSessionId = n;
 
     if (sNewSessionId) {
-        console.log('makeSessionid sNewSessionId is true, so will to cache session and update old session ');
+        // console.log('makeSessionid sNewSessionId is true, so will to cache session and update old session ');
 
         cacheSessionId();
         return;
     }
 
-    console.log('makeSessionid sNewSessionId is false, so settimeout to retry ');
+    // console.log('makeSessionid sNewSessionId is false, so settimeout to retry ');
     setTimeoutFunction('makeSessionid');
 }
 /**
@@ -2240,10 +2237,10 @@ function makeSessionid () {
  */
 function individuationUuid () {
     if (typeof window['hex_md5'] == 'undefined') {
-        console.log('individuationUuid hex_md5 undefined, so settimeout to do ');
+        // console.log('individuationUuid hex_md5 undefined, so settimeout to do ');
         return false;
     }
-    console.log('individuationUuid hex_md5 is defined, so individuationUuid to do ');
+    // console.log('individuationUuid hex_md5 is defined, so individuationUuid to do ');
 
     let a = individuationUuidUniqueStr();
 
@@ -2342,33 +2339,33 @@ function generateUUID () {
 }
 function checkSessionIdOutTime () {
     if (!sNewSessionId) {
-        console.log('checkSessionIdOutTime sNewSessionId is false, so will to make session id ');
+        // console.log('checkSessionIdOutTime sNewSessionId is false, so will to make session id ');
 
         makeSessionid();
         return false;
     }
-    console.log('checkSessionIdOutTime sNewSessionId is true, so will to check session id out time ');
+    // console.log('checkSessionIdOutTime sNewSessionId is true, so will to check session id out time ');
 
     let s = sNewSessionId.split(sSessionSplitTag);
 
     if (parseInt(getTime()) - parseInt(s[s.length - 1]) > iSessionOutTime) {
-        console.log('checkSessionIdOutTime session id is timeout, so will to makeSessionid ');
+        // console.log('checkSessionIdOutTime session id is timeout, so will to makeSessionid ');
         makeSessionid();
     }
 
-    console.log('checkSessionIdOutTime settimeout check, settimeout recheck ');
+    // console.log('checkSessionIdOutTime settimeout check, settimeout recheck ');
     setTimeoutFunction('checkSessionIdOutTime');
 }
 function setSessionIdFormat (sSessionId1 = '') {
     if (typeof window['hex_md5'] == 'undefined') {
         // setTimeoutFunction('setSessionIdFormat');
-        console.log('setSessionIdFormat hex_md5 undefined, so settimeout to do ');
+        // console.log('setSessionIdFormat hex_md5 undefined, so settimeout to do ');
         return false;
     }
 
     let a = sSessionId1;
     if (!a) {
-        console.log('setSessionIdFormat sSessionId is null, so to do ');
+        // console.log('setSessionIdFormat sSessionId is null, so to do ');
         return false;
     }
 
@@ -2408,7 +2405,7 @@ function setSessionIdSuffix (s) {
 }
 function checkSessionKeyFormat () {
     if (typeof window['hex_md5'] == 'undefined') {
-        console.log('checkSessionKeyFormat hex_md5 is no laod, so settimeout to recheck session format ');
+        // console.log('checkSessionKeyFormat hex_md5 is no laod, so settimeout to recheck session format ');
 
         let t = setTimeout(function () {
             checkSessionKeyFormat();
@@ -2421,10 +2418,10 @@ function checkSessionKeyFormat () {
     let t = sSessionSplitTag;
     if (sOldSessionId) {
         if (!doCheckSessionId(sOldSessionId.split(t), 'old')) {
-            console.log('checkSessionKeyFormat old session is false, so make new session id');
+            // console.log('checkSessionKeyFormat old session is false, so make new session id');
             makeSessionid();
 
-            console.log('checkSessionKeyFormat settimeout check, settimeout check ');
+            // console.log('checkSessionKeyFormat settimeout check, settimeout check ');
             setTimeoutFunction('checkSessionKeyFormat');
             return;
         }
@@ -2432,17 +2429,17 @@ function checkSessionKeyFormat () {
 
     if (sNewSessionId) {
         if (!doCheckSessionId(sNewSessionId.split(t), 'new')) {
-            console.log('checkSessionKeyFormat new session is false, so make new session id');
+            // console.log('checkSessionKeyFormat new session is false, so make new session id');
             makeSessionid();
 
-            console.log('checkSessionKeyFormat settimeout check, settimeout check ');
+            // console.log('checkSessionKeyFormat settimeout check, settimeout check ');
             setTimeoutFunction('checkSessionKeyFormat');
             return;
         }
     }
 
     setTimeoutFunction('checkSessionKeyFormat');
-    console.log('checkSessionKeyFormat settimeout check, settimeout check ');
+    // console.log('checkSessionKeyFormat settimeout check, settimeout check ');
 }
 /**
  *
@@ -2454,12 +2451,12 @@ function checkSessionKeyFormat () {
  */
 function doCheckSessionId (s, t) {
     if (typeof window['hex_md5'] == 'undefined') {
-        console.log('doCheckSessionId hex_md5 is no load, so settimeout to do ');
+        // console.log('doCheckSessionId hex_md5 is no load, so settimeout to do ');
 
         setTimeoutFunction('doCheckSessionId', s, t);
         return false;
     }
-    console.log('doCheckSessionId hex_md5 is loaded, so sttimeout to check session id ');
+    // console.log('doCheckSessionId hex_md5 is loaded, so sttimeout to check session id ');
 
     let a = s[0];
     let b = s[s.length - 2];
@@ -2475,7 +2472,7 @@ function doCheckSessionId (s, t) {
         ||
         (b !== d)
     ) {
-        console.log('checkSessionKeyFormat ' + t + ' format error, so makeSessionId');
+        // console.log('checkSessionKeyFormat ' + t + ' format error, so makeSessionId');
 
         makeSessionid();
         return false;
@@ -2496,12 +2493,12 @@ function doCheckSessionId (s, t) {
 let bAllreadyQueryOldSessionId = false;
 function queryOldSessonId () {
     if (sOldSessionId) {
-        console.log('queryOldSessonId sOldSessionId is defined, so return sOldSessionId, no get sOldSessionId from localstorage ');
+        // console.log('queryOldSessonId sOldSessionId is defined, so return sOldSessionId, no get sOldSessionId from localstorage ');
         return sOldSessionId;
     }
 
     if (bAllreadyQueryOldSessionId) {
-        console.log('queryOldSessonId bAllreadyQueryOldSessionId is true, so no to load user lang from localstorage ');
+        // console.log('queryOldSessonId bAllreadyQueryOldSessionId is true, so no to load user lang from localstorage ');
         return;
     }
     bAllreadyQueryOldSessionId = true;
@@ -2509,9 +2506,9 @@ function queryOldSessonId () {
     asyn('queryLocalstorage', sOldSessionIdStorageKey, 'afterQueryOldSessonId');
 }
 function afterQueryOldSessonId (s) {
-    console.log('=========================');
+    // console.log('=========================');
     sOldSessionId = s;
-    console.log(sOldSessionId);
+    // console.log(sOldSessionId);
 }
 /**
  *
@@ -2525,12 +2522,12 @@ function afterQueryOldSessonId (s) {
 let bAllreadyQueryNewSessionId = false;
 function queryNewSessonId () {
     if (sNewSessionId) {
-        console.log('queryOldSessonId sNewSessionId is defined, so return sNewSessionId, no get sNewSessionId from localstorage ');
+        // console.log('queryOldSessonId sNewSessionId is defined, so return sNewSessionId, no get sNewSessionId from localstorage ');
         return sNewSessionId;
     }
 
     if (bAllreadyQueryNewSessionId) {
-        console.log('queryOldSessonId bAllreadyQueryNewSessionId is true, so no to load user lang from localstorage ');
+        // console.log('queryOldSessonId bAllreadyQueryNewSessionId is true, so no to load user lang from localstorage ');
         return;
     }
     bAllreadyQueryNewSessionId = true;
@@ -2538,18 +2535,18 @@ function queryNewSessonId () {
     asyn('queryLocalstorage', sNewSessionIdStorageKey, 'afterQueryNewSessonId');
 }
 function afterQueryNewSessonId (s) {
-    console.log('=========================');
+    // console.log('=========================');
     sNewSessionId = s;
-    console.log(sNewSessionId);
+    // console.log(sNewSessionId);
 }
 function cacheSessionId () {
     if (!sNewSessionId) {
-        console.log('cacheSessionId sNewSessionId is false, so settimeout to retry ');
+        // console.log('cacheSessionId sNewSessionId is false, so settimeout to retry ');
 
         setTimeoutFunction('cacheSessionId');
         return;
     }
-    console.log('cacheSessionId sNewSessionId is true, so to do ');
+    // console.log('cacheSessionId sNewSessionId is true, so to do ');
 
     // cookie.set(sOldSessionIdCookieKey, sOldSessionId, iUpdateSessionMaxTime);
     // cookie.set(sNewSessionIdCookieKey, sNewSessionId, iUpdateSessionMaxTime);
@@ -2568,12 +2565,7 @@ function cacheSessionId () {
 }
 function afterCacheSessionId (b = '') {
     if (!b) {
-        console.log('afterCacheSessionId b is null');
-        return false;
-    }
-
-    if (!b) {
-        console.log('afterCacheSessionId b false');
+        // console.log('afterCacheSessionId b is null');
         return false;
     }
 }
@@ -2613,64 +2605,122 @@ function baseBegin () {
 
     try {
         localStorage.setItem('private_test', 1);
-        console.log('localstorage is can use, just do it !!! ');
+        // console.log('localstorage is can use, just do it !!! ');
 
         asyn('baseBegins', true);
     } catch (e) {
         //无痕模式
-        console.log('localstorage is forbidden, web can not normal use, so we nothing to do ');
-        alert('localstorage is forbidden, web can not normal use, so we nothing to do ');
+        asyn('localstorageIsForbidden');
     }
 }
 
-function shades () {
-    asyn('showBaseShade');
+function localstorageIsForbidden () {
+    console.log('localstorage is forbidden, web can not normal use, so we nothing to do ');
+    alert('localstorage is forbidden, web can not normal use, so we nothing to do ');
+}
 
-    // asyn('showIndexShade');
+// function shades () {
+//     asyn('showBaseShade');
+//
+//     // asyn('showIndexShade');
+// }
+
+let oBodyDom = false;
+function bodyDom () {
+    oBodyDom = oBodyDom ? oBodyDom : domById(sBodyDomFatherId);
+    return oBodyDom;
+}
+
+let bWriteFatherDom = false;
+function bodyAppendDom () {
+    if (bWriteFatherDom) {
+        return true;
+    }
+    bWriteFatherDom = true;
+
+    let a = [
+        oDomFatherId,
+        sDomShadeId,
+        oDomStorageId,
+        sDomNoticeId,
+    ];
+
+    let s = '';
+    for (let i in a) {
+        s += '<div id="' + a[i] + '"></div>';
+    }
+
+    bodyDom().innerHTML = s;
+
+    asyn('fatherDom');
+    asyn('shadeDom');
+    asyn('storageDom');
+    asyn('noticeDom');
+}
+let oFatherDom = '';
+function fatherDom () {
+    oFatherDom = oFatherDom ? oFatherDom : domById(oDomFatherId);
+    return oFatherDom;
+}
+let oShadeFather = '';
+function shadeDom () {
+    oShadeFather = oShadeFather ? oShadeFather : domById(sDomShadeId);
+    return oShadeFather;
+}
+let oStorageDom = '';
+function storageDom () {
+    oStorageDom = oStorageDom ? oStorageDom : domById(oDomStorageId);
+    return oStorageDom;
+}
+let oNoticeDom = '';
+function noticeDom () {
+    oNoticeDom = oNoticeDom ? oNoticeDom : domById(sDomNoticeId);
+    return oNoticeDom;
 }
 
 let iBeginTime = 0;
 let oHtml = false;
 let oHead = false;
-let oBody = false;
-let oBodyDom = false;
+// let oBody = false;
 function baseBegins (bOnload = false) {
-    // console.log('base begin');
-    if (bOnload) {
-        bFirstLoad = true;
-
-        asyn('shades');
-
-        asyn('sessId');
-    }
-
-    // console.log('base 111111111111111111');
-    asyn('setHtmlLang');
     if (
-        (!oHtml || typeof oHtml == 'undefined')
+        (!oHtml || typeof oHtml != 'object')
         ||
-        (!oHead || typeof oHead == 'undefined')
-        ||
-        !oBody || typeof oBody == 'undefined'
+        (!oHead || typeof oHead != 'object')
+        // ||
+        // (!oBody || typeof oBody != 'object')
     ) {
         oHtml = document.getElementsByTagName('html')[0];
         oHead = document.getElementsByTagName('head')[0];
-        oBody = document.getElementsByTagName('body')[0];
+        // oBody = document.getElementsByTagName('body')[0];
 
         setTimeoutFunction('baseBegins', bOnload);
         return;
     }
-    oBodyDom = domById(sBodyDomFatherId);
 
-    // console.log('base 2222222222222222');
     if (bOnload) {
-        // asyn('changeBodyStatus', false);
-        changeBodyStatus(false);
+        bFirstLoad = true;
+
+        if (!astrict()) {
+            return false;
+        }
+
+        asyn('bodyAppendDom');
+
+        asyn('showBaseShade');
+
+        asyn('sessId');
+
+        asyn('setHtmlLang');
+    }
+    asyn('bodyDom');
+
+    if (bOnload) {
+        asyn('changeBodyStatus', false);
 
         asyn('winResize', bOnload);
     }
 
-    // console.log('base 3333333333333');
     asyn('getUserIp');
 
     // console.log('base 44444444444444');
@@ -2722,13 +2772,13 @@ function baseBegins (bOnload = false) {
     asyn('loadBaseJs');
 }
 function winResize (bOnload = false) {
-    let t = setTimeout(function () {
-        clearTimeout(t);
+    if (!bOnload) {
+        asyn('showBaseShade');
 
-        if (bOnload) {
-            astrict();
+        if (!astrict()) {
+            return false;
         }
-    }, 0);
+    }
 
     asyn('winSize');
 
@@ -2736,7 +2786,6 @@ function winResize (bOnload = false) {
 
     if (bOnload){
         asyn('clearBaseShade');
-        // clearBaseShade();
     }
 }
 
@@ -2744,12 +2793,12 @@ function illegality () {
     window.location.href = sAstrictJumpUrl;
 }
 
-let bNoticeAstrict = false;
+// let bNoticeAstrict = false;
 function astrict () {
-    if (bNoticeAstrict) {
-        return;
-    }
-    bNoticeAstrict = true;
+    // if (bNoticeAstrict) {
+    //     return true;
+    // }
+    // bNoticeAstrict = true;
 
     let b = bMobile !== '' ? bMobile : isMobile();
     if (!b) {
@@ -2793,10 +2842,10 @@ window.onload = baseBegin(true);
 
 window.onresize = function () {
     if (bFirstLoad) {
-        console.log('window load but use resize, no use resize function');
+        // console.log('window load but use resize, no use resize function');
         return false;
     }
-    console.log('window resize, will do resize function');
+    // console.log('window resize, will do resize function');
 
     asyn('showBaseShade');
     // showBaseShade();

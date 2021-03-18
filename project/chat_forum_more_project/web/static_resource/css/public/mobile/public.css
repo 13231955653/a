@@ -25,6 +25,11 @@
     left: 0px;
     bottom: 0px;
 }
+#public_footer ul{
+    display: block;
+    width: 100%;
+    height: 100%;
+}
 #public_footer li{
     display: block;
     height: 100%;
@@ -63,26 +68,26 @@
 #public_footer li:nth-last-child(5):first-child~li{
     width: calc(100% / 5);
 }
-/*六个子*/
-#public_footer li:nth-last-child(6):first-child,
-#public_footer li:nth-last-child(6):first-child~li{
-    width: calc(100% / 6);
-}
-/*七个子*/
-#public_footer li:nth-last-child(7):first-child,
-#public_footer li:nth-last-child(7):first-child~li{
-    width: calc(100% / 7);
-}
-/*八个子*/
-#public_footer li:nth-last-child(8):first-child,
-#public_footer li:nth-last-child(8):first-child~li{
-    width: calc(100% / 8);
-}
-/*九个子*/
-#public_footer li:nth-last-child(9):first-child,
-#public_footer li:nth-last-child(9):first-child~li{
-    width: calc(100% / 9);
-}
+/*!*六个子*!*/
+/*#public_footer li:nth-last-child(6):first-child,*/
+/*#public_footer li:nth-last-child(6):first-child~li{*/
+/*    width: calc(100% / 6);*/
+/*}*/
+/*!*七个子*!*/
+/*#public_footer li:nth-last-child(7):first-child,*/
+/*#public_footer li:nth-last-child(7):first-child~li{*/
+/*    width: calc(100% / 7);*/
+/*}*/
+/*!*八个子*!*/
+/*#public_footer li:nth-last-child(8):first-child,*/
+/*#public_footer li:nth-last-child(8):first-child~li{*/
+/*    width: calc(100% / 8);*/
+/*}*/
+/*!*九个子*!*/
+/*#public_footer li:nth-last-child(9):first-child,*/
+/*#public_footer li:nth-last-child(9):first-child~li{*/
+/*    width: calc(100% / 9);*/
+/*}*/
 /*平分父*/
 .foot_active{
     background: var(--public_foot_active_background);
@@ -116,6 +121,7 @@
     /*display: block;*/
 }
 #storage_father{
+    display: none;
     visibility: hidden !important;
     width: 0px;
     height: 0px;

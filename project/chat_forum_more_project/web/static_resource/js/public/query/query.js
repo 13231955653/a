@@ -22,7 +22,7 @@ function apiQuery (sUrl = '', sSendJsonData = '', sMethod = 'post') {
         // loadLocalJquery();
         asyn('loadLocalJquery');
 
-        console.log('apiQuery jQuery undefined. so settimeout retry ');
+        // console.log('apiQuery jQuery undefined. so settimeout retry ');
         aBaseTimer[sFunction] = setTimeout(function () {
             apiQuery (sUrl, sSendJsonData, sMethod);
         }, aTimer['apiQuery']);
@@ -34,17 +34,17 @@ function apiQuery (sUrl = '', sSendJsonData = '', sMethod = 'post') {
         ||
         !sSendJsonData
     ) {
-        console.log('apiQuery sUrl or sSendJsonData is null. so not to do ');
+        // console.log('apiQuery sUrl or sSendJsonData is null. so not to do ');
         return false;
     }
 
     if (!isJson(sSendJsonData)) {
-        console.log('apiQuery sSendJsonData is not json. so not to do ');
+        // console.log('apiQuery sSendJsonData is not json. so not to do ');
         return false;
     }
 
     if (!inArrayByKey(sUrl, aRoute)) {
-        console.log('apiQuery inArrayByKey sUrl not in aRoute. so not to do ');
+        // console.log('apiQuery inArrayByKey sUrl not in aRoute. so not to do ');
         return false;
     }
 

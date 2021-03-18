@@ -7,7 +7,7 @@
  */
 function notice (s = '') {
     if (!s) {
-        console.log('notice s is null');
+        // console.log('notice s is null');
         return false;
     }
 
@@ -23,7 +23,7 @@ function notice (s = '') {
  */
 function reverseString (s = '') {
     if (!s) {
-        console.log('reverseString s is null');
+        // console.log('reverseString s is null');
         return;
     }
 
@@ -42,7 +42,7 @@ function isRealString (s = '') {
         return true;
     }
 
-    console.log('isRealString s is not real string');
+    // console.log('isRealString s is not real string');
     return false;
 }
 
@@ -104,7 +104,7 @@ function inArrayByKey ( k, a ) {
  */
 function arrayDelValByKey (a = [], k = '') {
     if (!a || !k) {
-        console.log('arrayDelValByKey a or k is null');
+        // console.log('arrayDelValByKey a or k is null');
         return '';
     }
     for (let i in a) {
@@ -130,7 +130,7 @@ function getUrlArgs (w = '') {
 
     let s = h.split('?');
     if (s.length < 2) {
-        console.log('getUrlArgs s.length < 2');
+        // console.log('getUrlArgs s.length < 2');
         return w ? '' : [];
     }
 
@@ -146,7 +146,7 @@ function getUrlArgs (w = '') {
         }
 
         if (!checkUrlSign(aUrlArgs)) {
-            console.log('do not change url args');
+            // console.log('do not change url args');
             return w ? '' : [];
         }
 
@@ -166,7 +166,7 @@ function getUrlArgs (w = '') {
  */
 function checkUrlSign (u = []) {
     if (!u) {
-        console.log('checkUrlSign u is null');
+        // console.log('checkUrlSign u is null');
         return false;
     }
 
@@ -184,7 +184,7 @@ function checkUrlSign (u = []) {
  */
 function urlSign (u = []) {
     if (!u) {
-        console.log('urlSign u is null');
+        // console.log('urlSign u is null');
         return '';
     }
 
@@ -215,7 +215,7 @@ function urlSign (u = []) {
  */
 function ucfirst (s = '') {
     if (!s) {
-        console.log('ucfirst s is null, so no to do');
+        // console.log('ucfirst s is null, so no to do');
         return false;
     }
 
@@ -231,10 +231,10 @@ function ucfirst (s = '') {
  */
 function setBrowserTitle (t = '') {
     if (!t) {
-        console.log('setPageTitle t is null, so no to do');
+        // console.log('setPageTitle t is null, so no to do');
         return false;
     }
-    console.log('setPageTitle t is true, so will set browser title ');
+    // console.log('setPageTitle t is true, so will set browser title ');
 
     document.title = t;
 }
@@ -246,17 +246,17 @@ function setBrowserTitle (t = '') {
  */
 function replaceTitle (t = '') {
     if (!t) {
-        console.log('replaceTitle t is null, so no to do ');
+        // console.log('replaceTitle t is null, so no to do ');
         return;
     }
-    console.log('replaceTitle t is true, will to replace browser title lang ');
+    // console.log('replaceTitle t is true, will to replace browser title lang ');
 
     if (typeof window['aLang'] == 'undefined') {
-        console.log('replaceTitle aLang is false, so settimtout retry to repalce browser title lang ');
+        // console.log('replaceTitle aLang is false, so settimtout retry to repalce browser title lang ');
         setTimeoutFunction('replaceTitle', t);
         return;
     }
-    console.log('replaceTitle aLang is true, so replace browser title lang ');
+    // console.log('replaceTitle aLang is true, so replace browser title lang ');
 
     setBrowserTitle(aLang[t]);
 }
@@ -268,7 +268,7 @@ function replaceTitle (t = '') {
  * @param b 显示或隐藏  bool true 显示  false 隐藏
  */
 function changeDomFatherOpacity (b = false) {
-    console.log('修改 page dom father opacity');
+    // console.log('修改 page dom father opacity');
 }
 
 /**
@@ -344,7 +344,10 @@ function getStyle (o, s) {
  */
 function animates (o = false, s = false, p = false, c = false) {
     if (!o || !s || !p) {
-        console.log('animates o or s or p is null');
+        // console.log(o);
+        // console.log(s);
+        // console.log(p);
+        // console.log('animates o or s or p is null');
         return;
     }
 
@@ -356,7 +359,12 @@ function animates (o = false, s = false, p = false, c = false) {
         return;
     }
 
-    setTimeoutFunction('animates');
+    // setTimeoutFunction('animates');
+    let t = setTimeout(function () {
+        clearTimeout(t);
+
+        animates(o, s, p, c);
+    }, aTimer['animates']);
 
     // jsAnimate (o, s, parseInt(p / 20));
 }
@@ -370,7 +378,7 @@ function animates (o = false, s = false, p = false, c = false) {
  */
 function replaceDomLang (p = '', d = '') {
     if (!p || !d) {
-        console.log('replaceDomLang p or d is null, so no to do ');
+        // console.log('replaceDomLang p or d is null, so no to do ');
         return;
     }
 
@@ -391,36 +399,41 @@ function replaceDomLang (p = '', d = '') {
  * @param d 需要替换语言的dom的 id/class/tag type sting
  */
 function replaceLang (p = '', d = '') {
+    // console.log('(((((((((((((((((((((((((((((((((((((');
+    // console.log(p);
+    // console.log(d);
     if (!p || !d) {
-        console.log('replaceLang p or d is null, so no to do ');
+        // console.log('replaceLang p or d is null, so no to do ');
         return;
     }
-    console.log('replaceLang, will to do replace lang ');
+    // console.log('replaceLang, will to do replace lang ');
 
     if (typeof aLang == 'undefined') {
-        console.log('replaceLang aLang is false, so settimtoue retry replace lang ');
+        // console.log('replaceLang aLang is false, so settimtoue retry replace lang ');
         setTimeoutFunction('replaceLang', p, d);
         return;
     }
-    console.log('replaceLang aLang is true, will to replace lang ');
+    // console.log('replaceLang aLang is true, will to replace lang ');
 
     let o = false;
     switch (p) {
         case sReplaceLangIdType :
-            o = document.getElementById(d);
+            o = domById(d);
             break;
     }
 
     if (!o) {
-        console.log('replaceLang dom is null, so no to do ');
+        // console.log('replaceLang dom is null, so settimtoue retry replace lang ');
+        setTimeoutFunction('replaceLang', p, d);
         return;
     }
-    console.log('replaceLang dom is true, will to replace lang ');
+    // console.log('replaceLang dom is true, will to replace lang ');
 
     let s = o.getElementsByClassName(sReLangClass);
     for (let i in s) {
         s[i].innerHTML = aLang[s[i].id];
     }
+    // console.log(')))))))))))))))))))))))))))))))');
 }
 function replaceLangs () {
     // if (!bJquery) {
@@ -433,9 +446,9 @@ function replaceLangs () {
     // console.log('replaceLangs jQuery is defined, so to replaceLangs ');
 
     // let a = $('.' + sReLangClass);
-    let a = oBody.getElementsByClassName(sReLangClass);
+    let a = bodyDom().getElementsByClassName(sReLangClass);
     if (!a.length) {
-        console.log('replaceLangs class ' + sReLangClass + ' dom no get, so no to do replace lang');
+        // console.log('replaceLangs class ' + sReLangClass + ' dom no get, so no to do replace lang');
         // setTimeoutFunction('replaceLangs');
         return false;
     }

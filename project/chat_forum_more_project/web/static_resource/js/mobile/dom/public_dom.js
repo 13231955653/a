@@ -46,16 +46,16 @@ function writePublicDom() {
     asyn('replaceFooterLang');
 }
 
-let oFooter = '';
+// let oFooter = '';
 function replaceFooterLang () {
-    oFooter = oFooter ? oFooter : domById(sPublicFootId);
-    asyn('replaceLang', sReplaceLangIdType, oFooter);
+    // oFooter = oFooter ? oFooter : domById(sPublicFootId);
+    asyn('replaceLang', sReplaceLangIdType, sPublicFootId);
 }
 
 let aFooterOnclick = [];
 function bindFooterOnclick () {
     if (typeof window['domByClass'] == 'undefined') {
-        console.log('bindFooterOnclick domByClass is no load, so settimeout retry to do bindFooterOnclick');
+        // console.log('bindFooterOnclick domByClass is no load, so settimeout retry to do bindFooterOnclick');
 
         setTimeoutFunction('bindFooterOnclick');
         return;
@@ -161,6 +161,8 @@ function writeBodyFooter() {
     s += writeOneFooter(sChatPage);
 
     s += writeOneFooter(sFriendPage);
+
+    s += writeOneFooter(sAboutMePage);
 
     s += writeOneFooter(sSettingPage);
 
