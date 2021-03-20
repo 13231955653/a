@@ -1,4 +1,5 @@
 window.addEventListener('message',function(event){
+    console.log('#######################################');
     if (window.parent !== event.source) {
         return false;
     }
@@ -13,7 +14,6 @@ window.addEventListener('message',function(event){
         return false;
     }
 
-    console.log('#######################################');
     console.log('get form ' + event.origin + ' message, will do origin localstorage');
     console.log(event.data);
     console.log('#######################################');

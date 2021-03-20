@@ -24,7 +24,7 @@ function loadLocalJquery1 () {
     }
 
     // console.log('loadOriginJquery 11111');
-    if (getNowTime() - iLoadOriginJqueryLastTime > iMaxLoadOriginJqueryWaitTime) {
+    if (getMillisecondTime() - iLoadOriginJqueryLastTime > iMaxLoadOriginJqueryWaitTime) {
         // console.log('loadOriginJquery 2222');
         // asyn('loadLocalJquery');
         setTimeoutFunction('loadLocalJquery');

@@ -157,7 +157,7 @@ function updateUrlPage (p = '') {
         // console.log('updateUrlPage aAllreadyLoadPageJs ' + p + ' is load, so load afterLoadPageJs ');
         f = 'afterLoadPageJs';
     }
-    aAllreadyLoadPageJs[p] = getNowTime();
+    aAllreadyLoadPageJs[p] = getMillisecondTime();
 
     let z = setTimeout(function () {
         clearTimeout(z);
@@ -199,7 +199,7 @@ function updateUrlArg (k = '', v = '', t = '', c = false) {
     a = arrayDelValByKey(a, sUrlAddressChangeTimeKey);
     a = arrayDelValByKey(a, sUrlAddressSignKey);
 
-    a[sUrlAddressChangeTimeKey] = getNowTime();
+    a[sUrlAddressChangeTimeKey] = getMillisecondTime();
 
     let s = '';
     for (let i in a) {

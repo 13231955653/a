@@ -511,7 +511,7 @@ function feildNowLangvageValue (sKey = '')
         return aLang[sKey];
     }
     
-    let sTimerKey = md5(getNowTime() + randomString(100, sRandString));
+    let sTimerKey = md5(getMillisecondTime() + randomString(100, sRandString));
     feildNowLangvageValueTimer[sTimerKey] = setTimeout(function () {
         statisticsNoExistLangFeild(sKey);
         
@@ -726,7 +726,7 @@ function checkExistInJson (sKey = '', sValue = '', sJsonData = '') {
 let listenStorageTimer = [];
 function listenStorageChange () {
     if (typeof md5 == 'undefined') {
-        let sKey = getNowTime() + randomString(10, sRandString);
+        let sKey = getMillisecondTime() + randomString(10, sRandString);
         listenStorageTimer[sKey] = setTimeout(function () {
             listenStorageChange ();
             clearTimeout(listenStorageTimer[sKey]);
@@ -1380,7 +1380,7 @@ let myStorage = (function myStorage () {
 
     let set = function (sKey, sValue, iLeftTime = false) {
         //存储
-        sValue = iLeftTime ? {'sData': sValue, 'iLiftTime': iLeftTime * 1000, 'iSetTime': getNowTime()} : {'sData': sValue};
+        sValue = iLeftTime ? {'sData': sValue, 'iLiftTime': iLeftTime * 1000, 'iSetTime': getMillisecondTime()} : {'sData': sValue};
 
         sValue = JSON.stringify(sValue);
         /////////////////////////////////////
@@ -1404,7 +1404,7 @@ let myStorage = (function myStorage () {
 
         try {
             if (typeof oData.iLiftTime != 'undefined') {
-                if (getNowTime() - oData.iSetTime > oData.iLiftTime) {
+                if (getMillisecondTime() - oData.iSetTime > oData.iLiftTime) {
                     remove(sKey1);
                     return '';
                 } else {
@@ -1488,7 +1488,7 @@ function queryNowActionUrl () {
 //检查滑动方向
 function examineOrientation () {
     $('body').on('touchstart', function(e) {
-        iTouchStartTime = getNowTime();
+        iTouchStartTime = getMillisecondTime();
 
         e.preventDefault();
 
@@ -1496,7 +1496,7 @@ function examineOrientation () {
         fStartY = e.originalEvent.changedTouches[0].pageY;
     });
     $('body').on('touchend', function(e) {
-        iTouchEndTime = getNowTime();
+        iTouchEndTime = getMillisecondTime();
 
         e.preventDefault();
 

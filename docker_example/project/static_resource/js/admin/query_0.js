@@ -23,7 +23,7 @@ function afterLoginInAdmin () {
     // consoleLog(myStorage.get(sAdminAlreadyLoginLocalstorageTag));
     // return;
     
-    myStorage.set(sAdminInLcalstorageTag, getNowTime());
+    myStorage.set(sAdminInLcalstorageTag, getMillisecondTime());
     
     let sUri = myStorage.get(sAdminLastVisitPageLocalstorageKey);
     sUri = setUrl('/admin/' + sUri);
@@ -98,7 +98,7 @@ function afterOutAdmin () {
         // consoleLog(myStorage.remove(sAdminAlreadyLoginLocalstorageTag));
         myStorage.clear();
     
-        myStorage.set(sAdminOutLcalstorageTag, getNowTime());
+        myStorage.set(sAdminOutLcalstorageTag, getMillisecondTime());
     
         adminCheck();
         

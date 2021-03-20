@@ -1,7 +1,4 @@
-const debug = true;
-
 const sHtmlLang = 'zh-cn';
-let sCharset = 'utf-8';
 
 const sBaseProtocol = window.location.protocol + '//';
 
@@ -158,7 +155,6 @@ b['checkSessionIdOutTime'] = 181652;
 b['checkSessionKeyFormat'] = 253648;
 const aTimer = b; //基础定时器间隔时间
 
-const sIndexScriptTagId = 'index_js_script';
 const sFinalMetaTagId = 'copyright_content';
 
 const sContentAndCharset = 'content_charset';
@@ -439,7 +435,6 @@ function platformTag () {
 }
 const sPlatformTag = platformTag();
 
-const sBaseJs = '/static_resource/js/public/base.js';
 const sIndexJs = '/static_resource/js/index.js';
 const sFunctionJs = '/static_resource/js/public/function.js';
 const sJqueryJs = '/static_resource/js/public/jquery.js';
@@ -459,7 +454,7 @@ sOriginJquery = 'http://code.jquery.com/jquery-1.9.1.min.js'; ////////////国内
 // sOriginJquery = 'http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js'; ////////////国内外需要更换适用的地址
 
 const c = [];  // js 文件版本号
-c[sBaseJs] = 'aaaaaaa';
+// c[sBaseJs] = 'aaaaaaa';
 c[sIndexJs] = 'bbbbbbbb';
 c[sFunctionJs] = 'ddddddd';
 c[sJqueryJs] = 'eeeeeeee';
@@ -512,10 +507,35 @@ function afterloadPublicCss () {
     bLoadPublicCss = true;
 }
 
+/**
+ *
+ * 从缓存中读取css内容
+ *
+ * @param f
+ * @param c
+ */
+let bAllreadyLoadFile = [];
+function staticResourceForLoaclstorage (f, c = '') {
+    if (!f) {
+        return false;
+    }
+
+    console.log('zzzzzzzzzzzzzzzzz');
+    console.log(bAllreadyLoadFile);
+    console.log(bAllreadyLoadFile[f]);
+    /////////////////
+
+    return false;
+}
+
 let bLoadResetCss = false;
 function loadResetCss () {
     if (bLoadResetCss) {
         return true;
+    }
+
+    if (staticResourceForLoaclstorage(sResetCssFile, 'afterloadResetCss')) {
+        return;
     }
 
     if (!checkRequestJsCssLimit('css', 'loadResetCss')) {
@@ -592,11 +612,6 @@ function loadCss (r = '', c = '') {
 function asynLoadCss (l) {
     insertAfter(l, oFinalMeta ? oFinalMeta : finalMeta());
 }
-let oIndexScriptTag = '';
-function indexScriptTag () {
-    oIndexScriptTag = domById(sIndexScriptTagId);
-}
-indexScriptTag();
 
 let oFinalMeta = '';
 function finalMeta () {
@@ -630,21 +645,6 @@ function checkLoadCss (c = '', d = '') {
     aBaseTimer[k] = setTimeout(function () {
         checkLoadCss(c, d);
     }, aTimer['checkLoadCss']);
-}
-/**
- *
- * 在 j 之后插入 新节点n
- *
- * @param n 新节点 type dom
- * @param j
- */
-function insertAfter (n, j) {
-    let p = j.parentNode;
-    if (p.lastChild == j) {
-        p.appendChild(n);
-    } else {
-        p.insertBefore(n,j.nextSibling);
-    }
 }
 
 let bInloadUserPersonalizedColorFromLocalstorage = false;
@@ -795,45 +795,45 @@ function afterLoadPageJs () {
     asyn('updateActiveFooter');
 }
 
-function loadJs (s = '', b = true, c = false) {
-    if (!s) {
-        return false;
-    }
-
-    let o = document.createElement('script');
-    o.type = 'text/javascript';
-    o.src = s;
-    // if (b) {
-    //     o.async = 'async';
-    // }
-    // o.defer = 'defer';
-    o.charset = sCharset;
-
-    if (c) {
-        if (o.addEventListener) {
-            o.addEventListener('load', function () {
-                if (typeof window[c] == 'undefined') {
-                    setTimeoutFunction(c);
-                    return;
-                }
-
-                window[c]();
-            }, false);
-        } else if (o.attachEvent) {
-            o.attachEvent('onreadystatechange', function () {
-                var target = window.event.srcElement;
-                if (target.readyState == 'loaded') {
-                    window[c]();
-                }
-            });
-        }
-    }
-
-    asyn('asynLoadJs', o);
-}
-function asynLoadJs (o) {
-    insertAfter(o, oIndexScriptTag);
-}
+// function loadJs (s = '', b = true, c = false) {
+//     if (!s) {
+//         return false;
+//     }
+//
+//     let o = document.createElement('script');
+//     o.type = 'text/javascript';
+//     o.src = s;
+//     // if (b) {
+//     //     o.async = 'async';
+//     // }
+//     // o.defer = 'defer';
+//     o.charset = sCharset;
+//
+//     if (c) {
+//         if (o.addEventListener) {
+//             o.addEventListener('load', function () {
+//                 if (typeof window[c] == 'undefined') {
+//                     setTimeoutFunction(c);
+//                     return;
+//                 }
+//
+//                 window[c]();
+//             }, false);
+//         } else if (o.attachEvent) {
+//             o.attachEvent('onreadystatechange', function () {
+//                 var target = window.event.srcElement;
+//                 if (target.readyState == 'loaded') {
+//                     window[c]();
+//                 }
+//             });
+//         }
+//     }
+//
+//     asyn('asynLoadJs', o);
+// }
+// function asynLoadJs (o) {
+//     insertAfter(o, oIndexScriptTag);
+// }
 
 function setCssPathAndVersion () {
     let sResetCss = '/static_resource/css/public/reset.css';
@@ -906,15 +906,6 @@ function setUserIp () {
     sIpCityName = returnCitySN.cname;
 }
 
-//获取毫秒时间戳
-function getNowTime () {
-    return new Date().getTime();
-}
-//获取时间戳
-function getTime () {
-    return parseInt(getNowTime() / 1000);
-}
-
 /**
  *
  * 设置静态文件地址
@@ -929,7 +920,7 @@ function setJsCssSrc (t = '', s = '') {
         return false;
     }
 
-    let v = getNowTime();
+    let v = getMillisecondTime();
     switch (t) {
         case 'js' :
             v = aJsVersion[s];
@@ -941,14 +932,9 @@ function setJsCssSrc (t = '', s = '') {
 
     return allocationHost(s) + s + '?v=' + v + sFileVersionSuffix;
 }
-let sFileVersionSuffix = '';
-function jsCssVersionSuffix () {
-    sFileVersionSuffix = debug ? '-' + getNowTime() : '';
-}
-jsCssVersionSuffix();
 
 function setJsPathAndVersion () {
-    sBaseJsFile = setJsCssSrc('js', sBaseJs);
+    // sBaseJsFile = setJsCssSrc('js', sBaseJs);
     sIndexJsFullName = setJsCssSrc('js', sIndexJs);
     sFunctionJsFile = setJsCssSrc('js', sFunctionJs);
     sJqueryJsFile = setJsCssSrc('js', sJqueryJs);
@@ -966,8 +952,8 @@ function setJsPathAndVersion () {
 }
 
 function checkUseTime () {
-    if (getTime() - iBeginTime > iNoticeTimeLimit) {
-        iBeginTime = getTime();
+    if (getSecondTime() - iBeginTime > iNoticeTimeLimit) {
+        iBeginTime = getSecondTime();
 
         showUseTimeLimitNotice();
     }
@@ -1042,41 +1028,41 @@ function setTimeoutFunction (f = '', a = '', b = '') {
 
     return true;
 }
-function asyn (f = '', a = '', b = '') {
-    if (!f) {
-        // console.log(f);
-        // console.log('asyn f is null');
-        return false;
-    }
-
-    if (typeof window[f] != 'function') {
-        // console.log('==========================asyn ' + f + ' is not function, so settimeout retry to asyn ');
-
-        let t = setTimeout(function () {
-            clearTimeout(t);
-
-            asyn(f, a, b);
-        }, 0);
-        return;
-    }
-    // console.log('asyn ' + f + ' is function, so will to do ' + f + ' ');
-
-    let t = setTimeout(function () {
-        clearTimeout(t);
-
-        if (b) {
-            window[f](a, b);
-            return;
-        }
-
-        if (a) {
-            window[f](a);
-            return;
-        }
-
-        window[f]();
-    }, 0);
-}
+// function asyn (f = '', a = '', b = '') {
+//     if (!f) {
+//         // console.log(f);
+//         // console.log('asyn f is null');
+//         return false;
+//     }
+//
+//     if (typeof window[f] != 'function') {
+//         // console.log('==========================asyn ' + f + ' is not function, so settimeout retry to asyn ');
+//
+//         let t = setTimeout(function () {
+//             clearTimeout(t);
+//
+//             asyn(f, a, b);
+//         }, 0);
+//         return;
+//     }
+//     // console.log('asyn ' + f + ' is function, so will to do ' + f + ' ');
+//
+//     let t = setTimeout(function () {
+//         clearTimeout(t);
+//
+//         if (b) {
+//             window[f](a, b);
+//             return;
+//         }
+//
+//         if (a) {
+//             window[f](a);
+//             return;
+//         }
+//
+//         window[f]();
+//     }, 0);
+// }
 
 let aRequestJsCssLastTime = [];
 function checkRequestJsCssLimit (p = '', f = '') {
@@ -1085,7 +1071,7 @@ function checkRequestJsCssLimit (p = '', f = '') {
         return false;
     }
 
-    let t = getNowTime();
+    let t = getMillisecondTime();
     let l = typeof aRequestJsCssLastTime[f] !== 'undefined' ? aRequestJsCssLastTime[f] : 0;
     if (t - l < iRequertTimeout) {
         // console.log('************************checkRequestJsCssLimit ' + f + ' time last ' + iRequertTimeout + ' millisecond, so wait a minutes retry ');
@@ -1489,7 +1475,7 @@ function loadLang (l = '') {
         return false;
     }
 
-    let t = getNowTime();
+    let t = getMillisecondTime();
     if (t - iLastRequestLangTime < iRequertLangJsTimeout) {
         // console.log('loadLang l last time limit, so no to load lang js ');
         setTimeoutFunction('loadLang', l);
@@ -1547,7 +1533,7 @@ window.addEventListener('message', function(event){
 function disposeLocalstorageValue (v, t = false) {
     v = typeof v != 'object' ? v : JSON.stringify(v);
 
-    return t ? {'v': v, 't': t * 1000, 'st': getNowTime()} : {'v': v};
+    return t ? {'v': v, 't': t * 1000, 'st': getMillisecondTime()} : {'v': v};
 }
 
 /**
@@ -1672,7 +1658,7 @@ let myStorage = (function myStorage () {
         }
 
         if (typeof d.t !== 'undefined') {
-            if (getNowTime() - d.st > d.t) {
+            if (getMillisecondTime() - d.st > d.t) {
                 remove(k);
                 return false;
             } else {
@@ -1728,15 +1714,6 @@ function isJson (s = '') {
             return false;
         }
     }
-}
-
-function domById (d) {
-    let o = document.getElementById(d);
-    return o != null ? o : false;
-}
-function domByClass (c) {
-    let o = oBodyDom.getElementsByClassName(c);
-    return o.length > 0 ? o : false;
 }
 
 /**
@@ -1950,7 +1927,7 @@ function loadOriginJquery () {
     if (!checkRequestJsCssLimit('js', 'loadOriginJquery')) {
         return false;
     }
-    iLoadOriginJqueryLastTime = getNowTime();
+    iLoadOriginJqueryLastTime = getMillisecondTime();
 
     if (bAllreadyLoadOriginJquery) {
         return true;
@@ -2264,7 +2241,7 @@ function individuationUuidUniqueStr () {
 
     let s = randStr(iIndividuationUniqueStrLength);
     s += d + randNum(iIndividuationUniqueStrNumberMin, iIndividuationUniqueStrNumberMax);
-    s += d + getNowTime();
+    s += d + getMillisecondTime();
     s += d + navigatorInfo();
     s += d + screenInfo();
     s += d + generateUUID();
@@ -2329,7 +2306,7 @@ function navigatorInfo () {
     return s;
 }
 function generateUUID () {
-    let d = getNowTime();
+    let d = getMillisecondTime();
     let i = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
         let r = (d + Math.random()*16)%16 | 0;
         d = Math.floor(d/16);
@@ -2348,7 +2325,7 @@ function checkSessionIdOutTime () {
 
     let s = sNewSessionId.split(sSessionSplitTag);
 
-    if (parseInt(getTime()) - parseInt(s[s.length - 1]) > iSessionOutTime) {
+    if (parseInt(getSecondTime()) - parseInt(s[s.length - 1]) > iSessionOutTime) {
         // console.log('checkSessionIdOutTime session id is timeout, so will to makeSessionid ');
         makeSessionid();
     }
@@ -2387,7 +2364,7 @@ function setSessionIdFormat (sSessionId1 = '') {
 
     s = setSessionIdPrefix(s) + p + s + p + setSessionIdSuffix(s);
 
-    return s.toLowerCase() + sSessionSplitTag + getTime();
+    return s.toLowerCase() + sSessionSplitTag + getSecondTime();
 }
 function setSessionIdPrefix (s) {
     let q = sSessionIdSplitLength;
@@ -2765,7 +2742,7 @@ function baseBegins (bOnload = false) {
     asyn('loadLocalJquery1');
 
     // console.log('base gggggggggggggggg');
-    iBeginTime = getTime();
+    iBeginTime = getSecondTime();
     asyn('checkUseTime');
 
     // console.log('base hhhhhhhhhhhhhhhhhhhh');

@@ -20,7 +20,7 @@ let sJsonRequestUrl = {};
 const iLimitFrequencySecond = 5000;
 let aQueryTimer = new Array();
 function limitFrequency (sApi) {
-    let iNowTimeSecond = getNowTime();
+    let iNowTimeSecond = getMillisecondTime();
     if (typeof sJsonRequestUrl[md5(sApi)] == 'undefined') {
         sJsonRequestUrl[md5(sApi)] = iNowTimeSecond;
         
@@ -100,7 +100,7 @@ function sendQuery (sApi = '', sMethod = '', sJsonData = '', sFuncName = '', bSh
     let iTimeOut = limitFrequency(sApi);
     if (iTimeOut !== true) {
         // consoleLog(parseInt(iTimeOut));
-        let sIntervalKey = md5(getNowTime() + randStr(1000, sRandString));
+        let sIntervalKey = md5(getMillisecondTime() + randStr(1000, sRandString));
         aQueryTimer[sIntervalKey] = setTimeout(function () {
             sendQuery (sApi, sMethod, sJsonData, sFuncName, bShowLoading, bEncodeData);
             clearTimeout(aQueryTimer[sIntervalKey]);
