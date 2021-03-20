@@ -436,20 +436,13 @@ function replaceLang (p = '', d = '') {
     // console.log(')))))))))))))))))))))))))))))))');
 }
 function replaceLangs () {
-    // if (!bJquery) {
-    //     // if (typeof jQuery === 'undefined') {
-    //     console.log('replaceLangs jQuery is undefined, so settimeout retry to replaceLangs ');
-    //
-    //     setTimeoutFunction('replaceLangs');
-    //     return;
-    // }
-    // console.log('replaceLangs jQuery is defined, so to replaceLangs ');
+    if (typeof window['aLang'] === 'undefined') {
+        setTimeoutFunction('replaceLangs');
+        return;
+    }
 
-    // let a = $('.' + sReLangClass);
     let a = bodyDom().getElementsByClassName(sReLangClass);
     if (!a.length) {
-        // console.log('replaceLangs class ' + sReLangClass + ' dom no get, so no to do replace lang');
-        // setTimeoutFunction('replaceLangs');
         return false;
     }
 

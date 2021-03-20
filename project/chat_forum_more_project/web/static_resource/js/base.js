@@ -2247,21 +2247,23 @@ function afterCacheSessionId (b = '') {
     }
 }
 
-function loadLocalJquery1 () {
-    if (bJquery) {
-        return;
-    }
-
-    // console.log('loadOriginJquery 11111');
-    if (getMillisecondTime() - iLoadOriginJqueryLastTime > iMaxLoadOriginJqueryWaitTime) {
-        // console.log('loadOriginJquery 2222');
-        // asyn('loadLocalJquery');
-        setTimeoutFunction('loadLocalJquery');
-        return;
-    }
-
-    setTimeoutFunction('loadOriginJquery');
-}
+// let iLoadOriginJqueryLastTime = 0;
+// function loadLocalJquery1 () {
+//     if (bJquery) {
+//         return;
+//     }
+//
+//     // console.log('loadOriginJquery 11111');
+//     if (getMillisecondTime() - iLoadOriginJqueryLastTime > iMaxLoadOriginJqueryWaitTime) {
+//         // console.log('loadOriginJquery 2222');
+//         // asyn('loadLocalJquery');
+//         setTimeoutFunction('loadLocalJquery');
+//         return;
+//     }
+//
+//     // setTimeoutFunction('loadOriginJquery');
+//     setTimeoutFunction('loadLocalJquery');
+// }
 
 /**
  *
@@ -2393,7 +2395,7 @@ function baseBegins () {
 
     // asyn('loadOriginJquery');
 
-    asyn('loadLocalJquery1');
+    asyn('loadLocalJquery');
 
     asyn('loadBaseJs');
 }
