@@ -18,21 +18,21 @@
 //     }, 0);
 // }
 
-function loadLocalJquery1 () {
-    if (bJquery) {
-        return;
-    }
-
-    // console.log('loadOriginJquery 11111');
-    if (getMillisecondTime() - iLoadOriginJqueryLastTime > iMaxLoadOriginJqueryWaitTime) {
-        // console.log('loadOriginJquery 2222');
-        // asyn('loadLocalJquery');
-        setTimeoutFunction('loadLocalJquery');
-        return;
-    }
-
-    setTimeoutFunction('loadOriginJquery');
-}
+// function loadLocalJquery1 () {
+//     if (bJquery) {
+//         return;
+//     }
+//
+//     // console.log('loadOriginJquery 11111');
+//     if (getMillisecondTime() - iLoadOriginJqueryLastTime > iMaxLoadOriginJqueryWaitTime) {
+//         // console.log('loadOriginJquery 2222');
+//         // asyn('loadLocalJquery');
+//         setTimeoutFunction('loadLocalJquery');
+//         return;
+//     }
+//
+//     setTimeoutFunction('loadOriginJquery');
+// }
 
 function afterPageAction () {
     // console.log('/////////////////////////////////////////////////////');

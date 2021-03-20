@@ -1,5 +1,3 @@
-const sHtmlLang = 'zh-cn';
-
 const sBaseProtocol = window.location.protocol + '//';
 
 const sBaseHostSonPrefix = 'static_resource';
@@ -8,8 +6,6 @@ const sBaseHostSonNumber = 21;
 const iSpeed = 300; //动画速度
 
 const sQueryOneMmPxId = 'get_one_mms_px';
-
-const sAstrictJumpUrl = 'https://www.baidu.com';
 
 const aAllreadyLoadIframe = [];
 
@@ -155,111 +151,7 @@ b['checkSessionIdOutTime'] = 181652;
 b['checkSessionKeyFormat'] = 253648;
 const aTimer = b; //基础定时器间隔时间
 
-const sFinalMetaTagId = 'copyright_content';
 
-const sContentAndCharset = 'content_charset';
-const sContentAndCharsetType = 'Content-Type';
-const sContentAndCharsetContent = 'text/html; charset=utf-8';
-const sCopyright = 'copyright';
-const sAuther = 'auther';
-const sKeywords = 'keywords';
-const sDescription = 'description';
-const sApplicationName = 'application-name';
-const sRobots = 'robots';
-const sAllowCurlPage = 'noindex';
-const sAllowIndexOther = 'nofollow';
-const sAboutIe = 'about_ie';
-const sAboutIeHttpEquiv = 'x-ua-compatible';
-const sAboutIeContent = 'ie=edge';
-const sClearType = 'cleartype';
-const sClearTypeHttpEquiv = 'cleartype';
-const sClearTypeContent = 'on';
-// Pinned Site
-const sSkypeToolbar = 'skype_toolbar';
-const sSkypeToolbarContent = 'skype_toolbar_parser_compatible';
-const sWin8Ie10_1 = 'msapplication-TileImage';
-const sWin8Ie10_1Content = 'pinned-tile-144.png';
-const sWin8Ie10_2 = 'msapplication-TileColor';
-const sWin8Ie10_2Content = '#009900';
-const sWin9_1Ie11 = 'msapplication-config';
-const sWin9_1Ie11Content = 'ieconfig.xml';
-// Pinned Site
-// <!-- 优先使用最新的chrome版本 -->
-const sGoogleBrowser = 'google_browser';
-const sGoogleBrowserHttpEquiv = 'X-UA-Compatible';
-const sGoogleBrowserContent = 'chrome=1';
-// 360浏览器
-// <!-- 选择使用的浏览器解析内核 -->
-const s360 = '360_nei_he';
-const s360Name = 'renderer';
-const s360Content = 'webkit|ie-comp|ie-stand';
-// UC手机浏览器
-<!-- 将屏幕锁定在特定的方向 -->
-const sUc = 'uc_';
-const sUcName = 'screen-orientation';
-const sUcContent = 'landscape/portrait';
-// <!-- 全屏显示页面 -->
-const sFullScreen = 'full-screen';
-const sFullScreenName = 'full-screen';
-const sFullScreenContent = 'yes';
-// <!-- 应用模式，默认将全屏，禁止长按菜单，禁止手势，标准排版，强制图片显示。 -->
-const sAppMode = 'app_mode';
-const sAppModeName = 'browsermode';
-const sAppModeContent = 'application';
-// <!-- 禁止夜间模式显示 -->
-const sForbidNight = 'forbid_night';
-const sForbidNightName = 'nightmode';
-const sForbidNightContent = 'disable';
-// <!-- 使用适屏模式显示 -->
-const sAdaptScreen = 'adapt_screen';
-const sAdaptScreenName = 'layoutmode';
-const sAdaptScreenContent = 'fitscreen';
-// QQ手机浏览器
-<!-- 锁定屏幕在特定方向 -->
-const sQqImmobilizationOrientation = 'qq_orientation';
-const sQqImmobilizationOrientationName = 'x5-orientation';
-const sQqImmobilizationOrientationContent = 'landscape/portrait';
-// <!-- 全屏显示 -->
-const sQqFullScreen = 'qq_fullscreen';
-const sQqFullScreenName = 'x5-fullscreen';
-const sQqFullScreenContent = 'true';
-// <!-- 页面将以应用模式显示 -->
-// <meta name="x5-page-mode" content="app">
-const sQqAppMode = 'qq_app_mode';
-const sQqAppModeName = 'x5-page-mode';
-const sQqAppModeContent = 'app';
-// Apple iOS
-// <!-- Smart App Banner -->
-const sIosAppBanner = 'apple-ios-itunes-app';
-const sIosAppBannerName = 'apple-itunes-app';
-const sIosAppBannerContent = 'app-id=APP_ID,affiliate-data=AFFILIATE_ID,app-argument=SOME_TEXT';
-// <!-- 禁止自动探测并格式化手机号码 -->
-const sForbidQueryTelNumber = 'query_tel_num_and_format';
-const sForbidQueryTelNumberName = 'format-detection';
-const sForbidQueryTelNumberContent = 'telephone=no';
-// <!-- 忽略识别邮箱 -->
-const sNeglectEmail = 'neglect_email';
-const sNeglectEmailName = 'format-detection';
-const sNeglectEmailContent = 'email=no';
-// <!-- 是否启用 WebApp 全屏模式 -->
-const sAppFullScreenMode = 'app_full_screen_mode';
-const sAppFullScreenModeName = 'apple-mobile-web-app-capable';
-const sAppFullScreenModeContent = 'yes';
-// <!-- 设置状态栏的背景颜色,只有在 “apple-mobile-web-app-capable” content=”yes” 时生效 -->
-const sAppleMobileWebBarColor = 'apple_mobile_web_bar_color';
-const sAppleMobileWebBarColorName = 'apple-mobile-web-app-status-bar-style';
-const sAppleMobileWebBarColorContent = 'black';
-// 移动端
-// <!-- `width=device-width` 会导致 iPhone 5 添加到主屏后以 WebApp 全屏模式打开页面时出现黑边  -->
-const sMobileFullScreen = 'mobile_full_screen';
-const sMobileFullScreenName = 'viewport';
-const sMobileFullScreenContent = 'width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0';
-
-const sAutherInfo = 'white 小白 邮箱';
-const sKeyword = '关键词1，关键词2，关键词3';
-const sDescriptionContent = '规定页面的描述。搜索引擎会把这个描述显示在搜索结果中。';
-const sApplicationNameContent = '规定页面所代表的 Web 应用程序的名称。';
-const sCopyrightContent = '版权所有，保留一切权利。';
 
 const sIndividuationUuidTag = '*';
 const sUniqueStrSplitTag = '_';
@@ -414,22 +306,6 @@ let sResetCssFile = '';
 let sPublicCssFile = '';
 let sPersonalizedCssFile = '';
 
-let bMobile = '';
-function isMobile () {
-    let u = navigator.userAgent;
-    let m = [ 'Android', 'iPhone', 'SymbianOS', 'Windows Phone', 'iPad','iPod'];
-    bMobile = false;
-
-    //根据userAgent判断是否是手机
-    for (let v = 0; v < m.length; v++) {
-        if (u.indexOf(m[v]) > 0) {
-            bMobile = true;
-            break;
-        }
-    }
-
-    return bMobile;
-}
 function platformTag () {
     return (bMobile !== '' ? bMobile : isMobile())  ? 'mobile' : 'computer';
 }
@@ -449,7 +325,7 @@ const sChatJs = '/static_resource/js/' + sPlatformTag + '/page/chat.js';
 const sFriendJs = '/static_resource/js/' + sPlatformTag + '/page/friend.js';
 const sSettingJs = '/static_resource/js/' + sPlatformTag + '/page/setting.js';
 const sApiJs = '/static_resource/js/public/query/query.js';
-sOriginJquery = 'http://code.jquery.com/jquery-1.9.1.min.js'; ////////////国内外需要更换适用的地址
+// sOriginJquery = 'http://code.jquery.com/jquery-1.9.1.min.js'; ////////////国内外需要更换适用的地址
 // sOriginJquery = 'http://libs.baidu.com/jquery/2.1.4/jquery.min.js'; ////////////国内外需要更换适用的地址
 // sOriginJquery = 'http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js'; ////////////国内外需要更换适用的地址
 
@@ -514,15 +390,15 @@ function afterloadPublicCss () {
  * @param f
  * @param c
  */
-let bAllreadyLoadFile = [];
+// let bAllreadyLoadFile = [];
 function staticResourceForLoaclstorage (f, c = '') {
     if (!f) {
         return false;
     }
 
-    console.log('zzzzzzzzzzzzzzzzz');
-    console.log(bAllreadyLoadFile);
-    console.log(bAllreadyLoadFile[f]);
+    // console.log('zzzzzzzzzzzzzzzzz');
+    // console.log(bAllreadyLoadFile);
+    // console.log(bAllreadyLoadFile[f]);
     /////////////////
 
     return false;
@@ -613,11 +489,7 @@ function asynLoadCss (l) {
     insertAfter(l, oFinalMeta ? oFinalMeta : finalMeta());
 }
 
-let oFinalMeta = '';
-function finalMeta () {
-    oFinalMeta = domById(sFinalMetaTagId);
-    return oFinalMeta;
-}
+
 /**
  *
  * 检查 css 是否加载
@@ -775,7 +647,8 @@ function loadPageJs () {
     let t3 = setTimeout(function () {
         clearTimeout(t3);
 
-        loadJs(j, true, 'afterLoadPageJs');
+        // loadJs(j, true, 'afterLoadPageJs');
+        initStaticResource(j, 'js', 'afterLoadPageJs');
     }, 0);
 }
 function afterLoadPageJs () {
@@ -899,6 +772,7 @@ function allocationHost (u = '') {
 
 function getUserIp () {
     loadJs(sQueryUserIpAddress, false, 'setUserIp');
+    // initStaticResource(j, 'js', 'afterLoadPageJs');
 }
 function setUserIp () {
     sIp = returnCitySN.cip;
@@ -930,7 +804,7 @@ function setJsCssSrc (t = '', s = '') {
             break;
     }
 
-    return allocationHost(s) + s + '?v=' + v + sFileVersionSuffix;
+    return allocationHost(s) + s + '?v=' + v + jsCssVersionSuffix();
 }
 
 function setJsPathAndVersion () {
@@ -1110,7 +984,8 @@ function loadIndexJs () {
     let t = setTimeout(function () {
         clearTimeout(t);
 
-        loadJs(sIndexJsFullName, true, 'afterloadIndexJs');
+        // loadJs(sIndexJsFullName, true, 'afterloadIndexJs');
+        initStaticResource(sIndexJsFullName, 'js', 'afterloadIndexJs');
     }, 0);
 
     setTimeoutFunction('loadIndexJs');
@@ -1120,191 +995,7 @@ function afterloadIndexJs () {
 
     asyn('indexBegin');
 }
-//
 
-
-function setHtmlLang () {
-    oHtml.lang = sHtmlLang;
-}
-
-let bSetMeta = false;
-function setMeta () {
-    if (bSetMeta) {
-        return;
-    }
-    bSetMeta = true;
-
-    let a = [
-        sContentAndCharset,
-        sRobots,
-        sAboutIe,
-        sClearType,
-        sSkypeToolbar,
-        sWin8Ie10_1,
-        sWin8Ie10_2,
-        sWin9_1Ie11,
-        sGoogleBrowser,
-        s360,
-        sUc,
-        sFullScreen,
-        sAppMode,
-        sForbidNight,
-        sAdaptScreen,
-        sQqImmobilizationOrientation,
-        sQqFullScreen,
-        sQqAppMode,
-        sIosAppBanner,
-        sForbidQueryTelNumber,
-        sNeglectEmail,
-        sAppFullScreenMode,
-        sAppleMobileWebBarColor,
-        sMobileFullScreen,
-        sAuther,
-        sKeywords,
-        sDescription,
-        sApplicationName,
-        sCopyright,
-    ];
-
-    let o = document.createDocumentFragment();
-    let m = '';
-    for (let i in a) {
-        m = setContent(a[i]);
-        if (m) {
-            o.appendChild(m);
-        }
-    }
-    oHead.appendChild(o);
-}
-/**
- *
- * 设置 meta 标签
- *
- * @param n meta name type string
- */
-function setContent (n = '') {
-    let m = document.createElement('meta');
-    switch (n) {
-        case sCopyright :
-            m.id = sFinalMetaTagId;
-            m.name = 'Copyright';
-            m.content = sCopyrightContent;
-            break;
-        case sAuther :
-            m.name = 'author';
-            m.content = sAutherInfo;
-            break;
-        case sKeywords :
-            m.name = 'keywords';
-            m.content = sKeyword;
-            break;
-        case sDescription :
-            m.name = 'description';
-            m.content = sDescriptionContent;
-            break;
-        case sApplicationName :
-            m.name = 'application-name';
-            m.content = sApplicationNameContent;
-            break;
-        case sRobots :
-            m.name = 'robots';
-            m.content = sAllowCurlPage + ',' + sAllowIndexOther;
-            break;
-        case sContentAndCharset :
-            m.httpEquiv = sContentAndCharsetType;
-            m.content = sContentAndCharsetContent;
-            break;
-        case sAboutIe :
-            m.httpEquiv = sAboutIeHttpEquiv;
-            m.content = sAboutIeContent;
-            break;
-        case sClearType :
-            m.httpEquiv = sClearTypeHttpEquiv;
-            m.content = sClearTypeContent;
-            break;
-        case sSkypeToolbar :
-            m.name = sSkypeToolbar;
-            m.content = sSkypeToolbarContent;
-            break;
-        case sWin8Ie10_1 :
-            m.name = sWin8Ie10_1;
-            m.content = sWin8Ie10_1Content;
-            break;
-        case sWin8Ie10_2 :
-            m.name = sWin8Ie10_2;
-            m.content = sWin8Ie10_2Content;
-            break;
-        case sWin9_1Ie11 :
-            m.name = sWin9_1Ie11;
-            m.content = sWin9_1Ie11Content;
-            break;
-        case sGoogleBrowser :
-            m.httpEquiv = sGoogleBrowserHttpEquiv;
-            m.content = sGoogleBrowserContent;
-            break;
-        case s360 :
-            m.name = s360Name;
-            m.content = s360Content;
-            break;
-        case sUc :
-            m.name = sUcName;
-            m.content = sUcContent;
-            break;
-        case sFullScreen :
-            m.name = sFullScreenName;
-            m.content = sFullScreenContent;
-            break;
-        case sAppMode :
-            m.name = sAppModeName;
-            m.content = sAppModeContent;
-            break;
-        case sForbidNight :
-            m.name = sForbidNightName;
-            m.content = sForbidNightContent;
-            break;
-        case sAdaptScreen :
-            m.name = sAdaptScreenName;
-            m.content = sAdaptScreenContent;
-            break;
-        case sQqImmobilizationOrientation :
-            m.name = sQqImmobilizationOrientationName;
-            m.content = sQqImmobilizationOrientationContent;
-            break;
-        case sQqFullScreen :
-            m.name = sQqFullScreenName;
-            m.content = sQqFullScreenContent;
-            break;
-        case sQqAppMode :
-            m.name = sQqAppModeName;
-            m.content = sQqAppModeContent;
-            break;
-        case sIosAppBanner :
-            m.name = sIosAppBannerName;
-            m.content = sIosAppBannerContent;
-            break;
-        case sForbidQueryTelNumber :
-            m.name = sForbidQueryTelNumberName;
-            m.content = sForbidQueryTelNumberContent;
-            break;
-        case sNeglectEmail :
-            m.name = sNeglectEmailName;
-            m.content = sNeglectEmailContent;
-            break;
-        case sAppFullScreenMode :
-            m.name = sAppFullScreenModeName;
-            m.content = sAppFullScreenModeContent;
-            break;
-        case sAppleMobileWebBarColor :
-            m.name = sAppleMobileWebBarColorName;
-            m.content = sAppleMobileWebBarColorContent;
-            break;
-        case sMobileFullScreen :
-            m.name = sMobileFullScreenName;
-            m.content = sMobileFullScreenContent;
-            break;
-    }
-    return m;
-}
 
 let bAllreadyLoadUserLang = false;
 function queryUserLang () {
@@ -1500,7 +1191,8 @@ function loadLang (l = '') {
     let t1 = setTimeout(function () {
         clearTimeout(t1);
 
-        loadJs(y, true, 'replaceLangs');
+        // loadJs(y, true, 'replaceLangs');
+        initStaticResource(y, 'js', 'replaceLangs');
     }, 0);
 }
 
@@ -1906,7 +1598,8 @@ function loadLocalJquery () {
     let t = setTimeout(function () {
         clearTimeout(t);
 
-        loadJs(sJqueryJsFile, true, 'afterloadLocalJquery');
+        // loadJs(sJqueryJsFile, true, 'afterloadLocalJquery');
+        initStaticResource(sJqueryJsFile, 'js', 'afterloadLocalJquery');
     }, 0);
 
     setTimeoutFunction('loadLocalJquery');
@@ -1916,36 +1609,37 @@ function afterloadLocalJquery () {
     bJquery = true;
 }
 
-let bLoadOriginJquery = false;
-let iLoadOriginJqueryLastTime = 0;
-let bAllreadyLoadOriginJquery = false;
-function loadOriginJquery () {
-    if (bLoadOriginJquery) {
-        return true;
-    }
-
-    if (!checkRequestJsCssLimit('js', 'loadOriginJquery')) {
-        return false;
-    }
-    iLoadOriginJqueryLastTime = getMillisecondTime();
-
-    if (bAllreadyLoadOriginJquery) {
-        return true;
-    }
-    bLoadOriginJquery = true;
-
-    let t = setTimeout(function () {
-        clearTimeout(t);
-
-        loadJs(sOriginJquery, true, 'afterloadOriginJquery');
-    }, 0);
-
-    setTimeoutFunction('loadOriginJquery');
-}
-function afterloadOriginJquery () {
-    bLoadOriginJquery = true;
-    bJquery = true;
-}
+// let bLoadOriginJquery = false;
+// let iLoadOriginJqueryLastTime = 0;
+// let bAllreadyLoadOriginJquery = false;
+// function loadOriginJquery () {
+//     if (bLoadOriginJquery) {
+//         return true;
+//     }
+//
+//     if (!checkRequestJsCssLimit('js', 'loadOriginJquery')) {
+//         return false;
+//     }
+//     iLoadOriginJqueryLastTime = getMillisecondTime();
+//
+//     if (bAllreadyLoadOriginJquery) {
+//         return true;
+//     }
+//     bLoadOriginJquery = true;
+//
+//     let t = setTimeout(function () {
+//         clearTimeout(t);
+//
+//         // loadJs(sOriginJquery, true, 'afterloadOriginJquery');
+//         initStaticResource(sOriginJquery, 'js', 'afterloadOriginJquery');
+//     }, 0);
+//
+//     setTimeoutFunction('loadOriginJquery');
+// }
+// function afterloadOriginJquery () {
+//     bLoadOriginJquery = true;
+//     bJquery = true;
+// }
 
 let bLoadEncodeJs = false;
 function loadEncodeJs () {
@@ -1960,7 +1654,8 @@ function loadEncodeJs () {
     let t = setTimeout(function () {
         clearTimeout(t);
 
-        loadJs(sEncodeJsFile, true, 'afterloadEncodeJs');
+        // loadJs(sEncodeJsFile, true, 'afterloadEncodeJs');
+        initStaticResource(sEncodeJsFile, 'js', 'afterloadEncodeJs');
     }, 0);
 
     setTimeoutFunction('loadEncodeJs');
@@ -1982,7 +1677,8 @@ function loadFunctionJs () {
     let t = setTimeout(function () {
         clearTimeout(t);
 
-        loadJs(sFunctionJsFile, true, 'afterloadFunctionJs');
+        // loadJs(sFunctionJsFile, true, 'afterloadFunctionJs');
+        initStaticResource(sFunctionJsFile, 'js', 'afterloadFunctionJs');
     }, 0);
 
     setTimeoutFunction('loadFunctionJs');
@@ -2004,7 +1700,8 @@ function loadDomJs () {
     let t = setTimeout(function () {
         clearTimeout(t);
 
-        loadJs(sDomJsFile, true, 'afterloadDomJs');
+        // loadJs(sDomJsFile, true, 'afterloadDomJs');
+        initStaticResource(sDomJsFile, 'js', 'afterloadDomJs');
     }, 0);
 
     setTimeoutFunction('loadDomJs');
@@ -2026,7 +1723,8 @@ function loadPlatformDomJs () {
     let t = setTimeout(function () {
         clearTimeout(t);
 
-        loadJs(sPlatformDomJsFile, true, 'afterloadPlatformDomJs');
+        // loadJs(sPlatformDomJsFile, true, 'afterloadPlatformDomJs');
+        initStaticResource(sPlatformDomJsFile, 'js', 'afterloadPlatformDomJs');
     }, 0);
 
     setTimeoutFunction('loadPlatformDomJs');
@@ -2050,7 +1748,8 @@ function loadLogicJs () {
     let t = setTimeout(function () {
         clearTimeout(t);
 
-        loadJs(sLogicJsFile, true, 'afterloadLogicJs');
+        // loadJs(sLogicJsFile, true, 'afterloadLogicJs');
+        initStaticResource(sLogicJsFile, 'js', 'afterloadLogicJs');
     }, 0);
 
     setTimeoutFunction('loadLogicJs');
@@ -2074,7 +1773,8 @@ function loadApiJs () {
     let t = setTimeout(function () {
         clearTimeout(t);
 
-        loadJs(sApiJsFile, true, 'afterloadApiJs');
+        // loadJs(sApiJsFile, true, 'afterloadApiJs');
+        initStaticResource(sApiJsFile, 'js', 'afterloadApiJs');
     }, 0);
 
     setTimeoutFunction('loadApiJs');
@@ -2547,6 +2247,22 @@ function afterCacheSessionId (b = '') {
     }
 }
 
+function loadLocalJquery1 () {
+    if (bJquery) {
+        return;
+    }
+
+    // console.log('loadOriginJquery 11111');
+    if (getMillisecondTime() - iLoadOriginJqueryLastTime > iMaxLoadOriginJqueryWaitTime) {
+        // console.log('loadOriginJquery 2222');
+        // asyn('loadLocalJquery');
+        setTimeoutFunction('loadLocalJquery');
+        return;
+    }
+
+    setTimeoutFunction('loadOriginJquery');
+}
+
 /**
  *
  * 随机数字
@@ -2574,33 +2290,6 @@ function sessId () {
 
     asyn('sessionId');
 }
-
-function baseBegin () {
-    if (!window.localStorage) {
-        return false;
-    }
-
-    try {
-        localStorage.setItem('private_test', 1);
-        // console.log('localstorage is can use, just do it !!! ');
-
-        asyn('baseBegins', true);
-    } catch (e) {
-        //无痕模式
-        asyn('localstorageIsForbidden');
-    }
-}
-
-function localstorageIsForbidden () {
-    console.log('localstorage is forbidden, web can not normal use, so we nothing to do ');
-    alert('localstorage is forbidden, web can not normal use, so we nothing to do ');
-}
-
-// function shades () {
-//     asyn('showBaseShade');
-//
-//     // asyn('showIndexShade');
-// }
 
 let oBodyDom = false;
 function bodyDom () {
@@ -2656,96 +2345,56 @@ function noticeDom () {
 }
 
 let iBeginTime = 0;
-let oHtml = false;
-let oHead = false;
-// let oBody = false;
-function baseBegins (bOnload = false) {
-    if (
-        (!oHtml || typeof oHtml != 'object')
-        ||
-        (!oHead || typeof oHead != 'object')
-        // ||
-        // (!oBody || typeof oBody != 'object')
-    ) {
-        oHtml = document.getElementsByTagName('html')[0];
-        oHead = document.getElementsByTagName('head')[0];
-        // oBody = document.getElementsByTagName('body')[0];
+function baseBegins () {
+    bFirstLoad = true;
 
-        setTimeoutFunction('baseBegins', bOnload);
-        return;
-    }
+    asyn('bodyAppendDom');
 
-    if (bOnload) {
-        bFirstLoad = true;
+    asyn('showBaseShade');
 
-        if (!astrict()) {
-            return false;
-        }
+    asyn('sessId');
 
-        asyn('bodyAppendDom');
+    // asyn('setHtmlLang');
 
-        asyn('showBaseShade');
-
-        asyn('sessId');
-
-        asyn('setHtmlLang');
-    }
     asyn('bodyDom');
 
-    if (bOnload) {
-        asyn('changeBodyStatus', false);
+    asyn('changeBodyStatus', false);
 
-        asyn('winResize', bOnload);
-    }
+    asyn('winResize', true);
+
+    asyn('initializeFontSize');
 
     asyn('getUserIp');
 
-    // console.log('base 44444444444444');
     asyn('queryMasterOrigin');
 
-    // console.log('base 5555555555555');
     asyn('setHosts');
 
-    // console.log('base 666666666666666');
-    asyn('initializeFontSize');
+    // asyn('setMeta');
 
-    // console.log('base 7777777777777');
-    asyn('setMeta');
-
-    // console.log('base 8888888888888888');
     asyn('fatherDom');
 
-    // console.log('base 888888888--------------------111111111111111111111111111111');
     asyn('writePublicShade');
 
-    // console.log('base 999999999999999');
     asyn('writePublicDom');
 
-    // console.log('base aaaaaaaaaaaaaaaaaaa');
     asyn('writeLocalstorageIframe');
 
-    // console.log('base bbbbbbbbbbbbbbbbb');
     asyn('setCssPathAndVersion');
 
-    // console.log('base cccccccccccccccccccc');
     asyn('setJsPathAndVersion');
 
-    // console.log('base dddddddddddddddddd');
     asyn('loadBaseCss');
 
-    // console.log('base eeeeeeeeeeeeeeeee');
     asyn('queryUserLang');
 
-    // console.log('base fffffffffffffffff');
-    asyn('loadOriginJquery');
-
-    asyn('loadLocalJquery1');
-
-    // console.log('base gggggggggggggggg');
     iBeginTime = getSecondTime();
     asyn('checkUseTime');
 
-    // console.log('base hhhhhhhhhhhhhhhhhhhh');
+    // asyn('loadOriginJquery');
+
+    asyn('loadLocalJquery1');
+
     asyn('loadBaseJs');
 }
 function winResize (bOnload = false) {
@@ -2764,28 +2413,6 @@ function winResize (bOnload = false) {
     if (bOnload){
         asyn('clearBaseShade');
     }
-}
-
-function illegality () {
-    window.location.href = sAstrictJumpUrl;
-}
-
-// let bNoticeAstrict = false;
-function astrict () {
-    // if (bNoticeAstrict) {
-    //     return true;
-    // }
-    // bNoticeAstrict = true;
-
-    let b = bMobile !== '' ? bMobile : isMobile();
-    if (!b) {
-        alert('The computer side is not enabled yet, will jump to ' + sAstrictJumpUrl);
-
-        illegality();
-        return false;
-    }
-
-    return true;
 }
 
 /**
@@ -2815,8 +2442,8 @@ function winSize() {
     // }
 }
 
-window.onload = baseBegin(true);
-
+// window.onload = baseBegins(true);
+//
 window.onresize = function () {
     if (bFirstLoad) {
         // console.log('window load but use resize, no use resize function');
