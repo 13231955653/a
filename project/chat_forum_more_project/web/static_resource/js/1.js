@@ -1,11 +1,29 @@
 const sIndexScriptTagId = 'first_js_script'; // 第一个 script 标签
-// const sHtmlLang = 'zh-cn';
 let sCharset = 'utf-8'; // 编码格式
 const debug = true; // debug
 // const debug = false; // debug
 const sBaseJs = '/static_resource/js/base.js?ver=1'; // base js 路径
 const sAstrictJumpUrl = 'https://www.baidu.com';
 const sFinalMetaTagId = 'copyright_content';
+
+const sBodyDomFatherId = 'body';
+const oDomFatherId = 'dom_father';
+const oDomStorageId = 'storage_father';
+const sDomNoticeId = 'notice_father';
+const sInvisibleClass = 'invisible';
+const sVisibleClass = 'gradually_visible';
+
+const sShadeClass = 'shades';
+const sDomShadeId = 'shade_father';
+
+const sIsPhone = 'phone';
+const sIsTablet = 'tablet';
+const sIsPc = 'pc';
+
+let sIp = '';
+let sCid = '';
+let sIpCityName = '';
+const sQueryUserIpAddress = 'http://pv.sohu.com/cityjson?ie=' + sCharset;
 
 const sContentAndCharset = 'content_charset';
 const sContentAndCharsetType = 'Content-Type';
@@ -165,8 +183,6 @@ function setMeta () {
         }
     }
     oHead.appendChild(o);
-    insertAfter(o, finalMeta());
-    // insertBefores(o, finalMeta());
 }
 /**
  *
@@ -308,13 +324,11 @@ function setContent (n = '') {
  * @returns {boolean}
  */
 function asyn (f = '', a = '', b = '') {
-    // console.log('asyn ' + f);
     if (!f) {
         return false;
     }
 
     if (typeof window[f] != 'function') {
-        // console.log('asyn ' + f + ', settimeout retry to do ');
         let t = setTimeout(function () {
             clearTimeout(t);
 
@@ -324,24 +338,29 @@ function asyn (f = '', a = '', b = '') {
     }
 
     let t = setTimeout(function () {
-        // console.log('asyn ' + f + ', now to do ');
         clearTimeout(t);
 
         if (b) {
-            // console.log('asyn ' + f + ', now to do 1 ');
             window[f](a, b);
             return;
         }
 
         if (a) {
-            // console.log('asyn ' + f + ', now to do 2 ');
             window[f](a);
             return;
         }
 
-        // console.log('asyn ' + f + ', now to do 3 ');
         window[f]();
     }, 0);
+}
+
+function getUserIp () {
+    loadJs(sQueryUserIpAddress, false, 'setUserIp');
+}
+function setUserIp () {
+    sIp = returnCitySN.cip;
+    sCid = returnCitySN.cid;
+    sIpCityName = returnCitySN.cname;
 }
 
 /**
@@ -648,6 +667,98 @@ function illegality () {
 //     oHtml.lang = sHtmlLang;
 // }
 
+let bWriteFatherDom = false;
+function bodyAppendDom () {
+    if (bWriteFatherDom) {
+        return true;
+    }
+    bWriteFatherDom = true;
+
+    let a = [
+        oDomFatherId,
+        sDomShadeId,
+        oDomStorageId,
+        sDomNoticeId,
+    ];
+
+    let s = '';
+    for (let i in a) {
+        s += '<div id="' + a[i] + '"></div>';
+    }
+
+    bodyDom().innerHTML = s;
+
+    asyn('fatherDom');
+    asyn('shadeDom');
+    asyn('storageDom');
+    asyn('noticeDom');
+}
+let oBodyDom = false;
+function bodyDom () {
+    oBodyDom = oBodyDom ? oBodyDom : domById(sBodyDomFatherId);
+    return oBodyDom;
+}
+let oFatherDom = '';
+function fatherDom () {
+    oFatherDom = oFatherDom ? oFatherDom : domById(oDomFatherId);
+    return oFatherDom;
+}
+let oShadeFather = '';
+function shadeDom () {
+    oShadeFather = oShadeFather ? oShadeFather : domById(sDomShadeId);
+    return oShadeFather;
+}
+let oStorageDom = '';
+function storageDom () {
+    oStorageDom = oStorageDom ? oStorageDom : domById(oDomStorageId);
+    return oStorageDom;
+}
+let oNoticeDom = '';
+function noticeDom () {
+    oNoticeDom = oNoticeDom ? oNoticeDom : domById(sDomNoticeId);
+    return oNoticeDom;
+}
+
+function setHtmlTag () {
+    asyn('setMeta');
+}
+
+function baseDomAction () {
+    asyn('changeBodyStatus', false);
+
+    asyn('bodyAppendDom');
+
+    asyn('bodyDom');
+
+    asyn('writePublicShade');
+
+    asyn('writePublicDom');
+}
+
+/**
+ *
+ * 修改body状态，是否显示或隐藏
+ *
+ * @param b 显示或隐藏 type bool true 显示
+ */
+function changeBodyStatus (b = true) {
+    let h = b ? sVisibleClass : sInvisibleClass;
+
+    let p1 = new RegExp('\\s*' + sInvisibleClass,'gm');
+    let p2 = new RegExp('\\s*' + sVisibleClass,'gm');
+
+    let o = bodyDom();
+    // console.log(oBodyDom);
+    let s = o.className;
+    // console.log('sssssssssssssssssss');
+    // console.log(s);
+    s = s.replace(p1, '');
+    s = s.replace(p2, '');
+
+    o.className = s ? s + ' ' + h : h;
+    // console.log(oBodyDom.className);
+}
+
 let oHtml = false;
 let oHead = false;
 let oBody = false;
@@ -669,20 +780,23 @@ function begin () {
         let sTestStorageKey = 'private_test';
         localStorage.setItem(sTestStorageKey, 1);
         localStorage.removeItem(sTestStorageKey);
-
-        // asyn('setHtmlLang');
-
-        asyn('setMeta');
-
-        let t= setTimeout(function () {
-            clearTimeout(t);
-
-            initStaticResource(sBaseJs + jsCssVersionSuffix(), 'js', 'baseBegins');
-        }, 0);
     } catch (e) {
         //无痕模式
         asyn('localstorageIsForbidden');
+        return;
     }
+
+    asyn('setHtmlTag');
+
+    let t= setTimeout(function () {
+        clearTimeout(t);
+
+        initStaticResource(sBaseJs + jsCssVersionSuffix(), 'js', 'baseBegins');
+    }, 0);
+
+    asyn('baseDomAction');
+
+    asyn('getUserIp');
 }
 
 function localstorageIsForbidden () {

@@ -17,11 +17,6 @@ let iWinHeight = 0;
 
 const sLangTitlePostfix = '_title';
 
-let sIp = '';
-let sCid = '';
-let sIpCityName = '';
-const sQueryUserIpAddress = 'http://pv.sohu.com/cityjson?ie=' + sCharset;
-
 //localstorage相关
 const iMaxLocalstorageSize = 3718592;
 const sOriginLocalstorageSizeKey = 'origin_localstorage_size';
@@ -34,20 +29,12 @@ const sLocalstorgaeNowPageTag = 'localstorage_cache_now_page';
 const sLocalstorgaeBeginTag = 0;
 //localstorage相关
 
-const sShadeClass = 'shades';
-const sDomShadeId = 'shade_father';
-
 const sNoShowIframeCLass = 'iframe_no_show';
 
 const sBaseShadeId = 'base_shade';
 const sIndexShadeId = 'index_shade';
 const sPlatformShadeId = 'platform_shade';
 const sPageShadeId = 'page_shade';
-// let iShadeBeginZIndex = 1000000000;
-const sInvisibleClass = 'invisible';
-const sVisibleClass = 'gradually_visible';
-// const sOpacityShowClass = 'opacity_show';
-// const sOpacityHiddenClass = 'opacity_hidden';
 
 const iDefaultUserPersonalizedColor = 1;
 let iFontSize = 16;
@@ -56,16 +43,7 @@ const sDefaultLangvage = 'cn';
 let sUserLangvage = '';
 let sPersonlizedColor = '';
 
-const sBodyDomFatherId = 'body';
-const oDomFatherId = 'dom_father';
-const oDomStorageId = 'storage_father';
-const sDomNoticeId = 'notice_father';
-
 let sOrigin = '';
-
-const sIsPhone = 'phone';
-const sIsTablet = 'tablet';
-const sIsPc = 'pc';
 
 const iRequertTimeout = 9000;
 const iRequertLangJsTimeout = 5000;
@@ -768,16 +746,6 @@ function allocationHost (u = '') {
     }
 
     return aHost[hashFunc(u, iHostNumber)];
-}
-
-function getUserIp () {
-    loadJs(sQueryUserIpAddress, false, 'setUserIp');
-    // initStaticResource(j, 'js', 'afterLoadPageJs');
-}
-function setUserIp () {
-    sIp = returnCitySN.cip;
-    sCid = returnCitySN.cid;
-    sIpCityName = returnCitySN.cname;
 }
 
 /**
@@ -1799,25 +1767,6 @@ function loadBaseJs () {
     asyn('loadEncodeJs');
 }
 
-/**
- *
- * 修改body状态，是否显示或隐藏
- *
- * @param b 显示或隐藏 type bool true 显示
- */
-function changeBodyStatus (b = true) {
-    let h = b ? sVisibleClass : sInvisibleClass;
-
-    let p1 = new RegExp('\\s*' + sInvisibleClass,'gm');
-    let p2 = new RegExp('\\s*' + sVisibleClass,'gm');
-
-    let s = oBodyDom.className;
-    s = s.replace(p1, '');
-    s = s.replace(p2, '');
-
-    oBodyDom.className = s ? s + ' ' + h : h;
-    // console.log(oBodyDom.className);
-}
 
 /**
  *
@@ -2293,98 +2242,31 @@ function sessId () {
     asyn('sessionId');
 }
 
-let oBodyDom = false;
-function bodyDom () {
-    oBodyDom = oBodyDom ? oBodyDom : domById(sBodyDomFatherId);
-    return oBodyDom;
-}
+function staticResourceVersion () {
+    asyn('setCssPathAndVersion');
 
-let bWriteFatherDom = false;
-function bodyAppendDom () {
-    if (bWriteFatherDom) {
-        return true;
-    }
-    bWriteFatherDom = true;
-
-    let a = [
-        oDomFatherId,
-        sDomShadeId,
-        oDomStorageId,
-        sDomNoticeId,
-    ];
-
-    let s = '';
-    for (let i in a) {
-        s += '<div id="' + a[i] + '"></div>';
-    }
-
-    bodyDom().innerHTML = s;
-
-    asyn('fatherDom');
-    asyn('shadeDom');
-    asyn('storageDom');
-    asyn('noticeDom');
-}
-let oFatherDom = '';
-function fatherDom () {
-    oFatherDom = oFatherDom ? oFatherDom : domById(oDomFatherId);
-    return oFatherDom;
-}
-let oShadeFather = '';
-function shadeDom () {
-    oShadeFather = oShadeFather ? oShadeFather : domById(sDomShadeId);
-    return oShadeFather;
-}
-let oStorageDom = '';
-function storageDom () {
-    oStorageDom = oStorageDom ? oStorageDom : domById(oDomStorageId);
-    return oStorageDom;
-}
-let oNoticeDom = '';
-function noticeDom () {
-    oNoticeDom = oNoticeDom ? oNoticeDom : domById(sDomNoticeId);
-    return oNoticeDom;
+    asyn('setJsPathAndVersion');
 }
 
 let iBeginTime = 0;
 function baseBegins () {
     bFirstLoad = true;
 
-    asyn('bodyAppendDom');
-
     asyn('showBaseShade');
 
     asyn('sessId');
-
-    // asyn('setHtmlLang');
-
-    asyn('bodyDom');
-
-    asyn('changeBodyStatus', false);
 
     asyn('winResize', true);
 
     asyn('initializeFontSize');
 
-    asyn('getUserIp');
-
     asyn('queryMasterOrigin');
 
     asyn('setHosts');
 
-    // asyn('setMeta');
-
-    asyn('fatherDom');
-
-    asyn('writePublicShade');
-
-    asyn('writePublicDom');
-
     asyn('writeLocalstorageIframe');
 
-    asyn('setCssPathAndVersion');
-
-    asyn('setJsPathAndVersion');
+    asyn('staticResourceVersion');
 
     asyn('loadBaseCss');
 
@@ -2392,8 +2274,6 @@ function baseBegins () {
 
     iBeginTime = getSecondTime();
     asyn('checkUseTime');
-
-    // asyn('loadOriginJquery');
 
     asyn('loadLocalJquery');
 
