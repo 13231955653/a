@@ -1,7 +1,7 @@
 const sIndexScriptTagId = 'first_js_script'; // 第一个 script 标签
 let sCharset = 'utf-8'; // 编码格式
-const debug = true; // debug
-// const debug = false; // debug
+// const debug = true; // debug
+const debug = false; // debug
 const sBaseJs = '/static_resource/js/base.js?ver=1'; // base js 路径
 const sAstrictJumpUrl = 'https://www.baidu.com';
 const sFinalMetaTagId = 'copyright_content';
@@ -142,6 +142,8 @@ function setMeta () {
     }
     bSetMeta = true;
 
+    oHead.style.display = 'none';
+
     let a = [
         sContentAndCharset,
         sRobots,
@@ -183,6 +185,8 @@ function setMeta () {
         }
     }
     oHead.appendChild(o);
+
+    oHead.style.display = 'block';
 }
 /**
  *
@@ -438,7 +442,6 @@ function domById (d) {
     let o = document.getElementById(d);
     return o != null ? o : false;
 }
-
 /**
  *
  * 根据class 获取节点
@@ -448,6 +451,17 @@ function domById (d) {
  */
 function domByClass (c) {
     let o = oBodyDom.getElementsByClassName(c);
+    return o.length > 0 ? o : false;
+}
+/**
+ *
+ * 根据tag 获取节点
+ *
+ * @param c
+ * @returns {boolean}
+ */
+function domByTag (c) {
+    let o = oBodyDom.getElementsByTagName(c);
     return o.length > 0 ? o : false;
 }
 
@@ -525,8 +539,411 @@ function getStaticResourceFromLocalstorage (j = '') {
 
     return window.localStorage ? localStorage.getItem(name) : '';
 }
+
+/**
+ *
+ * 缓存 读取到的静态文件
+ *
+ * @param j 文件完整目录 type string
+ * @param v 文件内容 type string
+ */
 function cacheStaticResource (j = '', v = '') {
-    localStorage.setItem(j, v);
+    v = compressJs(v);
+
+    let t = setTimeout(function () {
+        clearTimeout(t);
+
+        setLocalstorage(j, v, false);
+    }, 0);
+}
+
+let myStorage = (function myStorage () {
+    if (!window.localStorage ) {
+        // console.log('myStorage localstorage error');
+        return false;
+    }
+
+    let set = function (k, v, t = false) {
+        if (!k) {
+            // console.log('myStorage set k or v is null');
+            return false;
+        }
+
+        v = disposeLocalstorageValue (v, t);
+
+        v = JSON.stringify(v);
+
+        let b = localStorage.setItem(k, v);
+        return b == undefined ? true : false;
+    };
+
+    let get = function (k, t = true) {
+        //读取
+        let d = localStorage.getItem(k);
+        if (!d) {
+            return false;
+        }
+        d = JSON.parse(d);
+        if (!d) {
+            return false;
+        }
+
+        if (typeof d.t !== 'undefined') {
+            if (getMillisecondTime() - d.st > d.t) {
+                remove(k);
+                return false;
+            } else {
+                if (t) {
+                    set(k, d.v, d.t / 1000);
+                }
+            }
+        }
+
+        return d.v;
+    };
+
+    let remove = function (k) {
+        //读取
+        if(!localStorage.getItem(k)){
+            return true;
+        }
+
+        return localStorage.removeItem(k);
+    };
+
+    let clear = function() {
+        //清除对象
+        localStorage.clear();
+    };
+
+    return {
+        set : set,
+        get : get,
+        remove : remove,
+        clear : clear
+    };
+})();
+/**
+ *
+ * 添加localstorage缓存
+ *
+ * @param k localstorage key
+ * @param m localstorage message
+ * @param t localstorage lefttime
+ * @param f localstorage callback function
+ * @returns {boolean}
+ */
+function setLocalstorage (k = '', m = '', t = false, f = '') {
+    if (!k || !m) {
+        return false;
+    }
+
+    let p = localstoragePage (k);
+
+    let s = disposeLocalstorageValue (m, t);
+    let l = parseInt(JSON.stringify(s).length) + parseInt(k.length);
+
+    p = localstorageNowPage();
+
+    let q = 1;
+    let z = 0;
+    let d = sOriginLocalstorageSizeKey;
+    let c = queryLocalstorageCache(d);
+    c = eval('(' + z + ')');
+    c = c ? c : {};
+    while (!z || iMaxLocalstorageSize < z) {
+        p = z ? parseInt(p) + parseInt(1) : p;
+
+        if (!c || typeof c[p] == 'undefined') {
+            z = l;
+            c[p] = z;
+        } else {
+            q = parseInt(c[p]);
+
+            z = parseInt(q) + parseInt(l);
+            c[p] = z;
+        }
+    }
+
+    asyn('localstorageLocalCache', d, c);
+
+    p = storagePage(p);
+
+    let a = {};
+    a = {action: 'set', key: k, message: m};
+    if (t) {
+        a.leftTime = t;
+    }
+    if (f) {
+        a.after = f;
+    }
+
+    let t1 = setTimeout(function () {
+        clearTimeout(t1);
+
+        localstoragePostMessage(p, a);
+    }, 0);
+}
+function localstoragePostMessage (p = '', m = '') {
+    // console.log('localstoragePostMessage, begin ');
+    if (!m || !p) {
+        // console.log('localstoragePostMessage m or p is null');
+        return false;
+    }
+
+    let o = domById(p);
+    // console.log(o);
+    // console.log(o.parentNode);
+    if (o) {
+        // console.log('qqqqqqqqqqqqqqqqqqqqqqqqqqqqqq');
+        // console.log(o);
+        // console.log(p);
+        // console.log(m);
+    //     if (aAllreadyLoadIframe[p]) {
+        // console.log('localstoragePostMessage o is true, so to do ');
+        // console.log (p);
+        // console.log (m);
+        o.contentWindow.postMessage(m, p);
+        return true;
+    }
+    // console.log('zzzzzzzzzzzzzzzzzzzzzzzz');
+    // console.log(o);
+    // console.log(p);
+    // console.log(m);
+
+    writeStorageDom(p);
+
+    setTimeoutFunction('localstoragePostMessage', p, m);
+
+    return false;
+}
+/**
+ * 设置storage 页面 url
+ *
+ * @param i page 远程storage 子域名 序号 type number
+ * @returns {string}
+ */
+function storagePage (i = 0) {
+    let p = sBaseProtocol;
+
+    let o = sOrigin ? sOrigin : queryMasterOrigin();
+    o = o.replace(p, '');
+    return p + i + '.' + sStorageOriginsSonPrefix + '.' + o + '/' + sStoragePage;
+}
+/**
+ *
+ * @param k local localstorage key
+ */
+function queryLocalstorageCache (k = '') {
+    if (!k) {
+        // console.log('queryLocalstorageCache k is null, so no to do');
+        return false;
+    }
+
+    return myStorage.get(k);
+}
+function localstorageNowPage () {
+    let i = myStorage.get(sLocalstorgaeNowPageTag);
+    return i ? i : sLocalstorgaeBeginTag;
+}
+/**
+ *
+ * 处理localstorage 数据
+ *
+ * @param v value string
+ * @param t lefttime 生存时间
+ * @returns {*}
+ */
+function disposeLocalstorageValue (v, t = false) {
+    v = typeof v != 'object' ? v : JSON.stringify(v);
+
+    return t ? {'v': v, 't': t * 1000, 'st': getMillisecondTime()} : {'v': v};
+}
+
+/**
+ * 先读取本地localstorage，写对应远程storage页面 iframe dom
+ */
+function writeLocalstorageIframe () {
+    let s = queryLocalstorageCache(sOriginLocalstorageSizeKey);
+
+    let a = jsonConvertFormatForReadNumberKey(s);
+
+    for (let i in a) {
+        if (a[i] > 0) {
+            writeStorageDom (storagePage(i));
+        }
+    }
+}
+/**
+ *
+ * 写远程 storage 页面 iframe
+ * @param p 远程 storage 页面完整 url type string
+ * @returns {boolean}
+ */
+function writeStorageDom (p = 0) {
+    let d = p;
+    if (domById(d)) {
+        // console.log('writeStorageDom ' + p + ' is allready exist, so retrun true ');
+        return true;
+    }
+
+    let o = document.createElement('iframe');
+    o.src = p;
+    o.className = sNoShowIframeCLass;
+    o.id = d;
+    // o.style.display = 'none';
+
+    oBody.appendChild(o);
+
+    if (o.attachEvent) {
+        o.attachEvent('onload', function() {
+            // aAllreadyLoadIframe[o.id] = true;
+        });
+    } else {
+        o.onload = function() {
+            // aAllreadyLoadIframe[o.id] = true;
+        };
+    }
+
+    return true;
+}
+
+/**
+ *
+ * @param k localstorage key string
+ * @returns {boolean}
+ */
+function localstoragePage (k) {
+    if (!k) {
+        return false;
+    }
+
+    let i = myStorage.get(k);
+
+    if (!i) {
+        i = sLocalstorgaeBeginTag;
+        localstorageLocalCache (k, i);
+    }
+
+    return i;
+}
+/**
+ *
+ * @param k local localstorage key
+ * @param v local localstorage value
+ */
+function localstorageLocalCache (k = '', v = '') {
+    if (!k) {
+        return false;
+    }
+
+    myStorage.set(k, v);
+}
+
+function compressJs (v = '') {
+    if (!v) {
+        return '';
+    }
+
+    // v = replaceMoreAnnotationToNull(v);
+    //
+    // v = replaceOneAnnotationToNull(v);
+    //
+    // v = replaceLineFeedToOneSpace(v);
+    //
+    // v = replaceTabulationToOneSpace(v);
+    //
+    // v = replaceSpaceToOne(v);
+
+    return v;
+}
+
+/**
+ *
+ * 去除js多行注释
+ *
+ * @param v
+ * @returns {string|*}
+ */
+function replaceMoreAnnotationToNull (v = '') {
+    if (!v) {
+        return '';
+    }
+
+    return v.replace(/(?:^|\n|\r)\s*\/\*[\s\S]*?\*\/\s*(?:\r|\n|$)/g, ' ');
+}
+
+/**
+ *
+ * 去除js单行注释
+ *
+ * @param v
+ * @returns {string|*}
+ */
+function replaceOneAnnotationToNull (v = '') {
+    if (!v) {
+        return '';
+    }
+
+    return v.replace(/(\r|\n|\r\n)*\s*\/\/.*(?:\r|\n|\r\n|$)/g, ' ');
+}
+
+/**
+ *
+ * 替换制表符为一个空格
+ *
+ * @param v
+ * @returns {string|*}
+ */
+function replaceTabulationToOneSpace (v = '') {
+    if (!v) {
+        return '';
+    }
+
+    let d = new RegExp('\t+','g');
+    v = v.replace(d, ' ');
+
+    return v;
+}
+
+/**
+ *
+ * 替换换行符为一个空格
+ *
+ * @param v
+ * @returns {string|*}
+ */
+function replaceLineFeedToOneSpace (v = '') {
+    if (!v) {
+        return '';
+    }
+
+    let g = new RegExp('(\r\n)+','g');
+    v = v.replace(g, ' ');
+
+    let c = new RegExp('(\n)+','g');
+    v = v.replace(c, ' ');
+    let z = new RegExp('(\r)+','g');
+    v = v.replace(z, ' ');
+
+    return v;
+}
+
+/**
+ *
+ * 多空格替换为一个空格
+ *
+ * @param v 内容 type string
+ */
+function replaceSpaceToOne (v = '') {
+    if (!v) {
+        return '';
+    }
+
+    let g = new RegExp('\s{1, }','g');
+    v = v.replace(g, ' ');
+
+    return v;
 }
 
 /**
@@ -690,9 +1107,14 @@ function bodyAppendDom () {
 
     asyn('fatherDom');
     asyn('shadeDom');
-    asyn('storageDom');
+    // asyn('storageDom');
     asyn('noticeDom');
 }
+// let oBody = false;
+// function body () {
+//     oBody = oBody ? oBody : domByTag('body');
+//     return oBody;
+// }
 let oBodyDom = false;
 function bodyDom () {
     oBodyDom = oBodyDom ? oBodyDom : domById(sBodyDomFatherId);
@@ -708,11 +1130,11 @@ function shadeDom () {
     oShadeFather = oShadeFather ? oShadeFather : domById(sDomShadeId);
     return oShadeFather;
 }
-let oStorageDom = '';
-function storageDom () {
-    oStorageDom = oStorageDom ? oStorageDom : domById(oDomStorageId);
-    return oStorageDom;
-}
+// let oStorageDom = '';
+// function storageDom () {
+//     oStorageDom = oStorageDom ? oStorageDom : domById(oDomStorageId);
+//     return oStorageDom;
+// }
 let oNoticeDom = '';
 function noticeDom () {
     oNoticeDom = oNoticeDom ? oNoticeDom : domById(sDomNoticeId);

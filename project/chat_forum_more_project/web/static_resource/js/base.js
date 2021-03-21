@@ -7,8 +7,6 @@ const iSpeed = 300; //动画速度
 
 const sQueryOneMmPxId = 'get_one_mms_px';
 
-const aAllreadyLoadIframe = [];
-
 const iDefaultFontSize = 16; //默认pc字体大小
 const iDefaultOneFontMms = 2.5; //默认一个中文字占多宽，单位毫米
 
@@ -499,14 +497,11 @@ function checkLoadCss (c = '', d = '') {
 
 let bInloadUserPersonalizedColorFromLocalstorage = false;
 function queryUserPersonalizedColor () {
-    // console.log('queryUserPersonalizedColor query user personalized color, begin ');
     if (sPersonlizedColor) {
-        // console.log('queryUserPersonalizedColor sPersonlizedColor is defined, so no to load user personlized color css file');
         return sPersonlizedColor;
     }
 
     if (bInloadUserPersonalizedColorFromLocalstorage) {
-        // console.log('queryUserPersonalizedColor bInloadUserPersonalizedColorFromLocalstorage is true, so no to load user personlized color css file');l
         return;
     }
     bInloadUserPersonalizedColorFromLocalstorage = true;
@@ -518,7 +513,6 @@ function queryUserPersonalizedColor () {
  * @param c color string
  */
 function afterQueryUserPersonalizedColor (c = '') {
-    // console.log('afterQueryUserPersonalizedColor, c ' + c);
     if (c) {
         sPersonlizedColor = c;
     } else {
@@ -555,7 +549,6 @@ function setPersonlizedColor (c = '') {
 function loadPersonlizedColorCss (c = '') {
     c = c ? c : iDefaultUserPersonalizedColor;
     if (!c) {
-        // console.log('loadPersonlizedColorCss c is null');
         return false;
     }
 
@@ -1035,60 +1028,60 @@ function afterSetLang (b = '') {
     }
 }
 
-/**
- *
- * @param k localstorage key
- * @param m localstorage message
- * @param t localstorage lefttime
- * @param f localstorage callback function
- * @returns {boolean}
- */
-function setLocalstorage (k = '', m = '', t = false, f = '') {
-    if (!k || !f || !m) {
-        // console.log(k);
-        // console.log(m);
-        // console.log(f);
-        // console.log('queryLocalstorage k or f or m is null');
-        return false;
-    }
-
-    let p = localstoragePage (k);
-
-    let s = disposeLocalstorageValue (m, t);
-    let l = parseInt(JSON.stringify(s).length) + parseInt(k.length);
-
-    p = localstorageNowPage();
-
-    let q = 1;
-    let z = 0;
-    let d = sOriginLocalstorageSizeKey;
-    let c = queryLocalstorageCache(d);
-    c = eval('(' + z + ')');
-    c = c ? c : {};
-    while (!z || iMaxLocalstorageSize < z) {
-        p = z ? parseInt(p) + parseInt(1) : p;
-
-        if (!c || typeof c[p] == 'undefined') {
-            z = l;
-            c[p] = z;
-        } else {
-            q = parseInt(c[p]);
-
-            z = parseInt(q) + parseInt(l);
-            c[p] = z;
-        }
-    }
-
-    asyn('localstorageLocalCache', d, c);
-
-    p = storagePage(p);
-
-    let t1 = setTimeout(function () {
-        clearTimeout(t1);
-
-        localstoragePostMessage(p, {action: 'set', key: k, message: m, leftTime: t, after: f});
-    }, 0);
-}
+// /**
+//  *
+//  * @param k localstorage key
+//  * @param m localstorage message
+//  * @param t localstorage lefttime
+//  * @param f localstorage callback function
+//  * @returns {boolean}
+//  */
+// function setLocalstorage (k = '', m = '', t = false, f = '') {
+//     if (!k || !f || !m) {
+//         // console.log(k);
+//         // console.log(m);
+//         // console.log(f);
+//         // console.log('queryLocalstorage k or f or m is null');
+//         return false;
+//     }
+//
+//     let p = localstoragePage (k);
+//
+//     let s = disposeLocalstorageValue (m, t);
+//     let l = parseInt(JSON.stringify(s).length) + parseInt(k.length);
+//
+//     p = localstorageNowPage();
+//
+//     let q = 1;
+//     let z = 0;
+//     let d = sOriginLocalstorageSizeKey;
+//     let c = queryLocalstorageCache(d);
+//     c = eval('(' + z + ')');
+//     c = c ? c : {};
+//     while (!z || iMaxLocalstorageSize < z) {
+//         p = z ? parseInt(p) + parseInt(1) : p;
+//
+//         if (!c || typeof c[p] == 'undefined') {
+//             z = l;
+//             c[p] = z;
+//         } else {
+//             q = parseInt(c[p]);
+//
+//             z = parseInt(q) + parseInt(l);
+//             c[p] = z;
+//         }
+//     }
+//
+//     asyn('localstorageLocalCache', d, c);
+//
+//     p = storagePage(p);
+//
+//     let t1 = setTimeout(function () {
+//         clearTimeout(t1);
+//
+//         localstoragePostMessage(p, {action: 'set', key: k, message: m, leftTime: t, after: f});
+//     }, 0);
+// }
 
 // let cookie = {
 //     set:function (sKey, sVal, iTime) {
@@ -1182,45 +1175,45 @@ window.addEventListener('message', function(event){
     window[event.data.after](event.data.message);
 }, false);
 
-/**
- *
- * 处理localstorage 数据
- *
- * @param v value string
- * @param t lefttime 生存时间
- * @returns {*}
- */
-function disposeLocalstorageValue (v, t = false) {
-    v = typeof v != 'object' ? v : JSON.stringify(v);
+// /**
+//  *
+//  * 处理localstorage 数据
+//  *
+//  * @param v value string
+//  * @param t lefttime 生存时间
+//  * @returns {*}
+//  */
+// function disposeLocalstorageValue (v, t = false) {
+//     v = typeof v != 'object' ? v : JSON.stringify(v);
+//
+//     return t ? {'v': v, 't': t * 1000, 'st': getMillisecondTime()} : {'v': v};
+// }
 
-    return t ? {'v': v, 't': t * 1000, 'st': getMillisecondTime()} : {'v': v};
-}
+// /**
+//  *
+//  * @param k localstorage key string
+//  * @returns {boolean}
+//  */
+// function localstoragePage (k) {
+//     if (!k) {
+//         // console.log('localstoragePage k is null');
+//         return false;
+//     }
+//
+//     let i = myStorage.get(k);
+//
+//     if (!i) {
+//         i = sLocalstorgaeBeginTag;
+//         localstorageLocalCache (k, i);
+//     }
+//
+//     return i;
+// }
 
-/**
- *
- * @param k localstorage key string
- * @returns {boolean}
- */
-function localstoragePage (k) {
-    if (!k) {
-        // console.log('localstoragePage k is null');
-        return false;
-    }
-
-    let i = myStorage.get(k);
-
-    if (!i) {
-        i = sLocalstorgaeBeginTag;
-        localstorageLocalCache (k, i);
-    }
-
-    return i;
-}
-
-function localstorageNowPage () {
-    let i = myStorage.get(sLocalstorgaeNowPageTag);
-    return i ? i : sLocalstorgaeBeginTag;
-}
+// function localstorageNowPage () {
+//     let i = myStorage.get(sLocalstorgaeNowPageTag);
+//     return i ? i : sLocalstorgaeBeginTag;
+// }
 
 /**
  *
@@ -1258,100 +1251,100 @@ function queryLocalstorage (k = '', f = '') {
     }, 0);
 }
 
-function localstoragePostMessage (p = '', m = '') {
-    // console.log('localstoragePostMessage, begin ');
-    if (!m || !p) {
-        // console.log('localstoragePostMessage m or p is null');
-        return false;
-    }
+// function localstoragePostMessage (p = '', m = '') {
+//     // console.log('localstoragePostMessage, begin ');
+//     if (!m || !p) {
+//         // console.log('localstoragePostMessage m or p is null');
+//         return false;
+//     }
+//
+//     let o = domById(p);
+//     if (typeof aAllreadyLoadIframe[p] != 'undefined') {
+//         // console.log('localstoragePostMessage o is true, so to do ');
+//         // console.log (p);
+//         // console.log (m);
+//         o.contentWindow.postMessage(m, p);
+//         return true;
+//     }
+//
+//     if (!o) {
+//         writeStorageDom(p);
+//     }
+//
+//     // console.log('localstoragePostMessage o is null, so settimeout retry ');
+//     // console.log (p);
+//     // console.log (m);
+//     setTimeoutFunction('localstoragePostMessage', p, m);
+//
+//     return false;
+// }
 
-    let o = domById(p);
-    if (typeof aAllreadyLoadIframe[p] != 'undefined') {
-        // console.log('localstoragePostMessage o is true, so to do ');
-        // console.log (p);
-        // console.log (m);
-        o.contentWindow.postMessage(m, p);
-        return true;
-    }
-
-    if (!o) {
-        writeStorageDom(p);
-    }
-
-    // console.log('localstoragePostMessage o is null, so settimeout retry ');
-    // console.log (p);
-    // console.log (m);
-    setTimeoutFunction('localstoragePostMessage', p, m);
-
-    return false;
-}
-
-let myStorage = (function myStorage () {
-    if (!window.localStorage ) {
-        // console.log('myStorage localstorage error');
-        return false;
-    }
-
-    let set = function (k, v, t = false) {
-        if (!k) {
-            // console.log('myStorage set k or v is null');
-            return false;
-        }
-
-        v = disposeLocalstorageValue (v, t);
-
-        v = JSON.stringify(v);
-
-        let b = localStorage.setItem(k, v);
-        return b == undefined ? true : false;
-    };
-
-    let get = function (k, t = true) {
-        //读取
-        let d = localStorage.getItem(k);
-        if (!d) {
-            return false;
-        }
-        d = JSON.parse(d);
-        if (!d) {
-            return false;
-        }
-
-        if (typeof d.t !== 'undefined') {
-            if (getMillisecondTime() - d.st > d.t) {
-                remove(k);
-                return false;
-            } else {
-                if (t) {
-                    set(k, d.v, d.t / 1000);
-                }
-            }
-        }
-
-        return d.v;
-    };
-
-    let remove = function (k) {
-        //读取
-        if(!localStorage.getItem(k)){
-            return true;
-        }
-
-        return localStorage.removeItem(k);
-    };
-
-    let clear = function() {
-        //清除对象
-        localStorage.clear();
-    };
-
-    return {
-        set : set,
-        get : get,
-        remove : remove,
-        clear : clear
-    };
-})();
+// let myStorage = (function myStorage () {
+//     if (!window.localStorage ) {
+//         // console.log('myStorage localstorage error');
+//         return false;
+//     }
+//
+//     let set = function (k, v, t = false) {
+//         if (!k) {
+//             // console.log('myStorage set k or v is null');
+//             return false;
+//         }
+//
+//         v = disposeLocalstorageValue (v, t);
+//
+//         v = JSON.stringify(v);
+//
+//         let b = localStorage.setItem(k, v);
+//         return b == undefined ? true : false;
+//     };
+//
+//     let get = function (k, t = true) {
+//         //读取
+//         let d = localStorage.getItem(k);
+//         if (!d) {
+//             return false;
+//         }
+//         d = JSON.parse(d);
+//         if (!d) {
+//             return false;
+//         }
+//
+//         if (typeof d.t !== 'undefined') {
+//             if (getMillisecondTime() - d.st > d.t) {
+//                 remove(k);
+//                 return false;
+//             } else {
+//                 if (t) {
+//                     set(k, d.v, d.t / 1000);
+//                 }
+//             }
+//         }
+//
+//         return d.v;
+//     };
+//
+//     let remove = function (k) {
+//         //读取
+//         if(!localStorage.getItem(k)){
+//             return true;
+//         }
+//
+//         return localStorage.removeItem(k);
+//     };
+//
+//     let clear = function() {
+//         //清除对象
+//         localStorage.clear();
+//     };
+//
+//     return {
+//         set : set,
+//         get : get,
+//         remove : remove,
+//         clear : clear
+//     };
+// })();
 
 /**
  *
@@ -1392,92 +1385,91 @@ function jsonConvertFormatForReadNumberKey (s = '') {
     return eval('(' + s + ')');
 }
 
-/**
- *
- * @param k local localstorage key
- * @param v local localstorage value
- */
-function localstorageLocalCache (k = '', v = '') {
-    if (!k) {
-        // console.log('localstorageLocalCache k or v is null, so no to do');
-        return false;
-    }
+// /**
+//  *
+//  * @param k local localstorage key
+//  * @param v local localstorage value
+//  */
+// function localstorageLocalCache (k = '', v = '') {
+//     if (!k) {
+//         return false;
+//     }
+//
+//     myStorage.set(k, v);
+// }
+// /**
+//  *
+//  * @param k local localstorage key
+//  */
+// function queryLocalstorageCache (k = '') {
+//     if (!k) {
+//         // console.log('queryLocalstorageCache k is null, so no to do');
+//         return false;
+//     }
+//
+//     return myStorage.get(k);
+// }
 
-    myStorage.set(k, v);
-}
-/**
- *
- * @param k local localstorage key
- */
-function queryLocalstorageCache (k = '') {
-    if (!k) {
-        // console.log('queryLocalstorageCache k is null, so no to do');
-        return false;
-    }
-
-    return myStorage.get(k);
-}
-
-/**
- * 设置storage 页面 url
- *
- * @param i page 远程storage 子域名 序号 type number
- * @returns {string}
- */
-function storagePage (i = 0) {
-    let p = sBaseProtocol;
-
-    let o = sOrigin ? sOrigin : queryMasterOrigin();
-    o = o.replace(p, '');
-    return p + i + '.' + sStorageOriginsSonPrefix + '.' + o + '/' + sStoragePage;
-}
-/**
- * 先读取本地localstorage，写对应远程storage页面 iframe dom
- */
-function writeLocalstorageIframe () {
-    let s = queryLocalstorageCache(sOriginLocalstorageSizeKey);
-
-    let a = jsonConvertFormatForReadNumberKey(s);
-
-    for (let i in a) {
-        if (a[i] > 0) {
-            writeStorageDom (storagePage(i));
-        }
-    }
-}
-/**
- *
- * 写远程 storage 页面 iframe
- * @param p 远程 storage 页面完整 url type string
- * @returns {boolean}
- */
-function writeStorageDom (p = 0) {
-    let d = p;
-    if (domById(d)) {
-        // console.log('writeStorageDom ' + p + ' is allready exist, so retrun true ');
-        return true;
-    }
-
-    let o = document.createElement('iframe');
-    o.src = p;
-    o.className = sNoShowIframeCLass;
-    o.id = d;
-    // o.style.display = 'none';
-
-    storageDom().appendChild(o);
-
-    if (o.attachEvent) {
-        o.attachEvent('onload', function() {
-            aAllreadyLoadIframe[o.id] = true;
-        });
-    } else {
-        o.onload = function() {
-            aAllreadyLoadIframe[o.id] = true;
-        };
-    }
-
-    return true;
-}
+// /**
+//  * 设置storage 页面 url
+//  *
+//  * @param i page 远程storage 子域名 序号 type number
+//  * @returns {string}
+//  */
+// function storagePage (i = 0) {
+//     let p = sBaseProtocol;
+//
+//     let o = sOrigin ? sOrigin : queryMasterOrigin();
+//     o = o.replace(p, '');
+//     return p + i + '.' + sStorageOriginsSonPrefix + '.' + o + '/' + sStoragePage;
+// }
+// /**
+//  * 先读取本地localstorage，写对应远程storage页面 iframe dom
+//  */
+// function writeLocalstorageIframe () {
+//     let s = queryLocalstorageCache(sOriginLocalstorageSizeKey);
+//
+//     let a = jsonConvertFormatForReadNumberKey(s);
+//
+//     for (let i in a) {
+//         if (a[i] > 0) {
+//             writeStorageDom (storagePage(i));
+//         }
+//     }
+// }
+// /**
+//  *
+//  * 写远程 storage 页面 iframe
+//  * @param p 远程 storage 页面完整 url type string
+//  * @returns {boolean}
+//  */
+// function writeStorageDom (p = 0) {
+//     let d = p;
+//     if (domById(d)) {
+//         // console.log('writeStorageDom ' + p + ' is allready exist, so retrun true ');
+//         return true;
+//     }
+//
+//     let o = document.createElement('iframe');
+//     o.src = p;
+//     o.className = sNoShowIframeCLass;
+//     o.id = d;
+//     // o.style.display = 'none';
+//
+//     storageDom().appendChild(o);
+//
+//     if (o.attachEvent) {
+//         o.attachEvent('onload', function() {
+//             aAllreadyLoadIframe[o.id] = true;
+//         });
+//     } else {
+//         o.onload = function() {
+//             aAllreadyLoadIframe[o.id] = true;
+//         };
+//     }
+//
+//     return true;
+// }
 
 let os = function() {
     let a = navigator.userAgent;

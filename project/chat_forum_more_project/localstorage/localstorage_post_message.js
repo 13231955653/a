@@ -1,29 +1,70 @@
-window.addEventListener('message',function(event){
-    console.log('#######################################');
-    if (window.parent !== event.source) {
-        return false;
+let getParentUrl = function() {
+    let u = null;
+    if (parent !== window) {
+        try {
+            u = parent.location.href;
+        }catch (e) {
+            u = document.referrer;
+        }
     }
+    return u;
+}
+let u = getParentUrl();
+
+function checkOrigin () {
+    u = u.trim();
+    let l = u.length;
+    if (u.charAt(l - 1) === '/') {
+        u = u.substring(0, l - 1);
+    }
+
+    let q = event.origin;
+    q = q.trim();
+    let i = q.length;
+    if (q.charAt(i - 1) === '/') {
+        q = q.substring(0, i - 1);
+    }
+
+    return u === q;
+}
+
+window.addEventListener('message',function(event){
+    console.log('##############################################################################');
+    if (!checkOrigin()) {
+        console.log('postMessage error');
+        return;
+    }
+
+    let a= {};
 
     if (!event.data) {
-        top.postMessage({after: event.data.after, message:false}, event.origin);
+        a.message = false;
+        top.postMessage(a, u);
         return false;
     }
 
-    if (!event.data.action || !event.data.key || !event.data.after ) {
-        top.postMessage({after: event.data.after, message: false}, event.origin);
+    if (event.data.after) {
+        a.after = event.data.after;
+    }
+
+    if (!event.data.action || !event.data.key) {
+        a.message = false;
+        top.postMessage(a, u);
         return false;
     }
 
     console.log('get form ' + event.origin + ' message, will do origin localstorage');
     console.log(event.data);
-    console.log('#######################################');
+    console.log('##############################################################################');
 
     switch (event.data.action) {
         case 'get' :
-            top.postMessage({after: event.data.after, message: myStorage.get(event.data.key)}, event.origin);
+            a.message = myStorage.get(event.data.key);
+            top.postMessage(a, u);
             break;
         case 'set' :
-            top.postMessage({after: event.data.after, message: myStorage.set(event.data.key, event.data.message, event.data.leftTime)}, event.origin);
+            a.message = myStorage.set(event.data.key, event.data.message, event.data.leftTime);
+            top.postMessage(a, u);
             break;
     }
 }, false);
@@ -106,3 +147,4 @@ let myStorage = (function myStorage () {
         clear : clear
     };
 })();
+console.log('sssssssssssssssssssssssssssssss');
