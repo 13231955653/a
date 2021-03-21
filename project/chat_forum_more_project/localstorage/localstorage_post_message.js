@@ -10,14 +10,13 @@ let getParentUrl = function() {
     return u;
 }
 let u = getParentUrl();
+u = u.trim();
+let l = u.length;
+if (u.charAt(l - 1) === '/') {
+    u = u.substring(0, l - 1);
+}
 
 function checkOrigin () {
-    u = u.trim();
-    let l = u.length;
-    if (u.charAt(l - 1) === '/') {
-        u = u.substring(0, l - 1);
-    }
-
     let q = event.origin;
     q = q.trim();
     let i = q.length;
@@ -30,6 +29,7 @@ function checkOrigin () {
 
 window.addEventListener('message',function(event){
     console.log('##############################################################################');
+    console.log('post father address ' + window.location.href);
     if (!checkOrigin()) {
         console.log('postMessage error');
         return;
@@ -147,4 +147,10 @@ let myStorage = (function myStorage () {
         clear : clear
     };
 })();
-console.log('sssssssssssssssssssssssssssssss');
+
+function setJsAllreadyLoadTag () {
+    console.log('!!!!!!!!!!!!!!!!!!!!iframe is ok, now can post message ');
+    top.postMessage({after: 'sonIsReady', message: window.location.href}, u);
+}
+
+window.onload = setJsAllreadyLoadTag();

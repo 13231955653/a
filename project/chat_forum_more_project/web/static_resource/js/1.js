@@ -1,7 +1,7 @@
 const sIndexScriptTagId = 'first_js_script'; // 第一个 script 标签
 let sCharset = 'utf-8'; // 编码格式
-// const debug = true; // debug
-const debug = false; // debug
+const debug = true; // debug
+// const debug = false; // debug
 const sBaseJs = '/static_resource/js/base.js?ver=1'; // base js 路径
 const sAstrictJumpUrl = 'https://www.baidu.com';
 const sFinalMetaTagId = 'copyright_content';
@@ -15,6 +15,20 @@ const sVisibleClass = 'gradually_visible';
 
 const sShadeClass = 'shades';
 const sDomShadeId = 'shade_father';
+
+//localstorage相关
+const iMaxLocalstorageSize = 3670016;
+const sOriginLocalstorageSizeKey = 'origin_localstorage_size';
+const sStorageOriginsSonPrefix = 'storage';
+const sStoragePage = 'storage.html';
+const sLocalstorageTagMd5Salt = '______9*^&*%^$%$67dasy~`<>?dg';
+const sLocalstorageLangTag = 'localstorage_lang';
+const sLocalstorgaeUserPersonalizedColorKey = 'user_personlized_color';
+const sLocalstorgaeNowPageTag = 'localstorage_cache_now_page';
+const sLocalstorgaeBeginTag = 0;
+//localstorage相关
+
+// const sNoShowIframeCLass = 'iframe_no_show';
 
 const sIsPhone = 'phone';
 const sIsTablet = 'tablet';
@@ -634,6 +648,7 @@ let myStorage = (function myStorage () {
  * @returns {boolean}
  */
 function setLocalstorage (k = '', m = '', t = false, f = '') {
+    console.log('*****************************************');
     if (!k || !m) {
         return false;
     }
@@ -645,29 +660,30 @@ function setLocalstorage (k = '', m = '', t = false, f = '') {
 
     p = localstorageNowPage();
 
-    let q = 1;
     let z = 0;
     let d = sOriginLocalstorageSizeKey;
     let c = queryLocalstorageCache(d);
-    c = eval('(' + z + ')');
+    c = eval('(' + c + ')');
     c = c ? c : {};
     while (!z || iMaxLocalstorageSize < z) {
         p = z ? parseInt(p) + parseInt(1) : p;
 
-        if (!c || typeof c[p] == 'undefined') {
-            z = l;
-            c[p] = z;
+        if (c && c[p]) {
+            z = parseInt(c[p]) + parseInt(l);
         } else {
-            q = parseInt(c[p]);
-
-            z = parseInt(q) + parseInt(l);
-            c[p] = z;
+            z = l;
         }
     }
+    c[p] = z;
 
     asyn('localstorageLocalCache', d, c);
 
+    console.log(c);
+    console.log(p);
+    console.log(iMaxLocalstorageSize);
+
     p = storagePage(p);
+    console.log('post data to son address ' + p);
 
     let a = {};
     a = {action: 'set', key: k, message: m};
@@ -683,39 +699,51 @@ function setLocalstorage (k = '', m = '', t = false, f = '') {
 
         localstoragePostMessage(p, a);
     }, 0);
+    console.log('*****************************************');
 }
 function localstoragePostMessage (p = '', m = '') {
-    // console.log('localstoragePostMessage, begin ');
     if (!m || !p) {
-        // console.log('localstoragePostMessage m or p is null');
         return false;
     }
 
     let o = domById(p);
-    // console.log(o);
-    // console.log(o.parentNode);
     if (o) {
-        // console.log('qqqqqqqqqqqqqqqqqqqqqqqqqqqqqq');
-        // console.log(o);
-        // console.log(p);
-        // console.log(m);
-    //     if (aAllreadyLoadIframe[p]) {
-        // console.log('localstoragePostMessage o is true, so to do ');
-        // console.log (p);
-        // console.log (m);
-        o.contentWindow.postMessage(m, p);
+        if (aIframeSonReady[p]) {
+            o.contentWindow.postMessage(m, p);
+            return true;
+        }
+
+        setTimeoutFunction('localstoragePostMessage', p, m);
         return true;
     }
-    // console.log('zzzzzzzzzzzzzzzzzzzzzzzz');
-    // console.log(o);
-    // console.log(p);
-    // console.log(m);
 
     writeStorageDom(p);
 
     setTimeoutFunction('localstoragePostMessage', p, m);
 
     return false;
+}
+window.addEventListener('message', function(event){
+    if (!event.data) {
+        return false;
+    }
+
+    if (!event.data) {
+        return false;
+    }
+
+    console.log('^^^^^^^^^^^^^^^^^^^^^');
+    console.log('get form ' + event.origin + ' message, will to do after load localstorage function');
+    console.log(event.data);
+    console.log('^^^^^^^^^^^^^^^^^^^^^');
+
+    if (event.data.after) {
+        window[event.data.after](event.data.message);
+    }
+}, false);
+let aIframeSonReady = [];
+function sonIsReady (p = '') {
+    aIframeSonReady[p] = true;
 }
 /**
  * 设置storage 页面 url
@@ -789,11 +817,11 @@ function writeStorageDom (p = 0) {
 
     let o = document.createElement('iframe');
     o.src = p;
-    o.className = sNoShowIframeCLass;
+    // o.className = sNoShowIframeCLass;
     o.id = d;
     // o.style.display = 'none';
 
-    oBody.appendChild(o);
+    storageDom().appendChild(o);
 
     if (o.attachEvent) {
         o.attachEvent('onload', function() {
@@ -1107,7 +1135,8 @@ function bodyAppendDom () {
 
     asyn('fatherDom');
     asyn('shadeDom');
-    // asyn('storageDom');
+    asyn('storageDom');
+    storageDom().style.display = 'none';
     asyn('noticeDom');
 }
 // let oBody = false;
@@ -1130,11 +1159,11 @@ function shadeDom () {
     oShadeFather = oShadeFather ? oShadeFather : domById(sDomShadeId);
     return oShadeFather;
 }
-// let oStorageDom = '';
-// function storageDom () {
-//     oStorageDom = oStorageDom ? oStorageDom : domById(oDomStorageId);
-//     return oStorageDom;
-// }
+let oStorageDom = '';
+function storageDom () {
+    oStorageDom = oStorageDom ? oStorageDom : domById(oDomStorageId);
+    return oStorageDom;
+}
 let oNoticeDom = '';
 function noticeDom () {
     oNoticeDom = oNoticeDom ? oNoticeDom : domById(sDomNoticeId);

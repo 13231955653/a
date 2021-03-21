@@ -15,20 +15,6 @@ let iWinHeight = 0;
 
 const sLangTitlePostfix = '_title';
 
-//localstorage相关
-const iMaxLocalstorageSize = 3718592;
-const sOriginLocalstorageSizeKey = 'origin_localstorage_size';
-const sStorageOriginsSonPrefix = 'storage';
-const sStoragePage = 'storage.html';
-const sLocalstorageTagMd5Salt = '______9*^&*%^$%$67dasy~`<>?dg';
-const sLocalstorageLangTag = 'localstorage_lang';
-const sLocalstorgaeUserPersonalizedColorKey = 'user_personlized_color';
-const sLocalstorgaeNowPageTag = 'localstorage_cache_now_page';
-const sLocalstorgaeBeginTag = 0;
-//localstorage相关
-
-const sNoShowIframeCLass = 'iframe_no_show';
-
 const sBaseShadeId = 'base_shade';
 const sIndexShadeId = 'index_shade';
 const sPlatformShadeId = 'platform_shade';
@@ -1156,24 +1142,6 @@ function loadLang (l = '') {
         initStaticResource(y, 'js', 'replaceLangs');
     }, 0);
 }
-
-window.addEventListener('message', function(event){
-    if (!event.data) {
-        return false;
-    }
-
-    if (!event.data || !event.data.after) {
-        // console.log('addEventListener data or data.after is null');
-        return false;
-    }
-
-    console.log('^^^^^^^^^^^^^^^^^^^^^');
-    console.log('get form ' + event.origin + ' message, will to do after load localstorage function');
-    console.log(event.data);
-    console.log('^^^^^^^^^^^^^^^^^^^^^');
-
-    window[event.data.after](event.data.message);
-}, false);
 
 // /**
 //  *
