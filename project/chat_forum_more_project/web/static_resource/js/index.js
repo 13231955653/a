@@ -46,14 +46,14 @@ function afterPageAction () {
 }
 
 function pageBegin () {
-    // console.log('pageBegin 1111111111111');
+    console.log('pageBegin 1111111111111');
     asyn('showPageShade');
     // showPageShade();
 
-    // console.log('pageBegin 222222222222');
+    console.log('pageBegin 222222222222');
     asyn('afterPageAction');
 
-    // console.log('pageBegin 444444444444444444');
+    console.log('pageBegin 444444444444444444');
     asyn('clearPlatformShade');
     // clearPlatformShade();
     asyn('clearPageShade');

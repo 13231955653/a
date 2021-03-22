@@ -3,9 +3,9 @@ let oIndexShade = '';
 let oPlatformShade = '';
 let oPageShade = '';
 let bWriteShade = false;
-function writePublicShade () {
+
+function writeShades () {
     if (bWriteShade) {
-        // console.log('writePublicShade bWriteShade is true, so no to do ');
         return;
     }
     bWriteShade = true;
@@ -51,16 +51,12 @@ function pageShade () {
 
 function showBaseShade () {
     if (aShades[sBaseShadeId]) {
-        // console.log('!!!!!!!!!!!!!in show base shade, settimeout retry to do showBaseShade ');
         setTimeoutFunction('showBaseShade');
         return;
     }
 
     let o = baseShades();
-    // console.log(o);
     if (!o) {
-        // console.log('showBaseShade ' + sBaseShadeId + ' shade dom no get, will to settimeout retry showBaseShade ');
-
         setTimeoutFunction('showBaseShade');
         return;
     }
@@ -74,14 +70,12 @@ function showBaseShade () {
  */
 function clearBaseShade () {
     if (!aShades[sBaseShadeId]) {
-        // console.log('!!!!!!!!!!!!!base shade is hidden or in hiddening, settimeout retry to do clearBaseShade ');
         setTimeoutFunction('clearBaseShade');
         return;
     }
 
     let o = baseShades();
     if (!o) {
-        // console.log('clearBaseShade o is null, so no to do ');
         setTimeoutFunction('clearBaseShade');
         return;
     }
@@ -91,15 +85,12 @@ function clearBaseShade () {
 
 function showIndexShade () {
     if (aShades[sIndexShadeId]) {
-        // console.log('!!!!!!!!!!!!!in show index shade, settimeout retry to do showIndexShade ');
         setTimeoutFunction('showIndexShade');
         return;
     }
 
     let o = indexShade();
     if (!o) {
-        // console.log('showIndexShade ' + sIndexShadeId + ' shade dom no get, will to settimeout retry showIndexShade ');
-
         setTimeoutFunction('showIndexShade');
         return;
     }
@@ -113,14 +104,12 @@ function showIndexShade () {
  */
 function clearIndexShade () {
     if (!aShades[sIndexShadeId]) {
-        // console.log('!!!!!!!!!!!!!index shade is hidden or in hiddening, settimeout retry to do clearIndexShade ');
         setTimeoutFunction('clearIndexShade');
         return;
     }
 
     let o = indexShade();
     if (!o) {
-        // console.log('clearIndexShade o is null, so will settimeout retry clearIndexShade ');
         setTimeoutFunction('clearIndexShade');
         return;
     }
@@ -130,15 +119,12 @@ function clearIndexShade () {
 
 function showPlatformShade () {
     if (aShades[sPlatformShadeId]) {
-        // console.log('!!!!!!!!!!!!!in show platform shade, settimeout retry to do showPlatformShade ');
         setTimeoutFunction('showPlatformShade');
         return;
     }
 
     let o = platformShade();
     if (!o) {
-        // console.log('showPlatformShade ' + sPlatformShadeId + ' shade dom no get, will to settimeout retry showPlatformShade ');
-
         setTimeoutFunction('showPlatformShade');
         return;
     }
@@ -152,14 +138,12 @@ function showPlatformShade () {
  */
 function clearPlatformShade () {
     if (!aShades[sPlatformShadeId]) {
-        // console.log('!!!!!!!!!!!!!platform shade is hidden or in hiddening, settimeout retry to do clearPlatformShade ');
         setTimeoutFunction('clearPlatformShade');
         return;
     }
 
     let o = platformShade();
     if (!o) {
-        // console.log('clearPlatformShade o id null, so no to do, meybe error ');
         return;
     }
 
@@ -168,15 +152,12 @@ function clearPlatformShade () {
 
 function showPageShade () {
     if (aShades[sPageShadeId]) {
-        // console.log('!!!!!!!!!!!!!in show page shade, settimeout retry to do showPageShade ');
         setTimeoutFunction('showPageShade');
         return;
     }
 
     let o = pageShade();
     if (!o) {
-        // console.log('showPageShade page shade dom no get, will to write page shade and retry');
-
         setTimeoutFunction('showPageShade');
         return;
     }
@@ -190,16 +171,12 @@ function showPageShade () {
  */
 function clearPageShade () {
     if (!aShades[sPageShadeId]) {
-        // console.log(aShades);
-        // console.log('!!!!!!!!!!!!!page shade is hidden or in hiddening, settimeout retry to do clearPageShade ');
         setTimeoutFunction('clearPageShade');
         return;
     }
 
     let o = pageShade();
     if (!o) {
-        // console.log('clearPageShade o is null, so no to do, meybe error ');
-
         return;
     }
 
@@ -212,11 +189,7 @@ aShades[sIndexShadeId] = false;
 aShades[sPlatformShadeId] = false;
 aShades[sPageShadeId] = false;
 function showShade (o = false) {
-    // console.log(o);
-    // console.log('ppppppppppppppppppppppppppppp');
-    //
     if (typeof window['animates'] == 'undefined') {
-        // console.log('showShade animates is undefined, so settimeout retry to do showShade ');
         setTimeoutFunction('showShade', o);
         return;
     }
@@ -234,16 +207,7 @@ function showShade (o = false) {
     o.style.opacity = 0;
 
     animates(o, {opacity: 100}, iSpeed, function () {
-        // let p1 = new RegExp('\\s*' + sInvisibleClass,'gm');
-        // let p2 = new RegExp('\\s*' + sVisibleClass,'gm');
-        //
-        // let s = o.className;
-        // s = s.replace(p1, '');
-        // s = s.replace(p2, '');
-        // o.className = s ? s + ' ' + sVisibleClass : sVisibleClass;
         aShades[o.id] = true;
-        // console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
-        // console.log(aShades);
     });
 }
 /**
@@ -253,10 +217,7 @@ function showShade (o = false) {
  * @param o 遮罩层 dom
  */
 function clearShade (o = false) {
-    // console.log(o);
-    // console.log('zzzzzzzzzzzzzzzzzzzzzz');
     if (typeof window['animates'] == 'undefined') {
-        // console.log('clearShade animates is undefined, so settimeout retry clearShade ');
         setTimeoutFunction('clearShade', o);
         return;
     }

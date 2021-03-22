@@ -53,7 +53,7 @@
  */
 let sLastPage = '';
 function uodateUrlPageArg (p = '') {
-    // console.log('uodateUrlPageArg begin, p ' + p);
+    console.log('uodateUrlPageArg begin, p ' + p);
     if (!p) {
         // console.log('uodateUrlPageArg page is null，so no will to do');
         return;
@@ -221,7 +221,7 @@ function updateUrlArg (k = '', v = '', t = '', c = false) {
     setBrowserTitle(t);
 
     if (c) {
-        window[c]();
+        asyn(c);
     }
 }
 

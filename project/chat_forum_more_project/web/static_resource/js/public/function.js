@@ -231,10 +231,8 @@ function ucfirst (s = '') {
  */
 function setBrowserTitle (t = '') {
     if (!t) {
-        // console.log('setPageTitle t is null, so no to do');
         return false;
     }
-    // console.log('setPageTitle t is true, so will set browser title ');
 
     document.title = t;
 }
@@ -343,6 +341,12 @@ function getStyle (o, s) {
  * @param c 回调函数 type string
  */
 function animates (o = false, s = false, p = false, c = false) {
+    if (bJquery) {
+        // if (typeof jQuery != 'undefined') {
+        $(o).animate(s, p, c);
+        return;
+    }
+
     if (!o || !s || !p) {
         // console.log(o);
         // console.log(s);
@@ -353,11 +357,6 @@ function animates (o = false, s = false, p = false, c = false) {
 
     // console.log('iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii');
     // console.log(bJquery);
-    if (bJquery) {
-    // if (typeof jQuery != 'undefined') {
-        $(o).animate(s, p, c);
-        return;
-    }
 
     // setTimeoutFunction('animates');
     let t = setTimeout(function () {

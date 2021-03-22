@@ -60,11 +60,20 @@ window.addEventListener('message',function(event){
     switch (event.data.action) {
         case 'get' :
             a.message = myStorage.get(event.data.key);
-            top.postMessage(a, u);
+            if (event.data.after) {
+                top.postMessage(a, u);
+            }
             break;
         case 'set' :
             a.message = myStorage.set(event.data.key, event.data.message, event.data.leftTime);
-            top.postMessage(a, u);
+            if (event.data.after) {
+                top.postMessage(a, u);
+            }
+
+            let b = {};
+            b.after = 'updateOriginLocalstorageSize';
+            b.message = {size: myStorage.size(), host: window.location.host.split('.')[0]};
+            top.postMessage(b, u);
             break;
     }
 }, false);
@@ -140,11 +149,23 @@ let myStorage = (function myStorage () {
         localStorage.clear();
     };
 
+    let size = function () {
+        let z = 0;
+        for(let i in localStorage) {
+            if(localStorage.hasOwnProperty(i)) {
+                z += localStorage.getItem(i).length;
+            }
+        }
+
+        return z;
+    };
+
     return {
         set : set,
         get : get,
         remove : remove,
-        clear : clear
+        clear : clear,
+        size : size
     };
 })();
 

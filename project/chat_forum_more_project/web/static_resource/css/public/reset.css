@@ -107,7 +107,6 @@ input[type=date]::-webkit-outer-spin-button {
     -webkit-appearance: none;
 }
 input[type=date]{-moz-appearance:textfield;}
-/*because legend doesn't inherit in IE */
 legend {
     color: var(--legend_font_color);
 }
@@ -117,6 +116,3 @@ a:focus,a:hover{
 input,a{
     box-sizing: border-box;
 }
-/*iframe{*/
-/*    visibility: hidden !important;*/
-/*}*/

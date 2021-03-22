@@ -1,22 +1,192 @@
-const sIndexScriptTagId = 'first_js_script'; // 第一个 script 标签
-let sCharset = 'utf-8'; // 编码格式
+//url地址相关---------------------
+const sBaseProtocol = window.location.protocol + '//';
+
+const sUrlAddressSignEncodeSalt = '_&*uh124jKzS645s(^$%a87123_';
+const sUrlAddressPageKey = 'page';
+const sUrlAddressSignKey = 'sign';
+const sUrlAddressChangeTimeKey = 'change_time';
+
+const sLangTitlePostfix = '_title';
+//url地址相关=================================
+
+//尺寸相关----------------
+let iWinWidth = 0;
+let iWinHeight = 0;
+//尺寸相关============
+
+/**
+ *
+ * 获取 url origin
+ *
+ * @returns {string}
+ */
+function queryMasterOrigin () {
+    let s = window.location.protocol;
+
+    let t = '.';
+
+    let o = window.location.origin;
+    let a = o.split(t);
+    let l = a.length;
+    o = a[l - 2] + t + a[l - 1];
+    o = o.replace(s + '//', '');
+    o = s + '//' + o;
+
+    return o;
+}
+let sOrigin = queryMasterOrigin();
+
+const sAstrictJumpUrl = 'https://www.baidu.com';
+//url地址相关========================
+
+//编码相关-----------------
+const sCharset = 'utf-8'; // 编码格式
+//编码相关===============
+
+//debug相关-----------------
 const debug = true; // debug
 // const debug = false; // debug
-const sBaseJs = '/static_resource/js/base.js?ver=1'; // base js 路径
-const sAstrictJumpUrl = 'https://www.baidu.com';
-const sFinalMetaTagId = 'copyright_content';
+//debug相关===================
 
-const sBodyDomFatherId = 'body';
-const oDomFatherId = 'dom_father';
-const oDomStorageId = 'storage_father';
-const sDomNoticeId = 'notice_father';
-const sInvisibleClass = 'invisible';
-const sVisibleClass = 'gradually_visible';
+//平台相关------------------
+let os = function() {
+    let a = navigator.userAgent;
+    isWindowsPhone = /(?:Windows Phone)/.test(a),
+        isSymbian = /(?:SymbianOS)/.test(a) || isWindowsPhone,
+        isAndroid = /(?:Android)/.test(a),
+        isFireFox = /(?:Firefox)/.test(a),
+        isChrome = /(?:Chrome|CriOS)/.test(a),
+        isTablet = /(?:iPad|PlayBook)/.test(a) || (isAndroid && !/(?:Mobile)/.test(a)) || (isFireFox && /(?:Tablet)/.test(a)),
+        isPhone = /(?:iPhone)/.test(a) && !isTablet,
+        isPc = !isPhone && !isAndroid && !isSymbian;
 
-const sShadeClass = 'shades';
-const sDomShadeId = 'shade_father';
+    return {
+        isTablet: isTablet,
+        isPhone: isPhone,
+        isAndroid: isAndroid,
+        isPc: isPc
+    };
+}();
+/**
+ *
+ * 检查平台
+ *
+ * @returns {string}
+ */
+function checkPlatform () {
+    if (os.isAndroid || os.isPhone) {
+        return sIsPhone;
+    }
 
-//localstorage相关
+    if (os.isTablet) {
+        return sIsTablet;
+    }
+
+    if (os.isPc) {
+        return sIsPc;
+    }
+}
+/**
+ *
+ * 检查是否手机端
+ *
+ * @type {string}
+ */
+let bMobile = '';
+function isMobile () {
+    let u = navigator.userAgent;
+    let m = [ 'Android', 'iPhone', 'SymbianOS', 'Windows Phone', 'iPad','iPod'];
+    bMobile = false;
+
+    //根据userAgent判断是否是手机
+    for (let v = 0; v < m.length; v++) {
+        if (u.indexOf(m[v]) > 0) {
+            bMobile = true;
+            break;
+        }
+    }
+
+    return bMobile;
+}
+
+function platformTag () {
+    return (bMobile !== '' ? bMobile : isMobile())  ? 'mobile' : 'computer';
+}
+const sPlatformTag = platformTag();
+
+const sIsPhone = 'phone';
+const sIsTablet = 'tablet';
+const sIsPc = 'pc';
+//平台相关================
+
+//静态文件相关---------------------------
+let sBaseJsFile = '';
+let sIndexJsFullName = '';
+let sFunctionJsFile = '';
+let sJqueryJsFile = '';
+let sLogicJsFile = '';
+let sDomJsFile = '';
+let sPlatformDomJsFile = '';
+let sEncodeJsFile = '';
+let sApiJsFile = '';
+// let sOriginJquery = '';
+let sCnLangFile = '';
+let sEnLangFile = '';
+let sForumJsFile = '';
+let sChatJsFile = '';
+let sFriendJsFile = '';
+let sSettingJsFile = '';
+let sAboutMeJsFile = '';
+
+const sBaseJs = '/static_resource/js/base.js'; // base js 路径
+const sIndexJs = '/static_resource/js/index.js';
+const sFunctionJs = '/static_resource/js/public/function.js';
+const sJqueryJs = '/static_resource/js/public/jquery.js';
+const sLogicJs = '/static_resource/js/' + sPlatformTag + '/logic.js';
+const sDomJs = '/static_resource/js/public/dom/public_dom.js';
+const sBaseEncodeJs = '/static_resource/js/public/encode.js';
+const sCnLang = '/static_resource/js/lang/cn.js';
+const sEnLang = '/static_resource/js/lang/en.js';
+const sPlatformDomJs = '/static_resource/js/' + sPlatformTag + '/dom/public_dom.js';
+const sForumJs = '/static_resource/js/' + sPlatformTag + '/page/forum.js';
+const sChatJs = '/static_resource/js/' + sPlatformTag + '/page/chat.js';
+const sFriendJs = '/static_resource/js/' + sPlatformTag + '/page/friend.js';
+const sSettingJs = '/static_resource/js/' + sPlatformTag + '/page/setting.js';
+const sAboutMeJs = '/static_resource/js/' + sPlatformTag + '/page/about_me.js';
+const sApiJs = '/static_resource/js/public/query/query.js';
+// sOriginJquery = 'http://code.jquery.com/jquery-1.9.1.min.js'; ////////////国内外需要更换适用的地址
+// sOriginJquery = 'http://libs.baidu.com/jquery/2.1.4/jquery.min.js'; ////////////国内外需要更换适用的地址
+// sOriginJquery = 'http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js'; ////////////国内外需要更换适用的地址
+
+const c = [];  // js 文件版本号
+c[sBaseJs] = 'aaaaaaa';
+c[sIndexJs] = 'bbbbbbbb';
+c[sFunctionJs] = 'ddddddd';
+c[sJqueryJs] = 'eeeeeeee';
+c[sLogicJs] = 'ffffffff';
+c[sDomJs] = 'gggggggg';
+c[sBaseEncodeJs] = 'hhhhhhhhh';
+c[sCnLang] = 'iiiiiii';
+c[sEnLang] = 'jjjjjjjj';
+c[sPlatformDomJs] = 'kkkkkkkkk';
+c[sForumJs] = 'lllllll';
+c[sChatJs] = 'mmmmmmmm';
+c[sFriendJs] = 'nnnnnnnn';
+c[sAboutMeJs] = 'zzzzzzzzzzzz';
+c[sSettingJs] = 'oooooooo';
+c[sApiJs] = 'ppppppp';
+const aJsVersion = c; // js 文件版本号
+
+const aCssVersion = []; // css 文件版本号
+let sResetCssFile = '';
+let sPublicCssFile = '';
+let sPersonalizedCssFile = '';
+
+const sBaseHostSonPrefix = 'static_resource';
+const sBaseHostSonNumber = 7;
+//静态文件相关============================
+
+//localstorage相关----------------------------
 const iMaxLocalstorageSize = 3670016;
 const sOriginLocalstorageSizeKey = 'origin_localstorage_size';
 const sStorageOriginsSonPrefix = 'storage';
@@ -24,20 +194,12 @@ const sStoragePage = 'storage.html';
 const sLocalstorageTagMd5Salt = '______9*^&*%^$%$67dasy~`<>?dg';
 const sLocalstorageLangTag = 'localstorage_lang';
 const sLocalstorgaeUserPersonalizedColorKey = 'user_personlized_color';
-const sLocalstorgaeNowPageTag = 'localstorage_cache_now_page';
-const sLocalstorgaeBeginTag = 0;
-//localstorage相关
+// const sLocalstorgaeNowPageTag = 'localstorage_cache_now_page';
+const sLocalstorageBeginPage = 0;
+//localstorage相关=============================
 
-// const sNoShowIframeCLass = 'iframe_no_show';
-
-const sIsPhone = 'phone';
-const sIsTablet = 'tablet';
-const sIsPc = 'pc';
-
-let sIp = '';
-let sCid = '';
-let sIpCityName = '';
-const sQueryUserIpAddress = 'http://pv.sohu.com/cityjson?ie=' + sCharset;
+//meta标签相关----------------
+const sFinalMetaTagId = 'copyright_content';
 
 const sContentAndCharset = 'content_charset';
 const sContentAndCharsetType = 'Content-Type';
@@ -142,14 +304,181 @@ const sKeyword = '关键词1，关键词2，关键词3';
 const sDescriptionContent = '规定页面的描述。搜索引擎会把这个描述显示在搜索结果中。';
 const sApplicationNameContent = '规定页面所代表的 Web 应用程序的名称。';
 const sCopyrightContent = '版权所有，保留一切权利。';
+//meta标签相关==============
 
+//定时器相关----------
+let aBaseTimer = []; //基础定时器
+const b = []; //基础定时器间隔时间
+// const t = 1000;
+const t = 15;
+// const t2 = 1000;
+const t2 = 15;
+b['winResize'] = t2;
+b['loadEncodeJs'] = t;
+b['loadLogicJs'] = t;
+b['animates'] = t;
+b['loadDomJs'] = t;
+b['loadFunctionJs'] = t;
+b['loadOriginJquery'] = t;
+b['loadLang'] = t;
+b['logicBegin'] = t;
+b['loadPlatformDomJs'] = t;
+b['showPageShade'] = t;
+b['loadResetCss'] = t;
+b['checkLoadCss'] = t;
+b['writeStorageDom'] = t;
+b['localstorageIsForbidden'] = t;
+// b['personalizedCssFromLocalstorage'] = t;
+b['pageBegin'] = t;
+b['loadLocalJquery'] = t;
+b['replaceLangs'] = t;
+b['loadPublicCss'] = t;
+b['loadPersonalizedCss'] = t;
+b['loadVariableCss'] = t;
+b['threeClassBodyDom'] = t;
+b['showIndexShade'] = t;
+b['loadLocalJquery1'] = t;
+b['clearIndexShade'] = t;
+b['showPlatformShade'] = t;
+b['individuationUuid'] = t;
+b['platformBegin'] = t;
+b['makeSessionid'] = t;
+b['cacheSessionId'] = t;
+b['repeatedlySettingPage'] = t;
+b['repeatedlyFriendPage'] = t;
+b['repeatedlyForumPage'] = t;
+b['repeatedlyChatPage'] = t;
+b['loadApiJs'] = t;
+b['sessionId'] = t;
+b['repeatedlyPage'] = t;
+b['localstoragePostMessage'] = t;
+b['doCheckSessionId'] = t;
+b['checkSessionKeyFormat1'] = t;
+b['replaceWindowTitle'] = t;
+b['replaceDomLang'] = t;
+b['replaceLang'] = t;
+b['replaceTitle'] = t;
+b['afterLoadPageJs'] = t;
+b['updateUrlPage'] = t;
+b['setContent'] = t;
+b['baseBegins'] = t;
+b['loadIndexJs'] = t;
+b['showUseTimeLimitNotice'] = t;
+b['clearShade'] = t;
+b['sessId'] = t;
+b['indexBeginLogic'] = t;
+b['indexBegin'] = t;
+b['loadOriginJquery'] = t;
+b['baseShade'] = t;
+b['platformBegin'] = t;
+b['showBaseShade'] = t;
+b['showShade'] = t;
+b['loadPageJs'] = t;
+b['clearPlatformShade'] = t;
+b['clearPageShade'] = t;
+b['bindFooterOnclick'] = t;
+b['clearBaseShade'] = t;
+b['checkUseTime'] = 60000;
+b['checkSessionIdOutTime'] = 181652;
+b['checkSessionKeyFormat'] = 253648;
+const aTimer = b; //基础定时器间隔时间
+//定时器相关========================
+
+//时间相关---------------------
+const iRequertTimeout = 9000;
+const iRequertLangJsTimeout = 5000;
+const iMaxLoadOriginJqueryWaitTime = 5000;
+
+const iNoticeTimeLimit = 3600000;
+//时间相关=======================
+
+//dom id class 相关-----------------
+const sIndexScriptTagId = 'first_js_script'; // 第一个 script 标签
+
+const sBodyDomFatherId = 'body';
+const oDomFatherId = 'dom_father';
+const oDomStorageId = 'storage_father';
+const sDomNoticeId = 'notice_father';
+const sDomShadeId = 'shade_father';
+
+const sQueryOneMmPxId = 'get_one_mms_px';
+
+const sInvisibleClass = 'invisible'; //不显示dom的class
+const sVisibleClass = 'gradually_visible';//显示dom的class
+
+const sBaseShadeId = 'base_shade';
+const sIndexShadeId = 'index_shade';
+const sPlatformShadeId = 'platform_shade';
+const sPageShadeId = 'page_shade';
+
+const sForumBodyId = 'forum_body';
+const sChatBodyId = 'chat_body';
+const sFriendBodyId = 'friend_body';
+const sSettingBodyId = 'setting_body';
+const sAboutMeBodyId = 'about_me_body';
+
+const sDefaultPage = 'forum';
+const sForumPage = 'forum';
+const sChatPage = 'chat';
+const sFriendPage = 'friend';
+const sAboutMePage = 'about_me';
+const sSettingPage = 'setting';
+const sDefaultPageHtml = 'index.html';
+
+const sFootTag = '_foot';
+const sFootLiSuffix = '_li';
+const sActiveFootTag = 'foot_active';
+
+const sReLangClass = 're_lang';
+const sReplaceLangIdType = 'id';
+
+const sShadeClass = 'shades';
+//dom id class 相关===================
+
+//fontsize 相关--------------
+let iFontSize = 16;
+const iDefaultFontSize = 16; //默认pc字体大小
+const iDefaultOneFontMms = 2.5; //默认一个中文字占多宽，单位毫米
+//fontsize 相关===============
+
+//动画相关-------------------
+const iSpeed = 300; //动画速度
+//动画相关==========================
+
+//用户自定义相关-------------------
+const iDefaultUserPersonalizedColor = 1;
+const sDefaultLangvage = 'cn';
+let sUserLangvage = '';
+let sPersonlizedColor = '';
+//用户自定义相关===================
+
+//IP相关------------
+let sIp = '';
+let sCid = '';
+let sIpCityName = '';
+const sQueryUserIpAddress = 'http://pv.sohu.com/cityjson?ie=' + sCharset;
+//IP相关==========================
+
+//meta-------------------
 let oFinalMeta = '';
+
+/**
+ *
+ * 最后的meta标签
+ *
+ * @returns {*|string}
+ */
 function finalMeta () {
     oFinalMeta = oFinalMeta ? oFinalMeta : domById(sFinalMetaTagId);
     return oFinalMeta;
 }
-
 let bSetMeta = false;
+
+/**
+ *
+ * 设置meta标签
+ *
+ */
 function setMeta () {
     if (bSetMeta) {
         return;
@@ -331,7 +660,78 @@ function setContent (n = '') {
     }
     return m;
 }
+//meta===============
 
+//请求--------------------
+/**
+ *
+ * 请求静态文件时间限制
+ *
+ * @param p 类型 type string
+ * @param f 文件 type string
+ * @returns {boolean}
+ */
+let aRequestJsCssLastTime = [];
+function checkRequestJsCssLimit (p = '', f = '') {
+    if (!f) {
+        return false;
+    }
+
+    let t = getMillisecondTime();
+    let l = typeof aRequestJsCssLastTime[f] !== 'undefined' ? aRequestJsCssLastTime[f] : 0;
+    if (t - l < iRequertTimeout) {
+        setTimeoutFunction(f);
+        return false;
+    }
+    aRequestJsCssLastTime[f] = t;
+
+    return true;
+}
+//请求===================
+
+//定时器------------------------
+/**
+ *
+ * 定时处理函数
+ *
+ * @param f 函数名 type string
+ * @param a 参数1 type string
+ * @param b 参数2 type string
+ * @returns {boolean}
+ */
+function setTimeoutFunction (f = '', a = '', b = '') {
+    if (!f) {
+        return false;
+    }
+
+    if (typeof window[f] != 'function') {
+        let t = setTimeout(function () {
+            clearTimeout(t);
+
+            setTimeoutFunction(f, a, b);
+        }, 0);
+        return;
+    }
+
+    let t = setTimeout(function () {
+        clearTimeout(t);
+
+        if (!a) {
+            window[f]();
+            return;
+        } else {
+            if (b) {
+                window[f](a, b);
+                return;
+            } else {
+                window[f](a);
+                return;
+            }
+        }
+    }, aTimer[f]);
+
+    return true;
+}
 /**
  *
  * 定时器执行
@@ -371,16 +771,163 @@ function asyn (f = '', a = '', b = '') {
         window[f]();
     }, 0);
 }
+//定时器===============
 
+//用户ip-----------
+/**
+ *
+ * 获取用户IP
+ *
+ */
 function getUserIp () {
     loadJs(sQueryUserIpAddress, false, 'setUserIp');
 }
+/**
+ *
+ * 设置用户IP
+ *
+ */
 function setUserIp () {
     sIp = returnCitySN.cip;
     sCid = returnCitySN.cid;
     sIpCityName = returnCitySN.cname;
 }
+//用户ip================
 
+//加载静态文件---------------
+/**
+ *
+ * 设置静态文件地址
+ *
+ * @param t 文件类型 type string
+ * @param s 文件地址 type string
+ * @returns {string|boolean}
+ */
+function setJsCssSrc (t = '', s = '') {
+    if (!t ||!s) {
+        // console.log('hashFunc t or s is null');
+        return false;
+    }
+
+    let v = getMillisecondTime();
+    switch (t) {
+        case 'js' :
+            v = aJsVersion[s];
+            break;
+        case 'css' :
+            v = aCssVersion[s];
+            break;
+    }
+
+    return allocationHost(s) + s + '?v=' + v + jsCssVersionSuffix();
+}
+/**
+ *
+ * 设置 js 地址 跟版本号
+ *
+ */
+function setJsPathAndVersion () {
+    // sBaseJsFile = setJsCssSrc('js', sBaseJs);
+    sIndexJsFullName = setJsCssSrc('js', sIndexJs);
+    sFunctionJsFile = setJsCssSrc('js', sFunctionJs);
+    sJqueryJsFile = setJsCssSrc('js', sJqueryJs);
+    sLogicJsFile = setJsCssSrc('js', sLogicJs);
+    sDomJsFile = setJsCssSrc('js', sDomJs);
+    sEncodeJsFile = setJsCssSrc('js', sBaseEncodeJs);
+    sCnLangFile = setJsCssSrc('js', sCnLang);
+    sEnLangFile = setJsCssSrc('js', sEnLang);
+    sPlatformDomJsFile = setJsCssSrc('js', sPlatformDomJs);
+    sForumJsFile = setJsCssSrc('js', sForumJs);
+    sChatJsFile = setJsCssSrc('js', sChatJs);
+    sFriendJsFile = setJsCssSrc('js', sFriendJs);
+    sSettingJsFile = setJsCssSrc('js', sSettingJs);
+    sAboutMeJsFile = setJsCssSrc('js', sAboutMeJs);
+    sApiJsFile = setJsCssSrc('js', sApiJs);
+}
+/**
+ *
+ * 设置css地址跟版本号
+ *
+ */
+function setCssPathAndVersion () {
+    let sResetCss = '/static_resource/css/public/reset.css';
+    let sPublicCss = '/static_resource/css/public/' + sPlatformTag + '/public.css';
+
+    aCssVersion[sResetCss] = 'zzzzzzz';
+    aCssVersion[sPublicCss] = 'yyyyyy';
+
+    sResetCssFile = setJsCssSrc('css', sResetCss);
+    sPublicCssFile = setJsCssSrc('css', sPublicCss);
+}
+/**
+ *
+ * 设置静态文件地址跟版本号
+ *
+ */
+function staticResourceVersion () {
+    asyn('setCssPathAndVersion');
+
+    asyn('setJsPathAndVersion');
+}
+
+/**
+ *
+ *加载 css 文件
+ *
+ * @param r link src type string
+ * @param c 回调函数 type string
+ * @returns {boolean}
+ */
+function loadCss (r = '', c = '') {
+    if (!r) {
+        // console.log('loadCss r is null');
+        return false;
+    }
+
+    let l = document.createElement('link');
+    l.type = 'text/css';
+    l.rel = 'stylesheet';
+    l.href = r;
+    l.charset = sCharset;
+    l.id = r;
+
+    if (c) {
+        checkLoadCss(c, l.id);
+    }
+
+    asyn('asynLoadCss', l);
+}
+/**
+ *
+ * 检查 css 是否加载
+ *
+ * @param c 回调函数 type  string
+ * @param d css link 标签 id type string
+ * @returns {boolean}
+ */
+function checkLoadCss (c = '', d = '') {
+    if (!c || !d) {
+        // console.log('checkLoadCss c or d is null');
+        return false;
+    }
+
+    let k = 'checkLoadCss' + '--' + c;
+    if (domById(d)) {
+        clearTimeout(aBaseTimer[k]);
+
+        clearTimeout(aBaseTimer[k]);
+
+        window[c]();
+        return;
+    }
+
+    aBaseTimer[k] = setTimeout(function () {
+        checkLoadCss(c, d);
+    }, aTimer['checkLoadCss']);
+}
+function asynLoadCss (l) {
+    insertAfter(l, oFinalMeta ? oFinalMeta : finalMeta());
+}
 /**
  *
  * 引入 js 文件
@@ -422,7 +969,145 @@ function loadJs (s = '', b = true, c = false) {
 
     asyn('asynLoadJs', o);
 }
+/**
+ *
+ * 加载css
+ *
+ */
+let bAllreadyLoadBaseCss = false;
+function loadBaseCss () {
+    if (bAllreadyLoadBaseCss) {
+        return;
+    }
+    bAllreadyLoadBaseCss = true;
 
+    // asyn('personalizedCssFromLocalstorage');
+    asyn('loadPersonalizedCss');
+
+    // asyn('loadResetCss');
+    let t = setTimeout(function () {
+        clearTimeout(t);
+
+        initStaticResource(sResetCssFile, 'css', 'afterloadResetCss');
+    }, 0);
+
+    // asyn('loadPublicCss');
+    let z = setTimeout(function () {
+        clearTimeout(z);
+
+        initStaticResource(sPublicCssFile, 'css', 'afterloadPublicCss');
+    }, 0);
+}
+/**
+ *
+ * 是否添加时间戳字符串静态文件版本号
+ *
+ * @type {string}
+ */
+let sFileVersionSuffix = '';
+function jsCssVersionSuffix () {
+    sFileVersionSuffix = sFileVersionSuffix ? sFileVersionSuffix : debug ? '-' + getMillisecondTime() : '';
+    return sFileVersionSuffix;
+}
+
+//加载public css
+let bLoadPublicCss = false;
+function loadPublicCss () {
+    if (bLoadPublicCss) {
+        return true;
+    }
+
+    if (!checkRequestJsCssLimit('css', 'loadPublicCss')) {
+        return false;
+    }
+
+    asyn('loadCss', sPublicCssFile, 'afterloadPublicCss');
+
+    setTimeoutFunction('loadPublicCss');
+}
+//加载public css 回调函数
+function afterloadPublicCss () {
+    bLoadPublicCss = true;
+}
+
+/**
+ *
+ * 加载reset css
+ *
+ * @returns {boolean}
+ */
+let bLoadResetCss = false;
+function loadResetCss () {
+    if (bLoadResetCss) {
+        return true;
+    }
+
+    if (!checkRequestJsCssLimit('css', 'loadResetCss')) {
+        return false;
+    }
+
+    asyn('loadCss', sResetCssFile, 'afterloadResetCss');
+
+    setTimeoutFunction('loadResetCss');
+}
+/**
+ *
+ * 加载reset css 回调函数
+ *
+ */
+function afterloadResetCss () {
+    bLoadResetCss = true;
+}
+
+/**
+ *
+ * 加载用户自定义主题css
+ *
+ * @param c
+ * @returns {boolean}
+ */
+let bLoadPersonalizedCss = false;
+function loadPersonalizedCss (c = false) {
+    if (!c) {
+        queryUserPersonalizedColor();
+        return;
+    }
+
+    if (bLoadPersonalizedCss) {
+        return true;
+    }
+    bLoadPersonalizedCss = true;
+
+    let sPersonalizedColor = c;
+
+    if (!checkRequestJsCssLimit('css', 'loadPersonalizedCss')) {
+        return false;
+    }
+
+    let sPersonalizedCss = '/static_resource/css/personalized/color/' + sPersonalizedColor + '.css';
+    aCssVersion[sPersonalizedCss] = 'ggggggggd';
+    sPersonalizedCssFile = setJsCssSrc('css', sPersonalizedCss);
+
+    let t = setTimeout(function () {
+        clearTimeout(t);
+
+        initStaticResource(sPersonalizedCssFile, 'css', 'afterloadPersonalizedCss');
+    }, 0);
+
+    setTimeoutFunction('loadPersonalizedCss', c);
+}
+
+/**
+ *
+ * 加载用户自定义主题css 回调函数
+ *
+ */
+function afterloadPersonalizedCss () {
+    bLoadPersonalizedCss = false;
+}
+//加载静态文件=====================
+
+//节点---------
 /**
  *
  * 插入script 标签节点
@@ -432,7 +1117,31 @@ function loadJs (s = '', b = true, c = false) {
 function asynLoadJs (o) {
     insertAfter(o, firstScriptTag());
 }
-
+/**
+ *
+ * 在 j 之后插入 新节点n
+ *
+ * @param n 新节点 type dom
+ * @param j
+ */
+function insertAfter (n, j) {
+    let p = j.parentNode;
+    if (p.lastChild == j) {
+        p.appendChild(n);
+    } else {
+        p.insertBefore(n, j.nextSibling);
+    }
+}
+/**
+ *
+ * 在 j 之前插入 新节点o
+ *
+ * @param o 新节点 type dom object
+ * @param j 要插入哪个节点之前 type dom object
+ */
+function insertBefores (o, j) {
+    o.parentNode[0].insertBefore(o, j);
+}
 /**
  *
  * 第一个 script 标签 节点
@@ -444,7 +1153,6 @@ function firstScriptTag () {
     oIndexScriptTag = oIndexScriptTag ? oIndexScriptTag : domById(sIndexScriptTagId);
     return oIndexScriptTag;
 }
-
 /**
  *
  * 根据id获取dom
@@ -478,35 +1186,9 @@ function domByTag (c) {
     let o = oBodyDom.getElementsByTagName(c);
     return o.length > 0 ? o : false;
 }
+//节点=================
 
-/**
- *
- * 在 j 之后插入 新节点n
- *
- * @param n 新节点 type dom
- * @param j
- */
-function insertAfter (n, j) {
-    let p = j.parentNode;
-    if (p.lastChild == j) {
-        p.appendChild(n);
-    } else {
-        p.insertBefore(n, j.nextSibling);
-    }
-}
-
-/**
- *
- * 在 j 之前插入 新节点o
- *
- * @param o 新节点 type dom object
- * @param j 要插入哪个节点之前 type dom object
- */
-// function insertBefores (o, j) {
-//     console.log(o.parentNode);
-//     o.parentNode[0].insertBefore(o, j);
-// }
-
+//时间------------------
 /**
  *
  * 获取毫秒时间戳
@@ -516,7 +1198,6 @@ function insertAfter (n, j) {
 function getMillisecondTime () {
     return new Date().getTime();
 }
-
 /**
  *
  * 获取秒时间戳
@@ -526,17 +1207,99 @@ function getMillisecondTime () {
 function getSecondTime () {
     return parseInt(getMillisecondTime() / 1000);
 }
+//时间===============
+
+
+//localstorage---------------------
+// 从子iframe localstorage 获取 用户自定义主题
+let bInloadUserPersonalizedColorFromLocalstorage = false;
+function queryUserPersonalizedColor () {
+    if (sPersonlizedColor) {
+        return sPersonlizedColor;
+    }
+
+    if (bInloadUserPersonalizedColorFromLocalstorage) {
+        return;
+    }
+    bInloadUserPersonalizedColorFromLocalstorage = true;
+
+    asyn('queryLocalstorage', sLocalstorgaeUserPersonalizedColorKey, 'afterQueryUserPersonalizedColor');
+}
+/**
+ *
+ * @param k localstorage key  string
+ * @param f localstorage callback  string
+ * @returns {boolean}
+ */
+function queryLocalstorage (k = '', f = '') {
+    if (!k || !f) {
+        return false;
+    }
+
+    let p = localstoragePage(k);
+
+    p = storagePage(p);
+    if (!p) {
+        window[f](false);
+        return false;
+    }
+
+    let t = setTimeout(function () {
+        clearTimeout(t);
+
+        localstoragePostMessage(p, {action: 'get', key: k, after: f});
+    }, 0);
+}
 
 /**
  *
- * 是否添加时间戳字符串静态文件版本号
- *
- * @type {string}
+ * @param c color string
  */
-let sFileVersionSuffix = '';
-function jsCssVersionSuffix () {
-    sFileVersionSuffix = sFileVersionSuffix ? sFileVersionSuffix : debug ? '-' + getMillisecondTime() : '';
-    return sFileVersionSuffix;
+function afterQueryUserPersonalizedColor (c = '') {
+    if (c) {
+        sPersonlizedColor = c;
+    } else {
+        sPersonlizedColor = iDefaultUserPersonalizedColor;
+
+        asyn('setPersonlizedColor', sPersonlizedColor);
+    }
+    bInloadUserPersonalizedColorFromLocalstorage = false;
+
+    asyn('loadPersonlizedColorCss', sPersonlizedColor);
+}
+/**
+ *
+ * @param c localstorage key string
+ * @returns {boolean}
+ */
+function setPersonlizedColor (c = '') {
+    if (!c) {
+        // console.log('setPersonlizedColor c is null');
+        return false;
+    }
+
+    let t = setTimeout(function () {
+        clearTimeout(t);
+
+        setLocalstorage(sLocalstorgaeUserPersonalizedColorKey, c, false, 'loadPersonlizedColorCss');
+    }, 0);
+}
+/**
+ *
+ * @param c personnalzed color
+ * @returns {boolean}
+ */
+function loadPersonlizedColorCss (c = '') {
+    c = c ? c : iDefaultUserPersonalizedColor;
+    if (!c) {
+        return false;
+    }
+
+    let t = setTimeout(function () {
+        clearTimeout(t);
+
+        loadPersonalizedCss(c);
+    }, 0);
 }
 
 /**
@@ -556,14 +1319,37 @@ function getStaticResourceFromLocalstorage (j = '') {
 
 /**
  *
+ * 压缩静态文件
+ *
+ * @param v 文件内容 type string
+ * @param p 文件类型 type string
+ * @returns {string}
+ */
+function compress (v = '', p = '') {
+    if (!v || !p) {
+        return '';
+    }
+
+    switch (p) {
+        case 'js' :
+            v = compressJs(v);
+            break;
+        case 'css' :
+            v = compressCss(v);
+            break;
+    }
+
+    return v;
+}
+/**
+ *
  * 缓存 读取到的静态文件
  *
  * @param j 文件完整目录 type string
  * @param v 文件内容 type string
+ * @param p 文件类型 type string
  */
-function cacheStaticResource (j = '', v = '') {
-    v = compressJs(v);
-
+function cacheStaticResource (j = '', v = '', p = '') {
     let t = setTimeout(function () {
         clearTimeout(t);
 
@@ -573,13 +1359,11 @@ function cacheStaticResource (j = '', v = '') {
 
 let myStorage = (function myStorage () {
     if (!window.localStorage ) {
-        // console.log('myStorage localstorage error');
         return false;
     }
 
     let set = function (k, v, t = false) {
         if (!k) {
-            // console.log('myStorage set k or v is null');
             return false;
         }
 
@@ -630,13 +1414,26 @@ let myStorage = (function myStorage () {
         localStorage.clear();
     };
 
+    let size = function () {
+        let z = 0;
+        for(let i in localStorage) {
+            if(localStorage.hasOwnProperty(i)) {
+                z += localStorage.getItem(i).length;
+            }
+        }
+
+        return z;
+    };
+
     return {
         set : set,
         get : get,
         remove : remove,
-        clear : clear
+        clear : clear,
+        size : size,
     };
 })();
+
 /**
  *
  * 添加localstorage缓存
@@ -648,7 +1445,6 @@ let myStorage = (function myStorage () {
  * @returns {boolean}
  */
 function setLocalstorage (k = '', m = '', t = false, f = '') {
-    console.log('*****************************************');
     if (!k || !m) {
         return false;
     }
@@ -656,9 +1452,9 @@ function setLocalstorage (k = '', m = '', t = false, f = '') {
     let p = localstoragePage (k);
 
     let s = disposeLocalstorageValue (m, t);
-    let l = parseInt(JSON.stringify(s).length) + parseInt(k.length);
+    let l = parseInt(JSON.stringify(s).length) + parseInt(k.length) + parseInt(100);
 
-    p = localstorageNowPage();
+    p = sLocalstorageBeginPage;
 
     let z = 0;
     let d = sOriginLocalstorageSizeKey;
@@ -675,15 +1471,9 @@ function setLocalstorage (k = '', m = '', t = false, f = '') {
         }
     }
     c[p] = z;
-
     asyn('localstorageLocalCache', d, c);
 
-    console.log(c);
-    console.log(p);
-    console.log(iMaxLocalstorageSize);
-
     p = storagePage(p);
-    console.log('post data to son address ' + p);
 
     let a = {};
     a = {action: 'set', key: k, message: m};
@@ -699,8 +1489,16 @@ function setLocalstorage (k = '', m = '', t = false, f = '') {
 
         localstoragePostMessage(p, a);
     }, 0);
-    console.log('*****************************************');
 }
+
+/**
+ *
+ *  与子iframe交互 localstorage
+ *
+ * @param p
+ * @param m
+ * @returns {boolean}
+ */
 function localstoragePostMessage (p = '', m = '') {
     if (!m || !p) {
         return false;
@@ -723,6 +1521,12 @@ function localstoragePostMessage (p = '', m = '') {
 
     return false;
 }
+
+/**
+ *
+ * 监听子iframe发过来的消息
+ *
+ */
 window.addEventListener('message', function(event){
     if (!event.data) {
         return false;
@@ -738,13 +1542,53 @@ window.addEventListener('message', function(event){
     console.log('^^^^^^^^^^^^^^^^^^^^^');
 
     if (event.data.after) {
+        if (typeof event.data.after == 'undefined') {
+            console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+            console.log(event.data.after);
+            console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+        }
+
         window[event.data.after](event.data.message);
     }
 }, false);
+
+/**
+ *
+ * 更新本地存储的远程localstorage size
+ *
+ * @param z size type int
+ */
+function updateOriginLocalstorageSize (z = '') {
+    if (!z) {
+        return;
+    }
+
+    if (
+        typeof z.host == 'undefined'
+        ||
+        typeof z.size == 'undefined'
+    ) {
+        return;
+    }
+
+    let d = sOriginLocalstorageSizeKey;
+    let c = queryLocalstorageCache(d);
+    c = eval('(' + c + ')');
+    c = c ? c : {};
+    c[z.host] = z.size;
+    asyn('localstorageLocalCache', d, c);
+}
+/**
+ *
+ * 子iframe发送消息，回调函数
+ *
+ * @param p
+ */
 let aIframeSonReady = [];
 function sonIsReady (p = '') {
     aIframeSonReady[p] = true;
 }
+
 /**
  * 设置storage 页面 url
  *
@@ -758,22 +1602,32 @@ function storagePage (i = 0) {
     o = o.replace(p, '');
     return p + i + '.' + sStorageOriginsSonPrefix + '.' + o + '/' + sStoragePage;
 }
+
 /**
+ *
+ * 获取本地localstorage信息
  *
  * @param k local localstorage key
  */
 function queryLocalstorageCache (k = '') {
     if (!k) {
-        // console.log('queryLocalstorageCache k is null, so no to do');
         return false;
     }
 
     return myStorage.get(k);
 }
-function localstorageNowPage () {
-    let i = myStorage.get(sLocalstorgaeNowPageTag);
-    return i ? i : sLocalstorgaeBeginTag;
-}
+
+// /**
+//  *
+//  *
+//  *
+//  * @returns {*}
+//  */
+// function localstorageNowPage () {
+//     let i = myStorage.get(sLocalstorgaeNowPageTag);
+//     return i ? i : sLocalstorageBeginPage;
+// }
+
 /**
  *
  * 处理localstorage 数据
@@ -811,32 +1665,21 @@ function writeLocalstorageIframe () {
 function writeStorageDom (p = 0) {
     let d = p;
     if (domById(d)) {
-        // console.log('writeStorageDom ' + p + ' is allready exist, so retrun true ');
         return true;
     }
 
     let o = document.createElement('iframe');
     o.src = p;
-    // o.className = sNoShowIframeCLass;
     o.id = d;
-    // o.style.display = 'none';
 
     storageDom().appendChild(o);
-
-    if (o.attachEvent) {
-        o.attachEvent('onload', function() {
-            // aAllreadyLoadIframe[o.id] = true;
-        });
-    } else {
-        o.onload = function() {
-            // aAllreadyLoadIframe[o.id] = true;
-        };
-    }
 
     return true;
 }
 
 /**
+ *
+ * 获取子iframe localstorage key 的 域名tag
  *
  * @param k localstorage key string
  * @returns {boolean}
@@ -849,13 +1692,15 @@ function localstoragePage (k) {
     let i = myStorage.get(k);
 
     if (!i) {
-        i = sLocalstorgaeBeginTag;
+        i = sLocalstorageBeginPage;
         localstorageLocalCache (k, i);
     }
 
     return i;
 }
 /**
+ *
+ * 本地localstorage 存储
  *
  * @param k local localstorage key
  * @param v local localstorage value
@@ -867,25 +1712,134 @@ function localstorageLocalCache (k = '', v = '') {
 
     myStorage.set(k, v);
 }
+//localstorage==================
 
+//json---------------------
+/**
+ *
+ * json 转成 字符串
+ *
+ * @param s 需要转换的json type json
+ * @returns {Array|any}
+ */
+function jsonConvertFormatForReadNumberKey (s = '') {
+    if (!s) {
+        // console.log('jsonToArray s is null, so return []');
+        return [];
+    }
+
+    return eval('(' + s + ')');
+}
+//json===============
+//压缩
+/**
+ *
+ * 压缩css
+ *
+ * @param v 内容 type string
+ * @returns {string|*}
+ */
+function compressCss (v = '') {
+    if (!v) {
+        return '';
+    }
+
+    v = replaceSpaceToOne(v);
+
+    v = replaceMoreAnnotationToNull(v);
+
+    v = replaceCssMoreAnnotationToNull(v);
+
+    v = replaceOneAnnotationToNull(v);
+
+    v = replaceTabulationToOneSpace(v);
+
+    v = replaceLineFeedToOneSpace(v);
+
+    v = replaceSpaceToOne(v);
+
+    v = replaceCssSpecificSrting(v);
+
+    return v;
+}
+//压缩
+/**
+ *
+ * 压缩js
+ *
+ * @param v 内容 type string
+ * @returns {string|*}
+ */
 function compressJs (v = '') {
     if (!v) {
         return '';
     }
 
-    // v = replaceMoreAnnotationToNull(v);
-    //
-    // v = replaceOneAnnotationToNull(v);
-    //
-    // v = replaceLineFeedToOneSpace(v);
-    //
-    // v = replaceTabulationToOneSpace(v);
-    //
-    // v = replaceSpaceToOne(v);
+    v = replaceSpaceToOne(v);
+
+    v = replaceMoreAnnotationToNull(v);
+
+    v = replaceOneAnnotationToNull(v);
+
+    v = replaceTabulationToOneSpace(v);
+
+    v = replaceLineFeedToOneSpace(v);
+
+    v = replaceSpaceToOne(v);
+
+    v = replaceJsSpecificSrting(v);
 
     return v;
 }
+function replaceCssSpecificSrting (v = '') {
+    if (!v) {
+        return '';
+    }
 
+    v = v.replace(/\s*\,\s*/g, ',');
+    v = v.replace(/\s*\;\s*/g, ';');
+
+    v = v.replace(/\s*\{\s*/g, '{');
+    v = v.replace(/\s*\}\s*/g, '}');
+
+    v = v.replace(/\s*\:\s*/g, ':');
+
+    v = v.replace(/\s*\/\s*/g, '/');
+
+    return v;
+}
+function replaceJsSpecificSrting (v = '') {
+    if (!v) {
+        return '';
+    }
+
+    let a = new RegExp('\\s*=\\s*','g');
+    v = v.replace(a, '=');
+
+    v = v.replace(/\s*\(\s*/g, '(');
+    v = v.replace(/\s*\)\s*/g, ')');
+
+    v = v.replace(/\s*\)\s+\{\s*/g, '){');
+    v = v.replace(/\s*\{\s*/g, '{');
+    v = v.replace(/\s*\}\s*/g, '}');
+
+    v = v.replace(/\s*\+\s*/g, '+');
+    v = v.replace(/\s*\-\s*/g, '-');
+    v = v.replace(/\s*\*\s*/g, '*');
+    v = v.replace(/\s*\/\s*/g, '/');
+    v = v.replace(/\s*\%\s*/g, '%');
+
+    v = v.replace(/\s*\,\s*/g, ',');
+    v = v.replace(/\s*\;\s*/g, ';');
+
+    v = v.replace(/\s*\?\s*/g, '?');
+    v = v.replace(/\s*\:\s*/g, ':');
+
+    v = v.replace(/\s*\[\s*/g, '[');
+    v = v.replace(/\s*\]\s*/g, ']');
+
+    return v;
+}
 /**
  *
  * 去除js多行注释
@@ -900,7 +1854,15 @@ function replaceMoreAnnotationToNull (v = '') {
 
     return v.replace(/(?:^|\n|\r)\s*\/\*[\s\S]*?\*\/\s*(?:\r|\n|$)/g, ' ');
 }
+function replaceCssMoreAnnotationToNull (v = '') {
+    if (!v) {
+        return '';
+    }
 
+    v = v.replace(/\/\*\s*\S*\*\//g, '');
+
+    return v;
+}
 /**
  *
  * 去除js单行注释
@@ -915,7 +1877,6 @@ function replaceOneAnnotationToNull (v = '') {
 
     return v.replace(/(\r|\n|\r\n)*\s*\/\/.*(?:\r|\n|\r\n|$)/g, ' ');
 }
-
 /**
  *
  * 替换制表符为一个空格
@@ -933,7 +1894,6 @@ function replaceTabulationToOneSpace (v = '') {
 
     return v;
 }
-
 /**
  *
  * 替换换行符为一个空格
@@ -973,10 +1933,12 @@ function replaceSpaceToOne (v = '') {
 
     return v;
 }
+//压缩
 
+//加载---------------
 /**
  *
- * 加载 js
+ * 加载 静态文件
  *
  * @param j 文件完整路径 type string
  * @param t 文件类型 type string
@@ -984,6 +1946,9 @@ function replaceSpaceToOne (v = '') {
  */
 let aAllreadyLoadStaticResourceFile = [];
 function initStaticResource (j = '', t = '', c = '') {
+    console.log('ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ');
+    console.log(j);
+    console.log('ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ');
     if (!j || !t) {
         return false;
     }
@@ -1016,7 +1981,13 @@ function initStaticResource (j = '', t = '', c = '') {
 
                 asyn('writeStaticResourceToPage', v, t);
 
-                asyn('cacheStaticResource', j, v);
+                let z = setTimeout(function () {
+                    clearTimeout(z);
+
+                    v = compress (v, t);
+
+                    cacheStaticResource(j, v, t);
+                }, 0);
             }
         };
     } else {
@@ -1030,7 +2001,7 @@ function initStaticResource (j = '', t = '', c = '') {
 
 /**
  *
- * 辅助方法2：动态添加js，css文件内容
+ * 动态添加js，css文件内容
  *
  * @param v 静态文件内容 type string
  * @param t 类型 type string
@@ -1041,52 +2012,39 @@ function writeStaticResourceToPage(v, t) {
     }
 
     let o = '';
+    let f = '';
     if (t === 'js') {
         o = document.createElement('script');
         o.type = 'text/javascript';
         o.innerHTML = v;
+
+        f = firstScriptTag();
     } else if (t === 'css') {
         o = document.createElement('style');
         o.type = 'text/css';
         o.innerHTML = v;
+
+        f = finalMeta();
     }
     if (!o) {
         return;
     }
 
-    asyn('addHeadTag', o);
+    asyn('addPageStaticResourceData', o, f);
 }
-function addHeadTag (o = '') {
-    if (!o) {
-        return;
-    }
-    // oHead.appendChild(o);
-    insertAfter(o, firstScriptTag());
-}
-
 /**
  *
- * 检查是否手机端
+ * 添加静态内容到页面
  *
- * @type {string}
+ * @param o 添加的标签 type string
+ * @param f 在哪个标签后添加 type string
  */
-let bMobile = '';
-function isMobile () {
-    let u = navigator.userAgent;
-    let m = [ 'Android', 'iPhone', 'SymbianOS', 'Windows Phone', 'iPad','iPod'];
-    bMobile = false;
-
-    //根据userAgent判断是否是手机
-    for (let v = 0; v < m.length; v++) {
-        if (u.indexOf(m[v]) > 0) {
-            bMobile = true;
-            break;
-        }
-    }
-
-    return bMobile;
+function addPageStaticResourceData (o, f) {
+    insertAfter(o, f);
 }
+//加载===================
 
+//限制----------------
 /**
  *
  * 电脑端限制
@@ -1098,26 +2056,40 @@ function astrict () {
     if (!b) {
         alert('The computer side is not enabled yet, will jump to ' + sAstrictJumpUrl);
 
-        illegality();
+        jump(sAstrictJumpUrl);
         return false;
     }
 
     return true;
 }
-function illegality () {
-    window.location.href = sAstrictJumpUrl;
+//限制==================
+
+//跳转---------------
+/**
+ *
+ * 跳转其他地址
+ *
+ */
+function jump (u) {
+    window.location.href = u;
 }
+//跳转=====================
 
-// function setHtmlLang () {
-//     oHtml.lang = sHtmlLang;
-// }
-
+//dom------------------
+/**
+ *
+ * 写dom，次最大父dom
+ *
+ * @type {boolean}
+ */
 let bWriteFatherDom = false;
-function bodyAppendDom () {
+function secondDom () {
     if (bWriteFatherDom) {
         return true;
     }
     bWriteFatherDom = true;
+
+    asyn('changeBodyStatus', false);
 
     let a = [
         oDomFatherId,
@@ -1134,16 +2106,17 @@ function bodyAppendDom () {
     bodyDom().innerHTML = s;
 
     asyn('fatherDom');
+    asyn('threeClassBodyDom');
+
     asyn('shadeDom');
+    asyn('writeShades');
+
+    asyn('noticeDom');
+
     asyn('storageDom');
     storageDom().style.display = 'none';
-    asyn('noticeDom');
+    asyn('writeLocalstorageIframe');
 }
-// let oBody = false;
-// function body () {
-//     oBody = oBody ? oBody : domByTag('body');
-//     return oBody;
-// }
 let oBodyDom = false;
 function bodyDom () {
     oBodyDom = oBodyDom ? oBodyDom : domById(sBodyDomFatherId);
@@ -1169,26 +2142,9 @@ function noticeDom () {
     oNoticeDom = oNoticeDom ? oNoticeDom : domById(sDomNoticeId);
     return oNoticeDom;
 }
-
-function setHtmlTag () {
-    asyn('setMeta');
-}
-
-function baseDomAction () {
-    asyn('changeBodyStatus', false);
-
-    asyn('bodyAppendDom');
-
-    asyn('bodyDom');
-
-    asyn('writePublicShade');
-
-    asyn('writePublicDom');
-}
-
 /**
  *
- * 修改body状态，是否显示或隐藏
+ * 修改最大级父状态，是否显示或隐藏
  *
  * @param b 显示或隐藏 type bool true 显示
  */
@@ -1199,21 +2155,582 @@ function changeBodyStatus (b = true) {
     let p2 = new RegExp('\\s*' + sVisibleClass,'gm');
 
     let o = bodyDom();
-    // console.log(oBodyDom);
     let s = o.className;
-    // console.log('sssssssssssssssssss');
-    // console.log(s);
     s = s.replace(p1, '');
     s = s.replace(p2, '');
 
     o.className = s ? s + ' ' + h : h;
-    // console.log(oBodyDom.className);
+}
+//dom===================
+
+//加载js----------------
+/**
+ *
+ * 加载 index js
+ *
+ * @returns {boolean}
+ */
+let bLoadIndexJs = false;
+function loadIndexJs () {
+    if (bLoadIndexJs) {
+        return true;
+    }
+
+    if (!checkRequestJsCssLimit('js', 'loadIndexJs')) {
+        return false;
+    }
+
+    let t = setTimeout(function () {
+        clearTimeout(t);
+
+        // loadJs(sIndexJsFullName, true, 'afterloadIndexJs');
+        initStaticResource(sIndexJsFullName, 'js', 'afterloadIndexJs');
+    }, 0);
+
+    setTimeoutFunction('loadIndexJs');
+}
+/**
+ *
+ * index js 加载完回调函数
+ *
+ */
+function afterloadIndexJs () {
+    bLoadIndexJs = true;
+
+    asyn('indexBegin');
+}
+
+/**
+ *
+ * 加载 function js
+ *
+ * @returns {boolean}
+ */
+let bLoadFunctionJs1 = false;
+function loadFunctionJs () {
+    if (bLoadFunctionJs1) {
+        return true;
+    }
+
+    if (!checkRequestJsCssLimit('js', 'loadFunctionJs')) {
+        return false;
+    }
+
+    let t = setTimeout(function () {
+        clearTimeout(t);
+
+        // loadJs(sFunctionJsFile, true, 'afterloadFunctionJs');
+        initStaticResource(sFunctionJsFile, 'js', 'afterloadFunctionJs');
+    }, 0);
+
+    setTimeoutFunction('loadFunctionJs');
+}
+/**
+ *
+ * function js 加载完回调函数
+ *
+ */
+function afterloadFunctionJs () {
+    bLoadFunctionJs1 = true;
+}
+
+/**
+ *
+ * 记载本地 jquery
+ *
+ * @returns {boolean}
+ */
+let bJquery = false;
+let bLoadLocalJquery = false;
+function loadLocalJquery () {
+    if (bLoadLocalJquery) {
+        return true;
+    }
+
+    if (!checkRequestJsCssLimit('js', 'loadLocalJquery')) {
+        return false;
+    }
+
+    let t = setTimeout(function () {
+        clearTimeout(t);
+
+        // loadJs(sJqueryJsFile, true, 'afterloadLocalJquery');
+        initStaticResource(sJqueryJsFile, 'js', 'afterloadLocalJquery');
+    }, 0);
+
+    setTimeoutFunction('loadLocalJquery');
+}
+/**
+ *
+ * 加载本地jquery回调函数
+ *
+ */
+function afterloadLocalJquery () {
+    bLoadLocalJquery = true;
+    bJquery = true;
+}
+
+/**
+ *
+ * 加载dom js
+ *
+ * @returns {boolean}
+ */
+let bLoadDomJs = false;
+function loadDomJs () {
+    if (bLoadDomJs) {
+        return true;
+    }
+
+    if (!checkRequestJsCssLimit('js', 'loadDomJs')) {
+        return false;
+    }
+
+    let t = setTimeout(function () {
+        clearTimeout(t);
+
+        // loadJs(sDomJsFile, true, 'afterloadDomJs');
+        initStaticResource(sDomJsFile, 'js', 'afterloadDomJs');
+    }, 0);
+
+    setTimeoutFunction('loadDomJs');
+}
+/**
+ *
+ * 加载完 dom js 函数回调函数
+ *
+ */
+function afterloadDomJs () {
+    bLoadDomJs = true;
+}
+
+/**
+ *
+ * 加载 平台 dom js
+ *
+ * @returns {boolean}
+ */
+let bLoadPlatformDomJs = false;
+function loadPlatformDomJs () {
+    if (bLoadPlatformDomJs) {
+        return true;
+    }
+
+    if (!checkRequestJsCssLimit('js', 'loadPlatformDomJs')) {
+        return false;
+    }
+
+    let t = setTimeout(function () {
+        clearTimeout(t);
+
+        // loadJs(sPlatformDomJsFile, true, 'afterloadPlatformDomJs');
+        initStaticResource(sPlatformDomJsFile, 'js', 'afterloadPlatformDomJs');
+    }, 0);
+
+    setTimeoutFunction('loadPlatformDomJs');
+}
+/**
+ *
+ * 加载 平台 dom js 回调函数
+ *
+ */
+function afterloadPlatformDomJs () {
+    bLoadPlatformDomJs = true;
+
+    asyn('platformBegin');
+}
+
+/**
+ *
+ * 加载 逻辑 logic js
+ *
+ * @returns {boolean}
+ */
+let bLoadLogicJs = false;
+function loadLogicJs () {
+    if (bLoadLogicJs) {
+        return true;
+    }
+
+    if (!checkRequestJsCssLimit('js', 'loadLogicJs')) {
+        return false;
+    }
+
+    let t = setTimeout(function () {
+        clearTimeout(t);
+
+        // loadJs(sLogicJsFile, true, 'afterloadLogicJs');
+        initStaticResource(sLogicJsFile, 'js', 'afterloadLogicJs');
+    }, 0);
+
+    setTimeoutFunction('loadLogicJs');
+}
+/**
+ *
+ * 加载 逻辑 logic js 回调函数
+ *
+ */
+function afterloadLogicJs () {
+    bLoadLogicJs = true;
+
+    asyn('logicBegin');
+}
+
+/**
+ *
+ * 加载 api js
+ *
+ * @returns {boolean}
+ */
+let bLoadApiJs = false;
+function loadApiJs () {
+    if (bLoadApiJs) {
+        return true;
+    }
+
+    if (!checkRequestJsCssLimit('js', 'loadApiJs')) {
+        return false;
+    }
+
+    let t = setTimeout(function () {
+        clearTimeout(t);
+
+        // loadJs(sApiJsFile, true, 'afterloadApiJs');
+        initStaticResource(sApiJsFile, 'js', 'afterloadApiJs');
+    }, 0);
+
+    setTimeoutFunction('loadApiJs');
+}
+/**
+ *
+ * 加载 api js 回调函数
+ *
+ */
+function afterloadApiJs () {
+    bLoadApiJs = true;
+}
+
+/**
+ *
+ * 加载 加密函数 js
+ *
+ * @returns {boolean}
+ */
+let bLoadEncodeJs = false;
+function loadEncodeJs () {
+    if (bLoadEncodeJs) {
+        return true;
+    }
+
+    if (!checkRequestJsCssLimit('js', 'loadEncodeJs')) {
+        return false;
+    }
+
+    let t = setTimeout(function () {
+        clearTimeout(t);
+
+        // loadJs(sEncodeJsFile, true, 'afterloadEncodeJs');
+        initStaticResource(sEncodeJsFile, 'js', 'afterloadEncodeJs');
+    }, 0);
+
+    setTimeoutFunction('loadEncodeJs');
+}
+/**
+ *
+ * 加载 加密函数 js 回调函数
+ *
+ */
+function afterloadEncodeJs () {
+    bLoadEncodeJs = true;
+}
+
+/**
+ *
+ * 加载 js 文件
+ *
+ */
+function loadBaseJs () {
+    asyn('loadLocalJquery');
+
+    asyn('loadIndexJs');
+
+    asyn('loadFunctionJs');
+
+    asyn('loadEncodeJs');
+
+    asyn('loadDomJs');
+
+    asyn('loadPlatformDomJs');
+
+    asyn('loadLogicJs');
+
+    asyn('queryUserLang');
+
+    asyn('loadApiJs');
+}
+//用户语言
+let bAllreadyLoadUserLang = false;
+function queryUserLang () {
+    if (sUserLangvage) {
+        return sUserLangvage;
+    }
+
+    if (bAllreadyLoadUserLang) {
+        return;
+    }
+    bAllreadyLoadUserLang = true;
+
+    asyn('queryLocalstorage', sLocalstorageLangTag, 'afterQueryLang');
+}
+/**
+ *
+ *
+ *
+ * @param l lang
+ */
+function afterQueryLang (l = '') {
+    if (l) {
+        sUserLangvage = l;
+    } else {
+        sUserLangvage = sDefaultLangvage;
+        asyn('setLang', sUserLangvage);
+    }
+    bAllreadyLoadUserLang = false;
+
+    asyn('loadLang', sUserLangvage);
+}
+/**
+ *
+ * 加载语言包
+ *
+ * l 语言包 名字 type string
+ *
+ * @type {number}
+ */
+let iLastRequestLangTime = 0;
+function loadLang (l = '') {
+    l = l ? l : sUserLangvage;
+    if (!l) {
+        // console.log('loadLang l is null, so no to load lang js ');
+        return false;
+    }
+
+    let t = getMillisecondTime();
+    if (t - iLastRequestLangTime < iRequertLangJsTimeout) {
+        // console.log('loadLang l last time limit, so no to load lang js ');
+        setTimeoutFunction('loadLang', l);
+        return false;
+    }
+    iLastRequestLangTime = t;
+
+    let y = '';
+    switch (l) {
+        case 'cn' :
+            y = sCnLangFile;
+            break;
+        case 'en' :
+            y = sEnLangFile;
+            break;
+    }
+    if (!y) {
+        // console.log('loadLang y is null, so no to load lang js ');
+        return false;
+    }
+
+    let t1 = setTimeout(function () {
+        clearTimeout(t1);
+
+        // loadJs(y, true, 'replaceLangs');
+        initStaticResource(y, 'js', 'replaceLangs');
+    }, 0);
+}
+/**
+ *
+ * set localstorage lang 之后操作
+ *
+ * @param b 结果 type bool
+ * @returns {boolean}
+ */
+function afterSetLang (b = '') {
+    if (!b) {
+        return false;
+    }
+}
+/**
+ *
+ * set localstorage lang
+ *
+ * @param l 语言 type string
+ * @returns {boolean}
+ */
+function setLang (l = '') {
+    if (!l) {
+        return false;
+    }
+
+    let t = setTimeout(function () {
+        clearTimeout(t);
+
+        setLocalstorage(sLocalstorageLangTag, l, false, 'afterSetLang');
+    }, 0);
+}
+//加载js==================
+
+//host---------------
+/**
+ *
+ * 设置host数组
+ *
+ * @returns {boolean}
+ */
+let aHost = [];
+let iHostNumber = 0;
+function setHosts () {
+    let i = 0;
+    let o = window.location.host;
+    for (i; i < sBaseHostSonNumber; i++) {
+        aHost.push(sBaseProtocol + i + '.' + sBaseHostSonPrefix + '.' + o);
+    }
+    iHostNumber = aHost.length;
+
+    return true;
+}
+
+/**
+ *
+ * hash 计算当前应该请求哪个地址
+ *
+ * @param u
+ * @returns {boolean|*}
+ */
+function allocationHost (u = '') {
+    if (!u) {
+        return false;
+    }
+
+    return aHost[hashFunc(u, iHostNumber)];
+}
+//host===================
+
+//hash------------------
+/**
+ *
+ * hash 求余
+ *
+ * @param s  带求余字符串
+ * @param i 余数
+ * @returns {boolean|number}
+ */
+function hashFunc(s, i){
+    if (!s ||!i) {
+        return false;
+    }
+
+    //1.定义iHashCode变量
+    let h = 0;
+
+    //2.霍纳算法，来计算 h的值
+    for (let i = 0; i < s.length; i++) {
+        h = 37 * h + s.charCodeAt(i) //获取编码
+    }
+    h = parseInt(h);
+
+    //3.取余状态
+    return h % i;
+}
+//hash=======================
+
+//尺寸相关------------------------
+function size () {
+    asyn('winSize');
+
+    asyn('initializeFontSize');
+}
+/**
+ *
+ * 浏览器尺寸
+ *
+ */
+function winSize() {
+    //获取窗口宽度
+    if (window.innerWidth) {
+        iWinWidth = window.innerWidth;
+    }else if ((document.body) && (document.body.clientWidth)) {
+        iWinWidth = document.body.clientWidth;
+    }
+
+    //获取窗口高度
+    if (window.innerHeight) {
+        iWinHeight = window.innerHeight;
+    } else if ((document.body) && (document.body.clientHeight)) {
+        iWinHeight = document.body.clientHeight;
+    }
+
+    // //通过深入Document内部对body进行检测，获取窗口大小
+    // if (document.documentElement  && document.documentElement.clientHeight && document.documentElement.clientWidth) {
+    //     iWinHeight = document.documentElement.clientHeight;
+    //     iWinWidth = document.documentElement.clientWidth;
+    // }
+}
+
+/**
+ *
+ * 获取每毫米的像素值
+ *
+ * @returns {number}
+ */
+function getOneMmsPx (){
+    let d = sQueryOneMmPxId;
+
+    // 创建一个1mm宽的元素插入到页面，然后坐等出结果
+    let o = document.createElement('div');
+    o.id = d;
+    o.style.width = '1mm';
+
+    oBodyDom.appendChild(o);
+
+    // 原生方法获取浏览器对元素的计算值
+    o = domById(d);
+    let w = o.getBoundingClientRect().width;
+    o.parentNode.removeChild(o);
+    return w;
+}
+
+/**
+ *
+ * 根据每毫米px大小 设置字体大小
+ *
+ */
+function initializeFontSize () {
+    let p = checkPlatform();
+
+    // if (p === sIsPhone) {
+    //     z = Math.ceil(iDefaultOneFontMms * getOneMmsPx());
+    // }
+
+    // if (p === sIsTablet) {
+    iFontSize = Math.ceil(iDefaultOneFontMms * getOneMmsPx());
+    // }
+
+    if (p === sIsPc) {
+        iFontSize = iDefaultFontSize;
+    }
+
+    oHtml.style.fontSize = iFontSize + 'px';
+}
+//尺寸相关====================
+
+function localstorageIsForbidden () {
+    console.log('localstorage is forbidden, web can not normal use, so we nothing to do ');
+    alert('localstorage is forbidden, web can not normal use, so we nothing to do ');
 }
 
 let oHtml = false;
 let oHead = false;
 let oBody = false;
 function begin () {
+    asyn('showBaseShade');
+
     if (!astrict()) {
         return false;
     }
@@ -1227,6 +2744,7 @@ function begin () {
     oHead = document.getElementsByTagName('head')[0];
     oBody = document.getElementsByTagName('body')[0];
 
+    let b = true;
     try {
         let sTestStorageKey = 'private_test';
         localStorage.setItem(sTestStorageKey, 1);
@@ -1234,25 +2752,61 @@ function begin () {
     } catch (e) {
         //无痕模式
         asyn('localstorageIsForbidden');
+
+        b = false;
+
+        return;
+    }
+    if (!b) {
         return;
     }
 
-    asyn('setHtmlTag');
+    asyn('setMeta');
+
+    asyn('winResize', true);
+
+    asyn('secondDom');
+
+    asyn('setHosts');
+
+    asyn('staticResourceVersion');
 
     let t= setTimeout(function () {
         clearTimeout(t);
 
-        initStaticResource(sBaseJs + jsCssVersionSuffix(), 'js', 'baseBegins');
+        sBaseJsFile = setJsCssSrc('js', sBaseJs);
+        initStaticResource(sBaseJsFile, 'js', 'baseBegins');
     }, 0);
 
-    asyn('baseDomAction');
-
     asyn('getUserIp');
+
+    asyn('loadBaseJs');
+
+    asyn('loadBaseCss');
 }
 
-function localstorageIsForbidden () {
-    console.log('localstorage is forbidden, web can not normal use, so we nothing to do ');
-    alert('localstorage is forbidden, web can not normal use, so we nothing to do ');
+function winResize (bOnload = false) {
+    if (!bOnload) {
+        asyn('showBaseShade');
+
+        if (!astrict()) {
+            return false;
+        }
+    }
+
+    asyn('size');
 }
 
 window.onload = begin();
+
+window.onresize = function () {
+    asyn('showBaseShade');
+
+    if (aBaseTimer['winResize']) {
+        clearTimeout(aBaseTimer['winResize']);
+    }
+
+    aBaseTimer['winResize'] = setTimeout(function () {
+        winResize();
+    }, aTimer['winResize']);
+}

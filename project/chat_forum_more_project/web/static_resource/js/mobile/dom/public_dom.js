@@ -6,11 +6,17 @@ const aBody = [
     'writeBodyRight',
 ];
 
+const sPublicFootId = 'public_footer';
+const sPublicHeaderId = 'public_header';
+const sPublicBodyId = 'public_body';
+const sPublicLeftId = 'public_left';
+const sPublicRightId = 'public_right';
+
 const sUpdateUrlPageKey = '_update_url_page';
 const sFooterOnclickTag = 'footer_onclick';
 
 let bWriteBody = false;
-function writePublicDom() {
+function threeClassBodyDom() {
     // if (!bJquery) {
     //     console.log('writePublicDom jQuery is undefined, so settimeout retry to writePublicDom ');
     //
@@ -21,8 +27,8 @@ function writePublicDom() {
 
     for (let i in aBody) {
         if (typeof window[aBody[i]] == 'undefined') {
-            setTimeoutFunction('writePublicDom');
-            console.log('writePublicDom ' + aBody[i] + ' is undefined, so settimeout retry to writePublicDom ');
+            setTimeoutFunction('threeClassBodyDom');
+            console.log('threeClassBodyDom ' + aBody[i] + ' is undefined, so settimeout retry to threeClassBodyDom ');
             return;
         }
     }
@@ -119,13 +125,15 @@ function writeBodyBody() {
     let s = '';
     s += '<div id="' + sPublicBodyId + '">';
 
-    s += writeMobliePageDom(sSettingBodyId);
-
     s += writeMobliePageDom(sForumBodyId);
 
     s += writeMobliePageDom(sChatBodyId);
 
     s += writeMobliePageDom(sFriendBodyId);
+
+    s += writeMobliePageDom(sAboutMeBodyId);
+
+    s += writeMobliePageDom(sSettingBodyId);
 
     s += '</div>';
 
