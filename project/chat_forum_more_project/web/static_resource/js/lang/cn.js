@@ -8,5 +8,6 @@ aLang['setting_foot'] = '5';
 aLang['forum_title'] = '标题11111';
 aLang['chat_title'] = '标题2222';
 aLang['friend_title'] = '标题3333';
-aLang['setting_title'] = '标题44444';
+aLang['about_me_title'] = '标题44444';
+aLang['setting_title'] = '标题5555555555';
 aLang['use_time_out_limit'] = 'use time too lang, xiu xi xiu xi';
