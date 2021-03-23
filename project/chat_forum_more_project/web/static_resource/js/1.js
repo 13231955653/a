@@ -442,7 +442,7 @@ const iDefaultOneFontMms = 2.5; //默认一个中文字占多宽，单位毫米
 //fontsize 相关===============
 
 //动画相关-------------------
-const iSpeed = 300; //动画速度
+const iSpeed = 150; //动画速度
 //动画相关==========================
 
 //用户自定义相关-------------------
@@ -1946,9 +1946,6 @@ function replaceSpaceToOne (v = '') {
  */
 let aAllreadyLoadStaticResourceFile = [];
 function initStaticResource (j = '', t = '', c = '') {
-    console.log('ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ');
-    console.log(j);
-    console.log('ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ');
     if (!j || !t) {
         return false;
     }
