@@ -1,3 +1,4 @@
+/*version_begin_1*/
 :root{
     --public_foot_height:3rem;
 }
@@ -42,28 +43,32 @@
 #public_footer li>a>span{
     font-weight: bold;
 }
-/*平分父*/
-/*一个子*/
+/*      平
+分
+父
+*/
+/*一个子 */
+/*一个子 */
 #public_footer li:nth-last-child(1):first-child,
 #public_footer li:nth-last-child(1):first-child~li{
     width: 100%;
 }
-/*两个子*/
+/* 两个子*/
 #public_footer li:nth-last-child(2):first-child,
 #public_footer li:nth-last-child(2):first-child~li{
     width: calc(100% / 2);
 }
-/*三个子*/
+/*三  个子*/
 #public_footer li:nth-last-child(3):first-child,
 #public_footer li:nth-last-child(3):first-child~li{
     width: calc(100% / 3);
 }
-/*四个子*/
+/*  四  个  子*/
 #public_footer li:nth-last-child(4):first-child,
 #public_footer li:nth-last-child(4):first-child~li{
     width: calc(100% / 4);
 }
-/*五个子*/
+/*五个子          */
 #public_footer li:nth-last-child(5):first-child,
 #public_footer li:nth-last-child(5):first-child~li{
     width: calc(100% / 5);
@@ -104,3 +109,4 @@
     height: 0px;
     overflow: hidden;
 }
+/*version_end_1*/

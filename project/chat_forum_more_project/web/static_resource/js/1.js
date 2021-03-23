@@ -1319,30 +1319,30 @@ function getStaticResourceFromLocalstorage (j = '') {
     return window.localStorage ? localStorage.getItem(name) : '';
 }
 
-/**
- *
- * 压缩静态文件
- *
- * @param v 文件内容 type string
- * @param p 文件类型 type string
- * @returns {string}
- */
-function compress (v = '', p = '') {
-    if (!v || !p) {
-        return '';
-    }
-
-    switch (p) {
-        case 'js' :
-            v = compressJs(v);
-            break;
-        case 'css' :
-            v = compressCss(v);
-            break;
-    }
-
-    return v;
-}
+// /**
+//  *
+//  * 压缩静态文件
+//  *
+//  * @param v 文件内容 type string
+//  * @param p 文件类型 type string
+//  * @returns {string}
+//  */
+// function compress (v = '', p = '') {
+//     if (!v || !p) {
+//         return '';
+//     }
+//
+//     switch (p) {
+//         case 'js' :
+//             v = compressJs(v);
+//             break;
+//         case 'css' :
+//             v = compressCss(v);
+//             break;
+//     }
+//
+//     return v;
+// }
 /**
  *
  * 缓存 读取到的静态文件
@@ -1734,207 +1734,207 @@ function jsonConvertFormatForReadNumberKey (s = '') {
 }
 //json===============
 //压缩
-/**
- *
- * 压缩css
- *
- * @param v 内容 type string
- * @returns {string|*}
- */
-function compressCss (v = '') {
-    if (!v) {
-        return '';
-    }
+// /**
+//  *
+//  * 压缩css
+//  *
+//  * @param v 内容 type string
+//  * @returns {string|*}
+//  */
+// function compressCss (v = '') {
+//     if (!v) {
+//         return '';
+//     }
+//
+//     v = replaceSpaceToOne(v);
+//
+//     v = replaceMoreAnnotationToNull(v);
+//
+//     v = replaceCssMoreAnnotationToNull(v);
+//
+//     v = replaceOneAnnotationToNull(v);
+//
+//     v = replaceTabulationToOneSpace(v);
+//
+//     v = replaceLineFeedToOneSpace(v);
+//
+//     v = replaceSpaceToOne(v);
+//
+//     v = replaceCssSpecificSrting(v);
+//
+//     return v;
+// }
+// //压缩
+// /**
+//  *
+//  * 压缩js
+//  *
+//  * @param v 内容 type string
+//  * @returns {string|*}
+//  */
+// function compressJs (v = '') {
+//     if (!v) {
+//         return '';
+//     }
+//
+//     v = replaceSpaceToOne(v);
+//
+//     v = replaceMoreAnnotationToNull(v);
+//
+//     v = replaceOneAnnotationToNull(v);
+//
+//     v = replaceTabulationToOneSpace(v);
+//
+//     v = replaceLineFeedToOneSpace(v);
+//
+//     v = replaceSpaceToOne(v);
+//
+//     v = replaceJsSpecificSrting(v);
+//
+//     return v;
+// }
+// function replaceCssSpecificSrting (v = '') {
+//     if (!v) {
+//         return '';
+//     }
+//
+//     v = v.replace(/\s*\,\s*/g, ',');
+//     v = v.replace(/\s*\;\s*/g, ';');
+//
+//     v = v.replace(/\s*\{\s*/g, '{');
+//     v = v.replace(/\s*\}\s*/g, '}');
+//
+//     v = v.replace(/\s*\:\s*/g, ':');
+//
+//     v = v.replace(/\s*\/\s*/g, '/');
+//
+//     return v;
+// }
+// function replaceJsSpecificSrting (v = '') {
+//     if (!v) {
+//         return '';
+//     }
+//
+//     let a = new RegExp('\\s*=\\s*','g');
+//     v = v.replace(a, '=');
+//
+//     v = v.replace(/\s*\(\s*/g, '(');
+//     v = v.replace(/\s*\)\s*/g, ')');
+//
+//     v = v.replace(/\s*\)\s+\{\s*/g, '){');
+//     v = v.replace(/\s*\{\s*/g, '{');
+//     v = v.replace(/\s*\}\s*/g, '}');
+//
+//     v = v.replace(/\s*\+\s*/g, '+');
+//     v = v.replace(/\s*\-\s*/g, '-');
+//     v = v.replace(/\s*\*\s*/g, '*');
+//     v = v.replace(/\s*\/\s*/g, '/');
+//     v = v.replace(/\s*\%\s*/g, '%');
+//
+//     v = v.replace(/\s*\,\s*/g, ',');
+//     v = v.replace(/\s*\;\s*/g, ';');
+//
+//     v = v.replace(/\s*\?\s*/g, '?');
+//     v = v.replace(/\s*\:\s*/g, ':');
+//
+//     v = v.replace(/\s*\[\s*/g, '[');
+//     v = v.replace(/\s*\]\s*/g, ']');
+//
+//     return v;
+// }
+// /**
+//  *
+//  * 去除js多行注释
+//  *
+//  * @param v
+//  * @returns {string|*}
+//  */
+// function replaceMoreAnnotationToNull (v = '') {
+//     if (!v) {
+//         return '';
+//     }
+//
+//     return v.replace(/(?:^|\n|\r)\s*\/\*[\s\S]*?\*\/\s*(?:\r|\n|$)/g, ' ');
+// }
+// function replaceCssMoreAnnotationToNull (v = '') {
+//     if (!v) {
+//         return '';
+//     }
+//
+//     v = v.replace(/\/\*\s*\S*\*\//g, '');
+//
+//     return v;
+// }
+// /**
+//  *
+//  * 去除js单行注释
+//  *
+//  * @param v
+//  * @returns {string|*}
+//  */
+// function replaceOneAnnotationToNull (v = '') {
+//     if (!v) {
+//         return '';
+//     }
+//
+//     return v.replace(/(\r|\n|\r\n)*\s*\/\/.*(?:\r|\n|\r\n|$)/g, ' ');
+// }
+// /**
+//  *
+//  * 替换制表符为一个空格
+//  *
+//  * @param v
+//  * @returns {string|*}
+//  */
+// function replaceTabulationToOneSpace (v = '') {
+//     if (!v) {
+//         return '';
+//     }
+//
+//     let d = new RegExp('\t+','g');
+//     v = v.replace(d, ' ');
+//
+//     return v;
+// }
+// /**
+//  *
+//  * 替换换行符为一个空格
+//  *
+//  * @param v
+//  * @returns {string|*}
+//  */
+// function replaceLineFeedToOneSpace (v = '') {
+//     if (!v) {
+//         return '';
+//     }
+//
+//     let g = new RegExp('(\r\n)+','g');
+//     v = v.replace(g, ' ');
+//
+//     let c = new RegExp('(\n)+','g');
+//     v = v.replace(c, ' ');
+//     let z = new RegExp('(\r)+','g');
+//     v = v.replace(z, ' ');
+//
+//     return v;
+// }
 
-    v = replaceSpaceToOne(v);
-
-    v = replaceMoreAnnotationToNull(v);
-
-    v = replaceCssMoreAnnotationToNull(v);
-
-    v = replaceOneAnnotationToNull(v);
-
-    v = replaceTabulationToOneSpace(v);
-
-    v = replaceLineFeedToOneSpace(v);
-
-    v = replaceSpaceToOne(v);
-
-    v = replaceCssSpecificSrting(v);
-
-    return v;
-}
-//压缩
-/**
- *
- * 压缩js
- *
- * @param v 内容 type string
- * @returns {string|*}
- */
-function compressJs (v = '') {
-    if (!v) {
-        return '';
-    }
-
-    v = replaceSpaceToOne(v);
-
-    v = replaceMoreAnnotationToNull(v);
-
-    v = replaceOneAnnotationToNull(v);
-
-    v = replaceTabulationToOneSpace(v);
-
-    v = replaceLineFeedToOneSpace(v);
-
-    v = replaceSpaceToOne(v);
-
-    v = replaceJsSpecificSrting(v);
-
-    return v;
-}
-function replaceCssSpecificSrting (v = '') {
-    if (!v) {
-        return '';
-    }
-
-    v = v.replace(/\s*\,\s*/g, ',');
-    v = v.replace(/\s*\;\s*/g, ';');
-
-    v = v.replace(/\s*\{\s*/g, '{');
-    v = v.replace(/\s*\}\s*/g, '}');
-
-    v = v.replace(/\s*\:\s*/g, ':');
-
-    v = v.replace(/\s*\/\s*/g, '/');
-
-    return v;
-}
-function replaceJsSpecificSrting (v = '') {
-    if (!v) {
-        return '';
-    }
-
-    let a = new RegExp('\\s*=\\s*','g');
-    v = v.replace(a, '=');
-
-    v = v.replace(/\s*\(\s*/g, '(');
-    v = v.replace(/\s*\)\s*/g, ')');
-
-    v = v.replace(/\s*\)\s+\{\s*/g, '){');
-    v = v.replace(/\s*\{\s*/g, '{');
-    v = v.replace(/\s*\}\s*/g, '}');
-
-    v = v.replace(/\s*\+\s*/g, '+');
-    v = v.replace(/\s*\-\s*/g, '-');
-    v = v.replace(/\s*\*\s*/g, '*');
-    v = v.replace(/\s*\/\s*/g, '/');
-    v = v.replace(/\s*\%\s*/g, '%');
-
-    v = v.replace(/\s*\,\s*/g, ',');
-    v = v.replace(/\s*\;\s*/g, ';');
-
-    v = v.replace(/\s*\?\s*/g, '?');
-    v = v.replace(/\s*\:\s*/g, ':');
-
-    v = v.replace(/\s*\[\s*/g, '[');
-    v = v.replace(/\s*\]\s*/g, ']');
-
-    return v;
-}
-/**
- *
- * 去除js多行注释
- *
- * @param v
- * @returns {string|*}
- */
-function replaceMoreAnnotationToNull (v = '') {
-    if (!v) {
-        return '';
-    }
-
-    return v.replace(/(?:^|\n|\r)\s*\/\*[\s\S]*?\*\/\s*(?:\r|\n|$)/g, ' ');
-}
-function replaceCssMoreAnnotationToNull (v = '') {
-    if (!v) {
-        return '';
-    }
-
-    v = v.replace(/\/\*\s*\S*\*\//g, '');
-
-    return v;
-}
-/**
- *
- * 去除js单行注释
- *
- * @param v
- * @returns {string|*}
- */
-function replaceOneAnnotationToNull (v = '') {
-    if (!v) {
-        return '';
-    }
-
-    return v.replace(/(\r|\n|\r\n)*\s*\/\/.*(?:\r|\n|\r\n|$)/g, ' ');
-}
-/**
- *
- * 替换制表符为一个空格
- *
- * @param v
- * @returns {string|*}
- */
-function replaceTabulationToOneSpace (v = '') {
-    if (!v) {
-        return '';
-    }
-
-    let d = new RegExp('\t+','g');
-    v = v.replace(d, ' ');
-
-    return v;
-}
-/**
- *
- * 替换换行符为一个空格
- *
- * @param v
- * @returns {string|*}
- */
-function replaceLineFeedToOneSpace (v = '') {
-    if (!v) {
-        return '';
-    }
-
-    let g = new RegExp('(\r\n)+','g');
-    v = v.replace(g, ' ');
-
-    let c = new RegExp('(\n)+','g');
-    v = v.replace(c, ' ');
-    let z = new RegExp('(\r)+','g');
-    v = v.replace(z, ' ');
-
-    return v;
-}
-
-/**
- *
- * 多空格替换为一个空格
- *
- * @param v 内容 type string
- */
-function replaceSpaceToOne (v = '') {
-    if (!v) {
-        return '';
-    }
-
-    let g = new RegExp('\s{1, }','g');
-    v = v.replace(g, ' ');
-
-    return v;
-}
+// /**
+//  *
+//  * 多空格替换为一个空格
+//  *
+//  * @param v 内容 type string
+//  */
+// function replaceSpaceToOne (v = '') {
+//     if (!v) {
+//         return '';
+//     }
+//
+//     let g = new RegExp('\s{1, }','g');
+//     v = v.replace(g, ' ');
+//
+//     return v;
+// }
 //压缩
 
 //加载---------------
@@ -1983,7 +1983,7 @@ function initStaticResource (j = '', t = '', c = '') {
                 let z = setTimeout(function () {
                     clearTimeout(z);
 
-                    v = compress (v, t);
+                    // v = compress (v, t);
 
                     cacheStaticResource(j, v, t);
                 }, 0);
