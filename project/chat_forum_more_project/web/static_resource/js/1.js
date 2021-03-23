@@ -819,7 +819,9 @@ function setJsCssSrc (t = '', s = '') {
             break;
     }
 
-    return allocationHost(s) + s + '?v=' + v + jsCssVersionSuffix();
+    let u = allocationHost(s);
+    // return allocationHost(s) + s + '?v=' + v + jsCssVersionSuffix();
+    return u + '/index.php?v=' + s;
 }
 /**
  *
