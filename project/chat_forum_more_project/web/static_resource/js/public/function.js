@@ -1,5 +1,30 @@
 /**
  *
+ * 在 j 之前插入 新节点o
+ *
+ * @param o 新节点 type dom object
+ * @param j 要插入哪个节点之前 type dom object
+ */
+function insertBefores (o, j) {
+    o.parentNode[0].insertBefore(o, j);
+}
+
+/**
+ *
+ * 根据tag 获取节点
+ *
+ * @param c
+ * @returns {boolean}
+ */
+function domByTag (c) {
+    let o = oBodyDom.getElementsByTagName(c);
+    return o.length > 0 ? o : false;
+}
+
+
+
+/**
+ *
  * 用户提示信息
  *
  * @param s 提示信息 type string
@@ -331,6 +356,8 @@ function getStyle (o, s) {
 //     }, p)
 // }
 
+
+
 /**
  *
  *
@@ -472,10 +499,26 @@ function randStr (l) {
     return n;
 }
 
+/**
+ *
+ * 是否json 数据格式
+ *
+ * @param s 待检查字符串
+ * @returns {boolean}
+ */
+function isJson (s = '') {
+    if (!s) {
+        return false;
+    }
 
+    if (typeof s == 'sString') {
+        try {
+            JSON.parse(s);
+            return true;
+        } catch(e) {
+            return false;
+        }
+    }
+}
 
-// function illegality () {
-//     window.location.href = sAstrictJumpUrl;
-// }
-
-// const bLoadFunctionJs = true;
+const bLoadFunctionJs = true;

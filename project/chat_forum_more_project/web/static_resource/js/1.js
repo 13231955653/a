@@ -1,13 +1,14 @@
 //url地址相关---------------------
 const sBaseProtocol = window.location.protocol + '//';
-
-const sUrlAddressSignEncodeSalt = '_&*uh124jKzS645s(^$%a87123_';
-const sUrlAddressPageKey = 'page';
-const sUrlAddressSignKey = 'sign';
-const sUrlAddressChangeTimeKey = 'change_time';
-
-const sLangTitlePostfix = '_title';
 //url地址相关=================================
+
+//class id tag 相关----------------
+const sBodyDomFatherId = 'body';
+const oDomStorageId = 'storage_father';
+const oDomFatherId = 'dom_father';
+const sDomNoticeId = 'notice_father';
+const sDomShadeId = 'shade_father';
+//class id tag 相关============
 
 //尺寸相关----------------
 let iWinWidth = 0;
@@ -42,11 +43,6 @@ const sAstrictJumpUrl = 'https://www.baidu.com';
 //编码相关-----------------
 const sCharset = 'utf-8'; // 编码格式
 //编码相关===============
-
-//debug相关-----------------
-const debug = true; // debug
-// const debug = false; // debug
-//debug相关===================
 
 //平台相关------------------
 let os = function() {
@@ -388,51 +384,13 @@ const aTimer = b; //基础定时器间隔时间
 const iRequertTimeout = 9000;
 const iRequertLangJsTimeout = 5000;
 const iMaxLoadOriginJqueryWaitTime = 5000;
-
-const iNoticeTimeLimit = 3600000;
 //时间相关=======================
 
 //dom id class 相关-----------------
-const sIndexScriptTagId = 'first_js_script'; // 第一个 script 标签
-
-const sBodyDomFatherId = 'body';
-const oDomFatherId = 'dom_father';
-const oDomStorageId = 'storage_father';
-const sDomNoticeId = 'notice_father';
-const sDomShadeId = 'shade_father';
-
 const sQueryOneMmPxId = 'get_one_mms_px';
 
 const sInvisibleClass = 'invisible'; //不显示dom的class
 const sVisibleClass = 'gradually_visible';//显示dom的class
-
-const sBaseShadeId = 'base_shade';
-const sIndexShadeId = 'index_shade';
-const sPlatformShadeId = 'platform_shade';
-const sPageShadeId = 'page_shade';
-
-const sForumBodyId = 'forum_body';
-const sChatBodyId = 'chat_body';
-const sFriendBodyId = 'friend_body';
-const sSettingBodyId = 'setting_body';
-const sAboutMeBodyId = 'about_me_body';
-
-const sDefaultPage = 'forum';
-const sForumPage = 'forum';
-const sChatPage = 'chat';
-const sFriendPage = 'friend';
-const sAboutMePage = 'about_me';
-const sSettingPage = 'setting';
-const sDefaultPageHtml = 'index.html';
-
-const sFootTag = '_foot';
-const sFootLiSuffix = '_li';
-const sActiveFootTag = 'foot_active';
-
-const sReLangClass = 're_lang';
-const sReplaceLangIdType = 'id';
-
-const sShadeClass = 'shades';
 //dom id class 相关===================
 
 //fontsize 相关--------------
@@ -441,10 +399,6 @@ const iDefaultFontSize = 16; //默认pc字体大小
 const iDefaultOneFontMms = 2.5; //默认一个中文字占多宽，单位毫米
 //fontsize 相关===============
 
-//动画相关-------------------
-const iSpeed = 150; //动画速度
-//动画相关==========================
-
 //用户自定义相关-------------------
 const iDefaultUserPersonalizedColor = 1;
 const sDefaultLangvage = 'cn';
@@ -452,10 +406,22 @@ let sUserLangvage = '';
 let sPersonlizedColor = '';
 //用户自定义相关===================
 
+/**
+ *
+ * 随机数字
+ *
+ * @param i 最小数字 type int
+ * @param a 最大数字 type int
+ * @returns {*}
+ */
+function randNum (i, a) {
+    return(i + Math.round((Math.random()) * (a - i)));
+}
+
 //IP相关------------
-let sIp = '';
-let sCid = '';
-let sIpCityName = '';
+let sIp = randNum(1, 100) + '.' + randNum(1, 100) + '.' + randNum(1, 100);
+let sCid = randNum(000000000, 999999999);
+let sIpCityName = 'known';
 const sQueryUserIpAddress = 'http://pv.sohu.com/cityjson?ie=' + sCharset;
 //IP相关==========================
 
@@ -820,7 +786,6 @@ function setJsCssSrc (t = '', s = '') {
     }
 
     let u = allocationHost(s);
-    // return allocationHost(s) + s + '?v=' + v + jsCssVersionSuffix();
     return u + '/index.php?v=' + s;
 }
 /**
@@ -882,7 +847,6 @@ function staticResourceVersion () {
  */
 function loadCss (r = '', c = '') {
     if (!r) {
-        // console.log('loadCss r is null');
         return false;
     }
 
@@ -983,83 +947,69 @@ function loadBaseCss () {
     }
     bAllreadyLoadBaseCss = true;
 
-    // asyn('personalizedCssFromLocalstorage');
     asyn('loadPersonalizedCss');
 
-    // asyn('loadResetCss');
     let t = setTimeout(function () {
         clearTimeout(t);
 
         initStaticResource(sResetCssFile, 'css', 'afterloadResetCss');
     }, 0);
 
-    // asyn('loadPublicCss');
     let z = setTimeout(function () {
         clearTimeout(z);
 
         initStaticResource(sPublicCssFile, 'css', 'afterloadPublicCss');
     }, 0);
 }
-/**
- *
- * 是否添加时间戳字符串静态文件版本号
- *
- * @type {string}
- */
-let sFileVersionSuffix = '';
-function jsCssVersionSuffix () {
-    sFileVersionSuffix = sFileVersionSuffix ? sFileVersionSuffix : debug ? '-' + getMillisecondTime() : '';
-    return sFileVersionSuffix;
-}
 
-//加载public css
-let bLoadPublicCss = false;
-function loadPublicCss () {
-    if (bLoadPublicCss) {
-        return true;
-    }
+// //加载public css
+// let bLoadPublicCss = false;
+// function loadPublicCss () {
+//     if (bLoadPublicCss) {
+//         return true;
+//     }
+//
+//     if (!checkRequestJsCssLimit('css', 'loadPublicCss')) {
+//         return false;
+//     }
+//
+//     asyn('loadCss', sPublicCssFile, 'afterloadPublicCss');
+//
+//     setTimeoutFunction('loadPublicCss');
+// }
+// //加载public css 回调函数
+// function afterloadPublicCss () {
+//     bLoadPublicCss = true;
+// }
 
-    if (!checkRequestJsCssLimit('css', 'loadPublicCss')) {
-        return false;
-    }
-
-    asyn('loadCss', sPublicCssFile, 'afterloadPublicCss');
-
-    setTimeoutFunction('loadPublicCss');
-}
-//加载public css 回调函数
-function afterloadPublicCss () {
-    bLoadPublicCss = true;
-}
-
-/**
- *
- * 加载reset css
- *
- * @returns {boolean}
- */
-let bLoadResetCss = false;
-function loadResetCss () {
-    if (bLoadResetCss) {
-        return true;
-    }
-
-    if (!checkRequestJsCssLimit('css', 'loadResetCss')) {
-        return false;
-    }
-
-    asyn('loadCss', sResetCssFile, 'afterloadResetCss');
-
-    setTimeoutFunction('loadResetCss');
-}
-/**
- *
- * 加载reset css 回调函数
- *
- */
-function afterloadResetCss () {
-    bLoadResetCss = true;
-}
+// /**
+//  *
+//  * 加载reset css
+//  *
+//  * @returns {boolean}
+//  */
+// let bLoadResetCss = false;
+// function loadResetCss () {
+//     if (bLoadResetCss) {
+//         return true;
+//     }
+//
+//     if (!checkRequestJsCssLimit('css', 'loadResetCss')) {
+//         return false;
+//     }
+//
+//     asyn('loadCss', sResetCssFile, 'afterloadResetCss');
+//
+//     setTimeoutFunction('loadResetCss');
+// }
+// /**
+//  *
+//  * 加载reset css 回调函数
+//  *
+//  */
+// function afterloadResetCss () {
+//     bLoadResetCss = true;
+// }
 
 /**
  *
@@ -1098,7 +1048,6 @@ function loadPersonalizedCss (c = false) {
 
     setTimeoutFunction('loadPersonalizedCss', c);
 }
-
 /**
  *
  * 加载用户自定义主题css 回调函数
@@ -1119,6 +1068,7 @@ function afterloadPersonalizedCss () {
 function asynLoadJs (o) {
     insertAfter(o, firstScriptTag());
 }
+
 /**
  *
  * 在 j 之后插入 新节点n
@@ -1134,16 +1084,7 @@ function insertAfter (n, j) {
         p.insertBefore(n, j.nextSibling);
     }
 }
-/**
- *
- * 在 j 之前插入 新节点o
- *
- * @param o 新节点 type dom object
- * @param j 要插入哪个节点之前 type dom object
- */
-function insertBefores (o, j) {
-    o.parentNode[0].insertBefore(o, j);
-}
+
 /**
  *
  * 第一个 script 标签 节点
@@ -1175,17 +1116,6 @@ function domById (d) {
  */
 function domByClass (c) {
     let o = oBodyDom.getElementsByClassName(c);
-    return o.length > 0 ? o : false;
-}
-/**
- *
- * 根据tag 获取节点
- *
- * @param c
- * @returns {boolean}
- */
-function domByTag (c) {
-    let o = oBodyDom.getElementsByTagName(c);
     return o.length > 0 ? o : false;
 }
 //节点=================
@@ -1276,7 +1206,6 @@ function afterQueryUserPersonalizedColor (c = '') {
  */
 function setPersonlizedColor (c = '') {
     if (!c) {
-        // console.log('setPersonlizedColor c is null');
         return false;
     }
 
@@ -1318,31 +1247,6 @@ function getStaticResourceFromLocalstorage (j = '') {
 
     return window.localStorage ? localStorage.getItem(name) : '';
 }
-
-// /**
-//  *
-//  * 压缩静态文件
-//  *
-//  * @param v 文件内容 type string
-//  * @param p 文件类型 type string
-//  * @returns {string}
-//  */
-// function compress (v = '', p = '') {
-//     if (!v || !p) {
-//         return '';
-//     }
-//
-//     switch (p) {
-//         case 'js' :
-//             v = compressJs(v);
-//             break;
-//         case 'css' :
-//             v = compressCss(v);
-//             break;
-//     }
-//
-//     return v;
-// }
 /**
  *
  * 缓存 读取到的静态文件
@@ -1619,17 +1523,6 @@ function queryLocalstorageCache (k = '') {
     return myStorage.get(k);
 }
 
-// /**
-//  *
-//  *
-//  *
-//  * @returns {*}
-//  */
-// function localstorageNowPage () {
-//     let i = myStorage.get(sLocalstorgaeNowPageTag);
-//     return i ? i : sLocalstorageBeginPage;
-// }
-
 /**
  *
  * 处理localstorage 数据
@@ -1726,216 +1619,12 @@ function localstorageLocalCache (k = '', v = '') {
  */
 function jsonConvertFormatForReadNumberKey (s = '') {
     if (!s) {
-        // console.log('jsonToArray s is null, so return []');
         return [];
     }
 
     return eval('(' + s + ')');
 }
 //json===============
-//压缩
-// /**
-//  *
-//  * 压缩css
-//  *
-//  * @param v 内容 type string
-//  * @returns {string|*}
-//  */
-// function compressCss (v = '') {
-//     if (!v) {
-//         return '';
-//     }
-//
-//     v = replaceSpaceToOne(v);
-//
-//     v = replaceMoreAnnotationToNull(v);
-//
-//     v = replaceCssMoreAnnotationToNull(v);
-//
-//     v = replaceOneAnnotationToNull(v);
-//
-//     v = replaceTabulationToOneSpace(v);
-//
-//     v = replaceLineFeedToOneSpace(v);
-//
-//     v = replaceSpaceToOne(v);
-//
-//     v = replaceCssSpecificSrting(v);
-//
-//     return v;
-// }
-// //压缩
-// /**
-//  *
-//  * 压缩js
-//  *
-//  * @param v 内容 type string
-//  * @returns {string|*}
-//  */
-// function compressJs (v = '') {
-//     if (!v) {
-//         return '';
-//     }
-//
-//     v = replaceSpaceToOne(v);
-//
-//     v = replaceMoreAnnotationToNull(v);
-//
-//     v = replaceOneAnnotationToNull(v);
-//
-//     v = replaceTabulationToOneSpace(v);
-//
-//     v = replaceLineFeedToOneSpace(v);
-//
-//     v = replaceSpaceToOne(v);
-//
-//     v = replaceJsSpecificSrting(v);
-//
-//     return v;
-// }
-// function replaceCssSpecificSrting (v = '') {
-//     if (!v) {
-//         return '';
-//     }
-//
-//     v = v.replace(/\s*\,\s*/g, ',');
-//     v = v.replace(/\s*\;\s*/g, ';');
-//
-//     v = v.replace(/\s*\{\s*/g, '{');
-//     v = v.replace(/\s*\}\s*/g, '}');
-//
-//     v = v.replace(/\s*\:\s*/g, ':');
-//
-//     v = v.replace(/\s*\/\s*/g, '/');
-//
-//     return v;
-// }
-// function replaceJsSpecificSrting (v = '') {
-//     if (!v) {
-//         return '';
-//     }
-//
-//     let a = new RegExp('\\s*=\\s*','g');
-//     v = v.replace(a, '=');
-//
-//     v = v.replace(/\s*\(\s*/g, '(');
-//     v = v.replace(/\s*\)\s*/g, ')');
-//
-//     v = v.replace(/\s*\)\s+\{\s*/g, '){');
-//     v = v.replace(/\s*\{\s*/g, '{');
-//     v = v.replace(/\s*\}\s*/g, '}');
-//
-//     v = v.replace(/\s*\+\s*/g, '+');
-//     v = v.replace(/\s*\-\s*/g, '-');
-//     v = v.replace(/\s*\*\s*/g, '*');
-//     v = v.replace(/\s*\/\s*/g, '/');
-//     v = v.replace(/\s*\%\s*/g, '%');
-//
-//     v = v.replace(/\s*\,\s*/g, ',');
-//     v = v.replace(/\s*\;\s*/g, ';');
-//
-//     v = v.replace(/\s*\?\s*/g, '?');
-//     v = v.replace(/\s*\:\s*/g, ':');
-//
-//     v = v.replace(/\s*\[\s*/g, '[');
-//     v = v.replace(/\s*\]\s*/g, ']');
-//
-//     return v;
-// }
-// /**
-//  *
-//  * 去除js多行注释
-//  *
-//  * @param v
-//  * @returns {string|*}
-//  */
-// function replaceMoreAnnotationToNull (v = '') {
-//     if (!v) {
-//         return '';
-//     }
-//
-//     return v.replace(/(?:^|\n|\r)\s*\/\*[\s\S]*?\*\/\s*(?:\r|\n|$)/g, ' ');
-// }
-// function replaceCssMoreAnnotationToNull (v = '') {
-//     if (!v) {
-//         return '';
-//     }
-//
-//     v = v.replace(/\/\*\s*\S*\*\//g, '');
-//
-//     return v;
-// }
-// /**
-//  *
-//  * 去除js单行注释
-//  *
-//  * @param v
-//  * @returns {string|*}
-//  */
-// function replaceOneAnnotationToNull (v = '') {
-//     if (!v) {
-//         return '';
-//     }
-//
-//     return v.replace(/(\r|\n|\r\n)*\s*\/\/.*(?:\r|\n|\r\n|$)/g, ' ');
-// }
-// /**
-//  *
-//  * 替换制表符为一个空格
-//  *
-//  * @param v
-//  * @returns {string|*}
-//  */
-// function replaceTabulationToOneSpace (v = '') {
-//     if (!v) {
-//         return '';
-//     }
-//
-//     let d = new RegExp('\t+','g');
-//     v = v.replace(d, ' ');
-//
-//     return v;
-// }
-// /**
-//  *
-//  * 替换换行符为一个空格
-//  *
-//  * @param v
-//  * @returns {string|*}
-//  */
-// function replaceLineFeedToOneSpace (v = '') {
-//     if (!v) {
-//         return '';
-//     }
-//
-//     let g = new RegExp('(\r\n)+','g');
-//     v = v.replace(g, ' ');
-//
-//     let c = new RegExp('(\n)+','g');
-//     v = v.replace(c, ' ');
-//     let z = new RegExp('(\r)+','g');
-//     v = v.replace(z, ' ');
-//
-//     return v;
-// }
-
-// /**
-//  *
-//  * 多空格替换为一个空格
-//  *
-//  * @param v 内容 type string
-//  */
-// function replaceSpaceToOne (v = '') {
-//     if (!v) {
-//         return '';
-//     }
-//
-//     let g = new RegExp('\s{1, }','g');
-//     v = v.replace(g, ' ');
-//
-//     return v;
-// }
-//压缩
 
 //加载---------------
 /**
@@ -1957,9 +1646,11 @@ function initStaticResource (j = '', t = '', c = '') {
     }
     aAllreadyLoadStaticResourceFile[j] = true;
 
-    var xhr = '';
     let v = getStaticResourceFromLocalstorage(j);
-    if (v == null || v.length == 0) {
+    if (v) {
+        asyn('writeStaticResourceToPage', v, t);
+    } else {
+        var xhr = '';
         if (window.ActiveXObject) {
             xhr = new ActiveXObject('Microsoft.XMLHTTP');
         } else if (window.XMLHttpRequest) {
@@ -1983,14 +1674,10 @@ function initStaticResource (j = '', t = '', c = '') {
                 let z = setTimeout(function () {
                     clearTimeout(z);
 
-                    // v = compress (v, t);
-
                     cacheStaticResource(j, v, t);
                 }, 0);
             }
         };
-    } else {
-        asyn('writeStaticResourceToPage', v, t);
     }
 
     if (c) {
@@ -2010,26 +1697,15 @@ function writeStaticResourceToPage(v, t) {
         return;
     }
 
-    let o = '';
-    let f = '';
     if (t === 'js') {
-        o = document.createElement('script');
-        o.type = 'text/javascript';
-        o.innerHTML = v;
-
-        f = firstScriptTag();
+        writeJsTag(v);
     } else if (t === 'css') {
-        o = document.createElement('style');
+        let o = document.createElement('style');
         o.type = 'text/css';
         o.innerHTML = v;
 
-        f = finalMeta();
+        asyn('addPageStaticResourceData', o, finalMeta());
     }
-    if (!o) {
-        return;
-    }
-
-    asyn('addPageStaticResourceData', o, f);
 }
 /**
  *
@@ -2074,73 +1750,6 @@ function jump (u) {
 }
 //跳转=====================
 
-//dom------------------
-/**
- *
- * 写dom，次最大父dom
- *
- * @type {boolean}
- */
-let bWriteFatherDom = false;
-function secondDom () {
-    if (bWriteFatherDom) {
-        return true;
-    }
-    bWriteFatherDom = true;
-
-    asyn('changeBodyStatus', false);
-
-    let a = [
-        oDomFatherId,
-        sDomShadeId,
-        oDomStorageId,
-        sDomNoticeId,
-    ];
-
-    let s = '';
-    for (let i in a) {
-        s += '<div id="' + a[i] + '"></div>';
-    }
-
-    bodyDom().innerHTML = s;
-
-    asyn('fatherDom');
-    asyn('threeClassBodyDom');
-
-    asyn('shadeDom');
-    asyn('writeShades');
-
-    asyn('noticeDom');
-
-    asyn('storageDom');
-    storageDom().style.display = 'none';
-    asyn('writeLocalstorageIframe');
-}
-let oBodyDom = false;
-function bodyDom () {
-    oBodyDom = oBodyDom ? oBodyDom : domById(sBodyDomFatherId);
-    return oBodyDom;
-}
-let oFatherDom = '';
-function fatherDom () {
-    oFatherDom = oFatherDom ? oFatherDom : domById(oDomFatherId);
-    return oFatherDom;
-}
-let oShadeFather = '';
-function shadeDom () {
-    oShadeFather = oShadeFather ? oShadeFather : domById(sDomShadeId);
-    return oShadeFather;
-}
-let oStorageDom = '';
-function storageDom () {
-    oStorageDom = oStorageDom ? oStorageDom : domById(oDomStorageId);
-    return oStorageDom;
-}
-let oNoticeDom = '';
-function noticeDom () {
-    oNoticeDom = oNoticeDom ? oNoticeDom : domById(sDomNoticeId);
-    return oNoticeDom;
-}
 /**
  *
  * 修改最大级父状态，是否显示或隐藏
@@ -2182,7 +1791,6 @@ function loadIndexJs () {
     let t = setTimeout(function () {
         clearTimeout(t);
 
-        // loadJs(sIndexJsFullName, true, 'afterloadIndexJs');
         initStaticResource(sIndexJsFullName, 'js', 'afterloadIndexJs');
     }, 0);
 
@@ -2218,7 +1826,6 @@ function loadFunctionJs () {
     let t = setTimeout(function () {
         clearTimeout(t);
 
-        // loadJs(sFunctionJsFile, true, 'afterloadFunctionJs');
         initStaticResource(sFunctionJsFile, 'js', 'afterloadFunctionJs');
     }, 0);
 
@@ -2253,7 +1860,6 @@ function loadLocalJquery () {
     let t = setTimeout(function () {
         clearTimeout(t);
 
-        // loadJs(sJqueryJsFile, true, 'afterloadLocalJquery');
         initStaticResource(sJqueryJsFile, 'js', 'afterloadLocalJquery');
     }, 0);
 
@@ -2288,7 +1894,6 @@ function loadDomJs () {
     let t = setTimeout(function () {
         clearTimeout(t);
 
-        // loadJs(sDomJsFile, true, 'afterloadDomJs');
         initStaticResource(sDomJsFile, 'js', 'afterloadDomJs');
     }, 0);
 
@@ -2322,7 +1927,6 @@ function loadPlatformDomJs () {
     let t = setTimeout(function () {
         clearTimeout(t);
 
-        // loadJs(sPlatformDomJsFile, true, 'afterloadPlatformDomJs');
         initStaticResource(sPlatformDomJsFile, 'js', 'afterloadPlatformDomJs');
     }, 0);
 
@@ -2358,7 +1962,6 @@ function loadLogicJs () {
     let t = setTimeout(function () {
         clearTimeout(t);
 
-        // loadJs(sLogicJsFile, true, 'afterloadLogicJs');
         initStaticResource(sLogicJsFile, 'js', 'afterloadLogicJs');
     }, 0);
 
@@ -2394,7 +1997,6 @@ function loadApiJs () {
     let t = setTimeout(function () {
         clearTimeout(t);
 
-        // loadJs(sApiJsFile, true, 'afterloadApiJs');
         initStaticResource(sApiJsFile, 'js', 'afterloadApiJs');
     }, 0);
 
@@ -2428,7 +2030,6 @@ function loadEncodeJs () {
     let t = setTimeout(function () {
         clearTimeout(t);
 
-        // loadJs(sEncodeJsFile, true, 'afterloadEncodeJs');
         initStaticResource(sEncodeJsFile, 'js', 'afterloadEncodeJs');
     }, 0);
 
@@ -2510,13 +2111,11 @@ let iLastRequestLangTime = 0;
 function loadLang (l = '') {
     l = l ? l : sUserLangvage;
     if (!l) {
-        // console.log('loadLang l is null, so no to load lang js ');
         return false;
     }
 
     let t = getMillisecondTime();
     if (t - iLastRequestLangTime < iRequertLangJsTimeout) {
-        // console.log('loadLang l last time limit, so no to load lang js ');
         setTimeoutFunction('loadLang', l);
         return false;
     }
@@ -2532,14 +2131,12 @@ function loadLang (l = '') {
             break;
     }
     if (!y) {
-        // console.log('loadLang y is null, so no to load lang js ');
         return false;
     }
 
     let t1 = setTimeout(function () {
         clearTimeout(t1);
 
-        // loadJs(y, true, 'replaceLangs');
         initStaticResource(y, 'js', 'replaceLangs');
     }, 0);
 }
@@ -2639,12 +2236,76 @@ function hashFunc(s, i){
 }
 //hash=======================
 
-//尺寸相关------------------------
-function size () {
-    asyn('winSize');
+//dom相关------------
+/**
+ *
+ * 写dom，次最大父dom
+ *
+ * @type {boolean}
+ */
+let bWriteFatherDom = false;
+function secondDom () {
+    if (bWriteFatherDom) {
+        return true;
+    }
+    bWriteFatherDom = true;
 
-    asyn('initializeFontSize');
+    asyn('changeBodyStatus', false);
+
+    let a = [
+        oDomFatherId,
+        sDomShadeId,
+        oDomStorageId,
+        sDomNoticeId,
+    ];
+
+    let s = '';
+    for (let i in a) {
+        s += '<div id="' + a[i] + '"></div>';
+    }
+
+    bodyDom().innerHTML = s;
+
+    asyn('fatherDom');
+    asyn('threeClassBodyDom');
+
+    asyn('shadeDom');
+    asyn('writeShades');
+
+    asyn('noticeDom');
+
+    asyn('storageDom');
+    storageDom().style.display = 'none';
+    asyn('writeLocalstorageIframe');
 }
+let oFatherDom = '';
+function fatherDom () {
+    oFatherDom = oFatherDom ? oFatherDom : domById(oDomFatherId);
+    return oFatherDom;
+}
+let oShadeFather = '';
+function shadeDom () {
+    oShadeFather = oShadeFather ? oShadeFather : domById(sDomShadeId);
+    return oShadeFather;
+}
+let oNoticeDom = '';
+function noticeDom () {
+    oNoticeDom = oNoticeDom ? oNoticeDom : domById(sDomNoticeId);
+    return oNoticeDom;
+}
+let oBodyDom = false;
+function bodyDom () {
+    oBodyDom = oBodyDom ? oBodyDom : domById(sBodyDomFatherId);
+    return oBodyDom;
+}
+let oStorageDom = '';
+function storageDom () {
+    oStorageDom = oStorageDom ? oStorageDom : domById(oDomStorageId);
+    return oStorageDom;
+}
+//dom相关==========
+
+//尺寸相关------------------------
 /**
  *
  * 浏览器尺寸
@@ -2672,6 +2333,9 @@ function winSize() {
     // }
 }
 
+function size () {
+    asyn('winSize');
+}
 /**
  *
  * 获取每毫米的像素值
@@ -2686,7 +2350,7 @@ function getOneMmsPx (){
     o.id = d;
     o.style.width = '1mm';
 
-    oBodyDom.appendChild(o);
+    bodyDom().appendChild(o);
 
     // 原生方法获取浏览器对元素的计算值
     o = domById(d);
@@ -2719,11 +2383,6 @@ function initializeFontSize () {
 }
 //尺寸相关====================
 
-function localstorageIsForbidden () {
-    console.log('localstorage is forbidden, web can not normal use, so we nothing to do ');
-    alert('localstorage is forbidden, web can not normal use, so we nothing to do ');
-}
-
 let oHtml = false;
 let oHead = false;
 let oBody = false;
@@ -2731,11 +2390,6 @@ function begin () {
     asyn('showBaseShade');
 
     if (!astrict()) {
-        return false;
-    }
-
-    if (!window.localStorage) {
-        asyn('localstorageIsForbidden');
         return false;
     }
 
@@ -2762,9 +2416,9 @@ function begin () {
 
     asyn('setMeta');
 
-    asyn('winResize', true);
+    asyn('initializeFontSize');
 
-    asyn('secondDom');
+    asyn('winResize', true);
 
     asyn('setHosts');
 
@@ -2782,6 +2436,8 @@ function begin () {
     asyn('loadBaseJs');
 
     asyn('loadBaseCss');
+
+    asyn('secondDom');
 }
 
 function winResize (bOnload = false) {
@@ -2796,7 +2452,7 @@ function winResize (bOnload = false) {
     asyn('size');
 }
 
-window.onload = begin();
+// window.onload = begin();
 
 window.onresize = function () {
     asyn('showBaseShade');
