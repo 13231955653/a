@@ -17,8 +17,7 @@ const aApiHostLength = 7;
 let iRequestNumber = 0;
 
 function apiQuery (sUrl = '', sSendJsonData = '', sMethod = 'post') {
-    // if (typeof jQuery == 'undefined') {
-    if (!bJquery) {
+    if (typeof jQuery == 'undefined') {
         // loadLocalJquery();
         asyn('loadLocalJquery');
 

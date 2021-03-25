@@ -418,8 +418,7 @@ function domByClass (c) {
  * @param c 回调函数 type string
  */
 function animates (o = false, s = false, p = false, c = false) {
-    if (bJquery) {
-        // if (typeof jQuery != 'undefined') {
+    if (typeof jQuery != 'undefined') {
         $(o).animate(s, p, c);
         return;
     }

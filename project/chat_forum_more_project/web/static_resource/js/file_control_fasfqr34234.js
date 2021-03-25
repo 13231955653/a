@@ -8,6 +8,7 @@ const sBaseHostSonNumber = 15; //静态文件子域名数量
 const iRequertTimeout = 9000;
 // const iRequertLangJsTimeout = 5000;
 // const iMaxLoadOriginJqueryWaitTime = 5000;
+const iCheckJqueryLimitTime = 5000;
 //时间相关=======================
 
 //语言相关-----------
@@ -16,6 +17,7 @@ let sLangNow = '';
 
 //id class tag相关--------------------
 const oDomStorageId = 'storage_father';
+const sOriginJqueryId = 'origin_jquery';
 //id class tag相关=================
 
 //localstorage相关----------------------------
@@ -90,9 +92,6 @@ const sFriendJs = '/static_resource/js/' + platformTag() + '/page/friend.js';
 const sSettingJs = '/static_resource/js/' + platformTag() + '/page/setting.js';
 const sAboutMeJs = '/static_resource/js/' + platformTag() + '/page/about_me.js';
 const sApiJs = '/static_resource/js/public/query/query.js';
-const sOriginJqueryJs = 'http://code.jquery.com/jquery-1.9.1.min.js'; ////////////国内外需要更换适用的地址
-// sOriginJquery = 'http://libs.baidu.com/jquery/2.1.4/jquery.min.js'; ////////////国内外需要更换适用的地址
-// sOriginJquery = 'http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js'; ////////////国内外需要更换适用的地址
 //静态文件相关============================
 
 /**
@@ -820,6 +819,15 @@ function getMillisecondTime () {
 }
 /**
  *
+ * 获取秒时间戳
+ *
+ * @returns {number}
+ */
+function getSecondTime () {
+    return parseInt(getMillisecondTime() / 1000);
+}
+/**
+ *
  * 请求静态文件时间限制
  *
  * @param p 类型 type string
@@ -859,6 +867,11 @@ function loadStaticResource (f, q = false) {
     let b = '';
     let c = '';
     switch (f) {
+        case sJqueryJs :
+            a = 'afterLoadLocalJquery';
+            b = 'afterLoadLocalJquery1';
+            c = 'js';
+            break;
         case sBaseJs :
             a = 'afterLoadBaseJs';
             b = 'afterLoadBaseJs1';
@@ -965,6 +978,19 @@ function afterLoadPage1 (v = '') {
     }
 
     asyn('loadStaticResource', sNowPageJs, true);
+}
+function afterLoadLocalJquery () {
+}
+function afterLoadLocalJquery1 (v = '') {
+    if (v) {
+        asyn('afterLoadStaticResource', v, 'js');
+
+        asyn('afterLoadLocalJquery');
+
+        return;
+    }
+
+    asyn('loadStaticResource', sJqueryJs, true);
 }
 function afterLoadEncode () {
     asyn('encodeBegin');
@@ -1177,8 +1203,6 @@ function loadLang (l = '') {
  *
  */
 function loadStaticFile () {
-    // asyn('loadLocalJquery');
-
     asyn('loadStaticResource', sBaseJs);
 
     asyn('loadStaticResource', sIndexJs);
@@ -1196,14 +1220,32 @@ function loadStaticFile () {
     asyn('loadStaticResource', sApiJs);
 
     asyn('loadStaticResource', sBaseEncodeJs);
+
+    let t = setTimeout(function () {
+        clearTimeout(t);
+
+        asyn('loadLocalJquery');
+    }, iCheckJqueryLimitTime);
+}
+
+function loadLocalJquery () {
+    if (typeof jQuery == 'undefined') {
+        asyn('loadStaticResource', sJqueryJs);
+
+        let o = domById(sOriginJqueryId);
+        o.parentNode.removeChild(o);
+    }
 }
 
 function localstorageError1 () {
     alert('localstorage error, please retry reload !!! ');
 }
 
+let iBeginTime = 0;
 function fileControlBegin () {
     console.log('0000000000000000000000000000000fileControlBegin');
+    iBeginTime = getSecondTime();
+
     if (!window.localStorage) {
         localstorageError1();
         return;

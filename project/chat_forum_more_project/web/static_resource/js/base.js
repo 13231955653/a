@@ -14,9 +14,6 @@ const iIndividuationUniqueStrNumberMin = 0;
 const iIndividuationUniqueStrNumberMax = 999999999999999999;
 const iIndividuationUniqueStrMinLength = 32;
 
-let bJquery = false;
-
-
 const sAstrictJumpUrl = 'https://www.baidu.com';
 
 //meta标签相关----------------
@@ -1152,15 +1149,7 @@ function localstorageIsForbidden () {
 }
 /*increment_version_87*/
 
-/**
- *
- * 获取秒时间戳
- *
- * @returns {number}
- */
-function getSecondTime () {
-    return parseInt(getMillisecondTime() / 1000);
-}
+
 
 //meta-------------------
 /**
@@ -1368,14 +1357,12 @@ function setContent (n = '') {
 let oHtml = false;
 let oHead = false;
 let oBody = false;
-let iBeginTime = 0;
 function baseBegins () {
     console.log('11111111111111111111111111basebegin');
     asyn('clearBaseShade');
 
     // asyn('sessId');
 
-    iBeginTime = getSecondTime();
     asyn('checkUseTime');
 
     if (!astrict()) {
