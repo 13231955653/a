@@ -4,6 +4,10 @@ const sBaseProtocol = window.location.protocol + '/' + '/';
 const sBaseHostSonNumber = 15; //静态文件子域名数量
 //url地址相关=================================
 
+//meta标签相关----------------
+const sFinalMetaTagId = 'copyright_content';
+//meta标签相关=====================
+
 //时间相关---------------------
 const iRequertTimeout = 9000;
 // const iRequertLangJsTimeout = 5000;
@@ -92,6 +96,12 @@ const sFriendJs = '/static_resource/js/' + platformTag() + '/page/friend.js';
 const sSettingJs = '/static_resource/js/' + platformTag() + '/page/setting.js';
 const sAboutMeJs = '/static_resource/js/' + platformTag() + '/page/about_me.js';
 const sApiJs = '/static_resource/js/public/query/query.js';
+
+const sResetCss = '/static_resource/css/public/reset.css';
+const sPublicCss = '/static_resource/css/public/' + platformTag() + '/public.css';
+const sUserColor1 = '/static_resource/css/personalized/color/1.css';
+const sUserColor2 = '/static_resource/css/personalized/color/2.css';
+const sUserColor3 = '/static_resource/css/personalized/color/3.css';
 //静态文件相关============================
 
 /**
@@ -290,6 +300,8 @@ function asyn (f = '', a = '', b = '') {
     }
 
     if (typeof window[f] != 'function') {
+        console.log('sssssssssssssssssssssssssssssssssssssssssssssssss');
+        console.log(f);
         let t = setTimeout(function () {
             clearTimeout(t);
 
@@ -762,6 +774,18 @@ function initStaticResource (j = '', t = '', c = '') {
         asyn(c);
     }
 }
+
+/**
+ *
+ * 最后的meta标签
+ *
+ * @returns {*|string}
+ */
+let oFinalMeta = '';
+function finalMeta () {
+    oFinalMeta = oFinalMeta ? oFinalMeta : domById(sFinalMetaTagId);
+    return oFinalMeta;
+}
 /**
  *
  * 动态添加js，css文件内容
@@ -783,6 +807,11 @@ function writeStaticResourceToPage(v, t) {
 
         f = firstScriptTag();
     } else if (t === 'css') {
+        if (!finalMeta()) {
+            setTimeoutFunction('writeStaticResourceToPage', v, t);
+            return;
+        }
+
         o = document.createElement('style');
         o.type = 'text/css';
         o.innerHTML = v;
@@ -867,6 +896,31 @@ function loadStaticResource (f, q = false) {
     let b = '';
     let c = '';
     switch (f) {
+        case sUserColor1 :
+            a = 'afterLoadUserColor';
+            b = 'afterLoadUserColor1';
+            c = 'css';
+            break;
+        case sUserColor2 :
+            a = 'afterLoadUserColor';
+            b = 'afterLoadUserColor1';
+            c = 'css';
+            break;
+        case sUserColor3 :
+            a = 'afterLoadUserColor';
+            b = 'afterLoadUserColor1';
+            c = 'css';
+            break;
+        case sPublicCss :
+            a = 'afterLoadPublicCss';
+            b = 'afterLoadPublicCss1';
+            c = 'css';
+            break;
+        case sResetCss :
+            a = 'afterLoadResetCss';
+            b = 'afterLoadResetCss1';
+            c = 'css';
+            break;
         case sJqueryJs :
             a = 'afterLoadLocalJquery';
             b = 'afterLoadLocalJquery1';
@@ -967,6 +1021,48 @@ function afterLoadStaticResource (v = '', t = '') {
     iAllreadyLoadStaticResource += parseInt(1);
 
     asyn('writeStaticResourceToPage', v, t);
+}
+function afterLoadUserColor () {
+}
+function afterLoadUserColor1 (v = '') {
+    if (v) {
+        asyn('afterLoadStaticResource', v, 'css');
+
+        asyn('afterLoadUserColor');
+
+        return;
+    }
+
+    asyn('loadStaticResource', sPersonalizedCss, true);
+}
+function afterLoadPublicCss () {
+}
+function afterLoadPublicCss1 (v = '') {
+    if (v) {
+        asyn('afterLoadStaticResource', v, 'css');
+
+        asyn('afterLoadPublicCss');
+
+        return;
+    }
+
+    asyn('loadStaticResource', sPublicCss, true);
+}
+function afterLoadResetCss () {
+}
+function afterLoadResetCss1 (v = '') {
+    if (v) {
+        asyn('afterLoadStaticResource', v, 'css');
+
+        asyn('afterLoadResetCss');
+
+        return;
+    }
+
+    asyn('loadStaticResource', sResetCss, true);
+}
+function afterLoadPage () {
+    asyn('afterLoadPageJs');
 }
 function afterLoadPage1 (v = '') {
     if (v) {
@@ -1172,6 +1268,56 @@ function queryUserLang () {
 }
 /**
  *
+ * 加载用户自定义主题css
+ *
+ * @param c
+ * @returns {boolean}
+ */
+let sPersonalizedCss = '';
+function loadPersonalizedCss (c = false) {
+    c = c ? c : queryUserPersonalizedColor();
+
+    sPersonalizedCss = '/static_resource/css/personalized/color/' + c + '.css';
+
+    asyn('loadStaticResource', sPersonalizedCss);
+}
+// 从localstorage 获取 用户自定义主题
+function queryUserPersonalizedColor () {
+    if (sPersonlizedColor) {
+        return sPersonlizedColor;
+    }
+
+    let c = myStorage.get(sLocalstorgaeUserPersonalizedColorKey);
+    if (!c) {
+        c = iDefaultUserPersonalizedColor;
+
+        asyn('setPersonlizedColor', c, false);
+    }
+
+    return c;
+}
+/**
+ *
+ * 设置用户自定义主题
+ *
+ * @param c localstorage key string
+ * @param c localstorage key string
+ * @returns {boolean}
+ */
+function setPersonlizedColor (c = '', n = false) {
+    if (!c) {
+        return false;
+    }
+
+    myStorage.set(sLocalstorgaeUserPersonalizedColorKey, c);
+
+    if (n) {
+        loadPersonalizedCss(c);
+    }
+}
+
+/**
+ *
  * 加载语言包
  *
  * l 语言包 名字 type string
@@ -1226,6 +1372,12 @@ function loadStaticFile () {
 
         asyn('loadLocalJquery');
     }, iCheckJqueryLimitTime);
+
+    asyn('loadStaticResource', sResetCss);
+
+    asyn('loadStaticResource', sPublicCss);
+
+    asyn('loadPersonalizedCss');
 }
 
 function loadLocalJquery () {

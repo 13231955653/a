@@ -55,23 +55,16 @@ let sLastPage = '';
 function uodateUrlPageArg (p = '') {
     console.log('uodateUrlPageArg begin, p ' + p);
     if (!p) {
-        // console.log('uodateUrlPageArg page is null，so no will to do');
         return;
     }
 
     if (sLastPage === p) {
-        // console.log('uodateUrlPageArg sLastPage === ' + p + ' ，so no change url and after action');
-        // console.log('uodateUrlPageArg dispose show now page or reload now page dom');
-        // console.log('/////////////////////////////////////////////////');
-        // repeatedlyPage(p);
-
-        asyn('showPageShade');
-        // showPageShade();
-
         asyn('againOnlickFooter');
         return;
     }
     sLastPage = p;
+
+    asyn('showBaseShade');
 
     // writePageShade();
 
@@ -79,6 +72,7 @@ function uodateUrlPageArg (p = '') {
     asyn('updateUrlPage', p);
 
     console.log('点击过后需要检测当前页面是否需要刷新');
+    asyn('clearBaseShade');
 }
 
 /**
@@ -88,7 +82,7 @@ function uodateUrlPageArg (p = '') {
  */
 function againOnlickFooter () {
     // console.log('/////////////////////////////////////////////////');
-    asyn('clearPageShade');
+    // asyn('clearPageShade');
     // clearPageShade();
 }
 

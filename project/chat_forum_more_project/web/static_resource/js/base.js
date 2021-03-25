@@ -17,7 +17,6 @@ const iIndividuationUniqueStrMinLength = 32;
 const sAstrictJumpUrl = 'https://www.baidu.com';
 
 //meta标签相关----------------
-const sFinalMetaTagId = 'copyright_content';
 
 const sContentAndCharset = 'content_charset';
 const sContentAndCharsetType = 'Content-Type';
@@ -141,7 +140,7 @@ b['loadOriginJquery'] = t;
 b['loadLang'] = t;
 b['logicBegin'] = t;
 b['loadPlatformDomJs'] = t;
-b['showPageShade'] = t;
+// b['showPageShade'] = t;
 b['loadResetCss'] = t;
 b['checkLoadCss'] = t;
 b['writeStorageDom'] = t;
@@ -154,10 +153,10 @@ b['loadPublicCss'] = t;
 b['loadPersonalizedCss'] = t;
 b['loadVariableCss'] = t;
 b['threeClassBodyDom'] = t;
-b['showIndexShade'] = t;
+// b['showIndexShade'] = t;
 b['loadLocalJquery1'] = t;
-b['clearIndexShade'] = t;
-b['showPlatformShade'] = t;
+// b['clearIndexShade'] = t;
+// b['showPlatformShade'] = t;
 b['individuationUuid'] = t;
 b['platformBegin'] = t;
 b['makeSessionid'] = t;
@@ -212,9 +211,9 @@ const iDefaultOneFontMms = 2.5; //默认一个中文字占多宽，单位毫米
 /*increment_version_2*/
 //class id tag 相关----------------
 var sBaseShadeId = 'base_shade';
-var sIndexShadeId = 'index_shade';
-var sPlatformShadeId = 'platform_shade';
-var sPageShadeId = 'page_shade';
+// var sIndexShadeId = 'index_shade';
+// var sPlatformShadeId = 'platform_shade';
+// var sPageShadeId = 'page_shade';
 
 const sBodyDomFatherId = 'body';
 const oDomFatherId = 'dom_father';
@@ -396,7 +395,7 @@ function loadPageJs () {
     }
     bInLoadPageJs = true;
 
-    asyn('showPageShade');
+    // asyn('showPageShade');
 
     sPageNow = getNowPage();
     switch (sPageNow) {
@@ -1081,6 +1080,8 @@ function secondDom () {
     asyn('writeShades');
 
     // asyn('noticeDom');
+
+    o.style.display = 'block';
 }
 /*increment_version_77*/
 /*increment_version_78*/
@@ -1112,7 +1113,7 @@ function bodyDom () {
 /*increment_version_84*/
 function winResize (bOnload = false) {
     if (!bOnload) {
-        asyn('showBaseShade');
+        // asyn('showBaseShade');
 
         if (!astrict()) {
             return false;
@@ -1130,7 +1131,7 @@ function winResize (bOnload = false) {
 
 /*increment_version_85*/
 window.onresize = function () {
-    asyn('showBaseShade');
+    // asyn('showBaseShade');
 
     if (aBaseTimer['winResize']) {
         clearTimeout(aBaseTimer['winResize']);
@@ -1152,17 +1153,6 @@ function localstorageIsForbidden () {
 
 
 //meta-------------------
-/**
- *
- * 最后的meta标签
- *
- * @returns {*|string}
- */
-let oFinalMeta = '';
-function finalMeta () {
-    oFinalMeta = oFinalMeta ? oFinalMeta : domById(sFinalMetaTagId);
-    return oFinalMeta;
-}
 let bSetMeta = false;
 
 /**
@@ -1176,7 +1166,7 @@ function setMeta () {
     }
     bSetMeta = true;
 
-    oHead.style.visibility = 'hidden';
+    // oHead.style.visibility = 'hidden';
 
     let a = [
         sContentAndCharset,
@@ -1220,7 +1210,7 @@ function setMeta () {
     }
     oHead.appendChild(o);
 
-    oHead.style.visibility = 'visible';
+    // oHead.style.visibility = 'visible';
 }
 /**
  *
@@ -1353,13 +1343,28 @@ function setContent (n = '') {
 }
 //meta===============
 
+function pageBegin () {
+    console.log('pageBegin 1111111111111');
+    // asyn('showPageShade');
+    // showPageShade();
+
+    console.log('pageBegin 222222222222');
+    asyn('afterPageAction');
+
+    console.log('pageBegin 444444444444444444');
+    // asyn('clearPlatformShade');
+    // clearPlatformShade();
+    // asyn('clearPageShade');
+    asyn('clearBaseShade');
+}
+
 /*increment_version_83*/
 let oHtml = false;
-let oHead = false;
 let oBody = false;
+let oHead = false;
 function baseBegins () {
     console.log('11111111111111111111111111basebegin');
-    asyn('clearBaseShade');
+    // asyn('clearBaseShade');
 
     // asyn('sessId');
 
@@ -1399,8 +1404,6 @@ function baseBegins () {
     asyn('winResize', true);
 
     asyn('getUserIp');
-
-    // asyn('loadBaseCss');
 
     asyn('secondDom');
 }

@@ -36,7 +36,7 @@
 
 function afterPageAction () {
     // console.log('/////////////////////////////////////////////////////');
-    asyn('clearPageShade');
+    // asyn('clearPageShade');
     // clearPageShade();
 
     // asyn('changeBodyStatus', true);
@@ -45,19 +45,7 @@ function afterPageAction () {
     // asyn('showDomFather');
 }
 
-function pageBegin () {
-    console.log('pageBegin 1111111111111');
-    asyn('showPageShade');
-    // showPageShade();
 
-    console.log('pageBegin 222222222222');
-    asyn('afterPageAction');
-
-    console.log('pageBegin 444444444444444444');
-    asyn('clearPlatformShade');
-    // clearPlatformShade();
-    asyn('clearPageShade');
-}
 
 function indexBegin () {
     console.log('2222222222222222222indexBegin');
@@ -74,8 +62,8 @@ function indexBegin () {
 
     // console.log('indexBegin 22222222222222');
 
-    asyn('showIndexShade');
+    // asyn('showIndexShade');
     // console.log('indexBegin 333333333333');
-    asyn('clearBaseShade');
+    // asyn('clearBaseShade');
     // clearBaseShade();
 }

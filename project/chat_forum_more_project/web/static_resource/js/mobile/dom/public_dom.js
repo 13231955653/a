@@ -257,7 +257,7 @@ function updateActiveFooter () {
 
 function platformBegin () {
     console.log('5555555555555555555platformBegin');
-    asyn('showPlatformShade');
+    // asyn('showPlatformShade');
 
-    asyn('clearIndexShade');
+    // asyn('clearIndexShade');
 }

@@ -1,14 +1,14 @@
 let oBaseShade = '';
-let oIndexShade = '';
-let oPlatformShade = '';
-let oPageShade = '';
-let bWriteShade = false;
+// let oIndexShade = '';
+// let oPlatformShade = '';
+// let oPageShade = '';
 
 var sBaseShadeId = 'base_shade';
-var sIndexShadeId = 'index_shade';
-var sPlatformShadeId = 'platform_shade';
-var sPageShadeId = 'page_shade';
+// var sIndexShadeId = 'index_shade';
+// var sPlatformShadeId = 'platform_shade';
+// var sPageShadeId = 'page_shade';
 
+let bWriteShade = false;
 function writeShades () {
     if (bWriteShade) {
         return;
@@ -17,9 +17,9 @@ function writeShades () {
 
     let a = [
         sBaseShadeId,
-        sIndexShadeId,
-        sPlatformShadeId,
-        sPageShadeId,
+        // sIndexShadeId,
+        // sPlatformShadeId,
+        // sPageShadeId,
     ];
 
     let o = document.createDocumentFragment();
@@ -41,18 +41,18 @@ function baseShades () {
     oBaseShade = oBaseShade ? oBaseShade : domById(sBaseShadeId);
     return oBaseShade;
 }
-function indexShade () {
-    oIndexShade = oIndexShade ? oIndexShade : domById(sIndexShadeId);
-    return oIndexShade;
-}
-function platformShade () {
-    oPlatformShade = oPlatformShade ? oPlatformShade : domById(sPlatformShadeId);
-    return oPlatformShade;
-}
-function pageShade () {
-    oPageShade = oPageShade ? oPageShade : domById(sPageShadeId);
-    return oPageShade;
-}
+// function indexShade () {
+//     oIndexShade = oIndexShade ? oIndexShade : domById(sIndexShadeId);
+//     return oIndexShade;
+// }
+// function platformShade () {
+//     oPlatformShade = oPlatformShade ? oPlatformShade : domById(sPlatformShadeId);
+//     return oPlatformShade;
+// }
+// function pageShade () {
+//     oPageShade = oPageShade ? oPageShade : domById(sPageShadeId);
+//     return oPageShade;
+// }
 
 function showBaseShade () {
     if (aShades[sBaseShadeId]) {
@@ -88,105 +88,105 @@ function clearBaseShade () {
     asyn('clearShade', o);
 }
 
-function showIndexShade () {
-    if (aShades[sIndexShadeId]) {
-        setTimeoutFunction('showIndexShade');
-        return;
-    }
+// function showIndexShade () {
+//     if (aShades[sIndexShadeId]) {
+//         setTimeoutFunction('showIndexShade');
+//         return;
+//     }
+//
+//     let o = indexShade();
+//     if (!o) {
+//         setTimeoutFunction('showIndexShade');
+//         return;
+//     }
+//
+//     asyn('showShade', o);
+// }
+// /**
+//  *
+//  * 清除 未读取到 index js 遮罩层
+//  *
+//  */
+// function clearIndexShade () {
+//     if (!aShades[sIndexShadeId]) {
+//         setTimeoutFunction('clearIndexShade');
+//         return;
+//     }
+//
+//     let o = indexShade();
+//     if (!o) {
+//         setTimeoutFunction('clearIndexShade');
+//         return;
+//     }
+//
+//     asyn('clearShade', o);
+// }
 
-    let o = indexShade();
-    if (!o) {
-        setTimeoutFunction('showIndexShade');
-        return;
-    }
+// function showPlatformShade () {
+//     if (aShades[sPlatformShadeId]) {
+//         setTimeoutFunction('showPlatformShade');
+//         return;
+//     }
+//
+//     let o = platformShade();
+//     if (!o) {
+//         setTimeoutFunction('showPlatformShade');
+//         return;
+//     }
+//
+//     asyn('showShade', o);
+// }
+// /**
+//  *
+//  * 清除品台遮罩层
+//  *
+//  */
+// function clearPlatformShade () {
+//     if (!aShades[sPlatformShadeId]) {
+//         setTimeoutFunction('clearPlatformShade');
+//         return;
+//     }
+//
+//     let o = platformShade();
+//     if (!o) {
+//         return;
+//     }
+//
+//     asyn('clearShade', o);
+// }
 
-    asyn('showShade', o);
-}
-/**
- *
- * 清除 未读取到 index js 遮罩层
- *
- */
-function clearIndexShade () {
-    if (!aShades[sIndexShadeId]) {
-        setTimeoutFunction('clearIndexShade');
-        return;
-    }
-
-    let o = indexShade();
-    if (!o) {
-        setTimeoutFunction('clearIndexShade');
-        return;
-    }
-
-    asyn('clearShade', o);
-}
-
-function showPlatformShade () {
-    if (aShades[sPlatformShadeId]) {
-        setTimeoutFunction('showPlatformShade');
-        return;
-    }
-
-    let o = platformShade();
-    if (!o) {
-        setTimeoutFunction('showPlatformShade');
-        return;
-    }
-
-    asyn('showShade', o);
-}
-/**
- *
- * 清除品台遮罩层
- *
- */
-function clearPlatformShade () {
-    if (!aShades[sPlatformShadeId]) {
-        setTimeoutFunction('clearPlatformShade');
-        return;
-    }
-
-    let o = platformShade();
-    if (!o) {
-        return;
-    }
-
-    asyn('clearShade', o);
-}
-
-function showPageShade () {
-    if (aShades[sPageShadeId]) {
-        setTimeoutFunction('showPageShade');
-        return;
-    }
-
-    let o = pageShade();
-    if (!o) {
-        setTimeoutFunction('showPageShade');
-        return;
-    }
-
-    asyn('showShade', o);
-}
-/**
- *
- * 清除 page 遮罩层
- *
- */
-function clearPageShade () {
-    if (!aShades[sPageShadeId]) {
-        setTimeoutFunction('clearPageShade');
-        return;
-    }
-
-    let o = pageShade();
-    if (!o) {
-        return;
-    }
-
-    asyn('clearShade', o);
-}
+// function showPageShade () {
+//     if (aShades[sPageShadeId]) {
+//         setTimeoutFunction('showPageShade');
+//         return;
+//     }
+//
+//     let o = pageShade();
+//     if (!o) {
+//         setTimeoutFunction('showPageShade');
+//         return;
+//     }
+//
+//     asyn('showShade', o);
+// }
+// /**
+//  *
+//  * 清除 page 遮罩层
+//  *
+//  */
+// function clearPageShade () {
+//     if (!aShades[sPageShadeId]) {
+//         setTimeoutFunction('clearPageShade');
+//         return;
+//     }
+//
+//     let o = pageShade();
+//     if (!o) {
+//         return;
+//     }
+//
+//     asyn('clearShade', o);
+// }
 
 let aShades = [];
 // aShades[sBaseShadeId] = false;
