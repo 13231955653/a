@@ -17,14 +17,6 @@ const sFooterOnclickTag = 'footer_onclick';
 
 let bWriteBody = false;
 function threeClassBodyDom() {
-    // if (!bJquery) {
-    //     console.log('writePublicDom jQuery is undefined, so settimeout retry to writePublicDom ');
-    //
-    //     setTimeoutFunction('writePublicDom');
-    //     return;
-    // }
-    // console.log('pubHeader jQuery is defined, so will to do ');;
-
     for (let i in aBody) {
         if (typeof window[aBody[i]] == 'undefined') {
             setTimeoutFunction('threeClassBodyDom');
@@ -228,28 +220,6 @@ function writeBodyRight () {
     return s;
 }
 
-function platformBegin () {
-    // if (typeof window['showPlatformShade'] == 'undefined') {
-    //     console.log('platformBegin showPlatformShade is undefined, so settimeout retry to do platformBegin ');
-    //     setTimeoutFunction('platformBegin');
-    //     return;
-    // }
-    //
-    // if (typeof window['clearIndexShade'] == 'undefined') {
-    //     console.log('platformBegin clearIndexShade is undefined, so settimeout retry to do platformBegin ');
-    //     setTimeoutFunction('platformBegin');
-    //     return;
-    // }
-
-    // console.log('platformBegin 11111111111');
-    asyn('showPlatformShade');
-    // showPlatformShade();
-
-    // console.log('platformBegin 333333333333');
-    asyn('clearIndexShade');
-    // clearIndexShade();
-}
-
 function updateActiveFooter () {
     // let sPage = getNowPage();
     let f = domById(getNowPage() + sFootTag + sFootLiSuffix);
@@ -283,4 +253,11 @@ function updateActiveFooter () {
     //
     //     repeatedlyPage(getUrlArgs(sUrlAddressPageKey));
     // }, 0);
+}
+
+function platformBegin () {
+    console.log('5555555555555555555platformBegin');
+    asyn('showPlatformShade');
+
+    asyn('clearIndexShade');
 }

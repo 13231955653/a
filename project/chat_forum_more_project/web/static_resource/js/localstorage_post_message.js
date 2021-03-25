@@ -90,10 +90,10 @@ function getNowTime () {
 }
 
 let myStorage = (function myStorage () {
-    if (!window.localStorage ) {
-        console.log('myStorage localstorage error');
-        return false;
-    }
+    // if (!window.localStorage ) {
+    //     console.log('myStorage localstorage error');
+    //     return false;
+    // }
 
     let set = function (k, v, t = false) {
         if (!k) {
@@ -153,7 +153,7 @@ let myStorage = (function myStorage () {
         let z = 0;
         for(let i in localStorage) {
             if(localStorage.hasOwnProperty(i)) {
-                z += localStorage.getItem(i).length;
+                z = parseInt(z) + parseInt(i.length) + parseInt(localStorage.getItem(i).length);
             }
         }
 
@@ -170,7 +170,7 @@ let myStorage = (function myStorage () {
 })();
 
 function setJsAllreadyLoadTag () {
-    console.log('!!!!!!!!!!!!!!!!!!!!iframe is ok, now can post message ');
+    console.log('!!!!!!!!!!!!!!!!!!!!iframe is ok, now can post message ' + window.location.href);
     top.postMessage({after: 'sonIsReady', message: window.location.href}, u);
 }
 

@@ -4,6 +4,11 @@ let oPlatformShade = '';
 let oPageShade = '';
 let bWriteShade = false;
 
+var sBaseShadeId = 'base_shade';
+var sIndexShadeId = 'index_shade';
+var sPlatformShadeId = 'platform_shade';
+var sPageShadeId = 'page_shade';
+
 function writeShades () {
     if (bWriteShade) {
         return;
@@ -184,10 +189,10 @@ function clearPageShade () {
 }
 
 let aShades = [];
-aShades[sBaseShadeId] = false;
-aShades[sIndexShadeId] = false;
-aShades[sPlatformShadeId] = false;
-aShades[sPageShadeId] = false;
+// aShades[sBaseShadeId] = false;
+// aShades[sIndexShadeId] = false;
+// aShades[sPlatformShadeId] = false;
+// aShades[sPageShadeId] = false;
 function showShade (o = false) {
     if (typeof window['animates'] == 'undefined') {
         setTimeoutFunction('showShade', o);
@@ -237,4 +242,8 @@ function clearShade (o = false) {
 
         aShades[o.id] = false;
     });
+}
+
+function domBegin () {
+    console.log('444444444444444444444domBegin');
 }

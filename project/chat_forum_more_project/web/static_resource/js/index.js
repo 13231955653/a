@@ -39,7 +39,7 @@ function afterPageAction () {
     asyn('clearPageShade');
     // clearPageShade();
 
-    asyn('changeBodyStatus', true);
+    // asyn('changeBodyStatus', true);
     // changeBodyStatus(true);
 
     // asyn('showDomFather');
@@ -60,6 +60,7 @@ function pageBegin () {
 }
 
 function indexBegin () {
+    console.log('2222222222222222222indexBegin');
     // asyn('loadLocalJquery1');
 
     // if (typeof window['clearBaseShade'] == 'undefined') {

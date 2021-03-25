@@ -356,6 +356,56 @@ function getStyle (o, s) {
 //     }, p)
 // }
 
+/**
+ *
+ * set localstorage lang
+ *
+ * @param l 语言 type string
+ * @param j 是否加载语言包 type string
+ * @returns {boolean}
+ */
+function setLang (l = '', j = false) {
+    if (!l) {
+        return false;
+    }
+
+    let t = setTimeout(function () {
+        clearTimeout(t);
+
+        myStorage.set(sLocalstorageLangTag, l);
+    }, 0);
+
+    if (j) {
+        asyn('loadLang');
+    }
+}
+
+/**
+ *
+ * json 转成 字符串
+ *
+ * @param s 需要转换的json type json
+ * @returns {Array|any}
+ */
+function jsonConvertFormatForReadNumberKey (s = '') {
+    if (!s) {
+        return [];
+    }
+
+    return eval('(' + s + ')');
+}
+
+/**
+ *
+ * 根据class 获取节点
+ *
+ * @param c
+ * @returns {boolean}
+ */
+function domByClass (c) {
+    let o = oBodyDom.getElementsByClassName(c);
+    return o.length > 0 ? o : false;
+}
 
 
 /**
@@ -521,4 +571,8 @@ function isJson (s = '') {
     }
 }
 
-const bLoadFunctionJs = true;
+
+
+function functionBegin () {
+    console.log('3333333333333333333functionBegin');
+}

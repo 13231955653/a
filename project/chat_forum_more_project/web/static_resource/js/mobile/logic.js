@@ -123,38 +123,27 @@ function replaceWindowTitle (t = '') {
  */
 let aAllreadyLoadPageJs = [];
 function updateUrlPage (p = '') {
-    // console.log('ggggggggggggggggggggggggggggggggggggggggggg');
-    // console.log('updateUrlPage, begin ');
     if (typeof window['urlDecode'] == 'undefined') {
-        // console.log('updateUrlPage urlDecode is no laod, so settimtoue retry ');
-
         setTimeoutFunction('updateUrlPage', p);
         return;
     }
-    // console.log('updateUrlPage urlDecode is defined, so will to do ');
 
     if (typeof window['getNowPage'] == 'undefined') {
-        // console.log('updateUrlPage getNowPage is no load, so settimtoue retry ');
 
         setTimeoutFunction('updateUrlPage', p);
         return;
     }
-    // console.log('updateUrlPage getNowPage is defined, so will to do ');
     console.log(getUrlArgs());
-    // console.log('updateUrlPage console lod url args, maybe to hidden ');
 
     p = p ? p : getNowPage();
 
     let t = '';
-    // replaceWindowTitle(p + '_title');
     asyn('replaceWindowTitle', p + sLangTitlePostfix);
 
     let f = ''; // 回调函数
     if (typeof aAllreadyLoadPageJs[p] == 'undefined') {
-        // console.log('updateUrlPage aAllreadyLoadPageJs ' + p + ' is no load, so load page js ');
         f = 'loadPageJs';
     } else {
-        // console.log('updateUrlPage aAllreadyLoadPageJs ' + p + ' is load, so load afterLoadPageJs ');
         f = 'afterLoadPageJs';
     }
     aAllreadyLoadPageJs[p] = getMillisecondTime();
@@ -226,6 +215,6 @@ function updateUrlArg (k = '', v = '', t = '', c = false) {
 }
 
 function logicBegin () {
-    // console.log('logicBegin begin');
+    console.log('666666666666666666logicBegin');
     asyn('updateUrlPage');
 }

@@ -11,3 +11,7 @@ aLang['friend_title'] = '标题3333';
 aLang['about_me_title'] = '标题44444';
 aLang['setting_title'] = '标题5555555555';
 aLang['use_time_out_limit'] = 'use time too lang, xiu xi xiu xi';
+
+function langBegin () {
+    console.log('777777777777777langBegin');
+}

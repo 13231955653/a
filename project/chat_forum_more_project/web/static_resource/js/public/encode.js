@@ -5771,4 +5771,6 @@ function urlDecode (s = '') {
     return d;
 }
 
-const bAllreadyLoadEncodeJs = true;
+function encodeBegin () {
+    console.log('9999999999999999999encodeBegin');
+}

@@ -1,9 +1,9 @@
 <?php
-if (!isset($_GET['v'])) {
+if (!isset($_GET['f'])) {
     return '';
 }
 
-$sFile = $_GET['v'];
+$sFile = $_GET['f'];
 $sIncrement = isset($_GET['z']) && $_GET['z'] ? $_GET['z'] : '';
 
 $sBaseDir = dirname(__DIR__) . DIRECTORY_SEPARATOR;
@@ -35,73 +35,10 @@ function compressJs (& $sValue = '') {
         $sValue = '';
         return $sValue;
     }
-
-//    $preg = '/((?:\/\*(?:[^*]|(?:\*+[^*\/]))*\*+\/)|(?:\/\/.*))/';
-//    $sValue = preg_replace($preg, '', $sValue);
-    
-//    $preg = '/\s*\=\s*/';
-//    $sValue = preg_replace($preg, '=', $sValue);
-//    $preg = '/\s*\=\=\s*/';
-//    $sValue = preg_replace($preg, '==', $sValue);
-//    $preg = '/\s*\=\=\=\s*/';
-//    $sValue = preg_replace($preg, '===', $sValue);
-//    $preg = '/\s*\!\=\s*/';
-//    $sValue = preg_replace($preg, '!=', $sValue);
-//    $preg = '/\s*\!\=\=\s*/';
-//    $sValue = preg_replace($preg, '!==', $sValue);
-//
-//    $preg = '/\s*\+\=\s*/';
-//    $sValue = preg_replace($preg, '+=', $sValue);
-//    $preg = '/\s*\-\=\s*/';
-//    $sValue = preg_replace($preg, '-=', $sValue);
-//    $preg = '/\s*\*\=\s*/';
-//    $sValue = preg_replace($preg, '*=', $sValue);
-//
-//    $preg = '/\s*\?\s*/';
-//    $sValue = preg_replace($preg, '?', $sValue);
-//    $preg = '/\s*\:\s*/';
-//    $sValue = preg_replace($preg, ':', $sValue);
-//    $preg = '/\s*\;\s*/';
-//    $sValue = preg_replace($preg, ';', $sValue);
-//    $preg = '/\s*\,\s*/';
-//    $sValue = preg_replace($preg, ',', $sValue);
-//
-//    $preg = '/\s*\+\s*/';
-//    $sValue = preg_replace($preg, '+', $sValue);
-//    $preg = '/\s*\-\s*/';
-//    $sValue = preg_replace($preg, '-', $sValue);
-//    $preg = '/\s*\*\s*/';
-//    $sValue = preg_replace($preg, '*', $sValue);
-//    $preg = '/\s*\/\s*/';
-//    $sValue = preg_replace($preg, '/', $sValue);
-//    $preg = '/\s*\%\s*/';
-//    $sValue = preg_replace($preg, '%', $sValue);
-//
-//    $preg = '/\s*\(\s*/';
-//    $sValue = preg_replace($preg, '(', $sValue);
-//    $preg = '/\s*\)\s*/';
-//    $sValue = preg_replace($preg, ')', $sValue);
-//
-//    $preg = '/\s*\{\s*/';
-//    $sValue = preg_replace($preg, '{', $sValue);
-//    $preg = '/\s*\}\s*/';
-//    $sValue = preg_replace($preg, '}', $sValue);
-//
-//    $preg = '/\s*\[\s*/';
-//    $sValue = preg_replace($preg, '[', $sValue);
-//    $preg = '/\s*\]\s*/';
-//    $sValue = preg_replace($preg, ']', $sValue);
-
-//    $sValue = str_replace(["\r\n", "\r", "\n"], ' ', $sValue);
-
-//    $preg = '/\s{2,}/';
-//    $sValue = preg_replace($preg, ' ', $sValue);
     
     return $sValue;
 }
 //存用户上次访问时间戳
-//    不存在
-//        全量返回静态文件
 //    存在
 //        读取新添内容
 //            可根据时间戳读取新添加内容
@@ -114,38 +51,6 @@ function compressCss (& $sValue = '') {
         return $sValue;
     }
     
-    $preg = '/((?:\/\*(?:[^*|^version_begin_\d+|^version_end_\d+]|(?:\*+[^*\/]))*\*+\/)|(?:\/\/.*))/';
-    preg_match_all($preg, $sValue, $aAnnotation);
-    if (count($aAnnotation) && isset($aAnnotation[0]) && count($aAnnotation[0])) {
-        $aNeedReplace = $aAnnotation[0];
-        $sValue = str_replace($aNeedReplace, '', $sValue);
-    }
-    $aAnnotation = null;
-    unset($aAnnotation);
-    
-    $preg = '/\s*\:\s*/';
-    $sValue = preg_replace($preg, ':', $sValue);
-    $preg = '/\s*\;\s*/';
-    $sValue = preg_replace($preg, ';', $sValue);
-    $preg = '/\s*\,\s*/';
-    $sValue = preg_replace($preg, ',', $sValue);
-
-    $preg = '/\s*\(\s*/';
-    $sValue = preg_replace($preg, '(', $sValue);
-    $preg = '/\s*\)\s*/';
-    $sValue = preg_replace($preg, ')', $sValue);
-
-    $preg = '/\s*\{\s*/';
-    $sValue = preg_replace($preg, '{', $sValue);
-    $preg = '/\s*\}\s*/';
-    $sValue = preg_replace($preg, '}', $sValue);
-
-    $sValue = str_replace(["\r\n", "\r", "\n"], ' ', $sValue);
-
-    $preg = '/\s{1,}/';
-    $sValue = preg_replace($preg, ' ', $sValue);
-    
-//    var_dump($sValue);
     return $sValue;
 }
 
@@ -160,12 +65,27 @@ $sValue = compress($sType, $sValue);
 $sType = null;
 unset($sType);
 
+function fullData () {
+
+}
+
 if (!$sIncrement) {
     echo $sValue;
     
     $sValue = null;
     unset($sValue);
     return;
+}
+
+$sFullLoadStaticResourceTag = 'full';
+switch ($sIncrement) {
+    case $sFullLoadStaticResourceTag :
+            echo $sValue;
+        
+            $sValue = null;
+            unset($sValue);
+            return;
+        break;
 }
 
 $sIncrement = null;

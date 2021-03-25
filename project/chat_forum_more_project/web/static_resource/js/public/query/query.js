@@ -71,3 +71,7 @@ function apiQuery (sUrl = '', sSendJsonData = '', sMethod = 'post') {
         }
     });
 }
+
+function apiBegin () {
+    console.log('8888888888888888888888888apiBegin');
+}
