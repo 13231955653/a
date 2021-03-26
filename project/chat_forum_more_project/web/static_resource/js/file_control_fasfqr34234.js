@@ -9,6 +9,7 @@ const sFinalMetaTagId = 'copyright_content';
 //meta标签相关=====================
 
 //时间相关---------------------
+const sUserLastUseTimeTag = 'user_last_use';
 const iRequertTimeout = 9000;
 // const iRequertLangJsTimeout = 5000;
 // const iMaxLoadOriginJqueryWaitTime = 5000;
@@ -226,7 +227,7 @@ function cacheStaticResource (j = '', v = '', p = '') {
 
         iAllreadyLoadStaticResource += parseInt(1);
 
-        setLocalstorage(j, v, false);
+        setLocalstorage(j, v, false, false, true);
     }, 0);
 }
 /**
@@ -237,9 +238,10 @@ function cacheStaticResource (j = '', v = '', p = '') {
  * @param m localstorage message
  * @param t localstorage lefttime
  * @param f localstorage callback function
+ * @param o 是否保存当前存储时间
  * @returns {boolean}
  */
-function setLocalstorage (k = '', m = '', t = false, f = '') {
+function setLocalstorage (k = '', m = '', t = false, f = '', o = '') {
     if (!k || !m) {
         return false;
     }
@@ -837,6 +839,9 @@ function insertAfter (n, j) {
     }
 }
 //加载js----------------
+function date () {
+    return new Date();
+}
 /**
  *
  * 获取毫秒时间戳
@@ -844,7 +849,7 @@ function insertAfter (n, j) {
  * @returns {number}
  */
 function getMillisecondTime () {
-    return new Date().getTime();
+    return date().getTime();
 }
 /**
  *
@@ -1002,6 +1007,8 @@ function loadStaticResource (f, q = false) {
             c = 'js';
             break;
     }
+
+    getIncrementUpdateTag(f);
 
     if (q) {
         let t = setTimeout(function () {
@@ -1393,6 +1400,23 @@ function localstorageError1 () {
     alert('localstorage error, please retry reload !!! ');
 }
 
+function setUserLastUseTime () {
+    let t = date();
+    let y = t.getFullYear();
+    let m = parseInt(t.getMonth()) + parseInt(1);
+    m = m < 10 ? '0' + m : m;
+    let d = t.getDate();
+    let h = t.getHours();
+    h = h < 10 ? '0' + h : h;
+    myStorage.set(sUserLastUseTimeTag, y + m + d + h);
+}
+
+function getUserLastUseTime () {
+    iUserLastUsedTime = myStorage.get(sUserLastUseTimeTag);
+    return iUserLastUsedTime ? iUserLastUsedTime : 0;
+}
+
+let iUserLastUsedTime = 0;
 let iBeginTime = 0;
 function fileControlBegin () {
     console.log('0000000000000000000000000000000fileControlBegin');
@@ -1418,6 +1442,10 @@ function fileControlBegin () {
     if (!b) {
         return;
     }
+
+    getUserLastUseTime();
+
+    asyn('setUserLastUseTime');
 
     asyn('showBaseShade');
 

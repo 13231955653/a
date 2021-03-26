@@ -3,17 +3,38 @@ const sBaseHostSonPrefix = 'static_resource';
 
 //版本相关-----------------
 const debug = true;
-const i = []; //值格式 0000 00 00 00 年月日时
-i['/static_resource/js/base.js'] = [
-    '2021032415',
-    '2021032416',
-];
-i['/static_resource/js/base.js']['2021032415'] = [
-    'f006d583f78d543e',
-    'b2a48573767f9334',
-];
-// version_begin
-const aVersion = i;
+//值格式 0000 00 00 00 年月日时
+const aVersion = {
+    '/static_resource/js/base.js': {
+        'updtae': {
+            '2021032601': {
+                1:'1111111111111',
+                2:'33333333333333',
+            },
+            '2021032611': {
+                1:'5555555555555',
+                2:'77777777777777777',
+            },
+            '2021032612': {
+                1:'999999999999999999',
+            },
+        },
+        'increment': {
+            '2021032601': {
+                1:'222222222222222222',
+                2:'44444444444444444',
+            },
+            '2021032610': {
+                1:'66666666666666666666666',
+                2:'888888888888888888888888',
+            },
+            '2021032611': {
+                1:'000000000000000000000000',
+            },
+        },
+    },
+};
+console.log(aVersion);
 
 const sFullLoadStaticResourceTag = 'full';
 //版本相关=============
@@ -96,6 +117,38 @@ function staticResourceIncrement (t = '', f = '') {
 
 function localstorageError () {
     alert('localstorage error, please retry reload !!! ');
+}
+
+/**
+ *
+ * 获取用户上次访问时间后的更新或新增
+ *
+ * @param f
+ */
+let aIncrementUpdate = [];
+function getIncrementUpdateTag (f) {
+    if (typeof aVersion[f] == 'undefined') {
+        return false;
+    }
+
+    console.log('aaaaaaaaaaaaaaaaaaaa');
+    let v = aVersion[f];
+    let u = [];
+    for (let j in v) {
+        u[j] = '';
+        for (let k in v[j]) {
+            if (parseInt(k) < parseInt(iUserLastUsedTime)) {
+                continue;
+            }
+
+            for (let l in v[j][k]) {
+                u[j] += v[j][k][l] + '_';
+            }
+        }
+        u[j] = u[j].substring(0, u[j].length - 1);
+    }
+    aIncrementUpdate[f] = u;
+    ///////////////////////
 }
 
 /**

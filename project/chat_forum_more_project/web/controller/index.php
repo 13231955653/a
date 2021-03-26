@@ -45,6 +45,9 @@ function compressJs (& $sValue = '') {
 //        读取修改内容
 //            怎么知道用户上次登录之后的修改
 //                暂时修改过的版本号时间戳存首个引入js文件内
+// 读取静态文件
+//      用户上次访问时间
+//          获取更新或新增文件
 function compressCss (& $sValue = '') {
     if (!$sValue) {
         $sValue = '';
