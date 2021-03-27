@@ -1,3 +1,7 @@
+/*c7640c5f267b11b6*///编码相关-----------------
+const sCharset = 'utf-8'; // 编码格式
+//编码相关===============/*c7640c5f267b11b6*/
+
 //静态文件相关-----------------
 const sBaseHostSonPrefix = 'static_resource';
 
@@ -7,12 +11,26 @@ const debug = true;
 //url地址相关---------------------
 const sBaseProtocol = window.location.protocol + '/' + '/';
 
-const sBaseHostSonNumber = 15; //静态文件子域名数量
+const sBaseHostSonNumber = 13; //静态文件子域名数量
 //url地址相关=================================
+
+//localstorage相关----------------------------
+const sLocalstorageBeginPage = 0;
+const sLocalstorageLangTag = 'user_lang';
+const sLocalstorgaeUserPersonalizedColorKey = 'user_personlized_color';
+const sOriginLocalstorageSizeKey = 'origin_localstorage_size';
+const iMaxLocalstorageSize = 3670016;
+const sStorageOriginsSonPrefix = 'storage';
+const sStoragePage = 'storage.html';
+//localstorage相关=============================
 
 //meta标签相关----------------
 const sFinalMetaTagId = 'copyright_content';
 //meta标签相关=====================
+
+//class id tag 相关----------------
+const sIndexScriptTagId = 'first_js_script'; // 第一个 script 标签
+//class id tag 相关===============
 
 //时间相关---------------------
 const sLastCacheStaticResourceTimeTag = 'last_cache_static_resource_';
@@ -30,18 +48,6 @@ let sLangNow = '';
 const oDomStorageId = 'storage_father';
 const sOriginJqueryId = 'origin_jquery';
 //id class tag相关=================
-
-//localstorage相关----------------------------
-const iMaxLocalstorageSize = 3670016;
-const sOriginLocalstorageSizeKey = 'origin_localstorage_size';
-const sStorageOriginsSonPrefix = 'storage';
-const sStoragePage = 'storage.html';
-// const sLocalstorageTagMd5Salt = '______9*^&*%^$%$67dasy~`<>?dg';
-const sLocalstorageLangTag = 'user_lang';
-const sLocalstorgaeUserPersonalizedColorKey = 'user_personlized_color';
-// const sLocalstorgaeNowPageTag = 'localstorage_cache_now_page';
-const sLocalstorageBeginPage = 0;
-//localstorage相关=============================
 
 //用户自定义相关-------------------
 const iDefaultUserPersonalizedColor = 1;
@@ -81,10 +87,6 @@ function platformTag () {
 }
 platformTag();
 //平台 相关================
-
-//class id tag 相关----------------
-const sIndexScriptTagId = 'first_js_script'; // 第一个 script 标签
-//class id tag 相关===============
 
 //静态文件相关---------------------------
 const sBaseJs = '/static_resource/js/base.js'; // base js 路径
@@ -384,29 +386,6 @@ function setTimeoutFunction (f = '', a = '', b = '') {
 
     return true;
 }
-//定时器===============
-
-// /**
-//  *
-//  * 写dom，次最大父dom
-//  *
-//  * @type {boolean}
-//  */
-// function wirteStorgaeDom () {
-//     let a = [
-//         oDomStorageId,
-//     ];
-//
-//     let s = '';
-//     for (let i in a) {
-//         s += '<div id="' + a[i] + '"></div>';
-//     }
-//
-//     bodyDom().innerHTML = s;
-//
-//     storageDom().style.display = 'none';
-//     asyn('writeLocalstorageIframe');
-// }
 
 /**
  *
@@ -429,6 +408,7 @@ function queryMasterOrigin () {
     return o;
 }
 let sOrigin = queryMasterOrigin();
+
 /**
  * 设置storage 页面 url
  *
@@ -469,17 +449,6 @@ function queryLocalstorageCache (k = '') {
 
     return myStorage.get(k);
 }
-// /**
-//  * 先读取本地localstorage，写对应远程storage页面 iframe dom
-//  */
-// function writeLocalstorageIframe () {
-//     let s = queryLocalstorageCache(sOriginLocalstorageSizeKey);
-//
-//     let a = jsonConvertFormatForReadNumberKey(s);
-//     for (let i in a) {
-//         writeStorageDom (storagePage(i));
-//     }
-// }
 /**
  *
  * 获取子iframe localstorage key 的 域名tag
@@ -965,6 +934,8 @@ function writeStaticResourceToPage(v, t) {
     if (t === 'js') {
         o = document.createElement('script');
         o.type = 'text/javascript';
+        o.language = 'JavaScript';
+        o.charset = sCharset;
         o.innerHTML = v;
 
         f = firstScriptTag();
@@ -976,6 +947,7 @@ function writeStaticResourceToPage(v, t) {
 
         o = document.createElement('style');
         o.type = 'text/css';
+        o.charset = sCharset;
         o.innerHTML = v;
 
         f = finalMeta();
@@ -1560,7 +1532,6 @@ function localstorageError1 () {
     alert('localstorage error, please retry reload !!! ');
 }
 
-// asyn('setUserLastUseTime');
 /**
  *
  * 缓存上一次静态文件缓存时间
@@ -1586,8 +1557,6 @@ function setStaticResourceLastCacheTime (k = '') {
  * @returns {*}
  */
 function getStaticResourceLastCacheTime (k = '') {
-    // console.log(sLastCacheStaticResourceTimeTag + k);
-    // last_cache_static_resource_/static_resource/js/base.js
     let t = myStorage.get(sLastCacheStaticResourceTimeTag + k);
     return t ? t : 0;
 }

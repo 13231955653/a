@@ -1,12 +1,8 @@
-//编码相关-----------------
-const sCharset = 'utf-8'; // 编码格式
-//编码相关===============
+/*4ba25cfac87659d1*///url地址相关----------------------
 
-//url地址相关----------------------
+//url地址相关======================/*4ba25cfac87659d1*/
 
-//url地址相关======================
-
-const sIndividuationUuidTag = '*';
+/*33f00aeae2406ffe*/const sIndividuationUuidTag = '*';
 const sUniqueStrSplitTag = '_';
 const sRandString = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 const iIndividuationUniqueStrLength = 1000;
@@ -16,9 +12,9 @@ const iIndividuationUniqueStrMinLength = 32;
 
 const sAstrictJumpUrl = 'https://www.baidu.com';
 
-//meta标签相关----------------
+//meta标签相关----------------/*33f00aeae2406ffe*/
 
-const sContentAndCharset = 'content_charset';
+/*9d8f73176201b827*/const sContentAndCharset = 'content_charset';
 const sContentAndCharsetType = 'Content-Type';
 const sContentAndCharsetContent = 'text/html; charset=utf-8';
 const sCopyright = 'copyright';
@@ -121,9 +117,9 @@ const sKeyword = '关键词1，关键词2，关键词3';
 const sDescriptionContent = '规定页面的描述。搜索引擎会把这个描述显示在搜索结果中。';
 const sApplicationNameContent = '规定页面所代表的 Web 应用程序的名称。';
 const sCopyrightContent = '版权所有，保留一切权利。';
-//meta标签相关==============
+//meta标签相关==============/*9d8f73176201b827*/
 
-//定时器相关----------
+/*4df730057a2f2f29*///定时器相关----------
 let aBaseTimer = []; //基础定时器
 const b = []; //基础定时器间隔时间
 // const t = 1000;
@@ -200,15 +196,15 @@ b['checkUseTime'] = 60000;
 b['checkSessionIdOutTime'] = 181652;
 b['checkSessionKeyFormat'] = 253648;
 const aTimer = b; //基础定时器间隔时间
-//定时器相关========================
+//定时器相关========================/*4df730057a2f2f29*/
 
-//fontsize 相关--------------
+/*a4fb1441abb8ade0*///fontsize 相关--------------
 let iFontSize = 16;
 const iDefaultFontSize = 16; //默认pc字体大小
 const iDefaultOneFontMms = 2.5; //默认一个中文字占多宽，单位毫米
-//fontsize 相关===============
+//fontsize 相关===============/*a4fb1441abb8ade0*/
 
-/*increment_version_2*/
+/*3d6db13f8bf8dde2*/
 //class id tag 相关----------------
 var sBaseShadeId = 'base_shade';
 // var sIndexShadeId = 'index_shade';
@@ -224,17 +220,15 @@ const sQueryOneMmPxId = 'get_one_mms_px';
 
 const sInvisibleClass = 'invisible'; //不显示dom的class
 const sVisibleClass = 'gradually_visible';//显示dom的class
-//class id tag 相关============
-/*increment_version_2*/
+//class id tag 相关============/*3d6db13f8bf8dde2*/
 
-/*increment_version_3*/
-//尺寸相关----------------
+/*3d6db13f8bf8dde2*///尺寸相关----------------
 let iWinWidth = 0;
 let iWinHeight = 0;
 //尺寸相关============
-/*increment_version_3*/
+/*3d6db13f8bf8dde2*/
 
-// const iSessionBeforeFormatLength = 32;
+/*101c0dbc77be8e9f*/// const iSessionBeforeFormatLength = 32;
 // const sSessionSplitTag  = '_';
 // const sSessionSalt  = '__()9789*&^%$sKUYsah98';
 // let sOldSessionId = '';
@@ -245,14 +239,13 @@ let iWinHeight = 0;
 // const sSessionIdSplitLength =8;
 // const sOldSessionIdStorageKey = 'old_session_id';
 // const sNewSessionIdStorageKey = 'new_session_id';
+/*101c0dbc77be8e9f*/
 
-
-
-//时间相关---------------------
+/*6d0af007b1b15e5c*///时间相关---------------------
 const iNoticeTimeLimit = 3600000;
-//时间相关=======================
+//时间相关=======================/*6d0af007b1b15e5c*/
 
-//class id tag 相关----------------
+/*2355292fdec0dbed*///class id tag 相关----------------
 const sForumBodyId = 'forum_body';
 const sChatBodyId = 'chat_body';
 const sFriendBodyId = 'friend_body';
@@ -274,16 +267,13 @@ const sReLangClass = 're_lang';
 const sReplaceLangIdType = 'id';
 
 const sShadeClass = 'shades';
-//class id tag 相关====================
+//class id tag 相关====================/*2355292fdec0dbed*/
 
-//动画相关-------------------
+/*e1a6417e3b08ff43*///动画相关-------------------
 const iSpeed = 150; //动画速度
-//动画相关==========================
+//动画相关==========================/*e1a6417e3b08ff43*/
 
-//尺寸相关----------------
-//尺寸相关============
-
-//用户ip-----------
+/*e2c9f2a15be30df1*///用户ip-----------
 //IP相关------------
 let sIp = randNum(1, 100) + '.' + randNum(1, 100) + '.' + randNum(1, 100);
 let sCid = randNum(000000000, 999999999);
@@ -307,8 +297,9 @@ function setUserIp () {
     sIp = returnCitySN.cip;
     sCid = returnCitySN.cid;
     sIpCityName = returnCitySN.cname;
-}
-/**
+}/*e2c9f2a15be30df1*/
+
+/*05a159c046b3a0ba*//**
  *
  * 引入 js 文件
  *
@@ -347,9 +338,9 @@ function loadJs (s = '', c = false) {
     }
 
     asyn('asynLoadJs', o);
-}
+}/*05a159c046b3a0ba*/
 
-/**
+/*00485a3b371e8b13*//**
  *
  * 插入script 标签节点
  *
@@ -357,10 +348,9 @@ function loadJs (s = '', c = false) {
  */
 function asynLoadJs (o) {
     insertAfter(o, firstScriptTag());
-}
-//用户ip================
+}/*00485a3b371e8b13*/
 
-/**
+/*a9a1e62034e2ca93*//**
  *
  * 随机数字
  *
@@ -370,9 +360,9 @@ function asynLoadJs (o) {
  */
 function randNum (i, a) {
     return(i + Math.round((Math.random()) * (a - i)));
-}
+}/*a9a1e62034e2ca93*/
 
-/**
+/*3ed8ed97f79fa3d8*//**
  *
  * 引入页面js文件
  *
@@ -440,9 +430,9 @@ function afterLoadPageJs () {
     asyn(sPageNow + 'Begin');
 
     asyn('updateActiveFooter');
-}
+}/*3ed8ed97f79fa3d8*/
 
-/**
+/*032a659ac3907d66*//**
  *
  * 检查用户登录时间
  *
@@ -463,9 +453,9 @@ function showUseTimeLimitNotice () {
     }
 
     alert(aLang['use_time_out_limit']);
-}
+}/*032a659ac3907d66*/
 
-// /**
+/*bf248dfc7157b8eb*/// /**
 //  *
 //  * 生成 session id
 //  *
@@ -493,115 +483,9 @@ function showUseTimeLimitNotice () {
 //     }
 //
 //     setTimeoutFunction('makeSessionid');
-// }
-/**
- *
- * 生成自定义 uuid
- *
- * @returns {string|boolean}
- */
-function individuationUuid () {
-    // if (typeof window['hex_md5'] == 'undefined') {
-    //     return false;
-    // }
+// }/*bf248dfc7157b8eb*/
 
-    let a = individuationUuidUniqueStr();
-
-    while (a.length < iIndividuationUniqueStrMinLength) {
-        a += sIndividuationUuidTag + '---' + randStr(1);
-    }
-
-    a = hex_md5(a);
-    a = a.toLowerCase();
-
-    return a;
-}
-/**
- *
- * 生成自定义 uuid 唯一字符串 md5 字符串
- *
- * @returns {string|boolean}
- */
-function individuationUuidUniqueStr () {
-    let d = sUniqueStrSplitTag;
-
-    let s = randStr(iIndividuationUniqueStrLength);
-    s += d + randNum(iIndividuationUniqueStrNumberMin, iIndividuationUniqueStrNumberMax);
-    s += d + getMillisecondTime();
-    s += d + navigatorInfo();
-    s += d + screenInfo();
-    s += d + generateUUID();
-    s += d + userIpInfo();
-
-    s = hex_md5(s);
-
-    return s;
-}
-function userIpInfo () {
-    let t = '*';
-    let s = '';
-
-    s += t + sIp;
-    s += t + sCid;
-    s += t + sIpCityName;
-
-    return s;
-}
-/**
- *
- * location 信息
- *
- */
-function screenInfo () {
-    let t = '+';
-    let s = '';
-    let n = screen;
-
-    s += t + n.availHeight;
-    s += t + n.availWidth;
-    s += t + n.width;
-    s += t + n.height;
-    s += t + n.pixelDepth;
-    s += t + n.colorDepth;
-
-    return s;
-}
-/**
- *
- * navigator 信息
- *
- * @returns {string}
- */
-function navigatorInfo () {
-    let t = '~';
-    let s = '';
-    let n = navigator;
-
-    s += t + n.appCodeName;
-    s += t + n.appName;
-    s += t + n.appVersion;
-    s += t + n.cookieEnabled;
-    s += t + n.language;
-    s += t + n.onLine;
-    s += t + n.platform;
-    s += t + n.product;
-    s += t + n.userAgent;
-    s += t + n.hardwareConcurrency;
-
-    return s;
-}
-function generateUUID () {
-    let d = getMillisecondTime();
-    let i = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-        let r = (d + Math.random()*16)%16 | 0;
-        d = Math.floor(d/16);
-        return (c=='x' ? r : (r&0x3|0x8)).toString(16);
-    });
-    return i;
-}
-
-//sesionid---------------------
-// function setSessionIdFormat (sSessionId1 = '') {
+/*6147b904ddeba7bc*/// function setSessionIdFormat (sSessionId1 = '') {
 //     // if (typeof window['hex_md5'] == 'undefined') {
 //     //     return false;
 //     // }
@@ -854,40 +738,18 @@ function generateUUID () {
 //     }
 //
 //     asyn('sessionId');
-// }
-//sesionid====================
-//dom--------------
-/**
- *
- * 修改最大级父状态，是否显示或隐藏
- *
- * @param b 显示或隐藏 type bool true 显示
- */
-function changeBodyStatus (b = true) {
-    let h = b ? sVisibleClass : sInvisibleClass;
+// }/*6147b904ddeba7bc*/
 
-    let p1 = new RegExp('\\s*' + sInvisibleClass,'gm');
-    let p2 = new RegExp('\\s*' + sVisibleClass,'gm');
-
-    let o = bodyDom();
-    let s = o.className;
-    s = s.replace(p1, '');
-    s = s.replace(p2, '');
-
-    o.className = s ? s + ' ' + h : h;
-}
-//dom===================
-/**
+/*ce0e5222f8cb9ab7*//**
  *
  * 跳转其他地址
  *
  */
 function jump (u) {
     window.location.href = u;
-}
-/*increment_version_58*/
-//限制----------------
-/**
+}/*ce0e5222f8cb9ab7*/
+
+/*66ee4918d064c5c7*//**
  *
  * 电脑端限制
  *
@@ -902,13 +764,9 @@ function astrict () {
     }
 
     return true;
-}
-//限制==================
-/*increment_version_58*/
+}/*66ee4918d064c5c7*/
 
-/*increment_version_79*/
-//尺寸相关------------------------
-/**
+/*e40fd4b7d8973e42*//**
  *
  * 浏览器尺寸
  *
@@ -933,16 +791,13 @@ function winSize() {
     //     iWinHeight = document.documentElement.clientHeight;
     //     iWinWidth = document.documentElement.clientWidth;
     // }
-}
-/*increment_version_79*/
+}/*e40fd4b7d8973e42*/
 
-/*increment_version_80*/
-function size () {
+/*fd0f21b2c39c868e*/function size () {
     asyn('winSize');
-}
-/*increment_version_80*/
-/*increment_version_81*/
-/**
+}/*fd0f21b2c39c868e*/
+
+/*23bdfcfa6e6ef41b*//**
  *
  * 获取每毫米的像素值
  *
@@ -963,10 +818,9 @@ function getOneMmsPx (){
     let w = o.getBoundingClientRect().width;
     o.parentNode.removeChild(o);
     return w;
-}
-/*increment_version_81*/
-//平台相关------------------
-let os = function() {
+}/*23bdfcfa6e6ef41b*/
+
+/*05b110c27cc260de*/let os = function() {
     let a = navigator.userAgent;
     isWindowsPhone = /(?:Windows Phone)/.test(a),
         isSymbian = /(?:SymbianOS)/.test(a) || isWindowsPhone,
@@ -1005,10 +859,9 @@ function checkPlatform () {
     if (os.isPc) {
         return sIsPc;
     }
-}
-//平台相关================
-/*increment_version_82*/
-/**
+}/*05b110c27cc260de*/
+
+/*76d24ccd8f14aad0*//**
  *
  * 根据每毫米px大小 设置字体大小
  *
@@ -1029,15 +882,9 @@ function initializeFontSize () {
     }
 
     oHtml.style.fontSize = iFontSize + 'px';
-}
-//尺寸相关====================
-/*increment_version_82*/
+}/*76d24ccd8f14aad0*/
 
-
-//json===============
-
-//dom相关------------
-/**
+/*3876aa63f297d6af*//**
  *
  * 写dom，次最大父dom
  *
@@ -1075,8 +922,6 @@ function secondDom () {
 
     o.style.display = 'block';
 }
-/*increment_version_77*/
-/*increment_version_78*/
 let oFatherDom = '';
 function fatherDom () {
     oFatherDom = oFatherDom ? oFatherDom : domById(oDomFatherId);
@@ -1096,14 +941,9 @@ let oBodyDom = false;
 function bodyDom () {
     oBodyDom = oBodyDom ? oBodyDom : domById(sBodyDomFatherId);
     return oBodyDom;
-}
+}/*3876aa63f297d6af*/
 
-
-//dom相关==========
-/*increment_version_78*/
-
-/*increment_version_84*/
-function winResize (bOnload = false) {
+/*f5cbcc6172ee0659*/function winResize (bOnload = false) {
     if (!bOnload) {
         // asyn('showBaseShade');
 
@@ -1113,16 +953,9 @@ function winResize (bOnload = false) {
     }
 
     asyn('size');
-}
-/*increment_version_84*/
+}/*f5cbcc6172ee0659*/
 
-
-/*increment_version_73*/
-
-/*increment_version_73*/
-
-/*increment_version_85*/
-window.onresize = function () {
+/*e15d60c9775f21fe*/window.onresize = function () {
     // asyn('showBaseShade');
 
     if (aBaseTimer['winResize']) {
@@ -1132,26 +965,19 @@ window.onresize = function () {
     aBaseTimer['winResize'] = setTimeout(function () {
         winResize();
     }, aTimer['winResize']);
-}
-/*increment_version_85*/
+}/*e15d60c9775f21fe*/
 
-/*increment_version_87*/
-function localstorageIsForbidden () {
+/*d03267fc2f3b3729*/function localstorageIsForbidden () {
     console.log('localstorage is forbidden, web can not normal use, so we nothing to do !!! ');
     alert('localstorage is forbidden, web can not normal use, so we nothing to do !!! ');
-}
-/*increment_version_87*/
+}/*d03267fc2f3b3729*/
 
-
-
-//meta-------------------
-let bSetMeta = false;
-
-/**
+/*3de6df3eb7ca4333*//**
  *
  * 设置meta标签
  *
  */
+let bSetMeta = false;
 function setMeta () {
     if (bSetMeta) {
         return;
@@ -1332,10 +1158,9 @@ function setContent (n = '') {
             break;
     }
     return m;
-}
-//meta===============
+}/*3de6df3eb7ca4333*/
 
-function pageBegin () {
+/*346338dcd06aa266*/function pageBegin () {
     console.log('pageBegin 1111111111111');
     // asyn('showPageShade');
     // showPageShade();
@@ -1348,10 +1173,9 @@ function pageBegin () {
     // clearPlatformShade();
     // asyn('clearPageShade');
     asyn('clearBaseShade');
-}
+}/*346338dcd06aa266*/
 
-/*increment_version_83*/
-let oHtml = false;
+/*6253f7ef57dc3560*/let oHtml = false;
 let oBody = false;
 let oHead = false;
 function baseBegins () {
@@ -1398,11 +1222,4 @@ function baseBegins () {
     asyn('getUserIp');
 
     asyn('secondDom');
-}
-/*increment_version_83*/
-
-/*999999999999999999*/document.getElementsByTagName('body')[0].style.backgroundColor = 'red';/*999999999999999999*/
-/*88888888888*/document.getElementsByTagName('body')[0].style.color = 'red';/*88888888888*/
-/*111111111111111111111*/document.getElementsByTagName('body')[0].style.width = '10px';/*111111111111111111111*/
-/*22222222222222222*/document.getElementsByTagName('body')[0].style.height = '10px';/*22222222222222222*/
-/*333333333333333333333*/document.getElementsByTagName('body')[0].style.left = '10px';/*333333333333333333333*/
+}/*6253f7ef57dc3560*/

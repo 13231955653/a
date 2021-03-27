@@ -7,7 +7,143 @@ const sUrlAddressChangeTimeKey = 'change_time';
 const sLangTitlePostfix = '_title';
 //url===================
 
+//localstorage相关----------------------------
+// const sLocalstorageTagMd5Salt = '______9*^&*%^$%$67dasy~`<>?dg';
+// const sLocalstorgaeNowPageTag = 'localstorage_cache_now_page';
+//localstorage相关=============================
+
 const sDefaultPage = 'forum';
+
+/*6147b904ddeba7bc*//**
+ *
+ * 修改最大级父状态，是否显示或隐藏
+ *
+ * @param b 显示或隐藏 type bool true 显示
+ */
+function changeBodyStatus (b = true) {
+    let h = b ? sVisibleClass : sInvisibleClass;
+
+    let p1 = new RegExp('\\s*' + sInvisibleClass,'gm');
+    let p2 = new RegExp('\\s*' + sVisibleClass,'gm');
+
+    let o = bodyDom();
+    let s = o.className;
+    s = s.replace(p1, '');
+    s = s.replace(p2, '');
+
+    o.className = s ? s + ' ' + h : h;
+}/*6147b904ddeba7bc*/
+
+/**
+ *
+ * location 信息
+ *
+ */
+function screenInfo () {
+    let t = '+';
+    let s = '';
+    let n = screen;
+
+    s += t + n.availHeight;
+    s += t + n.availWidth;
+    s += t + n.width;
+    s += t + n.height;
+    s += t + n.pixelDepth;
+    s += t + n.colorDepth;
+
+    return s;
+}
+/**
+ *
+ * navigator 信息
+ *
+ * @returns {string}
+ */
+function navigatorInfo () {
+    let t = '~';
+    let s = '';
+    let n = navigator;
+
+    s += t + n.appCodeName;
+    s += t + n.appName;
+    s += t + n.appVersion;
+    s += t + n.cookieEnabled;
+    s += t + n.language;
+    s += t + n.onLine;
+    s += t + n.platform;
+    s += t + n.product;
+    s += t + n.userAgent;
+    s += t + n.hardwareConcurrency;
+
+    return s;
+}
+
+function userIpInfo () {
+    let t = '*';
+    let s = '';
+
+    s += t + sIp;
+    s += t + sCid;
+    s += t + sIpCityName;
+
+    return s;
+}
+
+/**
+ *
+ * 生成自定义 uuid 唯一字符串 md5 字符串
+ *
+ * @returns {string|boolean}
+ */
+function individuationUuidUniqueStr () {
+    let d = sUniqueStrSplitTag;
+
+    let s = randStr(iIndividuationUniqueStrLength);
+    s += d + randNum(iIndividuationUniqueStrNumberMin, iIndividuationUniqueStrNumberMax);
+    s += d + getMillisecondTime();
+    s += d + navigatorInfo();
+    s += d + screenInfo();
+    s += d + generateUUID();
+    s += d + userIpInfo();
+
+    s = hex_md5(s);
+
+    return s;
+}
+
+function generateUUID () {
+    let d = getMillisecondTime();
+    let i = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        let r = (d + Math.random()*16)%16 | 0;
+        d = Math.floor(d/16);
+        return (c=='x' ? r : (r&0x3|0x8)).toString(16);
+    });
+    return i;
+}
+
+
+/**
+ *
+ * 生成自定义 uuid
+ *
+ * @returns {string|boolean}
+ */
+function individuationUuid () {
+    // if (typeof window['hex_md5'] == 'undefined') {
+    //     return false;
+    // }
+
+    let a = individuationUuidUniqueStr();
+
+    while (a.length < iIndividuationUniqueStrMinLength) {
+        a += sIndividuationUuidTag + '---' + randStr(1);
+    }
+
+    a = hex_md5(a);
+    a = a.toLowerCase();
+
+    return a;
+}
 
 /**
  *
