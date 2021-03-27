@@ -810,27 +810,69 @@ function disposeResponse (v = '', t = '', f = '') {
         asyn('writeStaticResourceToPage', s, t);
 
         asyn('cacheStaticResource', f, s);
+        return;
+    }
 
+    if (p === 'i') {
+        aNeedIncrementStaticResourceCache[f] = s.i;
+        aNeedIncrementStaticResourceCacheFileType[f] = t;
+
+        let b = 'incrememtStaticResourceCache';
+        getStaticResourceFromLocalstorage(f, b, true);
         return;
     }
 
     if (p === 'u') {
-
-    }
-
-    if (p === 'i') {
-        aNeedUpdateStaticResourceCache[f] = s.i;
+        aNeedUpdateStaticResourceCache[f] = s.u;
+        aNeedUpdateStaticResourceCacheVerion[f] = v.g;
         aNeedUpdateStaticResourceCacheFileType[f] = t;
 
-        let b = 'incrememtStaticResourceCache';
+        let b = 'updateStaticResourceCache';
         getStaticResourceFromLocalstorage(f, b, true);
+        return;
     }
 
     if (p === 'ui') {
+        aNeedIncrementStaticResourceCache[f] = s.i;
+        aNeedIncrementStaticResourceCacheFileType[f] = t;
 
+        aNeedUpdateStaticResourceCache[f] = s.u;
+        aNeedUpdateStaticResourceCacheVerion[f] = v.g;
+        aNeedUpdateStaticResourceCacheFileType[f] = t;
+
+        let b = 'incrementAndUpdateStaticResourceCache';
+        getStaticResourceFromLocalstorage(f, b, true);
+        return;
     }
 }
 
+/**
+ *
+ * 静态文件添加并更新
+ *
+ * @param v
+ */
+function incrementAndUpdateStaticResourceCache (v = '') {
+    if (!v.key) {
+        return;
+    }
+
+    let s = v.message;
+    let k = v.key;
+    if (s) {
+        let g = '';
+        for (let i in aNeedUpdateStaticResourceCacheVerion[k]) {
+            g = new RegExp('\/\*' + aNeedUpdateStaticResourceCacheVerion[k][i] + '\*\/' + '.*?' + '\/\*' + aNeedUpdateStaticResourceCacheVerion[k][i] + '\*\/','gm');
+            s = s.replace(g, aNeedUpdateStaticResourceCache[k][i]);
+        }
+    }
+
+    s = s + aNeedIncrementStaticResourceCache[k];
+
+    asyn('writeStaticResourceToPage', s, aNeedIncrementStaticResourceCacheFileType[k]);
+
+    asyn('cacheStaticResource', k, s);
+}
 /**
  *
  * 静态文件增加内容，更新缓存
@@ -839,17 +881,42 @@ function disposeResponse (v = '', t = '', f = '') {
  */
 let aNeedUpdateStaticResourceCacheFileType = [];
 let aNeedUpdateStaticResourceCache = [];
+let aNeedUpdateStaticResourceCacheVerion = [];
+function updateStaticResourceCache (v = '') {
+    if (!v.key) {
+        return;
+    }
+
+    let s = v.message;
+    let k = v.key;
+    if (s) {
+        let g = '';
+        for (let i in aNeedUpdateStaticResourceCacheVerion[k]) {
+            g = new RegExp('\/\*' + aNeedUpdateStaticResourceCacheVerion[k][i] + '\*\/' + '.*?' + '\/\*' + aNeedUpdateStaticResourceCacheVerion[k][i] + '\*\/','gm');
+            s = s.replace(g, aNeedUpdateStaticResourceCache[k][i]);
+        }
+
+        asyn('writeStaticResourceToPage', s, aNeedUpdateStaticResourceCacheFileType[k]);
+
+        asyn('cacheStaticResource', k, s);
+    }
+}
+/**
+ *
+ * 静态文件增加内容，更新缓存
+ *
+ * @param v
+ */
+let aNeedIncrementStaticResourceCacheFileType = [];
+let aNeedIncrementStaticResourceCache = [];
 function incrememtStaticResourceCache (v = '') {
     if (!v.key) {
         return;
     }
 
-    console.log(aNeedUpdateStaticResourceCacheFileType);
-    console.log(aNeedUpdateStaticResourceCache);
+    let s = v.message + aNeedIncrementStaticResourceCache[v.key];
 
-    let s = v.message + aNeedUpdateStaticResourceCache[v.key];
-
-    asyn('writeStaticResourceToPage', s, aNeedUpdateStaticResourceCacheFileType[v.key]);
+    asyn('writeStaticResourceToPage', s, aNeedIncrementStaticResourceCacheFileType[v.key]);
 
     asyn('cacheStaticResource', v.key, s);
 }

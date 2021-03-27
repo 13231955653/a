@@ -246,14 +246,7 @@ let iWinHeight = 0;
 // const sOldSessionIdStorageKey = 'old_session_id';
 // const sNewSessionIdStorageKey = 'new_session_id';
 
-//url-------------
-const sUrlAddressSignEncodeSalt = '_&*uh124jKzS645s(^$%a87123_';
-const sUrlAddressPageKey = 'page';
-const sUrlAddressSignKey = 'sign';
-const sUrlAddressChangeTimeKey = 'change_time';
 
-const sLangTitlePostfix = '_title';
-//url===================
 
 //时间相关---------------------
 const iNoticeTimeLimit = 3600000;
@@ -266,7 +259,6 @@ const sFriendBodyId = 'friend_body';
 const sSettingBodyId = 'setting_body';
 const sAboutMeBodyId = 'about_me_body';
 
-const sDefaultPage = 'forum';
 const sForumPage = 'forum';
 const sChatPage = 'chat';
 const sFriendPage = 'friend';

@@ -1,3 +1,14 @@
+//url-------------
+const sUrlAddressSignEncodeSalt = '_&*uh124jKzS645s(^$%a87123_';
+const sUrlAddressPageKey = 'page';
+const sUrlAddressSignKey = 'sign';
+const sUrlAddressChangeTimeKey = 'change_time';
+
+const sLangTitlePostfix = '_title';
+//url===================
+
+const sDefaultPage = 'forum';
+
 /**
  *
  * 在 j 之前插入 新节点o

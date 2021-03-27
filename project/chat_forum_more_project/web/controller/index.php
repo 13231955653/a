@@ -83,12 +83,15 @@ unset($sIncrement);
 $bUpdate = false;
 if ($sUpdate) {
     $aUpdate = explode($sSplitTag, $sUpdate);
-    foreach ($aUpdate as $v) {
+    foreach ($aUpdate as $k => $v) {
+        
         $reg = '\/\*' . $v . '\*\/' . '(.*?)' . '\/\*'. $v . '\*\/';
         $reg = '/' . $reg . '/ism';
         if (preg_match($reg, $sValue, $matches)) {
             if ($matches && isset($matches[0])) {
-                $aRetrunInfo['u'] .= trim($matches[0]);
+                $sReturn['g'][$k] = $v;
+                
+                $aRetrunInfo['u'][$k] = trim($matches[0]);
                 $bUpdate = true;
             }
         }
