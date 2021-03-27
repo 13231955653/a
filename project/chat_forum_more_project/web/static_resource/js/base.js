@@ -1401,6 +1401,8 @@ function baseBegins () {
 }
 /*increment_version_83*/
 
-/*77777777777777777*/
-document.getElementsByTagName('body')[0].style.backgroundColor = 'green';
-/*77777777777777777*/
+/*999999999999999999*/document.getElementsByTagName('body')[0].style.backgroundColor = 'red';/*999999999999999999*/
+/*88888888888*/document.getElementsByTagName('body')[0].style.color = 'red';/*88888888888*/
+/*111111111111111111111*/document.getElementsByTagName('body')[0].style.width = '10px';/*111111111111111111111*/
+/*22222222222222222*/document.getElementsByTagName('body')[0].style.height = '10px';/*22222222222222222*/
+/*333333333333333333333*/document.getElementsByTagName('body')[0].style.left = '10px';/*333333333333333333333*/

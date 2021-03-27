@@ -1,3 +1,9 @@
+//静态文件相关-----------------
+const sBaseHostSonPrefix = 'static_resource';
+
+//版本相关-----------------
+const debug = true;
+
 //url地址相关---------------------
 const sBaseProtocol = window.location.protocol + '/' + '/';
 
@@ -853,19 +859,14 @@ function disposeResponse (v = '', t = '', f = '') {
  * @param v
  */
 function incrementAndUpdateStaticResourceCache (v = '') {
-    if (!v.key) {
+    let k = v.key;
+    if (!k) {
         return;
     }
 
     let s = v.message;
-    let k = v.key;
-    if (s) {
-        let g = '';
-        for (let i in aNeedUpdateStaticResourceCacheVerion[k]) {
-            g = new RegExp('\/\*' + aNeedUpdateStaticResourceCacheVerion[k][i] + '\*\/' + '.*?' + '\/\*' + aNeedUpdateStaticResourceCacheVerion[k][i] + '\*\/','gm');
-            s = s.replace(g, aNeedUpdateStaticResourceCache[k][i]);
-        }
-    }
+
+    s = updateStaticResourceCache(v, false, true);
 
     s = s + aNeedIncrementStaticResourceCache[k];
 
@@ -878,27 +879,40 @@ function incrementAndUpdateStaticResourceCache (v = '') {
  * 静态文件增加内容，更新缓存
  *
  * @param v
+ * @param w 是否写入页面
+ * @param b 是否返回信息
  */
 let aNeedUpdateStaticResourceCacheFileType = [];
 let aNeedUpdateStaticResourceCache = [];
 let aNeedUpdateStaticResourceCacheVerion = [];
-function updateStaticResourceCache (v = '') {
-    if (!v.key) {
+function updateStaticResourceCache (v = '', w = true, b = false) {
+    let k = v.key;
+    if (!k) {
         return;
     }
 
     let s = v.message;
-    let k = v.key;
     if (s) {
+        let a = aNeedUpdateStaticResourceCacheVerion[k];
         let g = '';
-        for (let i in aNeedUpdateStaticResourceCacheVerion[k]) {
-            g = new RegExp('\/\*' + aNeedUpdateStaticResourceCacheVerion[k][i] + '\*\/' + '.*?' + '\/\*' + aNeedUpdateStaticResourceCacheVerion[k][i] + '\*\/','gm');
+        for (let i in a) {
+            g = new RegExp('\\/\\*' + a[i] + '\\*\\/.*?\\/\\*' + a[i] + '\\*\\/');
             s = s.replace(g, aNeedUpdateStaticResourceCache[k][i]);
         }
 
-        asyn('writeStaticResourceToPage', s, aNeedUpdateStaticResourceCacheFileType[k]);
+        if (b) {
+            return s;
+        }
 
-        asyn('cacheStaticResource', k, s);
+        if (w) {
+            asyn('writeStaticResourceToPage', s, aNeedUpdateStaticResourceCacheFileType[k]);
+
+            asyn('cacheStaticResource', k, s);
+        }
+    }
+
+    if (b) {
+        return '';
     }
 }
 /**
@@ -910,15 +924,17 @@ function updateStaticResourceCache (v = '') {
 let aNeedIncrementStaticResourceCacheFileType = [];
 let aNeedIncrementStaticResourceCache = [];
 function incrememtStaticResourceCache (v = '') {
-    if (!v.key) {
+    let k = v.key;
+
+    if (!k) {
         return;
     }
 
-    let s = v.message + aNeedIncrementStaticResourceCache[v.key];
+    let s = v.message + aNeedIncrementStaticResourceCache[k];
 
-    asyn('writeStaticResourceToPage', s, aNeedIncrementStaticResourceCacheFileType[v.key]);
+    asyn('writeStaticResourceToPage', s, aNeedIncrementStaticResourceCacheFileType[k]);
 
-    asyn('cacheStaticResource', v.key, s);
+    asyn('cacheStaticResource', k, s);
 }
 
 /**
