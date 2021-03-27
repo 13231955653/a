@@ -4,40 +4,20 @@ if (!isset($_GET['f'])) {
 }
 
 $sFile = $_GET['f'];
-$sIncrement = isset($_GET['z']) && $_GET['z'] ? $_GET['z'] : '';
+$sIncrement = isset($_GET['i']) && $_GET['i'] ? $_GET['i'] : '';
+$sUpdate = isset($_GET['u']) && $_GET['u'] ? $_GET['u'] : '';
+$bFull = isset($_GET['a']) && $_GET['a'] ? true : false;
 
 $sBaseDir = dirname(__DIR__) . DIRECTORY_SEPARATOR;
 
 $sFile = str_replace(DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $sBaseDir . $sFile);
 $sBaseDir = null;
 unset($sBaseDir);
-
-function compress ($sType = '', & $sValue = '') {
-    if (!in_array($sType, ['js', 'css']) || !$sValue) {
-        $sValue = '';
-        return $sValue;
-    }
-    
-    switch ($sType) {
-        case 'js' :
-            $sValue = compressJs($sValue);
-            break;
-        case 'css' :
-            $sValue = compressCss($sValue);
-            break;
-    }
-    
-    return $sValue;
+if (!is_file($sFile)) {
+    return '';
 }
 
-function compressJs (& $sValue = '') {
-    if (!$sValue) {
-        $sValue = '';
-        return $sValue;
-    }
-    
-    return $sValue;
-}
+
 //存用户上次访问时间戳
 //    存在
 //        读取新添内容
@@ -48,48 +28,85 @@ function compressJs (& $sValue = '') {
 // 读取静态文件
 //      用户上次访问时间
 //          获取更新或新增文件
-function compressCss (& $sValue = '') {
-    if (!$sValue) {
-        $sValue = '';
-        return $sValue;
-    }
-    
-    return $sValue;
-}
 
 $sType = explode('.', $sFile);
 $sType = isset($sType[1]) && $sType[1] ? strtolower($sType[1]) : '';
 
 $sValue = file_get_contents($sFile);
-$sFile = null;
-unset($sFile);
+$sFile = $sType = null;
+unset($sFile, $sType);
 
-$sValue = compress($sType, $sValue);
-$sType = null;
-unset($sType);
-
-function fullData () {
-
-}
-
-if (!$sIncrement) {
-    echo $sValue;
-    
+$sReturn = [];
+if (
+    $bFull
+    ||
+    (
+        !$sIncrement && !$sUpdate
+    )
+) {
+    $sReturn = [
+        't' => 'a',
+        's' => $sValue,
+    ];
     $sValue = null;
     unset($sValue);
+    
+    echo json_encode($sReturn);
     return;
 }
 
-$sFullLoadStaticResourceTag = 'full';
-switch ($sIncrement) {
-    case $sFullLoadStaticResourceTag :
-            echo $sValue;
-        
-            $sValue = null;
-            unset($sValue);
-            return;
-        break;
-}
+$sRetrunInfo = '';
+$reg = '';
+$sSplitTag = '_';
 
+$bIncrement = false;
+if ($sIncrement) {
+    $aIncrement = explode($sSplitTag, $sIncrement);
+    foreach ($aIncrement as $v) {
+        $reg = '\/\*' . $v . '\*\/' . '(.*?)' . '\/\*'. $v . '\*\/';
+        $reg = '/' . $reg . '/ism';
+        if (preg_match($reg, $sValue, $matches)) {
+            var_dump($matches);
+            if ($matches && isset($matches[1])) {
+                $sRetrunInfo .= trim($matches[1]);
+                $bIncrement = true;
+            }
+        }
+    }
+    unset($aIncrement);
+    $aIncrement = null;
+    
+    $sReturn['t'] = 'i';
+}
 $sIncrement = null;
 unset($sIncrement);
+
+$bUpdate = false;
+if ($sUpdate) {
+    $aUpdate = explode($sSplitTag, $sUpdate);
+    foreach ($aUpdate as $v) {
+        $reg = '\/\*' . $v . '\*\/' . '(.*?)' . '\/\*'. $v . '\*\/';
+        $reg = '/' . $reg . '/ism';
+        if (preg_match($reg, $sValue, $matches)) {
+            if ($matches && isset($matches[1])) {
+                $sRetrunInfo .= trim($matches[1]);
+                $bUpdate = true;
+            }
+        }
+    }
+    unset($aUpdate);
+    $aUpdate = null;
+    
+    $sReturn['t'] = 'u';
+}
+$sUpdate = null;
+unset($sUpdate);
+
+if ($bIncrement && $bUpdate) {
+    $sReturn['t'] = 'ui';
+}
+
+$sReturn['s'] = $sRetrunInfo;
+
+echo json_encode($sRetrunInfo);
+return;

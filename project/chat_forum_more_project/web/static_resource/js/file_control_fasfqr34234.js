@@ -9,7 +9,7 @@ const sFinalMetaTagId = 'copyright_content';
 //meta标签相关=====================
 
 //时间相关---------------------
-const sUserLastUseTimeTag = 'user_last_use';
+const sLastCacheStaticResourceTimeTag = 'last_cache_static_resource_';
 const iRequertTimeout = 9000;
 // const iRequertLangJsTimeout = 5000;
 // const iMaxLoadOriginJqueryWaitTime = 5000;
@@ -219,9 +219,8 @@ let myStorage = (function myStorage () {
  *
  * @param j 文件完整目录 type string
  * @param v 文件内容 type string
- * @param p 文件类型 type string
  */
-function cacheStaticResource (j = '', v = '', p = '') {
+function cacheStaticResource (j = '', v = '') {
     let t = setTimeout(function () {
         clearTimeout(t);
 
@@ -354,7 +353,6 @@ function setTimeoutFunction (f = '', a = '', b = '') {
     let d = 15;
     if (typeof window['aTimer'] != 'undefined') {
         if (typeof aTimer[f] == 'undefined') {
-            console.log('ssssssssssssssssssssssss');
             console.log(f);
         } else {
             d = aTimer[f];
@@ -738,8 +736,9 @@ function hashFunc(s, i){
  * @param j 文件完整路径 type string
  * @param t 文件类型 type string
  * @param c 回调函数 type string
+ * @param r 真实文件地址 type string
  */
-function initStaticResource (j = '', t = '', c = '') {
+function initStaticResource (j = '', t = '', c = '', r = '') {
     if (!j || !t) {
         return false;
     }
@@ -755,25 +754,62 @@ function initStaticResource (j = '', t = '', c = '') {
         return;
     }
 
-    xhr.open('GET', allocationHost(j) + incrementArg(t, j), true);
+    xhr.open('GET', allocationHost(j) + '/index.php?' + j, true);
     xhr.send(null);
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4 && xhr.status == 200) {
             let v = xhr.responseText;
             v = v == null ? '' : v;
-
-            asyn('writeStaticResourceToPage', v, t);
+            v = JSON.parse(v);
 
             let z = setTimeout(function () {
                 clearTimeout(z);
 
-                cacheStaticResource(j, v, t);
+                disposeResponse(v, t, r);
             }, 0);
+
+            asyn('setStaticResourceLastCacheTime', r);
         }
     };
 
     if (c) {
         asyn(c);
+    }
+}
+
+/**
+ *
+ * 处理请求回来的静态资源
+ *
+ * @param v 请求回来的资源 type json
+ * @param v t 文件类型 type string
+ * @param f 文件路径 type string
+ */
+function disposeResponse (v = '', t = '', f = '') {
+    if (!v.t || !v.s) {
+        return;
+    }
+
+    let p = v.t;
+    let s = v.s;
+    if (p === 'a') {
+        asyn('writeStaticResourceToPage', s, t);
+
+        asyn('cacheStaticResource', f, s);
+
+        return;
+    }
+
+    if (p === 'u') {
+
+    }
+
+    if (p === 'i') {
+
+    }
+
+    if (p === 'ui') {
+
     }
 }
 
@@ -1008,13 +1044,13 @@ function loadStaticResource (f, q = false) {
             break;
     }
 
-    getIncrementUpdateTag(f);
-
-    if (q) {
+    let n = getIncrementUpdateTag(f);
+    if (n || q) {
         let t = setTimeout(function () {
             clearTimeout(t);
 
-            initStaticResource(f, c, a);
+            let g = n ? 'f=' + f + n : 'f=' + f;
+            initStaticResource(g, c, a, f);
         }, 0);
     } else {
         let t = setTimeout(function () {
@@ -1400,7 +1436,14 @@ function localstorageError1 () {
     alert('localstorage error, please retry reload !!! ');
 }
 
-function setUserLastUseTime () {
+// asyn('setUserLastUseTime');
+/**
+ *
+ * 缓存上一次静态文件缓存时间
+ *
+ * @param k 静态文件地址
+ */
+function setStaticResourceLastCacheTime (k = '') {
     let t = date();
     let y = t.getFullYear();
     let m = parseInt(t.getMonth()) + parseInt(1);
@@ -1408,15 +1451,23 @@ function setUserLastUseTime () {
     let d = t.getDate();
     let h = t.getHours();
     h = h < 10 ? '0' + h : h;
-    myStorage.set(sUserLastUseTimeTag, y + m + d + h);
+
+    myStorage.set(sLastCacheStaticResourceTimeTag + k, y + m + d + h);
+}
+/**
+ *
+ * 获取上一次静态文件缓存时间
+ *
+ * @param k
+ * @returns {*}
+ */
+function getStaticResourceLastCacheTime (k = '') {
+    // console.log(sLastCacheStaticResourceTimeTag + k);
+    // last_cache_static_resource_/static_resource/js/base.js
+    let t = myStorage.get(sLastCacheStaticResourceTimeTag + k);
+    return t ? t : 0;
 }
 
-function getUserLastUseTime () {
-    iUserLastUsedTime = myStorage.get(sUserLastUseTimeTag);
-    return iUserLastUsedTime ? iUserLastUsedTime : 0;
-}
-
-let iUserLastUsedTime = 0;
 let iBeginTime = 0;
 function fileControlBegin () {
     console.log('0000000000000000000000000000000fileControlBegin');
@@ -1443,13 +1494,9 @@ function fileControlBegin () {
         return;
     }
 
-    getUserLastUseTime();
-
-    asyn('setUserLastUseTime');
+    setHosts();
 
     asyn('showBaseShade');
-
-    asyn('setHosts');
 
     asyn('loadStaticFile');
 }
