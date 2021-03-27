@@ -55,7 +55,7 @@ if (
     return;
 }
 
-$sRetrunInfo = '';
+$aRetrunInfo = [];
 $reg = '';
 $sSplitTag = '_';
 
@@ -66,9 +66,8 @@ if ($sIncrement) {
         $reg = '\/\*' . $v . '\*\/' . '(.*?)' . '\/\*'. $v . '\*\/';
         $reg = '/' . $reg . '/ism';
         if (preg_match($reg, $sValue, $matches)) {
-            var_dump($matches);
-            if ($matches && isset($matches[1])) {
-                $sRetrunInfo .= trim($matches[1]);
+            if ($matches && isset($matches[0])) {
+                $aRetrunInfo['i'] .= trim($matches[0]);
                 $bIncrement = true;
             }
         }
@@ -88,8 +87,8 @@ if ($sUpdate) {
         $reg = '\/\*' . $v . '\*\/' . '(.*?)' . '\/\*'. $v . '\*\/';
         $reg = '/' . $reg . '/ism';
         if (preg_match($reg, $sValue, $matches)) {
-            if ($matches && isset($matches[1])) {
-                $sRetrunInfo .= trim($matches[1]);
+            if ($matches && isset($matches[0])) {
+                $aRetrunInfo['u'] .= trim($matches[0]);
                 $bUpdate = true;
             }
         }
@@ -106,7 +105,7 @@ if ($bIncrement && $bUpdate) {
     $sReturn['t'] = 'ui';
 }
 
-$sReturn['s'] = $sRetrunInfo;
+$sReturn['s'] = $aRetrunInfo;
 
-echo json_encode($sRetrunInfo);
+echo json_encode($sReturn);
 return;

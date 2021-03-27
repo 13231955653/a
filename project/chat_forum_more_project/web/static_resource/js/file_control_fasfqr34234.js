@@ -581,6 +581,9 @@ window.addEventListener('message', function(event){
             return;
         }
 
+        console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+        console.log(event.data.after);
+        console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
         setTimeoutFunction(event.data.after, event.data.message);
     }
 }, false);
@@ -625,11 +628,12 @@ function sonIsReady (p = '') {
 }
 /**
  *
- * @param k localstorage key  string
- * @param f localstorage callback  string
+ * @param k localstorage key  type string
+ * @param f localstorage callback  type string
+ * @param b 是否返回key type string
  * @returns {boolean}
  */
-function queryLocalstorage (k = '', f = '') {
+function queryLocalstorage (k = '', f = '', b = false) {
     if (!k || !f) {
         return false;
     }
@@ -645,7 +649,12 @@ function queryLocalstorage (k = '', f = '') {
     let t = setTimeout(function () {
         clearTimeout(t);
 
-        localstoragePostMessage(p, {action: 'get', key: k, after: f});
+        let j = {action: 'get', key: k, after: f};
+        if (b) {
+            j.returnKey = true;
+        }
+
+        localstoragePostMessage(p, j);
     }, 0);
 }
 /**
@@ -654,14 +663,19 @@ function queryLocalstorage (k = '', f = '') {
  *
  * @param j 文件完整路径 type string
  * @param f 回调函数 type string
+ * @param b 是否返回key type string
  * @returns {string}
  */
-function getStaticResourceFromLocalstorage (j = '', f = '') {
+function getStaticResourceFromLocalstorage (j = '', f = '', b = false) {
     if (!j) {
         return '';
     }
 
-    asyn('queryLocalstorage', j, f);
+    let t = setTimeout(function () {
+        clearTimeout(t);
+
+        queryLocalstorage(j, f, b);
+    }, 1);
 }
 
 //host---------------
@@ -805,12 +819,39 @@ function disposeResponse (v = '', t = '', f = '') {
     }
 
     if (p === 'i') {
+        aNeedUpdateStaticResourceCache[f] = s.i;
+        aNeedUpdateStaticResourceCacheFileType[f] = t;
 
+        let b = 'incrememtStaticResourceCache';
+        getStaticResourceFromLocalstorage(f, b, true);
     }
 
     if (p === 'ui') {
 
     }
+}
+
+/**
+ *
+ * 静态文件增加内容，更新缓存
+ *
+ * @param v
+ */
+let aNeedUpdateStaticResourceCacheFileType = [];
+let aNeedUpdateStaticResourceCache = [];
+function incrememtStaticResourceCache (v = '') {
+    if (!v.key) {
+        return;
+    }
+
+    console.log(aNeedUpdateStaticResourceCacheFileType);
+    console.log(aNeedUpdateStaticResourceCache);
+
+    let s = v.message + aNeedUpdateStaticResourceCache[v.key];
+
+    asyn('writeStaticResourceToPage', s, aNeedUpdateStaticResourceCacheFileType[v.key]);
+
+    asyn('cacheStaticResource', v.key, s);
 }
 
 /**

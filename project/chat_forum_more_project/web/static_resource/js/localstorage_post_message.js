@@ -57,15 +57,22 @@ window.addEventListener('message',function(event){
     console.log(event.data);
     console.log('##############################################################################');
 
+    let k = event.data.key;
     switch (event.data.action) {
         case 'get' :
-            a.message = myStorage.get(event.data.key);
+
+            if (!event.data.returnKey) {
+                a.message = myStorage.get(k);
+            } else {
+                a.message = {message: myStorage.get(k), key: k};
+            }
+
             if (event.data.after) {
                 top.postMessage(a, u);
             }
             break;
         case 'set' :
-            a.message = myStorage.set(event.data.key, event.data.message, event.data.leftTime);
+            a.message = myStorage.set(k, event.data.message, event.data.leftTime);
             if (event.data.after) {
                 top.postMessage(a, u);
             }
