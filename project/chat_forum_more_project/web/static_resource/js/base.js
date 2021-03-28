@@ -368,35 +368,38 @@ function randNum (i, a) {
  *
  * @type {boolean}
  */
-let bInLoadPageJs = false;
+// let bInLoadPageJs = false;
 let sPageNow = '';
 let sNowPageJs = '';
 function loadPageJs () {
-    if (bInLoadPageJs) {
-        return ;
-    }
-    bInLoadPageJs = true;
+    // if (bInLoadPageJs) {
+    //     return ;
+    // }
+    // bInLoadPageJs = true;
 
     // asyn('showPageShade');
 
     sPageNow = getNowPage();
+    // console.log('dsadasdoooooooooooooooooooooooooooooooooooooo');
+    // console.log(sPageNow);
     switch (sPageNow) {
         case sForumPage:
-            sNowPageJs = sForumJs;
+            sNowPageJs = sForumJsTag;
             break;
         case sChatPage:
-            sNowPageJs = sChatJs;
+            sNowPageJs = sChatJsTag;
             break;
         case sFriendPage:
-            sNowPageJs = sFriendJs;
+            sNowPageJs = sFriendJsTag;
             break;
         case sSettingPage:
-            sNowPageJs = sSettingJs;
+            sNowPageJs = sSetJsTag;
             break;
         case sAboutMePage:
-            sNowPageJs = sAboutMeJs;
+            sNowPageJs = sAboutJsTag;
             break;
     }
+    // console.log(sNowPageJs);
 
     if (!sNowPageJs) {
         return false;
@@ -425,7 +428,7 @@ function afterLoadPageJs () {
         return;
     }
 
-    bInLoadPageJs = false;
+    // bInLoadPageJs = false;
 
     asyn(sPageNow + 'Begin');
 
@@ -1166,7 +1169,7 @@ function setContent (n = '') {
     // showPageShade();
 
     console.log('pageBegin 222222222222');
-    asyn('afterPageAction');
+    // asyn('afterPageAction');
 
     console.log('pageBegin 444444444444444444');
     // asyn('clearPlatformShade');

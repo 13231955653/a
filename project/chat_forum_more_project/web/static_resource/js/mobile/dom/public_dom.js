@@ -47,7 +47,9 @@ function threeClassBodyDom() {
 // let oFooter = '';
 function replaceFooterLang () {
     // oFooter = oFooter ? oFooter : domById(sPublicFootId);
-    asyn('replaceLang', sReplaceLangIdType, sPublicFootId);
+    requires([sFuncJsTag], function () {
+        asyn('replaceLang', sReplaceLangIdType, sPublicFootId);
+    });
 }
 
 let aFooterOnclick = [];

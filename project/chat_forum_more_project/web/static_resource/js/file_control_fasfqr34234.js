@@ -41,7 +41,8 @@ const iCheckJqueryLimitTime = 5000;
 //时间相关=======================
 
 //语言相关-----------
-let sLangNow = '';
+// let sLangNow = '';
+let sNowLang = '';
 //语言相关===========
 
 //id class tag相关--------------------
@@ -55,63 +56,6 @@ const sDefaultLangvage = 'cn';
 let sUserLangvage = '';
 let sPersonlizedColor = '';
 //用户自定义相关===================
-
-//平台 相关----------------
-/**
- *
- * 检查是否手机端
- *
- * @type {string}
- */
-let sPlatformTag = false;
-const sMobileTag = 'mobile';
-const sComputerTag = 'computer';
-function platformTag () {
-    if (sPlatformTag) {
-        return sPlatformTag;
-    }
-
-    let u = navigator.userAgent;
-    let m = ['Android', 'iPhone', 'SymbianOS', 'Windows Phone', 'iPad', 'iPod'];
-    sPlatformTag = sComputerTag;
-
-    //根据userAgent判断是否是手机
-    for (let v = 0; v < m.length; v++) {
-        if (u.indexOf(m[v]) > 0) {
-            sPlatformTag = sMobileTag;
-            break;
-        }
-    }
-
-    return sPlatformTag;
-}
-platformTag();
-//平台 相关================
-
-//静态文件相关---------------------------
-const sBaseJs = '/static_resource/js/base.js'; // base js 路径
-const sIndexJs = '/static_resource/js/index.js';
-const sFunctionJs = '/static_resource/js/public/function.js';
-const sJqueryJs = '/static_resource/js/public/jquery.js';
-const sLogicJs = '/static_resource/js/' + platformTag() + '/logic.js';
-const sDomJs = '/static_resource/js/public/dom/public_dom.js';
-const sBaseEncodeJs = '/static_resource/js/public/encode.js';
-const sCnLang = '/static_resource/js/lang/cn.js';
-const sEnLang = '/static_resource/js/lang/en.js';
-const sPlatformDomJs = '/static_resource/js/' + platformTag() + '/dom/public_dom.js';
-const sForumJs = '/static_resource/js/' + platformTag() + '/page/forum.js';
-const sChatJs = '/static_resource/js/' + platformTag() + '/page/chat.js';
-const sFriendJs = '/static_resource/js/' + platformTag() + '/page/friend.js';
-const sSettingJs = '/static_resource/js/' + platformTag() + '/page/setting.js';
-const sAboutMeJs = '/static_resource/js/' + platformTag() + '/page/about_me.js';
-const sApiJs = '/static_resource/js/public/query/query.js';
-
-const sResetCss = '/static_resource/css/public/reset.css';
-const sPublicCss = '/static_resource/css/public/' + platformTag() + '/public.css';
-const sUserColor1 = '/static_resource/css/personalized/color/1.css';
-const sUserColor2 = '/static_resource/css/personalized/color/2.css';
-const sUserColor3 = '/static_resource/css/personalized/color/3.css';
-//静态文件相关============================
 
 /**
  *
@@ -727,10 +671,16 @@ function hashFunc(s, i){
  * @param c 回调函数 type string
  * @param r 真实文件地址 type string
  */
+let bWriteToPage = [];
 function initStaticResource (j = '', t = '', c = '', r = '') {
     if (!j || !t) {
         return false;
     }
+
+    if (bWriteToPage[j]) {
+        return;
+    }
+    bWriteToPage[j] = true;
 
     var xhr = '';
     if (window.ActiveXObject) {
@@ -743,21 +693,29 @@ function initStaticResource (j = '', t = '', c = '', r = '') {
         return;
     }
 
+    // console.log('ssssssssssssasdasdasdasdsad');
+    // console.log(j);
+    // console.log(allocationHost(j) + '/index.php?' + aStaticResourceAddress[j]);
+    // return ;
     xhr.open('GET', allocationHost(j) + '/index.php?' + j, true);
     xhr.send(null);
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4 && xhr.status == 200) {
+            // bWriteToPage[j] = true;
+
             let v = xhr.responseText;
             v = v == null ? '' : v;
             v = JSON.parse(v);
 
-            let z = setTimeout(function () {
-                clearTimeout(z);
+            // if (bWriteToPage[j] != true) {
+                let z = setTimeout(function () {
+                    clearTimeout(z);
 
-                disposeResponse(v, t, r);
-            }, 0);
+                    disposeResponse(v, t, r);
+                }, 0);
 
-            asyn('setStaticResourceLastCacheTime', r);
+                asyn('setStaticResourceLastCacheTime', r);
+            // }
         }
     };
 
@@ -1024,131 +982,149 @@ function checkRequestJsCssLimit (f = '') {
  * @returns {boolean}
  */
 function loadStaticResource (f, q = false) {
+    if (aInLoadStaticResource[f] || aAllreadyLoadStaticResource[f]) {
+        return false;
+    }
+
     if (q && !checkRequestJsCssLimit(f)) {
         setTimeoutFunction('loadStaticResource', f, q);
         return false;
     }
 
+    setInLoadStaticResource(f, true);
+
     let a = '';
     let b = '';
     let c = '';
     switch (f) {
-        case sUserColor1 :
+        case sUserCss1Tag :
             a = 'afterLoadUserColor';
             b = 'afterLoadUserColor1';
             c = 'css';
             break;
-        case sUserColor2 :
+        case sUserCss2Tag :
             a = 'afterLoadUserColor';
             b = 'afterLoadUserColor1';
             c = 'css';
             break;
-        case sUserColor3 :
+        case sUserCss3Tag :
             a = 'afterLoadUserColor';
             b = 'afterLoadUserColor1';
             c = 'css';
             break;
-        case sPublicCss :
+        case sPubCssTag :
             a = 'afterLoadPublicCss';
             b = 'afterLoadPublicCss1';
             c = 'css';
             break;
-        case sResetCss :
+        case sResetCssTag :
             a = 'afterLoadResetCss';
             b = 'afterLoadResetCss1';
             c = 'css';
             break;
-        case sJqueryJs :
+        case sJqueryJsTag :
             a = 'afterLoadLocalJquery';
             b = 'afterLoadLocalJquery1';
             c = 'js';
             break;
-        case sBaseJs :
+        case sBaseJsTag :
             a = 'afterLoadBaseJs';
             b = 'afterLoadBaseJs1';
             c = 'js';
             break;
-        case sIndexJs :
-            a = 'afterLoadIndexJs';
-            b = 'afterLoadIndexJs1';
-            c = 'js';
-            break;
-        case sFunctionJs :
+        case sFuncJsTag :
             a = 'afterLoadFunctionJs';
             b = 'afterLoadFunctionJs1';
             c = 'js';
             break;
-        case sDomJs :
+        case sPubDomJsTag :
             a = 'afterLoadDomJs';
             b = 'afterLoadDomJs1';
             c = 'js';
             break;
-        case sPlatformDomJs :
+        case sPlatDomJsTag :
             a = 'afterLoadPlatformDomJs';
             b = 'afterLoadPlatformDomJs1';
             c = 'js';
             break;
-        case sLogicJs :
+        case sLogicJsTag :
             a = 'afterLoadLogicJs';
             b = 'afterLoadLogicJs1';
             c = 'js';
             break;
-        case sCnLang :
+        case sCnLangJsTag :
+            // sNowLang = sCnLangJsTag;
+            // console.log(q);
+            // console.log('dasssssssssssssssssszzzzzzzzzzzzzzzzzzzzzzzz');
             a = 'afterLoadLang';
             b = 'afterLoadLang1';
             c = 'js';
             break;
-        case sEnLang :
-            a = 'afterLoadLang';
-            b = 'afterLoadLang1';
-            c = 'js';
-            break;
-        case sApiJs :
+        // case sEnLangJsTag :
+        //     a = 'afterLoadLang';
+        //     b = 'afterLoadLang1';
+        //     c = 'js';
+        //     break;
+        case sApiJsTag :
             a = 'afterLoadApi';
             b = 'afterLoadApi1';
             c = 'js';
             break;
-        case sBaseEncodeJs :
+        case sEncodeJsTag :
             a = 'afterLoadEncode';
             b = 'afterLoadEncode1';
             c = 'js';
             break;
-        case sForumJs:
+        case sForumJsTag:
+            console.log('dddddddddddddddddddddasssssssssssssssssrqrqwwwwwwwwwwwwwwwwwwww');
             a = 'afterLoadPage';
             b = 'afterLoadPage1';
             c = 'js';
             break;
-        case sChatJs:
+        case sChatJsTag:
             a = 'afterLoadPage';
             b = 'afterLoadPage1';
             c = 'js';
             break;
-        case sFriendJs:
+        case sFriendJsTag:
             a = 'afterLoadPage';
             b = 'afterLoadPage1';
             c = 'js';
             break;
-        case sSettingJs:
+        case sSetJsTag:
             a = 'afterLoadPage';
             b = 'afterLoadPage1';
             c = 'js';
             break;
-        case sAboutMeJs:
+        case sAboutJsTag:
             a = 'afterLoadPage';
             b = 'afterLoadPage1';
             c = 'js';
             break;
     }
 
+    if (f == sForumJsTag) {
+        console.log('zzzzzzzzzzzzzzzzzzzaassssssssssssssqqq');
+    }
     let n = getIncrementUpdateTag(f);
+    if (f == sForumJsTag) {
+        console.log('zzzzzzzzzzzzzzzzzzzaassssssssssssssqqq');
+        console.log(n);
+    }
+    // if (a === 'afterLoadLang') {
+    //     console.log(n);
+    //     console.log('aaaaaaaaaaaaaddddddddddddddeeeeeeeeeeeegggggggggggggggggggg');
+    // }
     if (n || q) {
+        console.log('sssssssssssssssssssssaaaaaaaaaaaaaaaaaaaaaaaaaa');
         let t = setTimeout(function () {
             clearTimeout(t);
 
-            let g = n ? 'f=' + f + n : 'f=' + f;
+            let g = n ? 'f=' + aStaticResourceAddress[f] + n : 'f=' + aStaticResourceAddress[f];
             initStaticResource(g, c, a, f);
         }, 0);
     } else {
+        console.log('zzzzzzzzzzzzzzzzzzzzzqqqqqqqqqqqqqqqqqqqqqqqqq');
         let t = setTimeout(function () {
             clearTimeout(t);
 
@@ -1162,6 +1138,8 @@ function afterLoadStaticResource (v = '', t = '') {
     asyn('writeStaticResourceToPage', v, t);
 }
 function afterLoadUserColor () {
+    // asyn('setInLoadStaticResource', sPersonalizedCss, false);
+    setInLoadStaticResource(sPersonalizedCss, false);
 }
 function afterLoadUserColor1 (v = '') {
     if (v) {
@@ -1172,9 +1150,12 @@ function afterLoadUserColor1 (v = '') {
         return;
     }
 
+    aInLoadStaticResource[sPersonalizedCss] = false;
     asyn('loadStaticResource', sPersonalizedCss, true);
 }
 function afterLoadPublicCss () {
+    // asyn('setInLoadStaticResource', sPubCssTag, false);
+    setInLoadStaticResource(sPubCssTag, false);
 }
 function afterLoadPublicCss1 (v = '') {
     if (v) {
@@ -1185,9 +1166,12 @@ function afterLoadPublicCss1 (v = '') {
         return;
     }
 
-    asyn('loadStaticResource', sPublicCss, true);
+    aInLoadStaticResource[sPubCssTag] = false;
+    asyn('loadStaticResource', sPubCssTag, true);
 }
 function afterLoadResetCss () {
+    // asyn('setInLoadStaticResource', sResetCssTag, false);
+    setInLoadStaticResource(sResetCssTag, false);
 }
 function afterLoadResetCss1 (v = '') {
     if (v) {
@@ -1198,9 +1182,13 @@ function afterLoadResetCss1 (v = '') {
         return;
     }
 
-    asyn('loadStaticResource', sResetCss, true);
+    aInLoadStaticResource[sResetCssTag] = false;
+    asyn('loadStaticResource', sResetCssTag, true);
 }
 function afterLoadPage () {
+    // asyn('setInLoadStaticResource', sNowPageJs, false);
+    setInLoadStaticResource(sNowPageJs, false);
+
     asyn('afterLoadPageJs');
 }
 function afterLoadPage1 (v = '') {
@@ -1212,9 +1200,15 @@ function afterLoadPage1 (v = '') {
         return;
     }
 
+
+    aInLoadStaticResource[sNowPageJs] = false;
+    console.log('cxcxcsdddddddddddddddddddqqqqqqqqqqqqqqqqqhhhhhhhhhhhhh');
+    console.log(sNowPageJs);
     asyn('loadStaticResource', sNowPageJs, true);
 }
 function afterLoadLocalJquery () {
+    // asyn('setInLoadStaticResource', sJqueryJsTag, false);
+    setInLoadStaticResource(sJqueryJsTag, false);
 }
 function afterLoadLocalJquery1 (v = '') {
     if (v) {
@@ -1225,12 +1219,22 @@ function afterLoadLocalJquery1 (v = '') {
         return;
     }
 
-    asyn('loadStaticResource', sJqueryJs, true);
+    aInLoadStaticResource[sJqueryJsTag] = false;
+    asyn('loadStaticResource', sJqueryJsTag, true);
 }
 function afterLoadEncode () {
+    // asyn('setInLoadStaticResource', sEncodeJsTag, false);
+    setInLoadStaticResource(sEncodeJsTag, false);
     asyn('encodeBegin');
 }
 function afterLoadEncode1 (v = '') {
+    // if (typeof window['encodeBegin'] != 'undefined') {
+    //     return;
+    // }
+    // console.log('sssssssssdzcfewreddddddddddddddddddddddddd');
+    // console.log(typeof window['encodeBegin']);
+    // console.log(window['encodeBegin']);
+
     if (v) {
         asyn('afterLoadStaticResource', v, 'js');
 
@@ -1239,9 +1243,12 @@ function afterLoadEncode1 (v = '') {
         return;
     }
 
-    asyn('loadStaticResource', sBaseEncodeJs, true);
+    aInLoadStaticResource[sEncodeJsTag] = false;
+    asyn('loadStaticResource', sEncodeJsTag, true);
 }
 function afterLoadApi () {
+    // asyn('setInLoadStaticResource', sApiJsTag, false);
+    setInLoadStaticResource(sApiJsTag, false);
     asyn('apiBegin');
 }
 function afterLoadApi1 (v = '') {
@@ -1253,9 +1260,14 @@ function afterLoadApi1 (v = '') {
         return;
     }
 
-    asyn('loadStaticResource', sApiJs, true);
+    aInLoadStaticResource[sApiJsTag] = false;
+    asyn('loadStaticResource', sApiJsTag, true);
 }
 function afterLoadLang () {
+    // console.log('dasdasdasssssssssssssssssssssssssssssssss');
+    // console.log(sNowLang);
+    // asyn('setInLoadStaticResource', sNowLang, false);
+    setInLoadStaticResource(sNowLang, false);
     asyn('langBegin');
 }
 function afterLoadLang1 (v = '') {
@@ -1267,21 +1279,23 @@ function afterLoadLang1 (v = '') {
         return;
     }
 
-    let s = '';
-    switch (sLangNow) {
-        case 'cn' :
-            s = sCnLang;
-            break;
-        case sEnLang :
-            s = 'en';
-            break;
-        default:
-            s = sCnLang;
-            break;
-    }
-    asyn('loadStaticResource', s, true);
+    // switch (sLangNow) {
+    //     case sDefaultLangvage :
+    //         sNowLang = sCnLangJsTag;
+    //         break;
+    //     // case 'en' :
+    //     //     sNowLang = sEnLangJsTag;
+    //     //     break;
+    //     default:
+    //         sNowLang = sCnLangJsTag;
+    //         break;
+    // }
+    aInLoadStaticResource[sNowLang] = false;
+    asyn('loadStaticResource', sNowLang, true);
 }
 function afterLoadBaseJs () {
+    // asyn('setInLoadStaticResource', sBaseJsTag, false);
+    setInLoadStaticResource(sBaseJsTag, false);
     asyn('baseBegins');
 }
 function afterLoadBaseJs1 (v = '') {
@@ -1293,36 +1307,43 @@ function afterLoadBaseJs1 (v = '') {
         return;
     }
 
-    asyn('loadStaticResource', sBaseJs, true);
+    aInLoadStaticResource[sBaseJsTag] = false;
+    asyn('loadStaticResource', sBaseJsTag, true);
 }
-/**
- *
- * index js 加载完回调函数
- *
- */
-function afterLoadIndexJs () {
-    asyn('indexBegin');
-}
-function afterLoadIndexJs1 (v = '') {
-    if (v) {
-        asyn('afterLoadStaticResource', v, 'js');
-
-        asyn('afterLoadIndexJs');
-
-        return;
-    }
-
-    asyn('loadStaticResource', sIndexJs, true);
-}
+// /**
+//  *
+//  * index js 加载完回调函数
+//  *
+//  */
+// function afterLoadIndexJs () {
+//     asyn('indexBegin');
+// }
+// function afterLoadIndexJs1 (v = '') {
+//     if (v) {
+//         asyn('afterLoadStaticResource', v, 'js');
+//
+//         asyn('afterLoadIndexJs');
+//
+//         return;
+//     }
+//
+//     asyn('loadStaticResource', sIndexJs, true);
+// }
 /**
  *
  * function js 加载完回调函数
  *
  */
 function afterLoadFunctionJs () {
+    // asyn('setInLoadStaticResource', sFuncJsTag, false);
+    setInLoadStaticResource(sFuncJsTag, false);
     asyn('functionBegin');
 }
 function afterLoadFunctionJs1 (v = '') {
+    // if (typeof window['functionBegin'] != 'undefined') {
+    //     return;
+    // }
+
     if (v) {
         asyn('afterLoadStaticResource', v, 'js');
 
@@ -1331,7 +1352,8 @@ function afterLoadFunctionJs1 (v = '') {
         return;
     }
 
-    asyn('loadStaticResource', sFunctionJs, true);
+    aInLoadStaticResource[sFuncJsTag] = false;
+    asyn('loadStaticResource', sFuncJsTag, true);
 }
 /**
  *
@@ -1339,6 +1361,8 @@ function afterLoadFunctionJs1 (v = '') {
  *
  */
 function afterLoadDomJs () {
+    // asyn('setInLoadStaticResource', sPubDomJsTag, false);
+    setInLoadStaticResource(sPubDomJsTag, false);
     asyn('domBegin');
 }
 function afterLoadDomJs1 (v = '') {
@@ -1350,7 +1374,8 @@ function afterLoadDomJs1 (v = '') {
         return;
     }
 
-    asyn('loadStaticResource', sDomJs, true);
+    aInLoadStaticResource[sPubDomJsTag] = false;
+    asyn('loadStaticResource', sPubDomJsTag, true);
 }
 /**
  *
@@ -1358,6 +1383,8 @@ function afterLoadDomJs1 (v = '') {
  *
  */
 function afterLoadPlatformDomJs () {
+    // asyn('setInLoadStaticResource', sPlatDomJsTag, false);
+    setInLoadStaticResource(sPlatDomJsTag, false);
     asyn('platformBegin');
 }
 function afterLoadPlatformDomJs1 (v = '') {
@@ -1369,7 +1396,8 @@ function afterLoadPlatformDomJs1 (v = '') {
         return;
     }
 
-    asyn('loadStaticResource', sPlatformDomJs, true);
+    aInLoadStaticResource[sPlatDomJsTag] = false;
+    asyn('loadStaticResource', sPlatDomJsTag, true);
 }
 /**
  *
@@ -1377,6 +1405,8 @@ function afterLoadPlatformDomJs1 (v = '') {
  *
  */
 function afterLoadLogicJs () {
+    // asyn('setInLoadStaticResource', sLogicJsTag, false);
+    setInLoadStaticResource(sLogicJsTag, false);
     asyn('logicBegin');
 }
 function afterLoadLogicJs1 (v = '') {
@@ -1388,11 +1418,13 @@ function afterLoadLogicJs1 (v = '') {
         return;
     }
 
-    asyn('loadStaticResource', sLogicJs, true);
+    aInLoadStaticResource[sLogicJsTag] = false;
+    asyn('loadStaticResource', sLogicJsTag, true);
 }
 //用户语言
 function queryUserLang () {
     if (sUserLangvage) {
+        // sNowLang = sUserLangvage;
         return sUserLangvage;
     }
 
@@ -1402,8 +1434,32 @@ function queryUserLang () {
 
         asyn('setLang', l);
     }
+    // sNowLang = sUserLangvage;
 
     return l;
+}
+/**
+ *
+ * set localstorage lang
+ *
+ * @param l 语言 type string
+ * @param j 是否加载语言包 type string
+ * @returns {boolean}
+ */
+function setLang (l = '', j = false) {
+    if (!l) {
+        return false;
+    }
+
+    let t = setTimeout(function () {
+        clearTimeout(t);
+
+        myStorage.set(sLocalstorageLangTag, l);
+    }, 0);
+
+    if (j) {
+        asyn('loadLang');
+    }
 }
 /**
  *
@@ -1416,7 +1472,20 @@ let sPersonalizedCss = '';
 function loadPersonalizedCss (c = false) {
     c = c ? c : queryUserPersonalizedColor();
 
-    sPersonalizedCss = '/static_resource/css/personalized/color/' + c + '.css';
+    // sPersonalizedCss = '/static_resource/css/personalized/color/' + c + '.css';
+    // switch (c) {
+    //     case 1 :
+    //         sPersonalizedCss = sUserCss1Tag;
+    //         break;
+    //     case 2 :
+    //         sPersonalizedCss = sUserCss2Tag;
+    //         break;
+    //     case 3 :
+    //         sPersonalizedCss = sUserCss3Tag;
+    //         break;
+    // }
+
+    sPersonalizedCss = userCss(c);
 
     asyn('loadStaticResource', sPersonalizedCss);
 }
@@ -1465,21 +1534,27 @@ function setPersonlizedColor (c = '', n = false) {
  */
 function loadLang (l = '') {
     l = l ? l : queryUserLang();
-    sLangNow = l;
-    let y = '';
+    // let y = '';
     switch (l) {
-        case 'cn' :
-            y = sCnLang;
+        case sDefaultLangvage :
+            sNowLang = sCnLangJsTag;
+            // sNowLang = l;
             break;
-        case 'en' :
-            y = sEnLang;
+        // case 'en' :
+        //     y = sEnLangJsTag;
+        //     break;
+        default :
+            sNowLang = sCnLangJsTag;
+            // sNowLang = l;
             break;
     }
-    if (!y) {
+    if (!sNowLang) {
         return false;
     }
 
-    asyn('loadStaticResource', y);
+    // console.log('dddddddddddddddddddddasdasdasd');
+    // console.log(y);
+    asyn('loadStaticResource', sNowLang);
 }
 
 /**
@@ -1488,23 +1563,27 @@ function loadLang (l = '') {
  *
  */
 function loadStaticFile () {
-    asyn('loadStaticResource', sBaseJs);
+    asyn('loadStaticResource', sResetCssTag);
 
-    asyn('loadStaticResource', sIndexJs);
+    asyn('loadPersonalizedCss');
 
-    asyn('loadStaticResource', sFunctionJs);
+    asyn('loadStaticResource', sBaseJsTag);
 
-    asyn('loadStaticResource', sDomJs);
+    asyn('loadStaticResource', sPubDomJsTag);
 
-    asyn('loadStaticResource', sPlatformDomJs);
+    asyn('loadStaticResource', sPlatDomJsTag);
 
-    asyn('loadStaticResource', sLogicJs);
+    // asyn('loadStaticResource', sIndexJs);
+
+    // asyn('loadStaticResource', sFuncJsTag);
+
+    asyn('loadStaticResource', sLogicJsTag);
 
     asyn('loadLang');
 
-    asyn('loadStaticResource', sApiJs);
+    // asyn('loadStaticResource', sApiJsTag);
 
-    asyn('loadStaticResource', sBaseEncodeJs);
+    // asyn('loadStaticResource', aStaticResourceAddress[sEncodeJsTag][');
 
     let t = setTimeout(function () {
         clearTimeout(t);
@@ -1512,16 +1591,12 @@ function loadStaticFile () {
         asyn('loadLocalJquery');
     }, iCheckJqueryLimitTime);
 
-    asyn('loadStaticResource', sResetCss);
-
-    asyn('loadStaticResource', sPublicCss);
-
-    asyn('loadPersonalizedCss');
+    asyn('loadStaticResource', sPubCssTag);
 }
 
 function loadLocalJquery () {
     if (typeof jQuery == 'undefined') {
-        asyn('loadStaticResource', sJqueryJs);
+        asyn('loadStaticResource', sJqueryJsTag);
 
         let o = domById(sOriginJqueryId);
         o.parentNode.removeChild(o);
@@ -1564,6 +1639,15 @@ function getStaticResourceLastCacheTime (k = '') {
 let iBeginTime = 0;
 function fileControlBegin () {
     console.log('0000000000000000000000000000000fileControlBegin');
+    if (
+        (typeof window['getIncrementUpdateTag'] == 'undefined')
+        // ||
+        // (typeof window['requiresBegin'] == 'undefined')
+    ) {
+        setTimeoutFunction('fileControlBegin');
+        return;
+    }
+
     iBeginTime = getSecondTime();
 
     if (!window.localStorage) {
@@ -1587,11 +1671,102 @@ function fileControlBegin () {
         return;
     }
 
+    // asyn('setrequires');
+
+    // asyn('setStaticResourceInLoadAndAllready');
+
     setHosts();
 
     asyn('showBaseShade');
 
     asyn('loadStaticFile');
+}
+
+// /**
+//  *
+//  * 设置文件别名
+//  *
+//  */
+// function setrequires () {
+//     let a = [];
+//
+//     a[sFuncJsTag] = sFuncJsTag;
+//     a[sEncodeJsTag] = sEncodeJsTag;
+//     arequires = a;
+// }
+
+// function setStaticResourceInLoadAndAllready () {
+//     setStaticResource();
+//
+//     for (let i in aStaticResourceContainers) {
+//         aInLoadStaticResource.push(aStaticResourceContainers[i]);
+//         aAllreadyLoadStaticResource.push(aStaticResourceContainers[i]);
+//     }
+// }
+
+/**
+ *
+ * 设置正在读取的静态资源
+ *
+ * @param j 文件路径 type string
+ * @param b 加载中 type boole
+ */
+function setInLoadStaticResource (j = '', b = false) {
+    if (b) {
+        aInLoadStaticResource[j] = true;
+        aAllreadyLoadStaticResource[j] = false;
+        return;
+    }
+
+    aInLoadStaticResource[j] = false;
+    aAllreadyLoadStaticResource[j] = true;
+}
+
+/**
+ *
+ * 动态加载js
+ *
+ * @param j 依赖文件 type array
+ * @param c 回调函数 type function
+ */
+let aAllreadyLoadStaticResource = [];
+let aInLoadStaticResource = [];
+function requires (j = '', c = '') {
+    // console.log('pppppppppppppppppppppppppppppppppppppppppp');
+    let l = j.length;
+    let n = 0;
+    let y = [];
+    for (let i in j) {
+        // console.log(j[i]);
+        // console.log('vvvvvvvvvvvvvvvvvvvvvvv');
+        // console.log(aAllreadyLoadStaticResource);
+        // console.log(aAllreadyLoadStaticResource['base']);
+        // console.log(aAllreadyLoadStaticResource['func']);
+        // console.log(aAllreadyLoadStaticResource['encode']);
+        if (aAllreadyLoadStaticResource[j[i]]) {
+            n = parseInt(n) + parseInt(1);
+        } else {
+            y.push(j[i]);
+        }
+
+        // console.log(n);
+        // console.log(l);
+        if (n == l) {
+            console.log(c);
+            c();
+            console.log('kkkkkkkkkkkkkkkkkkkkkkkkkk');
+            return;
+        }
+    }
+
+    // console.log('qqqqqqqqqqqqqqqqqqqqqq');
+    if (y) {
+        for (let i in y) {
+            asyn('loadStaticResource', y[i]);
+        }
+    }
+
+    asyn('requires', j, c);
 }
 
 window.onload = fileControlBegin();

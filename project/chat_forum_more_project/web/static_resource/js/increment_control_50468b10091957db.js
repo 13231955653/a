@@ -1,6 +1,92 @@
+//平台 相关----------------
+/**
+ *
+ * 检查是否手机端
+ *
+ * @type {string}
+ */
+let sPlatformTag = false;
+const sMobileTag = 'mobile';
+const sComputerTag = 'computer';
+function platformTag () {
+    if (sPlatformTag) {
+        return sPlatformTag;
+    }
+
+    let u = navigator.userAgent;
+    let m = ['Android', 'iPhone', 'SymbianOS', 'Windows Phone', 'iPad', 'iPod'];
+    sPlatformTag = sComputerTag;
+
+    //根据userAgent判断是否是手机
+    for (let v = 0; v < m.length; v++) {
+        if (u.indexOf(m[v]) > 0) {
+            sPlatformTag = sMobileTag;
+            break;
+        }
+    }
+
+    return sPlatformTag;
+}
+platformTag();
+//平台 相关================
+
+const sBaseJsTag = 'base';
+const sFuncJsTag = 'func';
+const sJqueryJsTag = 'jquery';
+const sLogicJsTag = 'logic';
+const sPubDomJsTag = 'pub_dom';
+const sEncodeJsTag = 'encode';
+const sCnLangJsTag = 'cn_lang';
+const sEnLangJsTag = 'en_lang';
+const sPlatDomJsTag = 'plat_dom';
+const sForumJsTag = 'forum';
+const sChatJsTag = 'chat';
+const sFriendJsTag = 'friend';
+const sSetJsTag = 'set';
+const sAboutJsTag = 'about';
+const sApiJsTag = 'api';
+
+const sResetCssTag = 'reset_css';
+const sPubCssTag = 'pub_css';
+const sUserCss1Tag = 'user_css_1';
+const sUserCss2Tag = 'user_css_2';
+const sUserCss3Tag = 'user_css_3';
+function userCss (c) {
+    return 'user_css_' + c;
+}
+
+function staticResourceAddress () {
+    let p = platformTag();
+
+    let a = [];
+    a[sBaseJsTag] = '/static_resource/js/base.js';
+    a[sFuncJsTag] = '/static_resource/js/public/function.js';
+    a[sJqueryJsTag] = '/static_resource/js/public/jquery.js';
+    a[sLogicJsTag] = '/static_resource/js/' + p + '/logic.js';
+    a[sPubDomJsTag] = '/static_resource/js/public/dom/public_dom.js';
+    a[sEncodeJsTag] = '/static_resource/js/public/encode.js';
+    a[sCnLangJsTag] = '/static_resource/js/lang/cn.js';
+    a[sEnLangJsTag] = '/static_resource/js/lang/en.js';
+    a[sPlatDomJsTag] = '/static_resource/js/' + p + '/dom/public_dom.js';
+    a[sForumJsTag] = '/static_resource/js/' + p + '/page/forum.js';
+    a[sChatJsTag] = '/static_resource/js/' + p + '/page/chat.js';
+    a[sFriendJsTag] = '/static_resource/js/' + p + '/page/friend.js';
+    a[sSetJsTag] = '/static_resource/js/' + p + '/page/setting.js';
+    a[sAboutJsTag] = '/static_resource/js/' + p + '/page/about_me.js';
+    a[sApiJsTag] = '/static_resource/js/public/query/query.js';
+
+    a[sResetCssTag] = '/static_resource/css/public/reset.css';
+    a[sPubCssTag] = '/static_resource/css/public/' + p + '/public.css';
+    a[sUserCss1Tag] = '/static_resource/css/personalized/color/1.css';
+    a[sUserCss2Tag] = '/static_resource/css/personalized/color/2.css';
+    a[sUserCss3Tag] = '/static_resource/css/personalized/color/3.css';
+    aStaticResourceAddress = a;
+}
+//静态文件相关============================
+
 //值格式 0000 00 00 00 年月日时
 const aVersion = {
-    '/static_resource/js/base.js': {
+    'base': {
         'updtae': {
             // '2021042612': {
             //     1:'999999999999999999',
@@ -15,51 +101,59 @@ const aVersion = {
             // },
         },
     },
-    '/static_resource/js/index.js': {
+    'func': {
         'updtae': {},
         'increment': {},
     },
-    '/static_resource/js/public/function.js': {
+    'pub_dom': {
         'updtae': {},
         'increment': {},
     },
-    '/static_resource/js/public/dom/public_dom.js': {
+    'plat_dom': {
         'updtae': {},
         'increment': {},
     },
-    '/static_resource/js/mobile/dom/public_dom.js': {
+    'logic': {
         'updtae': {},
         'increment': {},
     },
-    '/static_resource/js/mobile/logic.js': {
+    'api': {
         'updtae': {},
         'increment': {},
     },
-    '/static_resource/js/public/query/query.js': {
+    'encode': {
         'updtae': {},
         'increment': {},
     },
-    '/static_resource/js/public/encode.js': {
+    'reset_css': {
         'updtae': {},
         'increment': {},
     },
-    '/static_resource/css/public/reset.css': {
+    'pub_css': {
         'updtae': {},
         'increment': {},
     },
-    '/static_resource/css/public/mobile/public.css': {
+    'cn_lang': {
         'updtae': {},
         'increment': {},
     },
-    '/static_resource/js/lang/cn.js': {
-        'updtae': {},
-        'increment': {},
-    },
-    '/static_resource/css/personalized/color/1.css': {
+    'user_css_1': {
         'updtae': {},
         'increment': {},
     },
 };
+
+/**
+ *
+ * 所有静态文件 js css
+ *
+ */
+// function setStaticResource () {
+//     aStaticResourceContainers = [];
+//     for (let i in aVersion) {
+//         aStaticResourceContainers.push(i);
+//     }
+// }
 
 let iAllreadyLoadStaticResource = 0;
 
@@ -76,6 +170,8 @@ function getIncrementUpdateTag (f) {
 
     let t = getStaticResourceLastCacheTime(f);
     if (!t) {
+        console.log('zzzzzzzzzzzzzzzzrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr');
+        console.log(f);
         return '&a=true';
     }
 
@@ -141,3 +237,5 @@ if (bConstraintRequest) {
 //         },
 //     },
 // },
+
+window.onload = staticResourceAddress();

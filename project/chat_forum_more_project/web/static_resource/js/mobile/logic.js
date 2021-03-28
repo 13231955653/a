@@ -69,6 +69,8 @@ function uodateUrlPageArg (p = '') {
     // writePageShade();
 
     // updateUrlPage(p);
+    console.log('ddddddddddddddddddddddddddddddddd');
+    console.log(p);
     asyn('updateUrlPage', p);
 
     console.log('点击过后需要检测当前页面是否需要刷新');
@@ -118,13 +120,17 @@ function replaceWindowTitle (t = '') {
 let aAllreadyLoadPageJs = [];
 function updateUrlPage (p = '') {
     if (typeof window['urlDecode'] == 'undefined') {
-        setTimeoutFunction('updateUrlPage', p);
+        requires([sEncodeJsTag], function () {
+            asyn('updateUrlPage', p);
+        });
         return;
     }
 
     if (typeof window['getNowPage'] == 'undefined') {
-
-        setTimeoutFunction('updateUrlPage', p);
+        requires([sFuncJsTag], function () {
+            asyn('updateUrlPage', p);
+            // updateUrlPage(p);
+        });
         return;
     }
     console.log(getUrlArgs());
@@ -141,6 +147,8 @@ function updateUrlPage (p = '') {
         f = 'afterLoadPageJs';
     }
     aAllreadyLoadPageJs[p] = getMillisecondTime();
+    // console.log('daswqeqweeeeee1111111222222222222222211111111eeeeeeeeeeeeeeee');
+    // console.log(f);
 
     let z = setTimeout(function () {
         clearTimeout(z);

@@ -3058,7 +3058,7 @@ and limitations under the License.
 // An array of bytes the size of the pool will be passed to init()
     var rng_psize = 256;
 
-// Random number generator - requires a PRNG backend, e.g. prng4.js
+// Random number generator - requiress a PRNG backend, e.g. prng4.js
     var rng_state;
     var rng_pool = null;
     var rng_pptr;
