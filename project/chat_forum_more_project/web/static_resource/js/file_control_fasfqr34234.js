@@ -22,6 +22,7 @@ const sOriginLocalstorageSizeKey = 'origin_localstorage_size';
 const iMaxLocalstorageSize = 3670016;
 const sStorageOriginsSonPrefix = 'storage';
 const sStoragePage = 'storage.html';
+const sStaticResourceLocalstoragePrefix = 'static_resource_';
 //localstorage相关=============================
 
 //meta标签相关----------------
@@ -178,7 +179,7 @@ function cacheStaticResource (j = '', v = '') {
 
         iAllreadyLoadStaticResource += parseInt(1);
 
-        setLocalstorage(j, v, false, false, true);
+        setLocalstorage(sStaticResourceLocalstoragePrefix + j, v, false, false, true);
     }, 0);
 }
 /**
@@ -593,7 +594,7 @@ function getStaticResourceFromLocalstorage (j = '', f = '', b = false) {
     let t = setTimeout(function () {
         clearTimeout(t);
 
-        queryLocalstorage(j, f, b);
+        queryLocalstorage(sStaticResourceLocalstoragePrefix + j, f, b);
     }, 1);
 }
 
@@ -1076,7 +1077,7 @@ function loadStaticResource (f, q = false) {
             c = 'js';
             break;
         case sForumJsTag:
-            console.log('dddddddddddddddddddddasssssssssssssssssrqrqwwwwwwwwwwwwwwwwwwww');
+            // console.log('dddddddddddddddddddddasssssssssssssssssrqrqwwwwwwwwwwwwwwwwwwww');
             a = 'afterLoadPage';
             b = 'afterLoadPage1';
             c = 'js';
@@ -1103,14 +1104,14 @@ function loadStaticResource (f, q = false) {
             break;
     }
 
-    if (f == sForumJsTag) {
-        console.log('zzzzzzzzzzzzzzzzzzzaassssssssssssssqqq');
-    }
+    // if (f == sForumJsTag) {
+    //     console.log('zzzzzzzzzzzzzzzzzzzaassssssssssssssqqq');
+    // }
     let n = getIncrementUpdateTag(f);
-    if (f == sForumJsTag) {
-        console.log('zzzzzzzzzzzzzzzzzzzaassssssssssssssqqq');
-        console.log(n);
-    }
+    // if (f == sForumJsTag) {
+    //     console.log('zzzzzzzzzzzzzzzzzzzaassssssssssssssqqq');
+    //     console.log(n);
+    // }
     // if (a === 'afterLoadLang') {
     //     console.log(n);
     //     console.log('aaaaaaaaaaaaaddddddddddddddeeeeeeeeeeeegggggggggggggggggggg');
