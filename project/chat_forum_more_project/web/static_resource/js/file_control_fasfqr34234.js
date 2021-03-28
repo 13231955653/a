@@ -1116,7 +1116,7 @@ function loadStaticResource (f, q = false) {
     //     console.log(n);
     //     console.log('aaaaaaaaaaaaaddddddddddddddeeeeeeeeeeeegggggggggggggggggggg');
     // }
-    if (n || q) {
+    if (n || q || debug) {
         console.log('sssssssssssssssssssssaaaaaaaaaaaaaaaaaaaaaaaaaa');
         let t = setTimeout(function () {
             clearTimeout(t);
