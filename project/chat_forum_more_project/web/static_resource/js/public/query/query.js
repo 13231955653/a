@@ -1,8 +1,8 @@
-const a4 = [];
+/*8f2fc377aff47185*/const a4 = [];
 a4[''] = '';
-const aRoute = a4;
+const aRoute = a4;/*8f2fc377aff47185*/
 
-const sApiProtocol = 'http://';
+/*44a9158ca09f7c51*/const sApiProtocol = 'http://';
 const aApiHost = [
     'api1.you.com/',
     'api2.you.com/',
@@ -14,9 +14,9 @@ const aApiHost = [
 ];
 const aApiHostLength = 7;
 
-let iRequestNumber = 0;
+let iRequestNumber = 0;/*44a9158ca09f7c51*/
 
-function apiQuery (sUrl = '', sSendJsonData = '', sMethod = 'post') {
+/*392c80add10ed4ce*/function apiQuery (sUrl = '', sSendJsonData = '', sMethod = 'post') {
     if (typeof jQuery == 'undefined') {
         // loadLocalJquery();
         asyn('loadLocalJquery');
@@ -69,8 +69,8 @@ function apiQuery (sUrl = '', sSendJsonData = '', sMethod = 'post') {
         error: function () {
         }
     });
-}
+}/*392c80add10ed4ce*/
 
-function apiBegin () {
+/*e0f13888647a8520*/function apiBegin () {
     console.log('8888888888888888888888888apiBegin');
-}
+}/*e0f13888647a8520*/
