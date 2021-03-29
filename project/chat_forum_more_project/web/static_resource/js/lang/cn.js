@@ -1,4 +1,4 @@
-var aLang = [];
+/*07ca36981559f0fa*/var aLang = [];
 aLang['langvage_error'] = '语言错误';
 aLang['forum_foot'] = '1';
 aLang['chat_foot'] = '2';
@@ -10,8 +10,8 @@ aLang['chat_title'] = '标题2222';
 aLang['friend_title'] = '标题3333';
 aLang['about_me_title'] = '标题44444';
 aLang['setting_title'] = '标题5555555555';
-aLang['use_time_out_limit'] = 'use time too lang, xiu xi xiu xi';
+aLang['use_time_out_limit'] = 'use time too lang, xiu xi xiu xi';/*07ca36981559f0fa*/
 
-function langBegin () {
+/*917ec6c691881a5c*/function langBegin () {
     console.log('777777777777777langBegin');
-}
+}/*917ec6c691881a5c*/
