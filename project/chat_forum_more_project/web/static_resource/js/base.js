@@ -267,7 +267,7 @@ const sReLangClass = 're_lang';
 const sReplaceLangIdType = 'id';
 const sReplaceLangClassType = 'class';
 
-const sShadeClass = 'shades';
+// const sShadeClass = 'shades';
 //class id tag 相关====================/*2355292fdec0dbed*/
 
 /*e1a6417e3b08ff43*///动画相关-------------------
@@ -428,6 +428,10 @@ function afterLoadPageJs () {
         setTimeoutFunction('afterLoadPageJs');
         return;
     }
+    // requires([sFuncJsTag], function () {
+    //     console.log('zzzzzzzzzzzzzzlllllllllsssssssssssssssoooooooooooqqqqqqqq');
+    //     notice('中文');
+    // });
 
     // bInLoadPageJs = false;
 

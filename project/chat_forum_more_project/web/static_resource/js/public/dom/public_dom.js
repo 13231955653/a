@@ -83,7 +83,8 @@ function writeShades () {
 
     let s = '';
     for (let i in a) {
-        s += '<div id="' + a[i] + '" class="' + sShadeClass + ' ' + sInvisibleClass + '">';
+        // s += '<div id="' + a[i] + '" class="' + sShadeClass + ' ' + sInvisibleClass + '">';
+        s += '<div id="' + a[i] + '" class="' + sInvisibleClass + '">';
 
         s += '<div class="' + sBaseShadeCenterDomClass + '">';
         s += writeLoadAnimation();
@@ -122,7 +123,7 @@ function writeLoadAnimation () {
     let m = parseInt(z * 0.5);
     let l = parseInt(z * 1.5) + m;
 
-    let n = Math.ceil(w / l);
+    let n = Math.ceil(w / l) - 1;
 
     let i = 0;
     let s = '<div class="' + sBaseShadeCenterSonDomClass + '" style="width:' + (l * n - m)  + 'px;">';
