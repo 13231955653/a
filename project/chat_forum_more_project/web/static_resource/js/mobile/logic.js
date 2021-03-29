@@ -8,6 +8,7 @@
  */
 let sLastPage = '';
 function uodateUrlPageArg (p = '') {
+    // console.log('zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz');
     // console.log('uodateUrlPageArg begin, p ' + p);
     if (!p) {
         return;
@@ -27,7 +28,7 @@ function uodateUrlPageArg (p = '') {
     // console.log('ddddddddddddddddddddddddddddddddd');
     // console.log(p);
     // asyn('updateUrlPage', p);
-    requires([sEncodeJsTag, sFuncJsTag], function () {
+    requires([sEncodeJsTag, sFuncJsTag, sStrFunc], function () {
         asyn('updateUrlPage', p);
     });
 
@@ -95,6 +96,7 @@ function updateUrlPage (p = '') {
     //     // });
     //     return;
     // }
+    // console.log('dddsssssssszzzzzzbbbbbbbbbbbbdddddddddddd');
     console.log(getUrlArgs());
 
     p = p ? p : getNowPage();
@@ -190,7 +192,7 @@ function updateUrlArg (k = '', v = '', t = '', c = false) {
 /*efd16af9fb242e81*/function logicBegin () {
     console.log('666666666666666666logicBegin');
     // asyn('updateUrlPage');
-    requires([sEncodeJsTag, sFuncJsTag], function () {
+    requires([sEncodeJsTag, sFuncJsTag, sStrFunc], function () {
         // console.log('zxcccccccccccccccccccccccccccccccccccccc');
         asyn('updateUrlPage');
     });

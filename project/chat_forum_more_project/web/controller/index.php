@@ -10,7 +10,7 @@ $bFull = isset($_GET['a']) && $_GET['a'] ? true : false;
 
 $sBaseDir = dirname(__DIR__) . DIRECTORY_SEPARATOR;
 
-$sFile = str_replace(DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $sBaseDir . $sFile);
+$sFile = str_replace(DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $sBaseDir . DIRECTORY_SEPARATOR . 'static_resource' . DIRECTORY_SEPARATOR . $sFile);
 $sBaseDir = null;
 unset($sBaseDir);
 if (!is_file($sFile)) {

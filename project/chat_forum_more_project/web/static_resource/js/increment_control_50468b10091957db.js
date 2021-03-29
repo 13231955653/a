@@ -62,30 +62,30 @@ function staticResourceAddress () {
     let p = platformTag();
 
     let a = [];
-    a[sBaseJsTag] = '/static_resource/js/base.js';
-    a[sFuncJsTag] = '/static_resource/js/public/function.js';
-    a[sDomFuncJsTag] = '/static_resource/js/public/func/dom_func.js';
-    a[sStrFunc] = '/static_resource/js/public/func/string_func.js';
-    a[sArrayFuncJsTag] = '/static_resource/js/public/func/array_func.js';
-    a[sJqueryJsTag] = '/static_resource/js/public/jquery.js';
-    a[sLogicJsTag] = '/static_resource/js/' + p + '/logic.js';
-    a[sPubDomJsTag] = '/static_resource/js/public/dom/public_dom.js';
-    a[sEncodeJsTag] = '/static_resource/js/public/encode.js';
-    a[sCnLangJsTag] = '/static_resource/js/lang/cn.js';
-    a[sEnLangJsTag] = '/static_resource/js/lang/en.js';
-    a[sPlatDomJsTag] = '/static_resource/js/' + p + '/dom/public_dom.js';
-    a[sForumJsTag] = '/static_resource/js/' + p + '/page/forum.js';
-    a[sChatJsTag] = '/static_resource/js/' + p + '/page/chat.js';
-    a[sFriendJsTag] = '/static_resource/js/' + p + '/page/friend.js';
-    a[sSetJsTag] = '/static_resource/js/' + p + '/page/setting.js';
-    a[sAboutJsTag] = '/static_resource/js/' + p + '/page/about_me.js';
-    a[sApiJsTag] = '/static_resource/js/public/query/query.js';
+    a[sBaseJsTag] = '/js/base.js';
+    a[sFuncJsTag] = '/js/public/function.js';
+    a[sDomFuncJsTag] = '/js/public/func/dom_func.js';
+    a[sStrFunc] = '/js/public/func/string_func.js';
+    a[sArrayFuncJsTag] = '/js/public/func/array_func.js';
+    a[sJqueryJsTag] = '/js/public/jquery.js';
+    a[sLogicJsTag] = '/js/' + p + '/logic.js';
+    a[sPubDomJsTag] = '/js/public/dom/public_dom.js';
+    a[sEncodeJsTag] = '/js/public/encode.js';
+    a[sCnLangJsTag] = '/js/lang/cn.js';
+    a[sEnLangJsTag] = '/js/lang/en.js';
+    a[sPlatDomJsTag] = '/js/' + p + '/dom/public_dom.js';
+    a[sForumJsTag] = '/js/' + p + '/page/forum.js';
+    a[sChatJsTag] = '/js/' + p + '/page/chat.js';
+    a[sFriendJsTag] = '/js/' + p + '/page/friend.js';
+    a[sSetJsTag] = '/js/' + p + '/page/setting.js';
+    a[sAboutJsTag] = '/js/' + p + '/page/about_me.js';
+    a[sApiJsTag] = '/js/public/query/query.js';
 
-    a[sResetCssTag] = '/static_resource/css/public/reset.css';
-    a[sPubCssTag] = '/static_resource/css/public/' + p + '/public.css';
-    a[sUserCss1Tag] = '/static_resource/css/personalized/color/1.css';
-    a[sUserCss2Tag] = '/static_resource/css/personalized/color/2.css';
-    a[sUserCss3Tag] = '/static_resource/css/personalized/color/3.css';
+    a[sResetCssTag] = '/css/public/reset.css';
+    a[sPubCssTag] = '/css/public/' + p + '/public.css';
+    a[sUserCss1Tag] = '/css/personalized/color/1.css';
+    a[sUserCss2Tag] = '/css/personalized/color/2.css';
+    a[sUserCss3Tag] = '/css/personalized/color/3.css';
     aStaticResourceAddress = a;
 }
 //静态文件相关============================
@@ -233,7 +233,7 @@ if (bConstraintRequest) {
 //    /*版本号*/代码块/*版本号*/
 // 修改文件、添加文件要修改updtae文件版本号或添加increment文件版本号
 // 版本号示例
-// '/static_resource/js/base.js': {
+// '/js/base.js': {
 //     'updtae': {
 //         // '2021042612': {
 //         //     1:'999999999999999999',
