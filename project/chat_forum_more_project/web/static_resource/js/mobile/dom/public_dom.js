@@ -1,4 +1,4 @@
-const aBody = [
+/*9429d793fa750360*/const aBody = [
     'writeBodyHeader',
     'writeBodyBody',
     'writeBodyFooter',
@@ -13,9 +13,9 @@ const sPublicLeftId = 'public_left';
 const sPublicRightId = 'public_right';
 
 const sUpdateUrlPageKey = '_update_url_page';
-const sFooterOnclickTag = 'footer_onclick';
+const sFooterOnclickTag = 'footer_onclick';/*9429d793fa750360*/
 
-let bWriteBody = false;
+/*637c85dcfd18cc0b*/let bWriteBody = false;
 function threeClassBodyDom() {
     for (let i in aBody) {
         if (typeof window[aBody[i]] == 'undefined') {
@@ -42,17 +42,17 @@ function threeClassBodyDom() {
     asyn('bindFooterOnclick');
 
     asyn('replaceFooterLang');
-}
+}/*637c85dcfd18cc0b*/
 
-// let oFooter = '';
+/*fe22db3fdcdb5c19*/// let oFooter = '';
 function replaceFooterLang () {
     // oFooter = oFooter ? oFooter : domById(sPublicFootId);
     requires([sFuncJsTag], function () {
         asyn('replaceLang', sReplaceLangIdType, sPublicFootId);
     });
-}
+}/*fe22db3fdcdb5c19*/
 
-let aFooterOnclick = [];
+/*d6b64dc699029c52*/let aFooterOnclick = [];
 function bindFooterOnclick () {
     if (typeof window['domByClass'] == 'undefined') {
         // console.log('bindFooterOnclick domByClass is no load, so settimeout retry to do bindFooterOnclick');
@@ -71,9 +71,9 @@ function bindFooterOnclick () {
             uodateUrlPageArg(aFooterOnclick[this.index].getAttribute(sUpdateUrlPageKey));
         };
     }
-}
+}/*d6b64dc699029c52*/
 
-let oBodyHeader = null;
+/*c9f4866ae72da3be*/let oBodyHeader = null;
 function bodyHeaderDom () {
     oBodyHeader = oBodyHeader ? oBodyHeader : domById(sPublicHeaderId);
     return oBodyHeader;
@@ -97,8 +97,9 @@ let oBodyRight = null;
 function bodyRightDom () {
     oBodyRight = oBodyRight ? oBodyRight : domById(sPublicRightId);
     return oBodyRight;
-}
-function writeBodyHeader() {
+}/*c9f4866ae72da3be*/
+
+/*16f799f68465dd08*/function writeBodyHeader() {
     if (bodyHeaderDom()) {
         return '';
     }
@@ -109,9 +110,9 @@ function writeBodyHeader() {
     s += '</div>';
 
     return s;
-}
+}/*16f799f68465dd08*/
 
-function writeBodyBody() {
+/*3f7550f47d4e0f87*/function writeBodyBody() {
     if (bodyBodyDom()) {
         return '';
     }
@@ -132,9 +133,9 @@ function writeBodyBody() {
     s += '</div>';
 
     return s;
-}
+}/*3f7550f47d4e0f87*/
 
-function writeMobliePageDom (d) {
+/*12c3163a66add709*/function writeMobliePageDom (d) {
     if (domById(d)) {
         return '';
     }
@@ -143,9 +144,9 @@ function writeMobliePageDom (d) {
     s += '<div id="' + d + '">';
     s += '</div>';
     return s;
-}
+}/*12c3163a66add709*/
 
-function writeBodyFooter() {
+/*5c2c1bce49b2a8f9*/function writeBodyFooter() {
     // console.log('fffffffffffffffffffffffffffff');
     if (bodyFooterDom()) {
         // console.log('ttttttttttttttttttt');
@@ -194,9 +195,9 @@ function writeOneFooter (d = '') {
     s += '</li>';
 
     return s;
-}
+}/*5c2c1bce49b2a8f9*/
 
-function writeBodyLeft () {
+/*c04f1262ec9a1e75*/function writeBodyLeft () {
     if (bodyLeftDom()) {
         return '';
     }
@@ -207,9 +208,9 @@ function writeBodyLeft () {
     s += '</div>';
 
     return s;
-}
+}/*c04f1262ec9a1e75*/
 
-function writeBodyRight () {
+/*d86f6d0f01d165ef*/function writeBodyRight () {
     if (bodyRightDom()) {
         return '';
     }
@@ -220,9 +221,9 @@ function writeBodyRight () {
     s += '</div>';
 
     return s;
-}
+}/*d86f6d0f01d165ef*/
 
-function updateActiveFooter () {
+/*b85177e4aecead95*/function updateActiveFooter () {
     // let sPage = getNowPage();
     let f = domById(getNowPage() + sFootTag + sFootLiSuffix);
     if (!f) {
@@ -255,11 +256,11 @@ function updateActiveFooter () {
     //
     //     repeatedlyPage(getUrlArgs(sUrlAddressPageKey));
     // }, 0);
-}
+}/*b85177e4aecead95*/
 
-function platformBegin () {
+/*b7cf1f44259f6ad5*/function platformBegin () {
     console.log('5555555555555555555platformBegin');
     // asyn('showPlatformShade');
 
     // asyn('clearIndexShade');
-}
+}/*b7cf1f44259f6ad5*/
