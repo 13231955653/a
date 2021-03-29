@@ -1,4 +1,4 @@
-html,body,div, span, applet, object, iframe,
+/*9ce4beeb62649531*/html,body,div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
 del, dfn, em, img, ins, kbd, q, s, samp,
@@ -32,8 +32,8 @@ body {
     height: 100%;
     color: var(--default_html_font_color);
     background: var(--eyeshield_background);
-}
-ol, ul {
+}/*9ce4beeb62649531*/
+/*d03efd2a792dced1*/ol, ul {
     list-style: none;
 }
 blockquote, q {
@@ -63,8 +63,8 @@ fieldset,img {
 address,caption,cite,code,dfn,em,strong,th,var {
     font-style:normal;
     font-weight:normal;
-}
-ol,ul {
+}/*d03efd2a792dced1*/
+/*6a60b46815024eff*/ol,ul {
     list-style:none;
 }
 caption,th {
@@ -91,8 +91,8 @@ input,textarea,select {
     font-family:inherit;
     font-size:inherit;
     font-weight:inherit;
-}
-input,textarea,select {
+}/*6a60b46815024eff*/
+/*e6ce89a2bb170867*/input,textarea,select {
     *font-size:100%;
 }
 input[type=number]::-webkit-inner-spin-button,
@@ -115,4 +115,4 @@ a:focus,a:hover{
 }
 input,a{
     box-sizing: border-box;
-}
+}/*e6ce89a2bb170867*/
