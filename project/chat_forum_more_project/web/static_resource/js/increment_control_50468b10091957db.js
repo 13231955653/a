@@ -170,8 +170,8 @@ function getIncrementUpdateTag (f) {
 
     let t = getStaticResourceLastCacheTime(f);
     if (!t) {
-        console.log('zzzzzzzzzzzzzzzzrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr');
-        console.log(f);
+        // console.log('zzzzzzzzzzzzzzzzrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr');
+        // console.log(f);
         return '&a=true';
     }
 

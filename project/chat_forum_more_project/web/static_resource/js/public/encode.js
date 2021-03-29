@@ -1,13 +1,13 @@
-//RSA公钥
+/*91cbe2b8897c65d0*///RSA公钥
 const RSA_DEFAULT_PUBLIC = 'MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEA0lPvdk7Kbuxesr97W/rEqEsvhFBM6Uk/9GELq/b8aWyzbO9Zf1Z9St9EqWr7U26t9mQoZOuUQLMu7ijp/AsXOR7ojZIzdJ/QESptMHrlcSmRRHf2nUzeh1SCs8xveKNNuoJjqcGXcoUPzrtrQbtpcgNY3rofkIIi/xdSDDiGVxk8yrkFZIAdPi0w6oUwOedcnp9bosnURR42i7RcEX4/KUkN2pcd26nZGrrMGqOrOmLayx3GWBrRQ6dvBW/fM1a065SUiGlpCaG6lR0P1zRp7RPX/J73b47oaBCoOf8CVMjR5Nhdggduflu5nYVn0GRG8hGDlo0pRL+DwiI6NH6WloOgp4QYyVlczVs6gHYU5oW6AiwD8dp00IYQmJGhh8H9koO4+K1v1BdHvlNx+TcXRCWiqxqrkRAh80hRAvX1Ybhax+eV1ADr1PKR8TlJTUFrCIO9FrC42Hh/JFQITkzGzGFo1ZIfPY60kMsKyG/jGbs969/A4xz9UJaU0WuqRrjZd1HSiGd800FC4tragVPY8fLoIJs21bPuVKRwjRBO061CM6JyODzClUPN8iT20TaASWGQuLlBssZnUWrpU4Hgx1KIFm7reaXsaxsPZGiKkULBrFKeZoxUsnNSKoPBZGqm7dCqCeGSzjEOuvpyNx3gLz3vLPkrPYyw61kWVUxDGBECAwEAAQ==';
 //RSA私钥
 const RSA_DEFAULT_PRIVATE = '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';
 //RSA localstorage 公钥
 const RSA_LOCALSTORAGE_PUBLIC = 'MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAr60h9IsmDzmyzPgbVxUK3mQI9ZkMocD6v9lHAi2hxEAoadWbVjbA/UDMYY5S6hLTUnq1XqFiPEfnlGxD8djwiOfeOPCs6cClKrCbxUBqtrGZsAbkMHFIEnY00M6Tj907JkVqq8VwGj9KKKNSZcXYhHQ4qGQITShK0gnYDRDfhKL78hM8JM0u8uoGLqpcPkxZYpVplxeEDLf379Es5VFjcf+QHZiGGvZbobzUw9Qx0X1m0xOebuGuG1/wTHCRpVPaGlTVRd261biIVdtYXCmizyNltOKGla3wQdAmnGDbPRy01GgD+ZHx7mdHC26lZ0TSIdIoLFVRryD30PRfha0ZEHqXuvRk12izQgIx29ZUql3Y2a21MiZQTplcbHcAgSShSafiGWGGg5MZXPydMCqFUcZ00Zb8dpiDSNUDvu+THJoi1EOS/7QSMaSC/SRylMN3gshkoNmMjlJhh6O51oH6DV1lk3gxjRyhVKaPL67An+E8IHl+TdkNWfhVi2//omWO1qX41qowu0/28zSPNjTSPd2YMeG8eWH4jvVKCA56/BmHej+DI5f3F79GLhCpole8NuqNQr23NShYyTFkoazkWoWCNpVbQWp/aBx1pFL2HswT1wpe6zFc7t2VQFXmEzRD9KH2J7RIPDLUceITCHaSPz+vu21lDNgHaJDW3TzPKKUCAwEAAQ==';
 //RSA localstorage 私钥
-const RSA_LOCALSTORAGE_PRIVATE = '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';
+const RSA_LOCALSTORAGE_PRIVATE = 'MIIJQwIBADANBgkqhkiG9w0BAQEFAASCCS0wggkpAgEAAoICAQCvrSH0iyYPObLM+BtXFQreZAj1mQyhwPq/2UcCLaHEQChp1ZtWNsD9QMxhjlLqEtNSerVeoWI8R+eUbEPx2PCI59448KzpwKUqsJvFQGq2sZmwBuQwcUgSdjTQzpOP3TsmRWqrxXAaP0ooo1JlxdiEdDioZAhNKErSCdgNEN+EovvyEzwkzS7y6gYuqlw+TFlilWmXF4QMt/fv0SzlUWNx/5AdmIYa9luhvNTD1DHRfWbTE55u4a4bX/BMcJGlU9oaVNVF3brVuIhV21hcKaLPI2W04oaVrfBB0CacYNs9HLTUaAP5kfHuZ0cLbqVnRNIh0igsVVGvIPfQ9F+FrRkQepe69GTXaLNCAjHb1lSqXdjZrbUyJlBOmVxsdwCBJKFJp+IZYYaDkxlc/J0wKoVRxnTRlvx2mINI1QO+75McmiLUQ5L/tBIxpIL9JHKUw3eCyGSg2YyOUmGHo7nWgfoNXWWTeDGNHKFUpo8vrsCf4TwgeX5N2Q1Z+FWLb/+iZY7WpfjWqjC7T/bzNI82NNI93Zgx4bx5YfiO9UoIDnr8GYd6P4Mjl/cXv0YuEKmiV7w26o1Cvbc1KFjJMWShrORahYI2lVtBan9oHHWkUvYezBPXCl7rMVzu3ZVAVeYTNEP0ofYntEg8MtRx4hMIdpI/P6+7bWUM2AdokNbdPM8opQIDAQABAoICAFejcUsDl8sEp7QlGc6JitCC6w1Kesi+8th+VjQ5+3dh4kdZ7pJF4mT0zIDmdWqcVZvR52T78XvNCzQ6BnNCHEzQD0YsmrZKCpuPW0Y96n6VfuwXpAKeoKvFGHgKdgbRAM8I1jw21MPjSuWXBGYNGwSIzjMDJDkJnrnFe2iZQEh03mdXPSvGyGMaaFcjWb0ibX0GuJRNgOyvYhrbKSCFR6z5JzX8fvo4aGH5R9MhqnCttHwcT29VWnwBkmkvxxjJCgcUxwiBotE3q5vZPu1LQBNBv11LnIRTL4ZFht2AXB7SkUtdUI5SRnT+RKzpV856wLFqm+vx7DwHoFk3b+fKALQqBOSM4zW20SDNB0u+ipb6bDQ9GrzCmDTXsVWpesE1DTvu6rwIy1wrY4eOAOr9IipLM4IEfoqZrWymr5j6/2+zXoVg+CMGmN9X5wi+I3kM07jU/XuYb5kEPHzxp88PSHz0O5R6HLssSBZPVF6PJKwBIBp1biAo23uyJAbySrYwOdp5XV/HJxUCSaLdEgMVhWEQURekNOdLgH1Puybk6vjELCq5ruq56gW4QTOH+c3TEvYbrw3RLZ8sGtnRBjSuHPGogfyj0gH37fYjBE3L5aproXxsq03VQodih/Ijn6OwA/rPaNh4B05HdE6D+VsZWHAYJKqdX3SNE4DtrZX3AfDJAoIBAQDd9+Zie5eo96VfwnEkSd0Kcv/O6ifl1zlWIL11mCdFqoWXnN/ZBqELBCSeRMXDmYUvRGRsNQ/kcq93LT/0NVQas8axG9bVxTXUSBFIm2ou0GzsTSRhlJe+5MpawGdjCpvYmyXmvfg9YoJZdOUWmiFfsrHCgAPpLOQ1iYmpzA6smyLQkbHqCE6sQvkc3++CiocTvbWgJOq6XLUShq5FMq1sxZp4X9orq+H3Bgg/h0SvUdR6j3ueDHUo5RrOzzwzqMLRp3ADr+WiYmsP06NZfgCUSKCT7uT21QPp0FzdVNd0iEiFPI3weICoWepDbG5uQ3btIGMJ2m9Q0KtWiPW37Zo3AoIBAQDKnE1kM01bjAHgpzFlPbu7M39v5PmEIkQykbIFheWUHp0hddO6lg1rYTpsd6J3Out6UCEOxhfB/JklfWwnSlfctIg+Z4fXvWTrceZaT9n5c9DmzQxDQxsc8TJATuscbua7HMO/5ANND8ntbZ796t28/5fbtlkqtzDLrbITfPEtGsUE5uhULEaK8F60cCXkP6z4yU5ofPRFi5bbkkQoo7QlIZlStLCqUZIxHu8LHTcUWzdNw6qGq2uvQUVmI2gqJqAJxSfGQHZnoVlwFp7ESnMuUew7NlPeSd3KCholCWKW4Lfgv518NsqBnDsp41sCeFV2/uNbzgCjcvQHn5NzF3YDAoIBAQCEiI9UAE3Gws9IhRX/P+cuZQnepytZbg+7IGNfgpD4ZN/NbgquT+n6ZOfkZFXc+55tYZ3AilJJ6jxgoXENRIZKR0t81o2JKG6CqOFBBCL7ftF6qnjtlsagYYV9eGKC3YO+aqzPwGAnbtk7xrM+spr4w/6ljsBHCtncKZo7+y5L23mHJWcgwQMQkhCiMAeXX1VV8TEwRLquucoYHLiTcrXgO4CHHVxsNP3/++cS35agQ/DlmSSLcw7Fcz51e4GLqtlgS2RznyQyuCcK1Sg0uCpqX48ZpUurIfdrNVEtion296StgUGS8rCHVOCuj2DEj53D6lGYQYezrlSPn8lvn/wzAoIBAF/mU4tV7Quj3U+kU3EEI1OcMHmZ+7BbN8RnycdrdRsC0oT/7FOoqnlk7+5fQfsFXGfsfXksshoToblpAEQooCXLHaHMBzRKZPY8VzfwC9BSzVIxQ9iibrboQ0zFDevLYlK2bsDo/9b93ioPdO3iuUm4APzx9oqNYv9FG8C1psIepZqIYPdWbZ1d4LWvT4AV051+SyqR2l0AkUsklDZYJfBdUuEevXAgY/30EllEXsm30xlvv8s2YCX30w1hPPCWj7GQLB9ea6zpZhfz3Poz8wi9pf7w3AmfFOeImI9nPc8EVoR+reAZXwiyFh7hijZFFs7YHm1ZuFulEXR6R6R2OlkCggEBANqIEPnQfZVK/1zwq18a+XOH1SF0Jhsau5/cC6x4HgeYbrkj3WGPKJBRR1sMR/kRWSpcqiNXd7mHQjmLrxSdoX2mF0+k4MwGvNVtWvdvezU/dTA3Pgf7waV/EPUUfxv3oE7XHXCSGNsTVT+XrVwURqwZDGrHDo9HwVw/nrQzYUiKyYftJEDPmmPwzR41iivuuqbOlpSi8CUYtywYYhc2GNG5DsBWKvGI3wh0F5Zri+EhPiX9wBk8tmUO/W7tb7GLlfeFv4Rxs97FLA8AdnmM5VTnp7CRCgDLIVNyr8Yu93V+smC0VNfV+znLdcMq+bfDKJQGOVyUvL6vUsDeN2AhUqc=';/*91cbe2b8897c65d0*/
 
-const a1 = [];//localstorage 混淆加密
+/*195bd6b272c037f2*/const a1 = [];//localstorage 混淆加密
 a1['a'] = '一';
 a1['b'] = '二';
 a1['c'] = '三';
@@ -75,25 +75,22 @@ a1['6'] = '下';
 a1['7'] = '指';
 a1['8'] = '位';
 a1['9'] = '向';
-const aLocalstorageEncodeConfuseEncode = a1;//localstorage 混淆加密
+const aLocalstorageEncodeConfuseEncode = a1;//localstorage 混淆加密/*195bd6b272c037f2*/
 
-/*
+/*5bfdf040eba104c0*//*
  * A JavaScript implementation of the RSA Data Security, Inc. MD5 Message
  * Digest Algorithm, as defined in RFC 1321.
  * Version 2.1 Copyright (C) Paul Johnston 1999 - 2002.
  * Other contributors: Greg Holt, Andrew Kepert, Ydnar, Lostinet
  * Distributed under the BSD License
  * See http://pajhome.org.uk/crypt/md5 for more info.
- */
-
-/*
+ *
  * Configurable variables. You may need to tweak these to be compatible with
  * the server-side, but the defaults work in most cases.
  */
 var hexcase = 0;  /* hex output format. 0 - lowercase; 1 - uppercase        */
-var b64pad = ""; /* base-64 pad character. "=" for strict RFC compliance   */
+var b64pad = ''; /* base-64 pad character. "=" for strict RFC compliance   */
 var chrsz = 8;  /* bits per input character. 8 - ASCII; 16 - Unicode      */
-
 /*
  * These are the functions you'll usually want to call
  * They take string arguments and return either hex or base-64 encoded strings
@@ -104,14 +101,12 @@ function str_md5(s) { return binl2str(core_md5(str2binl(s), s.length * chrsz)); 
 function hex_hmac_md5(key, data) { return binl2hex(core_hmac_md5(key, data)); }
 function b64_hmac_md5(key, data) { return binl2b64(core_hmac_md5(key, data)); }
 function str_hmac_md5(key, data) { return binl2str(core_hmac_md5(key, data)); }
-
 /*
  * Perform a simple self-test to see if the VM is working
  */
 function md5_vm_test() {
     return hex_md5("abc") == "900150983cd24fb0d6963f7d28e17f72";
 }
-
 /*
  * Calculate the MD5 of an array of little-endian words, and a bit length
  */
@@ -124,13 +119,11 @@ function core_md5(x, len) {
     var b = -271733879;
     var c = -1732584194;
     var d = 271733878;
-
     for (var i = 0; i < x.length; i += 16) {
         var olda = a;
         var oldb = b;
         var oldc = c;
         var oldd = d;
-
         a = md5_ff(a, b, c, d, x[i + 0], 7, -680876936);
         d = md5_ff(d, a, b, c, x[i + 1], 12, -389564586);
         c = md5_ff(c, d, a, b, x[i + 2], 17, 606105819);
@@ -205,9 +198,7 @@ function core_md5(x, len) {
         d = safe_add(d, oldd);
     }
     return Array(a, b, c, d);
-
 }
-
 /*
  * These functions implement the four basic operations the algorithm uses.
  */
@@ -226,7 +217,6 @@ function md5_hh(a, b, c, d, x, s, t) {
 function md5_ii(a, b, c, d, x, s, t) {
     return md5_cmn(c ^ (b | (~d)), a, b, x, s, t);
 }
-
 /*
  * Calculate the HMAC-MD5, of a key and some data
  */
@@ -243,7 +233,6 @@ function core_hmac_md5(key, data) {
     var hash = core_md5(ipad.concat(str2binl(data)), 512 + data.length * chrsz);
     return core_md5(opad.concat(hash), 512 + 128);
 }
-
 /*
  * Add integers, wrapping at 2^32. This uses 16-bit operations internally
  * to work around bugs in some JS interpreters.
@@ -253,14 +242,12 @@ function safe_add(x, y) {
     var msw = (x >> 16) + (y >> 16) + (lsw >> 16);
     return (msw << 16) | (lsw & 0xFFFF);
 }
-
 /*
  * Bitwise rotate a 32-bit number to the left.
  */
 function bit_rol(num, cnt) {
     return (num << cnt) | (num >>> (32 - cnt));
 }
-
 /*
  * Convert a string to an array of little-endian words
  * If chrsz is ASCII, characters >255 have their hi-byte silently ignored.
@@ -272,7 +259,6 @@ function str2binl(str) {
         bin[i >> 5] |= (str.charCodeAt(i / chrsz) & mask) << (i % 32);
     return bin;
 }
-
 /*
  * Convert an array of little-endian words to a string
  */
@@ -283,7 +269,6 @@ function binl2str(bin) {
         str += String.fromCharCode((bin[i >> 5] >>> (i % 32)) & mask);
     return str;
 }
-
 /*
  * Convert an array of little-endian words to a hex string.
  */
@@ -296,7 +281,6 @@ function binl2hex(binarray) {
     }
     return str;
 }
-
 /*
  * Convert an array of little-endian words to a base-64 string
  */
@@ -314,15 +298,11 @@ function binl2b64(binarray) {
     }
     return str;
 }
-
-
-
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
         typeof define === 'function' && define.amd ? define(['exports'], factory) :
             (factory((global.JSEncrypt = {})));
 }(this, (function (exports) { 'use strict';
-
     var BI_RM = "0123456789abcdefghijklmnopqrstuvwxyz";
     function int2char(n) {
         return BI_RM.charAt(n);
@@ -381,7 +361,6 @@ function binl2b64(binarray) {
         return r;
     }
 //#endregion BIT_OPERATIONS
-
     var b64map = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
     var b64pad = "=";
     function hex2b64(h) {
@@ -446,7 +425,6 @@ function binl2b64(binarray) {
         }
         return ret;
     }
-
     /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use
@@ -461,18 +439,15 @@ MERCHANTABLITY OR NON-INFRINGEMENT.
 See the Apache Version 2.0 License for specific language governing permissions
 and limitations under the License.
 ***************************************************************************** */
-    /* global Reflect, Promise */
-
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-
-    function __extends(d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    }
-
+/* global Reflect, Promise */
+var extendStatics = Object.setPrototypeOf ||
+    ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+    function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+function __extends(d, b) {
+    extendStatics(d, b);
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+}
 // Hex JavaScript decoder
 // Copyright (c) 2008-2013 Lapo Luchini <lapo@lapo.it>
 // Permission to use, copy, modify, and/or distribute this software for any
@@ -537,7 +512,6 @@ and limitations under the License.
             return out;
         }
     };
-
 // Base64 JavaScript decoder
 // Copyright (c) 2008-2013 Lapo Luchini <lapo@lapo.it>
 // Permission to use, copy, modify, and/or distribute this software for any
@@ -624,13 +598,11 @@ and limitations under the License.
             return Base64.decode(a);
         }
     };
-
 // Big integer base-10 printing library
 // Copyright (c) 2014 Lapo Luchini <lapo@lapo.it>
 // Permission to use, copy, modify, and/or distribute this software for any
 // purpose with or without fee is hereby granted, provided that the above
 // copyright notice and this permission notice appear in all copies.
-//
 // THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
 // WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
 // MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
@@ -711,7 +683,6 @@ and limitations under the License.
         };
         return Int10;
     }());
-
 // ASN.1 JavaScript decoder
     var ellipsis = "\u2026";
     var reTimeS = /^(\d\d)(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])([01]\d|2[0-3])(?:([0-5]\d)(?:([0-5]\d)(?:[.,](\d{1,3}))?)?)?(Z|[-+](?:[0]\d|1[0-2])([0-5]\d)?)?$/;
@@ -1259,7 +1230,6 @@ and limitations under the License.
         };
         return ASN1Tag;
     }());
-
 // Copyright (c) 2005  Tom Wu
 // Bits per digit
     var dbits;
@@ -1783,8 +1753,7 @@ and limitations under the License.
                             b.subTo(m, b);
                         }
                         a.rShiftTo(1, a);
-                    }
-                    else if (!b.isEven()) {
+                    } else if (!b.isEven()) {
                         b.subTo(m, b);
                     }
                     b.rShiftTo(1, b);
@@ -1797,8 +1766,7 @@ and limitations under the License.
                             d.subTo(m, d);
                         }
                         c.rShiftTo(1, c);
-                    }
-                    else if (!d.isEven()) {
+                    } else if (!d.isEven()) {
                         d.subTo(m, d);
                     }
                     d.rShiftTo(1, d);
@@ -1809,8 +1777,7 @@ and limitations under the License.
                         a.subTo(c, a);
                     }
                     b.subTo(d, b);
-                }
-                else {
+                } else {
                     v.subTo(u, v);
                     if (ac) {
                         c.subTo(a, c);
@@ -1826,14 +1793,12 @@ and limitations under the License.
             }
             if (d.signum() < 0) {
                 d.addTo(m, d);
-            }
-            else {
+            } else {
                 return d;
             }
             if (d.signum() < 0) {
                 return d.add(m);
-            }
-            else {
+            } else {
                 return d;
             }
         };
@@ -1874,8 +1839,7 @@ and limitations under the License.
                 if (x.compareTo(y) >= 0) {
                     x.subTo(y, x);
                     x.rShiftTo(1, x);
-                }
-                else {
+                } else {
                     y.subTo(x, y);
                     y.rShiftTo(1, y);
                 }
@@ -1935,11 +1899,9 @@ and limitations under the License.
             this.s = (x < 0) ? -1 : 0;
             if (x > 0) {
                 this[0] = x;
-            }
-            else if (x < -1) {
+            } else if (x < -1) {
                 this[0] = x + this.DV;
-            }
-            else {
+            } else {
                 this.t = 0;
             }
         };
@@ -2389,8 +2351,7 @@ and limitations under the License.
                         }
                     }
                 }
-            }
-            else {
+            } else {
                 // new BigInteger(int,RNG)
                 var x = [];
                 var t = a & 7;
@@ -2398,8 +2359,7 @@ and limitations under the License.
                 b.nextBytes(x);
                 if (t > 0) {
                     x[0] &= ((1 << t) - 1);
-                }
-                else {
+                } else {
                     x[0] = 0;
                 }
                 this.fromString(x, 256);
@@ -2420,8 +2380,7 @@ and limitations under the License.
                     r[i] = op(this[i], f);
                 }
                 r.t = this.t;
-            }
-            else {
+            } else {
                 f = this.s & this.DM;
                 for (i = m; i < a.t; ++i) {
                     r[i] = op(f, a[i]);
@@ -2457,8 +2416,7 @@ and limitations under the License.
                     c >>= this.DB;
                 }
                 c += this.s;
-            }
-            else {
+            } else {
                 c += this.s;
                 while (i < a.t) {
                     c += a[i];
@@ -2470,8 +2428,7 @@ and limitations under the License.
             r.s = (c < 0) ? -1 : 0;
             if (c > 0) {
                 r[i++] = c;
-            }
-            else if (c < -1) {
+            } else if (c < -1) {
                 r[i++] = this.DV + c;
             }
             r.t = i;
@@ -2547,8 +2504,7 @@ and limitations under the License.
             if (this.t > 0) {
                 if (d == 0) {
                     r = this[0] % n;
-                }
-                else {
+                } else {
                     for (var i = this.t - 1; i >= 0; --i) {
                         r = (d * r + this[i]) % n;
                     }
@@ -2640,8 +2596,7 @@ and limitations under the License.
                         y.lShiftTo(g, y);
                     }
                     setTimeout(function () { callback(y); }, 0); // escape
-                }
-                else {
+                } else {
                     setTimeout(gcda1, 0);
                 }
             };
@@ -2652,8 +2607,7 @@ and limitations under the License.
             if ("number" == typeof b) {
                 if (a < 2) {
                     this.fromInt(1);
-                }
-                else {
+                } else {
                     this.fromNumber(a, c);
                     if (!this.testBit(a - 1)) {
                         this.bitwiseTo(BigInteger.ONE.shiftLeft(a - 1), op_or, this);
@@ -2669,23 +2623,20 @@ and limitations under the License.
                         }
                         if (bnp_1.isProbablePrime(b)) {
                             setTimeout(function () { callback(); }, 0); // escape
-                        }
-                        else {
+                        } else {
                             setTimeout(bnpfn1_1, 0);
                         }
                     };
                     setTimeout(bnpfn1_1, 0);
                 }
-            }
-            else {
+            } else {
                 var x = [];
                 var t = a & 7;
                 x.length = (a >> 3) + 1;
                 b.nextBytes(x);
                 if (t > 0) {
                     x[0] &= ((1 << t) - 1);
-                }
-                else {
+                } else {
                     x[0] = 0;
                 }
                 this.fromString(x, 256);
@@ -2725,8 +2676,7 @@ and limitations under the License.
         Classic.prototype.convert = function (x) {
             if (x.s < 0 || x.compareTo(this.m) >= 0) {
                 return x.mod(this.m);
-            }
-            else {
+            } else {
                 return x;
             }
         };
@@ -2837,11 +2787,9 @@ and limitations under the License.
         Barrett.prototype.convert = function (x) {
             if (x.s < 0 || x.t > 2 * this.m.t) {
                 return x.mod(this.m);
-            }
-            else if (x.compareTo(this.m) < 0) {
+            } else if (x.compareTo(this.m) < 0) {
                 return x;
-            }
-            else {
+            } else {
                 var r = nbi();
                 x.copyTo(r);
                 this.reduce(r);
@@ -2940,12 +2888,10 @@ and limitations under the License.
     if (j_lm && (navigator.appName == "Microsoft Internet Explorer")) {
         BigInteger.prototype.am = am2;
         dbits = 30;
-    }
-    else if (j_lm && (navigator.appName != "Netscape")) {
+    } else if (j_lm && (navigator.appName != "Netscape")) {
         BigInteger.prototype.am = am1;
         dbits = 26;
-    }
-    else {
+    } else {
         BigInteger.prototype.am = am3;
         dbits = 28;
     }
@@ -3082,8 +3028,7 @@ and limitations under the License.
             if (this.count >= 256 || rng_pptr >= rng_psize) {
                 if (window.removeEventListener) {
                     window.removeEventListener("mousemove", onMouseMoveListener_1, false);
-                }
-                else if (window.detachEvent) {
+                } else if (window.detachEvent) {
                     window.detachEvent("onmousemove", onMouseMoveListener_1);
                 }
                 return;
@@ -3092,15 +3037,13 @@ and limitations under the License.
                 var mouseCoordinates = ev.x + ev.y;
                 rng_pool[rng_pptr++] = mouseCoordinates & 255;
                 this.count += 1;
-            }
-            catch (e) {
+            } catch (e) {
                 // Sometimes Firefox will deny permission to access event properties for some reason. Ignore.
             }
         };
         if (window.addEventListener) {
             window.addEventListener("mousemove", onMouseMoveListener_1, false);
-        }
-        else if (window.attachEvent) {
+        } else if (window.attachEvent) {
             window.attachEvent("onmousemove", onMouseMoveListener_1);
         }
     }
@@ -3131,7 +3074,6 @@ and limitations under the License.
         };
         return SecureRandom;
     }());
-
 // Depends on jsbn.js and rng.js
 // function linebrk(s,n) {
 //   var ret = "";
@@ -3160,12 +3102,10 @@ and limitations under the License.
             var c = s.charCodeAt(i--);
             if (c < 128) {
                 ba[--n] = c;
-            }
-            else if ((c > 127) && (c < 2048)) {
+            } else if ((c > 127) && (c < 2048)) {
                 ba[--n] = (c & 63) | 128;
                 ba[--n] = (c >> 6) | 192;
-            }
-            else {
+            } else {
                 ba[--n] = (c & 63) | 128;
                 ba[--n] = ((c >> 6) & 63) | 128;
                 ba[--n] = (c >> 12) | 224;
@@ -3226,8 +3166,7 @@ and limitations under the License.
             if (N != null && E != null && N.length > 0 && E.length > 0) {
                 this.n = parseBigInt(N, 16);
                 this.e = parseInt(E, 16);
-            }
-            else {
+            } else {
                 console.error("Invalid RSA public key");
             }
         };
@@ -3245,8 +3184,7 @@ and limitations under the License.
             var h = c.toString(16);
             if ((h.length & 1) == 0) {
                 return h;
-            }
-            else {
+            } else {
                 return "0" + h;
             }
         };
@@ -3257,8 +3195,7 @@ and limitations under the License.
                 this.n = parseBigInt(N, 16);
                 this.e = parseInt(E, 16);
                 this.d = parseBigInt(D, 16);
-            }
-            else {
+            } else {
                 console.error("Invalid RSA private key");
             }
         };
@@ -3274,8 +3211,7 @@ and limitations under the License.
                 this.dmp1 = parseBigInt(DP, 16);
                 this.dmq1 = parseBigInt(DQ, 16);
                 this.coeff = parseBigInt(C, 16);
-            }
-            else {
+            } else {
                 console.error("Invalid RSA private key");
             }
         };
@@ -3354,8 +3290,7 @@ and limitations under the License.
                         rsa.dmq1 = rsa.d.mod(q1);
                         rsa.coeff = rsa.q.modInverse(rsa.p);
                         setTimeout(function () { callback(); }, 0); // escape
-                    }
-                    else {
+                    } else {
                         setTimeout(loop1, 0);
                     }
                 };
@@ -3365,8 +3300,7 @@ and limitations under the License.
                         rsa.q.subtract(BigInteger.ONE).gcda(ee, function (r) {
                             if (r.compareTo(BigInteger.ONE) == 0 && rsa.q.isProbablePrime(10)) {
                                 setTimeout(loop4, 0);
-                            }
-                            else {
+                            } else {
                                 setTimeout(loop3, 0);
                             }
                         });
@@ -3378,8 +3312,7 @@ and limitations under the License.
                         rsa.p.subtract(BigInteger.ONE).gcda(ee, function (r) {
                             if (r.compareTo(BigInteger.ONE) == 0 && rsa.p.isProbablePrime(10)) {
                                 setTimeout(loop3, 0);
-                            }
-                            else {
+                            } else {
                                 setTimeout(loop2, 0);
                             }
                         });
@@ -3412,12 +3345,10 @@ and limitations under the License.
             var c = b[i] & 255;
             if (c < 128) {
                 ret += String.fromCharCode(c);
-            }
-            else if ((c > 191) && (c < 224)) {
+            } else if ((c > 191) && (c < 224)) {
                 ret += String.fromCharCode(((c & 31) << 6) | (b[i + 1] & 63));
                 ++i;
-            }
-            else {
+            } else {
                 ret += String.fromCharCode(((c & 15) << 12) | ((b[i + 1] & 63) << 6) | (b[i + 2] & 63));
                 i += 2;
             }
@@ -3465,11 +3396,9 @@ version: 2.9.0
             subc.prototype = new F();
             subc.prototype.constructor = subc;
             subc.superclass = superc.prototype;
-
             if (superc.prototype.constructor == Object.prototype.constructor) {
                 superc.prototype.constructor = superc;
             }
-
             if (overrides) {
                 var i;
                 for (i in overrides) {
@@ -3503,10 +3432,7 @@ version: 2.9.0
             }
         }
     };
-
-    /* asn1-1.0.13.js (c) 2013-2017 Kenji Urushima | kjur.github.com/jsrsasign/license
- */
-
+/* asn1-1.0.13.js (c) 2013-2017 Kenji Urushima | kjur.github.com/jsrsasign/license*/
     /**
      * @fileOverview
      * @name asn1-1.0.js
@@ -3515,7 +3441,6 @@ version: 2.9.0
      * @since jsrsasign 2.1
      * @license <a href="https://kjur.github.io/jsrsasign/license/">MIT License</a>
      */
-
     /**
      * kjur's class library name space
      * <p>
@@ -3532,7 +3457,6 @@ version: 2.9.0
      * @namespace kjur's class library name space
      */
     var KJUR = {};
-
     /**
      * kjur's ASN.1 class library name space
      * <p>
@@ -3583,7 +3507,6 @@ version: 2.9.0
      * @namespace
      */
     if (typeof KJUR.asn1 == "undefined" || !KJUR.asn1) KJUR.asn1 = {};
-
     /**
      * ASN1 utilities class
      * @name KJUR.asn1.ASN1Util
@@ -3647,7 +3570,6 @@ version: 2.9.0
         this.getPEMStringFromHex = function(dataHex, pemHeader) {
             return hextopem(dataHex, pemHeader);
         };
-
         /**
          * generate ASN1Object specifed by JSON parameters
          * @name newObject
@@ -3752,7 +3674,6 @@ version: 2.9.0
                 }
                 return new _DERSequence({'array': a});
             }
-
             if (key == "set") {
                 var paramList = param[key];
                 var a = [];
@@ -3762,7 +3683,6 @@ version: 2.9.0
                 }
                 return new _DERSet({'array': a});
             }
-
             if (key == "tag") {
                 var tagParam = param[key];
                 if (Object.prototype.toString.call(tagParam) === '[object Array]' &&
@@ -3784,7 +3704,6 @@ version: 2.9.0
                 }
             }
         };
-
         /**
          * get encoded hexadecimal string of ASN1Object specifed by JSON parameters
          * @name jsonToASN1HEX
@@ -3804,7 +3723,6 @@ version: 2.9.0
             return asn1Obj.getEncodedHex();
         };
     };
-
     /**
      * get dot noted oid number string from hexadecimal value of OID
      * @name oidHexToInt
@@ -3839,7 +3757,6 @@ version: 2.9.0
         }
         return s;
     };
-
     /**
      * get hexadecimal value of object identifier from dot noted oid value
      * @name oidIntToHex
@@ -3860,7 +3777,6 @@ version: 2.9.0
             if (h.length == 1) h = '0' + h;
             return h;
         };
-
         var roidtox = function(roid) {
             var h = '';
             var bi = new BigInteger(roid, 10);
@@ -3877,7 +3793,6 @@ version: 2.9.0
             }
             return h;
         };
-
         if (! oidString.match(/^[0-9.]+$/)) {
             throw "malformed oid string: " + oidString;
         }
@@ -3891,14 +3806,10 @@ version: 2.9.0
         }
         return h;
     };
-
-
 // ********************************************************************
 //  Abstract ASN.1 Classes
 // ********************************************************************
-
 // ********************************************************************
-
     /**
      * base class for ASN.1 DER encoder object
      * @name KJUR.asn1.ASN1Object
@@ -3943,7 +3854,6 @@ version: 2.9.0
                 return head.toString(16) + hN;
             }
         };
-
         /**
          * get hexadecimal string of ASN.1 TLV bytes
          * @name getEncodedHex
@@ -3961,7 +3871,6 @@ version: 2.9.0
             }
             return this.hTLV;
         };
-
         /**
          * get hexadecimal string of ASN.1 TLV value(V) bytes
          * @name getValueHex
@@ -3973,12 +3882,10 @@ version: 2.9.0
             this.getEncodedHex();
             return this.hV;
         };
-
         this.getFreshValueHex = function() {
             return '';
         };
     };
-
 // == BEGIN DERAbstractString ================================================
     /**
      * base class for ASN.1 DER string classes
@@ -3999,7 +3906,6 @@ version: 2.9.0
      */
     KJUR.asn1.DERAbstractString = function(params) {
         KJUR.asn1.DERAbstractString.superclass.constructor.call(this);
-
         /**
          * get string value of this string object
          * @name getString
@@ -4010,7 +3916,6 @@ version: 2.9.0
         this.getString = function() {
             return this.s;
         };
-
         /**
          * set value by a string
          * @name setString
@@ -4024,7 +3929,6 @@ version: 2.9.0
             this.s = newS;
             this.hV = stohex(this.s);
         };
-
         /**
          * set value by a hexadecimal string
          * @name setStringHex
@@ -4038,11 +3942,9 @@ version: 2.9.0
             this.s = null;
             this.hV = newHexString;
         };
-
         this.getFreshValueHex = function() {
             return this.hV;
         };
-
         if (typeof params != "undefined") {
             if (typeof params == "string") {
                 this.setString(params);
@@ -4055,7 +3957,6 @@ version: 2.9.0
     };
     YAHOO.lang.extend(KJUR.asn1.DERAbstractString, KJUR.asn1.ASN1Object);
 // == END   DERAbstractString ================================================
-
 // == BEGIN DERAbstractTime ==================================================
     /**
      * base class for ASN.1 DER Generalized/UTCTime class
@@ -4068,14 +3969,12 @@ version: 2.9.0
      */
     KJUR.asn1.DERAbstractTime = function(params) {
         KJUR.asn1.DERAbstractTime.superclass.constructor.call(this);
-
         // --- PRIVATE METHODS --------------------
         this.localDateToUTC = function(d) {
             utc = d.getTime() + (d.getTimezoneOffset() * 60000);
             var utcDate = new Date(utc);
             return utcDate;
         };
-
         /*
      * format date string by Data object
      * @name formatDate
@@ -4107,12 +4006,10 @@ version: 2.9.0
             }
             return s + "Z";
         };
-
         this.zeroPadding = function(s, len) {
             if (s.length >= len) return s;
             return new Array(len - s.length + 1).join('0') + s;
         };
-
         // --- PUBLIC METHODS --------------------
         /**
          * get string value of this string object
@@ -4124,7 +4021,6 @@ version: 2.9.0
         this.getString = function() {
             return this.s;
         };
-
         /**
          * set value by a string
          * @name setString
@@ -4138,7 +4034,6 @@ version: 2.9.0
             this.s = newS;
             this.hV = stohex(newS);
         };
-
         /**
          * set value by a Date object
          * @name setByDateValue
@@ -4155,14 +4050,12 @@ version: 2.9.0
             var dateObject = new Date(Date.UTC(year, month - 1, day, hour, min, sec, 0));
             this.setByDate(dateObject);
         };
-
         this.getFreshValueHex = function() {
             return this.hV;
         };
     };
     YAHOO.lang.extend(KJUR.asn1.DERAbstractTime, KJUR.asn1.ASN1Object);
 // == END   DERAbstractTime ==================================================
-
 // == BEGIN DERAbstractStructured ============================================
     /**
      * base class for ASN.1 DER structured class
@@ -4175,7 +4068,6 @@ version: 2.9.0
      */
     KJUR.asn1.DERAbstractStructured = function(params) {
         KJUR.asn1.DERAbstractString.superclass.constructor.call(this);
-
         /**
          * set value by array of ASN1Object
          * @name setByASN1ObjectArray
@@ -4188,7 +4080,6 @@ version: 2.9.0
             this.isModified = true;
             this.asn1Array = asn1ObjectArray;
         };
-
         /**
          * append an ASN1Object to internal array
          * @name appendASN1Object
@@ -4201,7 +4092,6 @@ version: 2.9.0
             this.isModified = true;
             this.asn1Array.push(asn1Object);
         };
-
         this.asn1Array = new Array();
         if (typeof params != "undefined") {
             if (typeof params['array'] != "undefined") {
@@ -4210,12 +4100,9 @@ version: 2.9.0
         }
     };
     YAHOO.lang.extend(KJUR.asn1.DERAbstractStructured, KJUR.asn1.ASN1Object);
-
-
 // ********************************************************************
 //  ASN.1 Object Classes
 // ********************************************************************
-
 // ********************************************************************
     /**
      * class for ASN.1 DER Boolean
@@ -4231,7 +4118,6 @@ version: 2.9.0
         this.hTLV = "0101ff";
     };
     YAHOO.lang.extend(KJUR.asn1.DERBoolean, KJUR.asn1.ASN1Object);
-
 // ********************************************************************
     /**
      * class for ASN.1 DER Integer
@@ -4252,7 +4138,6 @@ version: 2.9.0
     KJUR.asn1.DERInteger = function(params) {
         KJUR.asn1.DERInteger.superclass.constructor.call(this);
         this.hT = "02";
-
         /**
          * set value by Tom Wu's BigInteger object
          * @name setByBigInteger
@@ -4265,7 +4150,6 @@ version: 2.9.0
             this.isModified = true;
             this.hV = KJUR.asn1.ASN1Util.bigIntToMinTwosComplementsHex(bigIntegerValue);
         };
-
         /**
          * set value by integer value
          * @name setByInteger
@@ -4277,7 +4161,6 @@ version: 2.9.0
             var bi = new BigInteger(String(intValue), 10);
             this.setByBigInteger(bi);
         };
-
         /**
          * set value by integer value
          * @name setValueHex
@@ -4296,11 +4179,9 @@ version: 2.9.0
         this.setValueHex = function(newHexString) {
             this.hV = newHexString;
         };
-
         this.getFreshValueHex = function() {
             return this.hV;
         };
-
         if (typeof params != "undefined") {
             if (typeof params['bigint'] != "undefined") {
                 this.setByBigInteger(params['bigint']);
@@ -4314,7 +4195,6 @@ version: 2.9.0
         }
     };
     YAHOO.lang.extend(KJUR.asn1.DERInteger, KJUR.asn1.ASN1Object);
-
 // ********************************************************************
     /**
      * class for ASN.1 DER encoded BitString primitive
@@ -4361,7 +4241,6 @@ version: 2.9.0
         }
         KJUR.asn1.DERBitString.superclass.constructor.call(this);
         this.hT = "03";
-
         /**
          * set ASN.1 value(V) by a hexadecimal string including unused bits
          * @name setHexValueIncludingUnusedBits
@@ -4374,7 +4253,6 @@ version: 2.9.0
             this.isModified = true;
             this.hV = newHexStringIncludingUnusedBits;
         };
-
         /**
          * set ASN.1 value(V) by unused bit and hexadecimal string of value
          * @name setUnusedBitsAndHexValue
@@ -4392,7 +4270,6 @@ version: 2.9.0
             this.isModified = true;
             this.hV = hUnusedBits + hValue;
         };
-
         /**
          * set ASN.1 DER BitString by binary string<br/>
          * @name setByBinaryString
@@ -4425,7 +4302,6 @@ version: 2.9.0
             this.isModified = true;
             this.hV = '0' + unusedBits + h;
         };
-
         /**
          * set ASN.1 TLV value(V) by an array of boolean<br/>
          * @name setByBooleanArray
@@ -4449,7 +4325,6 @@ version: 2.9.0
             }
             this.setByBinaryString(s);
         };
-
         /**
          * generate an array of falses with specified length<br/>
          * @name newFalseArray
@@ -4470,11 +4345,9 @@ version: 2.9.0
             }
             return a;
         };
-
         this.getFreshValueHex = function() {
             return this.hV;
         };
-
         if (typeof params != "undefined") {
             if (typeof params == "string" && params.toLowerCase().match(/^[0-9a-f]+$/)) {
                 this.setHexValueIncludingUnusedBits(params);
@@ -4488,7 +4361,6 @@ version: 2.9.0
         }
     };
     YAHOO.lang.extend(KJUR.asn1.DERBitString, KJUR.asn1.ASN1Object);
-
 // ********************************************************************
     /**
      * class for ASN.1 DER OctetString<br/>
@@ -4535,7 +4407,6 @@ version: 2.9.0
         this.hT = "04";
     };
     YAHOO.lang.extend(KJUR.asn1.DEROctetString, KJUR.asn1.DERAbstractString);
-
 // ********************************************************************
     /**
      * class for ASN.1 DER Null
@@ -4551,7 +4422,6 @@ version: 2.9.0
         this.hTLV = "0500";
     };
     YAHOO.lang.extend(KJUR.asn1.DERNull, KJUR.asn1.ASN1Object);
-
 // ********************************************************************
     /**
      * class for ASN.1 DER ObjectIdentifier
@@ -4591,10 +4461,8 @@ version: 2.9.0
             }
             return h;
         };
-
         KJUR.asn1.DERObjectIdentifier.superclass.constructor.call(this);
         this.hT = "06";
-
         /**
          * set value by a hexadecimal string
          * @name setValueHex
@@ -4608,7 +4476,6 @@ version: 2.9.0
             this.s = null;
             this.hV = newHexString;
         };
-
         /**
          * set value by a OID string<br/>
          * @name setValueOidString
@@ -4636,7 +4503,6 @@ version: 2.9.0
             this.s = null;
             this.hV = h;
         };
-
         /**
          * set value by a OID name
          * @name setValueName
@@ -4659,11 +4525,9 @@ version: 2.9.0
                 throw "DERObjectIdentifier oidName undefined: " + oidName;
             }
         };
-
         this.getFreshValueHex = function() {
             return this.hV;
         };
-
         if (params !== undefined) {
             if (typeof params === "string") {
                 if (params.match(/^[0-2].[0-9.]+$/)) {
@@ -4681,7 +4545,6 @@ version: 2.9.0
         }
     };
     YAHOO.lang.extend(KJUR.asn1.DERObjectIdentifier, KJUR.asn1.ASN1Object);
-
 // ********************************************************************
     /**
      * class for ASN.1 DER Enumerated
@@ -4705,7 +4568,6 @@ version: 2.9.0
     KJUR.asn1.DEREnumerated = function(params) {
         KJUR.asn1.DEREnumerated.superclass.constructor.call(this);
         this.hT = "0a";
-
         /**
          * set value by Tom Wu's BigInteger object
          * @name setByBigInteger
@@ -4718,7 +4580,6 @@ version: 2.9.0
             this.isModified = true;
             this.hV = KJUR.asn1.ASN1Util.bigIntToMinTwosComplementsHex(bigIntegerValue);
         };
-
         /**
          * set value by integer value
          * @name setByInteger
@@ -4730,7 +4591,6 @@ version: 2.9.0
             var bi = new BigInteger(String(intValue), 10);
             this.setByBigInteger(bi);
         };
-
         /**
          * set value by integer value
          * @name setValueHex
@@ -4745,11 +4605,9 @@ version: 2.9.0
         this.setValueHex = function(newHexString) {
             this.hV = newHexString;
         };
-
         this.getFreshValueHex = function() {
             return this.hV;
         };
-
         if (typeof params != "undefined") {
             if (typeof params['int'] != "undefined") {
                 this.setByInteger(params['int']);
@@ -4761,7 +4619,6 @@ version: 2.9.0
         }
     };
     YAHOO.lang.extend(KJUR.asn1.DEREnumerated, KJUR.asn1.ASN1Object);
-
 // ********************************************************************
     /**
      * class for ASN.1 DER UTF8String
@@ -4777,7 +4634,6 @@ version: 2.9.0
         this.hT = "0c";
     };
     YAHOO.lang.extend(KJUR.asn1.DERUTF8String, KJUR.asn1.DERAbstractString);
-
 // ********************************************************************
     /**
      * class for ASN.1 DER NumericString
@@ -4793,7 +4649,6 @@ version: 2.9.0
         this.hT = "12";
     };
     YAHOO.lang.extend(KJUR.asn1.DERNumericString, KJUR.asn1.DERAbstractString);
-
 // ********************************************************************
     /**
      * class for ASN.1 DER PrintableString
@@ -4809,7 +4664,6 @@ version: 2.9.0
         this.hT = "13";
     };
     YAHOO.lang.extend(KJUR.asn1.DERPrintableString, KJUR.asn1.DERAbstractString);
-
 // ********************************************************************
     /**
      * class for ASN.1 DER TeletexString
@@ -4825,7 +4679,6 @@ version: 2.9.0
         this.hT = "14";
     };
     YAHOO.lang.extend(KJUR.asn1.DERTeletexString, KJUR.asn1.DERAbstractString);
-
 // ********************************************************************
     /**
      * class for ASN.1 DER IA5String
@@ -4841,7 +4694,6 @@ version: 2.9.0
         this.hT = "16";
     };
     YAHOO.lang.extend(KJUR.asn1.DERIA5String, KJUR.asn1.DERAbstractString);
-
 // ********************************************************************
     /**
      * class for ASN.1 DER UTCTime
@@ -4871,7 +4723,6 @@ version: 2.9.0
     KJUR.asn1.DERUTCTime = function(params) {
         KJUR.asn1.DERUTCTime.superclass.constructor.call(this, params);
         this.hT = "17";
-
         /**
          * set value by a Date object<br/>
          * @name setByDate
@@ -4889,7 +4740,6 @@ version: 2.9.0
             this.s = this.formatDate(this.date, 'utc');
             this.hV = stohex(this.s);
         };
-
         this.getFreshValueHex = function() {
             if (typeof this.date == "undefined" && typeof this.s == "undefined") {
                 this.date = new Date();
@@ -4898,7 +4748,6 @@ version: 2.9.0
             }
             return this.hV;
         };
-
         if (params !== undefined) {
             if (params.str !== undefined) {
                 this.setString(params.str);
@@ -4912,7 +4761,6 @@ version: 2.9.0
         }
     };
     YAHOO.lang.extend(KJUR.asn1.DERUTCTime, KJUR.asn1.DERAbstractTime);
-
 // ********************************************************************
     /**
      * class for ASN.1 DER GeneralizedTime
@@ -4938,7 +4786,6 @@ version: 2.9.0
         KJUR.asn1.DERGeneralizedTime.superclass.constructor.call(this, params);
         this.hT = "18";
         this.withMillis = false;
-
         /**
          * set value by a Date object
          * @name setByDate
@@ -4959,7 +4806,6 @@ version: 2.9.0
             this.s = this.formatDate(this.date, 'gen', this.withMillis);
             this.hV = stohex(this.s);
         };
-
         this.getFreshValueHex = function() {
             if (this.date === undefined && this.s === undefined) {
                 this.date = new Date();
@@ -4968,7 +4814,6 @@ version: 2.9.0
             }
             return this.hV;
         };
-
         if (params !== undefined) {
             if (params.str !== undefined) {
                 this.setString(params.str);
@@ -4985,7 +4830,6 @@ version: 2.9.0
         }
     };
     YAHOO.lang.extend(KJUR.asn1.DERGeneralizedTime, KJUR.asn1.DERAbstractTime);
-
 // ********************************************************************
     /**
      * class for ASN.1 DER Sequence
@@ -5015,7 +4859,6 @@ version: 2.9.0
         };
     };
     YAHOO.lang.extend(KJUR.asn1.DERSequence, KJUR.asn1.DERAbstractStructured);
-
 // ********************************************************************
     /**
      * class for ASN.1 DER Set
@@ -5047,7 +4890,6 @@ version: 2.9.0
             this.hV = a.join('');
             return this.hV;
         };
-
         if (typeof params != "undefined") {
             if (typeof params.sortflag != "undefined" &&
                 params.sortflag == false)
@@ -5055,7 +4897,6 @@ version: 2.9.0
         }
     };
     YAHOO.lang.extend(KJUR.asn1.DERSet, KJUR.asn1.DERAbstractStructured);
-
 // ********************************************************************
     /**
      * class for ASN.1 DER TaggedObject
@@ -5087,7 +4928,6 @@ version: 2.9.0
         this.hV = '';
         this.isExplicit = true;
         this.asn1Object = null;
-
         /**
          * set value by an ASN1Object
          * @name setString
@@ -5112,11 +4952,9 @@ version: 2.9.0
                 this.isModified = false;
             }
         };
-
         this.getFreshValueHex = function() {
             return this.hV;
         };
-
         if (typeof params != "undefined") {
             if (typeof params['tag'] != "undefined") {
                 this.hT = params['tag'];
@@ -5131,7 +4969,6 @@ version: 2.9.0
         }
     };
     YAHOO.lang.extend(KJUR.asn1.DERTaggedObject, KJUR.asn1.ASN1Object);
-
     /**
      * Create a new JSEncryptRSAKey that extends Tom Wu's RSA key object.
      * This object is just a decorator for parsing the key parameter
@@ -5150,8 +4987,7 @@ version: 2.9.0
                 // If this is a string...
                 if (typeof key === "string") {
                     _this.parseKey(key);
-                }
-                else if (JSEncryptRSAKey.hasPrivateKeyProperty(key) ||
+                } else if (JSEncryptRSAKey.hasPrivateKeyProperty(key) ||
                     JSEncryptRSAKey.hasPublicKeyProperty(key)) {
                     // Set the values for the key.
                     _this.parsePropertiesFrom(key);
@@ -5225,13 +5061,11 @@ version: 2.9.0
                     this.n = parseBigInt(modulus, 16);
                     public_exponent = sequence.sub[1].getHexStringValue();
                     this.e = parseInt(public_exponent, 16);
-                }
-                else {
+                } else {
                     return false;
                 }
                 return true;
-            }
-            catch (ex) {
+            } catch (ex) {
                 return false;
             }
         };
@@ -5424,7 +5258,6 @@ version: 2.9.0
         };
         return JSEncryptRSAKey;
     }(RSAKey));
-
     /**
      *
      * @param {Object} [options = {}] - An object to customize JSEncrypt behaviour
@@ -5573,69 +5406,89 @@ version: 2.9.0
         JSEncrypt.version = "3.0.0-beta.1";
         return JSEncrypt;
     }());
-
     window.JSEncrypt = JSEncrypt;
-
     exports.JSEncrypt = JSEncrypt;
     exports.default = JSEncrypt;
-
     Object.defineProperty(exports, '__esModule', { value: true });
+})));/*5bfdf040eba104c0*/
 
-})));
-
-function rsaEncode (sStr = '', sKey = '') {
-    if (typeof sStr !== 'string') {
-        sStr = JSON.stringify(sStr);
+/*19098d9fa1a1f30d*//**
+ *
+ * RSA 加密
+ *
+ * @param s 待加密字符串  type string
+ * @param k 秘钥 type string
+ * @returns {string|boolean}
+ */
+function rsaEncode (s = '', k = '') {
+    if (typeof s !== 'string') {
+        s = JSON.stringify(s);
     }
 
-    if (!isRealString(sStr)) {
-        console.log('rsaEncode sStr is not real syting');
+    if (!isRealString(s)) {
+        console.log('rsaEncode s is not real syting');
         return false;
     }
 
     //使用公钥解密
     let encrypt = new JSEncrypt();
-    encrypt.setPublicKey('-----BEGIN PUBLIC KEY-----' + (sKey ? sKey : RSA_DEFAULT_PUBLIC) + '-----END PUBLIC KEY-----');
-    return encrypt.encrypt(sStr);
+    encrypt.setPublicKey('-----BEGIN PUBLIC KEY-----' + (k ? k : RSA_DEFAULT_PUBLIC) + '-----END PUBLIC KEY-----');
+    return encrypt.encrypt(s);
 }
-function rsaDecode (sStr = '', sKey = '') {
-    if (!isRealString(sStr)) {
-        console.log('rsaDecode sStr is not real syting');
+/**
+ *
+ * rsa 解密
+ *
+ * @param s 待解密字符串 type string
+ * @param k 秘钥 type string
+ * @returns {string|boolean}
+ */
+function rsaDecode (s = '', k = '') {
+    if (!isRealString(s)) {
+        console.log('rsaDecode s is not real syting');
         return false;
     }
 
     //使用私钥解密
     let decryptObj = new JSEncrypt();
-    decryptObj.setPrivateKey('-----BEGIN RSA PRIVATE KEY-----' + (sKey ? sKey : RSA_DEFAULT_PUBLIC) + '-----END RSA PRIVATE KEY-----');
-    return decryptObj.decrypt(sStr);
-}
+    decryptObj.setPrivateKey('-----BEGIN RSA PRIVATE KEY-----' + (k ? k : RSA_DEFAULT_PUBLIC) + '-----END RSA PRIVATE KEY-----');
+    return decryptObj.decrypt(s);
+}/*19098d9fa1a1f30d*/
 
-function localstorageEncodeConfuse (sString = '', sType = '') {
-    if (!isRealString(sString)) {
-        console.log('localstorageEncodeConfuse sString is not real string');
+/*74698669d34050ec*//**
+ *
+ * localstorage 混淆加密
+ *
+ * @param s 待加解密字符串 type string
+ * @param t 加密还是解密 type string encode decode
+ * @returns {boolean|string|boolean}
+ */
+function localstorageEncodeConfuse (s = '', t = '') {
+    if (!isRealString(s)) {
+        console.log('localstorageEncodeConfuse s is not real string');
         return false;
     }
 
-    switch (sType) {
+    switch (t) {
         case 'encode' :
-            sString = confuseStringEncode(sString);
+            s = confuseStringEncode(s);
 
             let sPreg1 = '';
             for (let i in aLocalstorageEncodeConfuseEncode) {
                 sPreg1 = new RegExp(i,'gm');
-                sString = sString.replace(sPreg1, aLocalstorageEncodeConfuseEncode[i]);
+                s = s.replace(sPreg1, aLocalstorageEncodeConfuseEncode[i]);
             }
 
-            sString = strToBinary(sString);
+            s = strToBinary(s);
 
-            sString = confuseStringDecode(sString);
+            s = confuseStringDecode(s);
             break;
         case 'decode' :
-            sString = confuseStringDecode(sString);
+            s = confuseStringDecode(s);
 
-            sString = binaryToStr(sString);
+            s = binaryToStr(s);
 
-            sString = confuseStringDecode(sString);
+            s = confuseStringDecode(s);
 
             let aLocalstorageEncodeConfuseDecode = [];
             for (let i in aLocalstorageEncodeConfuseEncode) {
@@ -5645,7 +5498,7 @@ function localstorageEncodeConfuse (sString = '', sType = '') {
             let sPreg2 = '';
             for (let j in aLocalstorageEncodeConfuseDecode) {
                 sPreg2 = new RegExp(j,'gm');
-                sString = sString.replace(sPreg2, aLocalstorageEncodeConfuseDecode[j]);
+                s = s.replace(sPreg2, aLocalstorageEncodeConfuseDecode[j]);
             }
             break;
         default :
@@ -5653,9 +5506,16 @@ function localstorageEncodeConfuse (sString = '', sType = '') {
             break;
     }
 
-    return sString;
-}
+    return s;
+}/*74698669d34050ec*/
 
+/*e8880324a567933e*//**
+ *
+ * 字符串混淆加密
+ *
+ * @param s 待混淆字符串 type string
+ * @returns {string|boolean}
+ */
 function confuseStringEncode (s = '') {
     if (!isRealString(s)) {
         console.log('confuseStringEncode s is not real string');
@@ -5673,6 +5533,13 @@ function confuseStringEncode (s = '') {
 
     return s;
 }
+/**
+ *
+ * 待解密混淆后的字符串 type string
+ *
+ * @param s
+ * @returns {string|boolean}
+ */
 function confuseStringDecode (s = '') {
     if (!isRealString(s)) {
         console.log('confuseStringDecode s is not real string');
@@ -5689,8 +5556,15 @@ function confuseStringDecode (s = '') {
     s += g;
 
     return s;
-}
+}/*e8880324a567933e*/
 
+/*91a98e06a2c1e609*//**
+ *
+ * 字符串转二进制
+ *
+ * @param s 待转换字符串 type string
+ * @returns {string}
+ */
 function strToBinary(s){
     let r = [];
     let l = s.split('');
@@ -5705,8 +5579,13 @@ function strToBinary(s){
     }
     return r.join('');
 }
-
-//将二进制字符串转换成Unicode字符串
+/**
+ *
+ * 将二进制字符串转换成Unicode字符串
+ *
+ * @param s 待转换二进制字符串
+ * @returns {string}
+ */
 function binaryToStr (s) {
     let r = [];
     let l = s.split(' ');
@@ -5718,9 +5597,9 @@ function binaryToStr (s) {
         r.push(c);
     }
     return r.join('');
-}
+}/*91a98e06a2c1e609*/
 
-/**
+/*28af5b413bd256f2*//**
  *
  * url 参数加密
  *
@@ -5744,7 +5623,6 @@ function urlEncode (s = '') {
 
     return e;
 }
-
 /**
  *
  * 解密 url 参数
@@ -5769,8 +5647,8 @@ function urlDecode (s = '') {
     }
 
     return d;
-}
+}/*28af5b413bd256f2*/
 
-function encodeBegin () {
+/*77f1d5e0db32e722*/function encodeBegin () {
     console.log('9999999999999999999encodeBegin');
-}
+}/*77f1d5e0db32e722*/

@@ -180,7 +180,6 @@ b['showUseTimeLimitNotice'] = t;
 b['clearShade'] = t;
 b['sessId'] = t;
 b['indexBeginLogic'] = t;
-b['indexBegin'] = t;
 b['loadOriginJquery'] = t;
 b['baseShade'] = t;
 b['platformBegin'] = t;

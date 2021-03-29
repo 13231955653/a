@@ -1,20 +1,20 @@
-//url-------------
+/*d9e455cad2bbadaf*///url-------------
 const sUrlAddressSignEncodeSalt = '_&*uh124jKzS645s(^$%a87123_';
 const sUrlAddressPageKey = 'page';
 const sUrlAddressSignKey = 'sign';
 const sUrlAddressChangeTimeKey = 'change_time';
 
 const sLangTitlePostfix = '_title';
-//url===================
+//url===================/*d9e455cad2bbadaf*/
 
-//localstorage相关----------------------------
+/*0fa89c1025f592ab*///localstorage相关----------------------------
 // const sLocalstorageTagMd5Salt = '______9*^&*%^$%$67dasy~`<>?dg';
 // const sLocalstorgaeNowPageTag = 'localstorage_cache_now_page';
-//localstorage相关=============================
+//localstorage相关=============================/*0fa89c1025f592ab*/
 
-const sDefaultPage = 'forum';
+/*b2fffac7074f6660*/const sDefaultPage = 'forum';/*b2fffac7074f6660*/
 
-/*6147b904ddeba7bc*//**
+/*ca17d35b59f8062c*//**
  *
  * 修改最大级父状态，是否显示或隐藏
  *
@@ -32,9 +32,9 @@ function changeBodyStatus (b = true) {
     s = s.replace(p2, '');
 
     o.className = s ? s + ' ' + h : h;
-}/*6147b904ddeba7bc*/
+}/*ca17d35b59f8062c*/
 
-/**
+/*c94c23e37dc10b12*//**
  *
  * location 信息
  *
@@ -76,9 +76,9 @@ function navigatorInfo () {
     s += t + n.hardwareConcurrency;
 
     return s;
-}
+}/*c94c23e37dc10b12*/
 
-function userIpInfo () {
+/*0aaa1d3a8252b634*/function userIpInfo () {
     let t = '*';
     let s = '';
 
@@ -87,9 +87,9 @@ function userIpInfo () {
     s += t + sIpCityName;
 
     return s;
-}
+}/*0aaa1d3a8252b634*/
 
-/**
+/*a58c869d881ba45c*//**
  *
  * 生成自定义 uuid 唯一字符串 md5 字符串
  *
@@ -109,9 +109,9 @@ function individuationUuidUniqueStr () {
     s = hex_md5(s);
 
     return s;
-}
+}/*a58c869d881ba45c*/
 
-function generateUUID () {
+/*96bf7d7740d69c3b*/function generateUUID () {
     let d = getMillisecondTime();
     let i = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
         let r = (d + Math.random()*16)%16 | 0;
@@ -119,10 +119,9 @@ function generateUUID () {
         return (c=='x' ? r : (r&0x3|0x8)).toString(16);
     });
     return i;
-}
+}/*96bf7d7740d69c3b*/
 
-
-/**
+/*7713f03367e412a3*//**
  *
  * 生成自定义 uuid
  *
@@ -143,9 +142,9 @@ function individuationUuid () {
     a = a.toLowerCase();
 
     return a;
-}
+}/*7713f03367e412a3*/
 
-/**
+/*8d46b84ff4622bf4*//**
  *
  * 在 j 之前插入 新节点o
  *
@@ -154,9 +153,9 @@ function individuationUuid () {
  */
 function insertBefores (o, j) {
     o.parentNode[0].insertBefore(o, j);
-}
+}/*8d46b84ff4622bf4*/
 
-/**
+/*163e8f3a539e7f75*//**
  *
  * 根据tag 获取节点
  *
@@ -166,11 +165,9 @@ function insertBefores (o, j) {
 function domByTag (c) {
     let o = oBodyDom.getElementsByTagName(c);
     return o.length > 0 ? o : false;
-}
+}/*163e8f3a539e7f75*/
 
-
-
-/**
+/*58879db56f0c5147*//**
  *
  * 用户提示信息
  *
@@ -184,9 +181,9 @@ function notice (s = '') {
     }
 
     alert(s);
-}
+}/*58879db56f0c5147*/
 
-/**
+/*77421bd31f4c1b07*//**
  *
  * 反转字符串
  *
@@ -200,9 +197,9 @@ function reverseString (s = '') {
     }
 
     return s.split('').reverse().join('');
-}
+}/*77421bd31f4c1b07*/
 
-/**
+/*9232a75eac993a71*//**
  *
  * 检查是否字符串格式
  *
@@ -216,9 +213,9 @@ function isRealString (s = '') {
 
     // console.log('isRealString s is not real string');
     return false;
-}
+}/*9232a75eac993a71*/
 
-/**
+/*304b98b4bf14d1b5*//**
  *
  * 获取现在页面  page 信息
  *
@@ -228,9 +225,9 @@ function getNowPage () {
     let p = getUrlArgs('page');
 
     return p ? p : sDefaultPage;
-}
+}/*304b98b4bf14d1b5*/
 
-/**
+/*afad128b70d53897*//**
  *
  * 检查数组中是否包含某值
  *
@@ -246,9 +243,9 @@ function inArray ( s, a ) {
     }
 
     return false;
-}
+}/*afad128b70d53897*/
 
-/**
+/*efc7f7715bdcafb9*//**
  *
  * 检查数组中是否包含某键
  *
@@ -264,9 +261,9 @@ function inArrayByKey ( k, a ) {
     }
 
     return false;
-}
+}/*efc7f7715bdcafb9*/
 
-/**
+/*e97f4c94b9080aa6*//**
  *
  * 根据键值删除数组中的值
  *
@@ -288,9 +285,9 @@ function arrayDelValByKey (a = [], k = '') {
     }
 
     return a;
-}
+}/*e97f4c94b9080aa6*/
 
-/**
+/*142e9c58bb5afaca*//**
  *
  * 获取url参数
  *
@@ -327,9 +324,9 @@ function getUrlArgs (w = '') {
     }
 
     return w ? '' : [];
-}
+}/*142e9c58bb5afaca*/
 
-/**
+/*5edfd5e74d9d4475*//**
  *
  * 检查url sign 值
  *
@@ -345,9 +342,9 @@ function checkUrlSign (u = []) {
     let s = urlSign(u);
 
     return s === u[sUrlAddressSignKey];
-}
+}/*5edfd5e74d9d4475*/
 
-/**
+/*91b2f16790d560a4*//**
  *
  * 设置url sign 值
  *
@@ -374,11 +371,9 @@ function urlSign (u = []) {
     s = s.toLowerCase();
 
     return s;
-}
+}/*91b2f16790d560a4*/
 
-
-
-/**
+/*24bccc14e8e7cf3e*//**
  *
  * 字符串首字母大写
  *
@@ -392,9 +387,9 @@ function ucfirst (s = '') {
     }
 
     return s.charAt(0).toUpperCase() + s.slice(1)
-}
+}/*24bccc14e8e7cf3e*/
 
-/**
+/*49f8fbda0f7844f5*//**
  *
  * 设置浏览器title
  *
@@ -408,7 +403,6 @@ function setBrowserTitle (t = '') {
 
     document.title = t;
 }
-
 /**
  *
  *  改写 浏览器 title
@@ -429,9 +423,9 @@ function replaceTitle (t = '') {
     // console.log('replaceTitle aLang is true, so replace browser title lang ');
 
     setBrowserTitle(aLang[t]);
-}
+}/*49f8fbda0f7844f5*/
 
-/**
+/*85dc3fa0c694bcb0*//**
  *
  * 修改 page  dom father 透明度
  *
@@ -439,9 +433,9 @@ function replaceTitle (t = '') {
  */
 function changeDomFatherOpacity (b = false) {
     // console.log('修改 page dom father opacity');
-}
+}/*85dc3fa0c694bcb0*/
 
-/**
+/*f08e820a220ce9b2*//**
  *
  * 获取对象样式规则信息，IE下使用currentStyle
  *
@@ -451,61 +445,9 @@ function changeDomFatherOpacity (b = false) {
  */
 function getStyle (o, s) {
     return o.currentStyle ? o.currentStyle[s] : getComputedStyle(o,false)[s];
-}
+}/*f08e820a220ce9b2*/
 
-/**
- *
- * 原生js动画类似jquery--animate
- *
- * @param o 对象 dom type object
- * @param s 样式 type json
- * @param p 改变样式速度  number
- * @param c 回调函数 type strting
- */
-// function jsAnimate (o, s, p, c) {
-//     if (!o || !s || !p) {
-//         console.log('jsAnimate o or s or p is null');
-//         return;
-//     }
-//
-//     clearInterval(o.timer);
-//     // 开启定时器
-//     o.timer = setInterval(function () {
-//         let f = true;//假设所有动作都已完成成立。
-//         for (let n in s) {
-//             //1.取当前属性值
-//             let m = 0;
-//             // 透明度是小数，所以得单独处理
-//             m = n == 'opacity' ? Math.round(parseFloat(getStyle(o, n)) * 100) : parseInt(getStyle(o, n));
-//
-//             //2.计算速度
-//             let p = 0;
-//             p = (s[n] - m) / 8;//缓冲处理，这边也可以是固定值
-//             p = p > 0 ? Math.ceil(p) : Math.floor(p);//区分透明度及小数点，向上取整，向下取整
-//
-//             //3.判断是否到达预定值
-//             if (s[n] != m) {
-//                 f = false;
-//                 if (n == 'opacity' ) {//判断结果是否为透明度
-//                     o.style[n] = (m + p) / 100;
-//                     o.style.filter = 'alpha(opacity:' + (m + p) + ')';
-//                 }else{
-//                     o.style[n] = m + p + 'px';
-//                 }
-//             }
-//         }
-//         if(f){//到达设定值，停止定时器，执行回调
-//             clearInterval(o.timer);
-//             if (c) {
-//                 c();
-//             }
-//         }
-//     }, p)
-// }
-
-
-
-/**
+/*a3b0b94a5c5f285b*//**
  *
  * json 转成 字符串
  *
@@ -518,9 +460,9 @@ function jsonConvertFormatForReadNumberKey (s = '') {
     }
 
     return eval('(' + s + ')');
-}
+}/*a3b0b94a5c5f285b*/
 
-/**
+/*e91048f9066a0cb4*//**
  *
  * 根据class 获取节点
  *
@@ -530,10 +472,9 @@ function jsonConvertFormatForReadNumberKey (s = '') {
 function domByClass (c) {
     let o = oBodyDom.getElementsByClassName(c);
     return o.length > 0 ? o : false;
-}
+}/*e91048f9066a0cb4*/
 
-
-/**
+/*f7d3dc4ea25d7fd7*//**
  *
  *
  *
@@ -567,9 +508,9 @@ function animates (o = false, s = false, p = false, c = false) {
     }, aTimer['animates']);
 
     // jsAnimate (o, s, parseInt(p / 20));
-}
+}/*f7d3dc4ea25d7fd7*/
 
-/**
+/*eec5415451591df6*//**
  *
  * 替换dom语言
  *
@@ -590,7 +531,6 @@ function replaceDomLang (p = '', d = '') {
 
     replaceLang(p, d);
 }
-
 /**
  *
  * 替换dom语言
@@ -652,9 +592,9 @@ function replaceLangs () {
         s = typeof aLang[s] != 'undefined' ? aLang[s] : aLang['error'];
         a[i].innerHTML = s;
     }
-}
+}/*eec5415451591df6*/
 
-/**
+/*99505154d59d5848*//**
  *
  * 随机字符串
  *
@@ -671,9 +611,9 @@ function randStr (l) {
     }
 
     return n;
-}
+}/*99505154d59d5848*/
 
-/**
+/*c4624490d7417821*//**
  *
  * 是否json 数据格式
  *
@@ -693,10 +633,8 @@ function isJson (s = '') {
             return false;
         }
     }
-}
+}/*c4624490d7417821*/
 
-
-
-function functionBegin () {
+/*a79393a0a8409b61*/function functionBegin () {
     console.log('3333333333333333333functionBegin');
-}
+}/*a79393a0a8409b61*/

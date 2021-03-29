@@ -1117,7 +1117,7 @@ function loadStaticResource (f, q = false) {
     //     console.log('aaaaaaaaaaaaaddddddddddddddeeeeeeeeeeeegggggggggggggggggggg');
     // }
     if (n || q || debug) {
-        console.log('sssssssssssssssssssssaaaaaaaaaaaaaaaaaaaaaaaaaa');
+        // console.log('sssssssssssssssssssssaaaaaaaaaaaaaaaaaaaaaaaaaa');
         let t = setTimeout(function () {
             clearTimeout(t);
 
@@ -1125,7 +1125,7 @@ function loadStaticResource (f, q = false) {
             initStaticResource(g, c, a, f);
         }, 0);
     } else {
-        console.log('zzzzzzzzzzzzzzzzzzzzzqqqqqqqqqqqqqqqqqqqqqqqqq');
+        // console.log('zzzzzzzzzzzzzzzzzzzzzqqqqqqqqqqqqqqqqqqqqqqqqq');
         let t = setTimeout(function () {
             clearTimeout(t);
 
@@ -1753,9 +1753,9 @@ function requires (j = '', c = '') {
         // console.log(n);
         // console.log(l);
         if (n == l) {
-            console.log(c);
+            // console.log(c);
             c();
-            console.log('kkkkkkkkkkkkkkkkkkkkkkkkkk');
+            // console.log('kkkkkkkkkkkkkkkkkkkkkkkkkk');
             return;
         }
     }
