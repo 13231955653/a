@@ -1,14 +1,8 @@
-let oBaseShade = '';
-// let oIndexShade = '';
-// let oPlatformShade = '';
-// let oPageShade = '';
+/*6ba4d8ef878f4609*/let oBaseShade = '';/*6ba4d8ef878f4609*/
 
-var sBaseShadeId = 'base_shade';
-// var sIndexShadeId = 'index_shade';
-// var sPlatformShadeId = 'platform_shade';
-// var sPageShadeId = 'page_shade';
+/*16da63640be0a4c9*/var sBaseShadeId = 'base_shade';/*16da63640be0a4c9*/
 
-let bWriteShade = false;
+/*4de1e35a389a1e25*/let bWriteShade = false;
 function writeShades () {
     if (bWriteShade) {
         return;
@@ -17,9 +11,6 @@ function writeShades () {
 
     let a = [
         sBaseShadeId,
-        // sIndexShadeId,
-        // sPlatformShadeId,
-        // sPageShadeId,
     ];
 
     let o = document.createDocumentFragment();
@@ -40,21 +31,9 @@ function asynAppendShade (o) {
 function baseShades () {
     oBaseShade = oBaseShade ? oBaseShade : domById(sBaseShadeId);
     return oBaseShade;
-}
-// function indexShade () {
-//     oIndexShade = oIndexShade ? oIndexShade : domById(sIndexShadeId);
-//     return oIndexShade;
-// }
-// function platformShade () {
-//     oPlatformShade = oPlatformShade ? oPlatformShade : domById(sPlatformShadeId);
-//     return oPlatformShade;
-// }
-// function pageShade () {
-//     oPageShade = oPageShade ? oPageShade : domById(sPageShadeId);
-//     return oPageShade;
-// }
+}/*4de1e35a389a1e25*/
 
-function showBaseShade () {
+/*3db2ab832db6559f*/function showBaseShade () {
     if (aShades[sBaseShadeId]) {
         setTimeoutFunction('showBaseShade');
         return;
@@ -86,113 +65,9 @@ function clearBaseShade () {
     }
 
     asyn('clearShade', o);
-}
+}/*3db2ab832db6559f*/
 
-// function showIndexShade () {
-//     if (aShades[sIndexShadeId]) {
-//         setTimeoutFunction('showIndexShade');
-//         return;
-//     }
-//
-//     let o = indexShade();
-//     if (!o) {
-//         setTimeoutFunction('showIndexShade');
-//         return;
-//     }
-//
-//     asyn('showShade', o);
-// }
-// /**
-//  *
-//  * 清除 未读取到 index js 遮罩层
-//  *
-//  */
-// function clearIndexShade () {
-//     if (!aShades[sIndexShadeId]) {
-//         setTimeoutFunction('clearIndexShade');
-//         return;
-//     }
-//
-//     let o = indexShade();
-//     if (!o) {
-//         setTimeoutFunction('clearIndexShade');
-//         return;
-//     }
-//
-//     asyn('clearShade', o);
-// }
-
-// function showPlatformShade () {
-//     if (aShades[sPlatformShadeId]) {
-//         setTimeoutFunction('showPlatformShade');
-//         return;
-//     }
-//
-//     let o = platformShade();
-//     if (!o) {
-//         setTimeoutFunction('showPlatformShade');
-//         return;
-//     }
-//
-//     asyn('showShade', o);
-// }
-// /**
-//  *
-//  * 清除品台遮罩层
-//  *
-//  */
-// function clearPlatformShade () {
-//     if (!aShades[sPlatformShadeId]) {
-//         setTimeoutFunction('clearPlatformShade');
-//         return;
-//     }
-//
-//     let o = platformShade();
-//     if (!o) {
-//         return;
-//     }
-//
-//     asyn('clearShade', o);
-// }
-
-// function showPageShade () {
-//     if (aShades[sPageShadeId]) {
-//         setTimeoutFunction('showPageShade');
-//         return;
-//     }
-//
-//     let o = pageShade();
-//     if (!o) {
-//         setTimeoutFunction('showPageShade');
-//         return;
-//     }
-//
-//     asyn('showShade', o);
-// }
-// /**
-//  *
-//  * 清除 page 遮罩层
-//  *
-//  */
-// function clearPageShade () {
-//     if (!aShades[sPageShadeId]) {
-//         setTimeoutFunction('clearPageShade');
-//         return;
-//     }
-//
-//     let o = pageShade();
-//     if (!o) {
-//         return;
-//     }
-//
-//     asyn('clearShade', o);
-// }
-
-let aShades = [];
-// aShades[sBaseShadeId] = false;
-// aShades[sIndexShadeId] = false;
-// aShades[sPlatformShadeId] = false;
-// aShades[sPageShadeId] = false;
+/*dac55309121d59cf*/let aShades = [];
 function showShade (o = false) {
     if (typeof window['animates'] == 'undefined') {
         setTimeoutFunction('showShade', o);
@@ -242,8 +117,8 @@ function clearShade (o = false) {
 
         aShades[o.id] = false;
     });
-}
+}/*dac55309121d59cf*/
 
-function domBegin () {
+/*baee8d2085edcee0*/function domBegin () {
     console.log('444444444444444444444domBegin');
-}
+}/*baee8d2085edcee0*/
