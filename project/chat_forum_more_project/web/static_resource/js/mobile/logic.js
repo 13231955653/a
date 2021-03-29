@@ -8,7 +8,7 @@
  */
 let sLastPage = '';
 function uodateUrlPageArg (p = '') {
-    console.log('uodateUrlPageArg begin, p ' + p);
+    // console.log('uodateUrlPageArg begin, p ' + p);
     if (!p) {
         return;
     }
@@ -24,9 +24,12 @@ function uodateUrlPageArg (p = '') {
         asyn('showBaseShade');
     });
 
-    console.log('ddddddddddddddddddddddddddddddddd');
-    console.log(p);
-    asyn('updateUrlPage', p);
+    // console.log('ddddddddddddddddddddddddddddddddd');
+    // console.log(p);
+    // asyn('updateUrlPage', p);
+    requires([sEncodeJsTag, sFuncJsTag], function () {
+        asyn('updateUrlPage', p);
+    });
 
     console.log('点击过后需要检测当前页面是否需要刷新');
     // asyn('clearBaseShade');
@@ -77,20 +80,21 @@ function replaceWindowTitle (t = '') {
  */
 let aAllreadyLoadPageJs = [];
 function updateUrlPage (p = '') {
-    if (typeof window['urlDecode'] == 'undefined') {
-        requires([sEncodeJsTag], function () {
-            asyn('updateUrlPage', p);
-        });
-        return;
-    }
-
-    if (typeof window['getNowPage'] == 'undefined') {
-        requires([sFuncJsTag], function () {
-            asyn('updateUrlPage', p);
-            // updateUrlPage(p);
-        });
-        return;
-    }
+    // console.log('dddsssssssszzzzzzbbbbbbbbbbbbdddddddddddd');
+    // if (typeof window['urlDecode'] == 'undefined') {
+    //     requires([sEncodeJsTag], function () {
+    //         asyn('updateUrlPage', p);
+    //     });
+    //     return;
+    // }
+    //
+    // if (typeof window['getNowPage'] == 'undefined') {
+    //     // requires([sFuncJsTag], function () {
+    //     //     asyn('updateUrlPage', p);
+    //     //     // updateUrlPage(p);
+    //     // });
+    //     return;
+    // }
     console.log(getUrlArgs());
 
     p = p ? p : getNowPage();
@@ -176,5 +180,9 @@ function updateUrlArg (k = '', v = '', t = '', c = false) {
 
 /*efd16af9fb242e81*/function logicBegin () {
     console.log('666666666666666666logicBegin');
-    asyn('updateUrlPage');
+    // asyn('updateUrlPage');
+    requires([sEncodeJsTag, sFuncJsTag], function () {
+        // console.log('zxcccccccccccccccccccccccccccccccccccccc');
+        asyn('updateUrlPage');
+    });
 }/*efd16af9fb242e81*/

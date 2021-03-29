@@ -1775,7 +1775,12 @@ function checkStaticResource (j) {
         case sFuncJsTag :
             return typeof window['functionBegin'] != 'undefined' ? true : false;
             break;
+        case sEncodeJsTag :
+            return typeof window['encodeBegin'] != 'undefined' ? true : false;
+            break;
     }
+
+    return true;
 }
 
 window.onload = fileControlBegin();
