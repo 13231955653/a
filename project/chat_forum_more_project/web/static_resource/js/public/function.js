@@ -167,21 +167,73 @@ function domByTag (c) {
     return o.length > 0 ? o : false;
 }/*163e8f3a539e7f75*/
 
-/*58879db56f0c5147*//**
+/**
+ *
+ * 替换dom的class为显示的classname
+ *
+ * @param o 要替换的dom
+ */
+function replaceClassNameToShow (o) {
+    let p1 = new RegExp('\\s*' + sInvisibleClass,'gm');
+    let p2 = new RegExp('\\s*' + sVisibleClass,'gm');
+
+    let s = o.className;
+    s = s.replace(p1, '');
+    s = s.replace(p2, '');
+
+    o.className = s ? s + ' ' + sVisibleClass : sVisibleClass;
+}
+
+/*5e0bd59639a733a0*//**
  *
  * 用户提示信息
  *
- * @param s 提示信息 type string
+ * @param m 提示信息 type string
  * @returns {boolean}
  */
-function notice (s = '') {
-    if (!s) {
-        // console.log('notice s is null');
+function notice (m = '') {
+    if (!m) {
         return false;
     }
 
-    alert(s);
-}/*58879db56f0c5147*/
+    domById(sNoticeBodyClass + '_span').innerHTML = m;
+
+    let o = noticeDom();
+
+    // let p1 = new RegExp('\\s*' + sInvisibleClass,'gm');
+    // let p2 = new RegExp('\\s*' + sVisibleClass,'gm');
+    //
+    // let s = n.className;
+    // s = s.replace(p1, '');
+    // s = s.replace(p2, '');
+    //
+    // n.className = s ? s + ' ' + sVisibleClass : sVisibleClass;
+    replaceClassNameToShow(o);
+
+    o.style.filter = 'alpha(opacity:' + 0 + ')';
+    o.style.opacity = 0;
+
+    animates(o, {opacity: 100}, iSpeed, function () {
+    });
+}
+function hiddenNotice () {
+    console.log('ssssssssssszzzzzzzzzzzzzzzzzzzzzzzpppppppppp');
+    let o = noticeDom();
+
+    o.style.filter = 'alpha(opacity:' + 100 + ')';
+    o.style.opacity = 1;
+    o.className += ' ' + sVisibleClass;
+
+    animates(o, {opacity: 0}, iSpeed, function () {
+        let p1 = new RegExp('\\s*' + sInvisibleClass,'gm');
+        let p2 = new RegExp('\\s*' + sVisibleClass,'gm');
+
+        let s = o.className;
+        s = s.replace(p1, '');
+        s = s.replace(p2, '');
+        o.className = s ? s + ' ' + sInvisibleClass : sInvisibleClass;
+    });
+}/*5e0bd59639a733a0*/
 
 /*77421bd31f4c1b07*//**
  *
@@ -543,41 +595,34 @@ function replaceDomLang (p = '', d = '') {
  * @param d 需要替换语言的dom的 id/class/tag type sting
  */
 function replaceLang (p = '', d = '') {
-    // console.log('(((((((((((((((((((((((((((((((((((((');
-    // console.log(p);
-    // console.log(d);
     if (!p || !d) {
-        // console.log('replaceLang p or d is null, so no to do ');
         return;
     }
-    // console.log('replaceLang, will to do replace lang ');
 
     if (typeof aLang == 'undefined') {
-        // console.log('replaceLang aLang is false, so settimtoue retry replace lang ');
         setTimeoutFunction('replaceLang', p, d);
         return;
     }
-    // console.log('replaceLang aLang is true, will to replace lang ');
 
     let o = false;
     switch (p) {
         case sReplaceLangIdType :
             o = domById(d);
             break;
+        case sReplaceLangClassType :
+            o = domByClass(d);
+            break;
     }
 
     if (!o) {
-        // console.log('replaceLang dom is null, so settimtoue retry replace lang ');
         setTimeoutFunction('replaceLang', p, d);
         return;
     }
-    // console.log('replaceLang dom is true, will to replace lang ');
 
     let s = o.getElementsByClassName(sReLangClass);
     for (let i in s) {
-        s[i].innerHTML = aLang[s[i].id];
+        s[i].innerHTML = typeof aLang[s[i].id] != 'undefined' ? aLang[s[i].id] : aLang['langvage_error'];
     }
-    // console.log(')))))))))))))))))))))))))))))))');
 }
 function replaceLangs () {
     if (typeof window['aLang'] === 'undefined') {

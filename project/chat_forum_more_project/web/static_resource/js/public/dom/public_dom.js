@@ -8,6 +8,68 @@ let sBaseShadeCenterSonClass = 'base_shade_center_sons';
 let sBaseShadeCenterSonNowClass = 'base_shade_center_son_now';
 /*f0196c4afb85054e*/
 
+/*ab201f54fc997f78*/let sNoticeTitleClass = 'notice_head';
+let sNoticeBodyClass = 'notice_body';
+let sNoticeFootClass = 'notice_foot';
+/*ab201f54fc997f78*/
+
+/*605df86f799e4bd9*//**
+ *
+ * 写notice页面
+ *
+ */
+let bWriteNotice = false;
+function writeNotice () {
+    if (bWriteNotice) {
+        return;
+    }
+    bWriteNotice = true;
+
+    let a = [
+        sNoticeTitleClass,
+        sNoticeBodyClass,
+        sNoticeFootClass,
+    ];
+
+    let s = '';
+    for (let i in a) {
+        s += '<div class="' + a[i] + '">';
+        if (a[i] !== sNoticeBodyClass) {
+            s += '<span id="' + a[i] + '_span" class="' + sReLangClass + '"></span>';
+        } else {
+            s += '<span id="' + a[i] + '_span"></span>';
+        }
+
+        s += '</div>';
+    }
+
+    noticeDom().innerHTML = s;
+
+    domById(sNoticeTitleClass + '_span').innerHTML = 'ss';
+    domById(sNoticeFootClass + '_span').innerHTML = 'ss';
+
+    requires([sFuncJsTag], function () {
+        asyn('replaceLang', sReplaceLangIdType, sDomNoticeId);
+    });
+
+    requires([sFuncJsTag], function () {
+        asyn('bindNoticeFoot');
+    });
+}/*605df86f799e4bd9*/
+/*28f646c3b0eaccc8*//**
+ *
+ * 绑定提示信息脚步事件
+ *
+ */
+function bindNoticeFoot () {
+    // console.log('zzzzzzzzzzzzzzzzzaaaaaaaaaaaaaaaqqqqqqqqqqqqqqqq');
+    // console.log(sNoticeFootClass);
+    // console.log(oneDomByClass(sNoticeFootClass));
+    oneDomByClass(sNoticeFootClass).onclick = function () {
+        asyn('hiddenNotice');
+    }
+}/*28f646c3b0eaccc8*/
+
 /*4de1e35a389a1e25*/let bWriteShade = false;
 function writeShades () {
     if (bWriteShade) {
@@ -30,7 +92,13 @@ function writeShades () {
         s += '</div>';
     }
 
-    shadeDom().innerHTML = s;
+    let o = shadeDom();
+    o.innerHTML = s;
+
+    requires([sFuncJsTag], function () {
+        // replaceClassNameToShow(o);
+        asyn('replaceClassNameToShow', o);
+    })
 }
 function baseShades () {
     oBaseShade = oBaseShade ? oBaseShade : domById(sBaseShadeId);
@@ -78,7 +146,10 @@ function writeLoadAnimation () {
         return;
     }
 
-    asyn('showShade', o);
+    requires([sFuncJsTag], function () {
+        // asyn('showShade', o);
+        showShade(o);
+    });
 }
 /**
  *
@@ -97,24 +168,30 @@ function clearBaseShade () {
         return;
     }
 
-    asyn('clearShade', o);
+    // asyn('clearShade', o);
+    requires([sFuncJsTag], function () {
+        // asyn('clearShade', o);
+        clearShade(o);
+    });
 }/*3db2ab832db6559f*/
 
 /*dac55309121d59cf*/let aShades = [];
 function showShade (o = false) {
-    if (typeof window['animates'] == 'undefined') {
-        setTimeoutFunction('showShade', o);
-        return;
-    }
+    // if (typeof window['animates'] == 'undefined') {
+    //     setTimeoutFunction('showShade', o);
+    //     return;
+    // }
+    // console.log(window['animates']);
 
-    let p1 = new RegExp('\\s*' + sInvisibleClass,'gm');
-    let p2 = new RegExp('\\s*' + sVisibleClass,'gm');
-
-    let s = o.className;
-    s = s.replace(p1, '');
-    s = s.replace(p2, '');
-
-    o.className = s ? s + ' ' + sVisibleClass : sVisibleClass;
+    // let p1 = new RegExp('\\s*' + sInvisibleClass,'gm');
+    // let p2 = new RegExp('\\s*' + sVisibleClass,'gm');
+    //
+    // let s = o.className;
+    // s = s.replace(p1, '');
+    // s = s.replace(p2, '');
+    //
+    // o.className = s ? s + ' ' + sVisibleClass : sVisibleClass;
+    replaceClassNameToShow(o);
 
     o.style.filter = 'alpha(opacity:' + 0 + ')';
     o.style.opacity = 0;
@@ -132,10 +209,10 @@ function showShade (o = false) {
  * @param o 遮罩层 dom
  */
 function clearShade (o = false) {
-    if (typeof window['animates'] == 'undefined') {
-        setTimeoutFunction('clearShade', o);
-        return;
-    }
+    // if (typeof window['animates'] == 'undefined') {
+    //     setTimeoutFunction('clearShade', o);
+    //     return;
+    // }
 
     o.style.filter = 'alpha(opacity:' + 100 + ')';
     o.style.opacity = 1;

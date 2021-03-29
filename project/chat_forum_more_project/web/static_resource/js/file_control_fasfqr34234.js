@@ -1189,9 +1189,9 @@ function afterLoadResetCss1 (v = '') {
 }
 function afterLoadPage () {
     // asyn('setInLoadStaticResource', sNowPageJs, false);
-    setInLoadStaticResource(sNowPageJs, false);
-
     asyn('afterLoadPageJs');
+
+    setInLoadStaticResource(sNowPageJs, false);
 }
 function afterLoadPage1 (v = '') {
     if (v) {
@@ -1338,15 +1338,17 @@ function afterLoadBaseJs1 (v = '') {
  */
 function afterLoadFunctionJs () {
     // asyn('setInLoadStaticResource', sFuncJsTag, false);
-    setInLoadStaticResource(sFuncJsTag, false);
+    console.log('sssssssssszzzzzzzzzzxxxxxxxxxxxcccccccddddddffffffffff');
     asyn('functionBegin');
+    setInLoadStaticResource(sFuncJsTag, false);
 }
 function afterLoadFunctionJs1 (v = '') {
     // if (typeof window['functionBegin'] != 'undefined') {
     //     return;
     // }
-
+    console.log('sssssssssszzzzzzffffffffffffffffzzzzxxxxxxxxxxxcccccccddddddffffffffff');
     if (v) {
+        console.log('ssssssdddddddddddwwwwwwwwwwwwwwszzzzzzffffffffffffffffzzzzxxxxxxxxxxxcccccccddddddffffffffff');
         asyn('afterLoadStaticResource', v, 'js');
 
         asyn('afterLoadFunctionJs');
@@ -1354,6 +1356,7 @@ function afterLoadFunctionJs1 (v = '') {
         return;
     }
 
+    console.log('sssssssssssszzzzzzzzzzzzssssssssssdddddddddddzzzzzzffffffffffffffffzzzzxxxxxxxxxxxcccccccddddddffffffffff');
     aInLoadStaticResource[sFuncJsTag] = false;
     asyn('loadStaticResource', sFuncJsTag, true);
 }
@@ -1679,7 +1682,9 @@ function fileControlBegin () {
 
     setHosts();
 
-    asyn('showBaseShade');
+    requires([sPubDomJsTag], function () {
+        asyn('showBaseShade');
+    });
 
     asyn('loadStaticFile');
 }
@@ -1734,34 +1739,22 @@ function setInLoadStaticResource (j = '', b = false) {
 let aAllreadyLoadStaticResource = [];
 let aInLoadStaticResource = [];
 function requires (j = '', c = '') {
-    // console.log('pppppppppppppppppppppppppppppppppppppppppp');
     let l = j.length;
     let n = 0;
     let y = [];
     for (let i in j) {
-        // console.log(j[i]);
-        // console.log('vvvvvvvvvvvvvvvvvvvvvvv');
-        // console.log(aAllreadyLoadStaticResource);
-        // console.log(aAllreadyLoadStaticResource['base']);
-        // console.log(aAllreadyLoadStaticResource['func']);
-        // console.log(aAllreadyLoadStaticResource['encode']);
-        if (aAllreadyLoadStaticResource[j[i]]) {
+        if (aAllreadyLoadStaticResource[j[i]] && checkStaticResource(j[i])) {
             n = parseInt(n) + parseInt(1);
         } else {
             y.push(j[i]);
         }
 
-        // console.log(n);
-        // console.log(l);
         if (n == l) {
-            // console.log(c);
             c();
-            // console.log('kkkkkkkkkkkkkkkkkkkkkkkkkk');
             return;
         }
     }
 
-    // console.log('qqqqqqqqqqqqqqqqqqqqqq');
     if (y) {
         for (let i in y) {
             asyn('loadStaticResource', y[i]);
@@ -1769,6 +1762,20 @@ function requires (j = '', c = '') {
     }
 
     asyn('requires', j, c);
+}
+
+/**
+ *
+ * 检查静态资源是否加载完成
+ *
+ * @param j
+ */
+function checkStaticResource (j) {
+    switch (j) {
+        case sFuncJsTag :
+            return typeof window['functionBegin'] != 'undefined' ? true : false;
+            break;
+    }
 }
 
 window.onload = fileControlBegin();

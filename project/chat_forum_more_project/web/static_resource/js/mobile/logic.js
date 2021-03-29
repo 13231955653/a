@@ -19,14 +19,20 @@ function uodateUrlPageArg (p = '') {
     }
     sLastPage = p;
 
-    asyn('showBaseShade');
+    // asyn('showBaseShade');
+    requires([sPubDomJsTag], function () {
+        asyn('showBaseShade');
+    });
 
     console.log('ddddddddddddddddddddddddddddddddd');
     console.log(p);
     asyn('updateUrlPage', p);
 
     console.log('点击过后需要检测当前页面是否需要刷新');
-    asyn('clearBaseShade');
+    // asyn('clearBaseShade');
+    requires([sPubDomJsTag], function () {
+        asyn('clearBaseShade');
+    });
 }/*85d5758838981137*/
 
 /*0e74c111e9d2fa99*//**

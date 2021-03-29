@@ -265,6 +265,7 @@ const sActiveFootTag = 'foot_active';
 
 const sReLangClass = 're_lang';
 const sReplaceLangIdType = 'id';
+const sReplaceLangClassType = 'class';
 
 const sShadeClass = 'shades';
 //class id tag 相关====================/*2355292fdec0dbed*/
@@ -912,7 +913,7 @@ function secondDom () {
 
     let s = '';
     for (let i in a) {
-        s += '<div id="' + a[i] + '"></div>';
+        s += '<div id="' + a[i] + '" class="' + sInvisibleClass + '"></div>';
     }
 
     let o = bodyDom();
@@ -925,6 +926,7 @@ function secondDom () {
     asyn('writeShades');
 
     // asyn('noticeDom');
+    asyn('writeNotice');
 
     o.style.display = 'block';
 }
@@ -1178,7 +1180,12 @@ function setContent (n = '') {
     // asyn('clearPlatformShade');
     // clearPlatformShade();
     // asyn('clearPageShade');
-    asyn('clearBaseShade');
+    // asyn('clearBaseShade');
+    requires([sPubDomJsTag], function () {
+        asyn('clearBaseShade');
+
+        asyn('replaceClassNameToShow', domById(oDomFatherId));
+    });
 }/*346338dcd06aa266*/
 
 /*6253f7ef57dc3560*/let oHtml = false;
@@ -1228,4 +1235,9 @@ function baseBegins () {
     asyn('getUserIp');
 
     asyn('secondDom');
+
+    // requires([sFuncJsTag], function () {
+    //     console.log('zzzzzzzzzzzzzzlllllllllsssssssssssssssoooooooooooqqqqqqqq');
+    //     notice('中文');
+    // });
 }/*6253f7ef57dc3560*/
