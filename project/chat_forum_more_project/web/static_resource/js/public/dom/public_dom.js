@@ -219,13 +219,14 @@ function clearShade (o = false) {
     o.className += ' ' + sVisibleClass;
 
     animates(o, {opacity: 0}, iSpeed, function () {
-        let p1 = new RegExp('\\s*' + sInvisibleClass,'gm');
-        let p2 = new RegExp('\\s*' + sVisibleClass,'gm');
-
-        let s = o.className;
-        s = s.replace(p1, '');
-        s = s.replace(p2, '');
-        o.className = s ? s + ' ' + sInvisibleClass : sInvisibleClass;
+        // let p1 = new RegExp('\\s*' + sInvisibleClass,'gm');
+        // let p2 = new RegExp('\\s*' + sVisibleClass,'gm');
+        //
+        // let s = o.className;
+        // s = s.replace(p1, '');
+        // s = s.replace(p2, '');
+        // o.className = s ? s + ' ' + sInvisibleClass : sInvisibleClass;
+        replaceClassNameToHidden(o);
 
         aShades[o.id] = false;
 

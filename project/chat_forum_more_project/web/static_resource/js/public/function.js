@@ -167,7 +167,7 @@ function domByTag (c) {
     return o.length > 0 ? o : false;
 }/*163e8f3a539e7f75*/
 
-/**
+/*aedff16c4f9e628f*//**
  *
  * 替换dom的class为显示的classname
  *
@@ -183,6 +183,21 @@ function replaceClassNameToShow (o) {
 
     o.className = s ? s + ' ' + sVisibleClass : sVisibleClass;
 }
+/**
+ *
+ * 替换dom的class为隐藏的classname
+ *
+ * @param o 要替换的dom
+ */
+function replaceClassNameToHidden (o) {
+    let p1 = new RegExp('\\s*' + sInvisibleClass,'gm');
+    let p2 = new RegExp('\\s*' + sVisibleClass,'gm');
+
+    let s = o.className;
+    s = s.replace(p1, '');
+    s = s.replace(p2, '');
+    o.className = s ? s + ' ' + sInvisibleClass : sInvisibleClass;
+}/*aedff16c4f9e628f*/
 
 /*5e0bd59639a733a0*//**
  *
@@ -217,7 +232,7 @@ function notice (m = '') {
     });
 }
 function hiddenNotice () {
-    console.log('ssssssssssszzzzzzzzzzzzzzzzzzzzzzzpppppppppp');
+    // console.log('ssssssssssszzzzzzzzzzzzzzzzzzzzzzzpppppppppp');
     let o = noticeDom();
 
     o.style.filter = 'alpha(opacity:' + 100 + ')';
@@ -225,13 +240,14 @@ function hiddenNotice () {
     o.className += ' ' + sVisibleClass;
 
     animates(o, {opacity: 0}, iSpeed, function () {
-        let p1 = new RegExp('\\s*' + sInvisibleClass,'gm');
-        let p2 = new RegExp('\\s*' + sVisibleClass,'gm');
-
-        let s = o.className;
-        s = s.replace(p1, '');
-        s = s.replace(p2, '');
-        o.className = s ? s + ' ' + sInvisibleClass : sInvisibleClass;
+        // let p1 = new RegExp('\\s*' + sInvisibleClass,'gm');
+        // let p2 = new RegExp('\\s*' + sVisibleClass,'gm');
+        //
+        // let s = o.className;
+        // s = s.replace(p1, '');
+        // s = s.replace(p2, '');
+        // o.className = s ? s + ' ' + sInvisibleClass : sInvisibleClass;
+        replaceClassNameToHidden(o);
     });
 }/*5e0bd59639a733a0*/
 
