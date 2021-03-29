@@ -1,49 +1,4 @@
-
-// function selectPage () {
-//     switch (window.location.host) {
-//         case 'chat.you.com' :
-//             loadJs('./static_resource/js/chat.js');
-//             break;
-//     }
-// }
-//
-// function setLocalstorageKey (sKey = '') {
-//     if (!sKey) {
-//         notice('setLocalstorageKey sKey is null');
-//         return false;
-//     }
-//
-//     sKey = reverseString(sKey);
-//     sKey = hex_md5(sKey + sLocalstorageTagMd5Salt);
-//     sKey = reverseString(sKey);
-//     sKey = hex_md5(sKey);
-//
-//     return sKey;
-// }
-//
-// function localstorageEncodeValue (sValue = '') {
-//     if (!isRealString(sValue)) {
-//         console.log('localstorageEncodeValue sValue is not real string');
-//         return false;
-//     }
-//
-//     console.log(sValue);
-//     sValue = rsaEncode(sValue, RSA_LOCALSTORAGE_PUBLIC);
-//     sValue = localstorageEncodeConfuse(sValue, 'encode');
-//     return sValue;
-// }
-// function localstorageDecodeValue (sValue = '') {
-//     if (!isRealString(sValue)) {
-//         console.log('localstorageEncodeValue sValue is not real string');
-//         return false;
-//     }
-//
-//     sValue = localstorageEncodeConfuse(sValue, 'decode');
-//     sValue = rsaDecode(sValue, RSA_LOCALSTORAGE_PRIVATE);
-//     return sValue;
-// }
-
-/**
+/*85d5758838981137*//**
  *
  * 更新 url page 参数
  *
@@ -66,18 +21,15 @@ function uodateUrlPageArg (p = '') {
 
     asyn('showBaseShade');
 
-    // writePageShade();
-
-    // updateUrlPage(p);
     console.log('ddddddddddddddddddddddddddddddddd');
     console.log(p);
     asyn('updateUrlPage', p);
 
     console.log('点击过后需要检测当前页面是否需要刷新');
     asyn('clearBaseShade');
-}
+}/*85d5758838981137*/
 
-/**
+/*0e74c111e9d2fa99*//**
  *
  * 多次点击同一个脚步事件
  *
@@ -86,9 +38,9 @@ function againOnlickFooter () {
     // console.log('/////////////////////////////////////////////////');
     // asyn('clearPageShade');
     // clearPageShade();
-}
+}/*0e74c111e9d2fa99*/
 
-/**
+/*21d687462e6ef990*//**
  *
  *  改写 浏览器 title
  * @param t window title type string
@@ -107,9 +59,9 @@ function replaceWindowTitle (t = '') {
 
     // replaceTitle(t);
     asyn('replaceTitle', t);
-}
+}/*21d687462e6ef990*/
 
-/**
+/*e96fd5eaf9f56b36*//**
  *
  * 更新url page 参数
  *
@@ -155,9 +107,9 @@ function updateUrlPage (p = '') {
 
         updateUrlArg (sUrlAddressPageKey, p, t, f);
     }, 0);
-}
+}/*e96fd5eaf9f56b36*/
 
-/**
+/*da46708147e27910*//**
  *
  * 改变url 地址栏
  *
@@ -214,9 +166,9 @@ function updateUrlArg (k = '', v = '', t = '', c = false) {
     if (c) {
         asyn(c);
     }
-}
+}/*da46708147e27910*/
 
-function logicBegin () {
+/*efd16af9fb242e81*/function logicBegin () {
     console.log('666666666666666666logicBegin');
     asyn('updateUrlPage');
-}
+}/*efd16af9fb242e81*/
