@@ -47,7 +47,7 @@ function threeClassBodyDom() {
 /*fe22db3fdcdb5c19*/// let oFooter = '';
 function replaceFooterLang () {
     // oFooter = oFooter ? oFooter : domById(sPublicFootId);
-    requires([sFuncJsTag], function () {
+    requires([sDomFuncJsTag], function () {
         asyn('replaceLang', sReplaceLangIdType, sPublicFootId);
     });
 }/*fe22db3fdcdb5c19*/

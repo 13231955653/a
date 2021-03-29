@@ -45,6 +45,9 @@ const sFriendJsTag = 'friend';
 const sSetJsTag = 'set';
 const sAboutJsTag = 'about';
 const sApiJsTag = 'api';
+const sDomFuncJsTag = 'dom_func';
+const sStrFunc = 'str_func';
+const sArrayFuncJsTag = 'array_func';
 
 const sResetCssTag = 'reset_css';
 const sPubCssTag = 'pub_css';
@@ -61,6 +64,9 @@ function staticResourceAddress () {
     let a = [];
     a[sBaseJsTag] = '/static_resource/js/base.js';
     a[sFuncJsTag] = '/static_resource/js/public/function.js';
+    a[sDomFuncJsTag] = '/static_resource/js/public/func/dom_func.js';
+    a[sStrFunc] = '/static_resource/js/public/func/string_func.js';
+    a[sArrayFuncJsTag] = '/static_resource/js/public/func/array_func.js';
     a[sJqueryJsTag] = '/static_resource/js/public/jquery.js';
     a[sLogicJsTag] = '/static_resource/js/' + p + '/logic.js';
     a[sPubDomJsTag] = '/static_resource/js/public/dom/public_dom.js';

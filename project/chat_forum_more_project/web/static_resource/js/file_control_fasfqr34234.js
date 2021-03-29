@@ -999,6 +999,21 @@ function loadStaticResource (f, q = false) {
     let b = '';
     let c = '';
     switch (f) {
+        case sArrayFuncJsTag :
+            a = 'afterLoadArrayFunc';
+            b = 'afterLoadArrayFunc1';
+            c = 'js';
+            break;
+        case sStrFunc :
+            a = 'afterLoadStrFunc';
+            b = 'afterLoadStrFunc1';
+            c = 'js';
+            break;
+        case sDomFuncJsTag :
+            a = 'afterLoadDomFunc';
+            b = 'afterLoadDomFunc1';
+            c = 'js';
+            break;
         case sUserCss1Tag :
             a = 'afterLoadUserColor';
             b = 'afterLoadUserColor1';
@@ -1331,6 +1346,62 @@ function afterLoadBaseJs1 (v = '') {
 //
 //     asyn('loadStaticResource', sIndexJs, true);
 // }
+function afterLoadArrayFunc () {
+    asyn('arrayFunctionBegin');
+    setInLoadStaticResource(sArrayFuncJsTag, false);
+}
+function afterLoadArrayFunc1 (v = '') {
+    if (v) {
+        asyn('afterLoadStaticResource', v, 'js');
+
+        asyn('afterLoadArrayFunc');
+
+        return;
+    }
+
+    aInLoadStaticResource[sArrayFuncJsTag] = false;
+    asyn('loadStaticResource', sArrayFuncJsTag, true);
+}
+function afterLoadStrFunc () {
+    asyn('stringFunctionBegin');
+    setInLoadStaticResource(sStrFunc, false);
+}
+function afterLoadStrFunc1 (v = '') {
+    if (v) {
+        asyn('afterLoadStaticResource', v, 'js');
+
+        asyn('afterLoadStrFunc');
+
+        return;
+    }
+
+    aInLoadStaticResource[sStrFunc] = false;
+    asyn('loadStaticResource', sStrFunc, true);
+}
+function afterLoadDomFunc () {
+    // asyn('setInLoadStaticResource', sFuncJsTag, false);
+    // console.log('sssssssssszzzzzzzzzzxxxxxxxxxxxcccccccddddddffffffffff');
+    asyn('domFunctionBegin');
+    setInLoadStaticResource(sDomFuncJsTag, false);
+}
+function afterLoadDomFunc1 (v = '') {
+    // if (typeof window['functionBegin'] != 'undefined') {
+    //     return;
+    // }
+    // console.log('sssssssssszzzzzzffffffffffffffffzzzzxxxxxxxxxxxcccccccddddddffffffffff');
+    if (v) {
+        // console.log('ssssssdddddddddddwwwwwwwwwwwwwwszzzzzzffffffffffffffffzzzzxxxxxxxxxxxcccccccddddddffffffffff');
+        asyn('afterLoadStaticResource', v, 'js');
+
+        asyn('afterLoadDomFunc');
+
+        return;
+    }
+
+    // console.log('sssssssssssszzzzzzzzzzzzssssssssssdddddddddddzzzzzzffffffffffffffffzzzzxxxxxxxxxxxcccccccddddddffffffffff');
+    aInLoadStaticResource[sDomFuncJsTag] = false;
+    asyn('loadStaticResource', sDomFuncJsTag, true);
+}
 /**
  *
  * function js 加载完回调函数
@@ -1338,7 +1409,7 @@ function afterLoadBaseJs1 (v = '') {
  */
 function afterLoadFunctionJs () {
     // asyn('setInLoadStaticResource', sFuncJsTag, false);
-    console.log('sssssssssszzzzzzzzzzxxxxxxxxxxxcccccccddddddffffffffff');
+    // console.log('sssssssssszzzzzzzzzzxxxxxxxxxxxcccccccddddddffffffffff');
     asyn('functionBegin');
     setInLoadStaticResource(sFuncJsTag, false);
 }
@@ -1346,9 +1417,9 @@ function afterLoadFunctionJs1 (v = '') {
     // if (typeof window['functionBegin'] != 'undefined') {
     //     return;
     // }
-    console.log('sssssssssszzzzzzffffffffffffffffzzzzxxxxxxxxxxxcccccccddddddffffffffff');
+    // console.log('sssssssssszzzzzzffffffffffffffffzzzzxxxxxxxxxxxcccccccddddddffffffffff');
     if (v) {
-        console.log('ssssssdddddddddddwwwwwwwwwwwwwwszzzzzzffffffffffffffffzzzzxxxxxxxxxxxcccccccddddddffffffffff');
+        // console.log('ssssssdddddddddddwwwwwwwwwwwwwwszzzzzzffffffffffffffffzzzzxxxxxxxxxxxcccccccddddddffffffffff');
         asyn('afterLoadStaticResource', v, 'js');
 
         asyn('afterLoadFunctionJs');
@@ -1356,7 +1427,7 @@ function afterLoadFunctionJs1 (v = '') {
         return;
     }
 
-    console.log('sssssssssssszzzzzzzzzzzzssssssssssdddddddddddzzzzzzffffffffffffffffzzzzxxxxxxxxxxxcccccccddddddffffffffff');
+    // console.log('sssssssssssszzzzzzzzzzzzssssssssssdddddddddddzzzzzzffffffffffffffffzzzzxxxxxxxxxxxcccccccddddddffffffffff');
     aInLoadStaticResource[sFuncJsTag] = false;
     asyn('loadStaticResource', sFuncJsTag, true);
 }
@@ -1777,6 +1848,15 @@ function checkStaticResource (j) {
             break;
         case sEncodeJsTag :
             return typeof window['encodeBegin'] != 'undefined' ? true : false;
+            break;
+        case sDomFuncJsTag :
+            return typeof window['domFunctionBegin'] != 'undefined' ? true : false;
+            break;
+        case sStrFunc :
+            return typeof window['stringFunctionBegin'] != 'undefined' ? true : false;
+            break;
+        case sArrayFuncJsTag :
+            return typeof window['arrayFunctionBegin'] != 'undefined' ? true : false;
             break;
     }
 

@@ -112,11 +112,20 @@ function updateUrlPage (p = '') {
     // console.log('daswqeqweeeeee1111111222222222222222211111111eeeeeeeeeeeeeeee');
     // console.log(f);
 
-    let z = setTimeout(function () {
-        clearTimeout(z);
+    // let z = setTimeout(function () {
+    //     clearTimeout(z);
+    //
+    //     updateUrlArg (sUrlAddressPageKey, p, t, f);
+    // }, 0);
+    requires([sArrayFuncJsTag], function () {
+        // asyn('clearShade', o);
+        // clearShade(o);
+        let z = setTimeout(function () {
+            clearTimeout(z);
 
-        updateUrlArg (sUrlAddressPageKey, p, t, f);
-    }, 0);
+            updateUrlArg (sUrlAddressPageKey, p, t, f);
+        }, 0);
+    });
 }/*e96fd5eaf9f56b36*/
 
 /*da46708147e27910*//**

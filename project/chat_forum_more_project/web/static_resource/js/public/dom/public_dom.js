@@ -48,12 +48,10 @@ function writeNotice () {
     domById(sNoticeTitleClass + '_span').innerHTML = 'ss';
     domById(sNoticeFootClass + '_span').innerHTML = 'ss';
 
-    requires([sFuncJsTag], function () {
-        asyn('replaceLang', sReplaceLangIdType, sDomNoticeId);
-    });
-
-    requires([sFuncJsTag], function () {
+    requires([sDomFuncJsTag], function () {
         asyn('bindNoticeFoot');
+
+        asyn('replaceLang', sReplaceLangIdType, sDomNoticeId);
     });
 }/*605df86f799e4bd9*/
 /*28f646c3b0eaccc8*//**
@@ -147,7 +145,7 @@ function writeLoadAnimation () {
         return;
     }
 
-    requires([sFuncJsTag], function () {
+    requires([sStrFunc], function () {
         // asyn('showShade', o);
         showShade(o);
     });
@@ -170,7 +168,7 @@ function clearBaseShade () {
     }
 
     // asyn('clearShade', o);
-    requires([sFuncJsTag], function () {
+    requires([sStrFunc], function () {
         // asyn('clearShade', o);
         clearShade(o);
     });
