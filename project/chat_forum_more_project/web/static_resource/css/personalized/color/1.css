@@ -6,7 +6,11 @@
     --public_foot_background: red;
     --public_foot_active_background: #ff6b3d;
     --base_shade_background_color: #803d47;
+    --base_shade_center_background_color: #008010;
     --shade_index_background_color: green;
     --shade_platform_background_color: #001080;
     --shade_page_background_color: #800007;/*32dc9d70cb0c0fd2*/
-    /*87faa8c3511d07fd*/}/*87faa8c3511d07fd*/
+    /*87faa8c3511d07fd*/--base_shade_center_sons_background_color: red;
+    --base_shade_center_son_now_background_color: #002cff;
+    --base_shade_center_son_background_color: #e548ff;
+}/*87faa8c3511d07fd*/

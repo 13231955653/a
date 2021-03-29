@@ -164,6 +164,10 @@ let iAllreadyLoadStaticResource = 0;
  * @param f
  */
 function getIncrementUpdateTag (f) {
+    if (debug) {
+        return '&a=true';
+    }
+
     if (typeof aVersion[f] == 'undefined') {
         return false;
     }

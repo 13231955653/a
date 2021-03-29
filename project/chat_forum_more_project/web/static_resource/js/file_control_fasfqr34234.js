@@ -306,6 +306,7 @@ function setTimeoutFunction (f = '', a = '', b = '') {
     let d = 15;
     if (typeof window['aTimer'] != 'undefined') {
         if (typeof aTimer[f] == 'undefined') {
+            console.log('zzzzzzzzzzzzaaaaaaaaaaasssccdfeweeee');
             console.log(f);
         } else {
             d = aTimer[f];
@@ -1116,7 +1117,7 @@ function loadStaticResource (f, q = false) {
     //     console.log(n);
     //     console.log('aaaaaaaaaaaaaddddddddddddddeeeeeeeeeeeegggggggggggggggggggg');
     // }
-    if (n || q || debug) {
+    if (n || q) {
         // console.log('sssssssssssssssssssssaaaaaaaaaaaaaaaaaaaaaaaaaa');
         let t = setTimeout(function () {
             clearTimeout(t);

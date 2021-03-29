@@ -472,6 +472,10 @@ function jsonConvertFormatForReadNumberKey (s = '') {
 function domByClass (c) {
     let o = oBodyDom.getElementsByClassName(c);
     return o.length > 0 ? o : false;
+}
+function oneDomByClass (c) {
+    let o = domByClass(c);
+    return o ? o[0] : false;
 }/*e91048f9066a0cb4*/
 
 /*f7d3dc4ea25d7fd7*//**

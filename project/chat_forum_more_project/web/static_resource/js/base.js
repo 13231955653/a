@@ -191,6 +191,7 @@ b['clearPageShade'] = t;
 b['bindFooterOnclick'] = t;
 b['clearBaseShade'] = t;
 b['loadStaticResource'] = t;
+// b['timeOutBaseShade'] = 300;
 b['checkUseTime'] = 60000;
 b['checkSessionIdOutTime'] = 181652;
 b['checkSessionKeyFormat'] = 253648;
@@ -774,6 +775,7 @@ function astrict () {
  *
  */
 function winSize() {
+    // console.log('qqqqqqqqqqqqqqq');
     //获取窗口宽度
     if (window.innerWidth) {
         iWinWidth = window.innerWidth;
@@ -793,9 +795,11 @@ function winSize() {
     //     iWinHeight = document.documentElement.clientHeight;
     //     iWinWidth = document.documentElement.clientWidth;
     // }
+    // console.log(iWinWidth);
+    // console.log(iWinHeight);
 }/*e40fd4b7d8973e42*/
 
-/*fd0f21b2c39c868e*/function size () {
+/*fd0f21b2c39c868e*/function sizes () {
     asyn('winSize');
 }/*fd0f21b2c39c868e*/
 
@@ -954,7 +958,7 @@ function bodyDom () {
         }
     }
 
-    asyn('size');
+    asyn('sizes');
 }/*f5cbcc6172ee0659*/
 
 /*e15d60c9775f21fe*/window.onresize = function () {
