@@ -2,32 +2,38 @@
 if (!isset($_GET['f'])) {
     return '';
 }
-
 $sFile = $_GET['f'];
+
 $sIncrement = isset($_GET['i']) && $_GET['i'] ? $_GET['i'] : '';
 $sUpdate = isset($_GET['u']) && $_GET['u'] ? $_GET['u'] : '';
 $bFull = isset($_GET['a']) && $_GET['a'] ? true : false;
 
 $sBaseDir = dirname(__DIR__) . DIRECTORY_SEPARATOR;
 
-$sFile = str_replace(DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $sBaseDir . DIRECTORY_SEPARATOR . 'static_resource' . DIRECTORY_SEPARATOR . $sFile);
-$sBaseDir = null;
-unset($sBaseDir);
-if (!is_file($sFile)) {
-    return '';
+$sFileType = mb_substr($sFile, -3);
+switch ($sFileType) {
+    case 'css' :
+        $sFileType = 'css';
+        break;
+    case '.js' :
+        $sFileType = 'js';
+        break;
+    default:
+        echo '';
+        return;
 }
 
+$sFile = $sBaseDir . DIRECTORY_SEPARATOR . 'static_resource' . DIRECTORY_SEPARATOR . $sFileType . DIRECTORY_SEPARATOR . $sFile;
+$sBaseDir = null;
+unset($sBaseDir);
 
-//存用户上次访问时间戳
-//    存在
-//        读取新添内容
-//            可根据时间戳读取新添加内容
-//        读取修改内容
-//            怎么知道用户上次登录之后的修改
-//                暂时修改过的版本号时间戳存首个引入js文件内
-// 读取静态文件
-//      用户上次访问时间
-//          获取更新或新增文件
+$sFile = str_replace('\\', DIRECTORY_SEPARATOR, $sFile);
+$sFile = str_replace('/', DIRECTORY_SEPARATOR, $sFile);
+$sFile = str_replace(DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $sFile);
+if (!is_file($sFile)) {
+    echo '';
+    return;
+}
 
 $sType = explode('.', $sFile);
 $sType = isset($sType[1]) && $sType[1] ? strtolower($sType[1]) : '';

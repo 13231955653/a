@@ -62,30 +62,30 @@ function staticResourceAddress () {
     let p = platformTag();
 
     let a = [];
-    a[sBaseJsTag] = '/js/base.js';
-    a[sFuncJsTag] = '/js/public/function.js';
-    a[sDomFuncJsTag] = '/js/public/func/dom_func.js';
-    a[sStrFunc] = '/js/public/func/string_func.js';
-    a[sArrayFuncJsTag] = '/js/public/func/array_func.js';
-    a[sJqueryJsTag] = '/js/public/jquery.js';
-    a[sLogicJsTag] = '/js/' + p + '/logic.js';
-    a[sPubDomJsTag] = '/js/public/dom/public_dom.js';
-    a[sEncodeJsTag] = '/js/public/encode.js';
-    a[sCnLangJsTag] = '/js/lang/cn.js';
-    a[sEnLangJsTag] = '/js/lang/en.js';
-    a[sPlatDomJsTag] = '/js/' + p + '/dom/public_dom.js';
-    a[sForumJsTag] = '/js/' + p + '/page/forum.js';
-    a[sChatJsTag] = '/js/' + p + '/page/chat.js';
-    a[sFriendJsTag] = '/js/' + p + '/page/friend.js';
-    a[sSetJsTag] = '/js/' + p + '/page/setting.js';
-    a[sAboutJsTag] = '/js/' + p + '/page/about_me.js';
-    a[sApiJsTag] = '/js/public/query/query.js';
+    a[sBaseJsTag] = '/base.js';
+    a[sFuncJsTag] = '/public/function.js';
+    a[sDomFuncJsTag] = '/public/func/dom_func.js';
+    a[sStrFunc] = '/public/func/string_func.js';
+    a[sArrayFuncJsTag] = '/public/func/array_func.js';
+    a[sJqueryJsTag] = '/public/jquery.js';
+    a[sLogicJsTag] = '/' + p + '/logic.js';
+    a[sPubDomJsTag] = '/public/dom/public_dom.js';
+    a[sEncodeJsTag] = '/public/encode.js';
+    a[sCnLangJsTag] = '/lang/cn.js';
+    a[sEnLangJsTag] = '/lang/en.js';
+    a[sPlatDomJsTag] = '/' + p + '/dom/public_dom.js';
+    a[sForumJsTag] = '/' + p + '/page/forum.js';
+    a[sChatJsTag] = '/' + p + '/page/chat.js';
+    a[sFriendJsTag] = '/' + p + '/page/friend.js';
+    a[sSetJsTag] = '/' + p + '/page/setting.js';
+    a[sAboutJsTag] = '/' + p + '/page/about_me.js';
+    a[sApiJsTag] = '/public/query/query.js';
 
-    a[sResetCssTag] = '/css/public/reset.css';
-    a[sPubCssTag] = '/css/public/' + p + '/public.css';
-    a[sUserCss1Tag] = '/css/personalized/color/1.css';
-    a[sUserCss2Tag] = '/css/personalized/color/2.css';
-    a[sUserCss3Tag] = '/css/personalized/color/3.css';
+    a[sResetCssTag] = '/public/reset.css';
+    a[sPubCssTag] = '/public/' + p + '/public.css';
+    a[sUserCss1Tag] = '/personalized/color/1.css';
+    a[sUserCss2Tag] = '/personalized/color/2.css';
+    a[sUserCss3Tag] = '/personalized/color/3.css';
     aStaticResourceAddress = a;
     a = null;
 }
@@ -234,7 +234,7 @@ if (bConstraintRequest) {
 //    /*版本号*/代码块/*版本号*/
 // 修改文件、添加文件要修改updtae文件版本号或添加increment文件版本号
 // 版本号示例
-// '/js/base.js': {
+// '/base.js': {
 //     'updtae': {
 //         // '2021042612': {
 //         //     1:'999999999999999999',

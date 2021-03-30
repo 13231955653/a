@@ -3,15 +3,16 @@ const sCharset = 'utf-8'; // 编码格式
 //编码相关===============/*c7640c5f267b11b6*/
 
 //静态文件相关-----------------
-const sBaseHostSonPrefix = 'static_resource';
+const sJsDynamicPrefix = 'js_dynamic';
+const sJsDynamicHostNumber = 7;
+const sCssDynamicPrefix = 'css_dynamic';
+const sCssDynamicHostNumber = 7;
 
 //版本相关-----------------
 const debug = true;
 
 //url地址相关---------------------
 const sBaseProtocol = window.location.protocol + '/' + '/';
-
-const sBaseHostSonNumber = 13; //静态文件子域名数量
 //url地址相关=================================
 
 //localstorage相关----------------------------
@@ -602,36 +603,68 @@ function getStaticResourceFromLocalstorage (j = '', f = '', b = false) {
 //host---------------
 /**
  *
- * 设置host数组
+ * 设置js host数组
  *
  * @returns {boolean}
  */
-let aHost = [];
-let iHostNumber = 0;
-function setHosts () {
+let aJsHost = [];
+let iJsHostNumber = 0;
+function setJsHosts () {
     let i = 0;
     let o = window.location.host;
-    for (i; i < sBaseHostSonNumber; i++) {
-        aHost.push(sBaseProtocol + i + '.' + sBaseHostSonPrefix + '.' + o);
+    for (i; i < sJsDynamicHostNumber; i++) {
+        aJsHost.push(sBaseProtocol + i + '.' + sJsDynamicPrefix + '.' + o);
     }
-    iHostNumber = aHost.length;
+    iJsHostNumber = aJsHost.length;
+
+    return true;
+}
+/**
+ *
+ * 设置css host数组
+ *
+ * @returns {boolean}
+ */
+let aCssHost = [];
+let iCssHostNumber = 0;
+function setCssHosts () {
+    let i = 0;
+    let o = window.location.host;
+    for (i; i < sCssDynamicHostNumber; i++) {
+        aCssHost.push(sBaseProtocol + i + '.' + sCssDynamicPrefix + '.' + o);
+    }
+    iCssHostNumber = aCssHost.length;
 
     return true;
 }
 
 /**
  *
- * hash 计算当前应该请求哪个地址
+ * hash 计算当前应该请求哪个js地址
  *
  * @param u
  * @returns {boolean|*}
  */
-function allocationHost (u = '') {
+function allocationJsHost (u = '') {
     if (!u) {
         return false;
     }
 
-    return aHost[hashFunc(u, iHostNumber)];
+    return aJsHost[hashFunc(u, iJsHostNumber)];
+}
+/**
+ *
+ * hash 计算当前应该请求哪个css地址
+ *
+ * @param u
+ * @returns {boolean|*}
+ */
+function allocationCssHost (u = '') {
+    if (!u) {
+        return false;
+    }
+
+    return aCssHost[hashFunc(u, iCssHostNumber)];
 }
 //host===================
 
@@ -699,7 +732,20 @@ function initStaticResource (j = '', t = '', c = '', r = '') {
     // console.log(j);
     // console.log(allocationHost(j) + '/index.php?' + aStaticResourceAddress[j]);
     // return ;
-    xhr.open('GET', allocationHost(j) + '/index.php?' + j, true);
+    let u = '';
+    switch (t) {
+        case 'js' :
+            u = allocationJsHost(j) + '/index.php?' + j;
+            break;
+        case 'css' :
+            u = allocationCssHost(j) + '/index.php?' + j;
+            break;
+    }
+    if (!u) {
+        return;
+    }
+
+    xhr.open('GET', u, true);
     xhr.send(null);
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4 && xhr.status == 200) {
@@ -1751,13 +1797,19 @@ function fileControlBegin () {
 
     // asyn('setStaticResourceInLoadAndAllready');
 
-    setHosts();
+    setStatusResourceHost();
 
     requires([sPubDomJsTag], function () {
         asyn('showBaseShade');
     });
 
     asyn('loadStaticFile');
+}
+
+function setStatusResourceHost () {
+    setJsHosts();
+
+    setCssHosts();
 }
 
 // /**
