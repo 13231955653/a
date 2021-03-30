@@ -175,7 +175,7 @@ let iAllreadyLoadStaticResource = 0;
  * @param f
  */
 function getIncrementUpdateTag (f) {
-    if (debug) {
+    if (!bGetStaticResourceFromCache) {
         return '&a=true';
     }
 
@@ -252,5 +252,3 @@ if (bConstraintRequest) {
 //         },
 //     },
 // },
-
-window.onload = staticResourceAddress();

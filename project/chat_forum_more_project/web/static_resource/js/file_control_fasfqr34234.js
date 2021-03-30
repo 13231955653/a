@@ -1,15 +1,9 @@
-/*c7640c5f267b11b6*///编码相关-----------------
-const sCharset = 'utf-8'; // 编码格式
-//编码相关===============/*c7640c5f267b11b6*/
-
 //静态文件相关-----------------
 const sJsDynamicPrefix = 'js_dynamic';
 const sJsDynamicHostNumber = 7;
 const sCssDynamicPrefix = 'css_dynamic';
 const sCssDynamicHostNumber = 7;
-
-//版本相关-----------------
-const debug = false;
+//静态文件相关==========================
 
 //url地址相关---------------------
 const sBaseProtocol = window.location.protocol + '/' + '/';
@@ -1960,6 +1954,3 @@ function checkStaticResource (j) {
 
     return true;
 }
-
-window.onload = fileControlBegin();
-// 修改文件要修改文件名跟版本号

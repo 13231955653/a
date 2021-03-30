@@ -301,47 +301,6 @@ function setUserIp () {
     sIpCityName = returnCitySN.cname;
 }/*e2c9f2a15be30df1*/
 
-/*05a159c046b3a0ba*//**
- *
- * 引入 js 文件
- *
- * @param s 文件完整路径 type string
- * @param c callback 函数  type string
- * @returns {boolean}
- */
-function loadJs (s = '', c = false) {
-    if (!s) {
-        return false;
-    }
-
-    let o = document.createElement('script');
-    o.type = 'text/javascript';
-    o.src = s;
-    o.charset = sCharset;
-
-    if (c) {
-        if (o.addEventListener) {
-            o.addEventListener('load', function () {
-                if (typeof window[c] == 'undefined') {
-                    setTimeoutFunction(c);
-                    return;
-                }
-
-                window[c]();
-            }, false);
-        } else if (o.attachEvent) {
-            o.attachEvent('onreadystatechange', function () {
-                var target = window.event.srcElement;
-                if (target.readyState == 'loaded') {
-                    window[c]();
-                }
-            });
-        }
-    }
-
-    asyn('asynLoadJs', o);
-}/*05a159c046b3a0ba*/
-
 /*00485a3b371e8b13*//**
  *
  * 插入script 标签节点
