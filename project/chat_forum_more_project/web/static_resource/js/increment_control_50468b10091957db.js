@@ -1,3 +1,5 @@
+const bGetStaticResourceFromCache = true;
+
 //平台 相关----------------
 /**
  *
@@ -252,3 +254,5 @@ if (bConstraintRequest) {
 //         },
 //     },
 // },
+
+window.onload = staticResourceAddress();

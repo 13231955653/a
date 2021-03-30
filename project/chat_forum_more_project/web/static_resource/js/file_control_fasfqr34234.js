@@ -1,3 +1,7 @@
+//编码相关-----------------
+const sCharset = 'utf-8'; // 编码格式
+//编码相关===============
+
 //静态文件相关-----------------
 const sJsDynamicPrefix = 'js_dynamic';
 const sJsDynamicHostNumber = 7;
@@ -25,7 +29,7 @@ const sFinalMetaTagId = 'copyright_content';
 //meta标签相关=====================
 
 //class id tag 相关----------------
-const sIndexScriptTagId = 'first_js_script'; // 第一个 script 标签
+const sIndexScriptTagId = 'final_js_script_link'; // 第一个 script 标签
 //class id tag 相关===============
 
 //时间相关---------------------
@@ -1954,3 +1958,5 @@ function checkStaticResource (j) {
 
     return true;
 }
+
+window.onload = fileControlBegin();
