@@ -121,7 +121,7 @@ const sCopyrightContent = '版权所有，保留一切权利。';
 
 /*4df730057a2f2f29*///定时器相关----------
 let aBaseTimer = []; //基础定时器
-const b = []; //基础定时器间隔时间
+let b = []; //基础定时器间隔时间
 // const t = 1000;
 const t = 15;
 // const t2 = 1000;
@@ -196,6 +196,7 @@ b['checkUseTime'] = 60000;
 b['checkSessionIdOutTime'] = 181652;
 b['checkSessionKeyFormat'] = 253648;
 const aTimer = b; //基础定时器间隔时间
+b = null;
 //定时器相关========================/*4df730057a2f2f29*/
 
 /*a4fb1441abb8ade0*///fontsize 相关--------------

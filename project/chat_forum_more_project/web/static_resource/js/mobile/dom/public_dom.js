@@ -39,29 +39,25 @@ function threeClassBodyDom() {
     }
     fatherDom().innerHTML = s;
 
-    asyn('bindFooterOnclick');
-
-    asyn('replaceFooterLang');
-}/*637c85dcfd18cc0b*/
-
-/*fe22db3fdcdb5c19*/// let oFooter = '';
-function replaceFooterLang () {
-    // oFooter = oFooter ? oFooter : domById(sPublicFootId);
+    // asyn('bindFooterOnclick');
+    // asyn('replaceFooterLang');
     requires([sDomFuncJsTag], function () {
+        asyn('bindFooterOnclick');
+
         asyn('replaceLang', sReplaceLangIdType, sPublicFootId);
     });
-}/*fe22db3fdcdb5c19*/
+}/*637c85dcfd18cc0b*/
+
+// /*fe22db3fdcdb5c19*/// let oFooter = '';
+// function replaceFooterLang () {
+//     // oFooter = oFooter ? oFooter : domById(sPublicFootId);
+//     requires([sDomFuncJsTag], function () {
+//         asyn('replaceLang', sReplaceLangIdType, sPublicFootId);
+//     });
+// }/*fe22db3fdcdb5c19*/
 
 /*d6b64dc699029c52*/let aFooterOnclick = [];
 function bindFooterOnclick () {
-    if (typeof window['domByClass'] == 'undefined') {
-        // console.log('bindFooterOnclick domByClass is no load, so settimeout retry to do bindFooterOnclick');
-
-        setTimeoutFunction('bindFooterOnclick');
-        return;
-    }
-
-    // aFooterOnclick = $('.' + sFooterOnclickTag);
     aFooterOnclick = domByClass(sFooterOnclickTag);
     let i = 0;
     let l = aFooterOnclick.length;
@@ -71,6 +67,12 @@ function bindFooterOnclick () {
             uodateUrlPageArg(aFooterOnclick[this.index].getAttribute(sUpdateUrlPageKey));
         };
     }
+    // $('#' + sPublicFootId).click(function (event) {
+    //     var bt = $(event.target);
+    //     console.log('zzzzzzzzzzzzzzzzzzzzzzzzzzzaaaaaaaaaaaaaaaaaaaasqqqqqqqqqqqqqqqq');
+    //     console.log("Div Clicked : " + bt.id);
+    //     console.log(this);
+    // });
 }/*d6b64dc699029c52*/
 
 /*c9f4866ae72da3be*/let oBodyHeader = null;
@@ -120,15 +122,25 @@ function bodyRightDom () {
     let s = '';
     s += '<div id="' + sPublicBodyId + '">';
 
-    s += writeMobliePageDom(sForumBodyId);
-
-    s += writeMobliePageDom(sChatBodyId);
-
-    s += writeMobliePageDom(sFriendBodyId);
-
-    s += writeMobliePageDom(sAboutMeBodyId);
-
-    s += writeMobliePageDom(sSettingBodyId);
+    let a = [
+        sForumBodyId,
+        sChatBodyId,
+        sFriendBodyId,
+        sAboutMeBodyId,
+        sSettingBodyId,
+    ];
+    for (let i in a) {
+        s += writeMobliePageDom(a[i]);
+    }
+    // s += writeMobliePageDom(sForumBodyId);
+    //
+    // s += writeMobliePageDom(sChatBodyId);
+    //
+    // s += writeMobliePageDom(sFriendBodyId);
+    //
+    // s += writeMobliePageDom(sAboutMeBodyId);
+    //
+    // s += writeMobliePageDom(sSettingBodyId);
 
     s += '</div>';
 
@@ -159,15 +171,26 @@ function bodyRightDom () {
 
     s += '<ul>';
 
-    s += writeOneFooter(sForumPage);
+    let a = [
+        sForumPage,
+        sChatPage,
+        sFriendPage,
+        sAboutMePage,
+        sSettingPage,
+    ];
+    for (let i in a) {
+        s += writeOneFooter(a[i]);
+    }
 
-    s += writeOneFooter(sChatPage);
-
-    s += writeOneFooter(sFriendPage);
-
-    s += writeOneFooter(sAboutMePage);
-
-    s += writeOneFooter(sSettingPage);
+    // s += writeOneFooter(sForumPage);
+    //
+    // s += writeOneFooter(sChatPage);
+    //
+    // s += writeOneFooter(sFriendPage);
+    //
+    // s += writeOneFooter(sAboutMePage);
+    //
+    // s += writeOneFooter(sSettingPage);
 
     s += '</ul>';
 

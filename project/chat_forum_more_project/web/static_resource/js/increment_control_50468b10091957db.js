@@ -87,6 +87,7 @@ function staticResourceAddress () {
     a[sUserCss2Tag] = '/css/personalized/color/2.css';
     a[sUserCss3Tag] = '/css/personalized/color/3.css';
     aStaticResourceAddress = a;
+    a = null;
 }
 //静态文件相关============================
 
