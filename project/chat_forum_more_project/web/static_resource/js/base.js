@@ -143,7 +143,7 @@ b['writeStorageDom'] = t;
 b['localstorageIsForbidden'] = t;
 b['loadBaseJsFile'] = t;
 b['pageBegin'] = t;
-b['loadLocalJquery'] = t;
+// b['loadLocalJquery'] = t;
 b['replaceLangs'] = t;
 b['loadPublicCss'] = t;
 b['loadPersonalizedCss'] = t;
@@ -495,7 +495,7 @@ function showUseTimeLimitNotice () {
 // }/*bf248dfc7157b8eb*/
 
 /*6147b904ddeba7bc*/// function setSessionIdFormat (sSessionId1 = '') {
-//     // if (typeof window['hex_md5'] == 'undefined') {
+//     // if (typeof window['md5'] == 'undefined') {
 //     //     return false;
 //     // }
 //
@@ -528,18 +528,18 @@ function showUseTimeLimitNotice () {
 //     let q = sSessionIdSplitLength;
 //
 //     let t = s;
-//     t = hex_md5(t + sSessionSalt);
+//     t = md5(t + sSessionSalt);
 //     return t.substring(t.length - parseInt(q)).toLowerCase();
 // }
 // function setSessionIdSuffix (s) {
 //     let q = sSessionIdSplitLength;
 //
 //     let r = reverseString(s);
-//     r = hex_md5(r + sSessionSalt);
+//     r = md5(r + sSessionSalt);
 //     return r.substr(0, q).toLowerCase();
 // }
 // function checkSessionKeyFormat () {
-//     // if (typeof window['hex_md5'] == 'undefined') {
+//     // if (typeof window['md5'] == 'undefined') {
 //     //     let t = setTimeout(function () {
 //     //         checkSessionKeyFormat();
 //     //
@@ -578,7 +578,7 @@ function showUseTimeLimitNotice () {
 //  * @returns {boolean}
 //  */
 // function doCheckSessionId (s, t) {
-//     if (typeof window['hex_md5'] == 'undefined') {
+//     if (typeof window['md5'] == 'undefined') {
 //         setTimeoutFunction('doCheckSessionId', s, t);
 //         return false;
 //     }
@@ -1198,10 +1198,6 @@ let oBody = false;
 let oHead = false;
 function baseBegins () {
     console.log('11111111111111111111111111basebegin');
-    // asyn('clearBaseShade');
-
-    // asyn('sessId');
-
     asyn('checkUseTime');
 
     if (!astrict()) {
@@ -1241,8 +1237,10 @@ function baseBegins () {
 
     asyn('secondDom');
 
-    // requires([sFuncJsTag], function () {
-    //     console.log('zzzzzzzzzzzzzzlllllllllsssssssssssssssoooooooooooqqqqqqqq');
-    //     notice('中文');
+    // requires([sMd5JsTag], function () {
+    //     console.log('zzzzzzzzzzzzzzzkkkkkkkkkkkkkkkkkdddddddddddddddddduuuuuuuuuuuuuuuuuuu');
+    //     console.log(md5('ssss'));
+    //     console.log(md5('1111'));
+    //     console.log(md5('啊'));
     // });
 }/*6253f7ef57dc3560*/

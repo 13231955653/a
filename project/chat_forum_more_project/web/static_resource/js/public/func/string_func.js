@@ -141,7 +141,7 @@ function replaceClassNameToHidden (o) {
  * @returns {string|boolean}
  */
 function individuationUuid () {
-    // if (typeof window['hex_md5'] == 'undefined') {
+    // if (typeof window['md5'] == 'undefined') {
     //     return false;
     // }
 
@@ -151,7 +151,7 @@ function individuationUuid () {
         a += sIndividuationUuidTag + '---' + randStr(1);
     }
 
-    a = hex_md5(a);
+    a = md5(a);
     a = a.toLowerCase();
 
     return a;
@@ -184,7 +184,7 @@ function individuationUuidUniqueStr () {
     s += d + generateUUID();
     s += d + userIpInfo();
 
-    s = hex_md5(s);
+    s = md5(s);
 
     return s;
 }/*a58c869d881ba45c*/

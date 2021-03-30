@@ -9,7 +9,7 @@ const sCssDynamicPrefix = 'css_dynamic';
 const sCssDynamicHostNumber = 7;
 
 //版本相关-----------------
-const debug = true;
+const debug = false;
 
 //url地址相关---------------------
 const sBaseProtocol = window.location.protocol + '/' + '/';
@@ -735,10 +735,10 @@ function initStaticResource (j = '', t = '', c = '', r = '') {
     let u = '';
     switch (t) {
         case 'js' :
-            u = allocationJsHost(j) + '/index.php?' + j;
+            u = allocationJsHost(j) + '/a.php?' + j;
             break;
         case 'css' :
-            u = allocationCssHost(j) + '/index.php?' + j;
+            u = allocationCssHost(j) + '/a.php?' + j;
             break;
     }
     if (!u) {
@@ -1045,9 +1045,19 @@ function loadStaticResource (f, q = false) {
     let b = '';
     let c = '';
     switch (f) {
+        case sRsaJs :
+            a = 'afterLoadRsa';
+            b = 'afterLoadRsa1';
+            c = 'js';
+            break;
         case sArrayFuncJsTag :
             a = 'afterLoadArrayFunc';
             b = 'afterLoadArrayFunc1';
+            c = 'js';
+            break;
+        case sMd5JsTag :
+            a = 'afterLoadMd5';
+            b = 'afterLoadMd51';
             c = 'js';
             break;
         case sStrFunc :
@@ -1392,6 +1402,38 @@ function afterLoadBaseJs1 (v = '') {
 //
 //     asyn('loadStaticResource', sIndexJs, true);
 // }
+function afterLoadMd5 () {
+    asyn('md5Begin');
+    setInLoadStaticResource(sMd5JsTag, false);
+}
+function afterLoadMd51 (v = '') {
+    if (v) {
+        asyn('afterLoadStaticResource', v, 'js');
+
+        asyn('afterLoadMd5');
+
+        return;
+    }
+
+    aInLoadStaticResource[sMd5JsTag] = false;
+    asyn('loadStaticResource', sMd5JsTag, true);
+}
+function afterLoadRsa () {
+    asyn('arrayFunctionBegin');
+    setInLoadStaticResource(sRsaJs, false);
+}
+function afterLoadRsa1 (v = '') {
+    if (v) {
+        asyn('afterLoadStaticResource', v, 'js');
+
+        asyn('afterLoadRsa');
+
+        return;
+    }
+
+    aInLoadStaticResource[sRsaJs] = false;
+    asyn('loadStaticResource', sRsaJs, true);
+}
 function afterLoadArrayFunc () {
     asyn('arrayFunctionBegin');
     setInLoadStaticResource(sArrayFuncJsTag, false);
@@ -1707,23 +1749,24 @@ function loadStaticFile () {
 
     // asyn('loadStaticResource', aStaticResourceAddress[sEncodeJsTag][');
 
-    let t = setTimeout(function () {
-        clearTimeout(t);
+    // let t = setTimeout(function () {
+    //     clearTimeout(t);
 
-        asyn('loadLocalJquery');
-    }, iCheckJqueryLimitTime);
+        // asyn('loadLocalJquery');
+    asyn('loadStaticResource', sJqueryJsTag);
+    // }, iCheckJqueryLimitTime);
 
     asyn('loadStaticResource', sPubCssTag);
 }
 
-function loadLocalJquery () {
-    if (typeof jQuery == 'undefined') {
-        asyn('loadStaticResource', sJqueryJsTag);
-
-        let o = domById(sOriginJqueryId);
-        o.parentNode.removeChild(o);
-    }
-}
+// function loadLocalJquery () {
+//     if (typeof jQuery == 'undefined') {
+//         asyn('loadStaticResource', sJqueryJsTag);
+//
+//         let o = domById(sOriginJqueryId);
+//         o.parentNode.removeChild(o);
+//     }
+// }
 
 function localstorageError1 () {
     alert('localstorage error, please retry reload !!! ');
@@ -1909,6 +1952,9 @@ function checkStaticResource (j) {
             break;
         case sArrayFuncJsTag :
             return typeof window['arrayFunctionBegin'] != 'undefined' ? true : false;
+            break;
+        case sMd5JsTag :
+            return typeof window['md5Begin'] != 'undefined' ? true : false;
             break;
     }
 

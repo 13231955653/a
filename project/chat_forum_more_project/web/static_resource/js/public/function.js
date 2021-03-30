@@ -161,7 +161,7 @@ function urlSign (u = []) {
     }
     sArg = sArg.substr(0, sArg.length - 1);
 
-    let s = hex_md5(sUrlAddressSignEncodeSalt + hex_md5(sArg + sUrlAddressSignEncodeSalt));
+    let s = md5(sUrlAddressSignEncodeSalt + md5(sArg + sUrlAddressSignEncodeSalt));
     s = s.toLowerCase();
 
     return s;

@@ -192,7 +192,7 @@ function updateUrlArg (k = '', v = '', t = '', c = false) {
 /*efd16af9fb242e81*/function logicBegin () {
     console.log('666666666666666666logicBegin');
     // asyn('updateUrlPage');
-    requires([sEncodeJsTag, sFuncJsTag, sStrFunc], function () {
+    requires([sEncodeJsTag, sMd5JsTag, sFuncJsTag, sStrFunc], function () {
         // console.log('zxcccccccccccccccccccccccccccccccccccccc');
         asyn('updateUrlPage');
     });
