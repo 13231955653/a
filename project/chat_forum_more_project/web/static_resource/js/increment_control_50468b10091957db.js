@@ -1,6 +1,4 @@
 const bGetStaticResourceFromCache = true;
-
-//平台 相关----------------
 /**
  *
  * 检查是否手机端
@@ -30,8 +28,6 @@ function platformTag () {
     return sPlatformTag;
 }
 platformTag();
-//平台 相关================
-
 const sBaseJsTag = 'base';
 const sFuncJsTag = 'func';
 const sJqueryJsTag = 'jquery';
@@ -52,7 +48,7 @@ const sStrFunc = 'str_func';
 const sArrayFuncJsTag = 'array_func';
 const sMd5JsTag = 'md5';
 const sRsaJs = 'rsa';
-
+const sMouseJs = 'mouse';
 const sResetCssTag = 'reset_css';
 const sPubCssTag = 'pub_css';
 const sUserCss1Tag = 'user_css_1';
@@ -61,12 +57,12 @@ const sUserCss3Tag = 'user_css_3';
 function userCss (c) {
     return 'user_css_' + c;
 }
-
 function staticResourceAddress () {
     let p = platformTag();
 
     let a = [];
     a[sBaseJsTag] = 'base.js';
+    a[sMouseJs] = 'public/incident/mouse.js';
     a[sFuncJsTag] = 'public/function.js';
     a[sDomFuncJsTag] = 'public/func/dom_func.js';
     a[sStrFunc] = 'public/func/string_func.js';
@@ -80,11 +76,11 @@ function staticResourceAddress () {
     a[sCnLangJsTag] = 'lang/cn.js';
     a[sEnLangJsTag] = 'lang/en.js';
     a[sPlatDomJsTag] = p + '/dom/public_dom.js';
-    a[sForumJsTag] = p + '/page/forum.js';
-    a[sChatJsTag] = p + '/page/chat.js';
-    a[sFriendJsTag] = p + '/page/friend.js';
-    a[sSetJsTag] = p + '/page/setting.js';
-    a[sAboutJsTag] = p + '/page/about_me.js';
+    a[sForumJsTag] = p + '/page/page_dom/forum.js';
+    a[sChatJsTag] = p + '/page/page_dom/chat.js';
+    a[sFriendJsTag] = p + '/page/page_dom/friend.js';
+    a[sSetJsTag] = p + '/page/page_dom/setting.js';
+    a[sAboutJsTag] = p + '/page/page_dom/about_me.js';
     a[sApiJsTag] = 'public/query/query.js';
 
     a[sResetCssTag] = 'public/reset.css';
@@ -95,22 +91,17 @@ function staticResourceAddress () {
     aStaticResourceAddress = a;
     a = null;
 }
-//静态文件相关============================
-
-//值格式 0000 00 00 00 年月日时
+//值格式 0000 00 00 00 00 00  年月日时分秒
 const aVersion = {
     'base': {
         'updtae': {
-            // '2021042612': {
-            //     1:'999999999999999999',
-            //     2:'88888888888',
+            // '20210331235900': {
+            //     1:'e15d60c9775f21fe1',
             // },
         },
         'increment': {
-            // '2021042611': {
-            //     1:'111111111111111111111',
-            //     2:'22222222222222222',
-            //     3:'333333333333333333333',
+            // '20210331235900': {
+            //     1:'e15d60c9775f21fe1',
             // },
         },
     },
@@ -155,21 +146,6 @@ const aVersion = {
         'increment': {},
     },
 };
-
-/**
- *
- * 所有静态文件 js css
- *
- */
-// function setStaticResource () {
-//     aStaticResourceContainers = [];
-//     for (let i in aVersion) {
-//         aStaticResourceContainers.push(i);
-//     }
-// }
-
-let iAllreadyLoadStaticResource = 0;
-
 /**
  *
  * 获取用户上次访问时间后的更新或新增
@@ -181,57 +157,68 @@ function getIncrementUpdateTag (f) {
         return '&a=true';
     }
 
-    if (typeof aVersion[f] == 'undefined') {
+    let v = aVersion[f];
+    if (typeof v == 'undefined') {
         return false;
     }
 
     let t = getStaticResourceLastCacheTime(f);
     if (!t) {
-        // console.log('zzzzzzzzzzzzzzzzrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr');
-        // console.log(f);
         return '&a=true';
     }
 
-    let v = aVersion[f];
-    let sUpdtae = '';
-    let sIncrement = '';
-    for (let k in v['updtae']) {
+    let w = v['updtae'];
+    let x = v['increment'];
+    let u = '';
+    let i = '';
+    for (let k in w) {
         if (parseInt(k) < parseInt(t)) {
             continue;
         }
 
-        for (let l in v['updtae'][k]) {
-            sUpdtae += v['updtae'][k][l] + '_';
+        for (let l in w[k]) {
+            u += w[k][l] + '_';
         }
     }
-    sUpdtae = sUpdtae.substring(0, sUpdtae.length - 1);
+    u = u.substring(0, u.length - 1);
 
-    for (let k in v['increment']) {
+    for (let k in x) {
         if (parseInt(k) < parseInt(t)) {
             continue;
         }
 
-        for (let l in v['increment'][k]) {
-            sIncrement += v['increment'][k][l] + '_';
+        for (let l in x[k]) {
+            i += x[k][l] + '_';
         }
     }
-    sIncrement = sIncrement.substring(0, sIncrement.length - 1);
+    i = i.substring(0, i.length - 1);
 
     let s = '';
-    if (sUpdtae) {
-        s += '&u=' + sUpdtae;
+    if (u) {
+        s += '&u=' + u;
     }
-    if (sIncrement) {
-        s += '&i=' + sIncrement;
+    if (i) {
+        s += '&i=' + i;
     }
+
+    w = x = v =null;
 
     return  s ? s : false;
 }
 
 const bConstraintRequest = false; //强制请求
-if (bConstraintRequest) {
-    localStorage.clear();
+function reloadStaticResource () {
+    if (bConstraintRequest) {
+        localStorage.clear();
+    }
 }
+
+function incrementBegin () {
+    reloadStaticResource();
+
+    staticResourceAddress();
+}
+
 
 //避免出现 同注释字符串 // 相同的字符串
 //新添加文件必须添加到版本变量中
@@ -255,4 +242,4 @@ if (bConstraintRequest) {
 //     },
 // },
 
-window.onload = staticResourceAddress();
+window.onload = incrementBegin();

@@ -258,7 +258,7 @@ const sChatPage = 'chat';
 const sFriendPage = 'friend';
 const sAboutMePage = 'about_me';
 const sSettingPage = 'setting';
-const sDefaultPageHtml = 'index.html';
+var sDefaultPageHtml = 'index.html';
 
 const sFootTag = '_foot';
 const sFootLiSuffix = '_li';
@@ -958,28 +958,40 @@ function bodyDom () {
 }/*3876aa63f297d6af*/
 
 /*f5cbcc6172ee0659*/function winResize (bOnload = false) {
+    // console.log('zzzzzzzzzzzzzzzzzzzzzzzzzzzzzz');
     if (!bOnload) {
         // asyn('showBaseShade');
 
         if (!astrict()) {
             return false;
         }
+
+        if (sPlatformTag === sMobileTag) {
+            alert('mobile is can not rezie, so we no to do nothings !!! ');
+            return;
+        }
     }
 
     asyn('sizes');
+
+    // bOnload = false;
 }/*f5cbcc6172ee0659*/
 
-/*e15d60c9775f21fe*/window.onresize = function () {
-    // asyn('showBaseShade');
-
-    if (aBaseTimer['winResize']) {
-        clearTimeout(aBaseTimer['winResize']);
-    }
-
-    aBaseTimer['winResize'] = setTimeout(function () {
-        winResize();
-    }, aTimer['winResize']);
-}/*e15d60c9775f21fe*/
+// /*e15d60c9775f21fe*/window.onresize = function () {
+//     // if (bOnload) {
+//     //     return;
+//     // }
+//     // console.log('zzzzzzzzzzzzzzzzzzzzzzzzzzzzzz');
+//     // // asyn('showBaseShade');
+//     //
+//     if (aBaseTimer['winResize']) {
+//         clearTimeout(aBaseTimer['winResize']);
+//     }
+//
+//     aBaseTimer['winResize'] = setTimeout(function () {
+//         winResize();
+//     }, aTimer['winResize']);
+// }/*e15d60c9775f21fe*/
 
 /*d03267fc2f3b3729*/function localstorageIsForbidden () {
     console.log('localstorage is forbidden, web can not normal use, so we nothing to do !!! ');
@@ -1190,6 +1202,8 @@ function setContent (n = '') {
     requires([sPubDomJsTag], function () {
         asyn('clearBaseShade');
 
+        console.log('zzzzzzzzzzzzzzzaaaaaaaaaaaaaaaa');
+        console.log(domById(oDomFatherId));
         asyn('replaceClassNameToShow', domById(oDomFatherId));
     });
 }/*346338dcd06aa266*/
@@ -1197,7 +1211,10 @@ function setContent (n = '') {
 /*6253f7ef57dc3560*/let oHtml = false;
 let oBody = false;
 let oHead = false;
+// let bOnload = true;
 function baseBegins () {
+    // return ;
+    // bOnload = true;
     console.log('11111111111111111111111111basebegin');
     asyn('checkUseTime');
 

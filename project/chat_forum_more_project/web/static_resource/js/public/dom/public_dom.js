@@ -96,6 +96,8 @@ function writeShades () {
 
     requires([sFuncJsTag], function () {
         // replaceClassNameToShow(o);
+        console.log('qqqqqqqqqqqzzzzzzzzzzzzzzzzzzzzzzzzzz');
+        console.log(o);
         asyn('replaceClassNameToShow', o);
     })
 }

@@ -1,3 +1,4 @@
+/*f8a2b197f36a6a16*/var sDefaultPageHtml = 'index.html';/*f8a2b197f36a6a16*/
 /*85d5758838981137*//**
  *
  * 更新 url page 参数

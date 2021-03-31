@@ -1,18 +1,15 @@
 //编码相关-----------------
 const sCharset = 'utf-8'; // 编码格式
 //编码相关===============
-
 //静态文件相关-----------------
 const sJsDynamicPrefix = 'js_dynamic';
 const sJsDynamicHostNumber = 7;
 const sCssDynamicPrefix = 'css_dynamic';
 const sCssDynamicHostNumber = 7;
 //静态文件相关==========================
-
 //url地址相关---------------------
 const sBaseProtocol = window.location.protocol + '/' + '/';
 //url地址相关=================================
-
 //localstorage相关----------------------------
 const sLocalstorageBeginPage = 0;
 const sLocalstorageLangTag = 'user_lang';
@@ -23,40 +20,28 @@ const sStorageOriginsSonPrefix = 'storage';
 const sStoragePage = 'storage.html';
 const sStaticResourceLocalstoragePrefix = 'static_resource_';
 //localstorage相关=============================
-
 //meta标签相关----------------
 const sFinalMetaTagId = 'copyright_content';
 //meta标签相关=====================
-
 //class id tag 相关----------------
 const sIndexScriptTagId = 'final_js_script_link'; // 第一个 script 标签
 //class id tag 相关===============
-
 //时间相关---------------------
 const sLastCacheStaticResourceTimeTag = 'last_cache_static_resource_';
 const iRequertTimeout = 9000;
-// const iRequertLangJsTimeout = 5000;
-// const iMaxLoadOriginJqueryWaitTime = 5000;
-const iCheckJqueryLimitTime = 5000;
 //时间相关=======================
-
 //语言相关-----------
-// let sLangNow = '';
 let sNowLang = '';
 //语言相关===========
-
 //id class tag相关--------------------
 const oDomStorageId = 'storage_father';
-const sOriginJqueryId = 'origin_jquery';
 //id class tag相关=================
-
 //用户自定义相关-------------------
 const iDefaultUserPersonalizedColor = 1;
 const sDefaultLangvage = 'cn';
 let sUserLangvage = '';
 let sPersonlizedColor = '';
 //用户自定义相关===================
-
 /**
  *
  * 第一个 script 标签 节点
@@ -68,7 +53,6 @@ function firstScriptTag () {
     oIndexScriptTag = oIndexScriptTag ? oIndexScriptTag : domById(sIndexScriptTagId);
     return oIndexScriptTag;
 }
-
 /**
  *
  * 根据id获取dom
@@ -172,6 +156,7 @@ let myStorage = (function myStorage () {
  * @param j 文件完整目录 type string
  * @param v 文件内容 type string
  */
+let iAllreadyLoadStaticResource = 0;
 function cacheStaticResource (j = '', v = '') {
     let t = setTimeout(function () {
         clearTimeout(t);
@@ -331,7 +316,6 @@ function setTimeoutFunction (f = '', a = '', b = '') {
 
     return true;
 }
-
 /**
  *
  * 获取 url origin
@@ -507,9 +491,6 @@ window.addEventListener('message', function(event){
         setTimeoutFunction(event.data.after, event.data.message);
     }
 }, false);
-/*increment_version_48*/
-
-/*increment_version_49*/
 /**
  *
  * 更新本地存储的远程localstorage size
@@ -581,7 +562,7 @@ function queryLocalstorage (k = '', f = '', b = false) {
  *
  * 从远程 localstorage 中获取静态资源
  *
- * @param j 文件完整路径 type string
+ * @param j  文件路径 键 type string
  * @param f 回调函数 type string
  * @param b 是否返回key type string
  * @returns {string}
@@ -591,14 +572,17 @@ function getStaticResourceFromLocalstorage (j = '', f = '', b = false) {
         return '';
     }
 
+    console.log('zzzzzzzzzzzzz-----------aaaaaaaaa==========2222222222');
+    console.log(j);
+    console.log(f);
+    console.log(b);
     let t = setTimeout(function () {
         clearTimeout(t);
 
         queryLocalstorage(sStaticResourceLocalstoragePrefix + j, f, b);
+        // queryLocalstorage(j, f, b);
     }, 1);
 }
-
-//host---------------
 /**
  *
  * 设置js host数组
@@ -635,7 +619,6 @@ function setCssHosts () {
 
     return true;
 }
-
 /**
  *
  * hash 计算当前应该请求哪个js地址
@@ -664,9 +647,6 @@ function allocationCssHost (u = '') {
 
     return aCssHost[hashFunc(u, iCssHostNumber)];
 }
-//host===================
-
-//hash------------------
 /**
  *
  * hash 求余
@@ -692,9 +672,6 @@ function hashFunc(s, i){
     //3.取余状态
     return h % i;
 }
-//hash=======================
-
-//加载---------------
 /**
  *
  * 加载 静态文件
@@ -721,15 +698,10 @@ function initStaticResource (j = '', t = '', c = '', r = '') {
     } else if (window.XMLHttpRequest) {
         xhr = new XMLHttpRequest();
     }
-
     if (!xhr) {
         return;
     }
 
-    // console.log('ssssssssssssasdasdasdasdsad');
-    // console.log(j);
-    // console.log(allocationHost(j) + '/index.php?' + aStaticResourceAddress[j]);
-    // return ;
     let u = '';
     switch (t) {
         case 'js' :
@@ -747,21 +719,19 @@ function initStaticResource (j = '', t = '', c = '', r = '') {
     xhr.send(null);
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4 && xhr.status == 200) {
-            // bWriteToPage[j] = true;
-
             let v = xhr.responseText;
             v = v == null ? '' : v;
             v = JSON.parse(v);
+            console.log(v);
+            console.log(',,,,,,,,,,llllllllllllllllllllll');
 
-            // if (bWriteToPage[j] != true) {
-                let z = setTimeout(function () {
-                    clearTimeout(z);
+            // let z = setTimeout(function () {
+            //     clearTimeout(z);
 
-                    disposeResponse(v, t, r);
-                }, 0);
+                disposeResponse(v, t, r);
+            // }, 0);
 
-                asyn('setStaticResourceLastCacheTime', r);
-            // }
+            asyn('setStaticResourceLastCacheTime', r);
         }
     };
 
@@ -769,7 +739,6 @@ function initStaticResource (j = '', t = '', c = '', r = '') {
         asyn(c);
     }
 }
-
 /**
  *
  * 处理请求回来的静态资源
@@ -797,6 +766,9 @@ function disposeResponse (v = '', t = '', f = '') {
         aNeedIncrementStaticResourceCacheFileType[f] = t;
 
         let b = 'incrememtStaticResourceCache';
+        console.log('zzzzzzzzzzzzppppppppppqqqqqqqqqqqqqqquuuuu');
+        console.log(aNeedIncrementStaticResourceCache);
+        // console.log(b);
         getStaticResourceFromLocalstorage(f, b, true);
         return;
     }
@@ -824,7 +796,6 @@ function disposeResponse (v = '', t = '', f = '') {
         return;
     }
 }
-
 /**
  *
  * 静态文件添加并更新
@@ -836,12 +807,15 @@ function incrementAndUpdateStaticResourceCache (v = '') {
     if (!k) {
         return;
     }
+    k = k.replace(sStaticResourceLocalstoragePrefix, '');
 
     let s = v.message;
 
     s = updateStaticResourceCache(v, false, true);
 
     s = s + aNeedIncrementStaticResourceCache[k];
+    console.log(aNeedIncrementStaticResourceCache[k]);
+    console.log('zzzzzzzzzzzzzzzuuuuuuuuuuuuaaaaaaaaaaaaaaa');
 
     asyn('writeStaticResourceToPage', s, aNeedIncrementStaticResourceCacheFileType[k]);
 
@@ -863,6 +837,7 @@ function updateStaticResourceCache (v = '', w = true, b = false) {
     if (!k) {
         return;
     }
+    k = k.replace(sStaticResourceLocalstoragePrefix, '');
 
     let s = v.message;
     if (s) {
@@ -902,14 +877,18 @@ function incrememtStaticResourceCache (v = '') {
     if (!k) {
         return;
     }
+    k = k.replace(sStaticResourceLocalstoragePrefix, '');
 
+    // console.log(v);
+    // console.log('sssssssssssllllllllzzzzzzzzzzzziiiiiiiiiii');
+    // console.log(aNeedIncrementStaticResourceCache);
+    // console.log(aNeedIncrementStaticResourceCache[k]);
     let s = v.message + aNeedIncrementStaticResourceCache[k];
 
     asyn('writeStaticResourceToPage', s, aNeedIncrementStaticResourceCacheFileType[k]);
 
     asyn('cacheStaticResource', k, s);
 }
-
 /**
  *
  * 最后的meta标签
@@ -974,7 +953,6 @@ function insertAfter (n, j) {
         p.insertBefore(n, j.nextSibling);
     }
 }
-//加载js----------------
 function date () {
     return new Date();
 }
@@ -1043,6 +1021,11 @@ function loadStaticResource (f, q = false) {
     let b = '';
     let c = '';
     switch (f) {
+        case sMouseJs :
+            a = 'afterLoadMouse';
+            b = 'afterLoadMouse1';
+            c = 'js';
+            break;
         case sRsaJs :
             a = 'afterLoadRsa';
             b = 'afterLoadRsa1';
@@ -1124,18 +1107,10 @@ function loadStaticResource (f, q = false) {
             c = 'js';
             break;
         case sCnLangJsTag :
-            // sNowLang = sCnLangJsTag;
-            // console.log(q);
-            // console.log('dasssssssssssssssssszzzzzzzzzzzzzzzzzzzzzzzz');
             a = 'afterLoadLang';
             b = 'afterLoadLang1';
             c = 'js';
             break;
-        // case sEnLangJsTag :
-        //     a = 'afterLoadLang';
-        //     b = 'afterLoadLang1';
-        //     c = 'js';
-        //     break;
         case sApiJsTag :
             a = 'afterLoadApi';
             b = 'afterLoadApi1';
@@ -1147,7 +1122,6 @@ function loadStaticResource (f, q = false) {
             c = 'js';
             break;
         case sForumJsTag:
-            // console.log('dddddddddddddddddddddasssssssssssssssssrqrqwwwwwwwwwwwwwwwwwwww');
             a = 'afterLoadPage';
             b = 'afterLoadPage1';
             c = 'js';
@@ -1173,21 +1147,12 @@ function loadStaticResource (f, q = false) {
             c = 'js';
             break;
     }
-
-    // if (f == sForumJsTag) {
-    //     console.log('zzzzzzzzzzzzzzzzzzzaassssssssssssssqqq');
-    // }
     let n = getIncrementUpdateTag(f);
-    // if (f == sForumJsTag) {
-    //     console.log('zzzzzzzzzzzzzzzzzzzaassssssssssssssqqq');
+    // if (f == sBaseJsTag) {
+    //     console.log('zzzzzzzzzzaaaaaaaaaaaaaaaaaaaa');
     //     console.log(n);
-    // }
-    // if (a === 'afterLoadLang') {
-    //     console.log(n);
-    //     console.log('aaaaaaaaaaaaaddddddddddddddeeeeeeeeeeeegggggggggggggggggggg');
     // }
     if (n || q) {
-        // console.log('sssssssssssssssssssssaaaaaaaaaaaaaaaaaaaaaaaaaa');
         let t = setTimeout(function () {
             clearTimeout(t);
 
@@ -1195,7 +1160,6 @@ function loadStaticResource (f, q = false) {
             initStaticResource(g, c, a, f);
         }, 0);
     } else {
-        // console.log('zzzzzzzzzzzzzzzzzzzzzqqqqqqqqqqqqqqqqqqqqqqqqq');
         let t = setTimeout(function () {
             clearTimeout(t);
 
@@ -1209,7 +1173,6 @@ function afterLoadStaticResource (v = '', t = '') {
     asyn('writeStaticResourceToPage', v, t);
 }
 function afterLoadUserColor () {
-    // asyn('setInLoadStaticResource', sPersonalizedCss, false);
     setInLoadStaticResource(sPersonalizedCss, false);
 }
 function afterLoadUserColor1 (v = '') {
@@ -1225,7 +1188,6 @@ function afterLoadUserColor1 (v = '') {
     asyn('loadStaticResource', sPersonalizedCss, true);
 }
 function afterLoadPublicCss () {
-    // asyn('setInLoadStaticResource', sPubCssTag, false);
     setInLoadStaticResource(sPubCssTag, false);
 }
 function afterLoadPublicCss1 (v = '') {
@@ -1241,7 +1203,6 @@ function afterLoadPublicCss1 (v = '') {
     asyn('loadStaticResource', sPubCssTag, true);
 }
 function afterLoadResetCss () {
-    // asyn('setInLoadStaticResource', sResetCssTag, false);
     setInLoadStaticResource(sResetCssTag, false);
 }
 function afterLoadResetCss1 (v = '') {
@@ -1257,7 +1218,6 @@ function afterLoadResetCss1 (v = '') {
     asyn('loadStaticResource', sResetCssTag, true);
 }
 function afterLoadPage () {
-    // asyn('setInLoadStaticResource', sNowPageJs, false);
     asyn('afterLoadPageJs');
 
     setInLoadStaticResource(sNowPageJs, false);
@@ -1271,14 +1231,10 @@ function afterLoadPage1 (v = '') {
         return;
     }
 
-
     aInLoadStaticResource[sNowPageJs] = false;
-    console.log('cxcxcsdddddddddddddddddddqqqqqqqqqqqqqqqqqhhhhhhhhhhhhh');
-    console.log(sNowPageJs);
     asyn('loadStaticResource', sNowPageJs, true);
 }
 function afterLoadLocalJquery () {
-    // asyn('setInLoadStaticResource', sJqueryJsTag, false);
     setInLoadStaticResource(sJqueryJsTag, false);
 }
 function afterLoadLocalJquery1 (v = '') {
@@ -1294,18 +1250,10 @@ function afterLoadLocalJquery1 (v = '') {
     asyn('loadStaticResource', sJqueryJsTag, true);
 }
 function afterLoadEncode () {
-    // asyn('setInLoadStaticResource', sEncodeJsTag, false);
     setInLoadStaticResource(sEncodeJsTag, false);
     asyn('encodeBegin');
 }
 function afterLoadEncode1 (v = '') {
-    // if (typeof window['encodeBegin'] != 'undefined') {
-    //     return;
-    // }
-    // console.log('sssssssssdzcfewreddddddddddddddddddddddddd');
-    // console.log(typeof window['encodeBegin']);
-    // console.log(window['encodeBegin']);
-
     if (v) {
         asyn('afterLoadStaticResource', v, 'js');
 
@@ -1318,7 +1266,6 @@ function afterLoadEncode1 (v = '') {
     asyn('loadStaticResource', sEncodeJsTag, true);
 }
 function afterLoadApi () {
-    // asyn('setInLoadStaticResource', sApiJsTag, false);
     setInLoadStaticResource(sApiJsTag, false);
     asyn('apiBegin');
 }
@@ -1335,9 +1282,6 @@ function afterLoadApi1 (v = '') {
     asyn('loadStaticResource', sApiJsTag, true);
 }
 function afterLoadLang () {
-    // console.log('dasdasdasssssssssssssssssssssssssssssssss');
-    // console.log(sNowLang);
-    // asyn('setInLoadStaticResource', sNowLang, false);
     setInLoadStaticResource(sNowLang, false);
     asyn('langBegin');
 }
@@ -1350,22 +1294,10 @@ function afterLoadLang1 (v = '') {
         return;
     }
 
-    // switch (sLangNow) {
-    //     case sDefaultLangvage :
-    //         sNowLang = sCnLangJsTag;
-    //         break;
-    //     // case 'en' :
-    //     //     sNowLang = sEnLangJsTag;
-    //     //     break;
-    //     default:
-    //         sNowLang = sCnLangJsTag;
-    //         break;
-    // }
     aInLoadStaticResource[sNowLang] = false;
     asyn('loadStaticResource', sNowLang, true);
 }
 function afterLoadBaseJs () {
-    // asyn('setInLoadStaticResource', sBaseJsTag, false);
     setInLoadStaticResource(sBaseJsTag, false);
     asyn('baseBegins');
 }
@@ -1381,25 +1313,6 @@ function afterLoadBaseJs1 (v = '') {
     aInLoadStaticResource[sBaseJsTag] = false;
     asyn('loadStaticResource', sBaseJsTag, true);
 }
-// /**
-//  *
-//  * index js 加载完回调函数
-//  *
-//  */
-// function afterLoadIndexJs () {
-//     asyn('indexBegin');
-// }
-// function afterLoadIndexJs1 (v = '') {
-//     if (v) {
-//         asyn('afterLoadStaticResource', v, 'js');
-//
-//         asyn('afterLoadIndexJs');
-//
-//         return;
-//     }
-//
-//     asyn('loadStaticResource', sIndexJs, true);
-// }
 function afterLoadMd5 () {
     asyn('md5Begin');
     setInLoadStaticResource(sMd5JsTag, false);
@@ -1415,6 +1328,22 @@ function afterLoadMd51 (v = '') {
 
     aInLoadStaticResource[sMd5JsTag] = false;
     asyn('loadStaticResource', sMd5JsTag, true);
+}
+function afterLoadMouse () {
+    asyn('mouseBegin');
+    setInLoadStaticResource(sMouseJs, false);
+}
+function afterLoadMouse1 (v = '') {
+    if (v) {
+        asyn('afterLoadStaticResource', v, 'js');
+
+        asyn('afterLoadMouse');
+
+        return;
+    }
+
+    aInLoadStaticResource[sMouseJs] = false;
+    asyn('loadStaticResource', sMouseJs, true);
 }
 function afterLoadRsa () {
     asyn('arrayFunctionBegin');
@@ -1465,18 +1394,11 @@ function afterLoadStrFunc1 (v = '') {
     asyn('loadStaticResource', sStrFunc, true);
 }
 function afterLoadDomFunc () {
-    // asyn('setInLoadStaticResource', sFuncJsTag, false);
-    // console.log('sssssssssszzzzzzzzzzxxxxxxxxxxxcccccccddddddffffffffff');
     asyn('domFunctionBegin');
     setInLoadStaticResource(sDomFuncJsTag, false);
 }
 function afterLoadDomFunc1 (v = '') {
-    // if (typeof window['functionBegin'] != 'undefined') {
-    //     return;
-    // }
-    // console.log('sssssssssszzzzzzffffffffffffffffzzzzxxxxxxxxxxxcccccccddddddffffffffff');
     if (v) {
-        // console.log('ssssssdddddddddddwwwwwwwwwwwwwwszzzzzzffffffffffffffffzzzzxxxxxxxxxxxcccccccddddddffffffffff');
         asyn('afterLoadStaticResource', v, 'js');
 
         asyn('afterLoadDomFunc');
@@ -1484,7 +1406,6 @@ function afterLoadDomFunc1 (v = '') {
         return;
     }
 
-    // console.log('sssssssssssszzzzzzzzzzzzssssssssssdddddddddddzzzzzzffffffffffffffffzzzzxxxxxxxxxxxcccccccddddddffffffffff');
     aInLoadStaticResource[sDomFuncJsTag] = false;
     asyn('loadStaticResource', sDomFuncJsTag, true);
 }
@@ -1494,18 +1415,11 @@ function afterLoadDomFunc1 (v = '') {
  *
  */
 function afterLoadFunctionJs () {
-    // asyn('setInLoadStaticResource', sFuncJsTag, false);
-    // console.log('sssssssssszzzzzzzzzzxxxxxxxxxxxcccccccddddddffffffffff');
     asyn('functionBegin');
     setInLoadStaticResource(sFuncJsTag, false);
 }
 function afterLoadFunctionJs1 (v = '') {
-    // if (typeof window['functionBegin'] != 'undefined') {
-    //     return;
-    // }
-    // console.log('sssssssssszzzzzzffffffffffffffffzzzzxxxxxxxxxxxcccccccddddddffffffffff');
     if (v) {
-        // console.log('ssssssdddddddddddwwwwwwwwwwwwwwszzzzzzffffffffffffffffzzzzxxxxxxxxxxxcccccccddddddffffffffff');
         asyn('afterLoadStaticResource', v, 'js');
 
         asyn('afterLoadFunctionJs');
@@ -1513,7 +1427,6 @@ function afterLoadFunctionJs1 (v = '') {
         return;
     }
 
-    // console.log('sssssssssssszzzzzzzzzzzzssssssssssdddddddddddzzzzzzffffffffffffffffzzzzxxxxxxxxxxxcccccccddddddffffffffff');
     aInLoadStaticResource[sFuncJsTag] = false;
     asyn('loadStaticResource', sFuncJsTag, true);
 }
@@ -1523,7 +1436,6 @@ function afterLoadFunctionJs1 (v = '') {
  *
  */
 function afterLoadDomJs () {
-    // asyn('setInLoadStaticResource', sPubDomJsTag, false);
     setInLoadStaticResource(sPubDomJsTag, false);
     asyn('domBegin');
 }
@@ -1545,7 +1457,6 @@ function afterLoadDomJs1 (v = '') {
  *
  */
 function afterLoadPlatformDomJs () {
-    // asyn('setInLoadStaticResource', sPlatDomJsTag, false);
     setInLoadStaticResource(sPlatDomJsTag, false);
     asyn('platformBegin');
 }
@@ -1567,7 +1478,6 @@ function afterLoadPlatformDomJs1 (v = '') {
  *
  */
 function afterLoadLogicJs () {
-    // asyn('setInLoadStaticResource', sLogicJsTag, false);
     setInLoadStaticResource(sLogicJsTag, false);
     asyn('logicBegin');
 }
@@ -1586,7 +1496,6 @@ function afterLoadLogicJs1 (v = '') {
 //用户语言
 function queryUserLang () {
     if (sUserLangvage) {
-        // sNowLang = sUserLangvage;
         return sUserLangvage;
     }
 
@@ -1596,7 +1505,6 @@ function queryUserLang () {
 
         asyn('setLang', l);
     }
-    // sNowLang = sUserLangvage;
 
     return l;
 }
@@ -1633,19 +1541,6 @@ function setLang (l = '', j = false) {
 let sPersonalizedCss = '';
 function loadPersonalizedCss (c = false) {
     c = c ? c : queryUserPersonalizedColor();
-
-    // sPersonalizedCss = '/static_resource/css/personalized/color/' + c + '.css';
-    // switch (c) {
-    //     case 1 :
-    //         sPersonalizedCss = sUserCss1Tag;
-    //         break;
-    //     case 2 :
-    //         sPersonalizedCss = sUserCss2Tag;
-    //         break;
-    //     case 3 :
-    //         sPersonalizedCss = sUserCss3Tag;
-    //         break;
-    // }
 
     sPersonalizedCss = userCss(c);
 
@@ -1696,35 +1591,30 @@ function setPersonlizedColor (c = '', n = false) {
  */
 function loadLang (l = '') {
     l = l ? l : queryUserLang();
-    // let y = '';
     switch (l) {
         case sDefaultLangvage :
             sNowLang = sCnLangJsTag;
-            // sNowLang = l;
             break;
-        // case 'en' :
-        //     y = sEnLangJsTag;
-        //     break;
         default :
             sNowLang = sCnLangJsTag;
-            // sNowLang = l;
             break;
     }
     if (!sNowLang) {
         return false;
     }
 
-    // console.log('dddddddddddddddddddddasdasdasd');
-    // console.log(y);
     asyn('loadStaticResource', sNowLang);
 }
-
 /**
  *
  * 加载 js 文件
  *
  */
 function loadStaticFile () {
+    if (sPlatformTag === sMobileTag) {
+        asyn('loadStaticResource', sMouseJs);
+    }
+
     asyn('loadStaticResource', sResetCssTag);
 
     asyn('loadPersonalizedCss');
@@ -1735,41 +1625,17 @@ function loadStaticFile () {
 
     asyn('loadStaticResource', sPlatDomJsTag);
 
-    // asyn('loadStaticResource', sIndexJs);
-
-    // asyn('loadStaticResource', sFuncJsTag);
-
     asyn('loadStaticResource', sLogicJsTag);
 
     asyn('loadLang');
 
-    // asyn('loadStaticResource', sApiJsTag);
-
-    // asyn('loadStaticResource', aStaticResourceAddress[sEncodeJsTag][');
-
-    // let t = setTimeout(function () {
-    //     clearTimeout(t);
-
-        // asyn('loadLocalJquery');
     asyn('loadStaticResource', sJqueryJsTag);
-    // }, iCheckJqueryLimitTime);
 
     asyn('loadStaticResource', sPubCssTag);
 }
-
-// function loadLocalJquery () {
-//     if (typeof jQuery == 'undefined') {
-//         asyn('loadStaticResource', sJqueryJsTag);
-//
-//         let o = domById(sOriginJqueryId);
-//         o.parentNode.removeChild(o);
-//     }
-// }
-
 function localstorageError1 () {
     alert('localstorage error, please retry reload !!! ');
 }
-
 /**
  *
  * 缓存上一次静态文件缓存时间
@@ -1777,15 +1643,17 @@ function localstorageError1 () {
  * @param k 静态文件地址
  */
 function setStaticResourceLastCacheTime (k = '') {
+    // console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
     let t = date();
     let y = t.getFullYear();
     let m = parseInt(t.getMonth()) + parseInt(1);
     m = m < 10 ? '0' + m : m;
     let d = t.getDate();
     let h = t.getHours();
-    h = h < 10 ? '0' + h : h;
+    let i = t.getMinutes();
+    let s = t.getSeconds();
 
-    myStorage.set(sLastCacheStaticResourceTimeTag + k, y + m + d + h);
+    myStorage.set(sLastCacheStaticResourceTimeTag + k, y + m + d + h + i + s);
 }
 /**
  *
@@ -1798,15 +1666,10 @@ function getStaticResourceLastCacheTime (k = '') {
     let t = myStorage.get(sLastCacheStaticResourceTimeTag + k);
     return t ? t : 0;
 }
-
 let iBeginTime = 0;
 function fileControlBegin () {
     console.log('0000000000000000000000000000000fileControlBegin');
-    if (
-        (typeof window['getIncrementUpdateTag'] == 'undefined')
-        // ||
-        // (typeof window['requiresBegin'] == 'undefined')
-    ) {
+    if (typeof window['getIncrementUpdateTag'] == 'undefined') {
         setTimeoutFunction('fileControlBegin');
         return;
     }
@@ -1834,10 +1697,6 @@ function fileControlBegin () {
         return;
     }
 
-    // asyn('setrequires');
-
-    // asyn('setStaticResourceInLoadAndAllready');
-
     setStatusResourceHost();
 
     requires([sPubDomJsTag], function () {
@@ -1852,29 +1711,6 @@ function setStatusResourceHost () {
 
     setCssHosts();
 }
-
-// /**
-//  *
-//  * 设置文件别名
-//  *
-//  */
-// function setrequires () {
-//     let a = [];
-//
-//     a[sFuncJsTag] = sFuncJsTag;
-//     a[sEncodeJsTag] = sEncodeJsTag;
-//     arequires = a;
-// }
-
-// function setStaticResourceInLoadAndAllready () {
-//     setStaticResource();
-//
-//     for (let i in aStaticResourceContainers) {
-//         aInLoadStaticResource.push(aStaticResourceContainers[i]);
-//         aAllreadyLoadStaticResource.push(aStaticResourceContainers[i]);
-//     }
-// }
-
 /**
  *
  * 设置正在读取的静态资源
@@ -1892,7 +1728,6 @@ function setInLoadStaticResource (j = '', b = false) {
     aInLoadStaticResource[j] = false;
     aAllreadyLoadStaticResource[j] = true;
 }
-
 /**
  *
  * 动态加载js
@@ -1927,7 +1762,6 @@ function requires (j = '', c = '') {
 
     asyn('requires', j, c);
 }
-
 /**
  *
  * 检查静态资源是否加载完成
