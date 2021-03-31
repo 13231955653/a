@@ -70,40 +70,53 @@ function staticResourceAddress () {
 
     let a = [];
     a[sBaseJ] = 'base.js';
-    a[sMouseJ] = 'pub/incident/mouse.js';
+
     a[sFuncJ] = 'pub/func/func.js';
     a[sDomFunc] = 'pub/func/dom.js';
-    a[sStrFunc] = 'pub/func/string.js';
+    a[sStrFunc] = 'pub/func/str.js';
     a[sArrFuncJ] = 'pub/func/array.js';
+
     a[sJqueryJ] = 'pub/jquery.js';
+
     a[sLogicJ] = p + '/logic.js';
-    a[sPubDomJ] = 'pub/dom/pub.js';
+
     a[sMd5J] = 'encode/md5.js';
     a[sEncodeJ] = 'encode/encode.js';
     a[sRsaJs] = 'encode/rsa.js';
+
     a[sCnLangJ] = 'lang/cn.js';
     a[sEnLangJ] = 'lang/en.js';
+
+    a[sPubDomJ] = 'pub/dom/pub.js';
     a[sPlatDomJ] = p + '/dom/pub.js';
+
     a[sForum] = p + '/page/dom/forum.js';
     a[sChatJ] = p + '/page/dom/chat.js';
     a[sFriendJ] = p + '/page/dom/friend.js';
     a[sSetJ] = p + '/page/dom/set.js';
     a[sAboutJ] = p + '/page/dom/about.js';
+
+    a[sMouseJ] = 'pub/incident/mouse.js';
+
     a[sMouseAboutMe] = p + '/page/mouse/about.js';
     a[sMouseChat] = p + '/page/mouse/chat.js';
     a[sMouseForum] = p + '/page/mouse/forum.js';
     a[sMouseFriend] = p + '/page/mouse/friend.js';
     a[sMouseSet] = p + '/page/mouse/set.js';
+
     a[sApiJ] = 'pub/query/query.js';
 
     a[sResetC] = 'pub/reset.css';
     a[sPubC] = 'pub/' + p + '/pub.css';
+
     a[sAboutC] = 'pub/' + p + '/page/about.css';
     a[sChatC] = 'pub/' + p + '/page/chat.css';
     a[sForumC] = 'pub/' + p + '/page/forum.css';
     a[sFriendC] = 'pub/' + p + '/page/friend.css';
     a[sSetC] = 'pub/' + p + '/page/set.css';
+
     a[sUserC1] = 'personalized/color/1.css';
+
     aStaticResourceAddress = a;
     a = null;
 }

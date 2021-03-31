@@ -1239,10 +1239,7 @@ function baseBegins () {
 
     asyn('secondDom');
 
-    // requires([sMd5JsTag], function () {
-    //     console.log('zzzzzzzzzzzzzzzkkkkkkkkkkkkkkkkkdddddddddddddddddduuuuuuuuuuuuuuuuuuu');
-    //     console.log(md5('ssss'));
-    //     console.log(md5('1111'));
-    //     console.log(md5('啊'));
-    // });
+    requires([sFuncJ, sMd5J, sStrFunc], function () {
+        asyn('makeToken');
+    });
 }/*6253f7ef57dc3560*/

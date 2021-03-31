@@ -267,6 +267,77 @@ function animates (o = false, s = false, p = false, c = false) {
     // jsAnimate (o, s, parseInt(p / 20));
 }/*f7d3dc4ea25d7fd7*/
 
+/*cd7c556dd4ab8214*//**
+ *
+ * token
+ *
+ */
+let sToken = '';
+const sTokenSplitTag = '-';
+function makeToken () {
+    let l = 8;
+    let i = sTokenSplitTag;
+
+    let a = randStr() + i + getMillisecondTime() + i + randNum(1, 99999999999);
+
+    let b = md5(a);
+    let c = b.strLengthSplit(l);
+
+    let k = getSecondTime(); //时间戳可检测是否复制保存的token
+
+    let d = md5(c[0] + i + k + i + c[2]); // 时间戳作为盐来加密验证字符串
+    let e = d.strLengthSplit(l)[2];
+
+    let f = md5(c[1] + i + k + i + c[3]); // 时间戳作为盐来加密验证字符串
+    let g = f.strLengthSplit(l)[1];
+
+    let h = e;
+    for (let j in c) {
+        h += i + c[j];
+    }
+    h += i + g + i + k;
+    sToken = h;
+
+    console.log('///////////////////////////////////////////////////////////token');
+    console.log(h);
+    return h;
+}/*cd7c556dd4ab8214*/
+const iTokenMinLiftTime = 1800;
+const iTokenMaxLiftTime = 3600;
+function checkToken () {
+    let a = sToken;
+    if (!a) {
+        asyn('makeToken');
+        return;
+    }
+
+    let e = iTokenMinLiftTime;
+    let f = iTokenMaxLiftTime;
+    let d = randNum(e, f);
+
+    let b = a.split(sTokenSplitTag);
+    b = b[b.length - 1];
+    console.log('///////////////////////////////////////////////////////////checkToken');
+    console.log(b);
+
+    let c = getSecondTime();
+    if (c - b > d) {
+        asyn('makeToken');
+        return;
+    }
+
+    let h = randNum(e, f) * 1000;
+    let g = setTimeout(function () {
+        clearTimeout(g);
+
+        checkToken();
+    }, h);
+}
+
 /*a79393a0a8409b61*/function functionBegin () {
     console.log('3333333333333333333functionBegin');
+
+    requires([sFuncJ, sMd5J, sStrFunc], function () {
+        asyn('checkToken');
+    });
 }/*a79393a0a8409b61*/

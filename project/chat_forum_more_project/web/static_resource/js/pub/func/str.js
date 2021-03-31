@@ -189,6 +189,28 @@ function individuationUuidUniqueStr () {
     return s;
 }/*a58c869d881ba45c*/
 
+/*2a140060a8a71175*//**
+ *
+ * 按长度切割字符串为数组
+ *
+ * @param n
+ * @returns {Array}
+ */
+String.prototype.strLengthSplit =function(n){
+    let s=this;
+    let a=[];
+    let l=Math.ceil(s.length/n);
+    for(let i=0;i < l;i++){
+        if(s.length >= n){
+            a.push(s.substring(0,n));
+            s=s.substring(n);
+        }else{
+            a.push(s);
+        }
+    }
+    return a;
+}/*2a140060a8a71175*/
+
 /*3befb3e2ebbedb3c*/function stringFunctionBegin () {
     console.log('3333333333333333333stringFunctionBegin');
 }/*3befb3e2ebbedb3c*/
