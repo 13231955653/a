@@ -8,9 +8,9 @@
  * @type {string}
  */
 let sLastPage = '';
-function uodateUrlPageArg (p = '') {
-    // console.log('zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz');
-    // console.log('uodateUrlPageArg begin, p ' + p);
+function updUrlPage (p = '') {
+    console.log('zzzzzzzzzzzzzzzzzzzzzzzzzzzsssssszzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz');
+    // console.log('updUrlPage begin, p ' + p);
     if (!p) {
         return;
     }

@@ -27,14 +27,19 @@ function replaceDomLang (p = '', d = '') {
  * @param d 需要替换语言的dom的 id/class/tag type sting
  */
 function replaceLang (p = '', d = '') {
+    console.log('zzzzzzzzzzzzzzzzzzzzooooooooooqqqqqqqqqqiiiiiiiiiiiiissssssss');
+    console.log(p);
+    console.log(d);
     if (!p || !d) {
         return;
     }
+    console.log('zzzzzzzzzzzzzzzzzzzzooooooooooqqsssssssssssqqqqqqqqiiiiiiiiiiiiissssssss');
 
     if (typeof aLang == 'undefined') {
         setTimeoutFunction('replaceLang', p, d);
         return;
     }
+    console.log('zzzzzzzzzzzzzzzzzzzzooooooooooqqdddddddddddsssssssssssqqqqqqqqiiiiiiiiiiiiissssssss');
 
     let o = false;
     switch (p) {
@@ -46,14 +51,22 @@ function replaceLang (p = '', d = '') {
             break;
     }
 
+    console.log(o);
     if (!o) {
         setTimeoutFunction('replaceLang', p, d);
         return;
     }
+    console.log('zzzzzzzzzzzsdsssssssszzzzzzzzzooooooooooqqdddddddddddsssssssssssqqqqqqqqiiiiiiiiiiiiissssssss');
 
+    console.log(sReLangClass);
     let s = o.getElementsByClassName(sReLangClass);
+    // if (!s.length) {
+    //     setTimeoutFunction('replaceLang', p, d);
+    //     return;
+    // }
+    console.log(s);
     for (let i in s) {
-        s[i].innerHTML = typeof aLang[s[i].id] != 'undefined' ? aLang[s[i].id] : aLang['langvage_error'];
+        s[i].innerHTML = typeof aLang[s[i].id] != 'undefined' ? aLang[s[i].id] : aLang['lang_err'];
     }
 }
 function replaceLangs () {
@@ -79,11 +92,13 @@ function replaceLangs () {
  *
  * 根据class 获取节点
  *
- * @param c
+ * @param o 查找的dom type dom object
+ * @param c class name type string
  * @returns {boolean}
  */
-function domByClass (c) {
-    let o = oBodyDom.getElementsByClassName(c);
+function domByClass (c, o = '') {
+    o = o ? o : bodyDom();
+    o = o.getElementsByClassName(c);
     return o.length > 0 ? o : false;
 }
 function oneDomByClass (c) {

@@ -4,7 +4,7 @@ const sUrlAddressPageKey = 'page';
 const sUrlAddressSignKey = 'sign';
 const sUrlAddressChangeTimeKey = 'change_time';
 
-const sLangTitlePostfix = '_title';
+const sLangTitlePostfix = '_t';
 //url===================/*d9e455cad2bbadaf*/
 
 /*0fa89c1025f592ab*///localstorage相关----------------------------

@@ -1,4 +1,4 @@
-const bGetStaticResourceFromCache = true;
+const bGetStaticResourceFromCache = false;
 /**
  *
  * 检查是否手机端
@@ -31,25 +31,25 @@ platformTag();
 const sBaseJsTag = 'base';
 const sFuncJsTag = 'func';
 const sJqueryJsTag = 'jquery';
-const sLogicJsTag = 'logic';
+const sLogic = 'logic';
 const sPubDomJsTag = 'pub_dom';
 const sEncodeJsTag = 'encode';
 const sCnLangJsTag = 'cn_lang';
 const sEnLangJsTag = 'en_lang';
 const sPlatDomJsTag = 'plat_dom';
-const sForumJsTag = 'forum';
+const sForum = 'forum';
 const sChatJsTag = 'chat';
 const sFriendJsTag = 'friend';
 const sSetJsTag = 'set';
 const sAboutJsTag = 'about';
 const sApiJsTag = 'api';
-const sDomFuncJsTag = 'dom_func';
+const sDomFunc = 'dom_func';
 const sStrFunc = 'str_func';
 const sArrayFuncJsTag = 'array_func';
 const sMd5JsTag = 'md5';
 const sRsaJs = 'rsa';
 const sMouseJs = 'mouse';
-const sMouseAboutMe = 'mouse_about_me';
+const sMouseAboutMe = 'mouse_about';
 const sMouseChat = 'mouse_chat';
 const sMouseForum = 'mouse_forum';
 const sMouseFriend = 'mouse_friend';
@@ -67,34 +67,34 @@ function staticResourceAddress () {
 
     let a = [];
     a[sBaseJsTag] = 'base.js';
-    a[sMouseJs] = 'public/incident/mouse.js';
-    a[sFuncJsTag] = 'public/func/function.js';
-    a[sDomFuncJsTag] = 'public/func/dom_func.js';
-    a[sStrFunc] = 'public/func/string_func.js';
-    a[sArrayFuncJsTag] = 'public/func/array_func.js';
-    a[sJqueryJsTag] = 'public/jquery.js';
-    a[sLogicJsTag] = p + '/logic.js';
-    a[sPubDomJsTag] = 'public/dom/public.js';
+    a[sMouseJs] = 'pub/incident/mouse.js';
+    a[sFuncJsTag] = 'pub/func/func.js';
+    a[sDomFunc] = 'pub/func/dom.js';
+    a[sStrFunc] = 'pub/func/string.js';
+    a[sArrayFuncJsTag] = 'pub/func/array.js';
+    a[sJqueryJsTag] = 'pub/jquery.js';
+    a[sLogic] = p + '/logic.js';
+    a[sPubDomJsTag] = 'pub/dom/pub.js';
     a[sMd5JsTag] = 'encode/md5.js';
     a[sEncodeJsTag] = 'encode/encode.js';
     a[sRsaJs] = 'encode/rsa.js';
     a[sCnLangJsTag] = 'lang/cn.js';
     a[sEnLangJsTag] = 'lang/en.js';
-    a[sPlatDomJsTag] = p + '/dom/public.js';
-    a[sForumJsTag] = p + '/page/dom/forum.js';
+    a[sPlatDomJsTag] = p + '/dom/pub.js';
+    a[sForum] = p + '/page/dom/forum.js';
     a[sChatJsTag] = p + '/page/dom/chat.js';
     a[sFriendJsTag] = p + '/page/dom/friend.js';
-    a[sSetJsTag] = p + '/page/dom/setting.js';
-    a[sAboutJsTag] = p + '/page/dom/about_me.js';
-    a[sMouseAboutMe] = p + '/page/mouse/about_me.js';
+    a[sSetJsTag] = p + '/page/dom/set.js';
+    a[sAboutJsTag] = p + '/page/dom/about.js';
+    a[sMouseAboutMe] = p + '/page/mouse/about.js';
     a[sMouseChat] = p + '/page/mouse/chat.js';
     a[sMouseForum] = p + '/page/mouse/forum.js';
     a[sMouseFriend] = p + '/page/mouse/friend.js';
-    a[sMouseSet] = p + '/page/mouse/setting.js';
-    a[sApiJsTag] = 'public/query/query.js';
+    a[sMouseSet] = p + '/page/mouse/set.js';
+    a[sApiJsTag] = 'pub/query/query.js';
 
-    a[sResetCssTag] = 'public/reset.css';
-    a[sPubCssTag] = 'public/' + p + '/public.css';
+    a[sResetCssTag] = 'pub/reset.css';
+    a[sPubCssTag] = 'pub/' + p + '/pub.css';
     a[sUserCss1Tag] = 'personalized/color/1.css';
     a[sUserCss2Tag] = 'personalized/color/2.css';
     a[sUserCss3Tag] = 'personalized/color/3.css';
@@ -164,7 +164,7 @@ const aVersion = {
  */
 function getIncrementUpdateTag (f) {
     if (!bGetStaticResourceFromCache) {
-        return '&a=true';
+        return '&a=1';
     }
 
     let v = aVersion[f];
@@ -174,7 +174,7 @@ function getIncrementUpdateTag (f) {
 
     let t = getStaticResourceLastCacheTime(f);
     if (!t) {
-        return '&a=true';
+        return '&a=1';
     }
 
     let w = v['updtae'];

@@ -2,10 +2,10 @@
 
 /*16da63640be0a4c9*/var sBaseShadeId = 'base_shade';/*16da63640be0a4c9*/
 
-/*f0196c4afb85054e*/let sBaseShadeCenterDomClass = 'base_shade_center';
-let sBaseShadeCenterSonDomClass = 'base_shade_center_son';
-let sBaseShadeCenterSonClass = 'base_shade_center_sons';
-let sBaseShadeCenterSonNowClass = 'base_shade_center_son_now';
+/*f0196c4afb85054e*/let sBaseShadeCenterDomClass = 'b_shade_cent';
+let sBaseShadeCenterSonDomClass = 'b_shade_cent_son';
+let sBaseShadeCenterSonClass = 'b_shade_cent_sons';
+let sBaseShadeCenterSonNowClass = 'b_shade_cent_son_now';
 /*f0196c4afb85054e*/
 
 /*ab201f54fc997f78*/let sNoticeTitleClass = 'notice_head';
@@ -48,7 +48,7 @@ function writeNotice () {
     domById(sNoticeTitleClass + '_span').innerHTML = 'ss';
     domById(sNoticeFootClass + '_span').innerHTML = 'ss';
 
-    requires([sDomFuncJsTag], function () {
+    requires([sDomFunc], function () {
         asyn('bindNoticeFoot');
 
         asyn('replaceLang', sReplaceLangIdType, sDomNoticeId);

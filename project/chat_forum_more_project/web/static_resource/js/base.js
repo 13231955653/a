@@ -148,7 +148,7 @@ b['replaceLangs'] = t;
 b['loadPublicCss'] = t;
 b['loadPersonalizedCss'] = t;
 b['loadVariableCss'] = t;
-b['threeClassBodyDom'] = t;
+b['threeBodyDom'] = t;
 // b['showIndexShade'] = t;
 b['loadLocalJquery1'] = t;
 // b['clearIndexShade'] = t;
@@ -188,7 +188,7 @@ b['showShade'] = t;
 b['loadPageJs'] = t;
 b['clearPlatformShade'] = t;
 b['clearPageShade'] = t;
-b['bindFooterOnclick'] = t;
+b['bindFootClick'] = t;
 b['clearBaseShade'] = t;
 b['loadStaticResource'] = t;
 // b['timeOutBaseShade'] = 300;
@@ -247,22 +247,20 @@ const iNoticeTimeLimit = 3600000;
 //时间相关=======================/*6d0af007b1b15e5c*/
 
 /*2355292fdec0dbed*///class id tag 相关----------------
-const sForumBodyId = 'forum_body';
-const sChatBodyId = 'chat_body';
-const sFriendBodyId = 'friend_body';
-const sSettingBodyId = 'setting_body';
-const sAboutMeBodyId = 'about_me_body';
+// const sForumBodyId = 'forum_body';
+// const sChatBodyId = 'chat_body';
+// const sFriendBodyId = 'friend_body';
+// const sSettingBodyId = 'setting_body';
+// const sAboutMeBodyId = 'about_body';
 
-const sForumPage = 'forum';
-const sChatPage = 'chat';
-const sFriendPage = 'friend';
-const sAboutMePage = 'about_me';
-const sSettingPage = 'setting';
-var sDefaultPageHtml = 'index.html';
+// var sForumPage = 'forum';
+// var sChatPage = 'chat';
+// var sFriendPage = 'friend';
+// var sAboutMePage = 'about';
+// var sSettingPage = 'set';
+// var sDefaultPageHtml = 'index.html';
 
-const sFootTag = '_foot';
-const sFootLiSuffix = '_li';
-const sActiveFootTag = 'foot_active';
+
 
 const sReLangClass = 're_lang';
 const sReplaceLangIdType = 'id';
@@ -387,7 +385,7 @@ function loadPageJs () {
     let m = '';
     switch (sPageNow) {
         case sForumPage:
-            sNowPageJs = sForumJsTag;
+            sNowPageJs = sForum;
             m = sMouseForum;
             break;
         case sChatPage:
@@ -445,7 +443,7 @@ function afterLoadPageJs () {
 
     asyn(sPageNow + 'Begin');
 
-    asyn('updateActiveFooter');
+    asyn('updateActiveFoot');
 }/*3ed8ed97f79fa3d8*/
 
 /*032a659ac3907d66*//**
@@ -933,7 +931,7 @@ function secondDom () {
     o.innerHTML = s;
 
     // asyn('fatherDom');
-    asyn('threeClassBodyDom');
+    asyn('threeBodyDom');
 
     // asyn('shadeDom');
     asyn('writeShades');

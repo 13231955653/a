@@ -34,7 +34,7 @@ const iRequertTimeout = 9000;
 let sNowLang = '';
 //语言相关===========
 //id class tag相关--------------------
-const oDomStorageId = 'storage_father';
+const oDomStorageId = 'storage_f';
 //id class tag相关=================
 //用户自定义相关-------------------
 const iDefaultUserPersonalizedColor = 1;
@@ -1071,7 +1071,7 @@ function loadStaticResource (f, q = false) {
             b = 'afterLoadStrFunc1';
             c = 'js';
             break;
-        case sDomFuncJsTag :
+        case sDomFunc :
             a = 'afterLoadDomFunc';
             b = 'afterLoadDomFunc1';
             c = 'js';
@@ -1126,7 +1126,7 @@ function loadStaticResource (f, q = false) {
             b = 'afterLoadPlatformDomJs1';
             c = 'js';
             break;
-        case sLogicJsTag :
+        case sLogic :
             a = 'afterLoadLogicJs';
             b = 'afterLoadLogicJs1';
             c = 'js';
@@ -1146,7 +1146,7 @@ function loadStaticResource (f, q = false) {
             b = 'afterLoadEncode1';
             c = 'js';
             break;
-        case sForumJsTag:
+        case sForum:
             a = 'afterLoadPage';
             b = 'afterLoadPage1';
             c = 'js';
@@ -1308,7 +1308,7 @@ function afterLoadApi1 (v = '') {
 }
 function afterLoadLang () {
     setInLoadStaticResource(sNowLang, false);
-    asyn('langBegin');
+    asyn(sNowLang + 'Begin');
 }
 function afterLoadLang1 (v = '') {
     if (v) {
@@ -1500,7 +1500,7 @@ function afterLoadStrFunc1 (v = '') {
 }
 function afterLoadDomFunc () {
     asyn('domFunctionBegin');
-    setInLoadStaticResource(sDomFuncJsTag, false);
+    setInLoadStaticResource(sDomFunc, false);
 }
 function afterLoadDomFunc1 (v = '') {
     if (v) {
@@ -1511,8 +1511,8 @@ function afterLoadDomFunc1 (v = '') {
         return;
     }
 
-    aInLoadStaticResource[sDomFuncJsTag] = false;
-    asyn('loadStaticResource', sDomFuncJsTag, true);
+    aInLoadStaticResource[sDomFunc] = false;
+    asyn('loadStaticResource', sDomFunc, true);
 }
 /**
  *
@@ -1583,7 +1583,7 @@ function afterLoadPlatformDomJs1 (v = '') {
  *
  */
 function afterLoadLogicJs () {
-    setInLoadStaticResource(sLogicJsTag, false);
+    setInLoadStaticResource(sLogic, false);
     asyn('logicBegin');
 }
 function afterLoadLogicJs1 (v = '') {
@@ -1595,8 +1595,8 @@ function afterLoadLogicJs1 (v = '') {
         return;
     }
 
-    aInLoadStaticResource[sLogicJsTag] = false;
-    asyn('loadStaticResource', sLogicJsTag, true);
+    aInLoadStaticResource[sLogic] = false;
+    asyn('loadStaticResource', sLogic, true);
 }
 //用户语言
 function queryUserLang () {
@@ -1730,7 +1730,7 @@ function loadStaticFile () {
 
     asyn('loadStaticResource', sPlatDomJsTag);
 
-    asyn('loadStaticResource', sLogicJsTag);
+    asyn('loadStaticResource', sLogic);
 
     asyn('loadLang');
 
@@ -1881,7 +1881,7 @@ function checkStaticResource (j) {
         case sEncodeJsTag :
             return typeof window['encodeBegin'] != 'undefined' ? true : false;
             break;
-        case sDomFuncJsTag :
+        case sDomFunc :
             return typeof window['domFunctionBegin'] != 'undefined' ? true : false;
             break;
         case sStrFunc :
@@ -1907,6 +1907,9 @@ function checkStaticResource (j) {
             break;
         case sMouseSet :
             return typeof window['mouseSetBegin'] != 'undefined' ? true : false;
+            break;
+        case sCnLangJsTag :
+            return typeof window['cn_langBegin'] != 'undefined' ? true : false;
             break;
     }
 
