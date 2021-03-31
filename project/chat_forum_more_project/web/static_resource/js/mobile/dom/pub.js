@@ -25,6 +25,10 @@ const sPubBodyD = 'pub_body';
 const sPubLeftD = 'pub_left';
 const sPubRightD = 'pub_right';
 
+const sOneHead = 'one_h';
+const sTwoHead = 'two_h';
+const sThreeHead = 'three_h';
+
 const aSecondBody = [
     sForumPage,
     sChatPage,
@@ -32,6 +36,8 @@ const aSecondBody = [
     sAboutMePage,
     sSettingPage,
 ];
+
+const sPageTitSuffix = '_page_t';
 
 const sUpdateUrlPageKey = '_upd_url_page';
 const sFootClick = 'foot_c';/*9429d793fa750360*/
@@ -104,7 +110,7 @@ function bRightDom () {
     }
 
     let s = '';
-    s += '<div id="' + sPubHeadD + '">';
+    s += '<div id="' + sPubHeadD + '" class="' + sFullWidthClass + '">';
 
     let a = aSecondBody;
     for (let i in a) {
@@ -122,7 +128,7 @@ function bRightDom () {
     }
 
     let s = '';
-    s += '<div id="' + sPubBodyD + '">';
+    s += '<div id="' + sPubBodyD + '" class="' + sFullWidthClass + '">';
 
     let a = aSecondBody;
     for (let i in a) {
@@ -140,7 +146,7 @@ function bRightDom () {
     }
 
     let s = '';
-    s += '<div id="' + sBHeadD + d + '">';
+    s += '<div id="' + sBHeadD + d + '" class="' + sFullWidthClass + '">';
     s += '</div>';
     return s;
 }/*56b538473f0f3166*/
@@ -151,7 +157,7 @@ function bRightDom () {
     }
 
     let s = '';
-    s += '<div id="' + sBBodyD + d + '">';
+    s += '<div id="' + sBBodyD + d + '" class="' + sFullWidthClass + '">';
     s += '</div>';
     return s;
 }/*12c3163a66add709*/
@@ -162,7 +168,7 @@ function bRightDom () {
     }
 
     let s = '';
-    s += '<div id="' + sPubFootD + '">';
+    s += '<div id="' + sPubFootD + '" class="' + sFullWidthClass + '">';
 
     s += '<ul>';
 

@@ -217,10 +217,12 @@ const oDomFatherId = 'dom_f';
 const sDomNoticeId = 'notice_f';
 const sDomShadeId = 'shade_f';
 
+const sFullWidthClass = 'full_w';
+
 const sQueryOneMmPxId = 'get_one_mms_px';
 
 const sInvisibleClass = 'invisible'; //不显示dom的class
-const sVisibleClass = 'gradually_visible';//显示dom的class
+const sVisibleClass = 'visible';//显示dom的class
 //class id tag 相关============/*3d6db13f8bf8dde2*/
 
 /*3d6db13f8bf8dde2*///尺寸相关----------------
