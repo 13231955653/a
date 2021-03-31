@@ -213,9 +213,9 @@ var sBaseShadeId = 'base_shade';
 // var sPageShadeId = 'page_shade';
 
 const sBodyDomFatherId = 'body';
-const oDomFatherId = 'dom_father';
-const sDomNoticeId = 'notice_father';
-const sDomShadeId = 'shade_father';
+const oDomFatherId = 'dom_f';
+const sDomNoticeId = 'notice_f';
+const sDomShadeId = 'shade_f';
 
 const sQueryOneMmPxId = 'get_one_mms_px';
 
@@ -368,66 +368,49 @@ function randNum (i, a) {
  *
  * @type {boolean}
  */
-// let bInLoadPageJs = false;
 let sPageNow = '';
 let sNowPageJs = '';
 function loadPageJs () {
-    // if (bInLoadPageJs) {
-    //     return ;
-    // }
-    // bInLoadPageJs = true;
-
-    // asyn('showPageShade');
-
     sPageNow = getNowPage();
-    // console.log('dsadasdoooooooooooooooooooooooooooooooooooooo');
-    // console.log(sPageNow);
+
     let m = '';
+    let c = '';
+    let n = '';
     switch (sPageNow) {
         case sForumPage:
-            sNowPageJs = sForum;
+            c = sForum;
             m = sMouseForum;
+            n = sForumC;
             break;
         case sChatPage:
-            sNowPageJs = sChatJsTag;
+            c = sChatJ;
             m = sMouseChat;
+            n = sChatC;
             break;
         case sFriendPage:
-            sNowPageJs = sFriendJsTag;
+            c = sFriendJ;
             m = sMouseFriend;
+            n = sFriendC;
             break;
         case sSettingPage:
-            sNowPageJs = sSetJsTag;
+            c = sSetJ;
             m = sMouseSet;
+            n = sSetC;
             break;
         case sAboutMePage:
-            sNowPageJs = sAboutJsTag;
+            c = sAboutJ;
             m = sMouseAboutMe;
+            n = sAboutC;
             break;
     }
-    // console.log(sNowPageJs);
-
-    if (!sNowPageJs) {
+    if (!c) {
         return false;
     }
+    sNowPageJs = c;
 
-    // if (!checkRequestJsCssLimit('js', 'loadPageJs_' + j)) {
-    //     return false;
-    // }
-
-    // let t1 = setTimeout(function () {
-    //     clearTimeout(t1);
-    //
-    //     changeDomFatherOpacity();
-    // }, 0);
-
-    // let t3 = setTimeout(function () {
-    //     clearTimeout(t3);
-
-        asyn('loadStaticResource', sNowPageJs);
-        asyn('loadStaticResource', m);
-        // initStaticResource(j, 'js', 'afterLoadPageJs');
-    // }, 0);
+    asyn('loadStaticResource', m);
+    asyn('loadStaticResource', sNowPageJs);
+    asyn('loadStaticResource', n);
 }
 function afterLoadPageJs () {
     if (typeof window['urlDecode'] == 'undefined') {
@@ -1202,7 +1185,7 @@ function setContent (n = '') {
     // clearPlatformShade();
     // asyn('clearPageShade');
     // asyn('clearBaseShade');
-    requires([sPubDomJsTag], function () {
+    requires([sPubDomJ], function () {
         asyn('clearBaseShade');
 
         asyn('replaceClassNameToShow', domById(oDomFatherId));

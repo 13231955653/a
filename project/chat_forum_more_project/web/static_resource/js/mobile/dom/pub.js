@@ -34,7 +34,7 @@ const aSecondBody = [
 ];
 
 const sUpdateUrlPageKey = '_upd_url_page';
-const sFootClick = 'foot_click';/*9429d793fa750360*/
+const sFootClick = 'foot_c';/*9429d793fa750360*/
 
 /*637c85dcfd18cc0b*/let bWriteBody = false;
 function threeBodyDom() {
@@ -50,7 +50,7 @@ function threeBodyDom() {
     fatherDom().innerHTML = s;
     s = null;
 
-    requires([sLogic, sDomFunc], function () {
+    requires([sLogicJ, sDomFunc], function () {
         asyn('bindFootClick');
     });
 

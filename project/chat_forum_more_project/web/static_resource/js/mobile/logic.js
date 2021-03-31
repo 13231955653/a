@@ -9,8 +9,6 @@
  */
 let sLastPage = '';
 function updUrlPage (p = '') {
-    console.log('zzzzzzzzzzzzzzzzzzzzzzzzzzzsssssszzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz');
-    // console.log('updUrlPage begin, p ' + p);
     if (!p) {
         return;
     }
@@ -22,20 +20,20 @@ function updUrlPage (p = '') {
     sLastPage = p;
 
     // asyn('showBaseShade');
-    requires([sPubDomJsTag], function () {
+    requires([sPubDomJ], function () {
         asyn('showBaseShade');
     });
 
     // console.log('ddddddddddddddddddddddddddddddddd');
     // console.log(p);
     // asyn('updateUrlPage', p);
-    requires([sEncodeJsTag, sFuncJsTag, sStrFunc], function () {
+    requires([sEncodeJ, sFuncJ, sStrFunc], function () {
         asyn('updateUrlPage', p);
     });
 
     console.log('点击过后需要检测当前页面是否需要刷新');
     // asyn('clearBaseShade');
-    requires([sPubDomJsTag], function () {
+    requires([sPubDomJ], function () {
         asyn('clearBaseShade');
     });
 }/*85d5758838981137*/
@@ -120,7 +118,7 @@ function updateUrlPage (p = '') {
     //
     //     updateUrlArg (sUrlAddressPageKey, p, t, f);
     // }, 0);
-    requires([sArrayFuncJsTag], function () {
+    requires([sArrFuncJ], function () {
         // asyn('clearShade', o);
         // clearShade(o);
         let z = setTimeout(function () {
@@ -193,7 +191,7 @@ function updateUrlArg (k = '', v = '', t = '', c = false) {
 /*efd16af9fb242e81*/function logicBegin () {
     console.log('666666666666666666logicBegin');
     // asyn('updateUrlPage');
-    requires([sEncodeJsTag, sMd5JsTag, sFuncJsTag, sStrFunc], function () {
+    requires([sEncodeJ, sMd5J, sFuncJ, sStrFunc], function () {
         // console.log('zxcccccccccccccccccccccccccccccccccccccc');
         asyn('updateUrlPage');
     });

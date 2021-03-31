@@ -301,7 +301,7 @@ function clearShades (d) {
 function showShades (d) {
     switch (d) {
         case sBaseShadeId :
-            requires([sFuncJsTag], function () {
+            requires([sFuncJ], function () {
                 asyn('baseShade');
             });
             break;

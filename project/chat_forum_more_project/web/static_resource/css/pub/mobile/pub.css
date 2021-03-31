@@ -22,7 +22,7 @@
     left: 0px;
     top: 0px;
 }
-#dom_father{
+#dom_f{
     width: 100%;
     height: 100%;
     position: absolute;
@@ -127,14 +127,14 @@
 .b_shade_cent_son_now{
     background: var(--b_shade_center_son_now_bk);
 }
-#notice_father{
+#notice_f{
     width: 100%;
     height: 100%;
     position: absolute;
     top: 0px;
     left: 0px;
     z-index: 2100000000 !important;
-    background: var(--notice_father_bk);
+    background: var(--notice_f_bk);
 }
 .notice_head{
     width: 100%;

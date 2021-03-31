@@ -85,7 +85,7 @@ function mouseClick () {
     makeZeroToutchTime();
     if (a > iLongShortClickLimit) {
         console.log('长按');
-        requires([sFuncJsTag], function () {
+        requires([sFuncJ], function () {
             let p = getNowPage();
 
             window[p + 'LongClick']();
@@ -110,7 +110,7 @@ function mouseClick () {
  */
 function mouseRight (p = '') {
     console.log('向右');
-    requires([sFuncJsTag], function () {
+    requires([sFuncJ], function () {
         let p = getNowPage();
 
         window[p + 'Right']();
@@ -124,7 +124,7 @@ function mouseRight (p = '') {
  */
 function mouseLeft (p = '') {
     console.log('向左');
-    requires([sFuncJsTag], function () {
+    requires([sFuncJ], function () {
         let p = getNowPage();
 
         window[p + 'Left']();
@@ -138,7 +138,7 @@ function mouseLeft (p = '') {
  */
 function mouseDown (p = '') {
     console.log('向下');
-    requires([sFuncJsTag], function () {
+    requires([sFuncJ], function () {
         let p = getNowPage();
 
         window[p + 'Down']();
@@ -152,7 +152,7 @@ function mouseDown (p = '') {
  */
 function mouseTop (p = '') {
     console.log('向上');
-    requires([sFuncJsTag], function () {
+    requires([sFuncJ], function () {
         let p = getNowPage();
 
         window[p + 'Top']();

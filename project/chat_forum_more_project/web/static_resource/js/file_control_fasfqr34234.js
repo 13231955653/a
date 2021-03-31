@@ -21,10 +21,10 @@ const sStoragePage = 'storage.html';
 const sStaticResourceLocalstoragePrefix = 'static_resource_';
 //localstorage相关=============================
 //meta标签相关----------------
-const sFinalMetaTagId = 'copyright_content';
+const sFinalMetaTagId = 'copy_cont';
 //meta标签相关=====================
 //class id tag 相关----------------
-const sIndexScriptTagId = 'final_js_script_link'; // 第一个 script 标签
+const sIndexScriptTagId = 'final_js_tag'; // 第一个 script 标签
 //class id tag 相关===============
 //时间相关---------------------
 const sLastCacheStaticResourceTimeTag = 'last_cache_static_resource_';
@@ -1026,6 +1026,31 @@ function loadStaticResource (f, q = false) {
             b = 'afterLoadMouseFriend1';
             c = 'js';
             break;
+        case sAboutC :
+            a = 'afterLoadAboutC';
+            b = 'afterLoadAboutC1';
+            c = 'css';
+            break;
+        case sChatC :
+            a = 'afterLoadChatC';
+            b = 'afterLoadChatC1';
+            c = 'css';
+            break;
+        case sForumC :
+            a = 'afterLoadForumC';
+            b = 'afterLoadForumC1';
+            c = 'css';
+            break;
+        case sFriendC :
+            a = 'afterLoadFriendC';
+            b = 'afterLoadFriendC1';
+            c = 'css';
+            break;
+        case sSetC :
+            a = 'afterLoadSetC';
+            b = 'afterLoadSetC1';
+            c = 'css';
+            break;
         case sMouseSet :
             a = 'afterLoadMouseSet';
             b = 'afterLoadMouseSet1';
@@ -1046,7 +1071,7 @@ function loadStaticResource (f, q = false) {
             b = 'afterLoadMouseAboutMe1';
             c = 'js';
             break;
-        case sMouseJs :
+        case sMouseJ :
             a = 'afterLoadMouse';
             b = 'afterLoadMouse1';
             c = 'js';
@@ -1056,12 +1081,12 @@ function loadStaticResource (f, q = false) {
             b = 'afterLoadRsa1';
             c = 'js';
             break;
-        case sArrayFuncJsTag :
+        case sArrFuncJ :
             a = 'afterLoadArrayFunc';
             b = 'afterLoadArrayFunc1';
             c = 'js';
             break;
-        case sMd5JsTag :
+        case sMd5J :
             a = 'afterLoadMd5';
             b = 'afterLoadMd51';
             c = 'js';
@@ -1076,72 +1101,62 @@ function loadStaticResource (f, q = false) {
             b = 'afterLoadDomFunc1';
             c = 'js';
             break;
-        case sUserCss1Tag :
+        case sUserC1 :
             a = 'afterLoadUserColor';
             b = 'afterLoadUserColor1';
             c = 'css';
             break;
-        case sUserCss2Tag :
-            a = 'afterLoadUserColor';
-            b = 'afterLoadUserColor1';
-            c = 'css';
-            break;
-        case sUserCss3Tag :
-            a = 'afterLoadUserColor';
-            b = 'afterLoadUserColor1';
-            c = 'css';
-            break;
-        case sPubCssTag :
+        case sPubC :
             a = 'afterLoadPublicCss';
             b = 'afterLoadPublicCss1';
             c = 'css';
             break;
-        case sResetCssTag :
+        case sResetC :
             a = 'afterLoadResetCss';
             b = 'afterLoadResetCss1';
             c = 'css';
             break;
-        case sJqueryJsTag :
+        case sJqueryJ :
             a = 'afterLoadLocalJquery';
             b = 'afterLoadLocalJquery1';
             c = 'js';
             break;
-        case sBaseJsTag :
+        case sBaseJ :
             a = 'afterLoadBaseJs';
             b = 'afterLoadBaseJs1';
             c = 'js';
             break;
-        case sFuncJsTag :
+        case sFuncJ :
             a = 'afterLoadFunctionJs';
             b = 'afterLoadFunctionJs1';
             c = 'js';
             break;
-        case sPubDomJsTag :
+        case sPubDomJ :
             a = 'afterLoadDomJs';
             b = 'afterLoadDomJs1';
             c = 'js';
             break;
-        case sPlatDomJsTag :
+        case sPlatDomJ :
             a = 'afterLoadPlatformDomJs';
             b = 'afterLoadPlatformDomJs1';
             c = 'js';
             break;
-        case sLogic :
+        case sLogicJ :
             a = 'afterLoadLogicJs';
             b = 'afterLoadLogicJs1';
             c = 'js';
             break;
-        case sCnLangJsTag :
+        case sCnLangJ :
             a = 'afterLoadLang';
             b = 'afterLoadLang1';
             c = 'js';
             break;
-        case sApiJsTag :
+        case sApiJ :
             a = 'afterLoadApi';
             b = 'afterLoadApi1';
             c = 'js';
             break;
-        case sEncodeJsTag :
+        case sEncodeJ :
             a = 'afterLoadEncode';
             b = 'afterLoadEncode1';
             c = 'js';
@@ -1151,22 +1166,22 @@ function loadStaticResource (f, q = false) {
             b = 'afterLoadPage1';
             c = 'js';
             break;
-        case sChatJsTag:
+        case sChatJ:
             a = 'afterLoadPage';
             b = 'afterLoadPage1';
             c = 'js';
             break;
-        case sFriendJsTag:
+        case sFriendJ:
             a = 'afterLoadPage';
             b = 'afterLoadPage1';
             c = 'js';
             break;
-        case sSetJsTag:
+        case sSetJ:
             a = 'afterLoadPage';
             b = 'afterLoadPage1';
             c = 'js';
             break;
-        case sAboutJsTag:
+        case sAboutJ:
             a = 'afterLoadPage';
             b = 'afterLoadPage1';
             c = 'js';
@@ -1212,8 +1227,83 @@ function afterLoadUserColor1 (v = '') {
     aInLoadStaticResource[sPersonalizedCss] = false;
     asyn('loadStaticResource', sPersonalizedCss, true);
 }
+function afterLoadSetC () {
+    setInLoadStaticResource(sSetC, false);
+}
+function afterLoadSetC1 (v = '') {
+    if (v) {
+        asyn('afterLoadStaticResource', v, 'css');
+
+        asyn('afterLoadSetC');
+
+        return;
+    }
+
+    aInLoadStaticResource[sSetC] = false;
+    asyn('loadStaticResource', sSetC, true);
+}
+function afterLoadAboutC () {
+    setInLoadStaticResource(sAboutC, false);
+}
+function afterLoadAboutC1 (v = '') {
+    if (v) {
+        asyn('afterLoadStaticResource', v, 'css');
+
+        asyn('afterLoadAboutC');
+
+        return;
+    }
+
+    aInLoadStaticResource[sAboutC] = false;
+    asyn('loadStaticResource', sAboutC, true);
+}
+function afterLoadFriendC () {
+    setInLoadStaticResource(sFriendC, false);
+}
+function afterLoadFriendC1 (v = '') {
+    if (v) {
+        asyn('afterLoadStaticResource', v, 'css');
+
+        asyn('afterLoadFriendC');
+
+        return;
+    }
+
+    aInLoadStaticResource[sFriendC] = false;
+    asyn('loadStaticResource', sFriendC, true);
+}
+function afterLoadChatC () {
+    setInLoadStaticResource(sChatC, false);
+}
+function afterLoadChatC1 (v = '') {
+    if (v) {
+        asyn('afterLoadStaticResource', v, 'css');
+
+        asyn('afterLoadChatC');
+
+        return;
+    }
+
+    aInLoadStaticResource[sChatC] = false;
+    asyn('loadStaticResource', sChatC, true);
+}
+function afterLoadForumC () {
+    setInLoadStaticResource(sForumC, false);
+}
+function afterLoadForumC1 (v = '') {
+    if (v) {
+        asyn('afterLoadStaticResource', v, 'css');
+
+        asyn('afterLoadForumC');
+
+        return;
+    }
+
+    aInLoadStaticResource[sForumC] = false;
+    asyn('loadStaticResource', sForumC, true);
+}
 function afterLoadPublicCss () {
-    setInLoadStaticResource(sPubCssTag, false);
+    setInLoadStaticResource(sPubC, false);
 }
 function afterLoadPublicCss1 (v = '') {
     if (v) {
@@ -1224,11 +1314,11 @@ function afterLoadPublicCss1 (v = '') {
         return;
     }
 
-    aInLoadStaticResource[sPubCssTag] = false;
-    asyn('loadStaticResource', sPubCssTag, true);
+    aInLoadStaticResource[sPubC] = false;
+    asyn('loadStaticResource', sPubC, true);
 }
 function afterLoadResetCss () {
-    setInLoadStaticResource(sResetCssTag, false);
+    setInLoadStaticResource(sResetC, false);
 }
 function afterLoadResetCss1 (v = '') {
     if (v) {
@@ -1239,8 +1329,8 @@ function afterLoadResetCss1 (v = '') {
         return;
     }
 
-    aInLoadStaticResource[sResetCssTag] = false;
-    asyn('loadStaticResource', sResetCssTag, true);
+    aInLoadStaticResource[sResetC] = false;
+    asyn('loadStaticResource', sResetC, true);
 }
 function afterLoadPage () {
     asyn('afterLoadPageJs');
@@ -1260,7 +1350,7 @@ function afterLoadPage1 (v = '') {
     asyn('loadStaticResource', sNowPageJs, true);
 }
 function afterLoadLocalJquery () {
-    setInLoadStaticResource(sJqueryJsTag, false);
+    setInLoadStaticResource(sJqueryJ, false);
 }
 function afterLoadLocalJquery1 (v = '') {
     if (v) {
@@ -1271,11 +1361,11 @@ function afterLoadLocalJquery1 (v = '') {
         return;
     }
 
-    aInLoadStaticResource[sJqueryJsTag] = false;
-    asyn('loadStaticResource', sJqueryJsTag, true);
+    aInLoadStaticResource[sJqueryJ] = false;
+    asyn('loadStaticResource', sJqueryJ, true);
 }
 function afterLoadEncode () {
-    setInLoadStaticResource(sEncodeJsTag, false);
+    setInLoadStaticResource(sEncodeJ, false);
     asyn('encodeBegin');
 }
 function afterLoadEncode1 (v = '') {
@@ -1287,11 +1377,11 @@ function afterLoadEncode1 (v = '') {
         return;
     }
 
-    aInLoadStaticResource[sEncodeJsTag] = false;
-    asyn('loadStaticResource', sEncodeJsTag, true);
+    aInLoadStaticResource[sEncodeJ] = false;
+    asyn('loadStaticResource', sEncodeJ, true);
 }
 function afterLoadApi () {
-    setInLoadStaticResource(sApiJsTag, false);
+    setInLoadStaticResource(sApiJ, false);
     asyn('apiBegin');
 }
 function afterLoadApi1 (v = '') {
@@ -1303,8 +1393,8 @@ function afterLoadApi1 (v = '') {
         return;
     }
 
-    aInLoadStaticResource[sApiJsTag] = false;
-    asyn('loadStaticResource', sApiJsTag, true);
+    aInLoadStaticResource[sApiJ] = false;
+    asyn('loadStaticResource', sApiJ, true);
 }
 function afterLoadLang () {
     setInLoadStaticResource(sNowLang, false);
@@ -1323,7 +1413,7 @@ function afterLoadLang1 (v = '') {
     asyn('loadStaticResource', sNowLang, true);
 }
 function afterLoadBaseJs () {
-    setInLoadStaticResource(sBaseJsTag, false);
+    setInLoadStaticResource(sBaseJ, false);
     asyn('baseBegins');
 }
 function afterLoadBaseJs1 (v = '') {
@@ -1335,12 +1425,12 @@ function afterLoadBaseJs1 (v = '') {
         return;
     }
 
-    aInLoadStaticResource[sBaseJsTag] = false;
-    asyn('loadStaticResource', sBaseJsTag, true);
+    aInLoadStaticResource[sBaseJ] = false;
+    asyn('loadStaticResource', sBaseJ, true);
 }
 function afterLoadMd5 () {
     asyn('md5Begin');
-    setInLoadStaticResource(sMd5JsTag, false);
+    setInLoadStaticResource(sMd5J, false);
 }
 function afterLoadMd51 (v = '') {
     if (v) {
@@ -1351,8 +1441,8 @@ function afterLoadMd51 (v = '') {
         return;
     }
 
-    aInLoadStaticResource[sMd5JsTag] = false;
-    asyn('loadStaticResource', sMd5JsTag, true);
+    aInLoadStaticResource[sMd5J] = false;
+    asyn('loadStaticResource', sMd5J, true);
 }
 function afterLoadMouseSet () {
     asyn('mouseSetBegin');
@@ -1436,7 +1526,7 @@ function afterLoadMouseAboutMe1 (v = '') {
 }
 function afterLoadMouse () {
     asyn('mouseBegin');
-    setInLoadStaticResource(sMouseJs, false);
+    setInLoadStaticResource(sMouseJ, false);
 }
 function afterLoadMouse1 (v = '') {
     if (v) {
@@ -1447,8 +1537,8 @@ function afterLoadMouse1 (v = '') {
         return;
     }
 
-    aInLoadStaticResource[sMouseJs] = false;
-    asyn('loadStaticResource', sMouseJs, true);
+    aInLoadStaticResource[sMouseJ] = false;
+    asyn('loadStaticResource', sMouseJ, true);
 }
 function afterLoadRsa () {
     asyn('arrayFunctionBegin');
@@ -1468,7 +1558,7 @@ function afterLoadRsa1 (v = '') {
 }
 function afterLoadArrayFunc () {
     asyn('arrayFunctionBegin');
-    setInLoadStaticResource(sArrayFuncJsTag, false);
+    setInLoadStaticResource(sArrFuncJ, false);
 }
 function afterLoadArrayFunc1 (v = '') {
     if (v) {
@@ -1479,8 +1569,8 @@ function afterLoadArrayFunc1 (v = '') {
         return;
     }
 
-    aInLoadStaticResource[sArrayFuncJsTag] = false;
-    asyn('loadStaticResource', sArrayFuncJsTag, true);
+    aInLoadStaticResource[sArrFuncJ] = false;
+    asyn('loadStaticResource', sArrFuncJ, true);
 }
 function afterLoadStrFunc () {
     asyn('stringFunctionBegin');
@@ -1521,7 +1611,7 @@ function afterLoadDomFunc1 (v = '') {
  */
 function afterLoadFunctionJs () {
     asyn('functionBegin');
-    setInLoadStaticResource(sFuncJsTag, false);
+    setInLoadStaticResource(sFuncJ, false);
 }
 function afterLoadFunctionJs1 (v = '') {
     if (v) {
@@ -1532,8 +1622,8 @@ function afterLoadFunctionJs1 (v = '') {
         return;
     }
 
-    aInLoadStaticResource[sFuncJsTag] = false;
-    asyn('loadStaticResource', sFuncJsTag, true);
+    aInLoadStaticResource[sFuncJ] = false;
+    asyn('loadStaticResource', sFuncJ, true);
 }
 /**
  *
@@ -1541,7 +1631,7 @@ function afterLoadFunctionJs1 (v = '') {
  *
  */
 function afterLoadDomJs () {
-    setInLoadStaticResource(sPubDomJsTag, false);
+    setInLoadStaticResource(sPubDomJ, false);
     asyn('domBegin');
 }
 function afterLoadDomJs1 (v = '') {
@@ -1553,8 +1643,8 @@ function afterLoadDomJs1 (v = '') {
         return;
     }
 
-    aInLoadStaticResource[sPubDomJsTag] = false;
-    asyn('loadStaticResource', sPubDomJsTag, true);
+    aInLoadStaticResource[sPubDomJ] = false;
+    asyn('loadStaticResource', sPubDomJ, true);
 }
 /**
  *
@@ -1562,7 +1652,7 @@ function afterLoadDomJs1 (v = '') {
  *
  */
 function afterLoadPlatformDomJs () {
-    setInLoadStaticResource(sPlatDomJsTag, false);
+    setInLoadStaticResource(sPlatDomJ, false);
     asyn('platformBegin');
 }
 function afterLoadPlatformDomJs1 (v = '') {
@@ -1574,8 +1664,8 @@ function afterLoadPlatformDomJs1 (v = '') {
         return;
     }
 
-    aInLoadStaticResource[sPlatDomJsTag] = false;
-    asyn('loadStaticResource', sPlatDomJsTag, true);
+    aInLoadStaticResource[sPlatDomJ] = false;
+    asyn('loadStaticResource', sPlatDomJ, true);
 }
 /**
  *
@@ -1583,7 +1673,7 @@ function afterLoadPlatformDomJs1 (v = '') {
  *
  */
 function afterLoadLogicJs () {
-    setInLoadStaticResource(sLogic, false);
+    setInLoadStaticResource(sLogicJ, false);
     asyn('logicBegin');
 }
 function afterLoadLogicJs1 (v = '') {
@@ -1595,8 +1685,8 @@ function afterLoadLogicJs1 (v = '') {
         return;
     }
 
-    aInLoadStaticResource[sLogic] = false;
-    asyn('loadStaticResource', sLogic, true);
+    aInLoadStaticResource[sLogicJ] = false;
+    asyn('loadStaticResource', sLogicJ, true);
 }
 //用户语言
 function queryUserLang () {
@@ -1698,10 +1788,10 @@ function loadLang (l = '') {
     l = l ? l : queryUserLang();
     switch (l) {
         case sDefaultLangvage :
-            sNowLang = sCnLangJsTag;
+            sNowLang = sCnLangJ;
             break;
         default :
-            sNowLang = sCnLangJsTag;
+            sNowLang = sCnLangJ;
             break;
     }
     if (!sNowLang) {
@@ -1717,26 +1807,26 @@ function loadLang (l = '') {
  */
 function loadStaticFile () {
     if (sPlatformTag === sMobileTag) {
-        asyn('loadStaticResource', sMouseJs);
+        asyn('loadStaticResource', sMouseJ);
     }
 
-    asyn('loadStaticResource', sResetCssTag);
+    asyn('loadStaticResource', sResetC);
 
     asyn('loadPersonalizedCss');
 
-    asyn('loadStaticResource', sBaseJsTag);
+    asyn('loadStaticResource', sBaseJ);
 
-    asyn('loadStaticResource', sPubDomJsTag);
+    asyn('loadStaticResource', sPubDomJ);
 
-    asyn('loadStaticResource', sPlatDomJsTag);
+    asyn('loadStaticResource', sPlatDomJ);
 
-    asyn('loadStaticResource', sLogic);
+    asyn('loadStaticResource', sLogicJ);
 
     asyn('loadLang');
 
-    asyn('loadStaticResource', sJqueryJsTag);
+    asyn('loadStaticResource', sJqueryJ);
 
-    asyn('loadStaticResource', sPubCssTag);
+    asyn('loadStaticResource', sPubC);
 }
 function localstorageError1 () {
     alert('localstorage error, please retry reload !!! ');
@@ -1804,7 +1894,7 @@ function fileControlBegin () {
 
     setStatusResourceHost();
 
-    requires([sPubDomJsTag], function () {
+    requires([sPubDomJ], function () {
         asyn('showBaseShade');
     });
 
@@ -1875,10 +1965,10 @@ function requires (j = '', c = '') {
  */
 function checkStaticResource (j) {
     switch (j) {
-        case sFuncJsTag :
+        case sFuncJ :
             return typeof window['functionBegin'] != 'undefined' ? true : false;
             break;
-        case sEncodeJsTag :
+        case sEncodeJ :
             return typeof window['encodeBegin'] != 'undefined' ? true : false;
             break;
         case sDomFunc :
@@ -1887,10 +1977,10 @@ function checkStaticResource (j) {
         case sStrFunc :
             return typeof window['stringFunctionBegin'] != 'undefined' ? true : false;
             break;
-        case sArrayFuncJsTag :
+        case sArrFuncJ :
             return typeof window['arrayFunctionBegin'] != 'undefined' ? true : false;
             break;
-        case sMd5JsTag :
+        case sMd5J :
             return typeof window['md5Begin'] != 'undefined' ? true : false;
             break;
         case sMouseAboutMe :
@@ -1908,7 +1998,7 @@ function checkStaticResource (j) {
         case sMouseSet :
             return typeof window['mouseSetBegin'] != 'undefined' ? true : false;
             break;
-        case sCnLangJsTag :
+        case sCnLangJ :
             return typeof window['cn_langBegin'] != 'undefined' ? true : false;
             break;
     }

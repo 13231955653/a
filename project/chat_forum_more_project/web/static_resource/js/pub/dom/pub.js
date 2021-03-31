@@ -94,7 +94,7 @@ function writeShades () {
     let o = shadeDom();
     o.innerHTML = s;
 
-    requires([sFuncJsTag], function () {
+    requires([sFuncJ], function () {
         // replaceClassNameToShow(o);
         console.log('qqqqqqqqqqqzzzzzzzzzzzzzzzzzzzzzzzzzz');
         console.log(o);
