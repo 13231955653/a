@@ -719,25 +719,25 @@ function initStaticResource (j = '', t = '', c = '', r = '') {
     xhr.send(null);
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4 && xhr.status == 200) {
+            b = true;
+
             let v = xhr.responseText;
             v = v == null ? '' : v;
             v = JSON.parse(v);
-            console.log(v);
-            console.log(',,,,,,,,,,llllllllllllllllllllll');
 
-            // let z = setTimeout(function () {
-            //     clearTimeout(z);
+            let z = setTimeout(function () {
+                clearTimeout(z);
 
                 disposeResponse(v, t, r);
-            // }, 0);
+            }, 0);
 
             asyn('setStaticResourceLastCacheTime', r);
+
+            if (c) {
+                asyn(c);
+            }
         }
     };
-
-    if (c) {
-        asyn(c);
-    }
 }
 /**
  *
@@ -1021,6 +1021,31 @@ function loadStaticResource (f, q = false) {
     let b = '';
     let c = '';
     switch (f) {
+        case sMouseFriend :
+            a = 'afterLoadMouseFriend';
+            b = 'afterLoadMouseFriend1';
+            c = 'js';
+            break;
+        case sMouseSet :
+            a = 'afterLoadMouseSet';
+            b = 'afterLoadMouseSet1';
+            c = 'js';
+            break;
+        case sMouseForum :
+            a = 'afterLoadMouseForum';
+            b = 'afterLoadMouseForum1';
+            c = 'js';
+            break;
+        case sMouseChat :
+            a = 'afterLoadMouseChat';
+            b = 'afterLoadMouseChat1';
+            c = 'js';
+            break;
+        case sMouseAboutMe :
+            a = 'afterLoadMouseAboutMe';
+            b = 'afterLoadMouseAboutMe1';
+            c = 'js';
+            break;
         case sMouseJs :
             a = 'afterLoadMouse';
             b = 'afterLoadMouse1';
@@ -1328,6 +1353,86 @@ function afterLoadMd51 (v = '') {
 
     aInLoadStaticResource[sMd5JsTag] = false;
     asyn('loadStaticResource', sMd5JsTag, true);
+}
+function afterLoadMouseSet () {
+    asyn('mouseSetBegin');
+    setInLoadStaticResource(sMouseSet, false);
+}
+function afterLoadMouseSet1 (v = '') {
+    if (v) {
+        asyn('afterLoadStaticResource', v, 'js');
+
+        asyn('afterLoadMouseSet');
+
+        return;
+    }
+
+    aInLoadStaticResource[sMouseSet] = false;
+    asyn('loadStaticResource', sMouseSet, true);
+}
+function afterLoadMouseFriend () {
+    asyn('mouseFriendBegin');
+    setInLoadStaticResource(sMouseFriend, false);
+}
+function afterLoadMouseFriend1 (v = '') {
+    if (v) {
+        asyn('afterLoadStaticResource', v, 'js');
+
+        asyn('afterLoadMouseFriend');
+
+        return;
+    }
+
+    aInLoadStaticResource[sMouseFriend] = false;
+    asyn('loadStaticResource', sMouseFriend, true);
+}
+function afterLoadMouseForum () {
+    asyn('mouseForumBegin');
+    setInLoadStaticResource(sMouseForum, false);
+}
+function afterLoadMouseForum1 (v = '') {
+    if (v) {
+        asyn('afterLoadStaticResource', v, 'js');
+
+        asyn('afterLoadMouseForum');
+
+        return;
+    }
+
+    aInLoadStaticResource[sMouseForum] = false;
+    asyn('loadStaticResource', sMouseForum, true);
+}
+function afterLoadMouseChat () {
+    asyn('mouseChatBegin');
+    setInLoadStaticResource(sMouseChat, false);
+}
+function afterLoadMouseChat1 (v = '') {
+    if (v) {
+        asyn('afterLoadStaticResource', v, 'js');
+
+        asyn('afterLoadMouseChat');
+
+        return;
+    }
+
+    aInLoadStaticResource[sMouseChat] = false;
+    asyn('loadStaticResource', sMouseChat, true);
+}
+function afterLoadMouseAboutMe () {
+    asyn('mouseAboutMeBegin');
+    setInLoadStaticResource(sMouseAboutMe, false);
+}
+function afterLoadMouseAboutMe1 (v = '') {
+    if (v) {
+        asyn('afterLoadStaticResource', v, 'js');
+
+        asyn('afterLoadMouseAboutMe');
+
+        return;
+    }
+
+    aInLoadStaticResource[sMouseAboutMe] = false;
+    asyn('loadStaticResource', sMouseAboutMe, true);
 }
 function afterLoadMouse () {
     asyn('mouseBegin');
@@ -1787,6 +1892,21 @@ function checkStaticResource (j) {
             break;
         case sMd5JsTag :
             return typeof window['md5Begin'] != 'undefined' ? true : false;
+            break;
+        case sMouseAboutMe :
+            return typeof window['mouseAboutMeBegin'] != 'undefined' ? true : false;
+            break;
+        case sMouseChat :
+            return typeof window['mouseChatBegin'] != 'undefined' ? true : false;
+            break;
+        case sMouseForum :
+            return typeof window['mouseForumBegin'] != 'undefined' ? true : false;
+            break;
+        case sMouseFriend :
+            return typeof window['mouseFriendBegin'] != 'undefined' ? true : false;
+            break;
+        case sMouseSet :
+            return typeof window['mouseSetBegin'] != 'undefined' ? true : false;
             break;
     }
 

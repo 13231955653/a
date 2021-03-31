@@ -384,21 +384,27 @@ function loadPageJs () {
     sPageNow = getNowPage();
     // console.log('dsadasdoooooooooooooooooooooooooooooooooooooo');
     // console.log(sPageNow);
+    let m = '';
     switch (sPageNow) {
         case sForumPage:
             sNowPageJs = sForumJsTag;
+            m = sMouseForum;
             break;
         case sChatPage:
             sNowPageJs = sChatJsTag;
+            m = sMouseChat;
             break;
         case sFriendPage:
             sNowPageJs = sFriendJsTag;
+            m = sMouseFriend;
             break;
         case sSettingPage:
             sNowPageJs = sSetJsTag;
+            m = sMouseSet;
             break;
         case sAboutMePage:
             sNowPageJs = sAboutJsTag;
+            m = sMouseAboutMe;
             break;
     }
     // console.log(sNowPageJs);
@@ -417,12 +423,13 @@ function loadPageJs () {
     //     changeDomFatherOpacity();
     // }, 0);
 
-    let t3 = setTimeout(function () {
-        clearTimeout(t3);
+    // let t3 = setTimeout(function () {
+    //     clearTimeout(t3);
 
         asyn('loadStaticResource', sNowPageJs);
+        asyn('loadStaticResource', m);
         // initStaticResource(j, 'js', 'afterLoadPageJs');
-    }, 0);
+    // }, 0);
 }
 function afterLoadPageJs () {
     if (typeof window['urlDecode'] == 'undefined') {
@@ -1191,10 +1198,8 @@ function setContent (n = '') {
     // asyn('showPageShade');
     // showPageShade();
 
-    console.log('pageBegin 222222222222');
     // asyn('afterPageAction');
 
-    console.log('pageBegin 444444444444444444');
     // asyn('clearPlatformShade');
     // clearPlatformShade();
     // asyn('clearPageShade');
@@ -1202,8 +1207,6 @@ function setContent (n = '') {
     requires([sPubDomJsTag], function () {
         asyn('clearBaseShade');
 
-        console.log('zzzzzzzzzzzzzzzaaaaaaaaaaaaaaaa');
-        console.log(domById(oDomFatherId));
         asyn('replaceClassNameToShow', domById(oDomFatherId));
     });
 }/*346338dcd06aa266*/
@@ -1251,7 +1254,7 @@ function baseBegins () {
 
     asyn('winResize', true);
 
-    asyn('getUserIp');
+    // asyn('getUserIp');
 
     asyn('secondDom');
 

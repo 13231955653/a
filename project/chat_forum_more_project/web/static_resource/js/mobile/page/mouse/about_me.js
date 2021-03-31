@@ -1,0 +1,43 @@
+/*93b56196413b4680*//**
+ *
+ * 长按事件
+ *
+ */
+function about_meLongClick() {
+    console.log('about_meLongClick');
+}/*93b56196413b4680*/
+/*62e513e599224ddb*//**
+ *
+ * 上滑时间事件
+ *
+ */
+function about_meTop() {
+    console.log('about_meTop');
+}/*62e513e599224ddb*/
+/*c62eb15c5e96cd31*//**
+ *
+ * 右滑时间事件
+ *
+ */
+function about_meRight() {
+    console.log('about_meRight');
+}/*c62eb15c5e96cd31*/
+/*c62eb15c5e96cd31*//**
+ *
+ * 下滑时间事件
+ *
+ */
+function about_meDown() {
+    console.log('about_meDown');
+}/*c62eb15c5e96cd31*/
+/*1d4236e222ebee42*//**
+ *
+ * 左滑时间事件
+ *
+ */
+function about_meLeft() {
+    console.log('about_meLeft');
+}/*1d4236e222ebee42*/
+/*8d18ab4591d7e2dc*/function mouseAboutMeBegin () {
+    console.log('========================mouseAboutMeBegin begin');
+}/*8d18ab4591d7e2dc*/

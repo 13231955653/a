@@ -69,6 +69,34 @@ function navigatorInfo () {
     return s;
 }/*0aaa1d3a8252b634*/
 
+/*3182c8b17d05c5f7*//**
+ *
+ * 获取函数名
+ *
+ * @param c 调用函数的函数 type function
+ * @returns {string|boolean}
+ */
+let getFnName = function(c){
+    let _c = c.toString().replace(/[\s\?]*/g,''),
+        comb = _c.length >= 50 ? 50 :_c.length;
+    _c = _c.substring(0,comb);
+    let n = _c.match(/^function([^\(]+?)\(/);
+    if(n && n[1]){
+        return n[1];
+    }
+
+    let caller = c.caller,
+        _caller = caller.toString().replace(/[\s\?]*/g,'');
+    let last = _caller.indexOf(_c),
+        str = _caller.substring(last-30,last);
+    n = str.match(/var([^\=]+?)\=/);
+    if(n && n[1]){
+        return n[1];
+    }
+
+    return false;
+};/*3182c8b17d05c5f7*/
+
 /*304b98b4bf14d1b5*//**
  *
  * 获取现在页面  page 信息
@@ -97,24 +125,24 @@ function getUrlArgs (w = '') {
         return w ? '' : [];
     }
 
-    let sArg = s[1];
-    sArg = urlDecode(sArg);
-    if (sArg) {
-        let aArg = sArg.split('&');
-        let aUrlArgs = [];
-        let aOneArg = [];
-        for (let i in aArg) {
-            aOneArg = aArg[i].split('=');
-            aUrlArgs[aOneArg[0]] = aOneArg[1];
+    let a = s[1];
+    a = urlDecode(a);
+    if (a) {
+        let b = a.split('&');
+        let c = [];
+        let d = [];
+        for (let i in b) {
+            d = b[i].split('=');
+            c[d[0]] = d[1];
         }
 
-        if (!checkUrlSign(aUrlArgs)) {
+        if (!checkUrlSign(c)) {
             // console.log('do not change url args');
             return w ? '' : [];
         }
 
-        console.log(aUrlArgs);
-        return w ? (typeof aUrlArgs[w] !== 'undefined' ? aUrlArgs[w] : '') : aUrlArgs;
+        console.log(c);
+        return w ? (typeof c[w] !== 'undefined' ? c[w] : '') : c;
     }
 
     return w ? '' : [];

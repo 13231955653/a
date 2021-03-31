@@ -1,6 +1,7 @@
 <?php
 if (!isset($_GET['f'])) {
-    return '';
+    header('HTTP/1.1 404 Not Found');
+    return;
 }
 $sFile = $_GET['f'];
 
@@ -19,8 +20,8 @@ switch ($sFileType) {
         $sFileType = 'js';
         break;
     default:
-        echo '';
-        return;
+        header('HTTP/1.1 404 Not Found');
+        break;
 }
 
 $sFile = $sBaseDir . DIRECTORY_SEPARATOR . 'static_resource' . DIRECTORY_SEPARATOR . $sFileType . DIRECTORY_SEPARATOR . $sFile;
@@ -31,7 +32,7 @@ $sFile = str_replace('\\', DIRECTORY_SEPARATOR, $sFile);
 $sFile = str_replace('/', DIRECTORY_SEPARATOR, $sFile);
 $sFile = str_replace(DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $sFile);
 if (!is_file($sFile)) {
-    echo '';
+    header('HTTP/1.1 404 Not Found');
     return;
 }
 
