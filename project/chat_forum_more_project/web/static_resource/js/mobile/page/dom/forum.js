@@ -30,8 +30,25 @@ d = null;
 e = null;
 f = null;
 const aForumList = c;
+const iForumListLength = aForumList.length;
 c = null;/*gkp*/
+
+const sForumBodyD = 'b_forum_body';
 /*yxd*/const sForumSonsClass = 'forum_sons';/*yxd*/
+/*upg*//**
+ *
+ * 设置forum body class
+ *
+ */
+let aForumBodyClass = [];
+const sForumBodyClass = 'forum_body_';
+function forumBodyClass () {
+    let a = aForumList.length;
+    let b = 1;
+    for (b; b <= a; b++) {
+        aForumBodyClass[b] = sForumBodyClass + b;
+    }
+}/*upg*/
 /*qct*//**
  *
  * 测试写页面dom
@@ -129,16 +146,21 @@ function doWriteForumBody () {
 
     let a = aForumList;
 
-    console.log('zzzzzzzzzaaaaaaaaaaaaaaaaaa');
-    console.log(a);
     let s = '';
+    s += '<div id="' + sForumBodyD + '" class="' + sFullHeightForFatherClass + '">';
     for (let i in a) {
-        s += '<div id="' + a[i] + '" class="' + sFullWidthClass + ' ' + sForumSonsClass + '"></div>';
+        s += '<div id="' + a[i] + '" class="' + sFullWidthClass + ' ' + sForumSonsClass + '"><span style="font-size: 100px;">' + i + '</span></div>';
     }
+    s += '</div>';
     o.innerHTML = s;
+
+    $('#' + sForumBodyD).addClass(aForumBodyClass[a.length]);
+
     $(o).removeClass(sInvisibleClass);
+
     o = null;
     s = null;
+    a = null;
 }/*lay*/
 /*rxe*//**
  *
@@ -155,6 +177,8 @@ function showForum () {
 }/*rxe*/
 /*oai*/function forumBegin () {
     console.log('forumBegin begin');
+
+    forumBodyClass();
 
     asyn('writeForumHead');
 

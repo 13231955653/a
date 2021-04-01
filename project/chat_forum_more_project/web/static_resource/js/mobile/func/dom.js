@@ -396,7 +396,7 @@ function timeOutBaseShade (o, l) {
 }/*sfx*/
 /*sbb*//**
  *
- *
+ * js动画
  *
  * @param o 对象 dom  type object
  * @param s 样式 type json

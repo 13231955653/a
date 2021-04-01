@@ -159,7 +159,7 @@ function bRightDom () {
     }
 
     let s = '';
-    s += '<div id="' + sBBodyD + d + '" class="' + sFullWidthClass + ' ' + sBodySonsClass + ' ' + sHiddenClass + '">';
+    s += '<div id="' + sBBodyD + d + '" class="' + sFullWidthClass + ' ' + sFullHeightForFatherClass + ' ' + sBodySonsClass + ' ' + sHiddenClass + '">';
     s += '</div>';
     return s;
 }/*12c3163a66add709*/

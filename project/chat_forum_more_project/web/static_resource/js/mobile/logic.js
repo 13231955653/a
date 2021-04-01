@@ -1,5 +1,5 @@
-/*f8a2b197f36a6a16*/var sDefaultPageHtml = 'index.html';/*f8a2b197f36a6a16*/
-/*85d5758838981137*//**
+/*rdl*/var sDefaultPageHtml = 'index.html';/*rdl*/
+/*ybp*//**
  *
  * 更新 url page 参数
  *
@@ -31,9 +31,8 @@ function updUrlPage (p = '') {
     requires([sPubDomJ], function () {
         asyn('clearBaseShade');
     });
-}/*85d5758838981137*/
-
-/*0e74c111e9d2fa99*//**
+}/*ybp*/
+/*aoe*//**
  *
  * 多次点击同一个脚步事件
  *
@@ -42,9 +41,8 @@ function againOnlickFooter () {
     // console.log('/////////////////////////////////////////////////');
     // asyn('clearPageShade');
     // clearPageShade();
-}/*0e74c111e9d2fa99*/
-
-/*21d687462e6ef990*//**
+}/*aoe*/
+/*slu*//**
  *
  *  改写 浏览器 title
  * @param t window title type string
@@ -63,9 +61,8 @@ function replaceWindowTitle (t = '') {
 
     // replaceTitle(t);
     asyn('replaceTitle', t);
-}/*21d687462e6ef990*/
-
-/*e96fd5eaf9f56b36*//**
+}/*slu*/
+/*zza*//**
  *
  * 更新url page 参数
  *
@@ -97,9 +94,8 @@ function updateUrlPage (p = '') {
     requires([sJqueryJ, sMobileDomFuncJ], function () {
         showNowPageBody();
     });
-}/*e96fd5eaf9f56b36*/
-
-/*da46708147e27910*//**
+}/*zza*/
+/*vgz*//**
  *
  * 改变url 地址栏
  *
@@ -156,13 +152,12 @@ function updateUrlArg (k = '', v = '', t = '', c = false) {
     if (c) {
         asyn(c);
     }
-}/*da46708147e27910*/
-
-/*efd16af9fb242e81*/function logicBegin () {
+}/*vgz*/
+/*euq*/function logicBegin () {
     console.log('666666666666666666logicBegin');
     // asyn('updateUrlPage');
     requires([sEncodeJ, sMd5J, sFuncJ, sStrFunc], function () {
         // console.log('zxcccccccccccccccccccccccccccccccccccccc');
         asyn('updateUrlPage');
     });
-}/*efd16af9fb242e81*/
+}/*euq*/

@@ -219,6 +219,7 @@ const sDomShadeId = 'shade_f';
 
 const sFullWidthClass = 'full_w';
 const sFullHeightClass = 'full_h';
+const sFullHeightForFatherClass = 'full_h_for_father';
 
 const sQueryOneMmPxId = 'get_one_mms_px';
 

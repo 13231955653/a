@@ -1,43 +1,64 @@
-/*93b56196413b4680*//**
+/*mkz*/const sForumLeftClass = 'left_slide_';/*mkz*/
+/*emj*//**
  *
  * 长按事件
  *
  */
 function forumLongClick() {
     console.log('forumLongClick');
-}/*93b56196413b4680*/
-/*62e513e599224ddb*//**
+}/*emj*/
+/*mbo*//**
  *
  * 上滑时间事件
  *
  */
 function forumTop() {
     console.log('forumTop');
-}/*62e513e599224ddb*/
-/*c62eb15c5e96cd31*//**
+}/*mbo*/
+/*ukb*//**
  *
  * 右滑时间事件
  *
  */
 function forumRight() {
     console.log('forumRight');
-}/*c62eb15c5e96cd31*/
-/*c62eb15c5e96cd31*//**
+}/*ukb*/
+/*xjc*//**
  *
  * 下滑时间事件
  *
  */
 function forumDown() {
     console.log('forumDown');
-}/*c62eb15c5e96cd31*/
-/*1d4236e222ebee42*//**
+}/*xjc*/
+/*nmo*//**
  *
  * 左滑时间事件
  *
  */
+let iLeftTag = 0;
 function forumLeft() {
     console.log('forumLeft');
-}/*1d4236e222ebee42*/
-/*4449254a38cf9a8a*/function mouseForumBegin () {
+    requires([sForum, sJqueryJ, sMobileDomFuncJ], function () {
+        asyn('doForumLeft');
+    });
+}
+function doForumLeft () {
+    let o = domById(sForumBodyD);
+    if (!o) {
+        return;
+    }
+    iLeftTag += parseInt(1);
+
+    let c = sForumLeftClass;
+
+    let a = 0;
+    let b = iForumListLength;
+    for (a; a < b; a++) {
+        $(o).removeClass(c + a);
+    }
+    $(o).addClass(c + parseInt(iLeftTag % b));
+}/*nmo*/
+/*yeb*/function mouseForumBegin () {
     console.log('mouseForumBegin begin');
-}/*4449254a38cf9a8a*/
+}/*yeb*/
