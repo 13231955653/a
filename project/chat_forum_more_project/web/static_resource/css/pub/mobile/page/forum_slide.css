@@ -1,0 +1,363 @@
+/*wzx*//* 动画代码 */
+@keyframes left_slide_1 {
+    0%{left: 0px;}
+    10%{left: -10vw;}
+    20%{left: -20vw;}
+    30%{left: -30vw;}
+    40%{left: -40vw;}
+    50%{left: -50vw;}
+    60%{left: -60vw;}
+    70%{left: -70vw;}
+    80%{left: -80vw;}
+    90%{left: -90vw;}
+    100%{left: -100vw;}
+}
+/* 应用动画的元素 */
+.left_slide_1{
+    animation-name: left_slide_1;
+    animation-duration: 0.2s;
+    animation-fill-mode: forwards
+}
+@keyframes left_slide_2 {
+    0%{left: -100vw;}
+    10%{left: -110vw;}
+    20%{left: -120vw;}
+    30%{left: -130vw;}
+    40%{left: -140vw;}
+    50%{left: -150vw;}
+    60%{left: -160vw;}
+    70%{left: -170vw;}
+    80%{left: -180vw;}
+    90%{left: -190vw;}
+    100%{left: -200vw;}
+}
+/* 应用动画的元素 */
+.left_slide_2{
+    animation-name: left_slide_2;
+    animation-duration: 0.2s;
+    animation-fill-mode: forwards
+}
+@keyframes left_slide_3 {
+    0%{left: -200vw;}
+    10%{left: -210vw;}
+    20%{left: -220vw;}
+    30%{left: -230vw;}
+    40%{left: -240vw;}
+    50%{left: -250vw;}
+    60%{left: -260vw;}
+    70%{left: -270vw;}
+    80%{left: -280vw;}
+    90%{left: -290vw;}
+    100%{left: -300vw;}
+}
+/* 应用动画的元素 */
+.left_slide_3{
+    animation-name: left_slide_3;
+    animation-duration: 0.2s;
+    animation-fill-mode: forwards
+}
+@keyframes left_slide_4 {
+    0%{left: -300vw;}
+    10%{left: -310vw;}
+    20%{left: -320vw;}
+    30%{left: -330vw;}
+    40%{left: -340vw;}
+    50%{left: -350vw;}
+    60%{left: -360vw;}
+    70%{left: -370vw;}
+    80%{left: -380vw;}
+    90%{left: -390vw;}
+    100%{left: -400vw;}
+}
+/* 应用动画的元素 */
+.left_slide_4{
+    animation-name: left_slide_4;
+    animation-duration: 0.2s;
+    animation-fill-mode: forwards
+}
+@keyframes left_slide_5 {
+    0%{left: -400vw;}
+    10%{left: -410vw;}
+    20%{left: -420vw;}
+    30%{left: -430vw;}
+    40%{left: -440vw;}
+    50%{left: -450vw;}
+    60%{left: -460vw;}
+    70%{left: -470vw;}
+    80%{left: -480vw;}
+    90%{left: -490vw;}
+    100%{left: -500vw;}
+}
+/* 应用动画的元素 */
+.left_slide_5{
+    animation-name: left_slide_5;
+    animation-duration: 0.2s;
+    animation-fill-mode: forwards
+}
+@keyframes left_slide_6 {
+    0%{left: -500vw;}
+    10%{left: -510vw;}
+    20%{left: -520vw;}
+    30%{left: -530vw;}
+    40%{left: -540vw;}
+    50%{left: -550vw;}
+    60%{left: -560vw;}
+    70%{left: -570vw;}
+    80%{left: -580vw;}
+    90%{left: -590vw;}
+    100%{left: -600vw;}
+}
+/* 应用动画的元素 */
+.left_slide_6{
+    animation-name: left_slide_6;
+    animation-duration: 0.2s;
+    animation-fill-mode: forwards
+}
+@keyframes left_slide_7 {
+    0%{left: -600vw;}
+    10%{left: -610vw;}
+    20%{left: -620vw;}
+    30%{left: -630vw;}
+    40%{left: -640vw;}
+    50%{left: -650vw;}
+    60%{left: -660vw;}
+    70%{left: -670vw;}
+    80%{left: -680vw;}
+    90%{left: -690vw;}
+    100%{left: -700vw;}
+}
+/* 应用动画的元素 */
+.left_slide_7{
+    animation-name: left_slide_7;
+    animation-duration: 0.2s;
+    animation-fill-mode: forwards
+}
+@keyframes left_slide_8 {
+    0%{left: -700vw;}
+    10%{left: -710vw;}
+    20%{left: -720vw;}
+    30%{left: -730vw;}
+    40%{left: -740vw;}
+    50%{left: -750vw;}
+    60%{left: -760vw;}
+    70%{left: -770vw;}
+    80%{left: -780vw;}
+    90%{left: -790vw;}
+    100%{left: -800vw;}
+}
+/* 应用动画的元素 */
+.left_slide_8{
+    animation-name: left_slide_8;
+    animation-duration: 0.2s;
+    animation-fill-mode: forwards
+}
+@keyframes left_slide_9 {
+    0%{left: -800vw;}
+    10%{left: -810vw;}
+    20%{left: -820vw;}
+    30%{left: -830vw;}
+    40%{left: -840vw;}
+    50%{left: -850vw;}
+    60%{left: -860vw;}
+    70%{left: -870vw;}
+    80%{left: -880vw;}
+    90%{left: -890vw;}
+    100%{left: -900vw;}
+}
+/* 应用动画的元素 */
+.left_slide_9{
+    animation-name: left_slide_9;
+    animation-duration: 0.2s;
+    animation-fill-mode: forwards
+}/*wzx*/
+/*ote*//* 动画代码 */
+@keyframes right_slide_0 {
+    0%{left: -100vw;}
+    10%{left: -90vw;}
+    20%{left: -80vw;}
+    30%{left: -70vw;}
+    40%{left: -60vw;}
+    50%{left: -50vw;}
+    60%{left: -40vw;}
+    70%{left: -30vw;}
+    80%{left: -20vw;}
+    90%{left: -10vw;}
+    100%{left: 0px;}
+}
+/* 应用动画的元素 */
+.right_slide_0{
+    animation-name: right_slide_0;
+    animation-duration: 0.2s;
+    animation-fill-mode: forwards
+}
+@keyframes right_slide_1 {
+    0%{left: -200vw;}
+    10%{left: -190vw;}
+    20%{left: -180vw;}
+    30%{left: -170vw;}
+    40%{left: -160vw;}
+    50%{left: -150vw;}
+    60%{left: -140vw;}
+    70%{left: -130vw;}
+    80%{left: -120vw;}
+    90%{left: -110vw;}
+    100%{left: -100vw;}
+}
+/* 应用动画的元素 */
+.right_slide_1{
+    animation-name: right_slide_1;
+    animation-duration: 0.2s;
+    animation-fill-mode: forwards
+}
+@keyframes right_slide_2 {
+    0%{left: -300vw;}
+    10%{left: -290vw;}
+    20%{left: -280vw;}
+    30%{left: -270vw;}
+    40%{left: -260vw;}
+    50%{left: -250vw;}
+    60%{left: -240vw;}
+    70%{left: -230vw;}
+    80%{left: -220vw;}
+    90%{left: -210vw;}
+    100%{left: -200vw;}
+}
+/* 应用动画的元素 */
+.right_slide_2{
+    animation-name: right_slide_2;
+    animation-duration: 0.2s;
+    animation-fill-mode: forwards
+}
+@keyframes right_slide_3 {
+    0%{left: -400vw;}
+    10%{left: -390vw;}
+    20%{left: -380vw;}
+    30%{left: -370vw;}
+    40%{left: -360vw;}
+    50%{left: -350vw;}
+    60%{left: -340vw;}
+    70%{left: -330vw;}
+    80%{left: -320vw;}
+    90%{left: -310vw;}
+    100%{left: -300vw;}
+}
+/* 应用动画的元素 */
+.right_slide_3{
+    animation-name: right_slide_3;
+    animation-duration: 0.2s;
+    animation-fill-mode: forwards
+}
+@keyframes right_slide_4 {
+    0%{left: -500vw;}
+    10%{left: -490vw;}
+    20%{left: -480vw;}
+    30%{left: -470vw;}
+    40%{left: -460vw;}
+    50%{left: -450vw;}
+    60%{left: -440vw;}
+    70%{left: -430vw;}
+    80%{left: -420vw;}
+    90%{left: -410vw;}
+    100%{left: -400vw;}
+}
+/* 应用动画的元素 */
+.right_slide_4{
+    animation-name: right_slide_4;
+    animation-duration: 0.2s;
+    animation-fill-mode: forwards
+}
+@keyframes right_slide_5 {
+    0%{left: -600vw;}
+    10%{left: -590vw;}
+    20%{left: -580vw;}
+    30%{left: -570vw;}
+    40%{left: -560vw;}
+    50%{left: -550vw;}
+    60%{left: -540vw;}
+    70%{left: -530vw;}
+    80%{left: -520vw;}
+    90%{left: -510vw;}
+    100%{left: -500vw;}
+}
+/* 应用动画的元素 */
+.right_slide_5{
+    animation-name: right_slide_5;
+    animation-duration: 0.2s;
+    animation-fill-mode: forwards
+}
+@keyframes right_slide_6 {
+    0%{left: -700vw;}
+    10%{left: -690vw;}
+    20%{left: -680vw;}
+    30%{left: -670vw;}
+    40%{left: -660vw;}
+    50%{left: -650vw;}
+    60%{left: -640vw;}
+    70%{left: -630vw;}
+    80%{left: -620vw;}
+    90%{left: -610vw;}
+    100%{left: -600vw;}
+}
+/* 应用动画的元素 */
+.right_slide_6{
+    animation-name: right_slide_6;
+    animation-duration: 0.2s;
+    animation-fill-mode: forwards
+}
+@keyframes right_slide_7 {
+    0%{left: -800vw;}
+    10%{left: -790vw;}
+    20%{left: -780vw;}
+    30%{left: -770vw;}
+    40%{left: -760vw;}
+    50%{left: -750vw;}
+    60%{left: -740vw;}
+    70%{left: -730vw;}
+    80%{left: -720vw;}
+    90%{left: -710vw;}
+    100%{left: -700vw;}
+}
+/* 应用动画的元素 */
+.right_slide_7{
+    animation-name: right_slide_7;
+    animation-duration: 0.2s;
+    animation-fill-mode: forwards
+}
+@keyframes right_slide_8 {
+    0%{left: -900vw;}
+    10%{left: -890vw;}
+    20%{left: -880vw;}
+    30%{left: -870vw;}
+    40%{left: -860vw;}
+    50%{left: -850vw;}
+    60%{left: -840vw;}
+    70%{left: -830vw;}
+    80%{left: -820vw;}
+    90%{left: -810vw;}
+    100%{left: -800vw;}
+}
+/* 应用动画的元素 */
+.right_slide_8{
+    animation-name: right_slide_8;
+    animation-duration: 0.2s;
+    animation-fill-mode: forwards
+}
+@keyframes right_slide_9 {
+    0%{left: -1000vw;}
+    10%{left: -990vw;}
+    20%{left: -980vw;}
+    30%{left: -970vw;}
+    40%{left: -960vw;}
+    50%{left: -950vw;}
+    60%{left: -940vw;}
+    70%{left: -930vw;}
+    80%{left: -920vw;}
+    90%{left: -910vw;}
+    100%{left: -900vw;}
+}
+/* 应用动画的元素 */
+.right_slide_9{
+    animation-name: right_slide_9;
+    animation-duration: 0.2s;
+    animation-fill-mode: forwards
+}/*ote*/

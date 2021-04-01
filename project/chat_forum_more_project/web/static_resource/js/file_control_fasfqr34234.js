@@ -1041,6 +1041,11 @@ function staticResource (f, q = false) {
             b = 'afterLoadForumC1';
             c = 'css';
             break;
+        case sForumSlideC :
+            a = 'afterLoadForumSlideC';
+            b = 'afterLoadForumSlideC1';
+            c = 'css';
+            break;
         case sFriendC :
             a = 'afterLoadFriendC';
             b = 'afterLoadFriendC1';
@@ -1306,6 +1311,21 @@ function afterLoadForumC1 (v = '') {
 
     aInstaticResource[sForumC] = false;
     asyn('staticResource', sForumC, true);
+}
+function afterLoadForumSlideC () {
+    setInstaticResource(sForumSlideC, false);
+}
+function afterLoadForumSlideC1 (v = '') {
+    if (v) {
+        asyn('afterstaticResource', v, 'css');
+
+        asyn('afterLoadForumSlideC');
+
+        return;
+    }
+
+    aInstaticResource[sForumSlideC] = false;
+    asyn('staticResource', sForumSlideC, true);
 }
 function afterLoadPublicCss () {
     setInstaticResource(sPubC, false);

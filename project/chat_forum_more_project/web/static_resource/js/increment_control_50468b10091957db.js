@@ -60,6 +60,7 @@ const sUserC1 = 'user_c_1';
 const sAboutC = 'about_c';
 const sChatC = 'chat_c';
 const sForumC = 'forum_c';
+const sForumSlideC = 'forum_slide_c';
 const sFriendC = 'friend_c';
 const sSetC = 'set_c';
 const sSzieC = 'size_c';
@@ -113,6 +114,7 @@ function staticResourceAddress () {
     a[sAboutC] = 'pub/' + p + '/page/about.css';
     a[sChatC] = 'pub/' + p + '/page/chat.css';
     a[sForumC] = 'pub/' + p + '/page/forum.css';
+    a[sForumSlideC] = 'pub/' + p + '/page/forum_slide.css';
     a[sFriendC] = 'pub/' + p + '/page/friend.css';
     a[sSetC] = 'pub/' + p + '/page/set.css';
 
