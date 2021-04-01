@@ -9,6 +9,7 @@
  */
 let sLastPage = '';
 function updUrlPage (p = '') {
+    console.log('点击过后需要检测当前页面是否需要刷新');
     if (!p) {
         return;
     }
@@ -19,20 +20,14 @@ function updUrlPage (p = '') {
     }
     sLastPage = p;
 
-    // asyn('showBaseShade');
     requires([sPubDomJ], function () {
         asyn('showBaseShade');
     });
 
-    // console.log('ddddddddddddddddddddddddddddddddd');
-    // console.log(p);
-    // asyn('updateUrlPage', p);
     requires([sEncodeJ, sFuncJ, sStrFunc], function () {
         asyn('updateUrlPage', p);
     });
 
-    console.log('点击过后需要检测当前页面是否需要刷新');
-    // asyn('clearBaseShade');
     requires([sPubDomJ], function () {
         asyn('clearBaseShade');
     });
@@ -80,22 +75,6 @@ function replaceWindowTitle (t = '') {
  */
 let aAllreadyLoadPageJs = [];
 function updateUrlPage (p = '') {
-    // console.log('dddsssssssszzzzzzbbbbbbbbbbbbdddddddddddd');
-    // if (typeof window['urlDecode'] == 'undefined') {
-    //     requires([sEncodeJsTag], function () {
-    //         asyn('updateUrlPage', p);
-    //     });
-    //     return;
-    // }
-    //
-    // if (typeof window['getNowPage'] == 'undefined') {
-    //     // requires([sFuncJsTag], function () {
-    //     //     asyn('updateUrlPage', p);
-    //     //     // updateUrlPage(p);
-    //     // });
-    //     return;
-    // }
-    // console.log('dddsssssssszzzzzzbbbbbbbbbbbbdddddddddddd');
     console.log(getUrlArgs());
 
     p = p ? p : getNowPage();
@@ -110,22 +89,13 @@ function updateUrlPage (p = '') {
         f = 'afterLoadPageJs';
     }
     aAllreadyLoadPageJs[p] = getMillisecondTime();
-    // console.log('daswqeqweeeeee1111111222222222222222211111111eeeeeeeeeeeeeeee');
-    // console.log(f);
 
-    // let z = setTimeout(function () {
-    //     clearTimeout(z);
-    //
-    //     updateUrlArg (sUrlAddressPageKey, p, t, f);
-    // }, 0);
     requires([sArrFuncJ], function () {
-        // asyn('clearShade', o);
-        // clearShade(o);
-        let z = setTimeout(function () {
-            clearTimeout(z);
+        updateUrlArg (sUrlAddressPageKey, p, t, f);
+    });
 
-            updateUrlArg (sUrlAddressPageKey, p, t, f);
-        }, 0);
+    requires([sJqueryJ, sMobileDomFuncJ], function () {
+        showNowPageBody();
     });
 }/*e96fd5eaf9f56b36*/
 

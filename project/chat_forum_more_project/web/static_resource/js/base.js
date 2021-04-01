@@ -190,7 +190,7 @@ b['clearPlatformShade'] = t;
 b['clearPageShade'] = t;
 b['bindFootClick'] = t;
 b['clearBaseShade'] = t;
-b['loadStaticResource'] = t;
+b['staticResource'] = t;
 // b['timeOutBaseShade'] = 300;
 b['checkUseTime'] = 60000;
 b['checkSessionIdOutTime'] = 181652;
@@ -218,11 +218,14 @@ const sDomNoticeId = 'notice_f';
 const sDomShadeId = 'shade_f';
 
 const sFullWidthClass = 'full_w';
+const sFullHeightClass = 'full_h';
 
 const sQueryOneMmPxId = 'get_one_mms_px';
 
 const sInvisibleClass = 'invisible'; //不显示dom的class
 const sVisibleClass = 'visible';//显示dom的class
+const sHiddenClass = 'hidden'; //不显示dom的class
+const sShowClass = 'show';//显示dom的class
 //class id tag 相关============/*3d6db13f8bf8dde2*/
 
 /*3d6db13f8bf8dde2*///尺寸相关----------------
@@ -381,27 +384,27 @@ function loadPageJs () {
     switch (sPageNow) {
         case sForumPage:
             c = sForum;
-            m = sMouseForum;
+            m = sMouseForumJ;
             n = sForumC;
             break;
         case sChatPage:
             c = sChatJ;
-            m = sMouseChat;
+            m = sMouseChatJ;
             n = sChatC;
             break;
         case sFriendPage:
             c = sFriendJ;
-            m = sMouseFriend;
+            m = sMouseFriendJ;
             n = sFriendC;
             break;
         case sSettingPage:
             c = sSetJ;
-            m = sMouseSet;
+            m = sMouseSetJ;
             n = sSetC;
             break;
         case sAboutMePage:
             c = sAboutJ;
-            m = sMouseAboutMe;
+            m = sMouseAboutMeJ;
             n = sAboutC;
             break;
     }
@@ -410,25 +413,23 @@ function loadPageJs () {
     }
     sNowPageJs = c;
 
-    asyn('loadStaticResource', m);
-    asyn('loadStaticResource', sNowPageJs);
-    asyn('loadStaticResource', n);
+    asyn('staticResource', m);
+    asyn('staticResource', c);
+    asyn('staticResource', n);
 }
 function afterLoadPageJs () {
     if (typeof window['urlDecode'] == 'undefined') {
         setTimeoutFunction('afterLoadPageJs');
         return;
     }
-    // requires([sFuncJsTag], function () {
-    //     console.log('zzzzzzzzzzzzzzlllllllllsssssssssssssssoooooooooooqqqqqqqq');
-    //     notice('中文');
-    // });
-
-    // bInLoadPageJs = false;
 
     asyn(sPageNow + 'Begin');
 
-    asyn('updateActiveFoot');
+    requires([sMobileDomFuncJ], function () {
+        asyn('updateActiveFoot');
+
+        asyn('showNowPageBody');
+    });
 }/*3ed8ed97f79fa3d8*/
 
 /*032a659ac3907d66*//**

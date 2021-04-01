@@ -1,0 +1,6 @@
+/*cwj*/#b_about{
+                   background: #ff0056;
+               }
+.about_sons{
+    height: calc(100% - var(--pub_foot_h));
+}/*cwj*/

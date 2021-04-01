@@ -1,0 +1,6 @@
+/*cwj*/#b_friend{
+                   background: #00ff0f;
+               }
+.friend_sons{
+    height: calc(100% - var(--pub_foot_h));
+}/*cwj*/

@@ -1,0 +1,20 @@
+/*erf*/:root{
+    --pub_foot_h: 3rem;
+    --one_head_h: 3rem;
+    --two_head_h: 2rem;
+    --three_head_h: 2rem;
+    --b_shade_cent_min_h: 3rem;
+    --b_shade_cent_line_h: 1.2rem;
+    --b_shade_cent_sons_h: 1.5rem;
+    --b_shade_cent_sons_border_radius: 0.75rem;
+    --b_shade_cent_sons_margin_right: 0.5rem;
+    --b_shade_cent_padd: 0.5rem;
+    --b_shade_cent_padd_left_right: 1rem;
+    --notice_head_h: 3rem;
+    --notice_head_font_size: 1.2rem;
+    --notice_foot_h: 3rem;
+    --notice_foot_font_size: 1.2rem;
+    --notice_body_padd: 0.5rem;
+    --notice_body_padd_left_right: 1rem;
+    --notice_body_line_h: 1.5rem;
+}/*erf*/

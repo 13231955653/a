@@ -14,19 +14,19 @@ function writeChatHead () {
  *
  */
 function doWriteChatHead () {
-    let d = sBHeadD + sChatPage;
-    let o = domById(d);
-    if (!o) {
-        setTimeoutFunction('doWriteChatHead');
-        return;
-    }
-
-    let s = '';
-    s += '<div class="' + sOneHead + '"></div>';
-    // s += '<div class="' + sTwoHead + '"></div>';
-    // s += '<div class="' + sThreeHead + '"></div>';
-
-    o.innerHTML = s;
+    // let d = sBHeadD + sChatPage;
+    // let o = domById(d);
+    // if (!o) {
+    //     setTimeoutFunction('doWriteChatHead');
+    //     return;
+    // }
+    //
+    // let s = '';
+    // s += '<div class="' + sOneHead + '"></div>';
+    // // s += '<div class="' + sTwoHead + '"></div>';
+    // // s += '<div class="' + sThreeHead + '"></div>';
+    //
+    // o.innerHTML = s;
 }/*9429d793fa750360*/
 /*9429d793fa750360*/function chatBegin () {
     console.log('chatBegin begin');

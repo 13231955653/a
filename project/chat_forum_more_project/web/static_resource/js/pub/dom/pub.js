@@ -48,7 +48,7 @@ function writeNotice () {
     domById(sNoticeTitleClass + '_span').innerHTML = 'ss';
     domById(sNoticeFootClass + '_span').innerHTML = 'ss';
 
-    requires([sDomFunc], function () {
+    requires([sMobileDomFuncJ], function () {
         asyn('bindNoticeFoot');
 
         asyn('replaceLang', sReplaceLangIdType, sDomNoticeId);

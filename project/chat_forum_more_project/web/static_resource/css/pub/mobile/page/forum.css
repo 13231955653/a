@@ -1,0 +1,6 @@
+/*cwj*/#b_forum{
+    background: #ffe800;
+}
+.forum_sons{
+    height: calc(100% - var(--pub_foot_h));
+}/*cwj*/

@@ -1,4 +1,4 @@
-/*eec5415451591df6*//**
+/*xfr*//**
  *
  * 替换dom语言
  *
@@ -86,9 +86,8 @@ function replaceLangs () {
         s = typeof aLang[s] != 'undefined' ? aLang[s] : aLang['error'];
         a[i].innerHTML = s;
     }
-}/*eec5415451591df6*/
-
-/*e91048f9066a0cb4*//**
+}/*xfr*/
+/*cwp*//**
  *
  * 根据class 获取节点
  *
@@ -104,9 +103,19 @@ function domByClass (c, o = '') {
 function oneDomByClass (c) {
     let o = domByClass(c);
     return o ? o[0] : false;
-}/*e91048f9066a0cb4*/
-
-/*f08e820a220ce9b2*//**
+}
+/**
+ *
+ * 根据tag 获取节点
+ *
+ * @param c
+ * @returns {boolean}
+ */
+function domByTag (c) {
+    let o = oBodyDom.getElementsByTagName(c);
+    return o.length > 0 ? o : false;
+}/*cwp*/
+/*qjt*//**
  *
  * 获取对象样式规则信息，IE下使用currentStyle
  *
@@ -116,9 +125,8 @@ function oneDomByClass (c) {
  */
 function getStyle (o, s) {
     return o.currentStyle ? o.currentStyle[s] : getComputedStyle(o,false)[s];
-}/*f08e820a220ce9b2*/
-
-/*85dc3fa0c694bcb0*//**
+}/*qjt*/
+/*rnz*//**
  *
  * 修改 page  dom father 透明度
  *
@@ -126,9 +134,53 @@ function getStyle (o, s) {
  */
 function changeDomFatherOpacity (b = false) {
     // console.log('修改 page dom father opacity');
-}/*85dc3fa0c694bcb0*/
+}/*rnz*/
+/*dgw*//**
+ *
+ * 显示当前页面body
+ *
+ */
+function showNowPageBody () {
+    let a = sHiddenClass;
+    let b = sShowClass;
 
-/*5e0bd59639a733a0*//**
+    let c = sBodySonsClass;
+    $('.' + c).addClass(a);
+    $('.' + c).removeClass(b);
+
+    let f = sBBodyD + getNowPage();
+    $('#' + f).removeClass(a);
+    $('#' + f).addClass(b);
+}/*dgw*/
+/*rcj*//**
+ *
+ * 修改当前页面footer样式
+ *
+ * @returns {boolean}
+ */
+function updateActiveFoot () {
+    let a = sFootTag;
+    let b = sActiveFootTag;
+    let f = domById(sBFootD + getNowPage() + a + sFootLiSuffix);
+    if (!f) {
+        console.log('afterLoadPageJs f is null, so no to do');
+        return false;
+    }
+
+    let o = domByClass(a);
+    if (o.length) {
+        let p = new RegExp('\\s+' + b,'gm');
+        for (let i in o) {
+            if (!o[i].className) {
+                continue;
+            }
+
+            o[i].className = o[i].className.toString().replace(p, '');
+        }
+    }
+    f.className += ' ' + b;
+}/*rcj*/
+/*xkv*//**
  *
  * 用户提示信息
  *
@@ -162,9 +214,8 @@ function hiddenNotice () {
     animates(o, {opacity: 0}, iSpeed, function () {
         replaceClassNameToHidden(o);
     });
-}/*5e0bd59639a733a0*/
-
-/*8d46b84ff4622bf4*//**
+}/*xkv*/
+/*zzm*//**
  *
  * 在 j 之前插入 新节点o
  *
@@ -173,21 +224,8 @@ function hiddenNotice () {
  */
 function insertBefores (o, j) {
     o.parentNode[0].insertBefore(o, j);
-}/*8d46b84ff4622bf4*/
-
-/*163e8f3a539e7f75*//**
- *
- * 根据tag 获取节点
- *
- * @param c
- * @returns {boolean}
- */
-function domByTag (c) {
-    let o = oBodyDom.getElementsByTagName(c);
-    return o.length > 0 ? o : false;
-}/*163e8f3a539e7f75*/
-
-/*ca17d35b59f8062c*//**
+}/*zzm*/
+/*qet*//**
  *
  * 修改最大级父状态，是否显示或隐藏
  *
@@ -205,9 +243,8 @@ function changeBodyStatus (b = true) {
     s = s.replace(p2, '');
 
     o.className = s ? s + ' ' + h : h;
-}/*ca17d35b59f8062c*/
-
-/*3db2ab832db6559f*/function showBaseShade () {
+}/*qet*/
+/*jbd*/function showBaseShade () {
     if (aShades[sBaseShadeId]) {
         setTimeoutFunction('showBaseShade');
         return;
@@ -245,9 +282,8 @@ function clearBaseShade () {
         asyn('clearShade', o);
         // clearShade(o);
     });
-}/*3db2ab832db6559f*/
-
-/*dac55309121d59cf*/let aShades = [];
+}/*jbd*/
+/*sdv*/let aShades = [];
 function showShade (o = false) {
     replaceClassNameToShow(o);
 
@@ -278,8 +314,8 @@ function clearShade (o = false) {
 
         asyn('clearShades', o.id);
     });
-}/*dac55309121d59cf*/
-/*b60da723c82a7f1e*//**
+}/*sdv*/
+/*dsa*//**
  *
  * 根据显示的遮罩层不同显示不同遮罩
  *
@@ -291,8 +327,8 @@ function clearShades (d) {
             bTimeOutBaseShade = false;
             break;
     }
-}/*b60da723c82a7f1e*/
-/*9c98598f92998834*//**
+}/*dsa*/
+/*ocx*//**
  *
  * 根据显示的遮罩层不同显示不同遮罩
  *
@@ -306,8 +342,8 @@ function showShades (d) {
             });
             break;
     }
-}/*9c98598f92998834*/
-/*97da65db36a14a6e*//**
+}/*ocx*/
+/*sfx*//**
  *
  * 展示 base shade
  *
@@ -357,8 +393,42 @@ function timeOutBaseShade (o, l) {
 
         timeOutBaseShade (o, l, false);
     }, iTimeOutBaseShadeTime);
-}/*97da65db36a14a6e*/
+}/*sfx*/
+/*sbb*//**
+ *
+ *
+ *
+ * @param o 对象 dom  type object
+ * @param s 样式 type json
+ * @param p 改变样式速度 type number
+ * @param c 回调函数 type string
+ */
+function animates (o = false, s = false, p = false, c = false) {
+    if (typeof jQuery != 'undefined') {
+        $(o).animate(s, p, c);
+        return;
+    }
 
-/*3befb3e2ebbedb3c*/function domFunctionBegin () {
+    if (!o || !s || !p) {
+        // console.log(o);
+        // console.log(s);
+        // console.log(p);
+        // console.log('animates o or s or p is null');
+        return;
+    }
+
+    // console.log('iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii');
+    // console.log(bJquery);
+
+    // setTimeoutFunction('animates');
+    let t = setTimeout(function () {
+        clearTimeout(t);
+
+        animates(o, s, p, c);
+    }, aTimer['animates']);
+
+    // jsAnimate (o, s, parseInt(p / 20));
+}/*sbb*/
+/*jci*/function domFunctionBegin () {
     console.log('3333333333333333333domFunctionBegin');
-}/*3befb3e2ebbedb3c*/
+}/*jci*/

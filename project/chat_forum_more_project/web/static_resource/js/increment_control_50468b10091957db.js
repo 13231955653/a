@@ -1,4 +1,4 @@
-const bGetStaticResourceFromCache = false;
+const bGetstaticResourceFromCache = false;
 /**
  *
  * 检查是否手机端
@@ -43,17 +43,17 @@ const sFriendJ = 'friend';
 const sSetJ = 'set';
 const sAboutJ = 'about';
 const sApiJ = 'api';
-const sDomFunc = 'dom_func';
+const sMobileDomFuncJ = 'dom_func';
 const sStrFunc = 'str_func';
 const sArrFuncJ = 'array_func';
 const sMd5J = 'md5';
-const sRsaJs = 'rsa';
+const sRsaJ = 'rsa';
 const sMouseJ = 'mouse';
-const sMouseAboutMe = 'mouse_about';
-const sMouseChat = 'mouse_chat';
-const sMouseForum = 'mouse_forum';
-const sMouseFriend = 'mouse_friend';
-const sMouseSet = 'mouse_set';
+const sMouseAboutMeJ = 'mouse_about';
+const sMouseChatJ = 'mouse_chat';
+const sMouseForumJ = 'mouse_forum';
+const sMouseFriendJ = 'mouse_friend';
+const sMouseSetJ = 'mouse_set';
 const sResetC = 'reset_css';
 const sPubC = 'pub_css';
 const sUserC1 = 'user_c_1';
@@ -62,6 +62,7 @@ const sChatC = 'chat_c';
 const sForumC = 'forum_c';
 const sFriendC = 'friend_c';
 const sSetC = 'set_c';
+const sSzieC = 'size_c';
 function userCss (c) {
     return 'user_c_' + c;
 }
@@ -72,7 +73,7 @@ function staticResourceAddress () {
     a[sBaseJ] = 'base.js';
 
     a[sFuncJ] = 'pub/func/func.js';
-    a[sDomFunc] = 'pub/func/dom.js';
+    a[sMobileDomFuncJ] = 'mobile/func/dom.js';
     a[sStrFunc] = 'pub/func/str.js';
     a[sArrFuncJ] = 'pub/func/array.js';
 
@@ -82,7 +83,7 @@ function staticResourceAddress () {
 
     a[sMd5J] = 'encode/md5.js';
     a[sEncodeJ] = 'encode/encode.js';
-    a[sRsaJs] = 'encode/rsa.js';
+    a[sRsaJ] = 'encode/rsa.js';
 
     a[sCnLangJ] = 'lang/cn.js';
     a[sEnLangJ] = 'lang/en.js';
@@ -98,11 +99,11 @@ function staticResourceAddress () {
 
     a[sMouseJ] = 'pub/incident/mouse.js';
 
-    a[sMouseAboutMe] = p + '/page/mouse/about.js';
-    a[sMouseChat] = p + '/page/mouse/chat.js';
-    a[sMouseForum] = p + '/page/mouse/forum.js';
-    a[sMouseFriend] = p + '/page/mouse/friend.js';
-    a[sMouseSet] = p + '/page/mouse/set.js';
+    a[sMouseAboutMeJ] = p + '/page/mouse/about.js';
+    a[sMouseChatJ] = p + '/page/mouse/chat.js';
+    a[sMouseForumJ] = p + '/page/mouse/forum.js';
+    a[sMouseFriendJ] = p + '/page/mouse/friend.js';
+    a[sMouseSetJ] = p + '/page/mouse/set.js';
 
     a[sApiJ] = 'pub/query/query.js';
 
@@ -117,7 +118,9 @@ function staticResourceAddress () {
 
     a[sUserC1] = 'personalized/color/1.css';
 
-    aStaticResourceAddress = a;
+    a[sSzieC] = 'pub/' + p + '/variable/size.css';
+
+    astaticResourceAddress = a;
     a = null;
 }
 //值格式 0000 00 00 00 00 00  年月日时分秒
@@ -182,7 +185,7 @@ const aVersion = {
  * @param f
  */
 function getIncrementUpdateTag (f) {
-    if (!bGetStaticResourceFromCache) {
+    if (!bGetstaticResourceFromCache) {
         return '&a=1';
     }
 
@@ -191,7 +194,7 @@ function getIncrementUpdateTag (f) {
         return false;
     }
 
-    let t = getStaticResourceLastCacheTime(f);
+    let t = getstaticResourceLastCacheTime(f);
     if (!t) {
         return '&a=1';
     }
@@ -236,14 +239,14 @@ function getIncrementUpdateTag (f) {
 }
 
 const bConstraintRequest = false; //强制请求
-function reloadStaticResource () {
+function restaticResource () {
     if (bConstraintRequest) {
         localStorage.clear();
     }
 }
 
 function incrementBegin () {
-    reloadStaticResource();
+    restaticResource();
 
     staticResourceAddress();
 }

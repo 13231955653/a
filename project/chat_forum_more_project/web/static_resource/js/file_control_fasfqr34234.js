@@ -18,7 +18,7 @@ const sOriginLocalstorageSizeKey = 'origin_localstorage_size';
 const iMaxLocalstorageSize = 3670016;
 const sStorageOriginsSonPrefix = 'storage';
 const sStoragePage = 'storage.html';
-const sStaticResourceLocalstoragePrefix = 'static_resource_';
+const sstaticResourceLocalstoragePrefix = 'static_resource_';
 //localstorage相关=============================
 //meta标签相关----------------
 const sFinalMetaTagId = 'copy_cont';
@@ -27,7 +27,7 @@ const sFinalMetaTagId = 'copy_cont';
 const sIndexScriptTagId = 'final_js_tag'; // 第一个 script 标签
 //class id tag 相关===============
 //时间相关---------------------
-const sLastCacheStaticResourceTimeTag = 'last_cache_static_resource_';
+const sLastCachestaticResourceTimeTag = 'last_cache_static_resource_';
 const iRequertTimeout = 9000;
 //时间相关=======================
 //语言相关-----------
@@ -156,14 +156,14 @@ let myStorage = (function myStorage () {
  * @param j 文件完整目录 type string
  * @param v 文件内容 type string
  */
-let iAllreadyLoadStaticResource = 0;
-function cacheStaticResource (j = '', v = '') {
+let iAllreadystaticResource = 0;
+function cachestaticResource (j = '', v = '') {
     let t = setTimeout(function () {
         clearTimeout(t);
 
-        iAllreadyLoadStaticResource += parseInt(1);
+        iAllreadystaticResource += parseInt(1);
 
-        setLocalstorage(sStaticResourceLocalstoragePrefix + j, v, false, false, true);
+        setLocalstorage(sstaticResourceLocalstoragePrefix + j, v, false, false, true);
     }, 0);
 }
 /**
@@ -567,7 +567,7 @@ function queryLocalstorage (k = '', f = '', b = false) {
  * @param b 是否返回key type string
  * @returns {string}
  */
-function getStaticResourceFromLocalstorage (j = '', f = '', b = false) {
+function getstaticResourceFromLocalstorage (j = '', f = '', b = false) {
     if (!j) {
         return '';
     }
@@ -579,7 +579,7 @@ function getStaticResourceFromLocalstorage (j = '', f = '', b = false) {
     let t = setTimeout(function () {
         clearTimeout(t);
 
-        queryLocalstorage(sStaticResourceLocalstoragePrefix + j, f, b);
+        queryLocalstorage(sstaticResourceLocalstoragePrefix + j, f, b);
         // queryLocalstorage(j, f, b);
     }, 1);
 }
@@ -682,7 +682,7 @@ function hashFunc(s, i){
  * @param r 真实文件地址 type string
  */
 let bWriteToPage = [];
-function initStaticResource (j = '', t = '', c = '', r = '') {
+function initstaticResource (j = '', t = '', c = '', r = '') {
     if (!j || !t) {
         return false;
     }
@@ -731,7 +731,7 @@ function initStaticResource (j = '', t = '', c = '', r = '') {
                 disposeResponse(v, t, r);
             }, 0);
 
-            asyn('setStaticResourceLastCacheTime', r);
+            asyn('setstaticResourceLastCacheTime', r);
 
             if (c) {
                 asyn(c);
@@ -755,44 +755,44 @@ function disposeResponse (v = '', t = '', f = '') {
     let p = v.t;
     let s = v.s;
     if (p === 'a') {
-        asyn('writeStaticResourceToPage', s, t);
+        asyn('writestaticResourceToPage', s, t);
 
-        asyn('cacheStaticResource', f, s);
+        asyn('cachestaticResource', f, s);
         return;
     }
 
     if (p === 'i') {
-        aNeedIncrementStaticResourceCache[f] = s.i;
-        aNeedIncrementStaticResourceCacheFileType[f] = t;
+        aNeedIncrementstaticResourceCache[f] = s.i;
+        aNeedIncrementstaticResourceCacheFileType[f] = t;
 
-        let b = 'incrememtStaticResourceCache';
+        let b = 'incrememtstaticResourceCache';
         console.log('zzzzzzzzzzzzppppppppppqqqqqqqqqqqqqqquuuuu');
-        console.log(aNeedIncrementStaticResourceCache);
+        console.log(aNeedIncrementstaticResourceCache);
         // console.log(b);
-        getStaticResourceFromLocalstorage(f, b, true);
+        getstaticResourceFromLocalstorage(f, b, true);
         return;
     }
 
     if (p === 'u') {
-        aNeedUpdateStaticResourceCache[f] = s.u;
-        aNeedUpdateStaticResourceCacheVerion[f] = v.g;
-        aNeedUpdateStaticResourceCacheFileType[f] = t;
+        aNeedUpdatestaticResourceCache[f] = s.u;
+        aNeedUpdatestaticResourceCacheVerion[f] = v.g;
+        aNeedUpdatestaticResourceCacheFileType[f] = t;
 
-        let b = 'updateStaticResourceCache';
-        getStaticResourceFromLocalstorage(f, b, true);
+        let b = 'updatestaticResourceCache';
+        getstaticResourceFromLocalstorage(f, b, true);
         return;
     }
 
     if (p === 'ui') {
-        aNeedIncrementStaticResourceCache[f] = s.i;
-        aNeedIncrementStaticResourceCacheFileType[f] = t;
+        aNeedIncrementstaticResourceCache[f] = s.i;
+        aNeedIncrementstaticResourceCacheFileType[f] = t;
 
-        aNeedUpdateStaticResourceCache[f] = s.u;
-        aNeedUpdateStaticResourceCacheVerion[f] = v.g;
-        aNeedUpdateStaticResourceCacheFileType[f] = t;
+        aNeedUpdatestaticResourceCache[f] = s.u;
+        aNeedUpdatestaticResourceCacheVerion[f] = v.g;
+        aNeedUpdatestaticResourceCacheFileType[f] = t;
 
-        let b = 'incrementAndUpdateStaticResourceCache';
-        getStaticResourceFromLocalstorage(f, b, true);
+        let b = 'incrementAndUpdatestaticResourceCache';
+        getstaticResourceFromLocalstorage(f, b, true);
         return;
     }
 }
@@ -802,24 +802,24 @@ function disposeResponse (v = '', t = '', f = '') {
  *
  * @param v
  */
-function incrementAndUpdateStaticResourceCache (v = '') {
+function incrementAndUpdatestaticResourceCache (v = '') {
     let k = v.key;
     if (!k) {
         return;
     }
-    k = k.replace(sStaticResourceLocalstoragePrefix, '');
+    k = k.replace(sstaticResourceLocalstoragePrefix, '');
 
     let s = v.message;
 
-    s = updateStaticResourceCache(v, false, true);
+    s = updatestaticResourceCache(v, false, true);
 
-    s = s + aNeedIncrementStaticResourceCache[k];
-    console.log(aNeedIncrementStaticResourceCache[k]);
+    s = s + aNeedIncrementstaticResourceCache[k];
+    console.log(aNeedIncrementstaticResourceCache[k]);
     console.log('zzzzzzzzzzzzzzzuuuuuuuuuuuuaaaaaaaaaaaaaaa');
 
-    asyn('writeStaticResourceToPage', s, aNeedIncrementStaticResourceCacheFileType[k]);
+    asyn('writestaticResourceToPage', s, aNeedIncrementstaticResourceCacheFileType[k]);
 
-    asyn('cacheStaticResource', k, s);
+    asyn('cachestaticResource', k, s);
 }
 /**
  *
@@ -829,23 +829,23 @@ function incrementAndUpdateStaticResourceCache (v = '') {
  * @param w 是否写入页面
  * @param b 是否返回信息
  */
-let aNeedUpdateStaticResourceCacheFileType = [];
-let aNeedUpdateStaticResourceCache = [];
-let aNeedUpdateStaticResourceCacheVerion = [];
-function updateStaticResourceCache (v = '', w = true, b = false) {
+let aNeedUpdatestaticResourceCacheFileType = [];
+let aNeedUpdatestaticResourceCache = [];
+let aNeedUpdatestaticResourceCacheVerion = [];
+function updatestaticResourceCache (v = '', w = true, b = false) {
     let k = v.key;
     if (!k) {
         return;
     }
-    k = k.replace(sStaticResourceLocalstoragePrefix, '');
+    k = k.replace(sstaticResourceLocalstoragePrefix, '');
 
     let s = v.message;
     if (s) {
-        let a = aNeedUpdateStaticResourceCacheVerion[k];
+        let a = aNeedUpdatestaticResourceCacheVerion[k];
         let g = '';
         for (let i in a) {
             g = new RegExp('\\/\\*' + a[i] + '\\*\\/.*?\\/\\*' + a[i] + '\\*\\/');
-            s = s.replace(g, aNeedUpdateStaticResourceCache[k][i]);
+            s = s.replace(g, aNeedUpdatestaticResourceCache[k][i]);
         }
 
         if (b) {
@@ -853,9 +853,9 @@ function updateStaticResourceCache (v = '', w = true, b = false) {
         }
 
         if (w) {
-            asyn('writeStaticResourceToPage', s, aNeedUpdateStaticResourceCacheFileType[k]);
+            asyn('writestaticResourceToPage', s, aNeedUpdatestaticResourceCacheFileType[k]);
 
-            asyn('cacheStaticResource', k, s);
+            asyn('cachestaticResource', k, s);
         }
     }
 
@@ -869,25 +869,25 @@ function updateStaticResourceCache (v = '', w = true, b = false) {
  *
  * @param v
  */
-let aNeedIncrementStaticResourceCacheFileType = [];
-let aNeedIncrementStaticResourceCache = [];
-function incrememtStaticResourceCache (v = '') {
+let aNeedIncrementstaticResourceCacheFileType = [];
+let aNeedIncrementstaticResourceCache = [];
+function incrememtstaticResourceCache (v = '') {
     let k = v.key;
 
     if (!k) {
         return;
     }
-    k = k.replace(sStaticResourceLocalstoragePrefix, '');
+    k = k.replace(sstaticResourceLocalstoragePrefix, '');
 
     // console.log(v);
     // console.log('sssssssssssllllllllzzzzzzzzzzzziiiiiiiiiii');
-    // console.log(aNeedIncrementStaticResourceCache);
-    // console.log(aNeedIncrementStaticResourceCache[k]);
-    let s = v.message + aNeedIncrementStaticResourceCache[k];
+    // console.log(aNeedIncrementstaticResourceCache);
+    // console.log(aNeedIncrementstaticResourceCache[k]);
+    let s = v.message + aNeedIncrementstaticResourceCache[k];
 
-    asyn('writeStaticResourceToPage', s, aNeedIncrementStaticResourceCacheFileType[k]);
+    asyn('writestaticResourceToPage', s, aNeedIncrementstaticResourceCacheFileType[k]);
 
-    asyn('cacheStaticResource', k, s);
+    asyn('cachestaticResource', k, s);
 }
 /**
  *
@@ -907,7 +907,7 @@ function finalMeta () {
  * @param v 静态文件内容 type string
  * @param t 类型 type string
  */
-function writeStaticResourceToPage(v, t) {
+function writestaticResourceToPage(v, t) {
     if (!v || !t) {
         return;
     }
@@ -924,7 +924,7 @@ function writeStaticResourceToPage(v, t) {
         f = firstScriptTag();
     } else if (t === 'css') {
         if (!finalMeta()) {
-            setTimeoutFunction('writeStaticResourceToPage', v, t);
+            setTimeoutFunction('writestaticResourceToPage', v, t);
             return;
         }
 
@@ -1005,23 +1005,23 @@ function checkRequestJsCssLimit (f = '') {
  * @param q
  * @returns {boolean}
  */
-function loadStaticResource (f, q = false) {
-    if (aInLoadStaticResource[f] || aAllreadyLoadStaticResource[f]) {
+function staticResource (f, q = false) {
+    if (aInstaticResource[f] || aAllreadystaticResource[f]) {
         return false;
     }
 
     if (q && !checkRequestJsCssLimit(f)) {
-        setTimeoutFunction('loadStaticResource', f, q);
+        setTimeoutFunction('staticResource', f, q);
         return false;
     }
 
-    setInLoadStaticResource(f, true);
+    setInstaticResource(f, true);
 
     let a = '';
     let b = '';
     let c = '';
     switch (f) {
-        case sMouseFriend :
+        case sMouseFriendJ :
             a = 'afterLoadMouseFriend';
             b = 'afterLoadMouseFriend1';
             c = 'js';
@@ -1051,22 +1051,22 @@ function loadStaticResource (f, q = false) {
             b = 'afterLoadSetC1';
             c = 'css';
             break;
-        case sMouseSet :
+        case sMouseSetJ :
             a = 'afterLoadMouseSet';
             b = 'afterLoadMouseSet1';
             c = 'js';
             break;
-        case sMouseForum :
+        case sMouseForumJ :
             a = 'afterLoadMouseForum';
             b = 'afterLoadMouseForum1';
             c = 'js';
             break;
-        case sMouseChat :
+        case sMouseChatJ :
             a = 'afterLoadMouseChat';
             b = 'afterLoadMouseChat1';
             c = 'js';
             break;
-        case sMouseAboutMe :
+        case sMouseAboutMeJ :
             a = 'afterLoadMouseAboutMe';
             b = 'afterLoadMouseAboutMe1';
             c = 'js';
@@ -1076,7 +1076,7 @@ function loadStaticResource (f, q = false) {
             b = 'afterLoadMouse1';
             c = 'js';
             break;
-        case sRsaJs :
+        case sRsaJ :
             a = 'afterLoadRsa';
             b = 'afterLoadRsa1';
             c = 'js';
@@ -1096,7 +1096,7 @@ function loadStaticResource (f, q = false) {
             b = 'afterLoadStrFunc1';
             c = 'js';
             break;
-        case sDomFunc :
+        case sMobileDomFuncJ :
             a = 'afterLoadDomFunc';
             b = 'afterLoadDomFunc1';
             c = 'js';
@@ -1114,6 +1114,11 @@ function loadStaticResource (f, q = false) {
         case sResetC :
             a = 'afterLoadResetCss';
             b = 'afterLoadResetCss1';
+            c = 'css';
+            break;
+        case sSzieC :
+            a = 'afterLoadSizeC';
+            b = 'afterLoadSizeC1';
             c = 'css';
             break;
         case sJqueryJ :
@@ -1196,413 +1201,428 @@ function loadStaticResource (f, q = false) {
         let t = setTimeout(function () {
             clearTimeout(t);
 
-            let g = n ? 'f=' + aStaticResourceAddress[f] + n : 'f=' + aStaticResourceAddress[f];
-            initStaticResource(g, c, a, f);
+            let g = n ? 'f=' + astaticResourceAddress[f] + n : 'f=' + astaticResourceAddress[f];
+            initstaticResource(g, c, a, f);
         }, 0);
     } else {
         let t = setTimeout(function () {
             clearTimeout(t);
 
-            getStaticResourceFromLocalstorage(f, b);
+            getstaticResourceFromLocalstorage(f, b);
         }, 0);
     }
 }
-function afterLoadStaticResource (v = '', t = '') {
-    iAllreadyLoadStaticResource += parseInt(1);
+function afterstaticResource (v = '', t = '') {
+    iAllreadystaticResource += parseInt(1);
 
-    asyn('writeStaticResourceToPage', v, t);
+    asyn('writestaticResourceToPage', v, t);
 }
 function afterLoadUserColor () {
-    setInLoadStaticResource(sPersonalizedCss, false);
+    setInstaticResource(sPersonalizedCss, false);
 }
 function afterLoadUserColor1 (v = '') {
     if (v) {
-        asyn('afterLoadStaticResource', v, 'css');
+        asyn('afterstaticResource', v, 'css');
 
         asyn('afterLoadUserColor');
 
         return;
     }
 
-    aInLoadStaticResource[sPersonalizedCss] = false;
-    asyn('loadStaticResource', sPersonalizedCss, true);
+    aInstaticResource[sPersonalizedCss] = false;
+    asyn('staticResource', sPersonalizedCss, true);
 }
 function afterLoadSetC () {
-    setInLoadStaticResource(sSetC, false);
+    setInstaticResource(sSetC, false);
 }
 function afterLoadSetC1 (v = '') {
     if (v) {
-        asyn('afterLoadStaticResource', v, 'css');
+        asyn('afterstaticResource', v, 'css');
 
         asyn('afterLoadSetC');
 
         return;
     }
 
-    aInLoadStaticResource[sSetC] = false;
-    asyn('loadStaticResource', sSetC, true);
+    aInstaticResource[sSetC] = false;
+    asyn('staticResource', sSetC, true);
 }
 function afterLoadAboutC () {
-    setInLoadStaticResource(sAboutC, false);
+    setInstaticResource(sAboutC, false);
 }
 function afterLoadAboutC1 (v = '') {
     if (v) {
-        asyn('afterLoadStaticResource', v, 'css');
+        asyn('afterstaticResource', v, 'css');
 
         asyn('afterLoadAboutC');
 
         return;
     }
 
-    aInLoadStaticResource[sAboutC] = false;
-    asyn('loadStaticResource', sAboutC, true);
+    aInstaticResource[sAboutC] = false;
+    asyn('staticResource', sAboutC, true);
 }
 function afterLoadFriendC () {
-    setInLoadStaticResource(sFriendC, false);
+    setInstaticResource(sFriendC, false);
 }
 function afterLoadFriendC1 (v = '') {
     if (v) {
-        asyn('afterLoadStaticResource', v, 'css');
+        asyn('afterstaticResource', v, 'css');
 
         asyn('afterLoadFriendC');
 
         return;
     }
 
-    aInLoadStaticResource[sFriendC] = false;
-    asyn('loadStaticResource', sFriendC, true);
+    aInstaticResource[sFriendC] = false;
+    asyn('staticResource', sFriendC, true);
 }
 function afterLoadChatC () {
-    setInLoadStaticResource(sChatC, false);
+    setInstaticResource(sChatC, false);
 }
 function afterLoadChatC1 (v = '') {
     if (v) {
-        asyn('afterLoadStaticResource', v, 'css');
+        asyn('afterstaticResource', v, 'css');
 
         asyn('afterLoadChatC');
 
         return;
     }
 
-    aInLoadStaticResource[sChatC] = false;
-    asyn('loadStaticResource', sChatC, true);
+    aInstaticResource[sChatC] = false;
+    asyn('staticResource', sChatC, true);
 }
 function afterLoadForumC () {
-    setInLoadStaticResource(sForumC, false);
+    setInstaticResource(sForumC, false);
 }
 function afterLoadForumC1 (v = '') {
     if (v) {
-        asyn('afterLoadStaticResource', v, 'css');
+        asyn('afterstaticResource', v, 'css');
 
         asyn('afterLoadForumC');
 
         return;
     }
 
-    aInLoadStaticResource[sForumC] = false;
-    asyn('loadStaticResource', sForumC, true);
+    aInstaticResource[sForumC] = false;
+    asyn('staticResource', sForumC, true);
 }
 function afterLoadPublicCss () {
-    setInLoadStaticResource(sPubC, false);
+    setInstaticResource(sPubC, false);
 }
 function afterLoadPublicCss1 (v = '') {
     if (v) {
-        asyn('afterLoadStaticResource', v, 'css');
+        asyn('afterstaticResource', v, 'css');
 
         asyn('afterLoadPublicCss');
 
         return;
     }
 
-    aInLoadStaticResource[sPubC] = false;
-    asyn('loadStaticResource', sPubC, true);
+    aInstaticResource[sPubC] = false;
+    asyn('staticResource', sPubC, true);
+}
+function afterLoadSizeC () {
+    setInstaticResource(sSzieC, false);
+}
+function afterLoadSizeC1 (v = '') {
+    if (v) {
+        asyn('afterstaticResource', v, 'css');
+
+        asyn('afterLoadSizeC');
+
+        return;
+    }
+
+    aInstaticResource[sSzieC] = false;
+    asyn('staticResource', sSzieC, true);
 }
 function afterLoadResetCss () {
-    setInLoadStaticResource(sResetC, false);
+    setInstaticResource(sResetC, false);
 }
 function afterLoadResetCss1 (v = '') {
     if (v) {
-        asyn('afterLoadStaticResource', v, 'css');
+        asyn('afterstaticResource', v, 'css');
 
         asyn('afterLoadResetCss');
 
         return;
     }
 
-    aInLoadStaticResource[sResetC] = false;
-    asyn('loadStaticResource', sResetC, true);
+    aInstaticResource[sResetC] = false;
+    asyn('staticResource', sResetC, true);
 }
 function afterLoadPage () {
     asyn('afterLoadPageJs');
 
-    setInLoadStaticResource(sNowPageJs, false);
+    setInstaticResource(sNowPageJs, false);
 }
 function afterLoadPage1 (v = '') {
     if (v) {
-        asyn('afterLoadStaticResource', v, 'js');
+        asyn('afterstaticResource', v, 'js');
 
         asyn('afterLoadPageJs');
 
         return;
     }
 
-    aInLoadStaticResource[sNowPageJs] = false;
-    asyn('loadStaticResource', sNowPageJs, true);
+    aInstaticResource[sNowPageJs] = false;
+    asyn('staticResource', sNowPageJs, true);
 }
 function afterLoadLocalJquery () {
-    setInLoadStaticResource(sJqueryJ, false);
+    setInstaticResource(sJqueryJ, false);
 }
 function afterLoadLocalJquery1 (v = '') {
     if (v) {
-        asyn('afterLoadStaticResource', v, 'js');
+        asyn('afterstaticResource', v, 'js');
 
         asyn('afterLoadLocalJquery');
 
         return;
     }
 
-    aInLoadStaticResource[sJqueryJ] = false;
-    asyn('loadStaticResource', sJqueryJ, true);
+    aInstaticResource[sJqueryJ] = false;
+    asyn('staticResource', sJqueryJ, true);
 }
 function afterLoadEncode () {
-    setInLoadStaticResource(sEncodeJ, false);
+    setInstaticResource(sEncodeJ, false);
     asyn('encodeBegin');
 }
 function afterLoadEncode1 (v = '') {
     if (v) {
-        asyn('afterLoadStaticResource', v, 'js');
+        asyn('afterstaticResource', v, 'js');
 
         asyn('afterLoadEncode');
 
         return;
     }
 
-    aInLoadStaticResource[sEncodeJ] = false;
-    asyn('loadStaticResource', sEncodeJ, true);
+    aInstaticResource[sEncodeJ] = false;
+    asyn('staticResource', sEncodeJ, true);
 }
 function afterLoadApi () {
-    setInLoadStaticResource(sApiJ, false);
+    setInstaticResource(sApiJ, false);
     asyn('apiBegin');
 }
 function afterLoadApi1 (v = '') {
     if (v) {
-        asyn('afterLoadStaticResource', v, 'js');
+        asyn('afterstaticResource', v, 'js');
 
         asyn('afterLoadApi');
 
         return;
     }
 
-    aInLoadStaticResource[sApiJ] = false;
-    asyn('loadStaticResource', sApiJ, true);
+    aInstaticResource[sApiJ] = false;
+    asyn('staticResource', sApiJ, true);
 }
 function afterLoadLang () {
-    setInLoadStaticResource(sNowLang, false);
+    setInstaticResource(sNowLang, false);
     asyn(sNowLang + 'Begin');
 }
 function afterLoadLang1 (v = '') {
     if (v) {
-        asyn('afterLoadStaticResource', v, 'js');
+        asyn('afterstaticResource', v, 'js');
 
         asyn('afterLoadLang');
 
         return;
     }
 
-    aInLoadStaticResource[sNowLang] = false;
-    asyn('loadStaticResource', sNowLang, true);
+    aInstaticResource[sNowLang] = false;
+    asyn('staticResource', sNowLang, true);
 }
 function afterLoadBaseJs () {
-    setInLoadStaticResource(sBaseJ, false);
+    setInstaticResource(sBaseJ, false);
     asyn('baseBegins');
 }
 function afterLoadBaseJs1 (v = '') {
     if (v) {
-        asyn('afterLoadStaticResource', v, 'js');
+        asyn('afterstaticResource', v, 'js');
 
         asyn('afterLoadBaseJs');
 
         return;
     }
 
-    aInLoadStaticResource[sBaseJ] = false;
-    asyn('loadStaticResource', sBaseJ, true);
+    aInstaticResource[sBaseJ] = false;
+    asyn('staticResource', sBaseJ, true);
 }
 function afterLoadMd5 () {
     asyn('md5Begin');
-    setInLoadStaticResource(sMd5J, false);
+    setInstaticResource(sMd5J, false);
 }
 function afterLoadMd51 (v = '') {
     if (v) {
-        asyn('afterLoadStaticResource', v, 'js');
+        asyn('afterstaticResource', v, 'js');
 
         asyn('afterLoadMd5');
 
         return;
     }
 
-    aInLoadStaticResource[sMd5J] = false;
-    asyn('loadStaticResource', sMd5J, true);
+    aInstaticResource[sMd5J] = false;
+    asyn('staticResource', sMd5J, true);
 }
 function afterLoadMouseSet () {
     asyn('mouseSetBegin');
-    setInLoadStaticResource(sMouseSet, false);
+    setInstaticResource(sMouseSetJ, false);
 }
 function afterLoadMouseSet1 (v = '') {
     if (v) {
-        asyn('afterLoadStaticResource', v, 'js');
+        asyn('afterstaticResource', v, 'js');
 
         asyn('afterLoadMouseSet');
 
         return;
     }
 
-    aInLoadStaticResource[sMouseSet] = false;
-    asyn('loadStaticResource', sMouseSet, true);
+    aInstaticResource[sMouseSetJ] = false;
+    asyn('staticResource', sMouseSetJ, true);
 }
 function afterLoadMouseFriend () {
     asyn('mouseFriendBegin');
-    setInLoadStaticResource(sMouseFriend, false);
+    setInstaticResource(sMouseFriendJ, false);
 }
 function afterLoadMouseFriend1 (v = '') {
     if (v) {
-        asyn('afterLoadStaticResource', v, 'js');
+        asyn('afterstaticResource', v, 'js');
 
         asyn('afterLoadMouseFriend');
 
         return;
     }
 
-    aInLoadStaticResource[sMouseFriend] = false;
-    asyn('loadStaticResource', sMouseFriend, true);
+    aInstaticResource[sMouseFriendJ] = false;
+    asyn('staticResource', sMouseFriendJ, true);
 }
 function afterLoadMouseForum () {
     asyn('mouseForumBegin');
-    setInLoadStaticResource(sMouseForum, false);
+    setInstaticResource(sMouseForumJ, false);
 }
 function afterLoadMouseForum1 (v = '') {
     if (v) {
-        asyn('afterLoadStaticResource', v, 'js');
+        asyn('afterstaticResource', v, 'js');
 
         asyn('afterLoadMouseForum');
 
         return;
     }
 
-    aInLoadStaticResource[sMouseForum] = false;
-    asyn('loadStaticResource', sMouseForum, true);
+    aInstaticResource[sMouseForumJ] = false;
+    asyn('staticResource', sMouseForumJ, true);
 }
 function afterLoadMouseChat () {
     asyn('mouseChatBegin');
-    setInLoadStaticResource(sMouseChat, false);
+    setInstaticResource(sMouseChatJ, false);
 }
 function afterLoadMouseChat1 (v = '') {
     if (v) {
-        asyn('afterLoadStaticResource', v, 'js');
+        asyn('afterstaticResource', v, 'js');
 
         asyn('afterLoadMouseChat');
 
         return;
     }
 
-    aInLoadStaticResource[sMouseChat] = false;
-    asyn('loadStaticResource', sMouseChat, true);
+    aInstaticResource[sMouseChatJ] = false;
+    asyn('staticResource', sMouseChatJ, true);
 }
 function afterLoadMouseAboutMe () {
     asyn('mouseAboutMeBegin');
-    setInLoadStaticResource(sMouseAboutMe, false);
+    setInstaticResource(sMouseAboutMeJ, false);
 }
 function afterLoadMouseAboutMe1 (v = '') {
     if (v) {
-        asyn('afterLoadStaticResource', v, 'js');
+        asyn('afterstaticResource', v, 'js');
 
         asyn('afterLoadMouseAboutMe');
 
         return;
     }
 
-    aInLoadStaticResource[sMouseAboutMe] = false;
-    asyn('loadStaticResource', sMouseAboutMe, true);
+    aInstaticResource[sMouseAboutMeJ] = false;
+    asyn('staticResource', sMouseAboutMeJ, true);
 }
 function afterLoadMouse () {
     asyn('mouseBegin');
-    setInLoadStaticResource(sMouseJ, false);
+    setInstaticResource(sMouseJ, false);
 }
 function afterLoadMouse1 (v = '') {
     if (v) {
-        asyn('afterLoadStaticResource', v, 'js');
+        asyn('afterstaticResource', v, 'js');
 
         asyn('afterLoadMouse');
 
         return;
     }
 
-    aInLoadStaticResource[sMouseJ] = false;
-    asyn('loadStaticResource', sMouseJ, true);
+    aInstaticResource[sMouseJ] = false;
+    asyn('staticResource', sMouseJ, true);
 }
 function afterLoadRsa () {
     asyn('arrayFunctionBegin');
-    setInLoadStaticResource(sRsaJs, false);
+    setInstaticResource(sRsaJ, false);
 }
 function afterLoadRsa1 (v = '') {
     if (v) {
-        asyn('afterLoadStaticResource', v, 'js');
+        asyn('afterstaticResource', v, 'js');
 
         asyn('afterLoadRsa');
 
         return;
     }
 
-    aInLoadStaticResource[sRsaJs] = false;
-    asyn('loadStaticResource', sRsaJs, true);
+    aInstaticResource[sRsaJ] = false;
+    asyn('staticResource', sRsaJ, true);
 }
 function afterLoadArrayFunc () {
     asyn('arrayFunctionBegin');
-    setInLoadStaticResource(sArrFuncJ, false);
+    setInstaticResource(sArrFuncJ, false);
 }
 function afterLoadArrayFunc1 (v = '') {
     if (v) {
-        asyn('afterLoadStaticResource', v, 'js');
+        asyn('afterstaticResource', v, 'js');
 
         asyn('afterLoadArrayFunc');
 
         return;
     }
 
-    aInLoadStaticResource[sArrFuncJ] = false;
-    asyn('loadStaticResource', sArrFuncJ, true);
+    aInstaticResource[sArrFuncJ] = false;
+    asyn('staticResource', sArrFuncJ, true);
 }
 function afterLoadStrFunc () {
     asyn('stringFunctionBegin');
-    setInLoadStaticResource(sStrFunc, false);
+    setInstaticResource(sStrFunc, false);
 }
 function afterLoadStrFunc1 (v = '') {
     if (v) {
-        asyn('afterLoadStaticResource', v, 'js');
+        asyn('afterstaticResource', v, 'js');
 
         asyn('afterLoadStrFunc');
 
         return;
     }
 
-    aInLoadStaticResource[sStrFunc] = false;
-    asyn('loadStaticResource', sStrFunc, true);
+    aInstaticResource[sStrFunc] = false;
+    asyn('staticResource', sStrFunc, true);
 }
 function afterLoadDomFunc () {
     asyn('domFunctionBegin');
-    setInLoadStaticResource(sDomFunc, false);
+    setInstaticResource(sMobileDomFuncJ, false);
 }
 function afterLoadDomFunc1 (v = '') {
     if (v) {
-        asyn('afterLoadStaticResource', v, 'js');
+        asyn('afterstaticResource', v, 'js');
 
         asyn('afterLoadDomFunc');
 
         return;
     }
 
-    aInLoadStaticResource[sDomFunc] = false;
-    asyn('loadStaticResource', sDomFunc, true);
+    aInstaticResource[sMobileDomFuncJ] = false;
+    asyn('staticResource', sMobileDomFuncJ, true);
 }
 /**
  *
@@ -1611,19 +1631,19 @@ function afterLoadDomFunc1 (v = '') {
  */
 function afterLoadFunctionJs () {
     asyn('functionBegin');
-    setInLoadStaticResource(sFuncJ, false);
+    setInstaticResource(sFuncJ, false);
 }
 function afterLoadFunctionJs1 (v = '') {
     if (v) {
-        asyn('afterLoadStaticResource', v, 'js');
+        asyn('afterstaticResource', v, 'js');
 
         asyn('afterLoadFunctionJs');
 
         return;
     }
 
-    aInLoadStaticResource[sFuncJ] = false;
-    asyn('loadStaticResource', sFuncJ, true);
+    aInstaticResource[sFuncJ] = false;
+    asyn('staticResource', sFuncJ, true);
 }
 /**
  *
@@ -1631,20 +1651,20 @@ function afterLoadFunctionJs1 (v = '') {
  *
  */
 function afterLoadDomJs () {
-    setInLoadStaticResource(sPubDomJ, false);
+    setInstaticResource(sPubDomJ, false);
     asyn('domBegin');
 }
 function afterLoadDomJs1 (v = '') {
     if (v) {
-        asyn('afterLoadStaticResource', v, 'js');
+        asyn('afterstaticResource', v, 'js');
 
         asyn('afterLoadDomJs');
 
         return;
     }
 
-    aInLoadStaticResource[sPubDomJ] = false;
-    asyn('loadStaticResource', sPubDomJ, true);
+    aInstaticResource[sPubDomJ] = false;
+    asyn('staticResource', sPubDomJ, true);
 }
 /**
  *
@@ -1652,20 +1672,20 @@ function afterLoadDomJs1 (v = '') {
  *
  */
 function afterLoadPlatformDomJs () {
-    setInLoadStaticResource(sPlatDomJ, false);
+    setInstaticResource(sPlatDomJ, false);
     asyn('platformBegin');
 }
 function afterLoadPlatformDomJs1 (v = '') {
     if (v) {
-        asyn('afterLoadStaticResource', v, 'js');
+        asyn('afterstaticResource', v, 'js');
 
         asyn('afterLoadPlatformDomJs');
 
         return;
     }
 
-    aInLoadStaticResource[sPlatDomJ] = false;
-    asyn('loadStaticResource', sPlatDomJ, true);
+    aInstaticResource[sPlatDomJ] = false;
+    asyn('staticResource', sPlatDomJ, true);
 }
 /**
  *
@@ -1673,20 +1693,20 @@ function afterLoadPlatformDomJs1 (v = '') {
  *
  */
 function afterLoadLogicJs () {
-    setInLoadStaticResource(sLogicJ, false);
+    setInstaticResource(sLogicJ, false);
     asyn('logicBegin');
 }
 function afterLoadLogicJs1 (v = '') {
     if (v) {
-        asyn('afterLoadStaticResource', v, 'js');
+        asyn('afterstaticResource', v, 'js');
 
         asyn('afterLoadLogicJs');
 
         return;
     }
 
-    aInLoadStaticResource[sLogicJ] = false;
-    asyn('loadStaticResource', sLogicJ, true);
+    aInstaticResource[sLogicJ] = false;
+    asyn('staticResource', sLogicJ, true);
 }
 //用户语言
 function queryUserLang () {
@@ -1739,7 +1759,7 @@ function loadPersonalizedCss (c = false) {
 
     sPersonalizedCss = userCss(c);
 
-    asyn('loadStaticResource', sPersonalizedCss);
+    asyn('staticResource', sPersonalizedCss);
 }
 // 从localstorage 获取 用户自定义主题
 function queryUserPersonalizedColor () {
@@ -1798,7 +1818,7 @@ function loadLang (l = '') {
         return false;
     }
 
-    asyn('loadStaticResource', sNowLang);
+    asyn('staticResource', sNowLang);
 }
 /**
  *
@@ -1807,26 +1827,28 @@ function loadLang (l = '') {
  */
 function loadStaticFile () {
     if (sPlatformTag === sMobileTag) {
-        asyn('loadStaticResource', sMouseJ);
+        asyn('staticResource', sMouseJ);
     }
 
-    asyn('loadStaticResource', sResetC);
+    asyn('staticResource', sResetC);
+
+    asyn('staticResource', sSzieC);
 
     asyn('loadPersonalizedCss');
 
-    asyn('loadStaticResource', sBaseJ);
+    asyn('staticResource', sBaseJ);
 
-    asyn('loadStaticResource', sPubDomJ);
+    asyn('staticResource', sPubDomJ);
 
-    asyn('loadStaticResource', sPlatDomJ);
+    asyn('staticResource', sPlatDomJ);
 
-    asyn('loadStaticResource', sLogicJ);
+    asyn('staticResource', sLogicJ);
 
     asyn('loadLang');
 
-    asyn('loadStaticResource', sJqueryJ);
+    asyn('staticResource', sJqueryJ);
 
-    asyn('loadStaticResource', sPubC);
+    asyn('staticResource', sPubC);
 }
 function localstorageError1 () {
     alert('localstorage error, please retry reload !!! ');
@@ -1837,7 +1859,7 @@ function localstorageError1 () {
  *
  * @param k 静态文件地址
  */
-function setStaticResourceLastCacheTime (k = '') {
+function setstaticResourceLastCacheTime (k = '') {
     // console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
     let t = date();
     let y = t.getFullYear();
@@ -1848,7 +1870,7 @@ function setStaticResourceLastCacheTime (k = '') {
     let i = t.getMinutes();
     let s = t.getSeconds();
 
-    myStorage.set(sLastCacheStaticResourceTimeTag + k, y + m + d + h + i + s);
+    myStorage.set(sLastCachestaticResourceTimeTag + k, y + m + d + h + i + s);
 }
 /**
  *
@@ -1857,8 +1879,8 @@ function setStaticResourceLastCacheTime (k = '') {
  * @param k
  * @returns {*}
  */
-function getStaticResourceLastCacheTime (k = '') {
-    let t = myStorage.get(sLastCacheStaticResourceTimeTag + k);
+function getstaticResourceLastCacheTime (k = '') {
+    let t = myStorage.get(sLastCachestaticResourceTimeTag + k);
     return t ? t : 0;
 }
 let iBeginTime = 0;
@@ -1913,15 +1935,15 @@ function setStatusResourceHost () {
  * @param j 文件路径 type string
  * @param b 加载中 type boole
  */
-function setInLoadStaticResource (j = '', b = false) {
+function setInstaticResource (j = '', b = false) {
     if (b) {
-        aInLoadStaticResource[j] = true;
-        aAllreadyLoadStaticResource[j] = false;
+        aInstaticResource[j] = true;
+        aAllreadystaticResource[j] = false;
         return;
     }
 
-    aInLoadStaticResource[j] = false;
-    aAllreadyLoadStaticResource[j] = true;
+    aInstaticResource[j] = false;
+    aAllreadystaticResource[j] = true;
 }
 /**
  *
@@ -1930,14 +1952,14 @@ function setInLoadStaticResource (j = '', b = false) {
  * @param j 依赖文件 type array
  * @param c 回调函数 type function
  */
-let aAllreadyLoadStaticResource = [];
-let aInLoadStaticResource = [];
+let aAllreadystaticResource = [];
+let aInstaticResource = [];
 function requires (j = '', c = '') {
     let l = j.length;
     let n = 0;
     let y = [];
     for (let i in j) {
-        if (aAllreadyLoadStaticResource[j[i]] && checkStaticResource(j[i])) {
+        if (aAllreadystaticResource[j[i]] && checkstaticResource(j[i])) {
             n = parseInt(n) + parseInt(1);
         } else {
             y.push(j[i]);
@@ -1951,7 +1973,7 @@ function requires (j = '', c = '') {
 
     if (y) {
         for (let i in y) {
-            asyn('loadStaticResource', y[i]);
+            asyn('staticResource', y[i]);
         }
     }
 
@@ -1963,7 +1985,7 @@ function requires (j = '', c = '') {
  *
  * @param j
  */
-function checkStaticResource (j) {
+function checkstaticResource (j) {
     switch (j) {
         case sFuncJ :
             return typeof window['functionBegin'] != 'undefined' ? true : false;
@@ -1971,7 +1993,7 @@ function checkStaticResource (j) {
         case sEncodeJ :
             return typeof window['encodeBegin'] != 'undefined' ? true : false;
             break;
-        case sDomFunc :
+        case sMobileDomFuncJ :
             return typeof window['domFunctionBegin'] != 'undefined' ? true : false;
             break;
         case sStrFunc :
@@ -1983,19 +2005,19 @@ function checkStaticResource (j) {
         case sMd5J :
             return typeof window['md5Begin'] != 'undefined' ? true : false;
             break;
-        case sMouseAboutMe :
+        case sMouseAboutMeJ :
             return typeof window['mouseAboutMeBegin'] != 'undefined' ? true : false;
             break;
-        case sMouseChat :
+        case sMouseChatJ :
             return typeof window['mouseChatBegin'] != 'undefined' ? true : false;
             break;
-        case sMouseForum :
+        case sMouseForumJ :
             return typeof window['mouseForumBegin'] != 'undefined' ? true : false;
             break;
-        case sMouseFriend :
+        case sMouseFriendJ :
             return typeof window['mouseFriendBegin'] != 'undefined' ? true : false;
             break;
-        case sMouseSet :
+        case sMouseSetJ :
             return typeof window['mouseSetBegin'] != 'undefined' ? true : false;
             break;
         case sCnLangJ :

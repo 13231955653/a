@@ -1,5 +1,5 @@
 /*9429d793fa750360*/const aBody = [
-    'writeBHead',
+    // 'writeBHead',
     'writeBBody',
     'writeBFoot',
     'writeBLeft',
@@ -9,7 +9,7 @@ const sFootTag = '_f';
 const sFootLiSuffix = '_l';
 const sActiveFootTag = 'f_act';
 
-const sBHeadD = 'h_';
+// const sBHeadD = 'h_';
 const sBBodyD = 'b_';
 const sBFootD = 'f_';
 
@@ -25,9 +25,11 @@ const sPubBodyD = 'pub_body';
 const sPubLeftD = 'pub_left';
 const sPubRightD = 'pub_right';
 
-const sOneHead = 'one_h';
-const sTwoHead = 'two_h';
-const sThreeHead = 'three_h';
+const sBodySonsClass = 'body_sons';
+
+// const sOneHead = 'one_h';
+// const sTwoHead = 'two_h';
+// const sThreeHead = 'three_h';
 
 const aSecondBody = [
     sForumPage,
@@ -56,11 +58,11 @@ function threeBodyDom() {
     fatherDom().innerHTML = s;
     s = null;
 
-    requires([sLogicJ, sDomFunc], function () {
+    requires([sLogicJ, sMobileDomFuncJ], function () {
         asyn('bindFootClick');
     });
 
-    requires([sNowLang, sDomFunc], function () {
+    requires([sNowLang, sMobileDomFuncJ], function () {
         asyn('replaceLang', sReplaceLangIdType, sPubFootD);
     });
 }/*637c85dcfd18cc0b*/
@@ -104,23 +106,23 @@ function bRightDom () {
     return oBRight;
 }/*c9f4866ae72da3be*/
 
-/*16f799f68465dd08*/function writeBHead() {
-    if (bHeadDom()) {
-        return '';
-    }
-
-    let s = '';
-    s += '<div id="' + sPubHeadD + '" class="' + sFullWidthClass + '">';
-
-    let a = aSecondBody;
-    for (let i in a) {
-        s += writeMoblieHeadDom(a[i]);
-    }
-
-    s += '</div>';
-
-    return s;
-}/*16f799f68465dd08*/
+// /*16f799f68465dd08*/function writeBHead() {
+//     if (bHeadDom()) {
+//         return '';
+//     }
+//
+//     let s = '';
+//     s += '<div id="' + sPubHeadD + '" class="' + sFullWidthClass + '">';
+//
+//     let a = aSecondBody;
+//     for (let i in a) {
+//         s += writeMoblieHeadDom(a[i]);
+//     }
+//
+//     s += '</div>';
+//
+//     return s;
+// }/*16f799f68465dd08*/
 
 /*3f7550f47d4e0f87*/function writeBBody() {
     if (bBodyDom()) {
@@ -140,16 +142,16 @@ function bRightDom () {
     return s;
 }/*3f7550f47d4e0f87*/
 
-/*56b538473f0f3166*/function writeMoblieHeadDom (d) {
-    if (domById(d)) {
-        return '';
-    }
-
-    let s = '';
-    s += '<div id="' + sBHeadD + d + '" class="' + sFullWidthClass + '">';
-    s += '</div>';
-    return s;
-}/*56b538473f0f3166*/
+// /*56b538473f0f3166*/function writeMoblieHeadDom (d) {
+//     if (domById(d)) {
+//         return '';
+//     }
+//
+//     let s = '';
+//     s += '<div id="' + sBHeadD + d + '" class="' + sFullWidthClass + '">';
+//     s += '</div>';
+//     return s;
+// }/*56b538473f0f3166*/
 
 /*12c3163a66add709*/function writeMobliePageBodyDom (d) {
     if (domById(d)) {
@@ -157,7 +159,7 @@ function bRightDom () {
     }
 
     let s = '';
-    s += '<div id="' + sBBodyD + d + '" class="' + sFullWidthClass + '">';
+    s += '<div id="' + sBBodyD + d + '" class="' + sFullWidthClass + ' ' + sBodySonsClass + ' ' + sHiddenClass + '">';
     s += '</div>';
     return s;
 }/*12c3163a66add709*/
@@ -229,28 +231,6 @@ function writeOneFooter (d = '') {
     return s;
 }/*d86f6d0f01d165ef*/
 
-/*b85177e4aecead95*/function updateActiveFoot () {
-    let a = sFootTag;
-    let b = sActiveFootTag;
-    let f = domById(sBFootD + getNowPage() + a + sFootLiSuffix);
-    if (!f) {
-        console.log('afterLoadPageJs f is null, so no to do');
-        return false;
-    }
-
-    let o = domByClass(a);
-    if (o.length) {
-        let p = new RegExp('\\s+' + b,'gm');
-        for (let i in o) {
-            if (!o[i].className) {
-                continue;
-            }
-
-            o[i].className = o[i].className.toString().replace(p, '');
-        }
-    }
-    f.className += ' ' + b;
-}/*b85177e4aecead95*/
 
 /*b7cf1f44259f6ad5*/function platformBegin () {
     console.log('5555555555555555555platformBegin');

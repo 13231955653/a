@@ -6,7 +6,7 @@
 // function setrequires () {
 //     let a = [];
 //
-//     a[sFuncJsTag] = aStaticResourceAddress[sFuncJsTag];
+//     a[sFuncJsTag] = astaticResourceAddress[sFuncJsTag];
 //     a['encode'] = sBaseEncodeJs;
 //     arequires = a;
 // }
@@ -18,15 +18,15 @@
 //  * @param j 文件路径 type string
 //  * @param b 加载中 type boole
 //  */
-// function setInLoadStaticResource (j = '', b = false) {
+// function setInstaticResource (j = '', b = false) {
 //     if (b) {
-//         aInLoadStaticResource[j] = true;
-//         aAllreadyLoadStaticResource[j] = false;
+//         aInstaticResource[j] = true;
+//         aAllreadystaticResource[j] = false;
 //         return;
 //     }
 //
-//     aInLoadStaticResource[j] = false;
-//     aAllreadyLoadStaticResource[j] = true;
+//     aInstaticResource[j] = false;
+//     aAllreadystaticResource[j] = true;
 // }
 //
 // /**
@@ -36,8 +36,8 @@
 //  * @param j 依赖文件 type array
 //  * @param c 回调函数 type function
 //  */
-// let aAllreadyLoadStaticResource = [];
-// let aInLoadStaticResource = [];
+// let aAllreadystaticResource = [];
+// let aInstaticResource = [];
 // function requires (j = '', c = '') {
 //     console.log('pppppppppppppppppppppppppppppppppppppppppp');
 //     // console.log(j);
@@ -46,16 +46,16 @@
 //
 //     let l = j.length;
 //     // console.log(l);
-//     // console.log(aAllreadyLoadStaticResource);
+//     // console.log(aAllreadystaticResource);
 //     let n = 0;
 //     for (let i in j) {
 //         console.log('vvvvvvvvvvvvvvvvvvvvvvv');
 //         console.log(j[i]);
 //         console.log(arequires);
 //         console.log(arequires[j[i]]);
-//         console.log(aAllreadyLoadStaticResource);
-//         console.log(aAllreadyLoadStaticResource[arequires[j[i]]]);
-//         if (aAllreadyLoadStaticResource[arequires[j[i]]]) {
+//         console.log(aAllreadystaticResource);
+//         console.log(aAllreadystaticResource[arequires[j[i]]]);
+//         if (aAllreadystaticResource[arequires[j[i]]]) {
 //             n = parseInt(n) + parseInt(1);
 //         }
 //
@@ -68,10 +68,10 @@
 //         }
 //     }
 //
-//     // console.log(aInLoadStaticResource);
+//     // console.log(aInstaticResource);
 //     let m = 0;
 //     for (let i in j) {
-//         if (aInLoadStaticResource[j[i]]) {
+//         if (aInstaticResource[j[i]]) {
 //             m = parseInt(m) + parseInt(1);
 //         }
 //
@@ -83,14 +83,14 @@
 //
 //     console.log('qqqqqqqqqqqqqqqqqqqqqq');
 //     // console.log(arequires[j]);
-//     // console.log(aStaticResourceAddress[sFuncJsTag]);
+//     // console.log(astaticResourceAddress[sFuncJsTag]);
 //     for (let i in j) {
-//         asyn('loadStaticResource', arequires[j[i]]);
+//         asyn('staticResource', arequires[j[i]]);
 //     }
 // }
 //
 // function requiresBegin () {
-//     if (typeof window['aStaticResourceAddress['base']'] == 'undefined') {
+//     if (typeof window['astaticResourceAddress['base']'] == 'undefined') {
 //         let t = setTimeout(function () {
 //             clearTimeout(t);
 //

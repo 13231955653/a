@@ -1,4 +1,9 @@
 <?php
+/**
+ *
+ * 读取静态资源控制器
+ *
+ */
 if (!isset($_GET['f'])) {
     header('HTTP/1.1 404 Not Found');
     return;

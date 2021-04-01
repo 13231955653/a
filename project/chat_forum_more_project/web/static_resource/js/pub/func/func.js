@@ -231,42 +231,6 @@ function replaceTitle (t = '') {
     setBrowserTitle(aLang[t]);
 }/*49f8fbda0f7844f5*/
 
-/*f7d3dc4ea25d7fd7*//**
- *
- *
- *
- * @param o 对象 dom  type object
- * @param s 样式 type json
- * @param p 改变样式速度 type number
- * @param c 回调函数 type string
- */
-function animates (o = false, s = false, p = false, c = false) {
-    if (typeof jQuery != 'undefined') {
-        $(o).animate(s, p, c);
-        return;
-    }
-
-    if (!o || !s || !p) {
-        // console.log(o);
-        // console.log(s);
-        // console.log(p);
-        // console.log('animates o or s or p is null');
-        return;
-    }
-
-    // console.log('iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii');
-    // console.log(bJquery);
-
-    // setTimeoutFunction('animates');
-    let t = setTimeout(function () {
-        clearTimeout(t);
-
-        animates(o, s, p, c);
-    }, aTimer['animates']);
-
-    // jsAnimate (o, s, parseInt(p / 20));
-}/*f7d3dc4ea25d7fd7*/
-
 /*cd7c556dd4ab8214*//**
  *
  * token
