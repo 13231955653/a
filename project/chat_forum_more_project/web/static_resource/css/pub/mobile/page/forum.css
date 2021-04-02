@@ -19,13 +19,13 @@
     top: 0px;
     left: 0px;
 }
-.forum_head_t{
+.forum_head_c{
     float: left;
     padding: 0px 2rem 0px 2rem;
     margin-left: 1rem;
 }
-.forum_head_t_act{
-    background: var(--forum_head_t_act_bk);
+.forum_head_c_act{
+    background: var(--forum_head_c_act_bk);
 }
 #b_forum_body{
     position: absolute;

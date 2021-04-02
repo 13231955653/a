@@ -13,8 +13,8 @@ let d = sForumPage;
 let sForumBodySuffix = '_b';
 let sForumHeadSuffix = '_h';
 let sForumSplitTag = '_';
-let sForumHeadClass = 'forum_head_t';
-let sForumHeadActiveClass = 'forum_head_t_act';
+let sForumHeadClass = 'forum_head_c';
+let sForumHeadActiveClass = 'forum_head_c_act';
 let e = sForumSplitTag;
 let c = [
     d + e + sAnnouncement,
@@ -30,7 +30,6 @@ let c = [
 ];
 d = null;
 e = null;
-f = null;
 const aForumList = c;
 const iForumListLength = aForumList.length;
 c = null;/*gkp*/
@@ -89,8 +88,6 @@ function writeForumBody () {
     for (let i in a) {
         s += '<div id="' + a[i] + sForumBodySuffix + '" class="' + sFullWidthClass + ' ' + sForumSonsClass + '">';
 
-        s += '<span style="font-size: 100px;">' + i + '</span>';
-
         s += '</div>';
     }
     s += '</div>';
@@ -123,10 +120,11 @@ function doWriteForumInfo () {
     let b = writeForumBody();
 
     o.innerHTML = a + b;
-    $(o).removeClass(sInvisibleClass);
-    o = a = b = d = null;
 
-    requires([sPlatDomLogic, sForumSlideC], function () {
+    $(o).removeClass(sInvisibleClass);
+    o = a = b = d = e = null;
+
+    requires([sPlatDomLogic, sForumSlideC, sMouseForumJ], function () {
         asyn('pageBegin');
     });
 }/*oen*/

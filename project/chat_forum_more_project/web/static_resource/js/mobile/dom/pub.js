@@ -60,18 +60,16 @@ function threeBodyDom() {
     });
 }/*637c85dcfd18cc0b*/
 
-/*d6b64dc699029c52*/let aFootClick = [];
+/*jwu*/let aFootClick = [];
 function bindFootClick () {
     aFootClick = domByClass(sFootClick);
-    let i = 0;
-    let l = aFootClick.length;
-    for (i; i < l; i ++) {
-        aFootClick[i].index = i;
-        aFootClick[i].onclick = function () {
+    for (let b in aFootClick) {
+        aFootClick[b].index = b;
+        aFootClick[b].onclick = function () {
             updUrlPage(aFootClick[this.index].getAttribute(sUpdateUrlPageKey));
         };
     }
-}/*d6b64dc699029c52*/
+}/*jwu*/
 
 /*c9f4866ae72da3be*/let oBHead = null;
 function bHeadDom () {
