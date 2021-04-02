@@ -1,6 +1,9 @@
 /*d9e455cad2bbadaf*///url-------------
 const sUrlAddressSignEncodeSalt = '_&*uh124jKzS645s(^$%a87123_';
 const sUrlAddressPageKey = 'page';
+const sUrlAddressClassifyKey = 'forum_classify';
+const sUrlAddressForumLevelMoveTagKey = 'forum_level_move';
+const iDefaultForumLevelMoveTag = 0;
 const sUrlAddressSignKey = 'sign';
 const sUrlAddressChangeTimeKey = 'change_time';
 
@@ -97,7 +100,7 @@ let getFnName = function(c){
     return false;
 };/*3182c8b17d05c5f7*/
 
-/*304b98b4bf14d1b5*//**
+/*ogb*//**
  *
  * 获取现在页面  page 信息
  *
@@ -107,7 +110,18 @@ function getNowPage () {
     let p = getUrlArgs('page');
 
     return p ? p : sDefaultPage;
-}/*304b98b4bf14d1b5*/
+}/*ogb*/
+/*jay*//**
+ *
+ * 获取现在页面  page 信息
+ *
+ * @returns {*}
+ */
+function getNowForumLevelMoveTag () {
+    let p = getUrlArgs(sUrlAddressForumLevelMoveTagKey);
+
+    return p ? p : iDefaultForumLevelMoveTag;
+}/*jay*/
 
 /*142e9c58bb5afaca*//**
  *
@@ -207,6 +221,8 @@ function setBrowserTitle (t = '') {
         return false;
     }
 
+    t = typeof aLang != 'undefined' && typeof aLang[t] != 'undefined' ? aLang[t] : t;
+
     document.title = t;
 }
 /**
@@ -216,17 +232,13 @@ function setBrowserTitle (t = '') {
  */
 function replaceTitle (t = '') {
     if (!t) {
-        // console.log('replaceTitle t is null, so no to do ');
         return;
     }
-    // console.log('replaceTitle t is true, will to replace browser title lang ');
 
     if (typeof window['aLang'] == 'undefined') {
-        // console.log('replaceTitle aLang is false, so settimtout retry to repalce browser title lang ');
         setTimeoutFunction('replaceTitle', t);
         return;
     }
-    // console.log('replaceTitle aLang is true, so replace browser title lang ');
 
     setBrowserTitle(aLang[t]);
 }/*49f8fbda0f7844f5*/

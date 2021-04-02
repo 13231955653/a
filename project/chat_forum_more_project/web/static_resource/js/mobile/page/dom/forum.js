@@ -11,7 +11,7 @@ const sMusicRecommend = 'musique';
 const sVideoRecommend = 'mas';
 let d = sForumPage;
 let sForumBodySuffix = '_b';
-let sForumHeadSuffix = '_t';
+let sForumHeadSuffix = '_h';
 let sForumSplitTag = '_';
 let sForumHeadClass = 'forum_head_t';
 let sForumHeadActiveClass = 'forum_head_t_act';
@@ -124,6 +124,7 @@ function doWriteForumInfo () {
 
     o.innerHTML = a + b;
     $(o).removeClass(sInvisibleClass);
+    o = a = b = d = null;
 
     asyn('pageBegin');
 }/*oen*/

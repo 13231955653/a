@@ -28,23 +28,20 @@ function forumRight() {
     asyn('leftRightMoveRely', 'doForumRight');
 }
 function doForumRight () {
-    let o = domById(sForumBodyD);
-    if (!o) {
-        return;
-    }
-
-    let d = iLeftTag;
+    let d = iLevelMoveT;
 
     let b = iForumListLength;
 
-    d -= parseInt(1);
+    d = parseInt(d) - parseInt(1);
     d = d < 0 ? b - 1 : d;
 
-    d = iLeftTag = d % b;
+    d = iLevelMoveT = d % b;
 
-    asyn('levelMoveForumHead', d);
+    let t = setTimeout(function () {
+        clearTimeout(t);
 
-    levelMoveForumBody(o, d, sLevelRightMove);
+        forumChangeLevelMove(d, sLevelRightMove);
+    }, 1);
 }/*ukb*/
 /*xjc*//**
  *
@@ -59,26 +56,24 @@ function forumDown() {
  * 左滑时间事件
  *
  */
-let iLeftTag = 0;
+let iLevelMoveT = 0;
 function forumLeft() {
     console.log('forumLeft');
     asyn('leftRightMoveRely', 'doForumLeft');
 }/*nmo*/
 /*fpk*/function doForumLeft () {
-    let o = domById(sForumBodyD);
-    if (!o) {
-        return;
-    }
-    let d = iLeftTag;
-    d += parseInt(1);
+    let d = iLevelMoveT;
+    d = parseInt(1) + parseInt(d);
 
     let b = iForumListLength;
 
-    d = iLeftTag = d % b;
+    d = iLevelMoveT = d % b;
 
-    asyn('levelMoveForumHead', d);
+    let t = setTimeout(function () {
+        clearTimeout(t);
 
-    levelMoveForumBody(o, d, sLevelLeftMove);
+        forumChangeLevelMove(d, sLevelLeftMove);
+    }, 1);
 }/*fpk*/
 /*iol*//**
  *
@@ -145,10 +140,74 @@ function levelMoveForumBody (o, t, e) {
  * @param a 回调函数
  */
 function leftRightMoveRely (a) {
+    if (!bSetLevelMoveT) {
+        setTimeoutFunction('leftRightMoveRely', a);
+        return;
+    }
+
     requires([sForum, sJqueryJ, sMobileDomFuncJ, sForumSlideC, sMouseForumJ], function () {
         asyn(a);
     });
 }/*wao*/
+/*ozb*//**
+ *
+ * 修改url forum classify tag
+ *
+ * @param t 当前移动tag type int
+ */
+function changeUrlForumClassifyTag (t) {
+    requires([sForum, sFuncForumJ, sJqueryJ], function () {
+        let z = $('.' + sForumHeadClass);
+        if (!z) {
+            return;
+        }
+
+        updateUrlForumClassify(t, z[t].id);
+    });
+}/*ozb*/
+/**
+ *
+ * forum 水平滑动 或 填写 地址栏请求 或点击请求
+ *
+ * @param d 滑动 tag type int
+ * @param a 方向 type string
+ */
+function forumChangeLevelMove (d = '', a = '') {
+    if (!bSetLevelMoveT) {
+        setTimeoutFunction('forumChangeLevelMove', d, a);
+        return;
+    }
+
+    let o = domById(sForumBodyD);
+    if (!o) {
+        return;
+    }
+
+    if (d === '') {
+        d = iLevelMoveT;
+    }
+    a = a !== '' ? a : sLevelLeftMove;
+
+    asyn('changeUrlForumClassifyTag', d);
+
+    asyn('levelMoveForumHead', d);
+
+    levelMoveForumBody(o, d, a);
+}
+/*lxq*//**
+ *
+ * 初始化 水平移动tag
+ *
+ */
+let bSetLevelMoveT = false;
+function initLevelMoveTag () {
+    requires([sFuncJ, sEncodeJ, sStrFunc], function () {
+        bSetLevelMoveT = true;
+        iLevelMoveT = getNowForumLevelMoveTag();
+    });
+}/*lxq*/
 /*yeb*/function mouseForumBegin () {
     console.log('mouseForumBegin begin');
+
+    initLevelMoveTag();
 }/*yeb*/

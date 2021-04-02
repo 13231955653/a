@@ -54,6 +54,11 @@ const sMouseChatJ = 'mouse_chat';
 const sMouseForumJ = 'mouse_forum';
 const sMouseFriendJ = 'mouse_friend';
 const sMouseSetJ = 'mouse_set';
+// const sFuncAboutMeJ = 'func_about';
+// const sFuncChatJ = 'func_chat';
+const sFuncForumJ = 'func_forum';
+// const sFuncFriendJ = 'func_friend';
+// const sFuncSetJ = 'func_set';
 const sResetC = 'reset_css';
 const sPubC = 'pub_css';
 const sUserC1 = 'user_c_1';
@@ -105,6 +110,12 @@ function staticResourceAddress () {
     a[sMouseForumJ] = p + '/page/mouse/forum.js';
     a[sMouseFriendJ] = p + '/page/mouse/friend.js';
     a[sMouseSetJ] = p + '/page/mouse/set.js';
+
+    // a[sFuncAboutMeJ] = p + '/page/func/about.js';
+    // a[sFuncChatJ] = p + '/page/func/chat.js';
+    a[sFuncForumJ] = p + '/page/func/forum.js';
+    // a[sFuncFriendJ] = p + '/page/func/friend.js';
+    // a[sFuncSetJ] = p + '/page/func/set.js';
 
     a[sApiJ] = 'pub/query/query.js';
 

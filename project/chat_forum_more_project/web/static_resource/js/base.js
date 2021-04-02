@@ -127,70 +127,65 @@ const t = 15;
 // const t2 = 1000;
 const t2 = 15;
 b['winResize'] = t2;
-b['loadEncodeJs'] = t;
-b['loadLogicJs'] = t;
-b['animates'] = t;
-b['loadDomJs'] = t;
-b['loadFunctionJs'] = t;
-b['loadOriginJquery'] = t;
-b['loadLang'] = t;
-b['logicBegin'] = t;
-b['loadPlatformDomJs'] = t;
-// b['showPageShade'] = t;
-b['loadResetCss'] = t;
-b['checkLoadCss'] = t;
-b['writeStorageDom'] = t;
-b['localstorageIsForbidden'] = t;
-b['loadBaseJsFile'] = t;
-b['pageBegin'] = t;
-// b['loadLocalJquery'] = t;
-b['replaceLangs'] = t;
-b['loadPublicCss'] = t;
-b['loadPersonalizedCss'] = t;
-b['loadVariableCss'] = t;
-b['threeBodyDom'] = t;
-// b['showIndexShade'] = t;
-b['loadLocalJquery1'] = t;
-// b['clearIndexShade'] = t;
-// b['showPlatformShade'] = t;
-b['individuationUuid'] = t;
-b['platformBegin'] = t;
-b['makeSessionid'] = t;
-b['cacheSessionId'] = t;
-b['repeatedlySettingPage'] = t;
-b['repeatedlyFriendPage'] = t;
-b['repeatedlyForumPage'] = t;
-b['repeatedlyChatPage'] = t;
-b['loadApiJs'] = t;
-b['sessionId'] = t;
-b['repeatedlyPage'] = t;
-b['localstoragePostMessage'] = t;
-b['doCheckSessionId'] = t;
-b['checkSessionKeyFormat1'] = t;
-b['replaceWindowTitle'] = t;
-b['replaceDomLang'] = t;
-b['replaceLang'] = t;
-b['replaceTitle'] = t;
-b['afterLoadPageJs'] = t;
-b['updateUrlPage'] = t;
-b['setContent'] = t;
-b['baseBegins'] = t;
-b['loadIndexJs'] = t;
-b['showUseTimeLimitNotice'] = t;
-b['clearShade'] = t;
-b['sessId'] = t;
-b['indexBeginLogic'] = t;
-b['loadOriginJquery'] = t;
-b['baseShade'] = t;
-b['platformBegin'] = t;
-b['showBaseShade'] = t;
-b['showShade'] = t;
-b['loadPageJs'] = t;
-b['clearPlatformShade'] = t;
-b['clearPageShade'] = t;
-b['bindFootClick'] = t;
-b['clearBaseShade'] = t;
-b['staticResource'] = t;
+// b['loadEncodeJs'] = t;
+// b['loadLogicJs'] = t;
+// b['animates'] = t;
+// b['loadDomJs'] = t;
+// b['loadFunctionJs'] = t;
+// b['loadOriginJquery'] = t;
+// b['loadLang'] = t;
+// b['logicBegin'] = t;
+// b['loadPlatformDomJs'] = t;
+// b['loadResetCss'] = t;
+// b['checkLoadCss'] = t;
+// b['writeStorageDom'] = t;
+// b['localstorageIsForbidden'] = t;
+// b['loadBaseJsFile'] = t;
+// b['pageBegin'] = t;
+// b['replaceLangs'] = t;
+// b['loadPublicCss'] = t;
+// b['loadPersonalizedCss'] = t;
+// b['loadVariableCss'] = t;
+// b['threeBodyDom'] = t;
+// b['loadLocalJquery1'] = t;
+// b['individuationUuid'] = t;
+// b['platformBegin'] = t;
+// b['makeSessionid'] = t;
+// b['cacheSessionId'] = t;
+// b['repeatedlySettingPage'] = t;
+// b['repeatedlyFriendPage'] = t;
+// b['repeatedlyForumPage'] = t;
+// b['repeatedlyChatPage'] = t;
+// b['loadApiJs'] = t;
+// b['sessionId'] = t;
+// b['repeatedlyPage'] = t;
+// b['localstoragePostMessage'] = t;
+// b['doCheckSessionId'] = t;
+// b['checkSessionKeyFormat1'] = t;
+// b['replaceWindowTitle'] = t;
+// b['replaceDomLang'] = t;
+// b['replaceLang'] = t;
+// b['replaceTitle'] = t;
+// b['afterLoadPageJs'] = t;
+// b['updateUrlPage'] = t;
+// b['setContent'] = t;
+// b['baseBegins'] = t;
+// b['loadIndexJs'] = t;
+// b['showUseTimeLimitNotice'] = t;
+// b['clearShade'] = t;
+// b['sessId'] = t;
+// b['indexBeginLogic'] = t;
+// b['loadOriginJquery'] = t;
+// b['baseShade'] = t;
+// b['platformBegin'] = t;
+// b['showBaseShade'] = t;
+// b['showShade'] = t;
+// b['loadPageJs'] = t;
+// b['clearPlatformShade'] = t;
+// b['clearPageShade'] = t;
+// b['bindFootClick'] = t;
+// b['clearBaseShade'] = t;
+// b['staticResource'] = t;
 // b['timeOutBaseShade'] = 300;
 b['checkUseTime'] = 60000;
 b['checkSessionIdOutTime'] = 181652;
@@ -263,7 +258,7 @@ const iNoticeTimeLimit = 3600000;
 // var sChatPage = 'chat';
 // var sFriendPage = 'friend';
 // var sAboutMePage = 'about';
-// var sSettingPage = 'set';
+// var sSetPage = 'set';
 // var sDefaultPageHtml = 'index.html';
 
 
@@ -398,7 +393,7 @@ function loadPageJs () {
             m = sMouseFriendJ;
             n = sFriendC;
             break;
-        case sSettingPage:
+        case sSetPage:
             c = sSetJ;
             m = sMouseSetJ;
             n = sSetC;
@@ -1178,23 +1173,48 @@ function setContent (n = '') {
     return m;
 }/*3de6df3eb7ca4333*/
 
-/*346338dcd06aa266*/function pageBegin () {
+/*lsb*/function pageBegin () {
     console.log('pageBegin 1111111111111');
-    // asyn('showPageShade');
-    // showPageShade();
 
-    // asyn('afterPageAction');
-
-    // asyn('clearPlatformShade');
-    // clearPlatformShade();
-    // asyn('clearPageShade');
-    // asyn('clearBaseShade');
     requires([sPubDomJ], function () {
         asyn('clearBaseShade');
 
         asyn('replaceClassNameToShow', domById(oDomFatherId));
     });
-}/*346338dcd06aa266*/
+
+    let a = getNowPage();
+    let b = '';
+    let c = '';
+    switch (a) {
+        case sForumPage :
+            b = sMouseForumJ;
+            c = 'forumChangeLevelMove';
+            break;
+        case sChatPage :
+            b = sMouseChatJ;
+            c = '';
+            break;
+        case sFriendPage :
+            b = sMouseFriendJ;
+            c = '';
+            break;
+        case sAboutMePage :
+            b = sMouseAboutMeJ;
+            c = '';
+            break;
+        case sSetPage :
+            b = sMouseSetJ;
+            c = '';
+            break;
+    }
+    if (!b) {
+        return;
+    }
+
+    requires([b], function () {
+        window[c]();
+    });
+}/*lsb*/
 
 /*6253f7ef57dc3560*/let oHtml = false;
 let oBody = false;

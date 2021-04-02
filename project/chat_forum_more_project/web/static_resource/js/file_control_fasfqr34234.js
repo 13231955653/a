@@ -1076,6 +1076,11 @@ function staticResource (f, q = false) {
             b = 'afterLoadMouseAboutMe1';
             c = 'js';
             break;
+        case sFuncForumJ :
+            a = 'afterLoadFuncForum';
+            b = 'afterLoadFuncForum1';
+            c = 'js';
+            break;
         case sMouseJ :
             a = 'afterLoadMouse';
             b = 'afterLoadMouse1';
@@ -1547,6 +1552,22 @@ function afterLoadMouseChat1 (v = '') {
 
     aInstaticResource[sMouseChatJ] = false;
     asyn('staticResource', sMouseChatJ, true);
+}
+function afterLoadFuncForum () {
+    asyn('funcForumBegin');
+    setInstaticResource(sFuncForumJ, false);
+}
+function afterLoadFuncForum1 (v = '') {
+    if (v) {
+        asyn('afterstaticResource', v, 'js');
+
+        asyn('afterLoadFuncForum');
+
+        return;
+    }
+
+    aInstaticResource[sFuncForumJ] = false;
+    asyn('staticResource', sFuncForumJ, true);
 }
 function afterLoadMouseAboutMe () {
     asyn('mouseAboutMeBegin');
@@ -2042,6 +2063,9 @@ function checkstaticResource (j) {
             break;
         case sCnLangJ :
             return typeof window['cn_langBegin'] != 'undefined' ? true : false;
+            break;
+        case sFuncForumJ :
+            return typeof window['funcForumBegin'] != 'undefined' ? true : false;
             break;
     }
 

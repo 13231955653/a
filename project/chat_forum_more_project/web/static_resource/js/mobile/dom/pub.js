@@ -9,15 +9,14 @@ const sFootTag = '_f';
 const sFootLiSuffix = '_l';
 const sActiveFootTag = 'f_act';
 
-// const sBHeadD = 'h_';
 const sBBodyD = 'b_';
 const sBFootD = 'f_';
 
-var sForumPage = 'forum';
-var sChatPage = 'chat';
-var sFriendPage = 'friend';
-var sAboutMePage = 'about';
-var sSettingPage = 'set';
+const sForumPage = 'forum';
+const sChatPage = 'chat';
+const sFriendPage = 'friend';
+const sAboutMePage = 'about';
+const sSetPage = 'set';
 
 const sPubFootD = 'pub_foot';
 const sPubHeadD = 'pub_head';
@@ -27,19 +26,13 @@ const sPubRightD = 'pub_right';
 
 const sBodySonsClass = 'body_sons';
 
-// const sOneHead = 'one_h';
-// const sTwoHead = 'two_h';
-// const sThreeHead = 'three_h';
-
 const aSecondBody = [
     sForumPage,
     sChatPage,
     sFriendPage,
     sAboutMePage,
-    sSettingPage,
+    sSetPage,
 ];
-
-const sPageTitSuffix = '_page_t';
 
 const sUpdateUrlPageKey = '_upd_url_page';
 const sFootClick = 'foot_c';/*9429d793fa750360*/
@@ -106,24 +99,6 @@ function bRightDom () {
     return oBRight;
 }/*c9f4866ae72da3be*/
 
-// /*16f799f68465dd08*/function writeBHead() {
-//     if (bHeadDom()) {
-//         return '';
-//     }
-//
-//     let s = '';
-//     s += '<div id="' + sPubHeadD + '" class="' + sFullWidthClass + '">';
-//
-//     let a = aSecondBody;
-//     for (let i in a) {
-//         s += writeMoblieHeadDom(a[i]);
-//     }
-//
-//     s += '</div>';
-//
-//     return s;
-// }/*16f799f68465dd08*/
-
 /*3f7550f47d4e0f87*/function writeBBody() {
     if (bBodyDom()) {
         return '';
@@ -141,17 +116,6 @@ function bRightDom () {
 
     return s;
 }/*3f7550f47d4e0f87*/
-
-// /*56b538473f0f3166*/function writeMoblieHeadDom (d) {
-//     if (domById(d)) {
-//         return '';
-//     }
-//
-//     let s = '';
-//     s += '<div id="' + sBHeadD + d + '" class="' + sFullWidthClass + '">';
-//     s += '</div>';
-//     return s;
-// }/*56b538473f0f3166*/
 
 /*12c3163a66add709*/function writeMobliePageBodyDom (d) {
     if (domById(d)) {
@@ -230,7 +194,6 @@ function writeOneFooter (d = '') {
 
     return s;
 }/*d86f6d0f01d165ef*/
-
 
 /*b7cf1f44259f6ad5*/function platformBegin () {
     console.log('5555555555555555555platformBegin');

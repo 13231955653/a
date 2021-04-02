@@ -49,18 +49,17 @@ function againOnlickFooter () {
  */
 function replaceWindowTitle (t = '') {
     if (!t) {
-        // console.log('replaceWindowTitle t is null, so no to do ');
         return;
     }
 
-    if (typeof window['replaceTitle'] == 'undefined') {
-        // console.log('replaceWindowTitle bLoadFunctionJs is false, so settimtoue retry ');
-        setTimeoutFunction('replaceWindowTitle', t);
-        return;
-    }
+    // if (typeof window['replaceTitle'] == 'undefined') {
+    //     setTimeoutFunction('replaceWindowTitle', t);
+    //     return;
+    // }
 
-    // replaceTitle(t);
-    asyn('replaceTitle', t);
+    requires([sFuncJ], function () {
+        asyn('replaceTitle', t);
+    });
 }/*slu*/
 /*zza*//**
  *
@@ -76,8 +75,8 @@ function updateUrlPage (p = '') {
 
     p = p ? p : getNowPage();
 
-    let t = '';
-    asyn('replaceWindowTitle', p + sLangTitlePostfix);
+    let t = p + sLangTitlePostfix;
+    // asyn('replaceWindowTitle', p + sLangTitlePostfix);
 
     let f = ''; // 回调函数
     if (typeof aAllreadyLoadPageJs[p] == 'undefined') {
@@ -89,6 +88,8 @@ function updateUrlPage (p = '') {
 
     requires([sArrFuncJ], function () {
         updateUrlArg (sUrlAddressPageKey, p, t, f);
+
+        setBrowserTitle(t);
     });
 
     requires([sJqueryJ, sMobileDomFuncJ], function () {
@@ -147,7 +148,7 @@ function updateUrlArg (k = '', v = '', t = '', c = false) {
     let o = {};
     window.history.pushState(o, t, g);
 
-    setBrowserTitle(t);
+    // setBrowserTitle(t);
 
     if (c) {
         asyn(c);
@@ -155,9 +156,7 @@ function updateUrlArg (k = '', v = '', t = '', c = false) {
 }/*vgz*/
 /*euq*/function logicBegin () {
     console.log('666666666666666666logicBegin');
-    // asyn('updateUrlPage');
     requires([sEncodeJ, sMd5J, sFuncJ, sStrFunc], function () {
-        // console.log('zxcccccccccccccccccccccccccccccccccccccc');
         asyn('updateUrlPage');
     });
 }/*euq*/
