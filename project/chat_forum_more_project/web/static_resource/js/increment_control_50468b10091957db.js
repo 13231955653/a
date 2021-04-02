@@ -37,6 +37,7 @@ const sEncodeJ = 'encode';
 const sCnLangJ = 'cn_lang';
 const sEnLangJ = 'en_lang';
 const sPlatDomJ = 'plat_dom';
+const sPlatDomLogic = 'plat_dom_logic';
 const sForum = 'forum';
 const sChatJ = 'chat';
 const sFriendJ = 'friend';
@@ -102,6 +103,8 @@ function staticResourceAddress () {
     a[sFriendJ] = p + '/page/dom/friend.js';
     a[sSetJ] = p + '/page/dom/set.js';
     a[sAboutJ] = p + '/page/dom/about.js';
+
+    a[sPlatDomLogic] = p + '/logic/dom.js';
 
     a[sMouseJ] = 'pub/incident/mouse.js';
 

@@ -126,7 +126,9 @@ function doWriteForumInfo () {
     $(o).removeClass(sInvisibleClass);
     o = a = b = d = null;
 
-    asyn('pageBegin');
+    requires([sPlatDomLogic, sForumSlideC], function () {
+        asyn('pageBegin');
+    });
 }/*oen*/
 /*oai*/function forumBegin () {
     console.log('forumBegin begin');

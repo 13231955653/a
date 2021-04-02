@@ -37,11 +37,7 @@ function doForumRight () {
 
     d = iLevelMoveT = d % b;
 
-    let t = setTimeout(function () {
-        clearTimeout(t);
-
-        forumChangeLevelMove(d, sLevelRightMove);
-    }, 1);
+    asyn('forumChangeLevelMove', d, sLevelRightMove);
 }/*ukb*/
 /*xjc*//**
  *
@@ -69,11 +65,7 @@ function forumLeft() {
 
     d = iLevelMoveT = d % b;
 
-    let t = setTimeout(function () {
-        clearTimeout(t);
-
-        forumChangeLevelMove(d, sLevelLeftMove);
-    }, 1);
+    asyn('forumChangeLevelMove', d, sLevelLeftMove);
 }/*fpk*/
 /*iol*//**
  *
@@ -145,7 +137,7 @@ function leftRightMoveRely (a) {
         return;
     }
 
-    requires([sForum, sJqueryJ, sMobileDomFuncJ, sForumSlideC, sMouseForumJ], function () {
+    requires([sForum, sJqueryJ, sMobileDomFuncJ, sMouseForumJ], function () {
         asyn(a);
     });
 }/*wao*/

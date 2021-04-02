@@ -1173,49 +1173,6 @@ function setContent (n = '') {
     return m;
 }/*3de6df3eb7ca4333*/
 
-/*lsb*/function pageBegin () {
-    console.log('pageBegin 1111111111111');
-
-    requires([sPubDomJ], function () {
-        asyn('clearBaseShade');
-
-        asyn('replaceClassNameToShow', domById(oDomFatherId));
-    });
-
-    let a = getNowPage();
-    let b = '';
-    let c = '';
-    switch (a) {
-        case sForumPage :
-            b = sMouseForumJ;
-            c = 'forumChangeLevelMove';
-            break;
-        case sChatPage :
-            b = sMouseChatJ;
-            c = '';
-            break;
-        case sFriendPage :
-            b = sMouseFriendJ;
-            c = '';
-            break;
-        case sAboutMePage :
-            b = sMouseAboutMeJ;
-            c = '';
-            break;
-        case sSetPage :
-            b = sMouseSetJ;
-            c = '';
-            break;
-    }
-    if (!b) {
-        return;
-    }
-
-    requires([b], function () {
-        window[c]();
-    });
-}/*lsb*/
-
 /*6253f7ef57dc3560*/let oHtml = false;
 let oBody = false;
 let oHead = false;

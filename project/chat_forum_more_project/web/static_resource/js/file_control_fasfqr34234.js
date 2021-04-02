@@ -1156,6 +1156,11 @@ function staticResource (f, q = false) {
             b = 'afterLoadPlatformDomJs1';
             c = 'js';
             break;
+        case sPlatDomLogic :
+            a = 'afterLoadPlatDomLogic';
+            b = 'afterLoadPlatDomLogic1';
+            c = 'js';
+            break;
         case sLogicJ :
             a = 'afterLoadLogicJs';
             b = 'afterLoadLogicJs1';
@@ -1707,11 +1712,22 @@ function afterLoadDomJs1 (v = '') {
     aInstaticResource[sPubDomJ] = false;
     asyn('staticResource', sPubDomJ, true);
 }
-/**
- *
- * 加载 平台 dom js 回调函数
- *
- */
+function afterLoadPlatDomLogic () {
+    setInstaticResource(sPlatDomLogic, false);
+    asyn('platformBegin');
+}
+function afterLoadPlatDomLogic1 (v = '') {
+    if (v) {
+        asyn('afterstaticResource', v, 'js');
+
+        asyn('afterLoadPlatDomLogic');
+
+        return;
+    }
+
+    aInstaticResource[sPlatDomLogic] = false;
+    asyn('staticResource', sPlatDomLogic, true);
+}
 function afterLoadPlatformDomJs () {
     setInstaticResource(sPlatDomJ, false);
     asyn('platformBegin');
@@ -2066,6 +2082,9 @@ function checkstaticResource (j) {
             break;
         case sFuncForumJ :
             return typeof window['funcForumBegin'] != 'undefined' ? true : false;
+            break;
+        case sPlatDomLogic :
+            return typeof window['platDomLogicBegin'] != 'undefined' ? true : false;
             break;
     }
 
