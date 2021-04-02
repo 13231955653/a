@@ -251,12 +251,12 @@ function asyn (f = '', a = '', b = '') {
     let t = setTimeout(function () {
         clearTimeout(t);
 
-        if (b) {
+        if (b !== false) {
             window[f](a, b);
             return;
         }
 
-        if (a) {
+        if (a !== false) {
             window[f](a);
             return;
         }
@@ -300,11 +300,11 @@ function setTimeoutFunction (f = '', a = '', b = '') {
     let t = setTimeout(function () {
         clearTimeout(t);
 
-        if (!a) {
+        if (a === false) {
             window[f]();
             return;
         } else {
-            if (b) {
+            if (b !== false) {
                 window[f](a, b);
                 return;
             } else {

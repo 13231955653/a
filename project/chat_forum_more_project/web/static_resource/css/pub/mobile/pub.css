@@ -21,32 +21,32 @@
 /*    left: 0px;*/
 /*    top: 0px;*/
 /*}*/
-.one_h{
-    height: var(--one_head_h);
-    line-height: var(--one_head_h);
-    background: var(--one_head_bk);
-    text-align: center;
-}
-.two_h{
-    height: var(--two_head_h);
-    line-height: var(--two_head_h);
-    background: var(--two_head_bk);
-}
-.two_h li{
-    float: left;
-    padding: 0px 1.5rem 0px 1.5rem;
-    background: var(--two_h_li_bk);
-}
-.three_h{
-    height: var(--three_head_h);
-    line-height: var(--three_head_h);
-    background: var(--three_head_bk);
-}
-.three_h li{
-    float: left;
-    padding: 0px 1.5rem 0px 1.5rem;
-    background: var(--three_h_li_bk);
-}
+/*.one_h{*/
+/*    height: var(--one_head_h);*/
+/*    line-height: var(--one_head_h);*/
+/*    background: var(--one_head_bk);*/
+/*    text-align: center;*/
+/*}*/
+/*.two_h{*/
+/*    height: var(--two_head_h);*/
+/*    line-height: var(--two_head_h);*/
+/*    background: var(--two_head_bk);*/
+/*}*/
+/*.two_h li{*/
+/*    float: left;*/
+/*    padding: 0px 1.5rem 0px 1.5rem;*/
+/*    background: var(--two_h_li_bk);*/
+/*}*/
+/*.three_h{*/
+/*    height: var(--three_head_h);*/
+/*    line-height: var(--three_head_h);*/
+/*    background: var(--three_head_bk);*/
+/*}*/
+/*.three_h li{*/
+/*    float: left;*/
+/*    padding: 0px 1.5rem 0px 1.5rem;*/
+/*    background: var(--three_h_li_bk);*/
+/*}*/
 #pub_body{
     width: 500vw;
     height: calc(100% - var(--pub_foot_h));

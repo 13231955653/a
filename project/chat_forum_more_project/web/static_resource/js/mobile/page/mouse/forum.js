@@ -1,5 +1,7 @@
 /*mkz*/const sForumLeftClass = 'left_slide_';
-const sForumRightClass = 'right_slide_';/*mkz*/
+const sForumRightClass = 'right_slide_';
+const sLevelLeftMove = 'left';
+const sLevelRightMove = 'right';/*mkz*/
 /*emj*//**
  *
  * 长按事件
@@ -23,9 +25,7 @@ function forumTop() {
  */
 function forumRight() {
     console.log('forumRight');
-    requires([sForum, sJqueryJ, sMobileDomFuncJ, sForumSlideC], function () {
-        asyn('doForumRight');
-    });
+    asyn('leftRightMoveRely', 'doForumRight');
 }
 function doForumRight () {
     let o = domById(sForumBodyD);
@@ -33,26 +33,18 @@ function doForumRight () {
         return;
     }
 
-    // if (sOrientation !== 'right') {
-    //     iLeftTag -= parseInt(1);
-    // }
-    // sOrientation = 'right';
+    let d = iLeftTag;
 
     let b = iForumListLength;
 
-    iLeftTag -= parseInt(1);
-    iLeftTag = iLeftTag < 0 ? b - 1 : iLeftTag;
+    d -= parseInt(1);
+    d = d < 0 ? b - 1 : d;
 
-    iLeftTag = iLeftTag % b;
+    d = iLeftTag = d % b;
 
-    let c = sForumRightClass;
+    asyn('levelMoveForumHead', d);
 
-    let a = 0;
-    for (a; a < b; a++) {
-        $(o).removeClass(c + a);
-        $(o).removeClass(sForumLeftClass + a);
-    }
-    $(o).addClass(c + Math.abs(iLeftTag));
+    levelMoveForumBody(o, d, sLevelRightMove);
 }/*ukb*/
 /*xjc*//**
  *
@@ -70,37 +62,93 @@ function forumDown() {
 let iLeftTag = 0;
 function forumLeft() {
     console.log('forumLeft');
-    requires([sForum, sJqueryJ, sMobileDomFuncJ, sForumSlideC], function () {
-        asyn('doForumLeft');
-    });
-}
-let sOrientation = '';
-function doForumLeft () {
+    asyn('leftRightMoveRely', 'doForumLeft');
+}/*nmo*/
+/*fpk*/function doForumLeft () {
     let o = domById(sForumBodyD);
     if (!o) {
         return;
     }
-
-    iLeftTag += parseInt(1);
+    let d = iLeftTag;
+    d += parseInt(1);
 
     let b = iForumListLength;
 
-    iLeftTag = iLeftTag % b;
+    d = iLeftTag = d % b;
 
-    // if (sOrientation !== 'left') {
-    //     iLeftTag -= parseInt(1);
-    // }
-    // sOrientation = 'left';
+    asyn('levelMoveForumHead', d);
 
-    let c = sForumLeftClass;
+    levelMoveForumBody(o, d, sLevelLeftMove);
+}/*fpk*/
+/*iol*//**
+ *
+ * 水平移动forum
+ *
+ * @param t 当前水平移动tag
+ */
+function levelMoveForumHead (t) {
+    let d = sForumHeadActiveClass;
+    let e = sForumHeadClass;
+
+    let f = $('.' + e)[t];
+    $('.' + e).removeClass(d);
+    $(f).addClass(d);
+
+    let c = sHiddenClass;
+    $('.' + e).removeClass(c);
+    t = t > 0 ? t : 0;
+    let b = 0;
+    for (b; b < t; b++) {
+        $($('.' + e)[b]).addClass(c);
+    }
+}/*iol*/
+/*khj*//**
+ *
+ * 水平一定forum body
+ *
+ * @param o forum body dom type dom object
+ * @param t 水平移动tag type int
+ * @param e 左右移动 type string left right
+ */
+function levelMoveForumBody (o, t, e) {
+    let d = sForumRightClass;
+    let f = sForumLeftClass;
+
+    let b = '';
+    let c = '';
+    switch (e) {
+        case sLevelLeftMove :
+            t = t;
+            b = d;
+            c = f;
+            break;
+        case sLevelRightMove :
+            t = Math.abs(t);
+            b = f;
+            c = d;
+            break;
+    }
 
     let a = 0;
-    for (a; a < b; a++) {
+    for (a; a < iForumListLength; a++) {
         $(o).removeClass(c + a);
-        $(o).removeClass(sForumRightClass + a);
+        $(o).removeClass(b + a);
     }
-    $(o).addClass(c + iLeftTag);
-}/*nmo*/
+
+    $(o).addClass(c + t);
+}/*khj*/
+/*wao*/
+/**
+ *
+ * 左右移动依赖js css
+ *
+ * @param a 回调函数
+ */
+function leftRightMoveRely (a) {
+    requires([sForum, sJqueryJ, sMobileDomFuncJ, sForumSlideC, sMouseForumJ], function () {
+        asyn(a);
+    });
+}/*wao*/
 /*yeb*/function mouseForumBegin () {
     console.log('mouseForumBegin begin');
 }/*yeb*/

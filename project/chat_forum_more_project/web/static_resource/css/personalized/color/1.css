@@ -1,4 +1,4 @@
-/*32dc9d70cb0c0fd2*/:root{
+/*foz*/:root{
     --eyeshield_bk: #e7e6cb;
     --d_html_font_c: #e7572e;
     --legend_font_c: #e7851d;
@@ -9,17 +9,20 @@
     --b_shade_center_bk: #008010;
     --shade_index_bk: green;
     --shade_plat_bk: #001080;
-    --shade_page_bk: #800007;/*32dc9d70cb0c0fd2*/
-    /*87faa8c3511d07fd*/--b_shade_center_sons_bk: red;
+    --shade_page_bk: #800007;/*foz*/
+    /*dnl*/--b_shade_center_sons_bk: red;
     --b_shade_center_son_now_bk: #002cff;
-    --b_shade_center_son_bk: #e548ff;
-    --one_head_bk: #0068ff;
-    --two_head_bk: #ff0f51;
-    --two_h_li_bk: #31fdff;
-    --three_head_bk: #c5ff00;
-    --three_h_li_bk: #ffdd05;
+    --b_shade_center_son_bk: #e548ff;/*dnl*/
+    /*hon*//*--one_head_bk: #0068ff;*/
+    /*--two_head_bk: #ff0f51;*/
+    /*--two_h_li_bk: #31fdff;*/
+    /*--three_head_bk: #c5ff00;*/
+    /*--three_h_li_bk: #ffdd05;*/
     --notice_f_bk: red;
     --notice_head_bk: pink;
     --notice_foot_bk: green;
     --notice_body_bk: #00f5ff;
-}/*87faa8c3511d07fd*/
+    --b_forum_bk: #ff9f0d;
+    --pub_head_bk: #0dff00;
+    --forum_head_t_act_bk: #ff1719;
+}/*hon*/

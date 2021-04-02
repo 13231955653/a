@@ -404,6 +404,7 @@ function timeOutBaseShade (o, l) {
  * @param c 回调函数 type string
  */
 function animates (o = false, s = false, p = false, c = false) {
+    p = p ? p : iSpeed;
     if (typeof jQuery != 'undefined') {
         $(o).animate(s, p, c);
         return;

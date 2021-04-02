@@ -15,7 +15,7 @@
 /* 应用动画的元素 */
 .left_slide_1{
     animation-name: left_slide_1;
-    animation-duration: 0.2s;
+    animation-duration: 0.15s;
     animation-fill-mode: forwards
 }
 @keyframes left_slide_2 {
@@ -34,7 +34,7 @@
 /* 应用动画的元素 */
 .left_slide_2{
     animation-name: left_slide_2;
-    animation-duration: 0.2s;
+    animation-duration: 0.15s;
     animation-fill-mode: forwards
 }
 @keyframes left_slide_3 {
@@ -53,7 +53,7 @@
 /* 应用动画的元素 */
 .left_slide_3{
     animation-name: left_slide_3;
-    animation-duration: 0.2s;
+    animation-duration: 0.15s;
     animation-fill-mode: forwards
 }
 @keyframes left_slide_4 {
@@ -72,7 +72,7 @@
 /* 应用动画的元素 */
 .left_slide_4{
     animation-name: left_slide_4;
-    animation-duration: 0.2s;
+    animation-duration: 0.15s;
     animation-fill-mode: forwards
 }
 @keyframes left_slide_5 {
@@ -91,7 +91,7 @@
 /* 应用动画的元素 */
 .left_slide_5{
     animation-name: left_slide_5;
-    animation-duration: 0.2s;
+    animation-duration: 0.15s;
     animation-fill-mode: forwards
 }
 @keyframes left_slide_6 {
@@ -110,7 +110,7 @@
 /* 应用动画的元素 */
 .left_slide_6{
     animation-name: left_slide_6;
-    animation-duration: 0.2s;
+    animation-duration: 0.15s;
     animation-fill-mode: forwards
 }
 @keyframes left_slide_7 {
@@ -129,7 +129,7 @@
 /* 应用动画的元素 */
 .left_slide_7{
     animation-name: left_slide_7;
-    animation-duration: 0.2s;
+    animation-duration: 0.15s;
     animation-fill-mode: forwards
 }
 @keyframes left_slide_8 {
@@ -148,7 +148,7 @@
 /* 应用动画的元素 */
 .left_slide_8{
     animation-name: left_slide_8;
-    animation-duration: 0.2s;
+    animation-duration: 0.15s;
     animation-fill-mode: forwards
 }
 @keyframes left_slide_9 {
@@ -167,7 +167,7 @@
 /* 应用动画的元素 */
 .left_slide_9{
     animation-name: left_slide_9;
-    animation-duration: 0.2s;
+    animation-duration: 0.15s;
     animation-fill-mode: forwards
 }/*wzx*/
 /*ote*//* 动画代码 */
@@ -187,7 +187,7 @@
 /* 应用动画的元素 */
 .right_slide_0{
     animation-name: right_slide_0;
-    animation-duration: 0.2s;
+    animation-duration: 0.15s;
     animation-fill-mode: forwards
 }
 @keyframes right_slide_1 {
@@ -206,7 +206,7 @@
 /* 应用动画的元素 */
 .right_slide_1{
     animation-name: right_slide_1;
-    animation-duration: 0.2s;
+    animation-duration: 0.15s;
     animation-fill-mode: forwards
 }
 @keyframes right_slide_2 {
@@ -225,7 +225,7 @@
 /* 应用动画的元素 */
 .right_slide_2{
     animation-name: right_slide_2;
-    animation-duration: 0.2s;
+    animation-duration: 0.15s;
     animation-fill-mode: forwards
 }
 @keyframes right_slide_3 {
@@ -244,7 +244,7 @@
 /* 应用动画的元素 */
 .right_slide_3{
     animation-name: right_slide_3;
-    animation-duration: 0.2s;
+    animation-duration: 0.15s;
     animation-fill-mode: forwards
 }
 @keyframes right_slide_4 {
@@ -263,7 +263,7 @@
 /* 应用动画的元素 */
 .right_slide_4{
     animation-name: right_slide_4;
-    animation-duration: 0.2s;
+    animation-duration: 0.15s;
     animation-fill-mode: forwards
 }
 @keyframes right_slide_5 {
@@ -282,7 +282,7 @@
 /* 应用动画的元素 */
 .right_slide_5{
     animation-name: right_slide_5;
-    animation-duration: 0.2s;
+    animation-duration: 0.15s;
     animation-fill-mode: forwards
 }
 @keyframes right_slide_6 {
@@ -301,7 +301,7 @@
 /* 应用动画的元素 */
 .right_slide_6{
     animation-name: right_slide_6;
-    animation-duration: 0.2s;
+    animation-duration: 0.15s;
     animation-fill-mode: forwards
 }
 @keyframes right_slide_7 {
@@ -320,7 +320,7 @@
 /* 应用动画的元素 */
 .right_slide_7{
     animation-name: right_slide_7;
-    animation-duration: 0.2s;
+    animation-duration: 0.15s;
     animation-fill-mode: forwards
 }
 @keyframes right_slide_8 {
@@ -339,25 +339,16 @@
 /* 应用动画的元素 */
 .right_slide_8{
     animation-name: right_slide_8;
-    animation-duration: 0.2s;
+    animation-duration: 0.15s;
     animation-fill-mode: forwards
 }
 @keyframes right_slide_9 {
-    0%{left: -1000vw;}
-    10%{left: -990vw;}
-    20%{left: -980vw;}
-    30%{left: -970vw;}
-    40%{left: -960vw;}
-    50%{left: -950vw;}
-    60%{left: -940vw;}
-    70%{left: -930vw;}
-    80%{left: -920vw;}
-    90%{left: -910vw;}
+    0%{left: -900vw;}
     100%{left: -900vw;}
 }
 /* 应用动画的元素 */
 .right_slide_9{
     animation-name: right_slide_9;
-    animation-duration: 0.2s;
+    animation-duration: 0.15s;
     animation-fill-mode: forwards
 }/*ote*/
