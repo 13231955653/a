@@ -1,7 +1,3 @@
-/*8f2fc377aff47185*/const a4 = [];
-a4[''] = '';
-const aRoute = a4;/*8f2fc377aff47185*/
-
 /*44a9158ca09f7c51*/const sApiProtocol = 'http://';
 const aApiHost = [
     'api1.you.com/',
@@ -16,34 +12,25 @@ const aApiHostLength = 7;
 
 let iRequestNumber = 0;/*44a9158ca09f7c51*/
 
-/*392c80add10ed4ce*/function apiQuery (sUrl = '', sSendJsonData = '', sMethod = 'post') {
-    if (typeof jQuery == 'undefined') {
-        // loadLocalJquery();
-        // asyn('loadLocalJquery');
-
-        // console.log('apiQuery jQuery undefined. so settimeout retry ');
-        aBaseTimer[sFunction] = setTimeout(function () {
-            apiQuery (sUrl, sSendJsonData, sMethod);
-        }, aTimer['apiQuery']);
-        return;
-    }
-
-    if (
-        !sUrl
-        ||
-        !sSendJsonData
-    ) {
-        // console.log('apiQuery sUrl or sSendJsonData is null. so not to do ');
+/*392c80add10ed4ce*//**
+ *
+ * ajax请求
+ *
+ * @param a 路由 type string
+ * @param b 参数 type json
+ * @param c 方法 post get type string
+ * @returns {boolean}
+ */
+function apiQuery (a = '', b = '', c = 'post') {
+    console.log('apiQuery request');
+    if (!a) {
+        console.log('apiQuery request a is null ');
         return false;
     }
 
-    if (!isJson(sSendJsonData)) {
-        // console.log('apiQuery sSendJsonData is not json. so not to do ');
-        return false;
-    }
-
-    if (!inArrayByKey(sUrl, aRoute)) {
-        // console.log('apiQuery inArrayByKey sUrl not in aRoute. so not to do ');
+    console.log(b);
+    if (b && !isJson(b)) {
+        console.log('apiQuery request b is not json ');
         return false;
     }
 
@@ -51,14 +38,13 @@ let iRequestNumber = 0;/*44a9158ca09f7c51*/
 
     let sHost = sApiProtocol + aApiHost[iRequestNumber % aApiHostLength];
 
-    let sRoute = aRoute[sUrl];
+    let d = sHost + a;
 
-    let sRequestUrl = sHost + sRoute;
-
+    console.log('ajax begin');
     $.ajax({
-        url: sRequestUrl,
-        data: sSendJsonData,
-        type: sMethod,
+        url: d,
+        data: b,
+        type: c,
         dataType: 'json',
         success: function (sJsonData) {
         },

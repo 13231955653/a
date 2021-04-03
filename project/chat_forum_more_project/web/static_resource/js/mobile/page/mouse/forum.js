@@ -163,8 +163,9 @@ function changeUrlForumClassifyTag (t) {
  *
  * @param d 滑动 tag type int
  * @param a 方向 type string
+ * @param c 点击还是滑动 为真点击为假滑动
  */
-function forumChangeLevelMove (d = '', a = '') {
+function forumChangeLevelMove (d = '', a = '', c = false) {
     if (!bSetLevelMoveT) {
         setTimeoutFunction('forumChangeLevelMove', d, a);
         return;
@@ -185,6 +186,10 @@ function forumChangeLevelMove (d = '', a = '') {
     asyn('levelMoveForumHead', d);
 
     levelMoveForumBody(o, d, a);
+
+    requires([sForumQueryJ, sMobileDomFuncJ], function () {
+        asyn('forumRequest', d, c);
+    });
 }
 /*lxq*//**
  *
@@ -198,6 +203,25 @@ function initLevelMoveTag () {
         iLevelMoveT = getNowForumLevelMoveTag();
     });
 }/*lxq*/
+/*mrj*//**
+ *
+ * 绑定forum 头部点击事件
+ *
+ */
+function bindForumHeadClick () {
+    let a = $('.' + sForumHeadClass);
+    for (let b in a) {
+        a[b].onclick = function () {
+            if (typeof this.getAttribute != 'function') {
+                return;
+            }
+
+            iLevelMoveT = this.getAttribute(sForumHeadClick);
+
+            asyn('forumChangeLevelMove', iLevelMoveT);
+        }
+    }
+}/*mrj*/
 /*yeb*/function mouseForumBegin () {
     console.log('mouseForumBegin begin');
 

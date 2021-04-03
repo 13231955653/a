@@ -12,8 +12,11 @@
     let c = '';
     switch (a) {
         case sForumPage :
-            b = sMouseForumJ;
-            c = 'forumChangeLevelMove';
+            // b = sMouseForumJ;
+            // c = 'forumChangeLevelMove';
+            requires([sMouseForumJ], function () {
+                forumChangeLevelMove('', false, 1);
+            });
             break;
         case sChatPage :
             b = sMouseChatJ;
@@ -32,13 +35,13 @@
             c = '';
             break;
     }
-    if (!b) {
-        return;
-    }
-
-    requires([b], function () {
-        window[c]();
-    });
+    // if (!b) {
+    //     return;
+    // }
+    //
+    // requires([b], function () {
+    //     window[c]();
+    // });
 }/*lsb*/
 
 /*con*/function platDomLogicBegin () {

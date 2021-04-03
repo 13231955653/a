@@ -10,19 +10,15 @@
     --shade_index_bk: green;
     --shade_plat_bk: #001080;
     --shade_page_bk: #800007;/*foz*/
-    /*dnl*/--b_shade_center_sons_bk: red;
+    /*dnl*/--b_shade_center_sons_bk: #ff626b;
     --b_shade_center_son_now_bk: #002cff;
     --b_shade_center_son_bk: #e548ff;/*dnl*/
-    /*hon*//*--one_head_bk: #0068ff;*/
-    /*--two_head_bk: #ff0f51;*/
-    /*--two_h_li_bk: #31fdff;*/
-    /*--three_head_bk: #c5ff00;*/
-    /*--three_h_li_bk: #ffdd05;*/
-    --notice_f_bk: red;
+    --notice_f_bk: #ff6269;
     --notice_head_bk: pink;
     --notice_foot_bk: green;
-    --notice_body_bk: #00f5ff;
-    --b_forum_bk: #ff9f0d;
-    --pub_head_bk: #0dff00;
-    --forum_head_c_act_bk: #ff1719;
+    --notice_body_bk: #92f7ff;
+    --b_forum_bk: #ffab4a;
+    --pub_head_bk: #96ff71;
+    --forum_head_c_act_bk: #ff5356;
+    --forum_sons_bk: #fff576;
 }/*hon*/

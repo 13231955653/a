@@ -27,19 +27,14 @@ function replaceDomLang (p = '', d = '') {
  * @param d 需要替换语言的dom的 id/class/tag type sting
  */
 function replaceLang (p = '', d = '') {
-    console.log('zzzzzzzzzzzzzzzzzzzzooooooooooqqqqqqqqqqiiiiiiiiiiiiissssssss');
-    console.log(p);
-    console.log(d);
     if (!p || !d) {
         return;
     }
-    console.log('zzzzzzzzzzzzzzzzzzzzooooooooooqqsssssssssssqqqqqqqqiiiiiiiiiiiiissssssss');
 
     if (typeof aLang == 'undefined') {
         setTimeoutFunction('replaceLang', p, d);
         return;
     }
-    console.log('zzzzzzzzzzzzzzzzzzzzooooooooooqqdddddddddddsssssssssssqqqqqqqqiiiiiiiiiiiiissssssss');
 
     let o = false;
     switch (p) {
@@ -51,20 +46,12 @@ function replaceLang (p = '', d = '') {
             break;
     }
 
-    console.log(o);
     if (!o) {
         setTimeoutFunction('replaceLang', p, d);
         return;
     }
-    console.log('zzzzzzzzzzzsdsssssssszzzzzzzzzooooooooooqqdddddddddddsssssssssssqqqqqqqqiiiiiiiiiiiiissssssss');
 
-    console.log(sReLangClass);
     let s = o.getElementsByClassName(sReLangClass);
-    // if (!s.length) {
-    //     setTimeoutFunction('replaceLang', p, d);
-    //     return;
-    // }
-    console.log(s);
     for (let i in s) {
         s[i].innerHTML = typeof aLang[s[i].id] != 'undefined' ? aLang[s[i].id] : aLang['lang_err'];
     }

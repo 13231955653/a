@@ -38,9 +38,29 @@ function updUrlPage (p = '') {
  *
  */
 function againOnlickFooter () {
-    // console.log('/////////////////////////////////////////////////');
-    // asyn('clearPageShade');
-    // clearPageShade();
+    let a = sLastPage;
+    let b = a ? a : getNowPage();
+    if (!b) {
+        return;
+    }
+
+    switch (b) {
+        case sForumPage :
+            forumChangeLevelMove('', false, 1);
+            break;
+        // case sChatPage :
+        //     c = '';
+        //     break;
+        // case sFriendPage :
+        //     c = '';
+        //     break;
+        // case sAboutMePage :
+        //     c = '';
+        //     break;
+        // case sSetPage :
+        //     c = '';
+        //     break;
+    }
 }/*aoe*/
 /*slu*//**
  *

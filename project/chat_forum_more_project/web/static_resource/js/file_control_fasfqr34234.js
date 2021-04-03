@@ -238,8 +238,7 @@ function asyn (f = '', a = '', b = '') {
     }
 
     if (typeof window[f] != 'function') {
-        console.log('sssssssssssssssssssssssssssssssssssssssssssssssss');
-        console.log(f);
+        console.log(f + ' is no function ');
         let t = setTimeout(function () {
             clearTimeout(t);
 
@@ -485,9 +484,7 @@ window.addEventListener('message', function(event){
             return;
         }
 
-        console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
         console.log(event.data.after);
-        console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
         setTimeoutFunction(event.data.after, event.data.message);
     }
 }, false);
@@ -953,7 +950,7 @@ function insertAfter (n, j) {
         p.insertBefore(n, j.nextSibling);
     }
 }
-function date () {
+function myDate () {
     return new Date();
 }
 /**
@@ -963,7 +960,7 @@ function date () {
  * @returns {number}
  */
 function getMillisecondTime () {
-    return date().getTime();
+    return myDate().getTime();
 }
 /**
  *
@@ -1176,6 +1173,16 @@ function staticResource (f, q = false) {
             b = 'afterLoadApi1';
             c = 'js';
             break;
+        case sForumQueryJ :
+            a = 'afterLoadForumQuery';
+            b = 'afterLoadForumQuery1';
+            c = 'js';
+            break;
+        case sForumApiJ :
+            a = 'afterLoadForumApi';
+            b = 'afterLoadForumApi1';
+            c = 'js';
+            break;
         case sEncodeJ :
             a = 'afterLoadEncode';
             b = 'afterLoadEncode1';
@@ -1323,6 +1330,7 @@ function afterLoadForumC1 (v = '') {
     asyn('staticResource', sForumC, true);
 }
 function afterLoadForumSlideC () {
+    aAllreadyLoadCss[sForumSlideC] = true;
     setInstaticResource(sForumSlideC, false);
 }
 function afterLoadForumSlideC1 (v = '') {
@@ -1429,6 +1437,38 @@ function afterLoadEncode1 (v = '') {
 
     aInstaticResource[sEncodeJ] = false;
     asyn('staticResource', sEncodeJ, true);
+}
+function afterLoadForumApi () {
+    setInstaticResource(sForumApiJ, false);
+    asyn('forumApiBegin');
+}
+function afterLoadForumApi1 (v = '') {
+    if (v) {
+        asyn('afterstaticResource', v, 'js');
+
+        asyn('afterLoadForumApi');
+
+        return;
+    }
+
+    aInstaticResource[sForumApiJ] = false;
+    asyn('staticResource', sForumApiJ, true);
+}
+function afterLoadForumQuery () {
+    setInstaticResource(sForumQueryJ, false);
+    asyn('forumQueryBegin');
+}
+function afterLoadForumQuery1 (v = '') {
+    if (v) {
+        asyn('afterstaticResource', v, 'js');
+
+        asyn('afterLoadForumQuery');
+
+        return;
+    }
+
+    aInstaticResource[sForumQueryJ] = false;
+    asyn('staticResource', sForumQueryJ, true);
 }
 function afterLoadApi () {
     setInstaticResource(sApiJ, false);
@@ -1918,7 +1958,7 @@ function localstorageError1 () {
  */
 function setstaticResourceLastCacheTime (k = '') {
     // console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
-    let t = date();
+    let t = myDate();
     let y = t.getFullYear();
     let m = parseInt(t.getMonth()) + parseInt(1);
     m = m < 10 ? '0' + m : m;
@@ -2043,52 +2083,84 @@ function requires (j = '', c = '') {
  * @param j
  */
 function checkstaticResource (j) {
+    let a = '';
     switch (j) {
         case sFuncJ :
-            return typeof window['functionBegin'] != 'undefined' ? true : false;
+            a = window['functionBegin'];
             break;
         case sEncodeJ :
-            return typeof window['encodeBegin'] != 'undefined' ? true : false;
+            a = window['encodeBegin'];
             break;
         case sMobileDomFuncJ :
-            return typeof window['domFunctionBegin'] != 'undefined' ? true : false;
+            a = window['domFunctionBegin'];
             break;
         case sStrFunc :
-            return typeof window['stringFunctionBegin'] != 'undefined' ? true : false;
+            a = window['stringFunctionBegin'];
             break;
         case sArrFuncJ :
-            return typeof window['arrayFunctionBegin'] != 'undefined' ? true : false;
+            a = window['arrayFunctionBegin'];
             break;
         case sMd5J :
-            return typeof window['md5Begin'] != 'undefined' ? true : false;
+            a = window['md5Begin'];
             break;
         case sMouseAboutMeJ :
-            return typeof window['mouseAboutMeBegin'] != 'undefined' ? true : false;
+            a = window['mouseAboutMeBegin'];
             break;
         case sMouseChatJ :
-            return typeof window['mouseChatBegin'] != 'undefined' ? true : false;
+            a = window['mouseChatBegin'];
             break;
         case sMouseForumJ :
-            return typeof window['mouseForumBegin'] != 'undefined' ? true : false;
+            a = window['mouseForumBegin'];
             break;
         case sMouseFriendJ :
-            return typeof window['mouseFriendBegin'] != 'undefined' ? true : false;
+            a = window['mouseFriendBegin'];
             break;
         case sMouseSetJ :
-            return typeof window['mouseSetBegin'] != 'undefined' ? true : false;
+            a = window['mouseSetBegin'];
             break;
         case sCnLangJ :
-            return typeof window['cn_langBegin'] != 'undefined' ? true : false;
+            a = window['cn_langBegin'];
             break;
         case sFuncForumJ :
-            return typeof window['funcForumBegin'] != 'undefined' ? true : false;
+            a = window['funcForumBegin'];
             break;
         case sPlatDomLogic :
-            return typeof window['platDomLogicBegin'] != 'undefined' ? true : false;
+            a = window['platDomLogicBegin'];
+            break;
+        case sApiJ :
+            a = window['apiBegin'];
+            break;
+        case sLogicJ :
+            a = window['logicBegin'];
+            break;
+        case sPubDomJ :
+            a = window['platformBegin'];
+            break;
+        case sJqueryJ :
+            a = typeof jQuery != 'undefined' ? true : false;
+            break;
+        case sPlatDomJ :
+            a = window['platformBegin'];
+            break;
+        case sForum :
+            a = window['forumBegin'];
+            break;
+        case sForumQueryJ :
+            a = window['forumQueryBegin'];
+            break;
+        case sForumApiJ :
+            a = window['forumApiBegin'];
+            break;
+        case sForumSlideC :
+            a = aAllreadyLoadCss[sForumSlideC];
+            break;
+        default :
+            throw new Error(j);
             break;
     }
 
-    return true;
+    return a;
 }
+let aAllreadyLoadCss = [];
 
 window.onload = fileControlBegin();

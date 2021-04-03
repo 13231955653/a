@@ -44,6 +44,8 @@ const sFriendJ = 'friend';
 const sSetJ = 'set';
 const sAboutJ = 'about';
 const sApiJ = 'api';
+const sForumQueryJ = 'forum_query';
+const sForumApiJ = 'forum_api';
 const sMobileDomFuncJ = 'dom_func';
 const sStrFunc = 'str_func';
 const sArrFuncJ = 'array_func';
@@ -121,6 +123,10 @@ function staticResourceAddress () {
     // a[sFuncSetJ] = p + '/page/func/set.js';
 
     a[sApiJ] = 'pub/query/query.js';
+
+    a[sForumQueryJ] = p + '/page/query/forum.js';
+
+    a[sForumApiJ] = p + '/page/api/forum.js';
 
     a[sResetC] = 'pub/reset.css';
     a[sPubC] = 'pub/' + p + '/pub.css';

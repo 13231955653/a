@@ -15,6 +15,7 @@ let sForumHeadSuffix = '_h';
 let sForumSplitTag = '_';
 let sForumHeadClass = 'forum_head_c';
 let sForumHeadActiveClass = 'forum_head_c_act';
+let sForumHeadClick = 'forum_head_c';
 let e = sForumSplitTag;
 let c = [
     d + e + sAnnouncement,
@@ -37,6 +38,7 @@ c = null;/*gkp*/
 const sForumBodyD = 'b_forum_body';
 const sForumHeadD = 'b_forum_head';
 const sForumHeadDUl = 'b_forum_head_u';
+const sOneForumSonC = 'forum_one';
 /*yxd*/const sForumSonsClass = 'forum_sons';/*yxd*/
 /*upg*//**
  *
@@ -68,7 +70,7 @@ function writeForumHead () {
     for (let i in a) {
         b = i == 0 ? sForumHeadActiveClass : '';
 
-        s += '<li id="' + a[i] + sForumHeadSuffix + '" class="' + sForumHeadClass + ' ' + b + '">';
+        s += '<li id="' + a[i] + sForumHeadSuffix + '" class="' + sForumHeadClass + ' ' + b + '" ' + sForumHeadClick + '="' + i + '">';
         s += '<span>' + i + '</span>';
         s += '</li>';
     }
@@ -87,7 +89,6 @@ function writeForumBody () {
     s += '<div id="' + sForumBodyD + '" class="' + sFullHeightForFatherClass + '">';
     for (let i in a) {
         s += '<div id="' + a[i] + sForumBodySuffix + '" class="' + sFullWidthClass + ' ' + sForumSonsClass + '">';
-
         s += '</div>';
     }
     s += '</div>';
@@ -120,6 +121,10 @@ function doWriteForumInfo () {
     let b = writeForumBody();
 
     o.innerHTML = a + b;
+
+    requires([sJqueryJ, sMouseForumJ], function () {
+        asyn('bindForumHeadClick');
+    });
 
     $(o).removeClass(sInvisibleClass);
     o = a = b = d = e = null;

@@ -3,7 +3,7 @@
 }
 .forum_sons{
     height: calc(100% - var(--pub_head_h));
-    background: red;
+    background: var(--forum_sons_bk);
     float: left;
 }
 #b_forum_head{
