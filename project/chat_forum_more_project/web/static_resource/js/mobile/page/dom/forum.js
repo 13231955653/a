@@ -38,7 +38,7 @@ c = null;/*gkp*/
 const sForumBodyD = 'b_forum_body';
 const sForumHeadD = 'b_forum_head';
 const sForumHeadDUl = 'b_forum_head_u';
-const sOneForumSonC = 'forum_one';
+const sOneForumSonC = 'forum_grandson';
 /*yxd*/const sForumSonsClass = 'forum_sons';/*yxd*/
 /*upg*//**
  *
@@ -63,19 +63,19 @@ function forumBodyClass () {
 function writeForumHead () {
     let a = aForumList;
 
-    let s = '';
-    s += '<div id="' + sForumHeadD + '" class="' + sFullWidthClass + '">';
-    s += '<ul id="' + sForumHeadDUl + '">';
+    let s = [];
+    s.push('<div id="' + sForumHeadD + '" class="' + sFullWidthClass + '">');
+    s.push('<ul id="' + sForumHeadDUl + '">');
     let b = '';
     for (let i in a) {
         b = i == 0 ? sForumHeadActiveClass : '';
 
-        s += '<li id="' + a[i] + sForumHeadSuffix + '" class="' + sForumHeadClass + ' ' + b + '" ' + sForumHeadClick + '="' + i + '">';
-        s += '<span>' + i + '</span>';
-        s += '</li>';
+        s.push('<li id="' + a[i] + sForumHeadSuffix + '" class="' + sForumHeadClass + ' ' + b + '" ' + sForumHeadClick + '="' + i + '">');
+        s.push('<span>' + i + '</span>');
+        s.push('</li>');
     }
-    s += '</ul>';
-    s += '</div>';
+    s.push('</ul>');
+    s.push('</div>');
 
     a = null;
 
@@ -85,13 +85,12 @@ function writeForumHead () {
 function writeForumBody () {
     let a = aForumList;
 
-    let s = '';
-    s += '<div id="' + sForumBodyD + '" class="' + sFullHeightForFatherClass + '">';
+    let s = [];
+    s.push('<div id="' + sForumBodyD + '" class="' + sFullHeightForFatherClass + '">');
     for (let i in a) {
-        s += '<div id="' + a[i] + sForumBodySuffix + '" class="' + sFullWidthClass + ' ' + sForumSonsClass + '">';
-        s += '</div>';
+        s.push('<div id="' + a[i] + sForumBodySuffix + '" class="' + sFullWidthClass + ' ' + sForumSonsClass + '"></div>');
     }
-    s += '</div>';
+    s.push('</div>');
 
     a = null;
 
@@ -103,6 +102,10 @@ function writeForumBody () {
  *
  */
 function writeForumInfo () {
+    if (!aForumList) {
+        forumBodyClass();
+    }
+
     requires([sPlatDomJ], function () {
         asyn('doWriteForumInfo');
     });
@@ -116,23 +119,100 @@ function doWriteForumInfo () {
     }
     $(o).addClass(sInvisibleClass);
 
-    let a = writeForumHead();
-
-    let b = writeForumBody();
-
-    o.innerHTML = a + b;
+    o.innerHTML = writeForumHead().join('') + writeForumBody().join('');
 
     requires([sJqueryJ, sMouseForumJ], function () {
         asyn('bindForumHeadClick');
     });
 
     $(o).removeClass(sInvisibleClass);
-    o = a = b = d = e = null;
+    o = d = e = null;
 
-    requires([sPlatDomLogic, sForumSlideC, sMouseForumJ], function () {
+    requires([sResetC, sPubC, sSzieC, sForumC, sForumSlideC, sPlatDomLogic, sMouseForumJ], function () {
         asyn('pageBegin');
     });
 }/*oen*/
+/*jli*//**
+ *
+ * announcement 请求后处理函数
+ *
+ * @param a
+ */
+let oAnnouncement = '';
+function afterRequestAnnouncement (a = '') {
+    a = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    if (!a) {
+        return;
+    }
+
+    let c = oAnnouncement;
+    if (!c) {
+        let b = sForumPage + sForumSplitTag + sAnnouncement + sForumBodySuffix;
+        c = oAnnouncement = domById(b);
+    }
+
+    if (!c) {
+        asyn('writeForumInfo');
+        setTimeoutFunction('afterRequestAnnouncement', a);
+        return;
+    }
+
+    requires([sFuncDomJ], function () {
+        asyn('writeAnnouncements', a);
+    });
+
+    a = b = c = null;
+}/*jli*/
+/*cgm*//**
+ *
+ * 写 forum announcement dom
+ *
+ * @param a 请求后返回数据 type json
+ */
+function writeAnnouncements (a = '') {
+    if (!a) {
+        return;
+    }
+
+    let c = oAnnouncement;
+
+    if (!c) {
+        return;
+    }
+
+    let d = [];
+    for (let e in a) {
+        d.push(writeAnnouncement(a[e]));
+    }
+    let f = myFragment();
+    f.innerHTML = d.join('');
+    console.log(f.innerHTML);
+    console.log('zzzzzzzzzz=--ddddd');
+    // let g = document.createElement('div');
+    // f.appendChild(g);
+
+    console.log(c);
+    console.log(f);
+    c.appendChild(f);
+    a = b = c = d = e = f = null;
+}/*cgm*/
+/*luq*//**
+ *
+ * 写 forum announcement dom
+ *
+ * @param a 请求后返回数据 type json
+ */
+function writeAnnouncement (a = '') {
+    if (!a) {
+        return;
+    }
+
+    let b = [];
+    b.push('<div class="' + sOneForumSonC + '">');
+    b.push('</div>');
+
+    return b;
+}/*luq*/
 /*oai*/function forumBegin () {
     console.log('forumBegin begin');
 

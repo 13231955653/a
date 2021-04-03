@@ -1,6 +1,8 @@
 /*lsb*/function pageBegin () {
     console.log('pageBegin 1111111111111');
 
+    console.log('dasdasdppp');
+    console.log(domById(oDomFatherId));
     requires([sPubDomJ], function () {
         asyn('clearBaseShade');
 

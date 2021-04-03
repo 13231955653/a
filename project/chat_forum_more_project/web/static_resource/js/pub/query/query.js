@@ -1,4 +1,4 @@
-/*44a9158ca09f7c51*/const sApiProtocol = 'http://';
+/*pbh*/const sApiProtocol = 'http://';
 const aApiHost = [
     'api1.you.com/',
     'api2.you.com/',
@@ -10,9 +10,36 @@ const aApiHost = [
 ];
 const aApiHostLength = 7;
 
-let iRequestNumber = 0;/*44a9158ca09f7c51*/
+let iRequestNumber = 0;/*pbh*/
 
-/*392c80add10ed4ce*//**
+/*syc*/let h = [];
+h['forum_announcement'] = [sForum, sForumC];
+h['forum_uclassify'] = '';
+h['forum_classify'] = '';
+h['forum_joke'] = '';
+h['forum_sport'] = '';
+h['forum_bike'] = '';
+h['forum_music'] = '';
+h['forum_video'] = '';
+h['forum_musique'] = '';
+h['forum_mas'] = '';
+const aAfterRequertRely = h; //请求后处理函数依赖
+h = null;/*syc*/
+/*syc*/let i = [];
+i['forum_announcement'] = 'afterRequestAnnouncement';
+i['forum_uclassify'] = '';
+i['forum_classify'] = '';
+i['forum_joke'] = '';
+i['forum_sport'] = '';
+i['forum_bike'] = '';
+i['forum_music'] = '';
+i['forum_video'] = '';
+i['forum_musique'] = '';
+i['forum_mas'] = '';
+const aAfterRequertFunc = i; // 请求后处理函数
+i = null;/*syc*/
+
+/*ife*//**
  *
  * ajax请求
  *
@@ -46,17 +73,47 @@ function apiQuery (a = '', b = '', c = 'post') {
         data: b,
         type: c,
         dataType: 'json',
-        success: function (sJsonData) {
+        success: function (sJson) {
+            afterApiRequest(a, sJson);
+            return;
         },
 
         complete: function (XMLHttpRequest, textStatus) {
         },
 
         error: function () {
+            afterApiRequest(a, false);
+            return;
         }
     });
-}/*392c80add10ed4ce*/
+}/*ife*/
+/*uon*//**
+ *
+ * 请求后处理函数
+ *
+ * @param a 请求路由 type string
+ * @param b 请求返回数据 type json
+ */
+function afterApiRequest (a = '', b = '') {
+    if (!a) {
+        return;
+    }
 
-/*e0f13888647a8520*/function apiBegin () {
+    let c = aAfterRequertRely[a];
+    if (!c || typeof c == 'undefined') {
+        return;
+    }
+
+    let d = aAfterRequertFunc[a];
+    if (!d || typeof d == 'undefined') {
+        return;
+    }
+
+    requires(c, function () {
+        asyn(d, b)
+    });
+    a = b = c = d = null;
+}/*uon*/
+/*nca*/function apiBegin () {
     console.log('8888888888888888888888888apiBegin');
-}/*e0f13888647a8520*/
+}/*nca*/

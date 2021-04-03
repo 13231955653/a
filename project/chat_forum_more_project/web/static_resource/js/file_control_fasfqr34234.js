@@ -1093,6 +1093,11 @@ function staticResource (f, q = false) {
             b = 'afterLoadArrayFunc1';
             c = 'js';
             break;
+        case sFuncDomJ :
+            a = 'afterLoadDomFunc';
+            b = 'afterLoadDomFunc1';
+            c = 'js';
+            break;
         case sMd5J :
             a = 'afterLoadMd5';
             b = 'afterLoadMd51';
@@ -1104,8 +1109,8 @@ function staticResource (f, q = false) {
             c = 'js';
             break;
         case sMobileDomFuncJ :
-            a = 'afterLoadDomFunc';
-            b = 'afterLoadDomFunc1';
+            a = 'afterLoadMobileDomFunc';
+            b = 'afterLoadMobileDomFunc1';
             c = 'js';
             break;
         case sUserC1 :
@@ -1315,6 +1320,7 @@ function afterLoadChatC1 (v = '') {
     asyn('staticResource', sChatC, true);
 }
 function afterLoadForumC () {
+    aAllreadyLoadCss[sForumC] = true;
     setInstaticResource(sForumC, false);
 }
 function afterLoadForumC1 (v = '') {
@@ -1346,6 +1352,7 @@ function afterLoadForumSlideC1 (v = '') {
     asyn('staticResource', sForumSlideC, true);
 }
 function afterLoadPublicCss () {
+    aAllreadyLoadCss[sPubC] = true;
     setInstaticResource(sPubC, false);
 }
 function afterLoadPublicCss1 (v = '') {
@@ -1361,6 +1368,7 @@ function afterLoadPublicCss1 (v = '') {
     asyn('staticResource', sPubC, true);
 }
 function afterLoadSizeC () {
+    aAllreadyLoadCss[sSzieC] = true;
     setInstaticResource(sSzieC, false);
 }
 function afterLoadSizeC1 (v = '') {
@@ -1376,6 +1384,7 @@ function afterLoadSizeC1 (v = '') {
     asyn('staticResource', sSzieC, true);
 }
 function afterLoadResetCss () {
+    aAllreadyLoadCss[sResetC] = true;
     setInstaticResource(sResetC, false);
 }
 function afterLoadResetCss1 (v = '') {
@@ -1662,6 +1671,22 @@ function afterLoadRsa1 (v = '') {
     aInstaticResource[sRsaJ] = false;
     asyn('staticResource', sRsaJ, true);
 }
+function afterLoadDomFunc () {
+    asyn('arrayFunctionBegin');
+    setInstaticResource(sFuncDomJ, false);
+}
+function afterLoadDomFunc1 (v = '') {
+    if (v) {
+        asyn('afterstaticResource', v, 'js');
+
+        asyn('afterLoadDomFunc');
+
+        return;
+    }
+
+    aInstaticResource[sFuncDomJ] = false;
+    asyn('staticResource', sFuncDomJ, true);
+}
 function afterLoadArrayFunc () {
     asyn('arrayFunctionBegin');
     setInstaticResource(sArrFuncJ, false);
@@ -1694,15 +1719,15 @@ function afterLoadStrFunc1 (v = '') {
     aInstaticResource[sStrFunc] = false;
     asyn('staticResource', sStrFunc, true);
 }
-function afterLoadDomFunc () {
-    asyn('domFunctionBegin');
+function afterLoadMobileDomFunc () {
+    asyn('mebileDomBegin');
     setInstaticResource(sMobileDomFuncJ, false);
 }
-function afterLoadDomFunc1 (v = '') {
+function afterLoadMobileDomFunc1 (v = '') {
     if (v) {
         asyn('afterstaticResource', v, 'js');
 
-        asyn('afterLoadDomFunc');
+        asyn('afterLoadMobileDomFunc');
 
         return;
     }
@@ -2092,7 +2117,7 @@ function checkstaticResource (j) {
             a = window['encodeBegin'];
             break;
         case sMobileDomFuncJ :
-            a = window['domFunctionBegin'];
+            a = window['mebileDomBegin'];
             break;
         case sStrFunc :
             a = window['stringFunctionBegin'];
@@ -2151,15 +2176,30 @@ function checkstaticResource (j) {
         case sForumApiJ :
             a = window['forumApiBegin'];
             break;
+        case sFuncDomJ :
+            a = window['funcDomBegin'];
+            break;
         case sForumSlideC :
             a = aAllreadyLoadCss[sForumSlideC];
+            break;
+        case sForumC :
+            a = aAllreadyLoadCss[sForumC];
+            break;
+        case sResetC :
+            a = aAllreadyLoadCss[sResetC];
+            break;
+        case sPubC :
+            a = aAllreadyLoadCss[sPubC];
+            break;
+        case sSzieC :
+            a = aAllreadyLoadCss[sSzieC];
             break;
         default :
             throw new Error(j);
             break;
     }
 
-    return a;
+    return a || typeof a != 'undefined' ? true : false;
 }
 let aAllreadyLoadCss = [];
 

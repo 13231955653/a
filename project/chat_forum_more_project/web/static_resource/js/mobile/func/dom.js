@@ -183,6 +183,8 @@ function notice (m = '') {
 
     let o = noticeDom();
 
+    console.log('dasdasdqq');
+    console.log(o);
     replaceClassNameToShow(o);
 
     o.style.filter = 'alpha(opacity:' + 0 + ')';
@@ -271,7 +273,9 @@ function clearBaseShade () {
     });
 }/*jbd*/
 /*sdv*/let aShades = [];
-function showShade (o = false) {
+function showShade (o) {
+    console.log('dasdasdas');
+    console.log(o);
     replaceClassNameToShow(o);
 
     o.style.filter = 'alpha(opacity:' + 0 + ')';
@@ -417,6 +421,6 @@ function animates (o = false, s = false, p = false, c = false) {
 
     // jsAnimate (o, s, parseInt(p / 20));
 }/*sbb*/
-/*jci*/function domFunctionBegin () {
-    console.log('3333333333333333333domFunctionBegin');
+/*jci*/function mebileDomBegin () {
+    console.log('3333333333333333333mebileDomBegin');
 }/*jci*/

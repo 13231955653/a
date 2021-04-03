@@ -903,25 +903,23 @@ function secondDom () {
         sDomNoticeId,
     ];
 
-    let s = '';
+    let s = [];
     for (let i in a) {
-        s += '<div id="' + a[i] + '" class="' + sInvisibleClass + '"></div>';
+        s.push('<div id="' + a[i] + '" class="' + sInvisibleClass + '"></div>');
     }
 
     let o = bodyDom();
-    // o.innerHTML = o.innerHTML + s;
-    o.innerHTML = s;
+    o.innerHTML = s.join('');
 
-    // asyn('fatherDom');
     asyn('threeBodyDom');
 
-    // asyn('shadeDom');
     asyn('writeShades');
 
-    // asyn('noticeDom');
     asyn('writeNotice');
 
     o.style.display = 'block';
+
+    a = s = i = o = null;
 }
 let oFatherDom = '';
 function fatherDom () {
@@ -1031,16 +1029,16 @@ function setMeta () {
         sCopyright,
     ];
 
-    let o = document.createDocumentFragment();
+    let o = myFragment();
     let m = '';
     for (let i in a) {
         m = setContent(a[i]);
-        if (m) {
+        // if (m) {
             o.appendChild(m);
-        }
+        // }
     }
     oHead.appendChild(o);
-
+    a = o = i = m = null;
     // oHead.style.visibility = 'visible';
 }
 /**
@@ -1210,7 +1208,9 @@ function baseBegins () {
         return;
     }
 
-    asyn('setMeta');
+    requires([sFuncDomJ], function () {
+        asyn('setMeta');
+    });
 
     asyn('initializeFontSize');
 

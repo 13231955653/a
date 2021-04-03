@@ -1,6 +1,6 @@
 /*6ba4d8ef878f4609*/let oBaseShade = '';/*6ba4d8ef878f4609*/
 
-/*16da63640be0a4c9*/var sBaseShadeId = 'base_shade';/*16da63640be0a4c9*/
+// /*16da63640be0a4c9*/var sBaseShadeId = 'base_shade';/*16da63640be0a4c9*/
 
 /*f0196c4afb85054e*/let sBaseShadeCenterDomClass = 'b_shade_cent';
 let sBaseShadeCenterSonDomClass = 'b_shade_cent_son';
@@ -31,19 +31,19 @@ function writeNotice () {
         sNoticeFootClass,
     ];
 
-    let s = '';
+    let s = [];
     for (let i in a) {
-        s += '<div class="' + a[i] + '">';
+        s.push('<div class="' + a[i] + '">');
         if (a[i] !== sNoticeBodyClass) {
-            s += '<span id="' + a[i] + '_span" class="' + sReLangClass + '"></span>';
+            s.push('<span id="' + a[i] + '_span" class="' + sReLangClass + '"></span>');
         } else {
-            s += '<span id="' + a[i] + '_span"></span>';
+            s.push('<span id="' + a[i] + '_span"></span>');
         }
 
-        s += '</div>';
+        s.push('</div>');
     }
 
-    noticeDom().innerHTML = s;
+    noticeDom().innerHTML = s.join('');
 
     domById(sNoticeTitleClass + '_span').innerHTML = 'ss';
     domById(sNoticeFootClass + '_span').innerHTML = 'ss';
@@ -53,6 +53,8 @@ function writeNotice () {
 
         asyn('replaceLang', sReplaceLangIdType, sDomNoticeId);
     });
+
+    a = i = s = null;
 }/*605df86f799e4bd9*/
 /*28f646c3b0eaccc8*//**
  *
@@ -60,9 +62,6 @@ function writeNotice () {
  *
  */
 function bindNoticeFoot () {
-    // console.log('zzzzzzzzzzzzzzzzzaaaaaaaaaaaaaaaqqqqqqqqqqqqqqqq');
-    // console.log(sNoticeFootClass);
-    // console.log(oneDomByClass(sNoticeFootClass));
     oneDomByClass(sNoticeFootClass).onclick = function () {
         asyn('hiddenNotice');
     }
@@ -79,27 +78,27 @@ function writeShades () {
         sBaseShadeId,
     ];
 
-    let s = '';
+    let s = [];
     for (let i in a) {
-        // s += '<div id="' + a[i] + '" class="' + sShadeClass + ' ' + sInvisibleClass + '">';
-        s += '<div id="' + a[i] + '" class="' + sInvisibleClass + '">';
+        s.push('<div id="' + a[i] + '" class="' + sInvisibleClass + '">');
 
-        s += '<div class="' + sBaseShadeCenterDomClass + '">';
-        s += writeLoadAnimation();
-        s += '</div>';
+        s.push('<div class="' + sBaseShadeCenterDomClass + '">');
+        s.push(writeLoadAnimation());
+        s.push('</div>');
 
-        s += '</div>';
+        s.push('</div>');
     }
 
     let o = shadeDom();
-    o.innerHTML = s;
+    o.innerHTML = s.join('');
 
+    console.log('sass');
+    console.log(o);
     requires([sFuncJ], function () {
-        // replaceClassNameToShow(o);
-        console.log('qqqqqqqqqqqzzzzzzzzzzzzzzzzzzzzzzzzzz');
-        console.log(o);
         asyn('replaceClassNameToShow', o);
     })
+
+    o = i = a = s = null;
 }
 function baseShades () {
     oBaseShade = oBaseShade ? oBaseShade : domById(sBaseShadeId);
@@ -126,13 +125,14 @@ function writeLoadAnimation () {
     let n = Math.ceil(w / l) - 1;
 
     let i = 0;
-    let s = '<div class="' + sBaseShadeCenterSonDomClass + '" style="width:' + (l * n - m)  + 'px;">';
+    let s = [];
+    s.push('<div class="' + sBaseShadeCenterSonDomClass + '" style="width:' + (l * n - m)  + 'px;">');
     for (i; i < n; i++) {
-        s += '<span class="' + sBaseShadeCenterSonClass + '"></span>';
+        s.push('<span class="' + sBaseShadeCenterSonClass + '"></span>');
     }
-    s += '</div>';
+    s.push('</div>');
 
-    return s;
+    return s.join('');
 }/*4de1e35a389a1e25*/
 
 /*baee8d2085edcee0*/function domBegin () {

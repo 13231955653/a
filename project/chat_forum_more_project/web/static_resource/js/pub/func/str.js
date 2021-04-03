@@ -108,7 +108,12 @@ function reverseString (s = '') {
  *
  * @param o 要替换的dom
  */
-function replaceClassNameToShow (o) {
+function replaceClassNameToShow (o = '') {
+    if (!o) {
+        console.log('dasdasd');
+        return;
+    }
+
     let p1 = new RegExp('\\s*' + sInvisibleClass,'gm');
     let p2 = new RegExp('\\s*' + sVisibleClass,'gm');
 
@@ -176,15 +181,16 @@ function individuationUuid () {
 function individuationUuidUniqueStr () {
     let d = sUniqueStrSplitTag;
 
-    let s = randStr(iIndividuationUniqueStrLength);
-    s += d + randNum(iIndividuationUniqueStrNumberMin, iIndividuationUniqueStrNumberMax);
-    s += d + getMillisecondTime();
-    s += d + navigatorInfo();
-    s += d + screenInfo();
-    s += d + generateUUID();
-    s += d + userIpInfo();
+    let s = [];
+    s.push(randStr(iIndividuationUniqueStrLength));
+    s.push(d + randNum(iIndividuationUniqueStrNumberMin, iIndividuationUniqueStrNumberMax));
+    s.push(d + getMillisecondTime());
+    s.push(d + navigatorInfo());
+    s.push(d + screenInfo());
+    s.push(d + generateUUID());
+    s.push(d + userIpInfo());
 
-    s = md5(s);
+    s = md5(s.join(''));
 
     return s;
 }/*a58c869d881ba45c*/
