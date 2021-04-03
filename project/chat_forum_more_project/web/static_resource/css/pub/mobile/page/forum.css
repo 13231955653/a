@@ -5,6 +5,7 @@
     height: calc(100% - var(--pub_head_h));
     background: var(--forum_sons_bk);
     float: left;
+    overflow-y: scroll;
 }
 #b_forum_head{
     height: var(--pub_head_h);
@@ -32,3 +33,43 @@
     top: var(--pub_head_h);
     left: 0px;
 }/*cwj*/
+/*cwa*/.f_grandson{
+    margin-bottom: 0.5rem;
+    background: var(--forum_grandson_bk);
+}
+.f_grandson_h{
+    height: 3.6rem;
+    background: var(--f_grandson_h_bk);
+}
+.f_grandson_b{
+    min-height: 1rem;
+    background: var(--f_grandson_b_bk);
+}
+.f_grandson_f{
+    height: 3.6rem;
+    background: var(--f_grandson_f_bk);
+}/*cwa*/
+/*cwu*/.f_grandson_f li:nth-last-child(1):first-child,
+.f_grandson_f li:nth-last-child(1):first-child~li{
+    width: 100%;
+}
+/* 两个子*/
+.f_grandson_f li:nth-last-child(2):first-child,
+.f_grandson_f li:nth-last-child(2):first-child~li{
+    width: calc(100% / 2);
+}
+/*三  个子*/
+.f_grandson_f li:nth-last-child(3):first-child,
+.f_grandson_f li:nth-last-child(3):first-child~li{
+    width: calc(100% / 3);
+}
+/*  四  个  子*/
+.f_grandson_f li:nth-last-child(4):first-child,
+.f_grandson_f li:nth-last-child(4):first-child~li{
+    width: calc(100% / 4);
+}
+/*五个子          */
+.f_grandson_f li:nth-last-child(5):first-child,
+.f_grandson_f li:nth-last-child(5):first-child~li{
+    width: calc(100% / 5);
+}/*cwu*/

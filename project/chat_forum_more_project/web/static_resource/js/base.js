@@ -213,6 +213,7 @@ const sDomNoticeId = 'notice_f';
 const sDomShadeId = 'shade_f';
 
 const sFullWidthClass = 'full_w';
+const sFullWidthForFatherClass = 'full_w_for_father';
 const sFullHeightClass = 'full_h';
 const sFullHeightForFatherClass = 'full_h_for_father';
 

@@ -12,7 +12,7 @@
     --shade_page_bk: #800007;/*foz*/
     /*dnl*/--b_shade_center_sons_bk: #ff626b;
     --b_shade_center_son_now_bk: #002cff;
-    --b_shade_center_son_bk: #e548ff;/*dnl*/
+    --b_shade_center_son_bk: #e548ff;
     --notice_f_bk: #ff6269;
     --notice_head_bk: pink;
     --notice_foot_bk: green;
@@ -20,5 +20,9 @@
     --b_forum_bk: #ffab4a;
     --pub_head_bk: #96ff71;
     --forum_head_c_act_bk: #ff5356;
-    --forum_sons_bk: #fff576;
+    --forum_sons_bk: #fff576;/*dnl*/
+    /*hon*/--forum_grandson_bk: #ff666e;
+    --f_grandson_h_bk: #aefdff;
+    --f_grandson_b_bk: #bdffbf;
+    --f_grandson_f_bk: #cc71ff;
 }/*hon*/

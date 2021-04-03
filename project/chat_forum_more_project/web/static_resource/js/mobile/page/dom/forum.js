@@ -35,11 +35,16 @@ const aForumList = c;
 const iForumListLength = aForumList.length;
 c = null;/*gkp*/
 
-const sForumBodyD = 'b_forum_body';
+/*yxd*/const sForumBodyD = 'b_forum_body';
 const sForumHeadD = 'b_forum_head';
 const sForumHeadDUl = 'b_forum_head_u';
-const sOneForumSonC = 'forum_grandson';
-/*yxd*/const sForumSonsClass = 'forum_sons';/*yxd*/
+const sForumSonsClass = 'forum_sons';/*yxd*/
+
+/*yxz*/const sOneForumSonC = 'f_grandson';
+const sOneForumSonHeadC = 'f_grandson_h';
+const sOneForumSonBodyC = 'f_grandson_b';
+const sOneForumSonFootC = 'f_grandson_f';
+/*yxz*/
 /*upg*//**
  *
  * 设置forum body class
@@ -192,10 +197,65 @@ function writeAnnouncement (a = '') {
     }
 
     let b = createDiv();
-    b.class = sOneForumSonC;
+    b.className = sOneForumSonC + ' ' + sFullWidthForFatherClass;
+
+    b.appendChild(announcementHead());
+
+    b.appendChild(announcementBody());
+
+    b.appendChild(announcementFoot());
 
     return b;
-}/*luq*/
+}
+function announcementHead () {
+    let a = createDiv();
+    a.className = sOneForumSonHeadC + ' ' + sFullWidthForFatherClass;
+
+    return a;
+}
+function announcementBody () {
+    let a = createDiv();
+    a.className = sOneForumSonBodyC + ' ' + sFullWidthForFatherClass;
+
+    return a;
+}
+function announcementFoot () {
+    let a = createDiv();
+    a.className = sOneForumSonFootC + ' ' + sFullWidthForFatherClass;
+
+    let b = createUl();
+
+    let c = createLi();
+    let d = createA();
+    c.appendChild(d);
+    d = null;
+
+    let e = createLi();
+    let f = createA();
+    e.appendChild(f);
+    f = null;
+
+    let g = createLi();
+    let h = createA();
+    g.appendChild(h);
+    h = null;
+
+    let i = createLi();
+    let j = createA();
+    i.appendChild(j);
+    j = null;
+
+    b.appendChild(c);
+    b.appendChild(e);
+    b.appendChild(g);
+    b.appendChild(i);
+    c = e = g = i = null;
+
+    a.appendChild(b);
+
+    return a;
+}
+/*luq*/
 /*oai*/function forumBegin () {
     console.log('forumBegin begin');
 
