@@ -192,6 +192,8 @@ function notice (m = '') {
 
     animates(o, {opacity: 100}, iSpeed, function () {
     });
+
+    o = m = null;
 }
 function hiddenNotice () {
     let o = noticeDom();
@@ -225,7 +227,7 @@ function changeBodyStatus (b = true) {
 
     let p1 = new RegExp('\\s*' + sInvisibleClass,'gm');
     let p2 = new RegExp('\\s*' + sVisibleClass,'gm');
-
+s
     let o = bodyDom();
     let s = o.className;
     s = s.replace(p1, '');

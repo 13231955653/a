@@ -165,6 +165,7 @@
     left: 0px;
     z-index: 2100000000 !important;
     background: var(--notice_f_bk);
+    visibility: hidden !important;
 }
 .notice_head{
     width: 100%;

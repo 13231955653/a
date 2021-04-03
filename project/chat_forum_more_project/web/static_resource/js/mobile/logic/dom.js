@@ -17,7 +17,7 @@
             // b = sMouseForumJ;
             // c = 'forumChangeLevelMove';
             requires([sMouseForumJ], function () {
-                forumChangeLevelMove('', false, 1);
+                forumChangeLevelMove('', '', 1);
             });
             break;
         case sChatPage :

@@ -899,17 +899,21 @@ function secondDom () {
     let a = [
         oDomFatherId,
         sDomShadeId,
-        // oDomStorageId,
         sDomNoticeId,
     ];
 
-    let s = [];
+    let b = myFragment();
+    let c = '';
     for (let i in a) {
-        s.push('<div id="' + a[i] + '" class="' + sInvisibleClass + '"></div>');
+        c = createDiv();
+        c.id = a[i];
+        c.class = sInvisibleClass;
+
+        b.appendChild(c);
     }
 
     let o = bodyDom();
-    o.innerHTML = s.join('');
+    o.appendChild(b);
 
     asyn('threeBodyDom');
 
@@ -917,9 +921,10 @@ function secondDom () {
 
     asyn('writeNotice');
 
-    o.style.display = 'block';
+    replaceClassNameToShow(o);
+    o.style.visibility = 'visible';
 
-    a = s = i = o = null;
+    a = b = c = i = o = null;
 }
 let oFatherDom = '';
 function fatherDom () {
@@ -1218,7 +1223,9 @@ function baseBegins () {
 
     // asyn('getUserIp');
 
-    asyn('secondDom');
+    requires([sFuncDomJ, sStrFunc], function () {
+        asyn('secondDom');
+    });
 
     requires([sFuncJ, sMd5J, sStrFunc], function () {
         asyn('makeToken');

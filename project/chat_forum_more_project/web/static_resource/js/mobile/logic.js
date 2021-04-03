@@ -46,7 +46,7 @@ function againOnlickFooter () {
 
     switch (b) {
         case sForumPage :
-            forumChangeLevelMove('', false, 1);
+            forumChangeLevelMove('', '', 1);
             break;
         // case sChatPage :
         //     c = '';

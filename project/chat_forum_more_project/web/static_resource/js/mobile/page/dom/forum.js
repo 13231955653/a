@@ -77,9 +77,9 @@ function writeForumHead () {
     s.push('</ul>');
     s.push('</div>');
 
-    a = null;
+    a = i = null;
 
-    return s;
+    return s.join('');
 }/*qct*/
 /*lay*/
 function writeForumBody () {
@@ -92,9 +92,9 @@ function writeForumBody () {
     }
     s.push('</div>');
 
-    a = null;
+    a = i = null;
 
-    return s;
+    return s.join('');
 }/*lay*/
 /*oen*//**
  *
@@ -119,7 +119,7 @@ function doWriteForumInfo () {
     }
     $(o).addClass(sInvisibleClass);
 
-    o.innerHTML = writeForumHead().join('') + writeForumBody().join('');
+    o.innerHTML = writeForumHead() + writeForumBody();
 
     requires([sJqueryJ, sMouseForumJ], function () {
         asyn('bindForumHeadClick');
@@ -157,7 +157,7 @@ function afterRequestAnnouncement (a = '') {
         return;
     }
 
-    requires([sFuncDomJ], function () {
+    requires([sFuncDomJ, sJqueryJ], function () {
         asyn('writeAnnouncements', a);
     });
 
@@ -170,31 +170,15 @@ function afterRequestAnnouncement (a = '') {
  * @param a 请求后返回数据 type json
  */
 function writeAnnouncements (a = '') {
-    if (!a) {
-        return;
+    let b = oAnnouncement;
+
+    let c = myFragment();
+    for (let d in a) {
+        c.appendChild(writeAnnouncement(a[d]));
     }
 
-    let c = oAnnouncement;
-
-    if (!c) {
-        return;
-    }
-
-    let d = [];
-    for (let e in a) {
-        d.push(writeAnnouncement(a[e]));
-    }
-    let f = myFragment();
-    f.innerHTML = d.join('');
-    console.log(f.innerHTML);
-    console.log('zzzzzzzzzz=--ddddd');
-    // let g = document.createElement('div');
-    // f.appendChild(g);
-
-    console.log(c);
-    console.log(f);
-    c.appendChild(f);
-    a = b = c = d = e = f = null;
+    $(b).append(c);
+    a = b = c = d = null;
 }/*cgm*/
 /*luq*//**
  *
@@ -207,9 +191,8 @@ function writeAnnouncement (a = '') {
         return;
     }
 
-    let b = [];
-    b.push('<div class="' + sOneForumSonC + '">');
-    b.push('</div>');
+    let b = createDiv();
+    b.class = sOneForumSonC;
 
     return b;
 }/*luq*/
