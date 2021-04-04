@@ -1,5 +1,8 @@
 /*syc*/let f = [];
 f['forum_announcement'] = 'forum_announcement';
+f['forum_attention'] = 'all_category/attention';
+f['forum_recommend'] = 'all_category/recommend';
+f['forum_hot'] = 'all_category/hot';
 f['forum_uclassify'] = 'classify/user';
 f['forum_classify'] = 'classify/sys';
 f['forum_joke'] = 'category/joke';

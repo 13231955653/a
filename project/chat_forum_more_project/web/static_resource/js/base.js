@@ -4,7 +4,7 @@
 
 /*33f00aeae2406ffe*/const sIndividuationUuidTag = '*';
 const sUniqueStrSplitTag = '_';
-const sRandString = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+const sRandString = 'abcdefghijklmnopqrstuvwxyz';
 const iIndividuationUniqueStrLength = 1000;
 const iIndividuationUniqueStrNumberMin = 0;
 const iIndividuationUniqueStrNumberMax = 999999999999999999;
@@ -225,6 +225,9 @@ const sHiddenClass = 'hidden'; //不显示dom的class
 const sShowClass = 'show';//显示dom的class
 //class id tag 相关============/*3d6db13f8bf8dde2*/
 
+/*aaa*/const sGray = 'gray';
+const sColours = 'colours';/*aaa*/
+
 /*3d6db13f8bf8dde2*///尺寸相关----------------
 let iWinWidth = 0;
 let iWinHeight = 0;
@@ -265,8 +268,8 @@ const iNoticeTimeLimit = 3600000;
 
 
 const sReLangClass = 're_lang';
-const sReplaceLangIdType = 'id';
-const sReplaceLangClassType = 'class';
+// const sReplaceLangIdType = 'id';
+// const sReplaceLangClassType = 'class';
 
 // const sShadeClass = 'shades';
 //class id tag 相关====================/*2355292fdec0dbed*/
@@ -929,25 +932,36 @@ function secondDom () {
 }
 let oFatherDom = '';
 function fatherDom () {
-    oFatherDom = oFatherDom ? oFatherDom : domById(oDomFatherId);
+    if (oFatherDom) {
+        return oFatherDom;
+    }
+    oFatherDom = domById(oDomFatherId);
     return oFatherDom;
 }
 let oShadeFather = '';
 function shadeDom () {
-    oShadeFather = oShadeFather ? oShadeFather : domById(sDomShadeId);
+    if (oShadeFather) {
+        return oShadeFather;
+    }
+    oShadeFather = domById(sDomShadeId);
     return oShadeFather;
 }
 let oNoticeDom = '';
 function noticeDom () {
-    oNoticeDom = oNoticeDom ? oNoticeDom : domById(sDomNoticeId);
+    if (oNoticeDom) {
+        return oNoticeDom;
+    }
+    oNoticeDom = domById(sDomNoticeId);
     return oNoticeDom;
 }
 let oBodyDom = false;
 function bodyDom () {
-    oBodyDom = oBodyDom ? oBodyDom : domById(sBodyDomFatherId);
+    if (oBodyDom) {
+        return oBodyDom;
+    }
+    oBodyDom = domById(sBodyDomFatherId);
     return oBodyDom;
 }/*3876aa63f297d6af*/
-
 /*f5cbcc6172ee0659*/function winResize (bOnload = false) {
     // console.log('zzzzzzzzzzzzzzzzzzzzzzzzzzzzzz');
     if (!bOnload) {

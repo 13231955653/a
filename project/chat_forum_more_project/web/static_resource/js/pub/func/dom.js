@@ -20,6 +20,9 @@ function myFragment () {
 /*zzz*/function createA () {
     return myCeeateElement('a');
 }/*zzz*/
+/*ccc*/function createSpan () {
+    return myCeeateElement('span');
+}/*ccc*/
 /*czz*/function myCeeateElement (s) {
     return document.createElement(s);
 }/*czz*/

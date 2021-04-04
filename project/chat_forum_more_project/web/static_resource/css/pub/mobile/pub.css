@@ -233,3 +233,11 @@
 .full_w_for_father{
     width: 100%;
 }/*cwj*/
+/*aaa*/.gray{
+   -webkit-filter: grayscale(100%); /* Chrome, Safari, Opera */
+   filter: grayscale(100%);
+}
+.colours{
+    -webkit-filter: grayscale(0%); /* Chrome, Safari, Opera */
+    filter: grayscale(0%);
+}/*aaa*/

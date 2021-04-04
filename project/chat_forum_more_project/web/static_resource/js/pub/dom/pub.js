@@ -34,6 +34,7 @@ function writeNotice () {
     let s = [];
     for (let i in a) {
         s.push('<div class="' + a[i] + '">');
+
         if (a[i] !== sNoticeBodyClass) {
             s.push('<span id="' + a[i] + '_span" class="' + sReLangClass + '"></span>');
         } else {
@@ -51,7 +52,8 @@ function writeNotice () {
     requires([sMobileDomFuncJ], function () {
         asyn('bindNoticeFoot');
 
-        asyn('replaceLang', sReplaceLangIdType, sDomNoticeId);
+        // asyn('replaceLang', sReplaceLangIdType, sDomNoticeId);
+        asyn('replaceLang', noticeDom());
     });
 
     a = i = s = null;

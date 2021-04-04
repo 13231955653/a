@@ -2,77 +2,15 @@
  *
  * 替换dom语言
  *
- * @param p 传入第二参数的类型 type string id/class/tag
- * @param d 需要替换语言的dom的 id/class/tag type sting
+ * @param p replace lang dom type dom object
  */
-function replaceDomLang (p = '', d = '') {
-    if (!p || !d) {
-        // console.log('replaceDomLang p or d is null, so no to do ');
-        return;
-    }
-
-    // if (typeof bLoadFunctionJs == 'undefined') {
-    //     console.log('replaceDomLang bLoadFunctionJs is false, so settimtoue retry ');
-    //     setTimeoutFunction('replaceDomLang', p, d);
-    //     return;
-    // }
-
-    replaceLang(p, d);
-}
-/**
- *
- * 替换dom语言
- *
- * @param p 传入第二参数的类型 type string id/class/tag
- * @param d 需要替换语言的dom的 id/class/tag type sting
- */
-function replaceLang (p = '', d = '') {
-    if (!p || !d) {
-        return;
-    }
-
-    if (typeof aLang == 'undefined') {
-        setTimeoutFunction('replaceLang', p, d);
-        return;
-    }
-
-    let o = false;
-    switch (p) {
-        case sReplaceLangIdType :
-            o = domById(d);
-            break;
-        case sReplaceLangClassType :
-            o = domByClass(d);
-            break;
-    }
-
-    if (!o) {
-        setTimeoutFunction('replaceLang', p, d);
-        return;
-    }
-
-    let s = o.getElementsByClassName(sReLangClass);
-    for (let i in s) {
-        s[i].innerHTML = typeof aLang[s[i].id] != 'undefined' ? aLang[s[i].id] : aLang['lang_err'];
-    }
-}
-function replaceLangs () {
-    if (typeof window['aLang'] === 'undefined') {
-        setTimeoutFunction('replaceLangs');
-        return;
-    }
-
-    let a = bodyDom().getElementsByClassName(sReLangClass);
-    if (!a.length) {
-        return false;
-    }
-
-    let s = '';
+function replaceLang (p = '') {
+    let a = p.getElementsByClassName(sReLangClass);
     for (let i in a) {
-        s = typeof a[i].id != 'undefined' ? a[i].id : 'error';
-        s = typeof aLang[s] != 'undefined' ? aLang[s] : aLang['error'];
-        a[i].innerHTML = s;
+        a[i].innerHTML = typeof aLang[a[i].id] != 'undefined' ? aLang[a[i].id] : aLang['lang_err'];
     }
+
+    a = i = null;
 }/*xfr*/
 /*cwp*//**
  *

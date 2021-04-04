@@ -1,5 +1,8 @@
 /*gkp*///forum 显示列表
 const sAnnouncement = 'announcement';
+const sRecommend = 'recommend';
+const sAttention = 'attention';
+const sHot = 'hot';
 const sUserClassify = 'uclassify';
 const sClassify = 'classify';
 const sJoke = 'joke';
@@ -10,15 +13,19 @@ const sVideo = 'video';
 const sMusicRecommend = 'musique';
 const sVideoRecommend = 'mas';
 let d = sForumPage;
-let sForumBodySuffix = '_b';
-let sForumHeadSuffix = '_h';
-let sForumSplitTag = '_';
-let sForumHeadClass = 'forum_head_c';
-let sForumHeadActiveClass = 'forum_head_c_act';
-let sForumHeadClick = 'forum_head_c';
+const sForumBodySuffix = '_b';
+const sForumHeadSuffix = '_h';
+const sForumSplitTag = '_';
+const sForumHeadClass = 'forum_head_c';
+const sForumHeadActiveClass = 'forum_head_c_act';
+const sForumHeadClick = 'forum_head_c';
+const sForumHeadReplaceLangC = '_l';
 let e = sForumSplitTag;
 let c = [
     d + e + sAnnouncement,
+    d + e + sAttention,
+    d + e + sRecommend,
+    d + e + sHot,
     d + e + sUserClassify,
     d + e + sClassify,
     d + e + sJoke,
@@ -45,6 +52,25 @@ const sOneForumSonHeadC = 'f_grandson_h';
 const sOneForumSonBodyC = 'f_grandson_b';
 const sOneForumSonFootC = 'f_grandson_f';
 /*yxz*/
+
+/*vvs*/const sForumGrandsonFoot1 = 'collect';
+const sForumGrandsonFoot2 = 'praise';
+const sForumGrandsonFoot3 = 'trample';
+const sForumGrandsonFoot4 = 'more';
+let j = [
+    sForumGrandsonFoot1,
+    sForumGrandsonFoot2,
+    sForumGrandsonFoot3,
+    sForumGrandsonFoot4,
+];
+const sForumGrandsonFoot = j;
+// const sForumGrandsonFootLangSuffix = '_l';
+j = null;
+const sCollect = '💋';
+const sPraise = '👍';
+const sTrample = '👎';
+const sMore = '┉';
+/*vvs*/
 /*upg*//**
  *
  * 设置forum body class
@@ -59,7 +85,15 @@ function forumBodyClass () {
         aForumBodyClass[b] = sForumBodyClass + b;
     }
 }/*upg*/
-/*qct*/
+/*qct*/let oForumHead = false;
+function forumHeadDom () {
+    if (oForumHead) {
+        return oForumHead;
+    }
+
+    oForumHead = domById(sForumHeadD);
+    return oForumHead;
+}
 /**
  *
  * 头部
@@ -76,7 +110,7 @@ function writeForumHead () {
         b = i == 0 ? sForumHeadActiveClass : '';
 
         s.push('<li id="' + a[i] + sForumHeadSuffix + '" class="' + sForumHeadClass + ' ' + b + '" ' + sForumHeadClick + '="' + i + '">');
-        s.push('<span>' + i + '</span>');
+        s.push('<span id="' + a[i] + sForumHeadReplaceLangC + '" class="' + sReLangClass + '"></span>');
         s.push('</li>');
     }
     s.push('</ul>');
@@ -130,6 +164,10 @@ function doWriteForumInfo () {
         asyn('bindForumHeadClick');
     });
 
+    requires([sNowLang, sMobileDomFuncJ], function () {
+        asyn('replaceLang', forumHeadDom());
+    });
+
     $(o).removeClass(sInvisibleClass);
     o = d = e = null;
 
@@ -137,36 +175,35 @@ function doWriteForumInfo () {
         asyn('pageBegin');
     });
 }/*oen*/
+/*oen*/let oAnnouncement = '';
+function announcementDom () {
+    oAnnouncement = oAnnouncement ? oAnnouncement : domById(sForumPage + sForumSplitTag + sAnnouncement + sForumBodySuffix);
+    return oAnnouncement;
+}
+/*oen*/
 /*jli*//**
  *
  * announcement 请求后处理函数
  *
  * @param a
  */
-let oAnnouncement = '';
 function afterRequestAnnouncement (a = '') {
     a = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
     if (!a) {
         return;
     }
 
-    let c = oAnnouncement;
-    if (!c) {
-        let b = sForumPage + sForumSplitTag + sAnnouncement + sForumBodySuffix;
-        c = oAnnouncement = domById(b);
-    }
-
-    if (!c) {
+    if (!announcementDom()) {
         asyn('writeForumInfo');
         setTimeoutFunction('afterRequestAnnouncement', a);
         return;
     }
 
-    requires([sFuncDomJ, sJqueryJ], function () {
+    requires([sFuncDomJ, sJqueryJ, sStrFunc], function () {
         asyn('writeAnnouncements', a);
     });
 
-    a = b = c = null;
+    a = null;
 }/*jli*/
 /*cgm*//**
  *
@@ -175,15 +212,20 @@ function afterRequestAnnouncement (a = '') {
  * @param a 请求后返回数据 type json
  */
 function writeAnnouncements (a = '') {
-    let b = oAnnouncement;
-
-    let c = myFragment();
-    for (let d in a) {
-        c.appendChild(writeAnnouncement(a[d]));
+    let b = myFragment();
+    let d = createDiv();
+    let e = d.id = getMillisecondTime() + '_' + randStr(9);
+    for (let c in a) {
+        d.appendChild(writeAnnouncement(a[c]));
     }
+    b.appendChild(d);
 
-    $(b).append(c);
-    a = b = c = d = null;
+    $(announcementDom()).append(b);
+
+    requires([sNowLang, sMobileDomFuncJ], function () {
+        asyn('replaceLang', domById(e));
+    });
+    a = b = c = d = e = null;
 }/*cgm*/
 /*luq*//**
  *
@@ -225,33 +267,42 @@ function announcementFoot () {
 
     let b = createUl();
 
-    let c = createLi();
-    let d = createA();
-    c.appendChild(d);
-    d = null;
+    let c = sForumGrandsonFoot;
+    let e = '';
+    let g = '';
+    let h = '';
+    let i = '';
+    for (let d in c) {
+        e = createLi();
+        e.className = sGray;
 
-    let e = createLi();
-    let f = createA();
-    e.appendChild(f);
-    f = null;
+        h = createSpan();
+        switch (c[d]) {
+            case sForumGrandsonFoot1 :
+                i = sCollect;
+                break;
+            case sForumGrandsonFoot2 :
+                i = sPraise;
+                break;
+            case sForumGrandsonFoot3 :
+                i = sTrample;
+                break;
+            case sForumGrandsonFoot4 :
+                i = sMore;
+                break;
+        }
+        h.innerHTML = i;
 
-    let g = createLi();
-    let h = createA();
-    g.appendChild(h);
-    h = null;
+        g = createSpan();
+        g.innerHTML = randNum(0, 999);
 
-    let i = createLi();
-    let j = createA();
-    i.appendChild(j);
-    j = null;
-
-    b.appendChild(c);
-    b.appendChild(e);
-    b.appendChild(g);
-    b.appendChild(i);
-    c = e = g = i = null;
-
+        e.appendChild(h);
+        e.appendChild(g);
+        b.appendChild(e);
+    }
+    c = d = e = d = g = h = i = null;
     a.appendChild(b);
+    b = null;
 
     return a;
 }
