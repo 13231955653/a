@@ -419,20 +419,22 @@ function loadPageJs () {
     asyn('staticResource', c);
     asyn('staticResource', n);
 }
-function afterLoadPageJs () {
-    if (typeof window['urlDecode'] == 'undefined') {
-        setTimeoutFunction('afterLoadPageJs');
-        return;
-    }
-
-    asyn(sPageNow + 'Begin');
-
-    requires([sMobileDomFuncJ, sJqueryJ], function () {
-        asyn('updateActiveFoot');
-
-        asyn('showNowPageBody');
-    });
-}/*3ed8ed97f79fa3d8*/
+// function afterLoadPageJs () {
+//     console.log('zzzzzzzzzzzzzffffffffffffffffaaaaaaaaaaa');
+//     if (typeof window['urlDecode'] == 'undefined') {
+//         setTimeoutFunction('afterLoadPageJs');
+//         return;
+//     }
+//
+//     asyn(sPageNow + 'Begin');
+//
+//     requires([sMobileDomFuncJ, sJqueryJ], function () {
+//         // asyn('updateActiveFoot');
+//
+//         asyn('showNowPageBody');
+//     });
+// }
+/*3ed8ed97f79fa3d8*/
 
 /*032a659ac3907d66*//**
  *

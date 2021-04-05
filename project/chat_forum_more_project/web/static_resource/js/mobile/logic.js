@@ -91,6 +91,7 @@ function replaceWindowTitle (t = '') {
  */
 let aAllreadyLoadPageJs = [];
 function updateUrlPage (p = '') {
+    console.log('dasdasd==================');
     console.log(getUrlArgs());
 
     p = p ? p : getNowPage();
@@ -98,21 +99,35 @@ function updateUrlPage (p = '') {
     let t = p + sLangTitlePostfix;
     // asyn('replaceWindowTitle', p + sLangTitlePostfix);
 
-    let f = ''; // 回调函数
+    // let f = ''; // 回调函数
     if (typeof aAllreadyLoadPageJs[p] == 'undefined') {
-        f = 'loadPageJs';
+        // f = 'loadPageJs';
+        requires([sArrFuncJ], function () {
+            console.log('11111111111111111111111111111111111111111111111111111111111111111111111');
+            updateUrlArg (sUrlAddressPageKey, p, t, 'loadPageJs');
+
+            setBrowserTitle(aLang[t]);
+        });
     } else {
-        f = 'afterLoadPageJs';
+        // f = 'afterLoadPageJs';
+        asyn(sPageNow + 'Begin');
     }
     aAllreadyLoadPageJs[p] = getMillisecondTime();
 
-    requires([sArrFuncJ], function () {
-        updateUrlArg (sUrlAddressPageKey, p, t, f);
+    // console.log('00000000000000000000000000000000000');
+    // console.log(f);
+    // requires([sArrFuncJ], function () {
+    //     console.log('11111111111111111111111111111111111111111111111111111111111111111111111');
+    //     updateUrlArg (sUrlAddressPageKey, p, t, f);
+    //
+    //     setBrowserTitle(t);
+    // });
 
-        setBrowserTitle(t);
-    });
-
+    console.log('2222222222222222222222222222222222222222222222222');
     requires([sJqueryJ, sMobileDomFuncJ], function () {
+        console.log('33333333333333333333333333333333333333333333');
+        updateActiveFoot();
+
         showNowPageBody();
     });
 }/*zza*/
@@ -127,6 +142,7 @@ function updateUrlPage (p = '') {
  * @returns {boolean}
  */
 function updateUrlArg (k = '', v = '', t = '', c = false) {
+    console.log('zzzzzzzzzzzzzzz=============================');
     if (!k || v === false) {
         console.log('updateUrlArg k or v is null');
         return false;
@@ -170,6 +186,7 @@ function updateUrlArg (k = '', v = '', t = '', c = false) {
 
     // setBrowserTitle(t);
 
+    console.log(c);
     if (c) {
         asyn(c);
     }

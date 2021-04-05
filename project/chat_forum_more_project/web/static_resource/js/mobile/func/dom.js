@@ -84,6 +84,7 @@ function showNowPageBody () {
  * @returns {boolean}
  */
 function updateActiveFoot () {
+    console.log('lllllllllllldddddddddddddddsssssssssssss');
     let a = sFootTag;
     let b = sActiveFootTag;
     let f = domById(sBFootD + getNowPage() + a + sFootLiSuffix);

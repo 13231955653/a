@@ -987,7 +987,7 @@ function writeCssStaticResourceToPage (v) {
     aInstaticResource[a] = false;
 
     if (b) {
-        aAllreadyLoadCss[a] = true;
+        aAllreadystaticResource[a] = true;
 
         asyn('writeStaticResourceToPage', b, 'css');
 
@@ -2433,19 +2433,19 @@ function checkstaticResource (j) {
             a = window['styleFuncBegin'];
             break;
         case sForumSlideC :
-            a = aAllreadyLoadCss[sForumSlideC];
+            a = aAllreadystaticResource[sForumSlideC];
             break;
         case sForumC :
-            a = aAllreadyLoadCss[sForumC];
+            a = aAllreadystaticResource[sForumC];
             break;
         case sResetC :
-            a = aAllreadyLoadCss[sResetC];
+            a = aAllreadystaticResource[sResetC];
             break;
         case sPubC :
-            a = aAllreadyLoadCss[sPubC];
+            a = aAllreadystaticResource[sPubC];
             break;
         case sSzieC :
-            a = aAllreadyLoadCss[sSzieC];
+            a = aAllreadystaticResource[sSzieC];
             break;
         default :
             throw new Error(j);
@@ -2454,6 +2454,6 @@ function checkstaticResource (j) {
 
     return a || typeof a != 'undefined' ? true : false;
 }
-let aAllreadyLoadCss = [];
+// let aAllreadyLoadCss = [];
 
 window.onload = fileControlBegin();

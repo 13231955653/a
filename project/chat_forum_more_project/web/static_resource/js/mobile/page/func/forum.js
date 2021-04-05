@@ -8,13 +8,13 @@
  * @type {Array}
  */
 function updateUrlForumClassify (a = '', p = '') {
-    requires([sEncodeJ], function () {
+    requires([sEncodeJ, sNowLang], function () {
         let t = p + sLangTitlePostfix;
 
         updateUrlArg (sUrlAddressClassifyKey, p, t);
         updateUrlArg (sUrlAddressForumLevelMoveTagKey, a, t);
 
-        setBrowserTitle(t);
+        setBrowserTitle(aLang[t]);
     });
 }/*ysn*/
 

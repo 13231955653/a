@@ -14,8 +14,6 @@
     let c = '';
     switch (a) {
         case sForumPage :
-            // b = sMouseForumJ;
-            // c = 'forumChangeLevelMove';
             requires([sMouseForumJ], function () {
                 forumChangeLevelMove('', '', 1);
             });
@@ -49,3 +47,4 @@
 /*con*/function platDomLogicBegin () {
     console.log('platDomLogicBegin begin');
 }/*con*/
+/*aaa*/platDomLogicBegin()/*aaa*/

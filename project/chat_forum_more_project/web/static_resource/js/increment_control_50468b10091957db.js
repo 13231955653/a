@@ -1,4 +1,4 @@
-const bGetstaticResourceFromCache = true;
+const bGetstaticResourceFromCache = false;
 /**
  *
  * 检查是否手机端

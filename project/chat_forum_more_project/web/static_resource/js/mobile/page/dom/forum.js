@@ -203,7 +203,13 @@ function doWriteForumInfo () {
     $(o).removeClass(sInvisibleClass);
     o = d = e = null;
 
-    requires([sResetC, sPubC, sSzieC, sForumC, sForumSlideC, sPlatDomLogic, sMouseForumJ], function () {
+    console.log('zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz');
+    // requires([sResetC, sPubC, sSzieC, sForumC, sForumSlideC, sPlatDomLogic, sMouseForumJ], function () {
+    //     console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaa');
+    //     asyn('pageBegin');
+    // });
+    requires([sPlatDomLogic, sMouseForumJ, sResetC], function () {
+        console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaa');
         asyn('pageBegin');
     });
 }/*oen*/
@@ -357,3 +363,4 @@ function onePoseFoot () {
 
     asyn('writeForumInfo');
 }/*oai*/
+/*zzz*/forumBegin();/*zzz*/
