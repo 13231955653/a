@@ -209,7 +209,7 @@ function doWriteForumInfo () {
     //     asyn('pageBegin');
     // });
     requires([sPlatDomLogic, sMouseForumJ, sResetC, sSizeC], function () {
-        console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaa');
+        // console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaa');
         asyn('pageBegin');
     });
 }/*oen*/

@@ -221,9 +221,9 @@ function forumChangeLevelMove (d = '', a = '', c = false) {
 
     levelMoveForumBody(o, d, a);
 
-    // requires([sForumQueryJ, sMobileDomFuncJ, sForumApiJ], function () {
-    //     asyn('forumRequest', d, c);
-    // });
+    requires([sForumQueryJ, sMobileDomFuncJ, sForumApiJ], function () {
+        asyn('forumRequest', d, c);
+    });
 }
 /*lxq*//**
  *
