@@ -2,6 +2,7 @@
 const sForumRightClass = 'right_slide_';
 const sLevelLeftMove = 'left';
 const sLevelRightMove = 'right';/*mkz*/
+// /*mkz*/const iFinalSonMinDistanceFoot = parseInt(iWinHeight * 2);
 /*emj*//**
  *
  * 长按事件
@@ -17,6 +18,37 @@ function forumLongClick() {
  */
 function forumTop() {
     console.log('forumTop');
+
+    requires([sFuncJ, sForumApiJ], function () {
+        asyn('doForumTop');
+    });
+}
+function doForumTop () {
+    let a = getForumNowShow();
+    console.log(a);
+    if (!a) {
+        return;
+    }
+
+    let b = '';
+    switch (a) {
+        case sAnnouncement :
+            b = announcementDom();
+            break;
+    }
+    if (!b) {
+        return;
+    }
+
+    let c = parseInt(b.scrollHeight) - parseInt(b.offsetHeight) - parseInt(b.scrollTop);
+    let d = parseInt(b.offsetHeight * 2);
+    if (c > d) {
+        return;
+    }
+
+    requires([sApiJ, sForumApiJ, sMd5J, sStrFunc, sFuncJ], function () {
+        asyn('forumRequest', aForumApi[a]);
+    });
 }/*mbo*/
 /*ukb*//**
  *
@@ -154,7 +186,7 @@ function changeUrlForumClassifyTag (t) {
             return;
         }
 
-        updateUrlForumClassify(t, z[t].id);
+        updateUrlForumClassify(t, z[t].getAttribute(sForumClassifyTag));
     });
 }/*ozb*/
 /**
@@ -222,6 +254,14 @@ function bindForumHeadClick () {
         }
     }
 }/*mrj*/
+/*ttt*/function forumScrollTop () {
+    console.log('top');
+    forumTop();
+}
+function forumScrollDown () {
+    console.log('down');
+    forumDown();
+}/*ttt*/
 /*yeb*/function mouseForumBegin () {
     console.log('mouseForumBegin begin');
 

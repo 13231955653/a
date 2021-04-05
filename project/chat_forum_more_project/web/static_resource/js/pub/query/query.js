@@ -10,41 +10,82 @@ const aApiHost = [
 ];
 const aApiHostLength = 7;
 
-let iRequestNumber = 0;/*pbh*/
+// let iRequestNumber = 0;/*pbh*/
+
+/*uuu*/const sApiArgPage = 'page';/*uuu*/
 
 /*syc*/let h = [];
-h['forum_announcement'] = [sForum, sForumC];
-h['forum_attention'] = '';
-h['forum_recommend'] = '';
-h['forum_hot'] = '';
-h['forum_uclassify'] = '';
-h['forum_classify'] = '';
-h['forum_joke'] = '';
-h['forum_sport'] = '';
-h['forum_bike'] = '';
-h['forum_music'] = '';
-h['forum_video'] = '';
-h['forum_musique'] = '';
-h['forum_mas'] = '';
+h['announcement/show'] = [sForum, sForumC];
+h['attention'] = '';
+h['recommend'] = '';
+h['hot'] = '';
+h['uclassify'] = '';
+h['classify'] = '';
+h['joke'] = '';
+h['sport'] = '';
+h['bike'] = '';
+h['music'] = '';
+h['video'] = '';
+h['musique'] = '';
+h['mas'] = '';
 const aAfterRequertRely = h; //请求后处理函数依赖
 h = null;/*syc*/
 /*syc*/let i = [];
-i['forum_announcement'] = 'afterRequestAnnouncement';
-i['forum_attention'] = '';
-i['forum_recommend'] = '';
-i['forum_hot'] = '';
-i['forum_uclassify'] = '';
-i['forum_classify'] = '';
-i['forum_joke'] = '';
-i['forum_sport'] = '';
-i['forum_bike'] = '';
-i['forum_music'] = '';
-i['forum_video'] = '';
-i['forum_musique'] = '';
-i['forum_mas'] = '';
+i['announcement/show'] = 'afterRequestAnnouncement';
+i['attention'] = '';
+i['recommend'] = '';
+i['hot'] = '';
+i['uclassify'] = '';
+i['classify'] = '';
+i['joke'] = '';
+i['sport'] = '';
+i['bike'] = '';
+i['music'] = '';
+i['video'] = '';
+i['musique'] = '';
+i['mas'] = '';
 const aAfterRequertFunc = i; // 请求后处理函数
 i = null;/*syc*/
 
+// /*rrr*/const sAddVerifyVal1Slat = '_~987&^%%#_+Sasq+';/*rrr*/
+
+/*aaa*/const sRouteEncode = 'route';
+const sRouteEncodeSlat = 'route_slat';
+const sTokenFeild = 'token';
+/*aaa*/
+/*ccc*//**
+ *
+ * hash 计算当前应该请求哪个地址
+ *
+ * @param a 请求路由
+ * @returns {boolean|*}
+ */
+function allocationApiHost (a = '') {
+    return aApiHost[hashFunc(a, aApiHostLength)];
+}/*ccc*/
+/*aaa*//**
+ *
+ * 添加验证方法1
+ *
+ * @param a 请求路由 type string
+ * @param b 请求参数 type json
+ */
+function routeEncode (a, b) {
+    let c = randStr(17);
+
+    b = b ? b : {};
+    b[sRouteEncode] = md5(c + a + c + b[sTokenFeild]).toLowerCase();
+
+    b[sRouteEncodeSlat] = reverseString(c);
+
+    return b;
+}
+function tokens (a, b) {
+    b = b ? b : {};
+    b[sTokenFeild] = makeToken();
+
+    return b;
+}/*aaa*/
 /*ife*//**
  *
  * ajax请求
@@ -56,38 +97,47 @@ i = null;/*syc*/
  */
 function apiQuery (a = '', b = '', c = 'post') {
     console.log('apiQuery request');
-    if (!a) {
-        console.log('apiQuery request a is null ');
-        return false;
-    }
+    // if (!sToken) {
+    //     asyn('makeToken')
+    //     let e = setTimeout(function () {
+    //         clearTimeout(e);
+    //
+    //         apiQuery (a, b, c);
+    //     }, 1);
+    //     return;
+    // }
 
-    console.log(b);
-    if (b && !isJson(b)) {
-        console.log('apiQuery request b is not json ');
-        return false;
-    }
+    b = tokens(a, b);
 
-    iRequestNumber += parseInt(1);
+    b = routeEncode(a, b);
 
-    let sHost = sApiProtocol + aApiHost[iRequestNumber % aApiHostLength];
+    // iRequestNumber += parseInt(1);
+
+    let sHost = sApiProtocol + allocationApiHost(a);
 
     let d = sHost + a;
 
     console.log('ajax begin');
+    showBaseShade();
     $.ajax({
         url: d,
         data: b,
         type: c,
         dataType: 'json',
         success: function (sJson) {
+            clearBaseShade();
+
             afterApiRequest(a, sJson);
             return;
         },
 
         complete: function (XMLHttpRequest, textStatus) {
+            clearBaseShade();
         },
 
         error: function () {
+            clearBaseShade();
+
             afterApiRequest(a, false);
             return;
         }

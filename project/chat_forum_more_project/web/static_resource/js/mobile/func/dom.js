@@ -16,8 +16,8 @@ function replaceLang (p = '') {
  *
  * 根据class 获取节点
  *
- * @param o 查找的dom type dom object
  * @param c class name type string
+ * @param o 查找的dom type dom object
  * @returns {boolean}
  */
 function domByClass (c, o = '') {

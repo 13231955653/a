@@ -1,4 +1,5 @@
 /*dne*/const iForumRequestLimit = 3;/*dne*/
+
 /*dne*//**
  *
  * forum 请求
@@ -12,10 +13,10 @@ function forumRequest(a = false, g = '') {
         return;
     }
 
-    let b = aForumList;
+    let b = aForumClassify;
 
     let c = b[a];
-    let d = domById(c + sForumBodySuffix);
+    let d = domById(sForumPage + sForumSplitTag + c + sForumBodySuffix);
     if (!d) {
         return;
     }
@@ -26,7 +27,7 @@ function forumRequest(a = false, g = '') {
         h = true;
     } else {
         console.log(d);
-        h = domByClass(sOneForumSonC, d) ? false : true;
+        h = domByClass(onPostC, d) ? false : true;
         console.log('滑动请求，需检查当前dom是否已经请求过');
     }
     if (!h) {
@@ -43,10 +44,29 @@ function forumRequest(a = false, g = '') {
     }
     iForumLastRequestTime[c] = e;
 
-    requires([sApiJ, sForumApiJ], function () {
-        apiQuery (aForumApi[c], false, 'post');
+    requires([sApiJ, sForumApiJ, sMd5J, sStrFunc, sFuncJ], function () {
+        asyn('forumRequest', aForumApi[c]);
     });
 }/*dne*/
+/*ttt*/
+/**
+ *
+ * forum 请求
+ *
+ * @param a request api route
+ */
+function forumRequest (a) {
+    let k = getForumNowShow();
+    if (typeof aForumRequestPage[k] == 'undefined') {
+        aForumRequestPage[k] = 0;
+    }
+    aForumRequestPage[k] += parseInt(1);
+
+    let m = {};
+    m[sApiArgPage] = aForumRequestPage[k];
+
+    apiQuery (a, m, 'post');
+}/*ttt*/
 /*syc*/function forumQueryBegin () {
     console.log('forumQueryBegin');
 }/*syc*/

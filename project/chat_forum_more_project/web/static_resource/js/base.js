@@ -223,6 +223,8 @@ const sInvisibleClass = 'invisible'; //不显示dom的class
 const sVisibleClass = 'visible';//显示dom的class
 const sHiddenClass = 'hidden'; //不显示dom的class
 const sShowClass = 'show';//显示dom的class
+
+// const sDomFinalChlidC = 'final_son';
 //class id tag 相关============/*3d6db13f8bf8dde2*/
 
 /*aaa*/const sGray = 'gray';
@@ -787,11 +789,11 @@ function winSize() {
         iWinHeight = document.body.clientHeight;
     }
 
-    // //通过深入Document内部对body进行检测，获取窗口大小
-    // if (document.documentElement  && document.documentElement.clientHeight && document.documentElement.clientWidth) {
-    //     iWinHeight = document.documentElement.clientHeight;
-    //     iWinWidth = document.documentElement.clientWidth;
-    // }
+    //通过深入Document内部对body进行检测，获取窗口大小
+    if (document.documentElement  && document.documentElement.clientHeight && document.documentElement.clientWidth) {
+        iWinHeight = document.documentElement.clientHeight;
+        iWinWidth = document.documentElement.clientWidth;
+    }
     // console.log(iWinWidth);
     // console.log(iWinHeight);
 }/*e40fd4b7d8973e42*/
@@ -1242,7 +1244,7 @@ function baseBegins () {
         asyn('secondDom');
     });
 
-    requires([sFuncJ, sMd5J, sStrFunc], function () {
-        asyn('makeToken');
-    });
+    // requires([sFuncJ, sMd5J, sStrFunc], function () {
+    //     asyn('makeToken');
+    // });
 }/*6253f7ef57dc3560*/

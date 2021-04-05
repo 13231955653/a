@@ -2179,6 +2179,9 @@ function checkstaticResource (j) {
         case sFuncDomJ :
             a = window['funcDomBegin'];
             break;
+        case sMouseJ :
+            a = window['mouseBegin'];
+            break;
         case sForumSlideC :
             a = aAllreadyLoadCss[sForumSlideC];
             break;

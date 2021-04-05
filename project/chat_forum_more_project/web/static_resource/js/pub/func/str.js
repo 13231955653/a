@@ -13,8 +13,10 @@ function isJson (s = '') {
     if (typeof s == 'sString') {
         try {
             JSON.parse(s);
+            console.log('zzzzzzz');
             return true;
         } catch(e) {
+            console.log('ssssss');
             return false;
         }
     }
@@ -95,7 +97,6 @@ function isRealString (s = '') {
  */
 function reverseString (s = '') {
     if (!s) {
-        // console.log('reverseString s is null');
         return;
     }
 

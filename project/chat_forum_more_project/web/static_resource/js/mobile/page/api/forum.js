@@ -1,19 +1,20 @@
-/*syc*/let f = [];
-f['forum_announcement'] = 'forum_announcement';
-f['forum_attention'] = 'all_category/attention';
-f['forum_recommend'] = 'all_category/recommend';
-f['forum_hot'] = 'all_category/hot';
-f['forum_uclassify'] = 'classify/user';
-f['forum_classify'] = 'classify/sys';
-f['forum_joke'] = 'category/joke';
-f['forum_sport'] = 'category/joke';
-f['forum_bike'] = 'category/bike';
-f['forum_music'] = 'category/music';
-f['forum_video'] = 'category/video';
-f['forum_musique'] = 'category/musique';
-f['forum_mas'] = 'category/mas';
+/*zzz*/let f = [];
+f['announcement'] = 'announcement/show';
+f['attention'] = 'all_category/attention';
+f['recommend'] = 'all_category/recommend';
+f['hot'] = 'all_category/hot';
+f['uclassify'] = 'classify/user';
+f['classify'] = 'classify/sys';
+f['joke'] = 'category/joke';
+f['sport'] = 'category/joke';
+f['bike'] = 'category/bike';
+f['music'] = 'category/music';
+f['video'] = 'category/video';
+f['musique'] = 'category/musique';
+f['mas'] = 'category/mas';
 const aForumApi = f;
-f = null;/*syc*/
+f = null;/*zzz*/
+/*aaa*/let aForumRequestPage = [];/*aaa*/
 /*syc*/function forumApiBegin () {
     console.log('forumApiBegin');
 }/*syc*/

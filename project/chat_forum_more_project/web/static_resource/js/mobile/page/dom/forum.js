@@ -1,7 +1,7 @@
 /*gkp*///forum 显示列表
 const sAnnouncement = 'announcement';
-const sRecommend = 'recommend';
 const sAttention = 'attention';
+const sRecommend = 'recommend';
 const sHot = 'hot';
 const sUserClassify = 'uclassify';
 const sClassify = 'classify';
@@ -12,7 +12,6 @@ const sMusic = 'music';
 const sVideo = 'video';
 const sMusicRecommend = 'musique';
 const sVideoRecommend = 'mas';
-let d = sForumPage;
 const sForumBodySuffix = '_b';
 const sForumHeadSuffix = '_h';
 const sForumSplitTag = '_';
@@ -20,38 +19,50 @@ const sForumHeadClass = 'forum_head_c';
 const sForumHeadActiveClass = 'forum_head_c_act';
 const sForumHeadClick = 'forum_head_c';
 const sForumHeadReplaceLangC = '_l';
-let e = sForumSplitTag;
-let c = [
-    d + e + sAnnouncement,
-    d + e + sAttention,
-    d + e + sRecommend,
-    d + e + sHot,
-    d + e + sUserClassify,
-    d + e + sClassify,
-    d + e + sJoke,
-    d + e + sSport,
-    d + e + sBike,
-    d + e + sMusic,
-    d + e + sVideo,
-    d + e + sMusicRecommend,
-    d + e + sVideoRecommend,
+const sForumClassifyTag = 'forum_select';
+const aForumClassify = [
+    sAnnouncement,
+    sRecommend,
+    sAttention,
+    sHot,
+    sUserClassify,
+    sClassify,
+    sJoke,
+    sSport,
+    sBike,
+    sMusic,
+    sVideo,
+    sMusicRecommend,
+    sVideoRecommend,
 ];
+let e = sForumSplitTag;
+let d = sForumPage;
+let aForumList = [];
+for (let i in aForumClassify) {
+    aForumList.push(d + e + aForumClassify[i]);
+}
 d = null;
 e = null;
-const aForumList = c;
-const iForumListLength = aForumList.length;
-c = null;/*gkp*/
+const iForumListLength = aForumList.length;/*gkp*/
 
 /*yxd*/const sForumBodyD = 'b_forum_body';
 const sForumHeadD = 'b_forum_head';
 const sForumHeadDUl = 'b_forum_head_u';
 const sForumSonsClass = 'forum_sons';/*yxd*/
 
-/*yxz*/const sOneForumSonC = 'f_grandson';
-const sOneForumSonHeadC = 'f_grandson_h';
-const sOneForumSonBodyC = 'f_grandson_b';
-const sOneForumSonFootC = 'f_grandson_f';
+/*yxz*/const onPostC = 'f_grandson';
+const onPostHeadC = 'f_grandson_h';
+const onePostBodyC = 'f_grandson_b';
+const onepPoseFootC = 'f_grandson_f';
 /*yxz*/
+
+/*kkk*/const sOneAnnouncementC = 'one_announcement';
+const sOneAnnouncementHeadC = 'one_announcement_h';
+const sOneAnnouncementBodyC = 'one_announcement_b';
+const sOneAnnouncementFootC = 'one_announcement_f';
+/*kkk*/
+/*ddd*/const sScrollTopFuncK = 'scroll_top_f';
+const sScrollDownFuncK = 'scroll_down_f';/*ddd*/
 
 /*vvs*/const sForumGrandsonFoot1 = 'collect';
 const sForumGrandsonFoot2 = 'praise';
@@ -109,7 +120,7 @@ function writeForumHead () {
     for (let i in a) {
         b = i == 0 ? sForumHeadActiveClass : '';
 
-        s.push('<li id="' + a[i] + sForumHeadSuffix + '" class="' + sForumHeadClass + ' ' + b + '" ' + sForumHeadClick + '="' + i + '">');
+        s.push('<li id="' + a[i] + sForumHeadSuffix + '" class="' + sForumHeadClass + ' ' + b + '" ' + sForumHeadClick + '="' + i + '"' + sForumClassifyTag + '="' + aForumClassify[i] + '">');
         s.push('<span id="' + a[i] + sForumHeadReplaceLangC + '" class="' + sReLangClass + '"></span>');
         s.push('</li>');
     }
@@ -127,7 +138,7 @@ function writeForumBody () {
     let s = [];
     s.push('<div id="' + sForumBodyD + '" class="' + sFullHeightForFatherClass + '">');
     for (let i in a) {
-        s.push('<div id="' + a[i] + sForumBodySuffix + '" class="' + sFullWidthClass + ' ' + sForumSonsClass + '"></div>');
+        s.push('<div id="' + a[i] + sForumBodySuffix + '" class="' + sFullWidthClass + ' ' + sForumSonsClass + '" ' + sScrollTopFuncK + '="forumScrollTop" ' + sScrollDownFuncK + '="forumScrollDown"></div>');
     }
     s.push('</div>');
 
@@ -162,6 +173,8 @@ function doWriteForumInfo () {
 
     requires([sJqueryJ, sMouseForumJ], function () {
         asyn('bindForumHeadClick');
+
+        // asyn('bindForumBodyScroll');
     });
 
     requires([sNowLang, sMobileDomFuncJ], function () {
@@ -177,7 +190,10 @@ function doWriteForumInfo () {
 }/*oen*/
 /*oen*/let oAnnouncement = '';
 function announcementDom () {
-    oAnnouncement = oAnnouncement ? oAnnouncement : domById(sForumPage + sForumSplitTag + sAnnouncement + sForumBodySuffix);
+    if (oAnnouncement) {
+        return oAnnouncement;
+    }
+    oAnnouncement = domById(sForumPage + sForumSplitTag + sAnnouncement + sForumBodySuffix);
     return oAnnouncement;
 }
 /*oen*/
@@ -203,6 +219,10 @@ function afterRequestAnnouncement (a = '') {
         asyn('writeAnnouncements', a);
     });
 
+    requires([sJqueryJ, sMouseForumJ, sMouseJ], function () {
+        asyn('bindForumBodyScroll', announcementDom());
+    });
+
     a = null;
 }/*jli*/
 /*cgm*//**
@@ -213,19 +233,21 @@ function afterRequestAnnouncement (a = '') {
  */
 function writeAnnouncements (a = '') {
     let b = myFragment();
-    let d = createDiv();
-    let e = d.id = getMillisecondTime() + '_' + randStr(9);
     for (let c in a) {
-        d.appendChild(writeAnnouncement(a[c]));
+        b.appendChild(writeAnnouncement(a[c]));
     }
-    b.appendChild(d);
+
+    // let d = sDomFinalChlidC;
+    // $(announcementDom().getElementsByClassName(d)).removeClass(d);
 
     $(announcementDom()).append(b);
 
-    requires([sNowLang, sMobileDomFuncJ], function () {
-        asyn('replaceLang', domById(e));
-    });
-    a = b = c = d = e = null;
+    // let e = $('.' + sOneAnnouncementC);
+    // console.log('aspp====');
+    // console.log(e);
+    // $(e[e.length - 1]).addClass(d);
+
+    a = b = null;
 }/*cgm*/
 /*luq*//**
  *
@@ -239,29 +261,40 @@ function writeAnnouncement (a = '') {
     }
 
     let b = createDiv();
-    b.className = sOneForumSonC + ' ' + sFullWidthForFatherClass;
+    b.className = sOneAnnouncementC;
 
-    b.appendChild(announcementHead());
+    let c = createDiv();
+    c.className = sOneAnnouncementHeadC;
+    c.innerHTML = 'qqqqqqqqqqqqqqqqqqqqqqqqqqqqq';
 
-    b.appendChild(announcementBody());
+    let d = createDiv();
+    d.className = sOneAnnouncementBodyC;
+    d.innerHTML = a;
 
-    b.appendChild(announcementFoot());
+    let e = createDiv();
+    e.className = sOneAnnouncementFootC;
+    e.innerHTML = '111111111111111111';
+
+    b.appendChild(c);
+    b.appendChild(d);
+    b.appendChild(e);
+    a = c = d = e = null;
 
     return b;
-}
-function announcementHead () {
+}/*luq*/
+/*aaa*/function onePoseHead () {
     let a = createDiv();
     a.className = sOneForumSonHeadC + ' ' + sFullWidthForFatherClass;
 
     return a;
 }
-function announcementBody () {
+function onePoseBody () {
     let a = createDiv();
     a.className = sOneForumSonBodyC + ' ' + sFullWidthForFatherClass;
 
     return a;
 }
-function announcementFoot () {
+function onePoseFoot () {
     let a = createDiv();
     a.className = sOneForumSonFootC + ' ' + sFullWidthForFatherClass;
 
@@ -306,7 +339,7 @@ function announcementFoot () {
 
     return a;
 }
-/*luq*/
+/*aaa*/
 /*oai*/function forumBegin () {
     console.log('forumBegin begin');
 

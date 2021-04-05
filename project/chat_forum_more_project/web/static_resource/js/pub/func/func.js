@@ -121,6 +121,11 @@ function getNowForumLevelMoveTag () {
     let p = getUrlArgs(sUrlAddressForumLevelMoveTagKey);
 
     return p ? p : iDefaultForumLevelMoveTag;
+}
+function getForumNowShow () {
+    let p = getUrlArgs(sUrlAddressClassifyKey);
+
+    return p ? p : false;
 }/*jay*/
 
 /*142e9c58bb5afaca*//**
@@ -248,13 +253,13 @@ function replaceTitle (t = '') {
  * token
  *
  */
-let sToken = '';
+// let sToken = '';
 const sTokenSplitTag = '-';
 function makeToken () {
     let l = 8;
     let i = sTokenSplitTag;
 
-    let a = randStr() + i + getMillisecondTime() + i + randNum(1, 99999999999);
+    let a = randStr(17) + i + getMillisecondTime() + i + randNum(1, 99999999999);
 
     let b = md5(a);
     let c = b.strLengthSplit(l);
@@ -272,48 +277,48 @@ function makeToken () {
         h += i + c[j];
     }
     h += i + g + i + k;
-    sToken = h;
+    // sToken = h;
 
-    console.log('///////////////////////////////////////////////////////////token');
-    console.log(h);
+    // console.log('///////////////////////////////////////////////////////////token');
+    // console.log(h);
     return h;
 }/*cd7c556dd4ab8214*/
-const iTokenMinLiftTime = 1800;
-const iTokenMaxLiftTime = 3600;
-function checkToken () {
-    let a = sToken;
-    if (!a) {
-        asyn('makeToken');
-        return;
-    }
-
-    let e = iTokenMinLiftTime;
-    let f = iTokenMaxLiftTime;
-    let d = randNum(e, f);
-
-    let b = a.split(sTokenSplitTag);
-    b = b[b.length - 1];
-    console.log('///////////////////////////////////////////////////////////checkToken');
-    console.log(b);
-
-    let c = getSecondTime();
-    if (c - b > d) {
-        asyn('makeToken');
-        return;
-    }
-
-    let h = randNum(e, f) * 1000;
-    let g = setTimeout(function () {
-        clearTimeout(g);
-
-        checkToken();
-    }, h);
-}
+// const iTokenMinLiftTime = 1800;
+// const iTokenMaxLiftTime = 3600;
+// function checkToken () {
+//     let a = sToken;
+//     if (!a) {
+//         asyn('makeToken');
+//         return;
+//     }
+//
+//     let e = iTokenMinLiftTime;
+//     let f = iTokenMaxLiftTime;
+//     let d = randNum(e, f);
+//
+//     let b = a.split(sTokenSplitTag);
+//     b = b[b.length - 1];
+//     console.log('///////////////////////////////////////////////////////////checkToken');
+//     console.log(b);
+//
+//     let c = getSecondTime();
+//     if (c - b > d) {
+//         asyn('makeToken');
+//         return;
+//     }
+//
+//     let h = randNum(e, f) * 1000;
+//     let g = setTimeout(function () {
+//         clearTimeout(g);
+//
+//         checkToken();
+//     }, h);
+// }
 
 /*a79393a0a8409b61*/function functionBegin () {
     console.log('3333333333333333333functionBegin');
 
-    requires([sFuncJ, sMd5J, sStrFunc], function () {
-        asyn('checkToken');
-    });
+    // requires([sFuncJ, sMd5J, sStrFunc], function () {
+    //     asyn('checkToken');
+    // });
 }/*a79393a0a8409b61*/
