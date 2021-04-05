@@ -35,5 +35,9 @@ function doWriteChatHead () {
 
     // testWriteChatBodyDom();
 
-    asyn('pageBegin');
+    requires([sPlatDomLogic, sResetC, sSizeC], function () {
+        // requires([sPlatDomLogic, sMouseForumJ, sResetC, sSizeC], function () {
+        console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaa');
+        asyn('pageBegin');
+    });
 }/*9429d793fa750360*/

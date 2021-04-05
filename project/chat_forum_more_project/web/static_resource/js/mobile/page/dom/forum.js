@@ -208,7 +208,7 @@ function doWriteForumInfo () {
     //     console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaa');
     //     asyn('pageBegin');
     // });
-    requires([sPlatDomLogic, sMouseForumJ, sResetC], function () {
+    requires([sPlatDomLogic, sMouseForumJ, sResetC, sSizeC], function () {
         console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaa');
         asyn('pageBegin');
     });

@@ -1305,7 +1305,7 @@ function staticResource (f, q = false) {
             b = 'writeCssStaticResourceToPage';
             c = 'css';
             break;
-        case sSzieC :
+        case sSizeC :
             // a = 'afterLoadSizeC';
             // b = 'afterLoadSizeC1';
             // c = 'css';
@@ -2201,7 +2201,7 @@ function loadStaticFile () {
 
     asyn('staticResource', sResetC);
 
-    asyn('staticResource', sSzieC);
+    asyn('staticResource', sSizeC);
 
     asyn('loadPersonalizedCss');
 
@@ -2444,8 +2444,8 @@ function checkstaticResource (j) {
         case sPubC :
             a = aAllreadystaticResource[sPubC];
             break;
-        case sSzieC :
-            a = aAllreadystaticResource[sSzieC];
+        case sSizeC :
+            a = aAllreadystaticResource[sSizeC];
             break;
         default :
             throw new Error(j);

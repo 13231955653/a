@@ -10,27 +10,40 @@
 let sLastPage = '';
 function updUrlPage (p = '') {
     console.log('点击过后需要检测当前页面是否需要刷新');
+    console.log('1111111111111111111111111');
     if (!p) {
+        console.log('222222222222222222222');
         return;
     }
 
+    console.log('33333333333333333');
+    console.log(sLastPage);
+    console.log(p);
     if (sLastPage === p) {
+        console.log('44444444444444444444444444444');
         asyn('againOnlickFooter');
         return;
     }
     sLastPage = p;
+    console.log('555555555555555555555555555555');
 
     requires([sPubDomJ], function () {
+        console.log('66666666666666666666666666');
         asyn('showBaseShade');
     });
 
     requires([sEncodeJ, sFuncJ, sStrFunc], function () {
+        console.log('777777777777777777777');
         asyn('updateUrlPage', p);
     });
 
     requires([sPubDomJ], function () {
+        console.log('888888888888888888888888888888888');
         asyn('clearBaseShade');
     });
+    console.log('999999999999999999999999999999999');
+
+
 }/*ybp*/
 /*aoe*//**
  *

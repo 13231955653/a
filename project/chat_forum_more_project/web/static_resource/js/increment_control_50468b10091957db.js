@@ -73,7 +73,7 @@ const sForumC = 'forum_c';
 const sForumSlideC = 'forum_slide_c';
 const sFriendC = 'friend_c';
 const sSetC = 'set_c';
-const sSzieC = 'size_c';
+const sSizeC = 'size_c';
 function userCss (c) {
     return 'user_c_' + c;
 }
@@ -144,7 +144,7 @@ function staticResourceAddress () {
 
     a[sUserC1] = 'personalized/color/1.css';
 
-    a[sSzieC] = 'pub/' + p + '/variable/size.css';
+    a[sSizeC] = 'pub/' + p + '/variable/size.css';
 
     astaticResourceAddress = a;
     a = null;
