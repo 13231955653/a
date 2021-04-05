@@ -162,11 +162,13 @@ function mouseTop (p = '') {
  *
  * 绑定forum body 滚动时间
  *
- * @param o 绑定滚动事件的dom
  */
-function bindForumBodyScroll (o) {
-    o.onscroll = function () {
-        checkScrollDirection(o);
+function bindForumBodyScroll () {
+    let a = $('.' + sForumSonsClass);
+    for (let b in a) {
+        a[b].onscroll = function () {
+            checkScrollDirection(a[b]);
+        }
     }
 }/*qqq*/
 /*rrr*//**

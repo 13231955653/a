@@ -173,12 +173,14 @@ function doWriteForumInfo () {
 
     requires([sJqueryJ, sMouseForumJ], function () {
         asyn('bindForumHeadClick');
-
-        // asyn('bindForumBodyScroll');
     });
 
     requires([sNowLang, sMobileDomFuncJ], function () {
         asyn('replaceLang', forumHeadDom());
+    });
+
+    requires([sJqueryJ, sMouseForumJ, sMouseJ], function () {
+        asyn('bindForumBodyScroll');
     });
 
     $(o).removeClass(sInvisibleClass);
@@ -218,12 +220,10 @@ function afterRequestAnnouncement (a = '') {
     requires([sFuncDomJ, sJqueryJ, sStrFunc], function () {
         asyn('writeAnnouncements', a);
     });
-
-    requires([sJqueryJ, sMouseForumJ, sMouseJ], function () {
-        asyn('bindForumBodyScroll', announcementDom());
-    });
-
     a = null;
+
+    aInForumRequest[aForumApi[sAnnouncement]] = false;
+    aForumRequestPage[sAnnouncement] += parseInt(1);
 }/*jli*/
 /*cgm*//**
  *
@@ -231,21 +231,14 @@ function afterRequestAnnouncement (a = '') {
  *
  * @param a 请求后返回数据 type json
  */
+
 function writeAnnouncements (a = '') {
     let b = myFragment();
     for (let c in a) {
         b.appendChild(writeAnnouncement(a[c]));
     }
 
-    // let d = sDomFinalChlidC;
-    // $(announcementDom().getElementsByClassName(d)).removeClass(d);
-
     $(announcementDom()).append(b);
-
-    // let e = $('.' + sOneAnnouncementC);
-    // console.log('aspp====');
-    // console.log(e);
-    // $(e[e.length - 1]).addClass(d);
 
     a = b = null;
 }/*cgm*/

@@ -8,6 +8,7 @@
  * @param g 点击还是滑动 为真点击为假滑动
  */
 let iForumLastRequestTime = [];
+let aInForumRequest = [];
 function forumRequest(a = false, g = '') {
     if (a === false) {
         return;
@@ -16,6 +17,12 @@ function forumRequest(a = false, g = '') {
     let b = aForumClassify;
 
     let c = b[a];
+
+    let j = aForumApi[c];
+    if (aInForumRequest[j]) {
+        return;
+    }
+
     let d = domById(sForumPage + sForumSplitTag + c + sForumBodySuffix);
     if (!d) {
         return;
@@ -44,8 +51,9 @@ function forumRequest(a = false, g = '') {
     }
     iForumLastRequestTime[c] = e;
 
+    aInForumRequest[j] = true;
     requires([sApiJ, sForumApiJ, sMd5J, sStrFunc, sFuncJ], function () {
-        asyn('forumRequest', aForumApi[c]);
+        asyn('forumApiRequest', j);
     });
 }/*dne*/
 /*ttt*/
@@ -55,12 +63,11 @@ function forumRequest(a = false, g = '') {
  *
  * @param a request api route
  */
-function forumRequest (a) {
+function forumApiRequest (a) {
     let k = getForumNowShow();
     if (typeof aForumRequestPage[k] == 'undefined') {
-        aForumRequestPage[k] = 0;
+        aForumRequestPage[k] = 1;
     }
-    aForumRequestPage[k] += parseInt(1);
 
     let m = {};
     m[sApiArgPage] = aForumRequestPage[k];

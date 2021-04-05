@@ -19,7 +19,7 @@ function forumLongClick() {
 function forumTop() {
     console.log('forumTop');
 
-    requires([sFuncJ, sForumApiJ], function () {
+    requires([sFuncJ, sForumApiJ, sArrFuncJ, sForum], function () {
         asyn('doForumTop');
     });
 }
@@ -46,9 +46,11 @@ function doForumTop () {
         return;
     }
 
-    requires([sApiJ, sForumApiJ, sMd5J, sStrFunc, sFuncJ], function () {
-        asyn('forumRequest', aForumApi[a]);
-    });
+    // requires([sApiJ, sForumApiJ, sMd5J, sStrFunc, sFuncJ], function () {
+    //     asyn('forumApiRequest', aForumApi[a]);
+    // });
+
+    asyn('forumRequest', inArray(a, aForumClassify));
 }/*mbo*/
 /*ukb*//**
  *
@@ -219,7 +221,7 @@ function forumChangeLevelMove (d = '', a = '', c = false) {
 
     levelMoveForumBody(o, d, a);
 
-    requires([sForumQueryJ, sMobileDomFuncJ], function () {
+    requires([sForumQueryJ, sMobileDomFuncJ, sForumApiJ], function () {
         asyn('forumRequest', d, c);
     });
 }

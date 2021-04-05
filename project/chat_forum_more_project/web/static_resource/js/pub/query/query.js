@@ -15,7 +15,7 @@ const aApiHostLength = 7;
 /*uuu*/const sApiArgPage = 'page';/*uuu*/
 
 /*syc*/let h = [];
-h['announcement/show'] = [sForum, sForumC];
+h['announcement/show'] = [sForum, sForumC, sForumApiJ];
 h['attention'] = '';
 h['recommend'] = '';
 h['hot'] = '';
@@ -97,21 +97,9 @@ function tokens (a, b) {
  */
 function apiQuery (a = '', b = '', c = 'post') {
     console.log('apiQuery request');
-    // if (!sToken) {
-    //     asyn('makeToken')
-    //     let e = setTimeout(function () {
-    //         clearTimeout(e);
-    //
-    //         apiQuery (a, b, c);
-    //     }, 1);
-    //     return;
-    // }
-
     b = tokens(a, b);
 
     b = routeEncode(a, b);
-
-    // iRequestNumber += parseInt(1);
 
     let sHost = sApiProtocol + allocationApiHost(a);
 
@@ -125,24 +113,49 @@ function apiQuery (a = '', b = '', c = 'post') {
         type: c,
         dataType: 'json',
         success: function (sJson) {
-            clearBaseShade();
-
-            afterApiRequest(a, sJson);
+            afterApiQuery(sJson, a, b, c);
             return;
         },
 
-        complete: function (XMLHttpRequest, textStatus) {
-            clearBaseShade();
-        },
+        // complete: function (XMLHttpRequest, textStatus) {
+        //     alert(2);
+        //     clearBaseShade();
+        // },
 
-        error: function () {
-            clearBaseShade();
-
-            afterApiRequest(a, false);
-            return;
+        error: function (sJson) {
+            afterApiQuery(false, a, b, c);
         }
     });
 }/*ife*/
+/*uup*/let aRequestError = [];
+const iMaxRequestErrorNumber = 3;
+const iRequestErrorLimit = 3000;
+function afterApiQuery (sJson, a, b, c) {
+    clearBaseShade();
+
+    if (sJson) {
+        afterApiResponse(a, sJson);
+        return;
+    }
+
+    if (typeof aRequestError[a] == 'undefined') {
+        aRequestError[a] = 0;
+    }
+
+    aRequestError[a] += parseInt(1);
+
+    if (aRequestError[a] > iMaxRequestErrorNumber) {
+        aRequestError[a] = 0;
+        afterApiResponse(a, false);
+        return;
+    }
+
+    let z = setTimeout(function () {
+        clearTimeout(z);
+
+        apiQuery (a, b, c);
+    }, iRequestErrorLimit);
+}/*uup*/
 /*uon*//**
  *
  * 请求后处理函数
@@ -150,7 +163,7 @@ function apiQuery (a = '', b = '', c = 'post') {
  * @param a 请求路由 type string
  * @param b 请求返回数据 type json
  */
-function afterApiRequest (a = '', b = '') {
+function afterApiResponse (a = '', b = '') {
     if (!a) {
         return;
     }

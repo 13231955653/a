@@ -127,7 +127,7 @@ function updateUrlPage (p = '') {
  * @returns {boolean}
  */
 function updateUrlArg (k = '', v = '', t = '', c = false) {
-    if (!k || !v) {
+    if (!k || v === false) {
         console.log('updateUrlArg k or v is null');
         return false;
     }

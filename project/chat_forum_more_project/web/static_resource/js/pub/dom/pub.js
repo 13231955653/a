@@ -119,7 +119,7 @@ function writeLoadAnimation () {
 
     let z = iFontSize;
 
-    let w = parseInt(iWinWidth) - parseInt(z * 2);
+    let w = parseInt(shadeDom().offsetWidth) - parseInt(z * 2);
 
     let m = parseInt(z * 0.5);
     let l = parseInt(z * 1.5) + m;
@@ -128,11 +128,11 @@ function writeLoadAnimation () {
 
     let i = 0;
     let s = [];
-    s.push('<div class="' + sBaseShadeCenterSonDomClass + '" style="width:' + (l * n - m)  + 'px;">');
+    s.push('<div class="' + sBaseShadeCenterSonDomClass + '" style="width:' + (l * n - m)  + 'px;"><ul>');
     for (i; i < n; i++) {
-        s.push('<span class="' + sBaseShadeCenterSonClass + '"></span>');
+        s.push('<li class="' + sBaseShadeCenterSonClass + '"></li>');
     }
-    s.push('</div>');
+    s.push('</ul></div>');
 
     return s.join('');
 }/*4de1e35a389a1e25*/

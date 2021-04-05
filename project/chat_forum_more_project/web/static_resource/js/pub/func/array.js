@@ -49,8 +49,8 @@ function inArrayByKey ( k, a ) {
  * @returns {string|boolean}
  */
 function inArray ( s, a ) {
-    for ( let i in a ) {
-        if ( a[i] === s ) {
+    for (let i in a) {
+        if (a[i] === s) {
             return i;
         }
     }
