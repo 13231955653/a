@@ -34,7 +34,7 @@ function updUrlPage (p = '') {
 
     requires([sEncodeJ, sFuncJ, sStrFunc], function () {
         console.log('777777777777777777777');
-        asyn('updateUrlPage', p);
+        asyn('showPage', p);
     });
 
     requires([sPubDomJ], function () {
@@ -103,46 +103,30 @@ function replaceWindowTitle (t = '') {
  * @type {Array}
  */
 let aAllreadyLoadPageJs = [];
-function updateUrlPage (p = '') {
-    console.log('dasdasd==================');
+function showPage (p = '') {
     console.log(getUrlArgs());
 
     p = p ? p : getNowPage();
 
     let t = p + sLangTitlePostfix;
-    // asyn('replaceWindowTitle', p + sLangTitlePostfix);
 
-    // let f = ''; // 回调函数
+    setBrowserTitle(aLang[t]);
+
     if (typeof aAllreadyLoadPageJs[p] == 'undefined') {
-        // f = 'loadPageJs';
         requires([sArrFuncJ], function () {
-            console.log('11111111111111111111111111111111111111111111111111111111111111111111111');
             updateUrlArg (sUrlAddressPageKey, p, t, 'loadPageJs');
-
-            setBrowserTitle(aLang[t]);
         });
     } else {
-        // f = 'afterLoadPageJs';
         asyn(sPageNow + 'Begin');
     }
     aAllreadyLoadPageJs[p] = getMillisecondTime();
 
-    // console.log('00000000000000000000000000000000000');
-    // console.log(f);
-    // requires([sArrFuncJ], function () {
-    //     console.log('11111111111111111111111111111111111111111111111111111111111111111111111');
-    //     updateUrlArg (sUrlAddressPageKey, p, t, f);
-    //
-    //     setBrowserTitle(t);
-    // });
-
-    console.log('2222222222222222222222222222222222222222222222222');
     requires([sJqueryJ, sMobileDomFuncJ], function () {
-        console.log('33333333333333333333333333333333333333333333');
-        updateActiveFoot();
+        updateActiveFoot(p);
 
-        showNowPageBody();
+        showNowPageBody(p);
     });
+
 }/*zza*/
 /*vgz*//**
  *
@@ -206,8 +190,8 @@ function updateUrlArg (k = '', v = '', t = '', c = false) {
 }/*vgz*/
 /*euq*/function logicBegin () {
     console.log('666666666666666666logicBegin');
-    requires([sEncodeJ, sMd5J, sFuncJ, sStrFunc], function () {
-        asyn('updateUrlPage');
+    requires([sEncodeJ, sMd5J, sFuncJ], function () {
+        asyn('showPage');
     });
 }/*euq*/
 /*aaa*/logicBegin()/*aaa*/

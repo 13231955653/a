@@ -65,7 +65,7 @@ function getStyle (o, s) {
  * 显示当前页面body
  *
  */
-function showNowPageBody () {
+function showNowPageBody (p) {
     let a = sHiddenClass;
     let b = sShowClass;
 
@@ -73,7 +73,7 @@ function showNowPageBody () {
     $('.' + c).addClass(a);
     $('.' + c).removeClass(b);
 
-    let f = sBBodyD + getNowPage();
+    let f = sBBodyD + p;
     $('#' + f).removeClass(a);
     $('#' + f).addClass(b);
 }/*dgw*/
@@ -83,11 +83,10 @@ function showNowPageBody () {
  *
  * @returns {boolean}
  */
-function updateActiveFoot () {
-    console.log('lllllllllllldddddddddddddddsssssssssssss');
+function updateActiveFoot (z) {
     let a = sFootTag;
     let b = sActiveFootTag;
-    let f = domById(sBFootD + getNowPage() + a + sFootLiSuffix);
+    let f = domById(sBFootD + z + a + sFootLiSuffix);
     if (!f) {
         console.log('afterLoadPageJs f is null, so no to do');
         return false;

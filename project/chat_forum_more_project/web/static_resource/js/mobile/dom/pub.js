@@ -34,7 +34,7 @@ const aSecondBody = [
     sSetPage,
 ];
 
-const sUpdateUrlPageKey = '_upd_url_page';
+const sshowPageKey = '_upd_url_page';
 const sFootClick = 'foot_c';/*9429d793fa750360*/
 /*qzt*/let bWriteBody = false;
 function threeBodyDom() {
@@ -64,7 +64,7 @@ function bindFootClick () {
     for (let b in aFootClick) {
         aFootClick[b].index = b;
         aFootClick[b].onclick = function () {
-            updUrlPage(aFootClick[this.index].getAttribute(sUpdateUrlPageKey));
+            updUrlPage(aFootClick[this.index].getAttribute(sshowPageKey));
         };
     }
 }/*jwu*/
@@ -176,7 +176,7 @@ function writeOneFooter (d = '') {
 
     let s = [];
     s.push('<li id="' + sBFootD + id + '" class="' + a + '">');
-    s.push('<a href="javascript:void(0);" ' + sUpdateUrlPageKey + '="' + d + '" class="' + sFootClick + '">');
+    s.push('<a href="javascript:void(0);" ' + sshowPageKey + '="' + d + '" class="' + sFootClick + '">');
     s.push('<span class="' + sReLangClass + '" id="' + l + '">');
     s.push('</span></a></li>');
 
