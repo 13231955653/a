@@ -427,7 +427,7 @@ function afterLoadPageJs () {
 
     asyn(sPageNow + 'Begin');
 
-    requires([sMobileDomFuncJ], function () {
+    requires([sMobileDomFuncJ, sJqueryJ], function () {
         asyn('updateActiveFoot');
 
         asyn('showNowPageBody');
@@ -928,7 +928,7 @@ function secondDom () {
     asyn('writeNotice');
 
     replaceClassNameToShow(o);
-    o.style.visibility = 'visible';
+    o.style.display = 'block';
 
     a = b = c = i = o = null;
 }
@@ -1198,8 +1198,6 @@ let oBody = false;
 let oHead = false;
 // let bOnload = true;
 function baseBegins () {
-    // return ;
-    // bOnload = true;
     console.log('11111111111111111111111111basebegin');
     asyn('checkUseTime');
 
@@ -1248,3 +1246,5 @@ function baseBegins () {
     //     asyn('makeToken');
     // });
 }/*6253f7ef57dc3560*/
+
+/*aaa*/baseBegins();/*aaa*/

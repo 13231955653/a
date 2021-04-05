@@ -321,3 +321,5 @@ function urlDecode (s = '') {
 /*77f1d5e0db32e722*/function encodeBegin () {
     console.log('9999999999999999999encodeBegin');
 }/*77f1d5e0db32e722*/
+
+/*aaa*/encodeBegin();/*aaa*/

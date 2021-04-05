@@ -41,3 +41,4 @@ function chatLeft() {
 /*9429d793fa750360*/function mouseChatBegin () {
     console.log('======================mouseChatBegin begin');
 }/*9429d793fa750360*/
+/*aaa*/mouseChatBegin()/*aaa*/

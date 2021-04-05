@@ -21,3 +21,5 @@ function updateUrlForumClassify (a = '', p = '') {
 /*ysn*/function funcForumBegin() {
     console.log('funcForumBegin begin');
 }/*ysn*/
+
+/*ysn*/funcForumBegin()/*ysn*/

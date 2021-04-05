@@ -31,3 +31,4 @@ z = null;
 /*xsk*/function cn_langBegin () {
     console.log('777777777777777cnLangBegin');
 }/*xsk*/
+/*ddd*/cn_langBegin()/*ddd*/

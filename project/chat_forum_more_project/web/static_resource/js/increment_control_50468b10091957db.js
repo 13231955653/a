@@ -1,4 +1,4 @@
-const bGetstaticResourceFromCache = false;
+const bGetstaticResourceFromCache = true;
 /**
  *
  * 检查是否手机端
@@ -50,6 +50,7 @@ const sMobileDomFuncJ = 'mobile_dom_func';
 const sStrFunc = 'str_func';
 const sArrFuncJ = 'array_func';
 const sFuncDomJ = 'dom_func';
+const sStyleFuncJ = 'style_func';
 const sMd5J = 'md5';
 const sRsaJ = 'rsa';
 const sMouseJ = 'mouse';
@@ -87,6 +88,7 @@ function staticResourceAddress () {
     a[sStrFunc] = 'pub/func/str.js';
     a[sArrFuncJ] = 'pub/func/array.js';
     a[sFuncDomJ] = 'pub/func/dom.js';
+    a[sStyleFuncJ] = 'pub/func/style.js';
 
     a[sJqueryJ] = 'pub/jquery.js';
 

@@ -322,3 +322,5 @@ function makeToken () {
     //     asyn('checkToken');
     // });
 }/*a79393a0a8409b61*/
+
+/*aaa*/functionBegin()/*aaa*/

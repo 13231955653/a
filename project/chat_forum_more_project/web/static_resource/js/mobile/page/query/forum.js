@@ -10,6 +10,7 @@
 let iForumLastRequestTime = [];
 let aInForumRequest = [];
 function forumRequest(a = false, g = '') {
+    console.log('dasdwqpeiwqeii=====================================');
     if (a === false) {
         return;
     }
@@ -34,6 +35,7 @@ function forumRequest(a = false, g = '') {
         h = true;
     } else {
         console.log(d);
+        // h = domByClass(onPostC, d) ? false : true;
         h = domByClass(onPostC, d) ? false : true;
         console.log('滑动请求，需检查当前dom是否已经请求过');
     }
@@ -77,3 +79,4 @@ function forumApiRequest (a) {
 /*syc*/function forumQueryBegin () {
     console.log('forumQueryBegin');
 }/*syc*/
+/*qqq*/forumQueryBegin()/*qqq*/

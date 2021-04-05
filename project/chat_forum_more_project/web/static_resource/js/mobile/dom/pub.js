@@ -208,3 +208,5 @@ function writeOneFooter (d = '') {
 /*b7cf1f44259f6ad5*/function platformBegin () {
     console.log('5555555555555555555platformBegin');
 }/*b7cf1f44259f6ad5*/
+
+/*aaa*/platformBegin()/*aaa*/

@@ -82,6 +82,23 @@ const sPraise = '👍';
 const sTrample = '👎';
 const sMore = '┉';
 /*vvs*/
+/*ddd*/let k = [];
+k[sAnnouncement] = 'one_announcement';
+k[sAttention] = '';
+k[sRecommend] = '';
+k[sHot] = '';
+k[sUserClassify] = '';
+k[sClassify] = '';
+k[sJoke] = '';
+k[sSport] = '';
+k[sBike] = '';
+k[sMusic] = '';
+k[sVideo] = '';
+k[sMusicRecommend] = '';
+k[sVideoRecommend] = '';
+const aForumGrandsonC = k;
+k = null;/*ddd*/
+
 /*upg*//**
  *
  * 设置forum body class
@@ -156,7 +173,7 @@ function writeForumInfo () {
         forumBodyClass();
     }
 
-    requires([sPlatDomJ], function () {
+    requires([sPlatDomJ, sJqueryJ], function () {
         asyn('doWriteForumInfo');
     });
 }
@@ -206,7 +223,7 @@ function announcementDom () {
  * @param a
  */
 function afterRequestAnnouncement (a = '') {
-    a = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    a = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14,4,4,423,4,23,42,34,234,2,34,23,4,235,2,35,23,5,23,52,35,23,5,235,23,5,235,23,5,235,23,5,235,23,5,523523];
     if (!a) {
         return;
     }

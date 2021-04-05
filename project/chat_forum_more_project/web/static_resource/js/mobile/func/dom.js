@@ -51,15 +51,15 @@ function domByTag (c) {
 function getStyle (o, s) {
     return o.currentStyle ? o.currentStyle[s] : getComputedStyle(o,false)[s];
 }/*qjt*/
-/*rnz*//**
- *
- * 修改 page  dom father 透明度
- *
- * @param b 显示或隐藏  bool true 显示  false 隐藏
- */
-function changeDomFatherOpacity (b = false) {
-    // console.log('修改 page dom father opacity');
-}/*rnz*/
+// /*rnz*//**
+//  *
+//  * 修改 page  dom father 透明度
+//  *
+//  * @param b 显示或隐藏  bool true 显示  false 隐藏
+//  */
+// function changeDomFatherOpacity (b = false) {
+//     // console.log('修改 page dom father opacity');
+// }/*rnz*/
 /*dgw*//**
  *
  * 显示当前页面body
@@ -185,7 +185,7 @@ s
         return;
     }
 
-    requires([sStrFunc], function () {
+    requires([sStrFunc, sStyleFuncJ], function () {
         asyn('showShade', o);
         // showShade(o);
     });
@@ -214,12 +214,9 @@ function clearBaseShade () {
 }/*jbd*/
 /*sdv*/let aShades = [];
 function showShade (o) {
-    console.log('dasdasdas');
-    console.log(o);
     replaceClassNameToShow(o);
 
-    o.style.filter = 'alpha(opacity:' + 0 + ')';
-    o.style.opacity = 0;
+    changeDomOpacity(o, false);
 
     animates(o, {opacity: 100}, iSpeed, function () {
         aShades[o.id] = true;
@@ -233,9 +230,10 @@ function showShade (o) {
  *
  * @param o 遮罩层 dom
  */
-function clearShade (o = false) {
-    o.style.filter = 'alpha(opacity:' + 100 + ')';
-    o.style.opacity = 1;
+function clearShade (o) {
+    // o.style.filter = 'alpha(opacity:' + 100 + ')';
+    // o.style.opacity = 1;
+    changeDomOpacity(o, true);
     o.className += ' ' + sVisibleClass;
 
     animates(o, {opacity: 0}, iSpeed, function () {
@@ -364,3 +362,4 @@ function animates (o = false, s = false, p = false, c = false) {
 /*jci*/function mebileDomBegin () {
     console.log('3333333333333333333mebileDomBegin');
 }/*jci*/
+/*aaa*/mebileDomBegin()/*aaa*/

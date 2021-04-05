@@ -61,3 +61,5 @@ function inArray ( s, a ) {
 /*3befb3e2ebbedb3c*/function arrayFunctionBegin () {
     console.log('3333333333333333333arrayFunctionBegin');
 }/*3befb3e2ebbedb3c*/
+
+/*aaa*/arrayFunctionBegin()/*aaa*/

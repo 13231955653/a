@@ -41,3 +41,4 @@ function friendLeft() {
 /*0375854aa49da782*/function mouseFriendBegin () {
     console.log('--------------mouseFriendBegin begin');
 }/*0375854aa49da782*/
+/*aaa*/mouseFriendBegin()/*aaa*/

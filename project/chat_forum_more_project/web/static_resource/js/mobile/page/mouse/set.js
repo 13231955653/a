@@ -41,3 +41,4 @@ function setLeft() {
 /*fc891be68f4e9f21*/function mouseSetBegin () {
     console.log('=============mouseSetBegin begin');
 }/*fc891be68f4e9f21*/
+/*aaa*/mouseSetBegin()/*aaa*/

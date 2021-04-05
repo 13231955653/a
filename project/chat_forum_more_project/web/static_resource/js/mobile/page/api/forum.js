@@ -18,3 +18,4 @@ f = null;/*zzz*/
 /*syc*/function forumApiBegin () {
     console.log('forumApiBegin');
 }/*syc*/
+/*zzz*/forumApiBegin();/*zzz*/

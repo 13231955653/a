@@ -41,3 +41,4 @@ function aboutLeft() {
 /*8d18ab4591d7e2dc*/function mouseAboutMeBegin () {
     console.log('========================mouseAboutMeBegin begin');
 }/*8d18ab4591d7e2dc*/
+/*aaa*/mouseAboutMeBegin()/*aaa*/

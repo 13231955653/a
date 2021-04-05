@@ -201,33 +201,33 @@ function checkScrollDirection(a) {
     }
     bCheckScrollDirection = false;
 
-    console.log('dasdassss');
+    // console.log('dasdassss');
     if (typeof aScrollY[a.id] == 'undefined') {
         aScrollY[a.id] = 0;
     }
     let c = aScrollY[a.id];
     let d = a.scrollTop;
 
-    console.log('dasdaz');
-    console.log(a);
-    console.log(c);
-    console.log(d);
-    console.log(a);
-    console.log(getMillisecondTime());
+    // console.log('dasdaz');
+    // console.log(a);
+    // console.log(c);
+    // console.log(d);
+    // console.log(a);
+    // console.log(getMillisecondTime());
     if (c === d) {
         return;
     }
 
     if (c < d) {
         console.log('向上滚动');
-        console.log(a.getAttribute(sScrollTopFuncK));
+        // console.log(a.getAttribute(sScrollTopFuncK));
         window[a.getAttribute(sScrollTopFuncK)]();
         // forumTop
     }
 
     if (c > d) {
         console.log('向下滚动');
-        console.log(a.getAttribute(sScrollDownFuncK));
+        // console.log(a.getAttribute(sScrollDownFuncK));
         window[a.getAttribute(sScrollDownFuncK)]();
         // forumDown
     }
@@ -239,3 +239,5 @@ function checkScrollDirection(a) {
 /*b9ebf53180071994*/function mouseBegin () {
     console.log('======================mouseBegin');
 }/*b9ebf53180071994*/
+
+/*aaa*/mouseBegin()/*aaa*/

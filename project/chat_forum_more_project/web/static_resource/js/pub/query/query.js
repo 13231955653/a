@@ -53,16 +53,16 @@ i = null;/*syc*/
 const sRouteEncodeSlat = 'route_slat';
 const sTokenFeild = 'token';
 /*aaa*/
-/*ccc*//**
- *
- * hash 计算当前应该请求哪个地址
- *
- * @param a 请求路由
- * @returns {boolean|*}
- */
-function allocationApiHost (a = '') {
-    return aApiHost[hashFunc(a, aApiHostLength)];
-}/*ccc*/
+// /*ccc*//**
+//  *
+//  * hash 计算当前应该请求哪个地址
+//  *
+//  * @param a 请求路由
+//  * @returns {boolean|*}
+//  */
+// function allocationApiHost (a = '') {
+//     return aApiHost[hashFunc(a, aApiHostLength)];
+// }/*ccc*/
 /*aaa*//**
  *
  * 添加验证方法1
@@ -73,7 +73,6 @@ function allocationApiHost (a = '') {
 function routeEncode (a, b) {
     let c = randStr(17);
 
-    b = b ? b : {};
     b[sRouteEncode] = md5(c + a + c + b[sTokenFeild]).toLowerCase();
 
     b[sRouteEncodeSlat] = reverseString(c);
@@ -95,15 +94,15 @@ function tokens (a, b) {
  * @param c 方法 post get type string
  * @returns {boolean}
  */
+let iNowApiQueryNum = 0;
 function apiQuery (a = '', b = '', c = 'post') {
     console.log('apiQuery request');
     b = tokens(a, b);
 
     b = routeEncode(a, b);
 
-    let sHost = sApiProtocol + allocationApiHost(a);
-
-    let d = sHost + a;
+    iNowApiQueryNum += parseInt(1);
+    let d = sApiProtocol + aApiHost[iNowApiQueryNum % aApiHostLength] + a;
 
     console.log('ajax begin');
     showBaseShade();
@@ -186,3 +185,4 @@ function afterApiResponse (a = '', b = '') {
 /*nca*/function apiBegin () {
     console.log('8888888888888888888888888apiBegin');
 }/*nca*/
+/*ggg*/apiBegin()/*ggg*/

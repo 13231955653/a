@@ -140,3 +140,5 @@ function writeLoadAnimation () {
 /*baee8d2085edcee0*/function domBegin () {
     console.log('444444444444444444444domBegin');
 }/*baee8d2085edcee0*/
+
+/*aaa*/domBegin()/*aaa*/
