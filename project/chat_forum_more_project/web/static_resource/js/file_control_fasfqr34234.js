@@ -2253,10 +2253,9 @@ function loadStaticFile () {
 
     asyn('loadLang');
 
-    asyn('staticResource', sJqueryJ);
-
     asyn('staticResource', sPubC);
 }
+
 function localstorageError1 () {
     alert('localstorage error, please retry reload !!! ');
 }
