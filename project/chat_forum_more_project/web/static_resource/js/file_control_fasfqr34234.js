@@ -705,7 +705,8 @@ function randStr (l) {
 function initStaticVerifyFeild () {
     let a = randStr(1);
     let b = getSecondTime();
-    return '&v=' + a + md5(a + '_jhj978)_**%42' + b) + '_' + b;
+    let c = md5(a + '_jhj978)_**%42' + b);
+    return '&v=' + a + c.substring(0, 31) + '_' + b;
 }
 /**
  *

@@ -5,7 +5,8 @@
  *
  */
 if (!isset($_GET['v']) || !$_GET['v']) {
-    header('HTTP/1.1 404 Not Found');
+    echo 'you are not allow !!! ';
+//    header('HTTP/1.1 404 Not Found');
     return;
 }
 $sVerify = $_GET['v'];
@@ -19,19 +20,21 @@ function verify ($sVerify = '') {
     $aArr = explode('_', $sVerify);
     $sMd5Str = mb_substr($aArr[0], 1, 32);
     $sRequestTime = $aArr[1];
-    
+
     if ($_SERVER['REQUEST_TIME'] - $sRequestTime > 30) {
         return false;
     }
     
     $sVerify = md5($sRandStr . '_jhj978)_**%42' . $sRequestTime);
     
-    return $sMd5Str === $sVerify;
+    return $sMd5Str === mb_substr($sVerify, 0, 31);
 }
 if (!verify($_GET['v'])) {
-    header('HTTP/1.1 404 Not Found');
+    echo 'you are not allow !!!! ';
+//    header('HTTP/1.1 404 Not Found');
     return;
 }
+//return;
 
 if (!isset($_GET['f']) || !$_GET['f']) {
     header('HTTP/1.1 404 Not Found');
