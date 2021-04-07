@@ -16,6 +16,12 @@ function updUrlPage (p = '') {
         return;
     }
 
+    // setBrowserTitle(aLang[p + sLangTitlePostfix]);
+    //
+    // requires([sArrFuncJ], function () {
+    //     updateUrlArg (sUrlAddressPageKey, p, '', 'loadPageJs');
+    // });
+
     console.log('33333333333333333');
     console.log(sLastPage);
     console.log(p);
@@ -42,8 +48,6 @@ function updUrlPage (p = '') {
         asyn('clearBaseShade');
     });
     console.log('999999999999999999999999999999999');
-
-
 }/*ybp*/
 /*aoe*//**
  *
@@ -75,25 +79,25 @@ function againOnlickFooter () {
         //     break;
     }
 }/*aoe*/
-/*slu*//**
- *
- *  改写 浏览器 title
- * @param t window title type string
- */
-function replaceWindowTitle (t = '') {
-    if (!t) {
-        return;
-    }
-
-    // if (typeof window['replaceTitle'] == 'undefined') {
-    //     setTimeoutFunction('replaceWindowTitle', t);
-    //     return;
-    // }
-
-    requires([sFuncJ], function () {
-        asyn('replaceTitle', t);
-    });
-}/*slu*/
+// /*slu*//**
+//  *
+//  *  改写 浏览器 title
+//  * @param t window title type string
+//  */
+// function replaceWindowTitle (t = '') {
+//     if (!t) {
+//         return;
+//     }
+//
+//     // if (typeof window['replaceTitle'] == 'undefined') {
+//     //     setTimeoutFunction('replaceWindowTitle', t);
+//     //     return;
+//     // }
+//
+//     requires([sFuncJ], function () {
+//         asyn('replaceTitle', t);
+//     });
+// }/*slu*/
 /*zza*//**
  *
  * 更新url page 参数
@@ -109,15 +113,16 @@ function showPage (p = '') {
     p = p ? p : getNowPage();
 
     let t = p + sLangTitlePostfix;
-
     setBrowserTitle(aLang[t]);
 
     if (typeof aAllreadyLoadPageJs[p] == 'undefined') {
+        // alert('zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz');
         requires([sArrFuncJ], function () {
             updateUrlArg (sUrlAddressPageKey, p, t, 'loadPageJs');
         });
     } else {
-        asyn(sPageNow + 'Begin');
+        // alert('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+        asyn(p + 'Begin');
     }
     aAllreadyLoadPageJs[p] = getMillisecondTime();
 
@@ -190,7 +195,8 @@ function updateUrlArg (k = '', v = '', t = '', c = false) {
 }/*vgz*/
 /*euq*/function logicBegin () {
     console.log('666666666666666666logicBegin');
-    requires([sEncodeJ, sMd5J, sFuncJ], function () {
+    requires([sResetC, sPubC, sSizeC, sEncodeJ, sMd5J, sFuncJ], function () {
+        // requires([sEncodeJ, sMd5J, sFuncJ], function () {
         asyn('showPage');
     });
 }/*euq*/

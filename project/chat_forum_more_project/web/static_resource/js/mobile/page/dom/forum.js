@@ -106,7 +106,13 @@ k = null;/*ddd*/
  */
 let aForumBodyClass = [];
 const sForumBodyClass = 'forum_body_';
+let bSetForumBodyC = false;
 function forumBodyClass () {
+    if (bSetForumBodyC) {
+        return;
+    }
+    bSetForumBodyC = true;
+
     let a = aForumList.length;
     let b = 1;
     for (b; b <= a; b++) {
@@ -168,10 +174,21 @@ function writeForumBody () {
  * 写forum dom内容
  *
  */
+let bWriteForumInfo = false;
 function writeForumInfo () {
-    if (!aForumList) {
+    if (!bSetForumBodyC) {
         forumBodyClass();
+
+        setTimeoutFunction('writeForumInfo');
+
+        return;
     }
+
+    if (bWriteForumInfo) {
+        return;
+    }
+    bWriteForumInfo = true;
+
 
     requires([sPlatDomJ, sJqueryJ], function () {
         asyn('doWriteForumInfo');
@@ -208,7 +225,7 @@ function doWriteForumInfo () {
     //     console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaa');
     //     asyn('pageBegin');
     // });
-    requires([sPlatDomLogic, sMouseForumJ, sResetC, sSizeC], function () {
+    requires([sPlatDomLogic, sMouseForumJ, sForumC, sForumSlideC], function () {
         // console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaa');
         asyn('pageBegin');
     });
@@ -357,10 +374,11 @@ function onePoseFoot () {
 }
 /*aaa*/
 /*oai*/function forumBegin () {
+    // alert(1);
     console.log('forumBegin begin');
 
-    forumBodyClass();
-
-    asyn('writeForumInfo');
+    if (!bWriteForumInfo) {
+        asyn('writeForumInfo');
+    }
 }/*oai*/
 /*zzz*/forumBegin();/*zzz*/

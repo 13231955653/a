@@ -149,6 +149,57 @@ function staticResourceAddress () {
     astaticResourceAddress = a;
     a = null;
 }
+
+// let aMustLoadCss = [
+//     sResetC,
+//     sPubC,
+//     sSizeC,
+// ];
+//
+// let aMustLoadJs = [
+//     sBaseJ,
+// ];
+//
+// /**
+//  *
+//  * 组织 css 依赖
+//  *
+//  * @param a 依赖 css type array
+//  * @returns {*[]}
+//  */
+// function organizationCssRequireFile (a = []) {
+//     let b = aMustLoadCss;
+//
+//     for (let c in a) {
+//         b.push(a[c]);
+//     }
+//
+//     return b;
+// }
+//
+// /**
+//  *
+//  * 组织 js 依赖
+//  *
+//  * @param a 依赖 css type array
+//  * @returns {*[]}
+//  */
+// function organizationJsRequireFile (a = []) {
+//     let b = aMustLoadJs;
+//
+//     for (let c in a) {
+//         b.push(a[c]);
+//     }
+//
+//     return b;
+// }
+//
+// function mergeRequire (a, b) {
+//     for () {
+//
+//     }
+// }
+
 //值格式 0000 00 00 00 00 00  年月日时分秒
 const aVersion = {
     'base': {
