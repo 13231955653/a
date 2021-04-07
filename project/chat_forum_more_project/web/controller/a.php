@@ -21,7 +21,7 @@ function verify ($sVerify = '') {
     $sMd5Str = mb_substr($aArr[0], 1, 32);
     $sRequestTime = $aArr[1];
 
-    if ($_SERVER['REQUEST_TIME'] - $sRequestTime > 30) {
+    if ($_SERVER['REQUEST_TIME'] - $sRequestTime > 9) {
         return false;
     }
     

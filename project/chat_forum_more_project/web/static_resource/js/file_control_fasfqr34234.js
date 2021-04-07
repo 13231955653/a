@@ -2,10 +2,10 @@
 const sCharset = 'utf-8'; // 编码格式
 //编码相关===============
 //静态文件相关-----------------
-const sJsDynamicPrefix = 'js_dynamic';
-const sJsDynamicHostNumber = 7;
-const sCssDynamicPrefix = 'css_dynamic';
-const sCssDynamicHostNumber = 7;
+// const sJsDynamicPrefix = 'js_dynamic';
+// const sJsDynamicHostNumber = 7;
+// const sCssDynamicPrefix = 'css_dynamic';
+// const sCssDynamicHostNumber = 7;
 //静态文件相关==========================
 //url地址相关---------------------
 const sBaseProtocol = window.location.protocol + '/' + '/';
@@ -600,88 +600,98 @@ function getstaticResourceFromLocalstorage (j = '', f = '', b = false) {
  *
  * @returns {boolean}
  */
-let aJsHost = [];
-let iJsHostNumber = 0;
-function setJsHosts () {
-    let i = 0;
-    let o = window.location.host;
-    for (i; i < sJsDynamicHostNumber; i++) {
-        aJsHost.push(sBaseProtocol + i + '.' + sJsDynamicPrefix + '.' + o);
-    }
-    iJsHostNumber = aJsHost.length;
-
-    return true;
-}
+// let aJsHost = [];
+// let iJsHostNumber = 0;
+// function setJsHosts () {
+//     let i = 0;
+//     let o = window.location.host;
+//     for (i; i < sJsDynamicHostNumber; i++) {
+//         aJsHost.push(sBaseProtocol + i + '.' + sJsDynamicPrefix + '.' + o);
+//     }
+//     iJsHostNumber = aJsHost.length;
+//
+//     return true;
+// }
 /**
  *
  * 设置css host数组
  *
  * @returns {boolean}
  */
-let aCssHost = [];
-let iCssHostNumber = 0;
-function setCssHosts () {
-    let i = 0;
-    let o = window.location.host;
-    for (i; i < sCssDynamicHostNumber; i++) {
-        aCssHost.push(sBaseProtocol + i + '.' + sCssDynamicPrefix + '.' + o);
-    }
-    iCssHostNumber = aCssHost.length;
-
-    return true;
-}
-/**
- *
- * hash 计算当前应该请求哪个js地址
- *
- * @param u
- * @returns {boolean|*}
- */
-function allocationJsHost (u = '') {
+// let aCssHost = [];
+// let iCssHostNumber = 0;
+// function setCssHosts () {
+//     let i = 0;
+//     let o = window.location.host;
+//     for (i; i < sCssDynamicHostNumber; i++) {
+//         aCssHost.push(sBaseProtocol + i + '.' + sCssDynamicPrefix + '.' + o);
+//     }
+//     iCssHostNumber = aCssHost.length;
+//
+//     return true;
+// }
+// /**
+//  *
+//  * hash 计算当前应该请求哪个js地址
+//  *
+//  * @param u
+//  * @returns {boolean|*}
+//  */
+// const aJsHost = [
+//     'http://static_resource_1.com',
+//     'http://static_resource_2.com',
+//     'http://static_resource_3.com',
+// ];
+// const iJsHostNumber = 3;
+// function allocationJsHost (u = '') {
+//     if (!u) {
+//         return false;
+//     }
+//
+//     return aJsHost[hashFunc(u, iJsHostNumber)];
+// }
+// /**
+//  *
+//  * hash 计算当前应该请求哪个css地址
+//  *
+//  * @param u
+//  * @returns {boolean|*}
+//  */
+// const aCssHost = [
+//     'http://css_dynamic_1.com',
+//     'http://css_dynamic_2.com',
+//     'http://css_dynamic_3.com',
+// ];
+// const iCssHostNumber = 3;
+// function allocationCssHost (u = '') {
+//     if (!u) {
+//         return false;
+//     }
+//
+//     return aCssHost[hashFunc(u, iCssHostNumber)];
+// }
+const aStaticResourceHost = [
+    'http://1.static_resource_1.com',
+    'http://2.static_resource_1.com',
+    'http://3.static_resource_1.com',
+    'http://1.static_resource_2.com',
+    'http://2.static_resource_2.com',
+    'http://3.static_resource_2.com',
+    'http://1.static_resource_3.com',
+    'http://2.static_resource_3.com',
+    'http://3.static_resource_3.com',
+];
+const iStaticResourceHostNumber = 3;
+let iStaticResourceRquestNum = 1;
+function allocationStaticResourceHost (u = '') {
     if (!u) {
         return false;
     }
 
-    return aJsHost[hashFunc(u, iJsHostNumber)];
-}
-/**
- *
- * hash 计算当前应该请求哪个css地址
- *
- * @param u
- * @returns {boolean|*}
- */
-function allocationCssHost (u = '') {
-    if (!u) {
-        return false;
-    }
+    iStaticResourceRquestNum += parseInt(1);
 
-    return aCssHost[hashFunc(u, iCssHostNumber)];
-}
-/**
- *
- * hash 求余
- *
- * @param s  带求余字符串
- * @param i 余数
- * @returns {boolean|number}
- */
-function hashFunc(s, i){
-    if (!s ||!i) {
-        return false;
-    }
-
-    //1.定义iHashCode变量
-    let h = 0;
-
-    //2.霍纳算法，来计算 h的值
-    for (let i = 0; i < s.length; i++) {
-        h = 37 * h + s.charCodeAt(i) //获取编码
-    }
-    h = parseInt(h);
-
-    //3.取余状态
-    return h % i;
+    return aStaticResourceHost[iStaticResourceRquestNum % iStaticResourceHostNumber];
+    // return aStaticResourceHost[hashFunc(u, iStaticResourceHostNumber)];
 }
 /**
  *
@@ -722,6 +732,15 @@ const iInitstaticResourceErrorLimit = 5000;
 const iInitstaticResourceErrorMaxRetryNum = 3;
 let aInitstaticResourceErrorNum = [];
 function initstaticResource (j = '', t = '', c = '', r = '') {
+    if (typeof window['md5'] == 'undefined') {
+        let z = setTimeout(function () {
+            clearTimeout(z);
+
+            initstaticResource(j, t, c, r);
+        }, 15);
+        return;
+    }
+
     console.log('dasdasdasdasd-----------------------');
     console.log(j);
     console.log(t);
@@ -746,15 +765,7 @@ function initstaticResource (j = '', t = '', c = '', r = '') {
         return;
     }
 
-    let u = '';
-    switch (t) {
-        case 'js' :
-            u = allocationJsHost(j) + '/a.php?' + j;
-            break;
-        case 'css' :
-            u = allocationCssHost(j) + '/a.php?' + j;
-            break;
-    }
+    let u = allocationStaticResourceHost(j) + '/a.php?' + j;
     if (!u) {
         return;
     }
@@ -2310,7 +2321,7 @@ function fileControlBegin () {
         return;
     }
 
-    setStatusResourceHost();
+    // setStatusResourceHost();
 
     requires([sPubDomJ], function () {
         asyn('showBaseShade');
@@ -2321,11 +2332,11 @@ function fileControlBegin () {
     // });
 }
 
-function setStatusResourceHost () {
-    setJsHosts();
-
-    setCssHosts();
-}
+// function setStatusResourceHost () {
+//     // setJsHosts();
+//
+//     // setCssHosts();
+// }
 /**
  *
  * 设置正在读取的静态资源

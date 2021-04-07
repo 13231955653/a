@@ -1,16 +1,15 @@
-/*pbh*/const sApiProtocol = 'http://';
-const aApiHost = [
-    'api1.you.com/',
-    'api2.you.com/',
-    'api3.you.com/',
-    'api4.you.com/',
-    'api5.you.com/',
-    'api6.you.com/',
-    'api7.you.com/',
+/*pbh*/const aApiHost = [
+    'http://1.api1.com',
+    'http://2.api1.com',
+    'http://3.api1.com',
+    'http://1.api2.com',
+    'http://2.api2.com',
+    'http://3.api2.com',
+    'http://1.api3.com',
+    'http://2.api3.com',
+    'http://3.api3.com',
 ];
-const aApiHostLength = 7;
-
-// let iRequestNumber = 0;/*pbh*/
+const aApiHostLength = 3;/*pbh*/
 
 /*uuu*/const sApiArgPage = 'page';/*uuu*/
 
@@ -102,7 +101,7 @@ function apiQuery (a = '', b = '', c = 'post') {
     b = routeEncode(a, b);
 
     iNowApiQueryNum += parseInt(1);
-    let d = sApiProtocol + aApiHost[iNowApiQueryNum % aApiHostLength] + a;
+    let d = aApiHost[iNowApiQueryNum % aApiHostLength] + '/' + a;
 
     console.log('ajax begin');
     showBaseShade();

@@ -37,6 +37,32 @@ function jsonConvertFormatForReadNumberKey (s = '') {
     return eval('(' + s + ')');
 }/*a3b0b94a5c5f285b*/
 
+
+/*zzz*//**
+ *
+ * hash 求余
+ *
+ * @param s  带求余字符串
+ * @param i 余数
+ * @returns {boolean|number}
+ */
+function hashFunc(s, i){
+    if (!s ||!i) {
+        return false;
+    }
+
+    //1.定义iHashCode变量
+    let h = 0;
+
+    //2.霍纳算法，来计算 h的值
+    for (let i = 0; i < s.length; i++) {
+        h = 37 * h + s.charCodeAt(i) //获取编码
+    }
+    h = parseInt(h);
+
+    //3.取余状态
+    return h % i;
+}/*zzz*/
 /*24bccc14e8e7cf3e*//**
  *
  * 字符串首字母大写
