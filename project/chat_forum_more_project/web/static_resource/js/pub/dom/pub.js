@@ -8,9 +8,10 @@ let sBaseShadeCenterSonClass = 'b_shade_cent_sons';
 let sBaseShadeCenterSonNowClass = 'b_shade_cent_son_now';
 /*f0196c4afb85054e*/
 
-/*ab201f54fc997f78*/let sNoticeTitleClass = 'notice_head';
-let sNoticeBodyClass = 'notice_body';
-let sNoticeFootClass = 'notice_foot';
+/*ab201f54fc997f78*/let sNoticeShowBodyC = 'notice_show';
+let sNoticeTitleC = 'notice_head';
+let sNoticeBodyC = 'notice_body';
+let sNoticeFootC = 'notice_foot';
 /*ab201f54fc997f78*/
 
 /*605df86f799e4bd9*//**
@@ -26,16 +27,17 @@ function writeNotice () {
     bWriteNotice = true;
 
     let a = [
-        sNoticeTitleClass,
-        sNoticeBodyClass,
-        sNoticeFootClass,
+        sNoticeTitleC,
+        sNoticeBodyC,
+        sNoticeFootC,
     ];
 
     let s = [];
+    s.push('<div class="' + sNoticeShowBodyC + '">');
     for (let i in a) {
         s.push('<div class="' + a[i] + '">');
 
-        if (a[i] !== sNoticeBodyClass) {
+        if (a[i] !== sNoticeBodyC) {
             s.push('<span id="' + a[i] + '_span" class="' + sReLangClass + '"></span>');
         } else {
             s.push('<span id="' + a[i] + '_span"></span>');
@@ -43,11 +45,12 @@ function writeNotice () {
 
         s.push('</div>');
     }
+    s.push('</div>');
 
     noticeDom().innerHTML = s.join('');
 
-    domById(sNoticeTitleClass + '_span').innerHTML = 'ss';
-    domById(sNoticeFootClass + '_span').innerHTML = 'ss';
+    // domById(sNoticeTitleC + '_span').innerHTML = 'ss';
+    // domById(sNoticeFootC + '_span').innerHTML = 'ss';
 
     requires([sMobileDomFuncJ], function () {
         asyn('bindNoticeFoot');
@@ -64,7 +67,7 @@ function writeNotice () {
  *
  */
 function bindNoticeFoot () {
-    oneDomByClass(sNoticeFootClass).onclick = function () {
+    oneDomByClass(sNoticeFootC).onclick = function () {
         asyn('hiddenNotice');
     }
 }/*28f646c3b0eaccc8*/

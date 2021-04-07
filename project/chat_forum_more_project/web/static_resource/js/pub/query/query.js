@@ -128,7 +128,7 @@ function apiQuery (a = '', b = '', c = 'post') {
 }/*ife*/
 /*uup*/let aRequestError = [];
 const iMaxRequestErrorNumber = 3;
-const iRequestErrorLimit = 3000;
+const iRequestErrorLimit = 5000;
 function afterApiQuery (sJson, a, b, c) {
     clearBaseShade();
 

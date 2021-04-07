@@ -26,6 +26,7 @@ z['forum_music_l'] = 'forum 1010';
 z['forum_video_l'] = 'forum 121212';
 z['forum_musique_l'] = 'forum 1313';
 z['forum_mas_l'] = 'forum 1414';/*slm*/
+/*aaa*/z['foot_compel_limit'] = 'foot onclick request time limit !!!';/*aaa*/
 aLang = z;
 z = null;
 /*xsk*/function cn_langBegin () {

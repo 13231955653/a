@@ -123,70 +123,6 @@ const sCopyrightContent = '版权所有，保留一切权利。';
 let aBaseTimer = []; //基础定时器
 let b = []; //基础定时器间隔时间
 // const t = 1000;
-const t = 15;
-// const t2 = 1000;
-const t2 = 15;
-b['winResize'] = t2;
-// b['loadEncodeJs'] = t;
-// b['loadLogicJs'] = t;
-// b['animates'] = t;
-// b['loadDomJs'] = t;
-// b['loadFunctionJs'] = t;
-// b['loadOriginJquery'] = t;
-// b['loadLang'] = t;
-// b['logicBegin'] = t;
-// b['loadPlatformDomJs'] = t;
-// b['loadResetCss'] = t;
-// b['checkLoadCss'] = t;
-// b['writeStorageDom'] = t;
-// b['localstorageIsForbidden'] = t;
-// b['loadBaseJsFile'] = t;
-// b['pageBegin'] = t;
-// b['replaceLangs'] = t;
-// b['loadPublicCss'] = t;
-// b['loadPersonalizedCss'] = t;
-// b['loadVariableCss'] = t;
-// b['threeBodyDom'] = t;
-// b['loadLocalJquery1'] = t;
-// b['individuationUuid'] = t;
-// b['platformBegin'] = t;
-// b['makeSessionid'] = t;
-// b['cacheSessionId'] = t;
-// b['repeatedlySettingPage'] = t;
-// b['repeatedlyFriendPage'] = t;
-// b['repeatedlyForumPage'] = t;
-// b['repeatedlyChatPage'] = t;
-// b['loadApiJs'] = t;
-// b['sessionId'] = t;
-// b['repeatedlyPage'] = t;
-// b['localstoragePostMessage'] = t;
-// b['doCheckSessionId'] = t;
-// b['checkSessionKeyFormat1'] = t;
-// b['replaceWindowTitle'] = t;
-// b['replaceDomLang'] = t;
-// b['replaceLang'] = t;
-// b['replaceTitle'] = t;
-// b['afterLoadPageJs'] = t;
-// b['showPage'] = t;
-// b['setContent'] = t;
-// b['baseBegins'] = t;
-// b['loadIndexJs'] = t;
-// b['showUseTimeLimitNotice'] = t;
-// b['clearShade'] = t;
-// b['sessId'] = t;
-// b['indexBeginLogic'] = t;
-// b['loadOriginJquery'] = t;
-// b['baseShade'] = t;
-// b['platformBegin'] = t;
-// b['showBaseShade'] = t;
-// b['showShade'] = t;
-// b['loadPageJs'] = t;
-// b['clearPlatformShade'] = t;
-// b['clearPageShade'] = t;
-// b['bindFootClick'] = t;
-// b['clearBaseShade'] = t;
-// b['staticResource'] = t;
-// b['timeOutBaseShade'] = 300;
 b['checkUseTime'] = 60000;
 b['checkSessionIdOutTime'] = 181652;
 b['checkSessionKeyFormat'] = 253648;
@@ -229,6 +165,8 @@ const sShowClass = 'show';//显示dom的class
 
 /*aaa*/const sGray = 'gray';
 const sColours = 'colours';/*aaa*/
+
+/*bbb*/let iNowIndex = 1;/*bbb*/
 
 /*3d6db13f8bf8dde2*///尺寸相关----------------
 let iWinWidth = 0;
@@ -1230,11 +1168,11 @@ function baseBegins () {
         return;
     }
 
+    asyn('initializeFontSize');
+
     requires([sFuncDomJ], function () {
         asyn('setMeta');
     });
-
-    asyn('initializeFontSize');
 
     asyn('winResize', true);
 

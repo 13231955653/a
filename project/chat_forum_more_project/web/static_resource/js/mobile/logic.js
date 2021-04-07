@@ -51,18 +51,41 @@ function updUrlPage (p = '') {
 }/*ybp*/
 /*aoe*//**
  *
- * 多次点击同一个脚步事件
+ * 多次点击同一个脚步事件，强制请求
  *
  */
+const aCompelRequestT = [];
+const iCompelRequestLimit = 5;
 function againOnlickFooter () {
     let a = sLastPage;
-    let b = a ? a : getNowPage();
-    if (!b) {
+    a = a ? a : getNowPage();
+    // if (!a) {
+    //     return;
+    // }
+    let b = getSecondTime();
+    if (
+        (
+            typeof aCompelRequestT != 'undefined'
+        )
+        &&
+        (
+            b - aCompelRequestT[a] < iCompelRequestLimit
+        )
+    ) {
+        requires([sMobileDomFuncJ], function () {
+            notice('foot_compel_limit');
+        });
         return;
     }
+    aCompelRequestT[a] = b;
 
-    switch (b) {
+    switch (a) {
         case sForumPage :
+            let c = forumSonBodyDom(getForumNowShow());
+            if (c.innerHTML) {
+                c.innerHTML = '';
+            }
+
             forumChangeLevelMove('', '', 1);
             break;
         // case sChatPage :
@@ -110,7 +133,7 @@ let aAllreadyLoadPageJs = [];
 function showPage (p = '') {
     console.log(getUrlArgs());
 
-    p = p ? p : getNowPage();
+    sLastPage = p = p ? p : getNowPage();
 
     let t = p + sLangTitlePostfix;
     setBrowserTitle(aLang[t]);

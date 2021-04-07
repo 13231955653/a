@@ -84,7 +84,7 @@ function staticResourceAddress () {
     a[sBaseJ] = 'base.js';
 
     a[sFuncJ] = 'pub/func/func.js';
-    a[sMobileDomFuncJ] = 'mobile/func/dom.js';
+    a[sMobileDomFuncJ] = p + '/func/dom.js';
     a[sStrFunc] = 'pub/func/str.js';
     a[sArrFuncJ] = 'pub/func/array.js';
     a[sFuncDomJ] = 'pub/func/dom.js';

@@ -10,7 +10,7 @@
 let iForumLastRequestTime = [];
 let aInForumRequest = [];
 function forumRequest(a = false, g = '') {
-    console.log('dasdwqpeiwqeii=====================================');
+    // console.log('dasdwqpeiwqeii=====================================');
     if (a === false) {
         return;
     }

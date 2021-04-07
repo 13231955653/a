@@ -164,7 +164,7 @@
     left: 0px;
     z-index: 2100000000 !important;
     background: var(--notice_f_bk);
-    visibility: hidden !important;
+    visibility: hidden;
 }
 .notice_head{
     width: 100%;
@@ -174,14 +174,22 @@
     text-align: center;
     font-size: var(--notice_head_font_size);
 }
+.notice_show{
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
 .notice_body{
     width: calc(100% - var(--notice_body_padd_left_right));
     height: calc(100% - var(--notice_head_h) - var(--notice_foot_h) - var(--notice_body_padd_left_right));
     overflow-y: scroll;
-    padding: var(--notice_body_padd);
+    padding: 1rem 0.5rem 1rem 0.5rem;
     background: var(--notice_body_bk);
     line-height: var(--notice_body_line_h);
     word-wrap: break-word;
+    text-align: center;
 }
 .notice_foot{
     width: 100%;

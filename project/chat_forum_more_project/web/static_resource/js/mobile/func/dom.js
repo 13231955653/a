@@ -117,14 +117,17 @@ function notice (m = '') {
         return false;
     }
 
-    domById(sNoticeBodyClass + '_span').innerHTML = m;
+    domById(sNoticeBodyC + '_span').innerHTML = m;
 
     let o = noticeDom();
 
-    console.log('dasdasdqq');
-    console.log(o);
+    // console.log('dasdasdqq');
+    // console.log(o);
     replaceClassNameToShow(o);
 
+    iNowIndex += parseInt(1);
+
+    o.style.zIndex = iNowIndex;
     o.style.filter = 'alpha(opacity:' + 0 + ')';
     o.style.opacity = 0;
 

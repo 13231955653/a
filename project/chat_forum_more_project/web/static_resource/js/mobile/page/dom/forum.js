@@ -99,26 +99,26 @@ k[sVideoRecommend] = '';
 const aForumGrandsonC = k;
 k = null;/*ddd*/
 
-/*upg*//**
- *
- * 设置forum body class
- *
- */
-let aForumBodyClass = [];
-const sForumBodyClass = 'forum_body_';
-let bSetForumBodyC = false;
-function forumBodyClass () {
-    if (bSetForumBodyC) {
-        return;
-    }
-    bSetForumBodyC = true;
-
-    let a = aForumList.length;
-    let b = 1;
-    for (b; b <= a; b++) {
-        aForumBodyClass[b] = sForumBodyClass + b;
-    }
-}/*upg*/
+// /*upg*//**
+//  *
+//  * 设置forum body class
+//  *
+//  */
+// let aForumBodyClass = [];
+// const sForumBodyClass = 'forum_body_';
+// let bSetForumBodyC = false;
+// function forumBodyClass () {
+//     if (bSetForumBodyC) {
+//         return;
+//     }
+//     bSetForumBodyC = true;
+//
+//     let a = aForumList.length;
+//     let b = 1;
+//     for (b; b <= a; b++) {
+//         aForumBodyClass[b] = sForumBodyClass + b;
+//     }
+// }/*upg*/
 /*qct*/let oForumHead = false;
 function forumHeadDom () {
     if (oForumHead) {
@@ -176,13 +176,13 @@ function writeForumBody () {
  */
 let bWriteForumInfo = false;
 function writeForumInfo () {
-    if (!bSetForumBodyC) {
-        forumBodyClass();
-
-        setTimeoutFunction('writeForumInfo');
-
-        return;
-    }
+    // if (!bSetForumBodyC) {
+    //     forumBodyClass();
+    //
+    //     setTimeoutFunction('writeForumInfo');
+    //
+    //     return;
+    // }
 
     if (bWriteForumInfo) {
         return;
@@ -235,10 +235,30 @@ function announcementDom () {
     if (oAnnouncement) {
         return oAnnouncement;
     }
-    oAnnouncement = domById(sForumPage + sForumSplitTag + sAnnouncement + sForumBodySuffix);
+    oAnnouncement = forumSonBodyDom(sAnnouncement);
     return oAnnouncement;
 }
 /*oen*/
+/*bbb*//**
+ *
+ * 获取 forum son body class
+ *
+ * @param a 分类 名字  type string
+ * @returns {string}
+ */
+function forumSonBodyC (a) {
+    return sForumPage + sForumSplitTag + a + sForumBodySuffix;
+}/*bbb*/
+/*ccc*//**
+ *
+ * 获取 forum son body dom 对象
+ *
+ * @param a
+ * @returns {any}
+ */
+function forumSonBodyDom (a) {
+    return domById(forumSonBodyC(a));
+}/*ccc*/
 /*jli*//**
  *
  * announcement 请求后处理函数
@@ -377,8 +397,8 @@ function onePoseFoot () {
     // alert(1);
     console.log('forumBegin begin');
 
-    if (!bWriteForumInfo) {
+    // if (!bWriteForumInfo) {
         asyn('writeForumInfo');
-    }
+    // }
 }/*oai*/
 /*zzz*/forumBegin();/*zzz*/
