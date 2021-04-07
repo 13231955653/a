@@ -229,4 +229,5 @@ String.prototype.strLengthSplit =function(n){
     console.log('3333333333333333333stringFunctionBegin');
 }/*3befb3e2ebbedb3c*/
 
+
 /*aaa*/stringFunctionBegin()/*aaa*/

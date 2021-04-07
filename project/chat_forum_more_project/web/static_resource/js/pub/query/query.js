@@ -48,9 +48,10 @@ i = null;/*syc*/
 
 // /*rrr*/const sAddVerifyVal1Slat = '_~987&^%%#_+Sasq+';/*rrr*/
 
-/*aaa*/const sRouteEncode = 'route';
-const sRouteEncodeSlat = 'route_slat';
-const sTokenFeild = 'token';
+/*aaa*/const sTokenFeild = 'token';
+const sRouteEncode = 'route';
+// const sRouteEncodeSlat = 'route_slat';
+const sArgVerify = 'arg_verify';
 /*aaa*/
 // /*ccc*//**
 //  *
@@ -62,28 +63,63 @@ const sTokenFeild = 'token';
 // function allocationApiHost (a = '') {
 //     return aApiHost[hashFunc(a, aApiHostLength)];
 // }/*ccc*/
-/*aaa*//**
+/*bbb*//**
  *
- * 添加验证方法1
+ * 后端验证方法3 验证 参数
  *
- * @param a 请求路由 type string
- * @param b 请求参数 type json
+ * @param a
+ * @returns {{}}
  */
-function routeEncode (a, b) {
-    let c = randStr(17);
+function argEncode (a) {
+    let b = [];
+    for (let c in a) {
+        b.push(c);
+    }
+    b = b.sort();
 
-    b[sRouteEncode] = md5(c + a + c + b[sTokenFeild]).toLowerCase();
+    let d = '';
+    for (let e in b) {
+        d += a[b[e]];
+    }
 
-    b[sRouteEncodeSlat] = reverseString(c);
+    let h = 7;
+    let f = randStr(h);
 
-    return b;
-}
-function tokens (a, b) {
-    b = b ? b : {};
-    b[sTokenFeild] = makeToken();
+    let g = md5(d + f + a[sTokenFeild]).toLowerCase() + f;
+    a[sArgVerify] = g.substring(h);
 
-    return b;
-}/*aaa*/
+    return a;
+}/*bbb*/
+// /*aaa*//**
+//  *
+//  * 后端验证方法2 验证token
+//  *
+//  * @param a 请求路由 type string
+//  * @param b 请求参数 type json
+//  */
+// function routeEncode (a, b) {
+//     let d = 5;
+//     let c = randStr(d);
+//
+//     let e = md5(c + a + b[sTokenFeild]).toLowerCase() + c;
+//     b[sRouteEncode] = e.substring(d);
+//
+//     a = c = d = e = null;
+//     return b;
+// }/*aaa*/
+/*bbb*//**
+ *
+ * 后端验证方法1 验证token
+ *
+ * @param a
+ * @returns {{}}
+ */
+function tokens (a) {
+    a = a ? a : {};
+    a[sTokenFeild] = makeToken();
+
+    return a;
+}/*bbb*/
 /*ife*//**
  *
  * ajax请求
@@ -96,9 +132,11 @@ function tokens (a, b) {
 let iNowApiQueryNum = 0;
 function apiQuery (a = '', b = '', c = 'post') {
     console.log('apiQuery request');
-    b = tokens(a, b);
+    b = tokens(b);
 
     b = routeEncode(a, b);
+
+    b = argEncode(b);
 
     iNowApiQueryNum += parseInt(1);
     let d = aApiHost[iNowApiQueryNum % aApiHostLength] + '/' + a;
@@ -126,7 +164,7 @@ function apiQuery (a = '', b = '', c = 'post') {
     });
 }/*ife*/
 /*uup*/let aRequestError = [];
-const iMaxRequestErrorNumber = 3;
+const iMaxRequestErrorNumber = 2;
 const iRequestErrorLimit = 5000;
 function afterApiQuery (sJson, a, b, c) {
     clearBaseShade();

@@ -248,41 +248,6 @@ function replaceTitle (t = '') {
     setBrowserTitle(aLang[t]);
 }/*49f8fbda0f7844f5*/
 
-/*cd7c556dd4ab8214*//**
- *
- * token
- *
- */
-// let sToken = '';
-const sTokenSplitTag = '-';
-function makeToken () {
-    let l = 8;
-    let i = sTokenSplitTag;
-
-    let a = randStr(17) + i + getMillisecondTime() + i + randNum(1, 99999999999);
-
-    let b = md5(a);
-    let c = b.strLengthSplit(l);
-
-    let k = getSecondTime(); //时间戳可检测是否复制保存的token
-
-    let d = md5(c[0] + i + k + i + c[2]); // 时间戳作为盐来加密验证字符串
-    let e = d.strLengthSplit(l)[2];
-
-    let f = md5(c[1] + i + k + i + c[3]); // 时间戳作为盐来加密验证字符串
-    let g = f.strLengthSplit(l)[1];
-
-    let h = e;
-    for (let j in c) {
-        h += i + c[j];
-    }
-    h += i + g + i + k;
-    // sToken = h;
-
-    // console.log('///////////////////////////////////////////////////////////token');
-    // console.log(h);
-    return h;
-}/*cd7c556dd4ab8214*/
 // const iTokenMinLiftTime = 1800;
 // const iTokenMaxLiftTime = 3600;
 // function checkToken () {

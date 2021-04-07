@@ -336,6 +336,10 @@ function writeAnnouncement (a = '') {
 
     let b = createDiv();
     b.className = sOneAnnouncementC;
+    b.onclick = function() {
+        console.log('pppppppppppppppppppppppp');
+        console.log(this);
+    };
 
     let c = createDiv();
     c.className = sOneAnnouncementHeadC;
