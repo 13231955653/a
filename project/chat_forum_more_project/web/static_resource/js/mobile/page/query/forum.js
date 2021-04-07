@@ -54,7 +54,8 @@ function forumRequest(a = false, g = '') {
     iForumLastRequestTime[c] = e;
 
     aInForumRequest[j] = true;
-    requires([sApiJ, sForumApiJ, sMd5J, sStrFunc, sFuncJ], function () {
+    requires([sApiJ, sForumApiJ, sStrFunc, sFuncJ], function () {
+        // requires([sApiJ, sForumApiJ, sMd5J, sStrFunc, sFuncJ], function () {
         asyn('forumApiRequest', j);
     });
 }/*dne*/

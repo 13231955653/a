@@ -51,7 +51,7 @@ const sStrFunc = 'str_func';
 const sArrFuncJ = 'array_func';
 const sFuncDomJ = 'dom_func';
 const sStyleFuncJ = 'style_func';
-const sMd5J = 'md5';
+// const sMd5J = 'md5';
 const sRsaJ = 'rsa';
 const sMouseJ = 'mouse';
 const sMouseAboutMeJ = 'mouse_about';
@@ -94,7 +94,7 @@ function staticResourceAddress () {
 
     a[sLogicJ] = p + '/logic.js';
 
-    a[sMd5J] = 'encode/md5.js';
+    // a[sMd5J] = 'encode/md5.js';
     a[sEncodeJ] = 'encode/encode.js';
     a[sRsaJ] = 'encode/rsa.js';
 

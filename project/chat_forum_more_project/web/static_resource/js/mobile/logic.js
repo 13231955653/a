@@ -218,7 +218,8 @@ function updateUrlArg (k = '', v = '', t = '', c = false) {
 }/*vgz*/
 /*euq*/function logicBegin () {
     console.log('666666666666666666logicBegin');
-    requires([sResetC, sPubC, sSizeC, sEncodeJ, sMd5J, sFuncJ], function () {
+    requires([sResetC, sPubC, sSizeC, sEncodeJ, sFuncJ], function () {
+        // requires([sResetC, sPubC, sSizeC, sEncodeJ, sMd5J, sFuncJ], function () {
         // requires([sEncodeJ, sMd5J, sFuncJ], function () {
         asyn('showPage');
     });

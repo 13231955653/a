@@ -4,7 +4,7 @@
 
 /*33f00aeae2406ffe*/const sIndividuationUuidTag = '*';
 const sUniqueStrSplitTag = '_';
-const sRandString = 'abcdefghijklmnopqrstuvwxyz';
+// const sRandString = 'abcdefghijklmnopqrstuvwxyz';
 const iIndividuationUniqueStrLength = 1000;
 const iIndividuationUniqueStrNumberMin = 0;
 const iIndividuationUniqueStrNumberMax = 999999999999999999;

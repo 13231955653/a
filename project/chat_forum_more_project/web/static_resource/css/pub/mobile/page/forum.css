@@ -27,6 +27,7 @@
     margin-left: 1rem;
 }
 .forum_head_c_act{
+    font-size: 1.3rem;
     background: var(--forum_head_c_act_bk);
 }
 #b_forum_body{

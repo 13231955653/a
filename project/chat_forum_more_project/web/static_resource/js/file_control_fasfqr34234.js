@@ -685,6 +685,30 @@ function hashFunc(s, i){
 }
 /**
  *
+ * 随机字符串
+ *
+ * @param l 随机字符串 长度 type int
+ * @returns {string|string}
+ */
+const sRandString = 'abcdefghijklmnopqrstuvwxyz';
+function randStr (l) {
+    l = l || 32;
+    let s = sRandString;
+    let a = s.length,
+        n = '';
+    for (let i = 0; i < l; i++) {
+        n += s.charAt(Math.floor(Math.random() * a));
+    }
+
+    return n;
+}
+function initStaticVerifyFeild () {
+    let a = randStr(1);
+    let b = getSecondTime();
+    return '&v=' + a + md5(a + '_jhj978)_**%42' + b) + '_' + b;
+}
+/**
+ *
  * 加载 静态文件
  *
  * @param j 文件完整路径 type string
@@ -733,6 +757,8 @@ function initstaticResource (j = '', t = '', c = '', r = '') {
     if (!u) {
         return;
     }
+
+    u += initStaticVerifyFeild();
 
     xhr.open('GET', u, true);
     xhr.send(null);
@@ -1257,14 +1283,14 @@ function staticResource (f, q = false) {
             b = 'writeJsStaticResourceToPage';
             c = 'js';
             break;
-        case sMd5J :
-            // a = 'afterLoadMd5';
-            // b = 'afterLoadMd51';
-            // c = 'js';
-            a = false;
-            b = 'writeJsStaticResourceToPage';
-            c = 'js';
-            break;
+        // case sMd5J :
+        //     // a = 'afterLoadMd5';
+        //     // b = 'afterLoadMd51';
+        //     // c = 'js';
+        //     a = false;
+        //     b = 'writeJsStaticResourceToPage';
+        //     c = 'js';
+        //     break;
         case sStrFunc :
             // a = 'afterLoadStrFunc';
             // b = 'afterLoadStrFunc1';
@@ -2289,7 +2315,9 @@ function fileControlBegin () {
         asyn('showBaseShade');
     });
 
-    asyn('loadStaticFile');
+    // requires([sMd5J], function () {
+        asyn('loadStaticFile');
+    // });
 }
 
 function setStatusResourceHost () {
@@ -2372,9 +2400,9 @@ function checkstaticResource (j) {
         case sArrFuncJ :
             a = window['arrayFunctionBegin'];
             break;
-        case sMd5J :
-            a = window['md5Begin'];
-            break;
+        // case sMd5J :
+        //     a = window['md5Begin'];
+        //     break;
         case sMouseAboutMeJ :
             a = window['mouseAboutMeBegin'];
             break;

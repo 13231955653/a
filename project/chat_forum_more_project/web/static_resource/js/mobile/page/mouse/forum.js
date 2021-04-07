@@ -30,6 +30,10 @@ function doForumTop () {
         return;
     }
 
+    if (aForumLastResponsePageNum[a] < aForumRequestPageNum[a]) {
+        return;
+    }
+
     let b = '';
     switch (a) {
         case sAnnouncement :
@@ -45,10 +49,6 @@ function doForumTop () {
     if (c > d) {
         return;
     }
-
-    // requires([sApiJ, sForumApiJ, sMd5J, sStrFunc, sFuncJ], function () {
-    //     asyn('forumApiRequest', aForumApi[a]);
-    // });
 
     asyn('forumRequest', inArray(a, aForumClassify));
 }/*mbo*/

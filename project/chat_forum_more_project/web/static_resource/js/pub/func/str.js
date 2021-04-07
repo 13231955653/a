@@ -22,25 +22,6 @@ function isJson (s = '') {
     }
 }/*c4624490d7417821*/
 
-/*99505154d59d5848*//**
- *
- * 随机字符串
- *
- * @param l 随机字符串 长度 type int
- * @returns {string|string}
- */
-function randStr (l) {
-    l = l || 32;
-    let s = sRandString;
-    let a = s.length,
-        n = '';
-    for (let i = 0; i < l; i++) {
-        n += s.charAt(Math.floor(Math.random() * a));
-    }
-
-    return n;
-}/*99505154d59d5848*/
-
 /*a3b0b94a5c5f285b*//**
  *
  * json 转成 字符串

@@ -266,10 +266,31 @@ function forumSonBodyDom (a) {
  * @param a
  */
 function afterRequestAnnouncement (a = '') {
-    a = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14,4,4,423,4,23,42,34,234,2,34,23,4,235,2,35,23,5,23,52,35,23,5,235,23,5,235,23,5,235,23,5,235,23,5,523523];
+    let b = [];
+    b['tit'] = 'tit_111';
+    b['info'] = 'info_1111';
+    b['add_time'] = 'time_11111';
+    let c = [];
+    c['tit'] = 'tit_222';
+    c['info'] = 'info_222';
+    c['add_time'] = 'time_222';
+    let d = [];
+    d['tit'] = 'tit_333';
+    d['info'] = 'info_333';
+    d['add_time'] = 'time_333';
+    let e = [];
+    e['tit'] = 'tit_444';
+    e['info'] = 'info_444';
+    e['add_time'] = 'time_444';
+    a = [];
+    a.push(b);
+    a.push(c);
+    a.push(d);
+    a.push(e);
     if (!a) {
         return;
     }
+    aForumLastResponsePageNum[sAnnouncement] = a.length;
 
     if (!announcementDom()) {
         asyn('writeForumInfo');
@@ -318,15 +339,15 @@ function writeAnnouncement (a = '') {
 
     let c = createDiv();
     c.className = sOneAnnouncementHeadC;
-    c.innerHTML = 'qqqqqqqqqqqqqqqqqqqqqqqqqqqqq';
+    c.innerHTML = a['tit'];
 
     let d = createDiv();
     d.className = sOneAnnouncementBodyC;
-    d.innerHTML = a;
+    d.innerHTML = a['info'];
 
     let e = createDiv();
     e.className = sOneAnnouncementFootC;
-    e.innerHTML = '111111111111111111';
+    e.innerHTML = a['add_time'];
 
     b.appendChild(c);
     b.appendChild(d);
