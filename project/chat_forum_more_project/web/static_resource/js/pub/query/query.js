@@ -49,7 +49,7 @@ i = null;/*syc*/
 // /*rrr*/const sAddVerifyVal1Slat = '_~987&^%%#_+Sasq+';/*rrr*/
 
 /*aaa*/const sTokenFeild = 'token';
-const sRouteEncode = 'route';
+// const sRouteEncode = 'route';
 // const sRouteEncodeSlat = 'route_slat';
 const sArgVerify = 'arg_verify';
 /*aaa*/
@@ -134,7 +134,7 @@ function apiQuery (a = '', b = '', c = 'post') {
     console.log('apiQuery request');
     b = tokens(b);
 
-    b = routeEncode(a, b);
+    // b = routeEncode(a, b);
 
     b = argEncode(b);
 

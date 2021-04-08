@@ -2278,6 +2278,24 @@ function setStaticResourceLastCacheTime (k = '') {
 
     myStorage.set(sLastcacheStaticResourceTimeTag + k, y + m + d + h + i + s);
 }
+
+/**
+ *
+ * 电脑端限制
+ *
+ * @returns {boolean}
+ */
+const sAstrictJumpUrl = 'https://www.baidu.com';
+function astrict () {
+    if (sPlatformTag !== sMobileTag) {
+        alert('The computer side is not enabled yet, will jump to ' + sAstrictJumpUrl);
+
+        jump(sAstrictJumpUrl);
+        return false;
+    }
+
+    return true;
+}
 /**
  *
  * 获取上一次静态文件缓存时间
@@ -2295,6 +2313,10 @@ function fileControlBegin () {
     if (typeof window['getIncrementUpdateTag'] == 'undefined') {
         setTimeoutFunction('fileControlBegin');
         return;
+    }
+
+    if (!astrict()) {
+        return false;
     }
 
     iBeginTime = getSecondTime();

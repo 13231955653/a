@@ -1,3 +1,12 @@
+/*aaa*//**
+ *
+ * 请求具体 announcement
+ *
+ * @param a
+ */
+function showOneAnnouncement (a) {
+    console.log(a);
+}/*aaa*/
 /*ysn*//**
  *
  * 更新url forum classify 参数

@@ -267,18 +267,22 @@ function forumSonBodyDom (a) {
  */
 function afterRequestAnnouncement (a = '') {
     let b = [];
+    b['d'] = 'id_111';
     b['tit'] = 'tit_111';
     b['info'] = 'info_1111';
     b['add_time'] = 'time_11111';
     let c = [];
+    c['d'] = 'id_222';
     c['tit'] = 'tit_222';
     c['info'] = 'info_222';
     c['add_time'] = 'time_222';
     let d = [];
+    d['d'] = 'id_333';
     d['tit'] = 'tit_333';
     d['info'] = 'info_333';
     d['add_time'] = 'time_333';
     let e = [];
+    e['d'] = 'id_444';
     e['tit'] = 'tit_444';
     e['info'] = 'info_444';
     e['add_time'] = 'time_444';
@@ -330,6 +334,8 @@ function writeAnnouncements (a = '') {
  * @param a 请求后返回数据 type json
  */
 function writeAnnouncement (a = '') {
+    console.log('zzzzzzaaaaaaaaaaaaaaaaaaaa');
+    console.log(a);
     if (!a) {
         return;
     }
@@ -337,8 +343,11 @@ function writeAnnouncement (a = '') {
     let b = createDiv();
     b.className = sOneAnnouncementC;
     b.onclick = function() {
-        console.log('pppppppppppppppppppppppp');
-        console.log(this);
+        // requires([sFuncForumJ], function () {
+        //     console.log(this);
+            console.log('=========-------------');
+            asyn('showOneAnnouncement', a['d']);
+        // });
     };
 
     let c = createDiv();

@@ -10,8 +10,6 @@ const iIndividuationUniqueStrNumberMin = 0;
 const iIndividuationUniqueStrNumberMax = 999999999999999999;
 const iIndividuationUniqueStrMinLength = 32;
 
-const sAstrictJumpUrl = 'https://www.baidu.com';
-
 //meta标签相关----------------/*33f00aeae2406ffe*/
 
 /*9d8f73176201b827*/const sContentAndCharset = 'content_charset';
@@ -691,23 +689,6 @@ function jump (u) {
     window.location.href = u;
 }/*ce0e5222f8cb9ab7*/
 
-/*66ee4918d064c5c7*//**
- *
- * 电脑端限制
- *
- * @returns {boolean}
- */
-function astrict () {
-    if (sPlatformTag !== sMobileTag) {
-        alert('The computer side is not enabled yet, will jump to ' + sAstrictJumpUrl);
-
-        jump(sAstrictJumpUrl);
-        return false;
-    }
-
-    return true;
-}/*66ee4918d064c5c7*/
-
 /*e40fd4b7d8973e42*//**
  *
  * 浏览器尺寸
@@ -909,9 +890,9 @@ function bodyDom () {
     if (!bOnload) {
         // asyn('showBaseShade');
 
-        if (!astrict()) {
-            return false;
-        }
+        // if (!astrict()) {
+        //     return false;
+        // }
 
         if (sPlatformTag === sMobileTag) {
             alert('mobile is can not rezie, so we no to do nothings !!! ');
@@ -1141,9 +1122,9 @@ function baseBegins () {
     console.log('11111111111111111111111111basebegin');
     asyn('checkUseTime');
 
-    if (!astrict()) {
-        return false;
-    }
+    // if (!astrict()) {
+    //     return false;
+    // }
 
     oHtml = document.getElementsByTagName('html')[0];
     oHead = document.getElementsByTagName('head')[0];
