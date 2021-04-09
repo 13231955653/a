@@ -16,12 +16,6 @@ function updUrlPage (p = '') {
         return;
     }
 
-    // setBrowserTitle(aLang[p + sLangTitlePostfix]);
-    //
-    // requires([sArrFuncJ], function () {
-    //     updateUrlArg (sUrlAddressPageKey, p, '', 'loadPageJs');
-    // });
-
     console.log('33333333333333333');
     console.log(sLastPage);
     console.log(p);
@@ -54,8 +48,9 @@ function updUrlPage (p = '') {
  * 多次点击同一个脚步事件，强制请求
  *
  */
-const aCompelRequestT = [];
+let aCompelRequestT = [];
 const iCompelRequestLimit = 5;
+let aAfterRequestClearSon = [];
 function againOnlickFooter () {
     let a = sLastPage;
     a = a ? a : getNowPage();
@@ -81,10 +76,7 @@ function againOnlickFooter () {
 
     switch (a) {
         case sForumPage :
-            let c = forumSonBodyDom(getForumNowShow());
-            if (c.innerHTML) {
-                c.innerHTML = '';
-            }
+            aAfterRequestClearSon[getForumNowShow()] = true;
 
             forumChangeLevelMove('', '', 1);
             break;

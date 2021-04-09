@@ -1,5 +1,24 @@
 /*dne*/const iForumRequestLimit = 3;/*dne*/
 
+/*bbb*//**
+ *
+ * 检查当前滑动到的分类是否已经请求过，已经请求过不再请求
+ *
+ * @param a
+ * @returns {boolean}
+ */
+function checkDomExistSon (a) {
+    switch (aForumList[a].replace(sForumPage + sForumSplitTag, '')) {
+        case sAnnouncement :
+            return oneDomByClass(sOneAnnouncementC, announcementDom()) ? false : true;
+            break;
+        default :
+            throw new Error(aForumList[a].replace(sForumPage + sForumSplitTag, ''));
+            break;
+    }
+
+    return false;
+}/*bbb*/
 /*dne*//**
  *
  * forum 请求
@@ -35,14 +54,7 @@ function forumRequest(a = false, g = '') {
     } else {
         console.log(d);
         console.log('滑动请求，需检查当前dom是否已经请求过');
-        switch (aForumList[a].replace(sForumPage + sForumSplitTag, '')) {
-            case sAnnouncement :
-                h = oneDomByClass(sOneAnnouncementC, announcementDom()) ? false : true;
-                break;
-            default :
-                throw new Error(aForumList[a].replace(sForumPage + sForumSplitTag, ''));
-                break;
-        }
+        h = checkDomExistSon(a);
     }
     if (!h) {
         return;

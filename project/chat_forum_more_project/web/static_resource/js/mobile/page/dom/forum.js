@@ -332,9 +332,14 @@ function writeAnnouncements (a = '') {
         b.appendChild(writeAnnouncement(a[c]));
     }
 
-    $(announcementDom()).append(b);
+    let d = announcementDom();
+    if (aAfterRequestClearSon[sAnnouncement]) {
+        d.innerHTML = '';
+    }
 
-    a = b = null;
+    $(d).append(b);
+
+    a = b = d = null;
 }/*cgm*/
 /*eee*//**
  *
