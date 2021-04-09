@@ -1,12 +1,6 @@
 //编码相关-----------------
 const sCharset = 'utf-8'; // 编码格式
 //编码相关===============
-//静态文件相关-----------------
-// const sJsDynamicPrefix = 'js_dynamic';
-// const sJsDynamicHostNumber = 7;
-// const sCssDynamicPrefix = 'css_dynamic';
-// const sCssDynamicHostNumber = 7;
-//静态文件相关==========================
 //url地址相关---------------------
 const sBaseProtocol = window.location.protocol + '/' + '/';
 //url地址相关=================================
@@ -182,9 +176,6 @@ function setLocalstorage (k = '', m = '', t = false, f = '', o = '') {
         return false;
     }
 
-    // let p = localstoragePage (k);s
-    // p = p ? p : sLocalstorageBeginPage;
-
     let s = disposeLocalstorageValue (m, t);
     let l = parseInt(JSON.stringify(s).length) + parseInt(k.length) + parseInt(100);
 
@@ -290,7 +281,6 @@ function setTimeoutFunction (f = '', a = '', b = '') {
     let d = 15;
     if (typeof window['aTimer'] != 'undefined') {
         if (typeof aTimer[f] == 'undefined') {
-            console.log('zzzzzzzzzzzzaaaaaaaaaaasssccdfeweeee');
             console.log(f);
         } else {
             d = aTimer[f];
@@ -474,20 +464,7 @@ window.addEventListener('message', function(event){
     console.log('^^^^^^^^^^^^^^^^^^^^^');
 
     if (event.data.after) {
-        // if (typeof event.data.after == 'undefined') {
-        //     console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
-        //     console.log(event.data.after);
-        //     console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
-        // }
-
-        // console.log(typeof event.data.after);
-        // if (typeof event.data.after == 'function') {
-            window[event.data.after](event.data.message);
-            // return;
-        // }
-
-        // console.log(event.data.after);
-        // setTimeoutFunction(event.data.after, event.data.message);
+        window[event.data.after](event.data.message);
     }
 }, false);
 /**
@@ -534,30 +511,18 @@ function sonIsReady (p = '') {
  * @returns {boolean}
  */
 function queryLocalstorage (k = '', f = '', b = false) {
-    console.log('11111111111111111111111');
-    // console.log(k);
-    // console.log(f);
     if (!k || !f) {
-        console.log('22222222222222');
         return false;
     }
 
-    console.log('3333333333333333');
     let p = localstoragePage(k);
-    // if (!p) {
-    //     window[f](k);
-    //     return;
-    // }
 
-    console.log('44444444444444');
     p = storagePage(p);
     if (!p) {
-        console.log('55555555555555');
         window[f](false);
         return false;
     }
 
-    console.log('66666666666666666666666');
     let t = setTimeout(function () {
         clearTimeout(t);
 
@@ -583,93 +548,12 @@ function getstaticResourceFromLocalstorage (j = '', f = '', b = false) {
         return '';
     }
 
-    // console.log('zzzzzzzzzzzzz-----------aaaaaaaaa==========2222222222');
-    // console.log(j);
-    // console.log(f);
-    // console.log(b);
     let t = setTimeout(function () {
         clearTimeout(t);
 
         queryLocalstorage(sStaticResourceLocalstoragePrefix + j, f, b);
-        // queryLocalstorage(j, f, b);
     }, 1);
 }
-/**
- *
- * 设置js host数组
- *
- * @returns {boolean}
- */
-// let aJsHost = [];
-// let iJsHostNumber = 0;
-// function setJsHosts () {
-//     let i = 0;
-//     let o = window.location.host;
-//     for (i; i < sJsDynamicHostNumber; i++) {
-//         aJsHost.push(sBaseProtocol + i + '.' + sJsDynamicPrefix + '.' + o);
-//     }
-//     iJsHostNumber = aJsHost.length;
-//
-//     return true;
-// }
-/**
- *
- * 设置css host数组
- *
- * @returns {boolean}
- */
-// let aCssHost = [];
-// let iCssHostNumber = 0;
-// function setCssHosts () {
-//     let i = 0;
-//     let o = window.location.host;
-//     for (i; i < sCssDynamicHostNumber; i++) {
-//         aCssHost.push(sBaseProtocol + i + '.' + sCssDynamicPrefix + '.' + o);
-//     }
-//     iCssHostNumber = aCssHost.length;
-//
-//     return true;
-// }
-// /**
-//  *
-//  * hash 计算当前应该请求哪个js地址
-//  *
-//  * @param u
-//  * @returns {boolean|*}
-//  */
-// const aJsHost = [
-//     'http://static_resource_1.com',
-//     'http://static_resource_2.com',
-//     'http://static_resource_3.com',
-// ];
-// const iJsHostNumber = 3;
-// function allocationJsHost (u = '') {
-//     if (!u) {
-//         return false;
-//     }
-//
-//     return aJsHost[hashFunc(u, iJsHostNumber)];
-// }
-// /**
-//  *
-//  * hash 计算当前应该请求哪个css地址
-//  *
-//  * @param u
-//  * @returns {boolean|*}
-//  */
-// const aCssHost = [
-//     'http://css_dynamic_1.com',
-//     'http://css_dynamic_2.com',
-//     'http://css_dynamic_3.com',
-// ];
-// const iCssHostNumber = 3;
-// function allocationCssHost (u = '') {
-//     if (!u) {
-//         return false;
-//     }
-//
-//     return aCssHost[hashFunc(u, iCssHostNumber)];
-// }
 const aStaticResourceHost = [
     'http://1.static_resource_1.com',
     'http://2.static_resource_1.com',
@@ -691,7 +575,6 @@ function allocationStaticResourceHost (u = '') {
     iStaticResourceRquestNum += parseInt(1);
 
     return aStaticResourceHost[iStaticResourceRquestNum % iStaticResourceHostNumber];
-    // return aStaticResourceHost[hashFunc(u, iStaticResourceHostNumber)];
 }
 /**
  *
@@ -741,11 +624,6 @@ function initstaticResource (j = '', t = '', c = '', r = '') {
         return;
     }
 
-    console.log('dasdasdasdasd-----------------------');
-    console.log(j);
-    console.log(t);
-    console.log(c);
-    console.log(r);
     if (!j || !t) {
         return false;
     }
@@ -778,8 +656,6 @@ function initstaticResource (j = '', t = '', c = '', r = '') {
         if (xhr.readyState == 4) {
             if (xhr.status == 200) {
                 setInstaticResource(r, false);
-
-                // b = true;
 
                 let v = xhr.responseText;
                 v = v == null ? '' : v;
@@ -845,9 +721,6 @@ function disposeResponse (v = '', t = '', f = '') {
         aNeedIncrementstaticResourceCacheFileType[f] = t;
 
         let b = 'incrememtstaticResourceCache';
-        console.log('zzzzzzzzzzzzppppppppppqqqqqqqqqqqqqqquuuuu');
-        console.log(aNeedIncrementstaticResourceCache);
-        // console.log(b);
         getstaticResourceFromLocalstorage(f, b, true);
         return;
     }
@@ -893,8 +766,6 @@ function incrementAndUpdatestaticResourceCache (v = '') {
     s = updatestaticResourceCache(v, false, true);
 
     s = s + aNeedIncrementstaticResourceCache[k];
-    console.log(aNeedIncrementstaticResourceCache[k]);
-    console.log('zzzzzzzzzzzzzzzuuuuuuuuuuuuaaaaaaaaaaaaaaa');
 
     asyn('writeStaticResourceToPage', s, aNeedIncrementstaticResourceCacheFileType[k]);
 
@@ -958,10 +829,6 @@ function incrememtstaticResourceCache (v = '') {
     }
     k = k.replace(sStaticResourceLocalstoragePrefix, '');
 
-    // console.log(v);
-    // console.log('sssssssssssllllllllzzzzzzzzzzzziiiiiiiiiii');
-    // console.log(aNeedIncrementstaticResourceCache);
-    // console.log(aNeedIncrementstaticResourceCache[k]);
     let s = v.message + aNeedIncrementstaticResourceCache[k];
 
     asyn('writeStaticResourceToPage', s, aNeedIncrementstaticResourceCacheFileType[k]);
@@ -1139,11 +1006,6 @@ function checkRequestJsCssLimit (f = '') {
  * @returns {boolean}
  */
 function staticResource (f, q = false) {
-    // if (f === sJqueryJ) {
-    //     console.log(aInstaticResource);
-    //     console.log(aAllreadystaticResource);
-    //     console.log('zzzzzzzzzzzzzzzz');
-    // }
     if (aInstaticResource[f] || aAllreadystaticResource[f]) {
         return false;
     }
@@ -1160,331 +1022,206 @@ function staticResource (f, q = false) {
     let c = '';
     switch (f) {
         case sMouseFriendJ :
-            // a = 'afterLoadMouseFriend';
-            // b = 'afterLoadMouseFriend1';
-            // c = 'js';
             a = false;
             b = 'writeCssStaticResourceToPage';
             c = 'js';
             break;
         case sAboutC :
-            // a = 'afterLoadAboutC';
-            // b = 'afterLoadAboutC1';
-            // c = 'css';
             a = false;
             b = 'writeCssStaticResourceToPage';
             c = 'css';
             break;
         case sChatC :
-            // a = 'afterLoadChatC';
-            // b = 'afterLoadChatC1';
-            // c = 'css';
             a = false;
             b = 'writeCssStaticResourceToPage';
             c = 'css';
             break;
         case sForumC :
-            // a = 'afterLoadForumC';
-            // b = 'afterLoadForumC1';
-            // c = 'css';
             a = false;
             b = 'writeCssStaticResourceToPage';
             c = 'css';
             break;
         case sForumSlideC :
-            // a = 'afterLoadForumSlideC';
-            // b = 'afterLoadForumSlideC1';
-            // c = 'css';
             a = false;
             b = 'writeCssStaticResourceToPage';
             c = 'css';
             break;
         case sFriendC :
-            // a = 'afterLoadFriendC';
-            // b = 'afterLoadFriendC1';
-            // c = 'css';
             a = false;
             b = 'writeCssStaticResourceToPage';
             c = 'css';
             break;
         case sSetC :
-            // a = 'afterLoadSetC';
-            // b = 'afterLoadSetC1';
-            // c = 'css';
             a = false;
             b = 'writeCssStaticResourceToPage';
             c = 'css';
             break;
         case sMouseSetJ :
-            // a = 'afterLoadMouseSet';
-            // b = 'afterLoadMouseSet1';
-            // c = 'js';
             a = false;
             b = 'writeJsStaticResourceToPage';
             c = 'js';
             break;
         case sMouseForumJ :
-            // a = 'afterLoadMouseForum';
-            // b = 'afterLoadMouseForum1';
-            // c = 'js';
             a = false;
             b = 'writeJsStaticResourceToPage';
             c = 'js';
             break;
         case sMouseChatJ :
-            // a = 'afterLoadMouseChat';
-            // b = 'afterLoadMouseChat1';
-            // c = 'js';
             a = false;
             b = 'writeJsStaticResourceToPage';
             c = 'js';
             break;
         case sMouseAboutMeJ :
-            // a = 'afterLoadMouseAboutMe';
-            // b = 'afterLoadMouseAboutMe1';
-            // c = 'js';
             a = false;
             b = 'writeJsStaticResourceToPage';
             c = 'js';
             break;
         case sFuncForumJ :
-            // a = 'afterLoadFuncForum';
-            // b = 'afterLoadFuncForum1';
-            // c = 'js';
             a = false;
             b = 'writeJsStaticResourceToPage';
             c = 'js';
             break;
         case sMouseJ :
-            // a = 'afterLoadMouse';
-            // b = 'afterLoadMouse1';
-            // c = 'js';
             a = false;
             b = 'writeJsStaticResourceToPage';
             c = 'js';
             break;
         case sRsaJ :
-            // a = 'afterLoadRsa';
-            // b = 'afterLoadRsa1';
-            // c = 'js';
             a = false;
             b = 'writeJsStaticResourceToPage';
             c = 'js';
             break;
         case sArrFuncJ :
-            // a = 'afterLoadArrayFunc';
-            // b = 'afterLoadArrayFunc1';
-            // c = 'js';
             a = false;
             b = 'writeJsStaticResourceToPage';
             c = 'js';
             break;
         case sFuncDomJ :
-            // a = 'afterLoadDomFunc';
-            // b = 'afterLoadDomFunc1';
-            // c = 'js';
             a = false;
             b = 'writeJsStaticResourceToPage';
             c = 'js';
             break;
         case sStyleFuncJ :
-            // a = 'afterLoadStyleFunc';
-            // b = 'afterLoadStyleFunc1';
-            // c = 'js';
             a = false;
             b = 'writeJsStaticResourceToPage';
             c = 'js';
             break;
-        // case sMd5J :
-        //     // a = 'afterLoadMd5';
-        //     // b = 'afterLoadMd51';
-        //     // c = 'js';
-        //     a = false;
-        //     b = 'writeJsStaticResourceToPage';
-        //     c = 'js';
-        //     break;
         case sStrFunc :
-            // a = 'afterLoadStrFunc';
-            // b = 'afterLoadStrFunc1';
-            // c = 'js';
+            a = false;
+            b = 'writeJsStaticResourceToPage';
+            c = 'js';
+            break;
+        case sNumFunc :
             a = false;
             b = 'writeJsStaticResourceToPage';
             c = 'js';
             break;
         case sMobileDomFuncJ :
-            // a = 'afterLoadMobileDomFunc';
-            // b = 'afterLoadMobileDomFunc1';
-            // c = 'js';
             a = false;
             b = 'writeJsStaticResourceToPage';
             c = 'js';
             break;
         case sUserC1 :
-            // a = 'afterLoadUserColor';
-            // b = 'afterLoadUserColor1';
-            // c = 'css';
             a = false;
             b = 'writeCssStaticResourceToPage';
             c = 'css';
             break;
         case sPubC :
-            // a = 'afterLoadPublicCss';
-            // b = 'afterLoadPublicCss1';
-            // c = 'css';
             a = false;
             b = 'writeCssStaticResourceToPage';
             c = 'css';
             break;
         case sResetC :
-            // a = 'afterLoadResetCss';
-            // b = 'afterLoadResetCss1';
-            // c = 'css';
             a = false;
             b = 'writeCssStaticResourceToPage';
             c = 'css';
             break;
         case sSizeC :
-            // a = 'afterLoadSizeC';
-            // b = 'afterLoadSizeC1';
-            // c = 'css';
             a = false;
             b = 'writeCssStaticResourceToPage';
             c = 'css';
             break;
         case sJqueryJ :
-            // console.log('***************************');
-            // a = 'afterLoadLocalJquery';
-            // b = 'afterLoadLocalJquery1';
-            // c = 'js';
             a = false;
             b = 'writeJsStaticResourceToPage';
             c = 'js';
             break;
         case sBaseJ :
-        //     a = 'afterLoadBaseJs';
-        //     b = 'afterLoadBaseJs1';
-        //     c = 'js';
                 a = false;
                 b = 'writeJsStaticResourceToPage';
                 c = 'js';
             break;
         case sFuncJ :
-            // a = 'afterLoadFunctionJs';
-            // b = 'afterLoadFunctionJs1';
-            // c = 'js';
             a = false;
             b = 'writeJsStaticResourceToPage';
             c = 'js';
             break;
-            break;
         case sPubDomJ :
-            // a = 'afterLoadDomJs';
-            // b = 'afterLoadDomJs1';
-            // c = 'js';
             a = false;
             b = 'writeJsStaticResourceToPage';
             c = 'js';
             break;
         case sPlatDomJ :
-            // a = 'afterLoadPlatformDomJs';
-            // b = 'afterLoadPlatformDomJs1';
-            // c = 'js';
             a = false;
             b = 'writeJsStaticResourceToPage';
             c = 'js';
             break;
         case sPlatDomLogic :
-        //     a = 'afterLoadPlatDomLogic';
-        //     b = 'afterLoadPlatDomLogic1';
-        //     c = 'js';
             a = false;
             b = 'writeJsStaticResourceToPage';
             c = 'js';
             break;
         case sLogicJ :
-            // a = 'afterLoadLogicJs';
-            // b = 'afterLoadLogicJs1';
-            // c = 'js';
             a = false;
             b = 'writeJsStaticResourceToPage';
             c = 'js';
             break;
         case sCnLangJ :
-            // a = 'afterLoadLang';
-            // b = 'afterLoadLang1';
-            // c = 'js';
             a = false;
             b = 'writeJsStaticResourceToPage';
             c = 'js';
             break;
         case sApiJ :
-            // a = 'afterLoadApi';
-            // b = 'afterLoadApi1';
-            // c = 'js';
             a = false;
             b = 'writeJsStaticResourceToPage';
             c = 'js';
             break;
         case sForumQueryJ :
-            // a = 'afterLoadForumQuery';
-            // b = 'afterLoadForumQuery1';
-            // c = 'js';
             a = false;
             b = 'writeJsStaticResourceToPage';
             c = 'js';
             break;
         case sForumApiJ :
-            // a = 'afterLoadForumApi';
-            // b = 'afterLoadForumApi1';
-            // c = 'js';
             a = false;
             b = 'writeJsStaticResourceToPage';
             c = 'js';
             break;
         case sEncodeJ :
-            // a = 'afterLoadEncode';
-            // b = 'afterLoadEncode1';
-            // c = 'js';
             a = false;
             b = 'writeJsStaticResourceToPage';
             c = 'js';
             break;
         case sForum:
-            // a = 'afterLoadPage';
-            // b = 'afterLoadPage1';
-            // c = 'js';
             a = false;
             b = 'writeJsStaticResourceToPage';
             c = 'js';
             break;
         case sChatJ:
-            // a = 'afterLoadPage';
-            // b = 'afterLoadPage1';
-            // c = 'js';
             a = false;
             b = 'writeJsStaticResourceToPage';
             c = 'js';
             break;
         case sFriendJ:
-            // a = 'afterLoadPage';
-            // b = 'afterLoadPage1';
-            // c = 'js';
             a = false;
             b = 'writeJsStaticResourceToPage';
             c = 'js';
             break;
         case sSetJ:
-            // a = 'afterLoadPage';
-            // b = 'afterLoadPage1';
-            // c = 'js';
             a = false;
             b = 'writeJsStaticResourceToPage';
             c = 'js';
             break;
         case sAboutJ:
-            // a = 'afterLoadPage';
-            // b = 'afterLoadPage1';
-            // c = 'js';
             a = false;
             b = 'writeJsStaticResourceToPage';
             c = 'js';
@@ -1492,7 +1229,6 @@ function staticResource (f, q = false) {
     }
     let n = getIncrementUpdateTag(f);
     if (n || q) {
-        console.log('=====================');
         let t = setTimeout(function () {
             clearTimeout(t);
 
@@ -1500,7 +1236,6 @@ function staticResource (f, q = false) {
             initstaticResource(g, c, a, f);
         }, 0);
     } else {
-        console.log('dasdasdaaaaaaaaaaaaaaa');
         let t = setTimeout(function () {
             clearTimeout(t);
 
@@ -1508,614 +1243,6 @@ function staticResource (f, q = false) {
         }, 0);
     }
 }
-// function afterstaticResource (v = '', t = '') {
-//     iAllreadystaticResource += parseInt(1);
-//
-//     asyn('writeStaticResourceToPage', v, t);
-// }
-// function afterLoadUserColor () {
-//     setInstaticResource(sPersonalizedCss, false);
-// }
-// function afterLoadUserColor1 (v = '') {
-//     if (v) {
-//         asyn('afterstaticResource', v, 'css');
-//
-//         asyn('afterLoadUserColor');
-//
-//         return;
-//     }
-//
-//     aInstaticResource[sPersonalizedCss] = false;
-//     asyn('staticResource', sPersonalizedCss, true);
-// }
-// function afterLoadSetC () {
-//     setInstaticResource(sSetC, false);
-// }
-// function afterLoadSetC1 (v = '') {
-//     if (v) {
-//         asyn('afterstaticResource', v, 'css');
-//
-//         asyn('afterLoadSetC');
-//
-//         return;
-//     }
-//
-//     aInstaticResource[sSetC] = false;
-//     asyn('staticResource', sSetC, true);
-// }
-// function afterLoadAboutC () {
-//     setInstaticResource(sAboutC, false);
-// }
-// function afterLoadAboutC1 (v = '') {
-//     if (v) {
-//         asyn('afterstaticResource', v, 'css');
-//
-//         asyn('afterLoadAboutC');
-//
-//         return;
-//     }
-//
-//     aInstaticResource[sAboutC] = false;
-//     asyn('staticResource', sAboutC, true);
-// }
-// function afterLoadFriendC () {
-//     setInstaticResource(sFriendC, false);
-// }
-// function afterLoadFriendC1 (v = '') {
-//     if (v) {
-//         asyn('afterstaticResource', v, 'css');
-//
-//         asyn('afterLoadFriendC');
-//
-//         return;
-//     }
-//
-//     aInstaticResource[sFriendC] = false;
-//     asyn('staticResource', sFriendC, true);
-// }
-// function afterLoadChatC () {
-//     setInstaticResource(sChatC, false);
-// }
-// function afterLoadChatC1 (v = '') {
-//     if (v) {
-//         asyn('afterstaticResource', v, 'css');
-//
-//         asyn('afterLoadChatC');
-//
-//         return;
-//     }
-//
-//     aInstaticResource[sChatC] = false;
-//     asyn('staticResource', sChatC, true);
-// }
-// function afterLoadForumC () {
-//     aAllreadyLoadCss[sForumC] = true;
-//     setInstaticResource(sForumC, false);
-// }
-// function afterLoadForumC1 (v = '') {
-//     if (v) {
-//         asyn('afterstaticResource', v, 'css');
-//
-//         asyn('afterLoadForumC');
-//
-//         return;
-//     }
-//
-//     aInstaticResource[sForumC] = false;
-//     asyn('staticResource', sForumC, true);
-// }
-// function afterLoadForumSlideC () {
-//     aAllreadyLoadCss[sForumSlideC] = true;
-//     setInstaticResource(sForumSlideC, false);
-// }
-// function afterLoadForumSlideC1 (v = '') {
-//     if (v) {
-//         asyn('afterstaticResource', v, 'css');
-//
-//         asyn('afterLoadForumSlideC');
-//
-//         return;
-//     }
-//
-//     aInstaticResource[sForumSlideC] = false;
-//     asyn('staticResource', sForumSlideC, true);
-// }
-// function afterLoadPublicCss () {
-//     aAllreadyLoadCss[sPubC] = true;
-//     setInstaticResource(sPubC, false);
-// }
-// function afterLoadPublicCss1 (v = '') {
-//     if (v) {
-//         asyn('afterstaticResource', v, 'css');
-//
-//         asyn('afterLoadPublicCss');
-//
-//         return;
-//     }
-//
-//     aInstaticResource[sPubC] = false;
-//     asyn('staticResource', sPubC, true);
-// }
-// function afterLoadSizeC () {
-//     aAllreadyLoadCss[sSzieC] = true;
-//     setInstaticResource(sSzieC, false);
-// }
-// function afterLoadSizeC1 (v = '') {
-//     if (v) {
-//         asyn('afterstaticResource', v, 'css');
-//
-//         asyn('afterLoadSizeC');
-//
-//         return;
-//     }
-//
-//     aInstaticResource[sSzieC] = false;
-//     asyn('staticResource', sSzieC, true);
-// }
-// function afterLoadResetCss () {
-//     aAllreadyLoadCss[sResetC] = true;
-//     setInstaticResource(sResetC, false);
-// }
-// function afterLoadResetCss1 (v = '') {
-//     if (v) {
-//         asyn('afterstaticResource', v, 'css');
-//
-//         asyn('afterLoadResetCss');
-//
-//         return;
-//     }
-//
-//     aInstaticResource[sResetC] = false;
-//     asyn('staticResource', sResetC, true);
-// }
-// function afterLoadPage () {
-//     asyn('afterLoadPageJs');
-//
-//     setInstaticResource(sNowPageJs, false);
-// }
-// function afterLoadPage1 (v = '') {
-//     if (v) {
-//         asyn('afterstaticResource', v, 'js');
-//
-//         asyn('afterLoadPageJs');
-//
-//         return;
-//     }
-//
-//     aInstaticResource[sNowPageJs] = false;
-//     asyn('staticResource', sNowPageJs, true);
-// }
-// function afterLoadLocalJquery () {
-//     setInstaticResource(sJqueryJ, false);
-// }
-// function afterLoadLocalJquery1 (v = '') {
-//     if (v) {
-//         asyn('afterstaticResource', v, 'js');
-//
-//         asyn('afterLoadLocalJquery');
-//
-//         return;
-//     }
-//
-//     aInstaticResource[sJqueryJ] = false;
-//     asyn('staticResource', sJqueryJ, true);
-// }
-// function afterLoadEncode () {
-//     setInstaticResource(sEncodeJ, false);
-//     asyn('encodeBegin');
-// }
-// function afterLoadEncode1 (v = '') {
-//     if (v) {
-//         asyn('afterstaticResource', v, 'js');
-//
-//         asyn('afterLoadEncode');
-//
-//         return;
-//     }
-//
-//     aInstaticResource[sEncodeJ] = false;
-//     asyn('staticResource', sEncodeJ, true);
-// }
-// function afterLoadForumApi () {
-//     setInstaticResource(sForumApiJ, false);
-//     asyn('forumApiBegin');
-// }
-// function afterLoadForumApi1 (v = '') {
-//     if (v) {
-//         asyn('afterstaticResource', v, 'js');
-//
-//         asyn('afterLoadForumApi');
-//
-//         return;
-//     }
-//
-//     aInstaticResource[sForumApiJ] = false;
-//     asyn('staticResource', sForumApiJ, true);
-// }
-// function afterLoadForumQuery () {
-//     setInstaticResource(sForumQueryJ, false);
-//     asyn('forumQueryBegin');
-// }
-// function afterLoadForumQuery1 (v = '') {
-//     if (v) {
-//         asyn('afterstaticResource', v, 'js');
-//
-//         asyn('afterLoadForumQuery');
-//
-//         return;
-//     }
-//
-//     aInstaticResource[sForumQueryJ] = false;
-//     asyn('staticResource', sForumQueryJ, true);
-// }
-// function afterLoadApi () {
-//     setInstaticResource(sApiJ, false);
-//     asyn('apiBegin');
-// }
-// function afterLoadApi1 (v = '') {
-//     if (v) {
-//         asyn('afterstaticResource', v, 'js');
-//
-//         asyn('afterLoadApi');
-//
-//         return;
-//     }
-//
-//     aInstaticResource[sApiJ] = false;
-//     asyn('staticResource', sApiJ, true);
-// }
-// function afterLoadLang () {
-//     setInstaticResource(sNowLang, false);
-//     asyn(sNowLang + 'Begin');
-// }
-// function afterLoadLang1 (v = '') {
-//     if (v) {
-//         asyn('afterstaticResource', v, 'js');
-//
-//         asyn('afterLoadLang');
-//
-//         return;
-//     }
-//
-//     aInstaticResource[sNowLang] = false;
-//     asyn('staticResource', sNowLang, true);
-// }
-// function afterLoadBaseJs () {
-//     setInstaticResource(sBaseJ, false);
-//     asyn('baseBegins');
-// }
-// function afterLoadBaseJs1 (v = '') {
-//     if (v) {
-//         asyn('afterstaticResource', v, 'js');
-//
-//         asyn('afterLoadBaseJs');
-//
-//         return;
-//     }
-//
-//     aInstaticResource[sBaseJ] = false;
-//     asyn('staticResource', sBaseJ, true);
-// }
-// function afterLoadMd5 () {
-//     asyn('md5Begin');
-//     setInstaticResource(sMd5J, false);
-// }
-// function afterLoadMd51 (v = '') {
-//     if (v) {
-//         asyn('afterstaticResource', v, 'js');
-//
-//         asyn('afterLoadMd5');
-//
-//         return;
-//     }
-//
-//     aInstaticResource[sMd5J] = false;
-//     asyn('staticResource', sMd5J, true);
-// }
-// function afterLoadMouseSet () {
-//     asyn('mouseSetBegin');
-//     setInstaticResource(sMouseSetJ, false);
-// }
-// function afterLoadMouseSet1 (v = '') {
-//     if (v) {
-//         asyn('afterstaticResource', v, 'js');
-//
-//         asyn('afterLoadMouseSet');
-//
-//         return;
-//     }
-//
-//     aInstaticResource[sMouseSetJ] = false;
-//     asyn('staticResource', sMouseSetJ, true);
-// }
-// function afterLoadMouseFriend () {
-//     asyn('mouseFriendBegin');
-//     setInstaticResource(sMouseFriendJ, false);
-// }
-// function afterLoadMouseFriend1 (v = '') {
-//     if (v) {
-//         asyn('afterstaticResource', v, 'js');
-//
-//         asyn('afterLoadMouseFriend');
-//
-//         return;
-//     }
-//
-//     aInstaticResource[sMouseFriendJ] = false;
-//     asyn('staticResource', sMouseFriendJ, true);
-// }
-// function afterLoadMouseForum () {
-//     asyn('mouseForumBegin');
-//     setInstaticResource(sMouseForumJ, false);
-// }
-// function afterLoadMouseForum1 (v = '') {
-//     if (v) {
-//         asyn('afterstaticResource', v, 'js');
-//
-//         asyn('afterLoadMouseForum');
-//
-//         return;
-//     }
-//
-//     aInstaticResource[sMouseForumJ] = false;
-//     asyn('staticResource', sMouseForumJ, true);
-// }
-// function afterLoadMouseChat () {
-//     asyn('mouseChatBegin');
-//     setInstaticResource(sMouseChatJ, false);
-// }
-// function afterLoadMouseChat1 (v = '') {
-//     if (v) {
-//         asyn('afterstaticResource', v, 'js');
-//
-//         asyn('afterLoadMouseChat');
-//
-//         return;
-//     }
-//
-//     aInstaticResource[sMouseChatJ] = false;
-//     asyn('staticResource', sMouseChatJ, true);
-// }
-// function afterLoadFuncForum () {
-//     asyn('funcForumBegin');
-//     setInstaticResource(sFuncForumJ, false);
-// }
-// function afterLoadFuncForum1 (v = '') {
-//     if (v) {
-//         asyn('afterstaticResource', v, 'js');
-//
-//         asyn('afterLoadFuncForum');
-//
-//         return;
-//     }
-//
-//     aInstaticResource[sFuncForumJ] = false;
-//     asyn('staticResource', sFuncForumJ, true);
-// }
-// function afterLoadMouseAboutMe () {
-//     asyn('mouseAboutMeBegin');
-//     setInstaticResource(sMouseAboutMeJ, false);
-// }
-// function afterLoadMouseAboutMe1 (v = '') {
-//     if (v) {
-//         asyn('afterstaticResource', v, 'js');
-//
-//         asyn('afterLoadMouseAboutMe');
-//
-//         return;
-//     }
-//
-//     aInstaticResource[sMouseAboutMeJ] = false;
-//     asyn('staticResource', sMouseAboutMeJ, true);
-// }
-// function afterLoadMouse () {
-//     asyn('mouseBegin');
-//     setInstaticResource(sMouseJ, false);
-// }
-// function afterLoadMouse1 (v = '') {
-//     if (v) {
-//         asyn('afterstaticResource', v, 'js');
-//
-//         asyn('afterLoadMouse');
-//
-//         return;
-//     }
-//
-//     aInstaticResource[sMouseJ] = false;
-//     asyn('staticResource', sMouseJ, true);
-// }
-// function afterLoadRsa () {
-//     asyn('arrayFunctionBegin');
-//     setInstaticResource(sRsaJ, false);
-// }
-// function afterLoadRsa1 (v = '') {
-//     if (v) {
-//         asyn('afterstaticResource', v, 'js');
-//
-//         asyn('afterLoadRsa');
-//
-//         return;
-//     }
-//
-//     aInstaticResource[sRsaJ] = false;
-//     asyn('staticResource', sRsaJ, true);
-// }
-// function afterLoadStyleFunc () {
-//     asyn('styleFuncBegin');
-//     setInstaticResource(sStyleFuncJ, false);
-// }
-// function afterLoadStyleFunc1 (v = '') {
-//     if (v) {
-//         asyn('afterstaticResource', v, 'js');
-//
-//         asyn('afterLoadStyleFunc');
-//
-//         return;
-//     }
-//
-//     aInstaticResource[sStyleFuncJ] = false;
-//     asyn('staticResource', sStyleFuncJ, true);
-// }
-// function afterLoadDomFunc () {
-//     asyn('arrayFunctionBegin');
-//     setInstaticResource(sFuncDomJ, false);
-// }
-// function afterLoadDomFunc1 (v = '') {
-//     if (v) {
-//         asyn('afterstaticResource', v, 'js');
-//
-//         asyn('afterLoadDomFunc');
-//
-//         return;
-//     }
-//
-//     aInstaticResource[sFuncDomJ] = false;
-//     asyn('staticResource', sFuncDomJ, true);
-// }
-// function afterLoadArrayFunc () {
-//     asyn('arrayFunctionBegin');
-//     setInstaticResource(sArrFuncJ, false);
-// }
-// function afterLoadArrayFunc1 (v = '') {
-//     if (v) {
-//         asyn('afterstaticResource', v, 'js');
-//
-//         asyn('afterLoadArrayFunc');
-//
-//         return;
-//     }
-//
-//     aInstaticResource[sArrFuncJ] = false;
-//     asyn('staticResource', sArrFuncJ, true);
-// }
-// function afterLoadStrFunc () {
-//     asyn('stringFunctionBegin');
-//     setInstaticResource(sStrFunc, false);
-// }
-// function afterLoadStrFunc1 (v = '') {
-//     if (v) {
-//         asyn('afterstaticResource', v, 'js');
-//
-//         asyn('afterLoadStrFunc');
-//
-//         return;
-//     }
-//
-//     aInstaticResource[sStrFunc] = false;
-//     asyn('staticResource', sStrFunc, true);
-// }
-// function afterLoadMobileDomFunc () {
-//     asyn('mebileDomBegin');
-//     setInstaticResource(sMobileDomFuncJ, false);
-// }
-// function afterLoadMobileDomFunc1 (v = '') {
-//     if (v) {
-//         asyn('afterstaticResource', v, 'js');
-//
-//         asyn('afterLoadMobileDomFunc');
-//
-//         return;
-//     }
-//
-//     aInstaticResource[sMobileDomFuncJ] = false;
-//     asyn('staticResource', sMobileDomFuncJ, true);
-// }
-// /**
-//  *
-//  * function js 加载完回调函数
-//  *
-//  */
-// function afterLoadFunctionJs () {
-//     asyn('functionBegin');
-//     setInstaticResource(sFuncJ, false);
-// }
-// function afterLoadFunctionJs1 (v = '') {
-//     if (v) {
-//         asyn('afterstaticResource', v, 'js');
-//
-//         asyn('afterLoadFunctionJs');
-//
-//         return;
-//     }
-//
-//     aInstaticResource[sFuncJ] = false;
-//     asyn('staticResource', sFuncJ, true);
-// }
-// /**
-//  *
-//  * 加载完 dom js 函数回调函数
-//  *
-//  */
-// function afterLoadDomJs () {
-//     setInstaticResource(sPubDomJ, false);
-//     asyn('domBegin');
-// }
-// function afterLoadDomJs1 (v = '') {
-//     if (v) {
-//         asyn('afterstaticResource', v, 'js');
-//
-//         asyn('afterLoadDomJs');
-//
-//         return;
-//     }
-//
-//     aInstaticResource[sPubDomJ] = false;
-//     asyn('staticResource', sPubDomJ, true);
-// }
-// function afterLoadPlatDomLogic () {
-//     setInstaticResource(sPlatDomLogic, false);
-//     asyn('platformBegin');
-// }
-// function afterLoadPlatDomLogic1 (v = '') {
-//     if (v) {
-//         asyn('afterstaticResource', v, 'js');
-//
-//         asyn('afterLoadPlatDomLogic');
-//
-//         return;
-//     }
-//
-//     aInstaticResource[sPlatDomLogic] = false;
-//     asyn('staticResource', sPlatDomLogic, true);
-// }
-// function afterLoadPlatformDomJs () {
-//     setInstaticResource(sPlatDomJ, false);
-//     asyn('platformBegin');
-// }
-// function afterLoadPlatformDomJs1 (v = '') {
-//     if (v) {
-//         asyn('afterstaticResource', v, 'js');
-//
-//         asyn('afterLoadPlatformDomJs');
-//
-//         return;
-//     }
-//
-//     aInstaticResource[sPlatDomJ] = false;
-//     asyn('staticResource', sPlatDomJ, true);
-// }
-// /**
-//  *
-//  * 加载 逻辑 logic js 回调函数
-//  *
-//  */
-// function afterLoadLogicJs () {
-//     setInstaticResource(sLogicJ, false);
-//     asyn('logicBegin');
-// }
-// function afterLoadLogicJs1 (v = '') {
-//     if (v) {
-//         asyn('afterstaticResource', v, 'js');
-//
-//         asyn('afterLoadLogicJs');
-//
-//         return;
-//     }
-//
-//     aInstaticResource[sLogicJ] = false;
-//     asyn('staticResource', sLogicJ, true);
-// }
-//用户语言
 function queryUserLang () {
     if (sUserLangvage) {
         return sUserLangvage;
@@ -2266,7 +1393,6 @@ function localstorageError1 () {
  * @param k 静态文件地址
  */
 function setStaticResourceLastCacheTime (k = '') {
-    // console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
     let t = myDate();
     let y = t.getFullYear();
     let m = parseInt(t.getMonth()) + parseInt(1);
@@ -2279,6 +1405,14 @@ function setStaticResourceLastCacheTime (k = '') {
     myStorage.set(sLastcacheStaticResourceTimeTag + k, y + m + d + h + i + s);
 }
 
+/**
+ *
+ * 跳转其他地址
+ *
+ */
+function jump (u) {
+    window.location.href = u;
+}
 /**
  *
  * 电脑端限制
@@ -2342,22 +1476,13 @@ function fileControlBegin () {
         return;
     }
 
-    // setStatusResourceHost();
-
     requires([sPubDomJ], function () {
         asyn('showBaseShade');
     });
 
-    // requires([sMd5J], function () {
-        asyn('loadStaticFile');
-    // });
+    asyn('loadStaticFile');
 }
 
-// function setStatusResourceHost () {
-//     // setJsHosts();
-//
-//     // setCssHosts();
-// }
 /**
  *
  * 设置正在读取的静态资源
@@ -2428,14 +1553,14 @@ function checkstaticResource (j) {
             a = window['mebileDomBegin'];
             break;
         case sStrFunc :
-            a = window['stringFunctionBegin'];
+            a = window['strFuncegin'];
+            break;
+        case sNumFunc :
+            a = window['numBegin'];
             break;
         case sArrFuncJ :
-            a = window['arrayFunctionBegin'];
+            a = window['arrFuncBegin'];
             break;
-        // case sMd5J :
-        //     a = window['md5Begin'];
-        //     break;
         case sMouseAboutMeJ :
             a = window['mouseAboutMeBegin'];
             break;
@@ -2470,7 +1595,7 @@ function checkstaticResource (j) {
             a = window['platformBegin'];
             break;
         case sJqueryJ :
-            a = typeof jQuery != 'undefined' ? true : false;
+            a = typeof jQuery == 'undefined' ? undefined : true;
             break;
         case sPlatDomJ :
             a = window['platformBegin'];
@@ -2515,6 +1640,5 @@ function checkstaticResource (j) {
 
     return a || typeof a != 'undefined' ? true : false;
 }
-// let aAllreadyLoadCss = [];
 
 window.onload = fileControlBegin();

@@ -48,10 +48,10 @@ const sForumQueryJ = 'forum_query';
 const sForumApiJ = 'forum_api';
 const sMobileDomFuncJ = 'mobile_dom_func';
 const sStrFunc = 'str_func';
+const sNumFunc = 'num_func';
 const sArrFuncJ = 'array_func';
 const sFuncDomJ = 'dom_func';
 const sStyleFuncJ = 'style_func';
-// const sMd5J = 'md5';
 const sRsaJ = 'rsa';
 const sMouseJ = 'mouse';
 const sMouseAboutMeJ = 'mouse_about';
@@ -86,6 +86,7 @@ function staticResourceAddress () {
     a[sFuncJ] = 'pub/func/func.js';
     a[sMobileDomFuncJ] = p + '/func/dom.js';
     a[sStrFunc] = 'pub/func/str.js';
+    a[sNumFunc] = 'pub/func/num.js';
     a[sArrFuncJ] = 'pub/func/array.js';
     a[sFuncDomJ] = 'pub/func/dom.js';
     a[sStyleFuncJ] = 'pub/func/style.js';
@@ -94,7 +95,6 @@ function staticResourceAddress () {
 
     a[sLogicJ] = p + '/logic.js';
 
-    // a[sMd5J] = 'encode/md5.js';
     a[sEncodeJ] = 'encode/encode.js';
     a[sRsaJ] = 'encode/rsa.js';
 
@@ -150,55 +150,9 @@ function staticResourceAddress () {
     a = null;
 }
 
-// let aMustLoadCss = [
-//     sResetC,
-//     sPubC,
-//     sSizeC,
-// ];
-//
-// let aMustLoadJs = [
-//     sBaseJ,
-// ];
-//
-// /**
-//  *
-//  * 组织 css 依赖
-//  *
-//  * @param a 依赖 css type array
-//  * @returns {*[]}
-//  */
-// function organizationCssRequireFile (a = []) {
-//     let b = aMustLoadCss;
-//
-//     for (let c in a) {
-//         b.push(a[c]);
-//     }
-//
-//     return b;
-// }
-//
-// /**
-//  *
-//  * 组织 js 依赖
-//  *
-//  * @param a 依赖 css type array
-//  * @returns {*[]}
-//  */
-// function organizationJsRequireFile (a = []) {
-//     let b = aMustLoadJs;
-//
-//     for (let c in a) {
-//         b.push(a[c]);
-//     }
-//
-//     return b;
-// }
-//
-// function mergeRequire (a, b) {
-//     for () {
-//
-//     }
-// }
+function requestRequire () {
+    return [sApiJ, sEncodeJ];
+}
 
 //值格式 0000 00 00 00 00 00  年月日时分秒
 const aVersion = {

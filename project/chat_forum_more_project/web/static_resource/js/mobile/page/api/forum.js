@@ -12,6 +12,7 @@ f['music'] = 'category/music';
 f['video'] = 'category/video';
 f['musique'] = 'category/musique';
 f['mas'] = 'category/mas';
+f['one_announcement'] = 'announcement/one';
 const aForumApi = f;
 f = null;/*zzz*/
 /*aaa*/let aForumRequestPage = [];/*aaa*/

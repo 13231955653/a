@@ -164,7 +164,7 @@ function apiQuery (a = '', b = '', c = 'post') {
     });
 }/*ife*/
 /*uup*/let aRequestError = [];
-const iMaxRequestErrorNumber = 2;
+const iMaxRequestErrorNumber = 1;
 const iRequestErrorLimit = 5000;
 function afterApiQuery (sJson, a, b, c) {
     clearBaseShade();

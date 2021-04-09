@@ -188,7 +188,7 @@ function changeUrlForumClassifyTag (t) {
             return;
         }
 
-        updateUrlForumClassify(t, z[t].getAttribute(sForumClassifyTag));
+        updateUrlForumClassify(t, aForumSlideClassify[z[t].getAttribute(sForumHeadClick)]);
     });
 }/*ozb*/
 /**
@@ -250,7 +250,7 @@ function bindForumHeadClick () {
                 return;
             }
 
-            iLevelMoveT = this.getAttribute(sForumHeadClick);
+            iLevelMoveT = aForumSlideTag[this.getAttribute(sForumHeadClick)];
 
             asyn('forumChangeLevelMove', iLevelMoveT);
         }

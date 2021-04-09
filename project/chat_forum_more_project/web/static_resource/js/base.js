@@ -680,14 +680,7 @@ function showUseTimeLimitNotice () {
 //     asyn('sessionId');
 // }/*6147b904ddeba7bc*/
 
-/*ce0e5222f8cb9ab7*//**
- *
- * 跳转其他地址
- *
- */
-function jump (u) {
-    window.location.href = u;
-}/*ce0e5222f8cb9ab7*/
+
 
 /*e40fd4b7d8973e42*//**
  *

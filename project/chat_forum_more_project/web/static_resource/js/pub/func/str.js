@@ -225,9 +225,9 @@ String.prototype.strLengthSplit =function(n){
     return a;
 }/*2a140060a8a71175*/
 
-/*3befb3e2ebbedb3c*/function stringFunctionBegin () {
-    console.log('3333333333333333333stringFunctionBegin');
+/*3befb3e2ebbedb3c*/function strFuncegin () {
+    console.log('3333333333333333333strFuncegin');
 }/*3befb3e2ebbedb3c*/
 
 
-/*aaa*/stringFunctionBegin()/*aaa*/
+/*aaa*/strFuncegin()/*aaa*/

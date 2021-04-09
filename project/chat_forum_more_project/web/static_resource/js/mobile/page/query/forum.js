@@ -10,7 +10,6 @@
 let iForumLastRequestTime = [];
 let aInForumRequest = [];
 function forumRequest(a = false, g = '') {
-    // console.log('dasdwqpeiwqeii=====================================');
     if (a === false) {
         return;
     }
@@ -35,9 +34,15 @@ function forumRequest(a = false, g = '') {
         h = true;
     } else {
         console.log(d);
-        // h = domByClass(onPostC, d) ? false : true;
-        h = domByClass(onPostC, d) ? false : true;
         console.log('滑动请求，需检查当前dom是否已经请求过');
+        switch (aForumList[a].replace(sForumPage + sForumSplitTag, '')) {
+            case sAnnouncement :
+                h = oneDomByClass(sOneAnnouncementC, announcementDom()) ? false : true;
+                break;
+            default :
+                throw new Error(aForumList[a].replace(sForumPage + sForumSplitTag, ''));
+                break;
+        }
     }
     if (!h) {
         return;
@@ -55,7 +60,6 @@ function forumRequest(a = false, g = '') {
 
     aInForumRequest[j] = true;
     requires([sApiJ, sForumApiJ, sStrFunc, sFuncJ], function () {
-        // requires([sApiJ, sForumApiJ, sMd5J, sStrFunc, sFuncJ], function () {
         asyn('forumApiRequest', j);
     });
 }/*dne*/
@@ -80,4 +84,29 @@ function forumApiRequest (a) {
 /*syc*/function forumQueryBegin () {
     console.log('forumQueryBegin');
 }/*syc*/
-/*qqq*/forumQueryBegin()/*qqq*/
+/*aaa*//**
+ *
+ * 请求具体 announcement
+ *
+ * @param a
+ */
+const sShowOneAnnouncementRoute = 'one_announcement';
+function showOneAnnouncement (a) {
+    console.log(aAnnouncementIds[a]);
+    let b = requestRequire();
+    b.push(sForumApiJ);
+    b.push(sNumFunc);
+
+    let c = {};
+    c.d = aAnnouncementIds[a];
+    requires(b, function () {
+        if (!myIsNaN(c.d)) {
+            console.log(c.d);
+            console.log('llllllllkkkk');
+            return;
+        }
+
+        apiQuery (aForumApi[sShowOneAnnouncementRoute], c, 'post');
+    });
+}/*aaa*/
+/*qqq*/forumQueryBegin();/*qqq*/

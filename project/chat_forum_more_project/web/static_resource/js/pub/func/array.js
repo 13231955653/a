@@ -58,8 +58,8 @@ function inArray ( s, a ) {
     return false;
 }/*afad128b70d53897*/
 
-/*3befb3e2ebbedb3c*/function arrayFunctionBegin () {
-    console.log('3333333333333333333arrayFunctionBegin');
+/*3befb3e2ebbedb3c*/function arrFuncBegin () {
+    console.log('3333333333333333333arrFuncBegin');
 }/*3befb3e2ebbedb3c*/
 
-/*aaa*/arrayFunctionBegin()/*aaa*/
+/*aaa*/arrFuncBegin()/*aaa*/
