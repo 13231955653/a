@@ -334,6 +334,7 @@ function writeAnnouncements (a = '') {
 
     let d = announcementDom();
     if (aAfterRequestClearSon[sAnnouncement]) {
+        aAfterRequestClearSon[sAnnouncement] = false;
         d.innerHTML = '';
     }
 
