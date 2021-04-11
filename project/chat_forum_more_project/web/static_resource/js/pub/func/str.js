@@ -70,7 +70,7 @@ function hashFunc(s, i){
  * @param s 带处理的字符串 type string
  * @returns {string|boolean}
  */
-function ucfirst (s = '') {
+function myUcfirst (s = '') {
     if (!s) {
         // console.log('ucfirst s is null, so no to do');
         return false;

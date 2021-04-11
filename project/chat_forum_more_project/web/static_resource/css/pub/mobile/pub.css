@@ -48,7 +48,7 @@
 /*    background: var(--three_h_li_bk);*/
 /*}*/
 #pub_body{
-    width: 500vw;
+    /*width: 500vw;*/
     height: calc(100% - var(--pub_foot_h));
     position: absolute;
     left: 0px;
@@ -62,11 +62,35 @@
     /*width: 100%;*/
     height: var(--pub_foot_h);
     line-height: var(--pub_foot_h);
+}
+.pub_foot, .pub_foot_hidden{
     background: var(--pub_f_bk);
     position: absolute;
     left: 0px;
     bottom: 0px;
     z-index: 1;
+}
+@keyframes pub_foot {
+    0%{height: var(--pub_foot_h_heighten_0);}
+    30%{height: var(--pub_foot_h_heighten_1);}
+    60%{height: var(--pub_foot_h_heighten_2);}
+    100%{height: var(--pub_foot_h_heighten_3);}
+}
+.pub_foot{
+    animation-name: pub_foot;
+    animation-duration: 0.15s;
+    animation-fill-mode: forwards
+}
+@keyframes pub_foot_hidden {
+    0%{height: var(--pub_foot_h_shorter_0);}
+    30%{height: var(--pub_foot_h_shorter_1);}
+    60%{height: var(--pub_foot_h_shorter_2);}
+    100%{height: var(--pub_foot_h_shorter_3);}
+}
+.pub_foot_hidden{
+    animation-name: pub_foot_hidden;
+    animation-duration: 0.15s;
+    animation-fill-mode: forwards
 }
 #pub_foot ul{
     display: block;

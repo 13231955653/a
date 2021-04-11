@@ -139,9 +139,21 @@ function mouseLeft (p = '') {
 function mouseDown (p = '') {
     console.log('向下');
     requires([sFuncJ], function () {
-        let p = getNowPage();
-
-        window[p + 'Down']();
+        // let p = getNowPage();
+        //
+        // window[p + 'Down']();
+        requires([sFuncJ], function () {
+            // let p = getNowPage();
+            switch (getNowPage()) {
+                case sForumPage :
+                    asyn('forumDown', getForumNowShow());
+                    break;
+                default :
+                    throw new Error('s');
+                    break;
+            }
+            // window[p + 'Top']();
+        });
     });
 }/*b2d3ec5a93497094*/
 /*928fab2ec727b4bf*//**
@@ -153,88 +165,18 @@ function mouseDown (p = '') {
 function mouseTop (p = '') {
     console.log('向上');
     requires([sFuncJ], function () {
-        let p = getNowPage();
-
-        window[p + 'Top']();
+        // let p = getNowPage();
+        switch (getNowPage()) {
+            case sForumPage :
+                asyn('forumTop', getForumNowShow());
+                break;
+            default :
+                throw new Error('s');
+                break;
+        }
+        // window[p + 'Top']();
     });
 }/*928fab2ec727b4bf*/
-/*qqq*//**
- *
- * 绑定forum body 滚动时间
- *
- */
-function bindForumBodyScroll () {
-    let a = $('.' + sForumSonsClass);
-    for (let b in a) {
-        a[b].onscroll = function () {
-            checkScrollDirection(a[b]);
-        }
-    }
-}/*qqq*/
-/*rrr*//**
- *
- * 检查scroll 方向
- *
- * @param a 绑定滚动事件的dom
- */
-let bCheckScrollDirection = false;
-let bScrollDirectionTimeout = false;
-const iCheckScrollDirectionLimit = 500;
-let aScrollY = [];
-function checkScrollDirection(a) {
-    if (bScrollDirectionTimeout) {
-        return;
-    }
-    bScrollDirectionTimeout = true;
-
-    if (!bCheckScrollDirection) {
-        let b = setTimeout(function () {
-            clearTimeout(b);
-
-            bCheckScrollDirection = true;
-
-            bScrollDirectionTimeout = false;
-
-            checkScrollDirection(a);
-        }, iCheckScrollDirectionLimit);
-        return;
-    }
-    bCheckScrollDirection = false;
-
-    // console.log('dasdassss');
-    if (typeof aScrollY[a.id] == 'undefined') {
-        aScrollY[a.id] = 0;
-    }
-    let c = aScrollY[a.id];
-    let d = a.scrollTop;
-
-    // console.log('dasdaz');
-    // console.log(a);
-    // console.log(c);
-    // console.log(d);
-    // console.log(a);
-    // console.log(getMillisecondTime());
-    if (c === d) {
-        return;
-    }
-
-    if (c < d) {
-        console.log('向上滚动');
-        // console.log(a.getAttribute(sScrollTopFuncK));
-        window[a.getAttribute(sScrollTopFuncK)]();
-        // forumTop
-    }
-
-    if (c > d) {
-        console.log('向下滚动');
-        // console.log(a.getAttribute(sScrollDownFuncK));
-        window[a.getAttribute(sScrollDownFuncK)]();
-        // forumDown
-    }
-
-    aScrollY[a.id] = d;
-    bScrollDirectionTimeout = false;
-}/*rrr*/
 
 /*b9ebf53180071994*/function mouseBegin () {
     console.log('======================mouseBegin');

@@ -14,7 +14,7 @@
     let c = '';
     switch (a) {
         case sForumPage :
-            requires([sMouseForumJ], function () {
+            requires([sSideForumJ], function () {
                 forumChangeLevelMove('', '', 1);
             });
             break;

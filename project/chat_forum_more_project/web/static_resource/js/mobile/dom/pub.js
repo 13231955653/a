@@ -150,7 +150,7 @@ function bRightDom () {
     }
 
     let s = [];
-    s.push('<div id="' + sPubFootD + '" class="' + sFullWidthClass + '">');
+    s.push('<div id="' + sPubFootD + '" class="' + sFullWidthClass + ' ' + sPubFootD + '">');
 
     s.push('<ul>');
 

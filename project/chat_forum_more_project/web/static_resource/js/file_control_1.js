@@ -1056,12 +1056,17 @@ function staticResource (f, q = false) {
             b = 'writeCssStaticResourceToPage';
             c = 'css';
             break;
+        case sScrollIncidentForumJ :
+            a = false;
+            b = 'writeJsStaticResourceToPage';
+            c = 'js';
+            break;
         case sMouseSetJ :
             a = false;
             b = 'writeJsStaticResourceToPage';
             c = 'js';
             break;
-        case sMouseForumJ :
+        case sSideForumJ :
             a = false;
             b = 'writeJsStaticResourceToPage';
             c = 'js';
@@ -1525,16 +1530,29 @@ function requires (j = '', c = '') {
     let l = j.length;
     let n = 0;
     let y = [];
+    let a = [];
     for (let i in j) {
         if (aAllreadystaticResource[j[i]] && checkstaticResource(j[i])) {
             n = parseInt(n) + parseInt(1);
+            a.push(j[i]);
         } else {
             y.push(j[i]);
+            // console.log(y);
         }
 
         if (n == l) {
             c();
             return;
+        }
+    }
+
+    if (a) {
+        for (let b in a) {
+            for (let c in j) {
+                if (j[c] == a[b]) {
+                    j.splice(c, 1);
+                }
+            }
         }
     }
 
@@ -1579,14 +1597,17 @@ function checkstaticResource (j) {
         case sMouseChatJ :
             a = window['mouseChatBegin'];
             break;
-        case sMouseForumJ :
-            a = window['mouseForumBegin'];
+        case sSideForumJ :
+            a = window['sideForumBegin'];
             break;
         case sMouseFriendJ :
             a = window['mouseFriendBegin'];
             break;
         case sMouseSetJ :
             a = window['mouseSetBegin'];
+            break;
+        case sScrollIncidentForumJ :
+            a = window['forumScrollBegin'];
             break;
         case sCnLangJ :
             a = window['cn_langBegin'];

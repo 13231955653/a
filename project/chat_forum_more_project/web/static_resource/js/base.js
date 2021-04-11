@@ -269,7 +269,6 @@ function randNum (i, a) {
  *
  * @type {boolean}
  */
-let sPageNow = '';
 let sNowPageJs = '';
 function loadPageJs () {
     sPageNow = getNowPage();
@@ -280,7 +279,7 @@ function loadPageJs () {
     switch (sPageNow) {
         case sForumPage:
             c = sForum;
-            m = sMouseForumJ;
+            m = sSideForumJ;
             n = sForumC;
             break;
         case sChatPage:

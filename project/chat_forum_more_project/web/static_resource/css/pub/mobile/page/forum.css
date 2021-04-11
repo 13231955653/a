@@ -1,25 +1,60 @@
 /*cwj*/#b_forum{
+    width: 100vw;
     height: 100%;
+    overflow-y: scroll;
     background: var(--b_forum_bk);
 }
 .forum_sons{
-    height: calc(100% - var(--pub_head_h));
+    height: calc(100vh - var(--forum_head_h) - var(--pub_foot_h));
+    /*height: calc(100% - var(--forum_head_h));*/
     background: var(--forum_sons_bk);
     float: left;
     overflow-y: scroll;
+    padding: var(--forum_head_h) 0px var(--pub_foot_h) 0px;
+}/*cwj*/
+/*fwm*/#b_forum_head{
+    height: var(--forum_head_h);
+    line-height: var(--forum_head_h);
+    z-index: 1;
 }
-#b_forum_head{
-    height: var(--pub_head_h);
-    line-height: var(--pub_head_h);
+.b_forum_head_hidden{
+    height: 0px;
+    overflow: hidden;
+}
+.b_forum_head, .b_forum_head_hidden{
     position: absolute;
     top: 0px;
     left: 0px;
     background: var(--pub_head_bk);
 }
+@keyframes b_forum_head {
+    0%{height: var(--forum_head_h_heighten_0);}
+    30%{height: var(--forum_head_h_heighten_1);}
+    60%{height: var(--forum_head_h_heighten_2);}
+    100%{height: var(--forum_head_h_heighten_3);}
+}
+.b_forum_head{
+    animation-name: b_forum_head;
+    animation-duration: 0.15s;
+    animation-fill-mode: forwards
+}
+@keyframes b_forum_head_hidden {
+    0%{height: var(--forum_head_h_shorter_0);}
+    30%{height: var(--forum_head_h_shorter_1);}
+    60%{height: var(--forum_head_h_shorter_2);}
+    100%{height: var(--forum_head_h_shorter_3);}
+}
+.b_forum_head_hidden{
+    animation-name: b_forum_head_hidden;
+    animation-duration: 0.15s;
+    animation-fill-mode: forwards
+}
 #b_forum_head_u{
     position: absolute;
     top: 0px;
     left: 0px;
+    height: 100%;
+    overflow: hidden;
 }
 .forum_head_c{
     float: left;
@@ -29,12 +64,73 @@
 .forum_head_c_act{
     font-size: 1.3rem;
     background: var(--forum_head_c_act_bk);
-}
-#b_forum_body{
+}/*fwm*/
+/*ohq*/#b_forum_body{
     position: absolute;
-    top: var(--pub_head_h);
+    top: 0px;
     left: 0px;
-}/*cwj*/
+    background: var(--b_forum_body_bk);
+}
+/*.b_forum_body, .b_forum_body_1{*/
+/*    position: absolute;*/
+/*    !*top: 0px;*!*/
+/*    left: 0px;*/
+/*    background: var(--b_forum_body_bk);*/
+/*}*/
+/*.b_forum_body{*/
+/*    height: var(--forum_body_h_heighten_0);*/
+/*    !*top: var(--forum_head_h);*!*/
+/*}*/
+/*.b_forum_body_1{*/
+/*    height: var(--forum_body_h_shorter_0);*/
+/*    !*top: 0px;*!*/
+/*}*/
+/*@keyframes b_forum_body {*/
+/*    0%{*/
+/*        !*top: calc(var(--forum_head_h) / 4);*!*/
+/*        height: var(--forum_body_h_shorter_0);*/
+/*    }*/
+/*    30%{*/
+/*        !*top: calc(var(--forum_head_h) / 3);*!*/
+/*        height: var(--forum_body_h_shorter_1);*/
+/*    }*/
+/*    60%{*/
+/*        !*top: calc(var(--forum_head_h) / 2);*!*/
+/*        height: var(--forum_body_h_shorter_2);*/
+/*    }*/
+/*    100%{*/
+/*        !*top: var(--forum_head_h);*!*/
+/*        height: var(--forum_body_h_shorter_3);*/
+/*    }*/
+/*}*/
+/*.b_forum_body{*/
+/*    animation-name: b_forum_body;*/
+/*    animation-duration: 0.15s;*/
+/*    animation-fill-mode: forwards*/
+/*}*/
+/*@keyframes b_forum_body_1 {*/
+/*    0%{*/
+/*        !*top: var(--forum_head_h);*!*/
+/*        height: var(--forum_body_h_heighten_0);*/
+/*    }*/
+/*    30%{*/
+/*        !*top: calc(var(--forum_head_h) / 2);*!*/
+/*        height: var(--forum_body_h_heighten_1);*/
+/*    }*/
+/*    60%{*/
+/*        !*top: calc(var(--forum_head_h) / 3);*!*/
+/*        height: var(--forum_body_h_heighten_2);*/
+/*    }*/
+/*    100%{*/
+/*        !*top: 0px;*!*/
+/*        height: var(--forum_body_h_heighten_3);*/
+/*    }*/
+/*}*/
+/*.b_forum_body_1{*/
+/*    animation-name: b_forum_body_1;*/
+/*    animation-duration: 0.15s;*/
+/*    animation-fill-mode: forwards*/
+/*}*//*ohq*/
 /*nnn*/.one_announcement{
 /*    padding: 0.5rem 0px 0.5rem 0px;*/
     margin-bottom: 0.5rem;

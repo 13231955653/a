@@ -106,10 +106,20 @@ let getFnName = function(c){
  *
  * @returns {*}
  */
+let sPageNow = '';
 function getNowPage () {
-    let p = getUrlArgs('page');
+    if (sPageNow) {
+        return sPageNow;
+    }
 
-    return p ? p : sDefaultPage;
+    let a = getUrlArgs(sUrlAddressPageKey);
+    a = a ? a : sDefaultPage;
+    sPageNow = a;
+
+    return sPageNow;
+}
+function updateNowPage (a) {
+    sPageNow = a;
 }/*ogb*/
 /*jay*//**
  *
@@ -122,10 +132,19 @@ function getNowForumLevelMoveTag () {
 
     return p ? p : iDefaultForumLevelMoveTag;
 }
+let sForumNowShow = '';
 function getForumNowShow () {
-    let p = getUrlArgs(sUrlAddressClassifyKey);
+    if (sForumNowShow) {
+        return sForumNowShow;
+    }
 
-    return p ? p : false;
+    let p = getUrlArgs(sUrlAddressClassifyKey);
+    sForumNowShow = p ? p : '';
+
+    return sForumNowShow;
+}
+function updateForumNowShow (a) {
+    sForumNowShow = a;
 }/*jay*/
 
 /*142e9c58bb5afaca*//**

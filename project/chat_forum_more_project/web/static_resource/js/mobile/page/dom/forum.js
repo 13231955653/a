@@ -63,7 +63,8 @@ const sOneAnnouncementFootC = 'one_announcement_f';
 const sOneAnnouncementIdT = 'announcement_id_t';
 /*kkk*/
 /*ddd*/const sScrollTopFuncK = 'scroll_top_f';
-const sScrollDownFuncK = 'scroll_down_f';/*ddd*/
+const sScrollDownFuncK = 'scroll_down_f';
+const sScrollClassify = 'scroll_classify';/*ddd*/
 
 /*vvs*/const sForumGrandsonFoot1 = 'collect';
 const sForumGrandsonFoot2 = 'praise';
@@ -120,6 +121,15 @@ k = null;/*ddd*/
 //         aForumBodyClass[b] = sForumBodyClass + b;
 //     }
 // }/*upg*/
+/*fvn*/let oForumBody = false;
+function forumBodyDom () {
+    if (oForumBody) {
+        return oForumBody;
+    }
+
+    oForumBody = domById(sForumBodyD);
+    return oForumBody;
+}/*fvn*/
 /*qct*/let oForumHead = false;
 function forumHeadDom () {
     if (oForumHead) {
@@ -136,11 +146,12 @@ function forumHeadDom () {
  */
 let aForumSlideTag = [];
 let aForumSlideClassify = [];
+const iForumHeadHeight = parseInt(iFontSize * 3);
 function writeForumHead () {
     let a = aForumList;
 
     let s = [];
-    s.push('<div id="' + sForumHeadD + '" class="' + sFullWidthClass + '">');
+    s.push('<div id="' + sForumHeadD + '" class="' + sFullWidthClass + ' ' + sForumHeadD + '">');
     s.push('<ul id="' + sForumHeadDUl + '">');
     let b = '';
     let f = '';
@@ -168,9 +179,18 @@ function writeForumBody () {
     let a = aForumList;
 
     let s = [];
-    s.push('<div id="' + sForumBodyD + '" class="' + sFullHeightForFatherClass + '">');
+    s.push('<div id="' + sForumBodyD + '" class="' + sForumBodyD + '">');
+    let b = [];
+    let d = '';
     for (let i in a) {
-        s.push('<div id="' + a[i] + sForumBodySuffix + '" class="' + sFullWidthClass + ' ' + sForumSonsClass + '" ' + sScrollTopFuncK + '="forumScrollTop" ' + sScrollDownFuncK + '="forumScrollDown"></div>');
+        d = '';
+        // console.log('lllllllllllllllll');
+        // console.log(a[i]);
+        b = a[i].split('_');
+        b.shift();
+        b = b.join('_');
+        // console.log(b);
+        s.push('<div id="' + a[i] + sForumBodySuffix + '" class="' + sFullWidthClass + ' ' + sForumSonsClass + '" ' + sScrollTopFuncK + '="forumTop" ' + sScrollDownFuncK + '="forumDown" ' + sScrollClassify + '="' + b + '"></div>');
     }
     s.push('</div>');
 
@@ -198,7 +218,7 @@ function writeForumInfo () {
     }
     bWriteForumInfo = true;
 
-    requires([sPlatDomJ, sJqueryJ], function () {
+    requires([sPlatDomJ, sJqueryJ, sStrFunc], function () {
         asyn('doWriteForumInfo');
     });
 }
@@ -213,7 +233,7 @@ function doWriteForumInfo () {
 
     o.innerHTML = writeForumHead() + writeForumBody();
 
-    requires([sJqueryJ, sMouseForumJ], function () {
+    requires([sJqueryJ, sSideForumJ], function () {
         asyn('bindForumHeadClick');
     });
 
@@ -221,7 +241,7 @@ function doWriteForumInfo () {
         asyn('replaceLang', forumHeadDom());
     });
 
-    requires([sJqueryJ, sMouseForumJ, sMouseJ], function () {
+    requires([sJqueryJ, sScrollIncidentForumJ, sMouseJ], function () {
         asyn('bindForumBodyScroll');
     });
 
@@ -233,7 +253,7 @@ function doWriteForumInfo () {
     //     console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaa');
     //     asyn('pageBegin');
     // });
-    requires([sPlatDomLogic, sMouseForumJ, sForumC, sForumSlideC], function () {
+    requires([sPlatDomLogic, sSideForumJ, sForumC, sForumSlideC], function () {
         // console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaa');
         asyn('pageBegin');
     });

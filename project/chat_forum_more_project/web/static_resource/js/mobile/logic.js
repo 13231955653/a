@@ -132,6 +132,10 @@ function showPage (p = '') {
 
     if (typeof aAllreadyLoadPageJs[p] == 'undefined') {
         // alert('zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz');
+        // requires([sFuncJ], function () {
+        //     updateNowPage(p);
+        // });
+
         requires([sArrFuncJ], function () {
             updateUrlArg (sUrlAddressPageKey, p, t, 'loadPageJs');
         });
@@ -200,6 +204,19 @@ function updateUrlArg (k = '', v = '', t = '', c = false) {
 
     let o = {};
     window.history.pushState(o, t, g);
+
+    switch (k) {
+        case sUrlAddressPageKey :
+            requires([sFuncJ], function () {
+                updateNowPage(v);
+            });
+            break;
+        case sUrlAddressClassifyKey :
+            requires([sFuncJ], function () {
+                updateForumNowShow(v);
+            });
+            break;
+    }
 
     // setBrowserTitle(t);
 
