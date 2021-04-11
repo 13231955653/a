@@ -267,6 +267,56 @@ function forumSonBodyC (a) {
 function forumSonBodyDom (a) {
     return domById(forumSonBodyC(a));
 }/*ccc*/
+/*kkk*//**
+ *
+ * forum dom father
+ *
+ */
+const sShowAnnouncementFatherD = 'show_announcement_father';
+let oShowAnnouncementFather = false;
+function showAnnouncement () {
+    if (oShowAnnouncementFather) {
+        return oShowAnnouncementFather;
+    }
+
+    oShowAnnouncementFather = domById(sShowAnnouncementFatherD);
+    return oShowAnnouncementFather;
+}/*kkk*/
+/*iii*//**
+ *
+ * 检查是否存在 show Announcement father dom
+ *
+ */
+function checkExistShowAnnouncementFatherDom () {
+    return domById(sShowAnnouncementFatherD) ? true : false;
+}
+function makeShowAnnouncementFatherDom () {
+    if (checkExistShowAnnouncementFatherDom()) {
+        return true;
+    }
+
+    let a = createDiv();
+    a.id = sShowAnnouncementFatherD;
+
+    forumDomFather().appendChild(a);
+
+    return true;
+}
+/*iii*/
+/*jjj*//**
+ *
+ * forum dom father
+ *
+ */
+let oForumDomFather = false;
+function forumDomFather () {
+    if (oForumDomFather) {
+        return oForumDomFather;
+    }
+
+    oForumDomFather = domById(sBBodyD + sForumPage);
+    return oForumDomFather;
+}/*jjj*/
 /*fff*//**
  *
  * 展示单个 announcement
@@ -279,6 +329,13 @@ const sShowOneAnnouncementInfoC = 'show_one_announcement_i';
 const sShowOneAnnouncementCloseC = 'show_one_announcement_close';
 const sShowOneAnnouncementCloseL = 'show_one_announcement_close';
 function afterRequestOneAnnouncement (a = '') {
+    if (!checkExistShowAnnouncementFatherDom()) {
+        makeShowAnnouncementFatherDom();
+
+        setTimeoutFunction('afterRequestOneAnnouncement', a);
+        return;
+    }
+
     a = [];
     a[sForumAnnouncementId] = '111';
     a[sForumAnnouncementTit] = 'tit_111';
@@ -346,7 +403,7 @@ function afterRequestOneAnnouncement (a = '') {
     j.appendChild(d);
     e.appendChild(j);
 
-    domById(sBBodyD + sForumPage).appendChild(e);
+    showAnnouncement().appendChild(e);
     showOrHiddenDom(j, 1);
 
     requires([sFuncDomJ], function () {
