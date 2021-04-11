@@ -36,7 +36,7 @@
     left: 0px;
 }/*cwj*/
 /*nnn*/.one_announcement{
-    padding: 0.5rem 0px 0.5rem 0px;
+/*    padding: 0.5rem 0px 0.5rem 0px;*/
     margin-bottom: 0.5rem;
     background: var(--one_announcement_bk);
 }
