@@ -1142,9 +1142,18 @@ function staticResource (f, q = false) {
             c = 'css';
             break;
         case sJqueryJ :
+            // return;
+            // console.log('}}}}}}}}}}}}}}}}}>>>>');
+            // console.log(jQuery);
+            // console.log(typeof jQuery);
             a = false;
             b = 'writeJsStaticResourceToPage';
             c = 'js';
+
+            let z = domById('origin_jquery');
+            if (z) {
+                z.parentNode.removeChild(z);
+            }
             break;
         case sBaseJ :
                 a = false;
@@ -1225,6 +1234,9 @@ function staticResource (f, q = false) {
             a = false;
             b = 'writeJsStaticResourceToPage';
             c = 'js';
+            break;
+        default :
+            throw new Error(f);
             break;
     }
     let n = getIncrementUpdateTag(f);
@@ -1595,7 +1607,14 @@ function checkstaticResource (j) {
             a = window['platformBegin'];
             break;
         case sJqueryJ :
-            a = typeof jQuery == 'undefined' ? undefined : true;
+            console.log('{{{{{{{{{{{{{{{{{{{{{{');
+            if (typeof jQuery == 'undefined') {
+                a = false;
+            } else {
+                a = typeof jQuery == 'function' ? true : false;
+            }
+            console.log(typeof jQuery);
+            console.log(a);
             break;
         case sPlatDomJ :
             a = window['platformBegin'];
@@ -1641,7 +1660,18 @@ function checkstaticResource (j) {
             break;
     }
 
-    return a || typeof a != 'undefined' ? true : false;
+    // return a || typeof a != 'undefined' ? true : false;
+    if (a) {
+        return true;
+    }
+
+    if (!a) {
+        return false;
+    }
+
+    if (typeof a != 'undefined') {
+        return false;
+    }
 }
 
 window.onload = fileControlBegin();

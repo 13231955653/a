@@ -198,7 +198,6 @@ function writeForumInfo () {
     }
     bWriteForumInfo = true;
 
-
     requires([sPlatDomJ, sJqueryJ], function () {
         asyn('doWriteForumInfo');
     });
