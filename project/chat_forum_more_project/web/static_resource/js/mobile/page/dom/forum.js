@@ -470,8 +470,6 @@ function showOneAnnouncementInfo (a) {
  * @param a Announcement id type int
  */
 function checkExistNowAnnouncement (a) {
-    console.log('=====================');
-    console.log(a);
     let b = domById(setAnnouncementShowOneId(a));
     return b ? b : false;
 }/*ggg*/
