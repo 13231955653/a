@@ -7,10 +7,13 @@
  * @param a
  * @returns {boolean}
  */
-function checkDomExistSon (a) {
+function judgeToRequest (a) {
     switch (aForumList[a].replace(sForumPage + sForumSplitTag, '')) {
         case sAnnouncement :
-            return oneDomByClass(sOneAnnouncementC, announcementDom()) ? false : true;
+            return oneDomByClass(sAnnouncementSonC, announcementDom()) ? false : true;
+            break;
+        case sRecommend :
+            return oneDomByClass(sRecommendSonC, recommendDom()) ? false : true;
             break;
         default :
             throw new Error(aForumList[a].replace(sForumPage + sForumSplitTag, ''));
@@ -54,7 +57,7 @@ function forumRequest(a = false, g = '') {
     } else {
         console.log(d);
         console.log('滑动请求，需检查当前dom是否已经请求过');
-        h = checkDomExistSon(a);
+        h = judgeToRequest(a);
     }
     if (!h) {
         return;
@@ -104,8 +107,8 @@ function forumApiRequest (a) {
  *
  * @param a
  */
-const sShowOneAnnouncementRoute = 'one_announcement';
-function showOneAnnouncement (a) {
+const sShowAnnouncementSonRoute = 'announcement_son';
+function showAnnouncementSon (a) {
     console.log(aAnnouncementIds[a]);
     let b = requestRequireJs();
     b.push(sForumApiJ);
@@ -120,7 +123,7 @@ function showOneAnnouncement (a) {
             return;
         }
 
-        apiQuery (aForumApi[sShowOneAnnouncementRoute], c, 'post');
+        apiQuery (aForumApi[sShowAnnouncementSonRoute], c, 'post');
     });
 }/*aaa*/
 /*qqq*/forumQueryBegin();/*qqq*/

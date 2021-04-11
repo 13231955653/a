@@ -14,10 +14,10 @@ const aApiHostLength = 3;/*pbh*/
 /*uuu*/const sApiArgPage = 'page';/*uuu*/
 
 /*syc*/let h = [];
-h['announcement/show'] = [sForum, sForumC, sForumApiJ];
+h['announcement/show'] = requireJs([sForum, sForumC, sForumApiJ]);
 h['announcement/one'] = requireJs([sForum, sForumC, sFuncDomJ, sPlatDomJ]);
+h['post/recommend'] = requireJs([sForum, sForumC, sFuncDomJ, sPlatDomJ]);
 h['attention'] = '';
-h['recommend'] = '';
 h['hot'] = '';
 h['uclassify'] = '';
 h['classify'] = '';
@@ -32,9 +32,9 @@ const aAfterRequertRely = h; //请求后处理函数依赖
 h = null;/*syc*/
 /*syc*/let i = [];
 i['announcement/show'] = 'afterRequestAnnouncement';
-i['announcement/one'] = 'afterRequestOneAnnouncement';
+i['announcement/one'] = 'afterRequestAnnouncementSon';
+i['post/recommend'] = 'afterRequestRecommend';
 i['attention'] = '';
-i['recommend'] = '';
 i['hot'] = '';
 i['uclassify'] = '';
 i['classify'] = '';
@@ -207,12 +207,18 @@ function afterApiResponse (a = '', b = '') {
     }
 
     let c = aAfterRequertRely[a];
+    console.log('kkkkkkkkkkkkkkkkk');
+    console.log(c);
+    console.log(a);
+    console.log(aAfterRequertRely);
     if (!c || typeof c == 'undefined') {
+        throw new Error('z');
         return;
     }
 
     let d = aAfterRequertFunc[a];
     if (!d || typeof d == 'undefined') {
+        throw new Error('q');
         return;
     }
 

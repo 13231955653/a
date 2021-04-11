@@ -22,16 +22,16 @@
     --pub_head_bk: #96ff71;
     --forum_head_c_act_bk: #ff5356;
     --forum_sons_bk: #fff576;/*dnl*/
-    /*aaa*/--one_announcement_bk: #6e60ff;
-    --one_announcement_h_bk: #ffdba3;
-    --one_announcement_b_bk: #b4ffb3;
-    --one_announcement_f_bk: #ff668d;/*aaa*/
+    /*aaa*/--announcement_son_bk: #6e60ff;
+    --announcement_son_h_bk: #ffdba3;
+    --announcement_son_b_bk: #b4ffb3;
+    --announcement_son_f_bk: #ff668d;/*aaa*/
     /*hon*/--forum_grandson_bk: #ff666e;
     --f_grandson_h_bk: #aefdff;
     --f_grandson_b_bk: #bdffbf;
     --f_grandson_f_bk: #cc71ff;/*hon*/
-    /*bbb*/--show_one_announcement_bk: #ff5c6d;
-    --show_one_announcement_t_bk: #94ffa5;
-    --show_one_announcement_i_bk: #9eafff;
-    --show_one_announcement_close_bk: #ffef92;
+    /*bbb*/--show_announcement_son_bk: #ff5c6d;
+    --show_announcement_son_t_bk: #94ffa5;
+    --show_announcement_son_i_bk: #9eafff;
+    --show_announcement_son_close_bk: #ffef92;
 }/*bbb*/

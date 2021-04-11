@@ -1,5 +1,5 @@
 /*cwj*/#b_forum{
-    width: 100vw;
+/*    width: 100vw;*/
     height: 100%;
     overflow-y: scroll;
     background: var(--b_forum_bk);
@@ -131,32 +131,32 @@
 /*    animation-duration: 0.15s;*/
 /*    animation-fill-mode: forwards*/
 /*}*//*ohq*/
-/*nnn*/.one_announcement{
+/*nnn*/.announcement_son{
 /*    padding: 0.5rem 0px 0.5rem 0px;*/
     margin-bottom: 0.5rem;
-    background: var(--one_announcement_bk);
+    background: var(--announcement_son_bk);
 }
-.one_announcement_h{
+.announcement_son_h{
     width: 100%;
     height: 1.6rem;
     overflow: hidden;
     line-height: 1.6rem;
-    background: var(--one_announcement_h_bk);
+    background: var(--announcement_son_h_bk);
 }
-.one_announcement_b{
+.announcement_son_b{
     width: 100%;
     min-height: 4.8rem;
     overflow: hidden;
     line-height: 1.6rem;
-    background: var(--one_announcement_b_bk);
+    background: var(--announcement_son_b_bk);
     text-indent: 2rem;
 }
-.one_announcement_f{
+.announcement_son_f{
     width: 100%;
     overflow: hidden;
     height: 1.6rem;
     line-height: 1.6rem;
-    background: var(--one_announcement_f_bk);
+    background: var(--announcement_son_f_bk);
     text-indent: 2rem;
 }/*nnn*/
 /*cwa*/.f_grandson{
@@ -218,26 +218,26 @@
 .f_grandson_f li:nth-last-child(5):first-child~li{
     width: calc(100% / 5);
 }/*cwu*/
-/*bbb*/.show_one_announcement{
+/*bbb*/.show_announcement_son{
     position: absolute;
     left: 0px;
     top: 0px;
-    background: var(--show_one_announcement_bk);
+    background: var(--show_announcement_son_bk);
 }
-.show_one_announcement_t{
-    background: var(--show_one_announcement_t_bk);
+.show_announcement_son_t{
+    background: var(--show_announcement_son_t_bk);
     height: 3rem;
     line-height: 3rem;
 }
-.show_one_announcement_i{
-    background: var(--show_one_announcement_i_bk);
+.show_announcement_son_i{
+    background: var(--show_announcement_son_i_bk);
     height: calc(100% - 6rem);
     line-height: 1.6rem;
     overflow-y: scroll;
     text-indent: 2rem;
 }
-.show_one_announcement_close{
-    background: var(--show_one_announcement_close_bk);
+.show_announcement_son_close{
+    background: var(--show_announcement_son_close_bk);
     height: 3rem;
     line-height: 3rem;
     text-align: center;

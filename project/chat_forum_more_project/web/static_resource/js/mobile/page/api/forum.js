@@ -1,7 +1,7 @@
 /*zzz*/let f = [];
 f['announcement'] = 'announcement/show';
+f['recommend'] = 'post/recommend';
 f['attention'] = 'all_category/attention';
-f['recommend'] = 'all_category/recommend';
 f['hot'] = 'all_category/hot';
 f['uclassify'] = 'classify/user';
 f['classify'] = 'classify/sys';
@@ -12,7 +12,7 @@ f['music'] = 'category/music';
 f['video'] = 'category/video';
 f['musique'] = 'category/musique';
 f['mas'] = 'category/mas';
-f['one_announcement'] = 'announcement/one';
+f['announcement_son'] = 'announcement/one';
 const aForumApi = f;
 f = null;/*zzz*/
 /*aaa*/let aForumRequestPage = [];/*aaa*/
@@ -36,11 +36,22 @@ let aForumLastResponsePageNum = [];//上次请求返回数据数量/*bbb*/
 /*syc*/function forumApiBegin () {
     console.log('forumApiBegin');
 }/*syc*/
-/*ccc*/const sForumRequestStatus = 'status';
-const sForumRequestNormalStatus = 1;
-const sForumRequestData = 'data';
+/*ccc*/const sForumAnnouncementRequestStatus = 'status';
+const sForumAnnouncementRequestNormalStatus = 1;
+const sForumAnnouncementRequestData = 'data';
 const sForumAnnouncementId = 'd';
 const sForumAnnouncementTit = 'tit';
 const sForumAnnouncementInfo = 'info';
-const sForumAnnouncementATime = 'add_time';/*ccc*/
+const sForumAnnouncementATime = 'add_time';
+
+const sForumsRecommendRequestStatus = 'status';
+const sForumsRecommendRequestNormalStatus = 1;
+const sForumsRecommendRequestData = 'data';
+const sForumsRecommendId = 'd';
+// const sForumsRecommendTit = 'tit';
+const sForumsRecommendInfo = 'info';
+const sForumsRecommendWhoAdd = 'who_add';
+// const sForumsRecommendInfo = 'info';
+// const sForumsRecommendATime = 'add_time';
+/*ccc*/
 /*zzz*/forumApiBegin();/*zzz*/

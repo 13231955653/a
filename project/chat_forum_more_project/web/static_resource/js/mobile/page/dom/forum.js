@@ -1,7 +1,7 @@
 /*gkp*///forum 显示列表
 const sAnnouncement = 'announcement';
-const sAttention = 'attention';
 const sRecommend = 'recommend';
+const sAttention = 'attention';
 const sHot = 'hot';
 const sUserClassify = 'uclassify';
 const sClassify = 'classify';
@@ -50,17 +50,19 @@ const sForumHeadD = 'b_forum_head';
 const sForumHeadDUl = 'b_forum_head_u';
 const sForumSonsClass = 'forum_sons';/*yxd*/
 
+/*yay*/const sRecommendSonC = 'recommend_son';/*yay*/
+
 /*yxz*/const onPostC = 'f_grandson';
 const onPostHeadC = 'f_grandson_h';
 const onePostBodyC = 'f_grandson_b';
 const onepPoseFootC = 'f_grandson_f';
 /*yxz*/
 
-/*kkk*/const sOneAnnouncementC = 'one_announcement';
-const sOneAnnouncementHeadC = 'one_announcement_h';
-const sOneAnnouncementBodyC = 'one_announcement_b';
-const sOneAnnouncementFootC = 'one_announcement_f';
-const sOneAnnouncementIdT = 'announcement_id_t';
+/*kkk*/const sAnnouncementSonC = 'announcement_son';
+const sAnnouncementSonHeadC = 'announcement_son_h';
+const sAnnouncementSonBodyC = 'announcement_son_b';
+const sAnnouncementSonFootC = 'announcement_son_f';
+const sAnnouncementSonIdT = 'announcement_id_t';
 /*kkk*/
 /*ddd*/const sScrollTopFuncK = 'scroll_top_f';
 const sScrollDownFuncK = 'scroll_down_f';
@@ -85,7 +87,7 @@ const sTrample = '👎';
 const sMore = '┉';
 /*vvs*/
 /*ddd*/let k = [];
-k[sAnnouncement] = 'one_announcement';
+k[sAnnouncement] = 'announcement_son';
 k[sAttention] = '';
 k[sRecommend] = '';
 k[sHot] = '';
@@ -343,16 +345,16 @@ function forumDomFather () {
  *
  * @param a announcement 信息  type  json array
  */
-const sShowOneAnnouncementC = 'show_one_announcement';
-const sShowAnnouncementTitC = 'show_one_announcement_t';
-const sShowOneAnnouncementInfoC = 'show_one_announcement_i';
-const sShowOneAnnouncementCloseC = 'show_one_announcement_close';
-const sShowOneAnnouncementCloseL = 'show_one_announcement_close';
-function afterRequestOneAnnouncement (a = '') {
+const sShowAnnouncementSonC = 'show_announcement_son';
+const sShowAnnouncementTitC = 'show_announcement_son_t';
+const sShowAnnouncementSonInfoC = 'show_announcement_son_i';
+const sShowAnnouncementSonCloseC = 'show_announcement_son_close';
+const sShowAnnouncementSonCloseL = 'show_announcement_son_close';
+function afterRequestAnnouncementSon (a = '') {
     if (!checkExistShowAnnouncementFatherDom()) {
         makeShowAnnouncementFatherDom();
 
-        setTimeoutFunction('afterRequestOneAnnouncement', a);
+        setTimeoutFunction('afterRequestAnnouncementSon', a);
         return;
     }
 
@@ -379,7 +381,7 @@ function afterRequestOneAnnouncement (a = '') {
 
     let f = setAnnouncementShowOneId(a[sForumAnnouncementId]);
     let g = sShowAnnouncementTitC;
-    let h = sShowOneAnnouncementInfoC;
+    let h = sShowAnnouncementSonInfoC;
     let i = checkExistNowAnnouncement(f);
     if (i) {
         domById(g).innerHTML = a[sForumAnnouncementTit];
@@ -404,9 +406,9 @@ function afterRequestOneAnnouncement (a = '') {
     c.innerHTML = a[sForumAnnouncementInfo];
 
     let d = createDiv();
-    d.className = sShowOneAnnouncementCloseC + ' ' + m;
+    d.className = sShowAnnouncementSonCloseC + ' ' + m;
     let o = createSpan();
-    o.id = sShowOneAnnouncementCloseL;
+    o.id = sShowAnnouncementSonCloseL;
     o.className = sReLangC;
     d.appendChild(o);
     d.onclick = function () {
@@ -415,7 +417,7 @@ function afterRequestOneAnnouncement (a = '') {
 
     let j = createDiv();
     j.id = setAnnouncementShowOneId(f);
-    j.className = k + ' ' + l + ' ' + sShowOneAnnouncementC;
+    j.className = k + ' ' + l + ' ' + sShowAnnouncementSonC;
 
     let e = myFragment();
     j.appendChild(b);
@@ -439,7 +441,13 @@ function afterRequestOneAnnouncement (a = '') {
  * @param a
  */
 function afterRequestAnnouncement (a = '') {
-    let f = sForumRequestData;
+    if (!announcementDom()) {
+        asyn('writeForumInfo');
+        setTimeoutFunction('afterRequestAnnouncement', a);
+        return;
+    }
+
+    let f = sForumAnnouncementRequestData;
 
     let b = [];
     b[sForumAnnouncementId] = '111';
@@ -464,38 +472,35 @@ function afterRequestAnnouncement (a = '') {
 
     a = [];
     a[f] = [];
-    a[sForumRequestStatus] = sForumRequestNormalStatus;
+    a[sForumAnnouncementRequestStatus] = sForumAnnouncementRequestNormalStatus;
     a[f].push(b);
     a[f].push(c);
     a[f].push(d);
     a[f].push(e);
     console.log('zzzzaaaaaaaaaaaaa===============');
     console.log(a);
+
+    asyn('afterForumClassifyRequest', sAnnouncement, a.length);
     if (
         !a
         ||
-        a[sForumRequestStatus] !== sForumRequestNormalStatus
+        a[sForumAnnouncementRequestStatus] !== sForumAnnouncementRequestNormalStatus
         ||
         a[f].length < 1
     ) {
         return;
     }
-    aForumLastResponsePageNum[sAnnouncement] = a.length;
+    // aForumLastResponsePageNum[sAnnouncement] = a.length;
 
     // console.log(a[f]);
-    if (!announcementDom()) {
-        asyn('writeForumInfo');
-        setTimeoutFunction('afterRequestAnnouncement', a[f]);
-        return;
-    }
 
     requires([sFuncDomJ, sJqueryJ, sStrFunc], function () {
         asyn('writeAnnouncements', a[f]);
     });
     a = null;
 
-    aInForumRequest[aForumApi[sAnnouncement]] = false;
-    aForumRequestPage[sAnnouncement] += parseInt(1);
+    // aInForumRequest[aForumApi[sAnnouncement]] = false;
+    // aForumRequestPage[sAnnouncement] += parseInt(1);
 }/*jli*/
 /*cgm*//**
  *
@@ -526,7 +531,7 @@ function writeAnnouncements (a = '') {
  *
  * @param a 请求后返回数据 type json
  */
-function showOneAnnouncementInfo (a) {
+function showAnnouncementSonInfo (a) {
     console.log(a);
     console.log('>>>>>>>>>>>>>>>>>>>>>>>');
     let b = checkExistNowAnnouncement(a);
@@ -536,7 +541,7 @@ function showOneAnnouncementInfo (a) {
     }
 
     requires([sForumQueryJ], function () {
-        asyn('showOneAnnouncement', a);
+        asyn('showAnnouncementSon', a);
     });
 }/*eee*/
 /*ggg*//**
@@ -567,24 +572,24 @@ function writeAnnouncement (a = '') {
     aAnnouncementIds[f] = j;
 
     let b = createDiv();
-    b.className = sOneAnnouncementC;
-    b.setAttribute(sOneAnnouncementIdT, j);
+    b.className = sAnnouncementSonC;
+    b.setAttribute(sAnnouncementSonIdT, j);
     b.onclick = function() {
-        asyn('showOneAnnouncementInfo', this.getAttribute(sOneAnnouncementIdT));
+        asyn('showAnnouncementSonInfo', this.getAttribute(sAnnouncementSonIdT));
     };
 
     let c = createDiv();
-    c.className = sOneAnnouncementHeadC + ' ' + sTextCenterC;
+    c.className = sAnnouncementSonHeadC + ' ' + sTextCenterC;
     let h = createSpan();
     h.innerHTML = a[sForumAnnouncementTit];
     c.appendChild(h);
 
     let d = createDiv();
-    d.className = sOneAnnouncementBodyC;
+    d.className = sAnnouncementSonBodyC;
     d.innerHTML = a[sForumAnnouncementInfo];
 
     let e = createDiv();
-    e.className = sOneAnnouncementFootC;
+    e.className = sAnnouncementSonFootC;
     let i = createSpan();
     i.innerHTML = a[sForumAnnouncementATime];
     e.appendChild(i);
@@ -596,19 +601,19 @@ function writeAnnouncement (a = '') {
 
     return b;
 }/*luq*/
-/*aaa*/function onePoseHead () {
+/*hiu*/function onePoseHead () {
     let a = createDiv();
     a.className = sOneForumSonHeadC + ' ' + sFullWidthForFatherClass;
 
     return a;
-}
-function onePoseBody () {
+}/*hiu*/
+/*ykg*/function onePoseBody () {
     let a = createDiv();
     a.className = sOneForumSonBodyC + ' ' + sFullWidthForFatherClass;
 
     return a;
-}
-function onePoseFoot () {
+}/*ykg*/
+/*thi*/function onePoseFoot () {
     let a = createDiv();
     a.className = sOneForumSonFootC + ' ' + sFullWidthForFatherClass;
 
@@ -653,7 +658,96 @@ function onePoseFoot () {
 
     return a;
 }
-/*aaa*/
+/*thi*/
+/*ynz*/let oRecommend = '';
+function recommendDom () {
+    if (oRecommend) {
+        return oRecommend;
+    }
+    oRecommend = forumSonBodyDom(sRecommend);
+    return oRecommend;
+}
+/*ynz*/
+/*bhx*//**
+ *
+ * 填充 Recommend
+ *
+ */
+function afterRequestRecommend (a) {
+    if (!recommendDom()) {
+        asyn('writeForumInfo');
+        setTimeoutFunction('afterRequestRecommend', a);
+        return;
+    }
+
+    let f = sForumsRecommendRequestData;
+
+    let b = [];
+    b[sForumsRecommendId] = '111';
+    b[sForumsRecommendInfo] = 'info_1111';
+    b[sForumsRecommendWhoAdd] = 'add___11111';
+    let c = [];
+    c[sForumsRecommendId] = '222';
+    c[sForumsRecommendInfo] = 'info_222';
+    c[sForumsRecommendWhoAdd] = 'add___222';
+    let d = [];
+    d[sForumsRecommendId] = '333';
+    d[sForumsRecommendInfo] = 'info_333';
+    d[sForumsRecommendWhoAdd] = 'add___333';
+    let e = [];
+    e[sForumsRecommendId] = '444';
+    e[sForumsRecommendInfo] = 'info_444';
+    e[sForumsRecommendWhoAdd] = 'add___444';
+
+    a = [];
+    a[f] = [];
+    a[sForumsRecommendRequestStatus] = sForumsRecommendRequestNormalStatus;
+    a[f].push(b);
+    a[f].push(c);
+    a[f].push(d);
+    a[f].push(e);
+
+    asyn('afterForumClassifyRequest', sRecommend, a.length);
+    if (
+        !a
+        ||
+        a[sForumsRecommendRequestStatus] !== sForumsRecommendRequestNormalStatus
+        ||
+        a[f].length < 1
+    ) {
+        return;
+    }
+
+    requires([sFuncDomJ, sJqueryJ, sStrFunc], function () {
+        asyn('writeRecommends', a[f]);
+    });
+    a = null;
+}/*bhx*/
+/**
+ *
+ * 填充 Recommend
+ *
+ * @param a request Recommend 数据 type json array
+ */
+function writeRecommends (a) {
+    console.log('zzzzaaaaaaaaaaaaa===============');
+    console.log(a);
+}
+/*zrq*/
+/**
+ *
+ * forum 类别 请求后
+ *
+ * @param a 类别 type string
+ * @param b 上次请求返回的数据长度
+ */
+function afterForumClassifyRequest (a, b) {
+    aForumLastResponsePageNum[a] = b;
+
+    aInForumRequest[aForumApi[a]] = false;
+    aForumRequestPage[a] += parseInt(1);
+}
+/*zrq*/
 /*oai*/function forumBegin () {
     // alert(1);
     console.log('forumBegin begin');
