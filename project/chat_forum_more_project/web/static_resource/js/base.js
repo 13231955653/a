@@ -1,18 +1,12 @@
-/*4ba25cfac87659d1*///url地址相关----------------------
-
-//url地址相关======================/*4ba25cfac87659d1*/
-
 /*33f00aeae2406ffe*/const sIndividuationUuidTag = '*';
 const sUniqueStrSplitTag = '_';
-// const sRandString = 'abcdefghijklmnopqrstuvwxyz';
 const iIndividuationUniqueStrLength = 1000;
 const iIndividuationUniqueStrNumberMin = 0;
 const iIndividuationUniqueStrNumberMax = 999999999999999999;
-const iIndividuationUniqueStrMinLength = 32;
+const iIndividuationUniqueStrMinLength = 32;/*33f00aeae2406ffe*/
 
-//meta标签相关----------------/*33f00aeae2406ffe*/
-
-/*9d8f73176201b827*/const sContentAndCharset = 'content_charset';
+/*9d8f73176201b827*///meta标签相关----------------
+const sContentAndCharset = 'content_charset';
 const sContentAndCharsetType = 'Content-Type';
 const sContentAndCharsetContent = 'text/html; charset=utf-8';
 const sCopyright = 'copyright';
@@ -122,8 +116,8 @@ let aBaseTimer = []; //基础定时器
 let b = []; //基础定时器间隔时间
 // const t = 1000;
 b['checkUseTime'] = 60000;
-b['checkSessionIdOutTime'] = 181652;
-b['checkSessionKeyFormat'] = 253648;
+// b['checkSessionIdOutTime'] = 181652;
+// b['checkSessionKeyFormat'] = 253648;
 const aTimer = b; //基础定时器间隔时间
 b = null;
 //定时器相关========================/*4df730057a2f2f29*/
@@ -134,12 +128,8 @@ const iDefaultFontSize = 16; //默认pc字体大小
 const iDefaultOneFontMms = 2.5; //默认一个中文字占多宽，单位毫米
 //fontsize 相关===============/*a4fb1441abb8ade0*/
 
-/*3d6db13f8bf8dde2*/
-//class id tag 相关----------------
+/*3d6db13f8bf8dde2*///class id tag 相关----------------
 var sBaseShadeId = 'base_shade';
-// var sIndexShadeId = 'index_shade';
-// var sPlatformShadeId = 'platform_shade';
-// var sPageShadeId = 'page_shade';
 
 const sBodyDomFatherId = 'body';
 const oDomFatherId = 'dom_f';
@@ -151,14 +141,14 @@ const sFullWidthForFatherClass = 'full_w_for_father';
 const sFullHeightClass = 'full_h';
 const sFullHeightForFatherClass = 'full_h_for_father';
 
+const sTextCenterC = 'text_center';
+
 const sQueryOneMmPxId = 'get_one_mms_px';
 
 const sInvisibleClass = 'invisible'; //不显示dom的class
 const sVisibleClass = 'visible';//显示dom的class
 const sHiddenClass = 'hidden'; //不显示dom的class
 const sShowClass = 'show';//显示dom的class
-
-// const sDomFinalChlidC = 'final_son';
 //class id tag 相关============/*3d6db13f8bf8dde2*/
 
 /*aaa*/const sGray = 'gray';
@@ -172,44 +162,12 @@ let iWinHeight = 0;
 //尺寸相关============
 /*3d6db13f8bf8dde2*/
 
-/*101c0dbc77be8e9f*/// const iSessionBeforeFormatLength = 32;
-// const sSessionSplitTag  = '_';
-// const sSessionSalt  = '__()9789*&^%$sKUYsah98';
-// let sOldSessionId = '';
-// let sNewSessionId = '';
-// const iUpdateSessionMinTime = 1800000;
-// const iUpdateSessionMaxTime = 5400000;
-// const iSessionOutTime = 5410;
-// const sSessionIdSplitLength =8;
-// const sOldSessionIdStorageKey = 'old_session_id';
-// const sNewSessionIdStorageKey = 'new_session_id';
-/*101c0dbc77be8e9f*/
-
 /*6d0af007b1b15e5c*///时间相关---------------------
 const iNoticeTimeLimit = 3600000;
 //时间相关=======================/*6d0af007b1b15e5c*/
 
 /*2355292fdec0dbed*///class id tag 相关----------------
-// const sForumBodyId = 'forum_body';
-// const sChatBodyId = 'chat_body';
-// const sFriendBodyId = 'friend_body';
-// const sSettingBodyId = 'setting_body';
-// const sAboutMeBodyId = 'about_body';
-
-// var sForumPage = 'forum';
-// var sChatPage = 'chat';
-// var sFriendPage = 'friend';
-// var sAboutMePage = 'about';
-// var sSetPage = 'set';
-// var sDefaultPageHtml = 'index.html';
-
-
-
-const sReLangClass = 're_lang';
-// const sReplaceLangIdType = 'id';
-// const sReplaceLangClassType = 'class';
-
-// const sShadeClass = 'shades';
+const sReLangC = 're_lang';
 //class id tag 相关====================/*2355292fdec0dbed*/
 
 /*e1a6417e3b08ff43*///动画相关-------------------
@@ -354,24 +312,7 @@ function loadPageJs () {
     asyn('staticResource', m);
     asyn('staticResource', c);
     asyn('staticResource', n);
-}
-// function afterLoadPageJs () {
-//     console.log('zzzzzzzzzzzzzffffffffffffffffaaaaaaaaaaa');
-//     if (typeof window['urlDecode'] == 'undefined') {
-//         setTimeoutFunction('afterLoadPageJs');
-//         return;
-//     }
-//
-//     asyn(sPageNow + 'Begin');
-//
-//     requires([sMobileDomFuncJ, sJqueryJ], function () {
-//         // asyn('updateActiveFoot');
-//
-//         asyn('showNowPageBody');
-//     });
-// }
-/*3ed8ed97f79fa3d8*/
-
+}/*3ed8ed97f79fa3d8*/
 /*032a659ac3907d66*//**
  *
  * 检查用户登录时间
@@ -394,301 +335,12 @@ function showUseTimeLimitNotice () {
 
     alert(aLang['use_time_out_limit']);
 }/*032a659ac3907d66*/
-
-/*bf248dfc7157b8eb*/// /**
-//  *
-//  * 生成 session id
-//  *
-//  * @returns {boolean}
-//  */
-// function makeSessionid () {
-//     let s = individuationUuid();
-//     if (!s) {
-//         setTimeoutFunction('makeSessionid');
-//         return;
-//     }
-//
-//     let n = setSessionIdFormat(s);
-//     if (!n) {
-//         setTimeoutFunction('makeSessionid');
-//         return;
-//     }
-//
-//     sOldSessionId = sNewSessionId ? sNewSessionId : sOldSessionId;
-//     sNewSessionId = n;
-//
-//     if (sNewSessionId) {
-//         cacheSessionId();
-//         return;
-//     }
-//
-//     setTimeoutFunction('makeSessionid');
-// }/*bf248dfc7157b8eb*/
-
-/*6147b904ddeba7bc*/// function setSessionIdFormat (sSessionId1 = '') {
-//     // if (typeof window['md5'] == 'undefined') {
-//     //     return false;
-//     // }
-//
-//     let a = sSessionId1;
-//     if (!a) {
-//         return false;
-//     }
-//
-//     while (a.length < iSessionBeforeFormatLength) {
-//         a += randStr(1);
-//     }
-//
-//     let p = sSessionSplitTag;
-//
-//     let aS = a.split('');
-//     let s = '';
-//     let z = '';
-//     let q = sSessionIdSplitLength;
-//     for (let i in aS) {
-//         z = i % q ? aS[i] : p + aS[i];
-//         s += z;
-//     }
-//     s = s.substr(1, s.length - 1);
-//
-//     s = setSessionIdPrefix(s) + p + s + p + setSessionIdSuffix(s);
-//
-//     return s.toLowerCase() + sSessionSplitTag + getSecondTime();
-// }
-// function setSessionIdPrefix (s) {
-//     let q = sSessionIdSplitLength;
-//
-//     let t = s;
-//     t = md5(t + sSessionSalt);
-//     return t.substring(t.length - parseInt(q)).toLowerCase();
-// }
-// function setSessionIdSuffix (s) {
-//     let q = sSessionIdSplitLength;
-//
-//     let r = reverseString(s);
-//     r = md5(r + sSessionSalt);
-//     return r.substr(0, q).toLowerCase();
-// }
-// function checkSessionKeyFormat () {
-//     // if (typeof window['md5'] == 'undefined') {
-//     //     let t = setTimeout(function () {
-//     //         checkSessionKeyFormat();
-//     //
-//     //         clearTimeout(t);
-//     //     }, aTimer['checkSessionKeyFormat']);
-//     //     return false;
-//     // }
-//
-//     let t = sSessionSplitTag;
-//     if (sOldSessionId) {
-//         if (!doCheckSessionId(sOldSessionId.split(t), 'old')) {
-//             makeSessionid();
-//
-//             setTimeoutFunction('checkSessionKeyFormat');
-//             return;
-//         }
-//     }
-//
-//     if (sNewSessionId) {
-//         if (!doCheckSessionId(sNewSessionId.split(t), 'new')) {
-//             makeSessionid();
-//
-//             setTimeoutFunction('checkSessionKeyFormat');
-//             return;
-//         }
-//     }
-//
-//     setTimeoutFunction('checkSessionKeyFormat');
-// }
-// /**
-//  *
-//  * 检查 session id 格式
-//  *
-//  * @param s session id type string
-//  * @param t 类型 新老session type string
-//  * @returns {boolean}
-//  */
-// function doCheckSessionId (s, t) {
-//     if (typeof window['md5'] == 'undefined') {
-//         setTimeoutFunction('doCheckSessionId', s, t);
-//         return false;
-//     }
-//
-//     let a = s[0];
-//     let b = s[s.length - 2];
-//     s.pop();
-//     s.pop();
-//     s.shift();
-//     s = s.join(sSessionSplitTag);
-//     let c = setSessionIdPrefix(s);
-//     let d = setSessionIdSuffix(s);
-//
-//     if (
-//         (a !== c)
-//         ||
-//         (b !== d)
-//     ) {
-//         makeSessionid();
-//         return false;
-//     }
-//
-//     return true;
-// }
-// function cacheSessionId () {
-//     if (!sNewSessionId) {
-//         setTimeoutFunction('cacheSessionId');
-//         return;
-//     }
-//
-//     sOldSessionId = sOldSessionId ? sOldSessionId : sNewSessionId;
-//     aBaseTimer['cacheSessionId_sOldSessionId'] = setTimeout(function () {
-//         clearTimeout(aBaseTimer['cacheSessionId_sOldSessionId']);
-//
-//         setLocalstorage(sOldSessionIdStorageKey, sOldSessionId, iUpdateSessionMaxTime, 'afterCacheSessionId');
-//     }, aTimer['cacheSessionId_sOldSessionId']);
-//
-//     aBaseTimer['cacheSessionId_sNewSessionId'] = setTimeout(function () {
-//         clearTimeout(aBaseTimer['cacheSessionId_sNewSessionId']);
-//
-//         setLocalstorage(sNewSessionIdStorageKey, sNewSessionId, iUpdateSessionMaxTime, 'afterCacheSessionId');
-//     }, aBaseTimer['cacheSessionId_sNewSessionId']);
-// }
-// function afterCacheSessionId (b = '') {
-//     if (!b) {
-//         return false;
-//     }
-// }
-// /**
-//  *
-//  * 检查 session 超时时间
-//  *
-//  * @returns {boolean}
-//  */
-// function checkSessionIdOutTime () {
-//     if (!sNewSessionId) {
-//         makeSessionid();
-//         return false;
-//     }
-//
-//     let s = sNewSessionId.split(sSessionSplitTag);
-//
-//     if (parseInt(getSecondTime()) - parseInt(s[s.length - 1]) > iSessionOutTime) {
-//         makeSessionid();
-//     }
-//
-//     setTimeoutFunction('checkSessionIdOutTime');
-// }
-// /**
-//  *
-//  * 获取新的session id
-//  *
-//  * @returns {*|string}
-//  */
-// let bAllreadyQueryNewSessionId = false;
-// function queryNewSessonId () {
-//     if (sNewSessionId) {
-//         return sNewSessionId;
-//     }
-//
-//     if (bAllreadyQueryNewSessionId) {
-//         return;
-//     }
-//     bAllreadyQueryNewSessionId = true;
-//
-//     asyn('queryLocalstorage', sNewSessionIdStorageKey, 'afterQueryNewSessonId');
-// }
-// function afterQueryNewSessonId (s) {
-//     sNewSessionId = s;
-// }
-// /**
-//  *
-//  * 获取旧的session id
-//  *
-//  * @returns {*|string}
-//  */
-// let bAllreadyQueryOldSessionId = false;
-// function queryOldSessonId () {
-//     if (sOldSessionId) {
-//         return sOldSessionId;
-//     }
-//
-//     if (bAllreadyQueryOldSessionId) {
-//         return;
-//     }
-//     bAllreadyQueryOldSessionId = true;
-//
-//     asyn('queryLocalstorage', sOldSessionIdStorageKey, 'afterQueryOldSessonId');
-// }
-// function afterQueryOldSessonId (s) {
-//     sOldSessionId = s;
-// }
-// /**
-//  *
-//  * 检查session
-//  *
-//  */
-// function sessionId () {
-//     if (sNewSessionId === '') {
-//         asyn('queryNewSessonId');
-//
-//         setTimeoutFunction('sessionId');
-//         return;
-//     }
-//
-//     if (sOldSessionId === '') {
-//         asyn('queryOldSessonId');
-//
-//         setTimeoutFunction('sessionId');
-//         return;
-//     }
-//
-//     if (sNewSessionId) {
-//         checkSessionIdOutTime();
-//
-//         checkSessionKeyFormat();
-//     } else {
-//         makeSessionid();
-//     }
-//
-//     let i = randNum(iUpdateSessionMinTime, iUpdateSessionMaxTime);
-//     let t = setTimeout(function () {
-//         clearTimeout(t);
-//
-//         sessionId();
-//     }, i);
-// }
-// function sessId () {
-//     if (
-//         (
-//             typeof window['bLoadFunctionJs'] == 'undefined'
-//             ||
-//             !window['bLoadFunctionJs']
-//         )
-//         ||
-//         (
-//             (
-//                 typeof window['bAllreadyLoadEncodeJs'] == 'undefined'
-//                 ||
-//                 !window['bAllreadyLoadEncodeJs']
-//             )
-//         )
-//     ) {
-//         setTimeoutFunction('sessId');
-//         return;
-//     }
-//
-//     asyn('sessionId');
-// }/*6147b904ddeba7bc*/
-
-
-
 /*e40fd4b7d8973e42*//**
  *
  * 浏览器尺寸
  *
  */
 function winSize() {
-    // console.log('qqqqqqqqqqqqqqq');
     //获取窗口宽度
     if (window.innerWidth) {
         iWinWidth = window.innerWidth;
@@ -708,10 +360,7 @@ function winSize() {
         iWinHeight = document.documentElement.clientHeight;
         iWinWidth = document.documentElement.clientWidth;
     }
-    // console.log(iWinWidth);
-    // console.log(iWinHeight);
 }/*e40fd4b7d8973e42*/
-
 /*fd0f21b2c39c868e*/function sizes () {
     asyn('winSize');
 }/*fd0f21b2c39c868e*/
@@ -802,7 +451,6 @@ function initializeFontSize () {
 
     oHtml.style.fontSize = iFontSize + 'px';
 }/*76d24ccd8f14aad0*/
-
 /*3876aa63f297d6af*//**
  *
  * 写dom，次最大父dom
@@ -879,14 +527,7 @@ function bodyDom () {
     return oBodyDom;
 }/*3876aa63f297d6af*/
 /*f5cbcc6172ee0659*/function winResize (bOnload = false) {
-    // console.log('zzzzzzzzzzzzzzzzzzzzzzzzzzzzzz');
     if (!bOnload) {
-        // asyn('showBaseShade');
-
-        // if (!astrict()) {
-        //     return false;
-        // }
-
         if (sPlatformTag === sMobileTag) {
             alert('mobile is can not rezie, so we no to do nothings !!! ');
             return;
@@ -894,31 +535,11 @@ function bodyDom () {
     }
 
     asyn('sizes');
-
-    // bOnload = false;
 }/*f5cbcc6172ee0659*/
-
-// /*e15d60c9775f21fe*/window.onresize = function () {
-//     // if (bOnload) {
-//     //     return;
-//     // }
-//     // console.log('zzzzzzzzzzzzzzzzzzzzzzzzzzzzzz');
-//     // // asyn('showBaseShade');
-//     //
-//     if (aBaseTimer['winResize']) {
-//         clearTimeout(aBaseTimer['winResize']);
-//     }
-//
-//     aBaseTimer['winResize'] = setTimeout(function () {
-//         winResize();
-//     }, aTimer['winResize']);
-// }/*e15d60c9775f21fe*/
-
 /*d03267fc2f3b3729*/function localstorageIsForbidden () {
     console.log('localstorage is forbidden, web can not normal use, so we nothing to do !!! ');
     alert('localstorage is forbidden, web can not normal use, so we nothing to do !!! ');
 }/*d03267fc2f3b3729*/
-
 /*3de6df3eb7ca4333*//**
  *
  * 设置meta标签
@@ -930,8 +551,6 @@ function setMeta () {
         return;
     }
     bSetMeta = true;
-
-    // oHead.style.visibility = 'hidden';
 
     let a = [
         sContentAndCharset,
@@ -969,13 +588,10 @@ function setMeta () {
     let m = '';
     for (let i in a) {
         m = setContent(a[i]);
-        // if (m) {
-            o.appendChild(m);
-        // }
+        o.appendChild(m);
     }
     oHead.appendChild(o);
     a = o = i = m = null;
-    // oHead.style.visibility = 'visible';
 }
 /**
  *
@@ -1106,7 +722,6 @@ function setContent (n = '') {
     }
     return m;
 }/*3de6df3eb7ca4333*/
-
 /*6253f7ef57dc3560*/let oHtml = false;
 let oBody = false;
 let oHead = false;
@@ -1114,10 +729,6 @@ let oHead = false;
 function baseBegins () {
     console.log('11111111111111111111111111basebegin');
     asyn('checkUseTime');
-
-    // if (!astrict()) {
-    //     return false;
-    // }
 
     oHtml = document.getElementsByTagName('html')[0];
     oHead = document.getElementsByTagName('head')[0];
@@ -1150,15 +761,8 @@ function baseBegins () {
 
     asyn('winResize', true);
 
-    // asyn('getUserIp');
-
     requires([sFuncDomJ, sStrFunc], function () {
         asyn('secondDom');
     });
-
-    // requires([sFuncJ, sMd5J, sStrFunc], function () {
-    //     asyn('makeToken');
-    // });
 }/*6253f7ef57dc3560*/
-
 /*aaa*/baseBegins();/*aaa*/

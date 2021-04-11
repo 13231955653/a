@@ -36,7 +36,7 @@
     left: 0px;
 }/*cwj*/
 /*nnn*/.one_announcement{
-    padding: 0.5rem;
+    padding: 0.5rem 0px 0.5rem 0px;
     margin-bottom: 0.5rem;
     background: var(--one_announcement_bk);
 }
@@ -53,6 +53,7 @@
     overflow: hidden;
     line-height: 1.6rem;
     background: var(--one_announcement_b_bk);
+    text-indent: 2rem;
 }
 .one_announcement_f{
     width: 100%;
@@ -60,6 +61,7 @@
     height: 1.6rem;
     line-height: 1.6rem;
     background: var(--one_announcement_f_bk);
+    text-indent: 2rem;
 }/*nnn*/
 /*cwa*/.f_grandson{
     width: 100%;
@@ -120,3 +122,27 @@
 .f_grandson_f li:nth-last-child(5):first-child~li{
     width: calc(100% / 5);
 }/*cwu*/
+/*bbb*/.show_one_announcement{
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    background: var(--show_one_announcement_bk);
+}
+.show_one_announcement_t{
+    background: var(--show_one_announcement_t_bk);
+    height: 3rem;
+    line-height: 3rem;
+}
+.show_one_announcement_i{
+    background: var(--show_one_announcement_i_bk);
+    height: calc(100% - 6rem);
+    line-height: 1.6rem;
+    overflow-y: scroll;
+    text-indent: 2rem;
+}
+.show_one_announcement_close{
+    background: var(--show_one_announcement_close_bk);
+    height: 3rem;
+    line-height: 3rem;
+    text-align: center;
+}/*bbb*/

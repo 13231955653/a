@@ -117,10 +117,10 @@ function reverseString (s = '') {
  * @param o 要替换的dom
  */
 function replaceClassNameToShow (o = '') {
-    if (!o) {
-        console.log('dasdasd');
-        return;
-    }
+    // if (!o) {
+    //     console.log('dasdasd');
+    //     return;
+    // }
 
     let p1 = new RegExp('\\s*' + sInvisibleClass,'gm');
     let p2 = new RegExp('\\s*' + sVisibleClass,'gm');

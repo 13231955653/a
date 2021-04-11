@@ -15,6 +15,7 @@ const aApiHostLength = 3;/*pbh*/
 
 /*syc*/let h = [];
 h['announcement/show'] = [sForum, sForumC, sForumApiJ];
+h['announcement/one'] = requireJs([sForum, sForumC, sFuncDomJ, sPlatDomJ]);
 h['attention'] = '';
 h['recommend'] = '';
 h['hot'] = '';
@@ -31,6 +32,7 @@ const aAfterRequertRely = h; //请求后处理函数依赖
 h = null;/*syc*/
 /*syc*/let i = [];
 i['announcement/show'] = 'afterRequestAnnouncement';
+i['announcement/one'] = 'afterRequestOneAnnouncement';
 i['attention'] = '';
 i['recommend'] = '';
 i['hot'] = '';

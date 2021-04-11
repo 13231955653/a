@@ -238,3 +238,6 @@
     -webkit-filter: grayscale(0%); /* Chrome, Safari, Opera */
     filter: grayscale(0%);
 }/*aaa*/
+/*aaa*/.text_center{
+    text-align: center;
+}/*aaa*/

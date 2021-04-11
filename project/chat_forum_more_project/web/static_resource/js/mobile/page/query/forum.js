@@ -65,7 +65,9 @@ function forumRequest(a = false, g = '') {
     let i = iForumLastRequestTime[c];
     i = typeof i != 'undefined' ? i : 0;
     if (e - i < f) {
-        notice('forum request limit, interval ' + f + ' second!!!');
+        requires([sFuncDomJ], function () {
+            notice('forum request limit, interval ' + f + ' second!!!');
+        });
         return;
     }
     iForumLastRequestTime[c] = e;
@@ -105,7 +107,7 @@ function forumApiRequest (a) {
 const sShowOneAnnouncementRoute = 'one_announcement';
 function showOneAnnouncement (a) {
     console.log(aAnnouncementIds[a]);
-    let b = requestRequire();
+    let b = requestRequireJs();
     b.push(sForumApiJ);
     b.push(sNumFunc);
 

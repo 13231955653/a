@@ -177,7 +177,7 @@ function writeOneFooter (d = '') {
     let s = [];
     s.push('<li id="' + sBFootD + id + '" class="' + a + '">');
     s.push('<a href="javascript:void(0);" ' + sshowPageKey + '="' + d + '" class="' + sFootClick + '">');
-    s.push('<span class="' + sReLangClass + '" id="' + l + '">');
+    s.push('<span class="' + sReLangC + '" id="' + l + '">');
     s.push('</span></a></li>');
 
     return s.join('');

@@ -36,4 +36,11 @@ let aForumLastResponsePageNum = [];//上次请求返回数据数量/*bbb*/
 /*syc*/function forumApiBegin () {
     console.log('forumApiBegin');
 }/*syc*/
+/*ccc*/const sForumRequestStatus = 'status';
+const sForumRequestNormalStatus = 1;
+const sForumRequestData = 'data';
+const sForumAnnouncementId = 'd';
+const sForumAnnouncementTit = 'tit';
+const sForumAnnouncementInfo = 'info';
+const sForumAnnouncementATime = 'add_time';/*ccc*/
 /*zzz*/forumApiBegin();/*zzz*/

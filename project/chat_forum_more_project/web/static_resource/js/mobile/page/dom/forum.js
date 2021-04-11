@@ -153,7 +153,7 @@ function writeForumHead () {
         aForumSlideTag[f] = i;
 
         s.push('<li id="' + a[i] + sForumHeadSuffix + '" class="' + sForumHeadClass + ' ' + b + '" ' + sForumHeadClick + '="' + f + '">');
-        s.push('<span id="' + a[i] + sForumHeadReplaceLangC + '" class="' + sReLangClass + '"></span>');
+        s.push('<span id="' + a[i] + sForumHeadReplaceLangC + '" class="' + sReLangC + '"></span>');
         s.push('</li>');
     }
     s.push('</ul>');
@@ -268,6 +268,94 @@ function forumSonBodyC (a) {
 function forumSonBodyDom (a) {
     return domById(forumSonBodyC(a));
 }/*ccc*/
+/*fff*//**
+ *
+ * 展示单个 announcement
+ *
+ * @param a announcement 信息  type  json array
+ */
+const sShowOneAnnouncementC = 'show_one_announcement';
+const sShowAnnouncementTitC = 'show_one_announcement_t';
+const sShowOneAnnouncementInfoC = 'show_one_announcement_i';
+const sShowOneAnnouncementCloseC = 'show_one_announcement_close';
+const sShowOneAnnouncementCloseL = 'show_one_announcement_close';
+function afterRequestOneAnnouncement (a = '') {
+    a = [];
+    a[sForumAnnouncementId] = '111';
+    a[sForumAnnouncementTit] = 'tit_111';
+    a[sForumAnnouncementInfo] = 'info_1111';
+    a[sForumAnnouncementATime] = 'time_11111';
+    // console.log(a);
+
+    if (
+        !a
+        ||
+        !a[sForumAnnouncementId]
+        ||
+        !a[sForumAnnouncementTit]
+        ||
+        !a[sForumAnnouncementInfo]
+        ||
+        !a[sForumAnnouncementATime]
+    ) {
+        return;
+    }
+
+    let f = setAnnouncementShowOneId(a[sForumAnnouncementId]);
+    let g = sShowAnnouncementTitC;
+    let h = sShowOneAnnouncementInfoC;
+    let i = checkExistNowAnnouncement(f);
+    if (i) {
+        domById(g).innerHTML = a[sForumAnnouncementTit];
+        domById(h).innerHTML = a[sForumAnnouncementInfo];
+
+        showOrHiddenDom(i, 1);
+        return;
+    }
+
+    let k = sFullWidthClass;
+    let l = sFullHeightClass;
+    let m = sTextCenterC;
+
+    let b = createDiv();
+    b.className = g + ' ' + k + ' ' + m;
+    let n = createSpan();
+    n.innerHTML = a[sForumAnnouncementTit];
+    b.appendChild(n);
+
+    let c = createDiv();
+    c.className = h + ' ' + k;
+    c.innerHTML = a[sForumAnnouncementInfo];
+
+    let d = createDiv();
+    d.className = sShowOneAnnouncementCloseC + ' ' + m;
+    let o = createSpan();
+    o.id = sShowOneAnnouncementCloseL;
+    o.className = sReLangC;
+    d.appendChild(o);
+    d.onclick = function () {
+        showOrHiddenDom(j, 0);
+    }
+
+    let j = createDiv();
+    j.id = setAnnouncementShowOneId(f);
+    j.className = k + ' ' + l + ' ' + sShowOneAnnouncementC;
+
+    let e = myFragment();
+    j.appendChild(b);
+    j.appendChild(c);
+    j.appendChild(d);
+    e.appendChild(j);
+
+    domById(sBBodyD + sForumPage).appendChild(e);
+    showOrHiddenDom(j, 1);
+
+    requires([sFuncDomJ], function () {
+        replaceLang(d);
+    });
+    // console.log('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<');
+    // console.log(domById(sBBodyD + sForumPage));
+}/*fff*/
 /*jli*//**
  *
  * announcement 请求后处理函数
@@ -275,44 +363,58 @@ function forumSonBodyDom (a) {
  * @param a
  */
 function afterRequestAnnouncement (a = '') {
+    let f = sForumRequestData;
+
     let b = [];
-    b['d'] = '111';
-    b['tit'] = 'tit_111';
-    b['info'] = 'info_1111';
-    b['add_time'] = 'time_11111';
+    b[sForumAnnouncementId] = '111';
+    b[sForumAnnouncementTit] = 'tit_111';
+    b[sForumAnnouncementInfo] = 'info_1111';
+    b[sForumAnnouncementATime] = 'time_11111';
     let c = [];
-    c['d'] = '222';
-    c['tit'] = 'tit_222';
-    c['info'] = 'info_222';
-    c['add_time'] = 'time_222';
+    c[sForumAnnouncementId] = '222';
+    c[sForumAnnouncementTit] = 'tit_222';
+    c[sForumAnnouncementInfo] = 'info_222';
+    c[sForumAnnouncementATime] = 'time_222';
     let d = [];
-    d['d'] = '333';
-    d['tit'] = 'tit_333';
-    d['info'] = 'info_333';
-    d['add_time'] = 'time_333';
+    d[sForumAnnouncementId] = '333';
+    d[sForumAnnouncementTit] = 'tit_333';
+    d[sForumAnnouncementInfo] = 'info_333';
+    d[sForumAnnouncementATime] = 'time_333';
     let e = [];
-    e['d'] = '444';
-    e['tit'] = 'tit_444';
-    e['info'] = 'info_444';
-    e['add_time'] = 'time_444';
+    e[sForumAnnouncementId] = '444';
+    e[sForumAnnouncementTit] = 'tit_444';
+    e[sForumAnnouncementInfo] = 'info_444';
+    e[sForumAnnouncementATime] = 'time_444';
+
     a = [];
-    a.push(b);
-    a.push(c);
-    a.push(d);
-    a.push(e);
-    if (!a) {
+    a[f] = [];
+    a[sForumRequestStatus] = sForumRequestNormalStatus;
+    a[f].push(b);
+    a[f].push(c);
+    a[f].push(d);
+    a[f].push(e);
+    console.log('zzzzaaaaaaaaaaaaa===============');
+    console.log(a);
+    if (
+        !a
+        ||
+        a[sForumRequestStatus] !== sForumRequestNormalStatus
+        ||
+        a[f].length < 1
+    ) {
         return;
     }
     aForumLastResponsePageNum[sAnnouncement] = a.length;
 
+    // console.log(a[f]);
     if (!announcementDom()) {
         asyn('writeForumInfo');
-        setTimeoutFunction('afterRequestAnnouncement', a);
+        setTimeoutFunction('afterRequestAnnouncement', a[f]);
         return;
     }
 
     requires([sFuncDomJ, sJqueryJ, sStrFunc], function () {
-        asyn('writeAnnouncements', a);
+        asyn('writeAnnouncements', a[f]);
     });
     a = null;
 
@@ -349,38 +451,74 @@ function writeAnnouncements (a = '') {
  * @param a 请求后返回数据 type json
  */
 function showOneAnnouncementInfo (a) {
+    console.log(a);
+    console.log('>>>>>>>>>>>>>>>>>>>>>>>');
+    let b = checkExistNowAnnouncement(a);
+    if (b) {
+        showOrHiddenDom(b, 1);
+        return;
+    }
+
     requires([sForumQueryJ], function () {
         asyn('showOneAnnouncement', a);
     });
 }/*eee*/
+/*ggg*//**
+ *
+ * 检查是否存在当前 Announcement
+ *
+ * @param a Announcement id type int
+ */
+function checkExistNowAnnouncement (a) {
+    console.log('=====================');
+    console.log(a);
+    let b = domById(setAnnouncementShowOneId(a));
+    return b ? b : false;
+}/*ggg*/
+/*ggg*/
+/**
+ *
+ * 设置显示 Announcement one 的 id
+ *
+ * @param a Announcement id
+ */
+function setAnnouncementShowOneId (a) {
+    return md5(a + '__==789/-*YUIhjk');
+}
+/*ggg*/
 /*luq*/let aAnnouncementIds = [];
 function writeAnnouncement (a = '') {
     let f = md5(randStr(32) + getMillisecondTime());
-    aAnnouncementIds[f] = a['d'];
+    let j = setAnnouncementShowOneId(a[sForumAnnouncementId]);
+    aAnnouncementIds[f] = j;
 
     let b = createDiv();
     b.className = sOneAnnouncementC;
-    b.setAttribute(sOneAnnouncementIdT, f);
+    b.setAttribute(sOneAnnouncementIdT, j);
     b.onclick = function() {
         asyn('showOneAnnouncementInfo', this.getAttribute(sOneAnnouncementIdT));
     };
 
     let c = createDiv();
-    c.className = sOneAnnouncementHeadC;
-    c.innerHTML = a['tit'];
+    c.className = sOneAnnouncementHeadC + ' ' + sTextCenterC;
+    let h = createSpan();
+    h.innerHTML = a[sForumAnnouncementTit];
+    c.appendChild(h);
 
     let d = createDiv();
     d.className = sOneAnnouncementBodyC;
-    d.innerHTML = a['info'];
+    d.innerHTML = a[sForumAnnouncementInfo];
 
     let e = createDiv();
     e.className = sOneAnnouncementFootC;
-    e.innerHTML = a['add_time'];
+    let i = createSpan();
+    i.innerHTML = a[sForumAnnouncementATime];
+    e.appendChild(i);
 
     b.appendChild(c);
     b.appendChild(d);
     b.appendChild(e);
-    a = c = d = e = f = null;
+    a = c = d = e = f = h = i = null;
 
     return b;
 }/*luq*/

@@ -38,7 +38,7 @@ function writeNotice () {
         s.push('<div class="' + a[i] + '">');
 
         if (a[i] !== sNoticeBodyC) {
-            s.push('<span id="' + a[i] + '_span" class="' + sReLangClass + '"></span>');
+            s.push('<span id="' + a[i] + '_span" class="' + sReLangC + '"></span>');
         } else {
             s.push('<span id="' + a[i] + '_span"></span>');
         }

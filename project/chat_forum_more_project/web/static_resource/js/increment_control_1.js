@@ -150,8 +150,27 @@ function staticResourceAddress () {
     a = null;
 }
 
-function requestRequire () {
+/**
+ *
+ * api 依赖 js
+ *
+ * @returns {string[]}
+ */
+function requestRequireJs () {
     return [sApiJ, sEncodeJ];
+}
+
+function baseRequireJs () {
+    return [sNowLang, sBaseJ];
+}
+
+function requireJs (a = []) {
+    let c = baseRequireJs();
+    for (let b in a) {
+        c.push(a[b]);
+    }
+
+    return c;
 }
 
 //值格式 0000 00 00 00 00 00  年月日时分秒

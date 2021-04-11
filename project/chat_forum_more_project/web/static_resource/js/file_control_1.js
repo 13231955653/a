@@ -1618,6 +1618,9 @@ function checkstaticResource (j) {
         case sStyleFuncJ :
             a = window['styleFuncBegin'];
             break;
+        case sBaseJ :
+            a = window['baseBegins'];
+            break;
         case sForumSlideC :
             a = aAllreadystaticResource[sForumSlideC];
             break;

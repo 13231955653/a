@@ -5,7 +5,7 @@
  * @param p replace lang dom type dom object
  */
 function replaceLang (p = '') {
-    let a = p.getElementsByClassName(sReLangClass);
+    let a = p.getElementsByClassName(sReLangC);
     for (let i in a) {
         a[i].innerHTML = typeof aLang[a[i].id] != 'undefined' ? aLang[a[i].id] : aLang['lang_err'];
     }
@@ -125,9 +125,9 @@ function notice (m = '') {
     // console.log(o);
     replaceClassNameToShow(o);
 
-    iNowIndex += parseInt(1);
+    // iNowIndex += parseInt(1);
 
-    o.style.zIndex = iNowIndex;
+    o.style.zIndex = incrZIndex();
     o.style.filter = 'alpha(opacity:' + 0 + ')';
     o.style.opacity = 0;
 
